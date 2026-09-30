@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     css: ['~/assets/css/main.css'],
     nitro: {
         noExternals: true,
+        inlineDynamicImports: true,
     },
     runtimeConfig: {
         public: {
