@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><script src="./doc-page.js"></script><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet"><style>doc-page:not(:defined){visibility:hidden}body{margin:0;font-family:Nunito,sans-serif;color:#2A2533}a{color:#F4695A}a:hover{color:#2A2533}</style></helmet>
+<doc-page size="a4" margin="0.7in">
+<div style="display:flex;align-items:center;gap:18px;margin-bottom:10px">
+<dc-import name="Maki" style="width:76px;height:76px" hint-size="76px,76px"></dc-import>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font:700 38px/1 Fredoka,sans-serif;color:#F4695A">Kalli</span><span style="font:700 13px Nunito,sans-serif;color:#6E6878;letter-spacing:.06em;text-transform:uppercase">Synthèse projet · septembre 2026</span></div>
+</div>
+<p style="font:600 17px/1.5 Nunito,sans-serif;margin:14px 0 22px">Les histoires du soir, lues par ceux qu’on aime. Kalli transforme les livres papier de la maison en livres audio à plusieurs voix : chaque proche lit un rôle, même de loin, et l’enfant écoute en tournant les pages de son vrai livre.</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">1. Le concept en 4 points</h2>
+<ol style="font:500 14px/1.55 Nunito,sans-serif;margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li><b>On scanne ses propres livres</b> : photo des pages, l’app repère les répliques et les personnages.</li>
+<li><b>On colorie les voix</b> : chaque proche a une couleur ; on attribue un personnage (ou une réplique) à une couleur.</li>
+<li><b>Chacun enregistre ses répliques</b> dans le studio, depuis son propre téléphone.</li>
+<li><b>L’enfant écoute sans texte ni image</b> : l’écran montre qui lit, puis « Ding ! Page suivante ». Il suit dans le livre papier — pas de problème de droits d’auteur.</li>
+</ol>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">2. Les profils</h2>
+<table style="width:100%;border-collapse:collapse;font:500 13.5px/1.45 Nunito,sans-serif">
+<thead><tr style="text-align:left;background:#FFF4E8"><th style="padding:8px 10px">Rôle</th><th style="padding:8px 10px">Peut faire</th></tr></thead>
+<tbody>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:8px 10px;font-weight:800">Parent</td><td style="padding:8px 10px">Créer des livres, colorier les voix, enregistrer, gérer la famille, les invitations, le code parent et l’abonnement.</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:8px 10px;font-weight:800">Proche</td><td style="padding:8px 10px">Enregistrer ses répliques et des histoires solo, laisser un message vocal à l’enfant. Rejoint via lien ou code (TAN-XXXX).</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:8px 10px;font-weight:800">Enfant</td><td style="padding:8px 10px">Écouter (un proche ou plusieurs voix), écouter et envoyer des messages vocaux. Aucun réglage. Sortie du profil protégée par code parent.</td></tr>
+</tbody>
+</table>
+<p style="font:500 13.5px/1.5 Nunito,sans-serif;margin:10px 0 0">Un compte (adulte) peut appartenir à plusieurs familles (chez nous, chez Mamie, les cousins…). Changement de profil depuis l’avatar dans l’en-tête.</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">3. Espace enfant</h2>
+<ul style="font:500 14px/1.55 Nunito,sans-serif;margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li><b>Accueil</b> : les visages des proches en grand. Toucher un visage = ses histoires lues en solo.</li>
+<li><b>Bulle de message</b> sur un visage quand un proche a laissé un message vocal.</li>
+<li><b>Histoires à plusieurs voix</b> : accès à la bibliothèque familiale.</li>
+<li><b>Écoute</b> : fond à la couleur du lecteur, son visage, une onde, un gros bouton pause. Aucun texte, aucune image.</li>
+<li><b>Fin de page</b> : un « ding » sonore + écran « Page suivante » avec le maki. L’enfant appuie sur la flèche pour continuer.</li>
+</ul>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">4. Messages vocaux (façon story)</h2>
+<ul style="font:500 14px/1.55 Nunito,sans-serif;margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li>Un seul message écoutable à la fois par proche. Une fois écouté, il n’est plus rejouable.</li>
+<li>L’enfant peut répondre directement à la fin du message, ou envoyer un message depuis la page d’un proche.</li>
+<li>On conserve les <b>5 derniers</b> messages par conversation (1 actif + 4 d’historique non visibles, pour un usage futur) ; le plus ancien est supprimé.</li>
+<li>Statuts côté enfant : « Envoyé » puis « A écouté ».</li>
+</ul>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">5. Liste des écrans</h2>
+<table style="width:100%;border-collapse:collapse;font:500 13px/1.4 Nunito,sans-serif">
+<thead><tr style="text-align:left;background:#FFF4E8"><th style="padding:7px 10px">Écran</th><th style="padding:7px 10px">Route suggérée (Nuxt/Vue)</th></tr></thead>
+<tbody>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Splash / Bienvenue</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/index.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Connexion (Apple, Google, e-mail)</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/auth/login.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Inscription</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/auth/register.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Onboarding (prénom enfant, proches, code parent)</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/onboarding/[step].vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Choix du profil + switcher en en-tête</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/profiles.vue · components/ProfileSwitcher.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Accueil parent (vide / rempli)</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/home.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Création : scanner → colorier → vérifier</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/books/new/{scan,voices,review}.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Studio d’enregistrement</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/books/[id]/studio.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Lecteur parent</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/books/[id]/play.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Enfant : accueil, proche, plusieurs voix</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/kid/index.vue · kid/[member].vue · kid/library.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Enfant : écoute + « Page suivante »</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/kid/listen/[id].vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Enfant : message reçu / envoyer</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/kid/message/[member].vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Mes familles · Ajouter un proche · Ajouter une famille</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/family/{index,invite,new}.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Profil · Réglages</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/profile.vue · pages/settings.vue</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Abonnement · Confirmation</td><td style="padding:6px 10px;font-family:ui-monospace,Menlo,monospace">pages/premium/{index,success}.vue</td></tr>
+</tbody>
+</table>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">6. Modèle économique</h2>
+<table style="width:100%;border-collapse:collapse;font:500 13.5px/1.4 Nunito,sans-serif">
+<thead><tr style="text-align:left;background:#FFF4E8"><th style="padding:7px 10px"></th><th style="padding:7px 10px">Gratuit</th><th style="padding:7px 10px;color:#F4695A">Famille</th></tr></thead>
+<tbody>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Livres</td><td style="padding:6px 10px">5</td><td style="padding:6px 10px">Illimité</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Proches invités</td><td style="padding:6px 10px">4</td><td style="padding:6px 10px">Illimité</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Familles</td><td style="padding:6px 10px">1</td><td style="padding:6px 10px">5</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Messages vocaux</td><td style="padding:6px 10px">Oui</td><td style="padding:6px 10px">Oui</td></tr>
+<tr style="border-top:1.5px solid #F1E7DB"><td style="padding:6px 10px">Écoute hors ligne</td><td style="padding:6px 10px">—</td><td style="padding:6px 10px">Oui</td></tr>
+</tbody>
+</table>
+<p style="font:500 13.5px/1.5 Nunito,sans-serif;margin:10px 0 0"><b>Prix :</b> 3 € / mois sans engagement, ou 24 € / an (2 € / mois, −33 %) avec 7 jours d’essai. L’offre gratuite doit suffire à vivre l’expérience complète ; on paie quand la bibliothèque grandit.</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">7. Concurrence et différence</h2>
+<ul style="font:500 14px/1.55 Nunito,sans-serif;margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li><b>Bookinou</b> : vos livres papier, mais boîtier à acheter et une seule voix.</li>
+<li><b>Weconte</b> : plusieurs voix par personnage, mais uniquement sur leur catalogue.</li>
+<li><b>Story Time Together, Storyplay’r</b> : la famille s’enregistre, sur leur catalogue.</li>
+<li><b>Gramms, HearLoom, Tellioh</b> : voix clonées par IA, histoires générées.</li>
+</ul>
+<p style="font:600 14px/1.5 Nunito,sans-serif;margin:10px 0 0;background:#FFF4E8;border-radius:12px;padding:12px 14px">Kalli = vos propres livres + plusieurs vraies voix + sans texte à l’écran + messages vocaux enfant ↔ proches. Pas de boîtier, pas de clonage.</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">8. Identité</h2>
+<ul style="font:500 14px/1.55 Nunito,sans-serif;margin:0 0 12px;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li><b>Nom</b> : Kalli (diminutif de Calliope, muse « à la belle voix »). Alternative : Lio.</li>
+<li><b>Mascotte / logo</b> : un maki (lémurien de Madagascar) qui écoute avec un casque.</li>
+<li><b>Typographies</b> : Fredoka (titres), Nunito (texte).</li>
+<li><b>Style</b> : fond crème, cartes douces arrondies, barre d’onglets avec pastille active.</li>
+</ul>
+<div style="display:flex;flex-wrap:wrap;gap:10px;break-inside:avoid">
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#F4695A"></span>Corail #F4695A</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#FFF4E8;border:1px solid #E8DDD0;box-sizing:border-box"></span>Crème #FFF4E8</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#2A2533"></span>Encre #2A2533</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#FFB547"></span>#FFB547</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#5FCB9A"></span>#5FCB9A</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#3B8BEB"></span>#3B8BEB</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#8C7BE6"></span>#8C7BE6</div>
+<div style="display:flex;flex-direction:column;gap:4px;font:700 11px Nunito,sans-serif"><span style="width:64px;height:40px;border-radius:10px;background:#E0548A"></span>#E0548A</div>
+</div>
+<p style="font:500 12.5px/1.45 Nunito,sans-serif;color:#6E6878;margin:6px 0 0">Les 6 couleurs de voix servent à identifier chaque proche partout dans l’app.</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">9. Données principales</h2>
+<p style="font:500 13px/1.6 ui-monospace,Menlo,monospace;background:#FFF4E8;border-radius:12px;padding:12px 14px;margin:0;break-inside:avoid">User(id, email, nom)<br>Family(id, nom, code_invitation, plan)<br>Member(id, family_id, user_id?, prénom, rôle, couleur, photo)<br>Book(id, family_id, titre, pages, statut)<br>Line(id, book_id, page, ordre, personnage, texte_privé)<br>Casting(book_id, personnage | line_id, member_id)<br>Recording(line_id, member_id, audio_url, durée)<br>Message(id, from_member, to_member, audio_url, écouté_le, créé_le) — 5 max / conversation</p>
+
+<h2 style="font:600 22px Fredoka,sans-serif;color:#F4695A;margin:26px 0 8px">10. Étapes proposées</h2>
+<ol style="font:500 14px/1.55 Nunito,sans-serif;margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+<li><b>MVP</b> : comptes, familles, invitations, scan + OCR, coloriage, studio, écoute enfant avec ding.</li>
+<li><b>V1</b> : messages vocaux, histoires solo, abonnement, code parent.</li>
+<li><b>Ensuite</b> : hors ligne, tablette/TV, historique des messages, minuterie et mode nuit.</li>
+</ol>
+<p style="font:500 12.5px/1.5 Nunito,sans-serif;color:#6E6878;margin:12px 0 0">Point de vigilance : le texte des livres scannés sert uniquement au découpage des répliques ; il reste privé à la famille et n’est jamais affiché à l’enfant.</p>
+</doc-page>
+</x-dc>
+</body>
+</html>

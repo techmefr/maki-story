@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet"><script src="./image-slot.js"></script><style>body{margin:0;background:#F1E3BE;font-family:Nunito,sans-serif;color:#1F1B3A}a{color:#1F1B3A}a:hover{color:#6B4FD8}input{font-family:inherit}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center;padding:40px 24px;box-sizing:border-box">
+<div style="width:240px;display:flex;flex-direction:column;gap:14px;padding-top:24px">
+<div style="font:700 34px/1 Fredoka,sans-serif;letter-spacing:-.01em">{{ appName }}</div>
+<div style="font:500 14px/1.45 Nunito,sans-serif;text-wrap:pretty">Livres audio en famille : chaque voix a sa couleur. Prototype mobile 390×844, entièrement cliquable.</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+<sc-for list="{{ screenLinks }}" as="s" hint-placeholder-count="7">
+<div onClick="{{ s.onGo }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ s.bg }};box-shadow:3px 3px 0 #1F1B3A;cursor:pointer;font:700 14px Nunito,sans-serif" style-active="transform:translate(3px,3px);box-shadow:none">
+<span style="font:600 12px Fredoka,sans-serif;width:22px;height:22px;border-radius:50%;background:#1F1B3A;color:#FFF4D9;display:flex;align-items:center;justify-content:center;flex:none">{{ s.n }}</span>{{ s.label }}</div>
+</sc-for>
+</div>
+</div>
+
+<div data-screen-label="Phone" style="width:390px;height:844px;border-radius:52px;border:10px solid #1F1B3A;box-shadow:8px 8px 0 #1F1B3A;background:#FFF4D9;overflow:hidden;position:relative;display:flex;flex-direction:column;flex:none;box-sizing:content-box">
+<div style="height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font:800 15px Nunito,sans-serif;background:{{ statusBg }};color:{{ statusInk }}"><span>9:41</span><div style="width:110px;height:28px;border-radius:16px;background:#1F1B3A;margin-top:4px"></div><div style="width:24px;height:11px;border:2px solid currentColor;border-radius:4px;padding:1px;box-sizing:border-box"><div style="width:70%;height:100%;background:currentColor;border-radius:1px"></div></div></div>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="00a Connexion" style="flex:1;display:flex;flex-direction:column;padding:40px 26px 28px;gap:26px;overflow:auto">
+<div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
+<svg width="132" height="132" viewBox="0 0 120 120" aria-label="Maki au casque"><path d="M86 96c22 4 30-14 22-30" fill="none" stroke="#1F1B3A" stroke-width="12" stroke-linecap="round"></path><path d="M86 96c22 4 30-14 22-30" fill="none" stroke="#fff" stroke-width="7" stroke-dasharray="6 7" stroke-linecap="butt"></path><path d="M30 46l4-22 16 16zM90 46l-4-22-16 16z" fill="#9C98B0" stroke="#1F1B3A" stroke-width="3" stroke-linejoin="round"></path><ellipse cx="60" cy="68" rx="34" ry="30" fill="#9C98B0" stroke="#1F1B3A" stroke-width="3"></ellipse><path d="M60 50c14 0 24 10 24 22s-10 20-24 20-24-8-24-20 10-22 24-22z" fill="#fff"></path><ellipse cx="48" cy="68" rx="9" ry="10" fill="#1F1B3A"></ellipse><ellipse cx="72" cy="68" rx="9" ry="10" fill="#1F1B3A"></ellipse><circle cx="48" cy="68" r="5" fill="#FFC940"></circle><circle cx="72" cy="68" r="5" fill="#FFC940"></circle><circle cx="48" cy="68" r="2" fill="#1F1B3A"></circle><circle cx="72" cy="68" r="2" fill="#1F1B3A"></circle><path d="M55 82h10l-5 6z" fill="#1F1B3A"></path><path d="M22 64C22 22 98 22 98 64" fill="none" stroke="#1F1B3A" stroke-width="11"></path><path d="M22 64C22 22 98 22 98 64" fill="none" stroke="#FF7A6B" stroke-width="5"></path><rect x="12" y="54" width="16" height="26" rx="7" fill="#FF7A6B" stroke="#1F1B3A" stroke-width="3"></rect><rect x="92" y="54" width="16" height="26" rx="7" fill="#FF7A6B" stroke="#1F1B3A" stroke-width="3"></rect></svg>
+<div style="font:700 44px/1 Fredoka,sans-serif">{{ appName }}</div>
+<div style="font:600 15px/1.4 Nunito,sans-serif;opacity:.8;max-width:260px;text-wrap:pretty">Les histoires de la famille, racontées par ceux qu’on aime.</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">E-mail</label><input type="email" value="{{ lgEmail }}" onChange="{{ setLgEmail }}" placeholder="toi@exemple.com" style="font:600 17px Nunito,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:13px 14px;background:#fff;outline:none"></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Mot de passe</label>
+<div style="display:flex;align-items:center;border:2.5px solid #1F1B3A;border-radius:14px;background:#fff;padding-right:6px"><input type="{{ lgPwType }}" value="{{ lgPw }}" onChange="{{ setLgPw }}" placeholder="••••••••" style="flex:1;min-width:0;font:600 17px Nunito,sans-serif;color:#1F1B3A;border:none;border-radius:14px;padding:13px 14px;background:transparent;outline:none"><div onClick="{{ togglePw }}" style="padding:8px 10px;font:800 12px Nunito,sans-serif;cursor:pointer">{{ pwToggleLabel }}</div></div></div>
+<div style="align-self:flex-end;font:800 13px Nunito,sans-serif;text-decoration:underline;cursor:pointer">Mot de passe oublié ?</div>
+<sc-if value="{{ lgError }}" hint-placeholder-val="{{ false }}"><div style="font:700 13px Nunito,sans-serif;background:#FF7A6B;border:2.5px solid #1F1B3A;border-radius:12px;padding:8px 12px">{{ lgError }}</div></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:auto">
+<div onClick="{{ doLogin }}" style="height:56px;border-radius:16px;border:2.5px solid #1F1B3A;background:#FFC940;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 18px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none">{{ lgBtnLabel }}</div>
+<div style="display:flex;justify-content:center;gap:6px;font:600 14px Nunito,sans-serif"><span>Pas encore de compte ?</span><span onClick="{{ goRegister }}" style="font-weight:800;text-decoration:underline;cursor:pointer">Créer un compte</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="00b Inscription" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:14px;padding:8px 18px 12px"><div onClick="{{ goLogin }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><span style="font:600 22px/1 Fredoka,sans-serif">Créer un compte</span></div>
+<div style="flex:1;overflow:auto;padding:4px 18px 16px;display:flex;flex-direction:column;gap:16px">
+<span style="font:600 14px/1.45 Nunito,sans-serif;text-wrap:pretty">Le compte est celui d’un adulte. Les enfants et les proches auront ensuite leur propre profil.</span>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Ton prénom</label><input value="{{ rgName }}" onChange="{{ setRgName }}" placeholder="Maman, Hery…" style="font:600 17px Fredoka,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">E-mail</label><input type="email" value="{{ rgEmail }}" onChange="{{ setRgEmail }}" placeholder="toi@exemple.com" style="font:600 17px Nunito,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Mot de passe</label><input type="password" value="{{ rgPw }}" onChange="{{ setRgPw }}" placeholder="8 caractères minimum" style="font:600 17px Nunito,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none">
+<div style="display:flex;gap:4px"><sc-for list="{{ pwBars }}" as="b" hint-placeholder-count="4"><span style="flex:1;height:6px;border-radius:3px;border:1.5px solid #1F1B3A;background:{{ b.bg }}"></span></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Nom de ta famille</label><input value="{{ rgFam }}" onChange="{{ setRgFam }}" placeholder="Famille Rakoto" style="font:600 17px Fredoka,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"><span style="font:600 12px Nunito,sans-serif;opacity:.75">Tu as reçu un code d’un proche ? Tu pourras rejoindre sa famille ensuite.</span></div>
+<div onClick="{{ toggleTerms }}" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer">
+<span style="width:24px;height:24px;border-radius:8px;border:2.5px solid #1F1B3A;background:{{ termsBg }};flex:none;display:flex;align-items:center;justify-content:center"><sc-if value="{{ rgTerms }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if></span>
+<span style="font:600 13px/1.4 Nunito,sans-serif">J’accepte les conditions d’utilisation et la politique de confidentialité pour les enfants.</span></div>
+</div>
+<div style="flex:none;padding:12px 18px 22px;border-top:2.5px solid #1F1B3A;background:#FFF4D9">
+<div onClick="{{ doRegister }}" style="height:54px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ rgBtnBg }};opacity:{{ rgBtnOp }};box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 17px Fredoka,sans-serif;cursor:pointer">Créer mon compte</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfiles }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="01 Profils" style="flex:1;display:flex;flex-direction:column;padding:40px 28px 32px;gap:32px">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+<div style="font:700 44px/1 Fredoka,sans-serif">{{ appName }}</div>
+<div style="font:600 24px/1.2 Fredoka,sans-serif;margin-top:28px">Qui écoute ce soir ?</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:22px 18px">
+<sc-for list="{{ profiles }}" as="p" hint-placeholder-count="4">
+<div onClick="{{ p.onPick }}" style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer">
+<div style="width:112px;height:112px;border-radius:32px;background:{{ p.hex }};border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 48px Fredoka,sans-serif" style-active="transform:translate(4px,4px);box-shadow:none">{{ p.initial }}</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font:700 17px Nunito,sans-serif">{{ p.name }}</span><span style="font:700 11px Nunito,sans-serif;text-transform:uppercase;letter-spacing:.08em;opacity:.7">{{ p.role }}</span></div>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:auto;display:flex;justify-content:center"><div onClick="{{ goAddRelative }}" style="display:flex;align-items:center;gap:8px;padding:12px 20px;border:2.5px dashed #1F1B3A;border-radius:16px;font:700 15px Nunito,sans-serif;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Ajouter un proche</div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="02 Bibliothèque" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:1;overflow:auto;padding:12px 22px 24px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font:700 13px Nunito,sans-serif;opacity:.7">Bonsoir</span><span style="font:700 30px/1 Fredoka,sans-serif">{{ me.name }}</span></div>
+<div onClick="{{ openSwitcher }}" style="display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border:2.5px solid #1F1B3A;border-radius:18px;background:#fff;box-shadow:3px 3px 0 #1F1B3A;cursor:pointer;flex:none" style-active="transform:translate(3px,3px);box-shadow:none"><span style="width:40px;height:40px;border-radius:14px;background:{{ me.hex }};border:2px solid #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 19px Fredoka,sans-serif">{{ me.initial }}</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></div>
+</div>
+<div onClick="{{ openContinue }}" style="background:#1F1B3A;color:#FFF4D9;border-radius:24px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer;box-shadow:4px 4px 0 #6BB6FF">
+<div style="width:72px;height:92px;border-radius:12px;flex:none;background:repeating-linear-gradient(45deg,#6BB6FF 0 8px,#8CC6FF 8px 16px);border:2.5px solid #FFF4D9"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font:800 11px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#FFC940">Reprendre</span>
+<span style="font:600 19px/1.15 Fredoka,sans-serif">La Baleine de Nosy Be</span>
+<span style="font:500 13px Nunito,sans-serif;opacity:.8">Page 4 sur 12 · 4 voix</span>
+<div style="height:8px;border-radius:4px;background:rgba(255,244,217,.2)"><div style="width:33%;height:100%;border-radius:4px;background:#FFC940"></div></div>
+</div>
+<div style="width:48px;height:48px;border-radius:50%;background:#FFC940;display:flex;align-items:center;justify-content:center;flex:none"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1F1B3A"></path></svg></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 22px Fredoka,sans-serif">Nos livres</span><span style="font:700 13px Nunito,sans-serif;opacity:.7">{{ bookCount }} livres</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{ books }}" as="b" hint-placeholder-count="4">
+<div onClick="{{ b.onOpen }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+<div style="aspect-ratio:3/4;border-radius:18px;border:2.5px solid #1F1B3A;box-shadow:3px 3px 0 #1F1B3A;background:repeating-linear-gradient(45deg,{{ b.hex }} 0 10px,{{ b.hex2 }} 10px 20px);position:relative;display:flex;align-items:flex-end;padding:10px;box-sizing:border-box" style-active="transform:translate(3px,3px);box-shadow:none">
+<span style="font:800 10px ui-monospace,Menlo,monospace;background:#FFF4D9;border:2px solid #1F1B3A;border-radius:8px;padding:3px 6px">couverture</span>
+<span style="position:absolute;top:8px;right:8px;font:800 11px Nunito,sans-serif;background:{{ b.badgeBg }};color:{{ b.badgeInk }};border:2px solid #1F1B3A;border-radius:10px;padding:3px 8px">{{ b.status }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font:600 15px/1.2 Fredoka,sans-serif">{{ b.title }}</span>
+<div style="display:flex;gap:3px"><sc-for list="{{ b.dots }}" as="d" hint-placeholder-count="4"><span style="width:12px;height:12px;border-radius:50%;border:1.5px solid #1F1B3A;background:{{ d.hex }}"></span></sc-for></div></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;height:84px;border-top:2.5px solid #1F1B3A;background:#FFF4D9;display:flex;align-items:center;justify-content:space-around;padding:0 20px 14px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:3px;font:800 11px Nunito,sans-serif"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linejoin="round"><path d="M4 5h6v14H4zM14 5h6v14h-6z"></path></svg>Livres</div>
+<div onClick="{{ goScan }}" style="width:64px;height:64px;margin-top:-30px;border-radius:22px;background:#FF7A6B;border:3px solid #1F1B3A;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></div>
+<div onClick="{{ goFamily }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;font:800 11px Nunito,sans-serif;opacity:.6;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6"><circle cx="9" cy="8" r="3.5"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M3 20c0-4 3-6 6-6s6 2 6 6M15 20c0-3 1.5-5 4-5"></path></svg>Famille</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ inCreate }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;display:flex;align-items:center;gap:12px;padding:8px 18px 12px">
+<div onClick="{{ back }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.7">Étape {{ step }} sur 3</span><span style="font:600 19px/1 Fredoka,sans-serif">{{ stepTitle }}</span></div>
+<div style="display:flex;gap:5px"><sc-for list="{{ stepDots }}" as="d" hint-placeholder-count="3"><span style="width:{{ d.w }};height:10px;border-radius:5px;border:2px solid #1F1B3A;background:{{ d.bg }}"></span></sc-for></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isScan }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="03 Scanner" style="flex:1;display:flex;flex-direction:column;padding:0 18px 22px;gap:14px;min-height:0">
+<div style="flex:1;border-radius:28px;background:#2A2550;border:2.5px solid #1F1B3A;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<div style="width:62%;aspect-ratio:3/4;transform:rotate(-3deg);background:repeating-linear-gradient(45deg,#F7E3B0 0 10px,#EFD597 10px 20px);border-radius:6px;display:flex;align-items:center;justify-content:center"><span style="font:800 11px ui-monospace,Menlo,monospace;background:#FFF4D9;padding:4px 8px;border-radius:6px">aperçu caméra</span></div>
+<div style="position:absolute;top:22px;left:22px;width:34px;height:34px;border-top:5px solid #FFC940;border-left:5px solid #FFC940;border-radius:10px 0 0 0"></div>
+<div style="position:absolute;top:22px;right:22px;width:34px;height:34px;border-top:5px solid #FFC940;border-right:5px solid #FFC940;border-radius:0 10px 0 0"></div>
+<div style="position:absolute;bottom:22px;left:22px;width:34px;height:34px;border-bottom:5px solid #FFC940;border-left:5px solid #FFC940;border-radius:0 0 0 10px"></div>
+<div style="position:absolute;bottom:22px;right:22px;width:34px;height:34px;border-bottom:5px solid #FFC940;border-right:5px solid #FFC940;border-radius:0 0 10px 0"></div>
+<div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);background:#FFF4D9;border:2.5px solid #1F1B3A;border-radius:14px;padding:6px 12px;font:800 13px Nunito,sans-serif;white-space:nowrap">{{ scanHint }}</div>
+<sc-if value="{{ flash }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:#fff;opacity:.85"></div></sc-if>
+</div>
+<div style="display:flex;gap:8px;min-height:62px;align-items:center">
+<sc-for list="{{ pageThumbs }}" as="p" hint-placeholder-count="0"><div style="width:46px;height:60px;border-radius:9px;border:2.5px solid #1F1B3A;background:repeating-linear-gradient(45deg,#F7E3B0 0 6px,#EFD597 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:700 12px Fredoka,sans-serif;padding-bottom:3px;box-sizing:border-box">{{ p.n }}</div></sc-for>
+<sc-if value="{{ noPages }}" hint-placeholder-val="{{ true }}"><span style="font:600 14px Nunito,sans-serif;opacity:.7">Aucune page pour l’instant. Commence par la première page du livre.</span></sc-if>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="width:90px;font:700 13px Nunito,sans-serif;opacity:.7">{{ pageCountLabel }}</div>
+<div onClick="{{ capture }}" style="width:82px;height:82px;border-radius:50%;background:#FF7A6B;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linejoin="round"><path d="M3 8h4l2-3h6l2 3h4v11H3z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></div>
+<div onClick="{{ scanNext }}" style="width:90px;height:50px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ scanNextBg }};opacity:{{ scanNextOp }};box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 16px Fredoka,sans-serif;cursor:pointer">Suivant</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isColor }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="04 Colorier" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:1;overflow:auto;padding:0 18px 16px;display:flex;flex-direction:column;gap:10px">
+<div style="background:#fff;border:2.5px solid #1F1B3A;border-radius:18px;padding:10px;display:flex;gap:10px;align-items:stretch;box-shadow:3px 3px 0 #1F1B3A">
+<image-slot id="page-img" shape="rounded" radius="12" placeholder="Image de la page" style="width:84px;height:104px;flex:none;display:block"></image-slot>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;min-width:0"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Description de l’image</span>
+<textarea onChange="{{ setImgDesc }}" placeholder="Un zébu au bord d’un lac, des oiseaux dans le ciel orange…" style="flex:1;resize:none;font:600 13px/1.35 Nunito,sans-serif;color:#1F1B3A;border:2px solid #1F1B3A;border-radius:10px;padding:6px 8px;background:#FFF4D9;outline:none;min-height:54px">{{ imgDesc }}</textarea></div>
+</div>
+<div style="font:600 14px/1.4 Nunito,sans-serif;padding:2px 2px 4px;text-wrap:pretty">Touche une réplique, puis choisis qui la lira et ajoute une indication. <b>{{ castHint }}</b></div>
+<sc-for list="{{ colorLines }}" as="l" hint-placeholder-count="6">
+<div onClick="{{ l.onTap }}" style="border:2.5px {{ l.border }} #1F1B3A;background:{{ l.bg }};border-radius:16px;padding:10px 13px;box-shadow:{{ l.shadow }};transform:{{ l.tf }};cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:transform .12s">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase">{{ l.c }}</span><span style="font:800 11px Nunito,sans-serif;background:#FFF4D9;border:2px solid #1F1B3A;border-radius:9px;padding:1px 7px">{{ l.who }}</span></div>
+<div style="font:500 15px/1.35 Nunito,sans-serif;font-style:{{ l.fs }}">{{ l.t }}</div>
+<sc-if value="{{ l.showNote }}" hint-placeholder-val="{{ false }}"><div style="font:700 12.5px/1.3 Nunito,sans-serif;background:rgba(255,255,255,.7);border-radius:8px;padding:3px 8px;align-self:flex-start">✎ {{ l.note }}</div></sc-if>
+<sc-if value="{{ l.editNote }}" hint-placeholder-val="{{ false }}"><input value="{{ l.note }}" onChange="{{ l.onNote }}" placeholder="Indication : chuchoté, en riant, lentement…" style="font:600 13px Nunito,sans-serif;color:#1F1B3A;border:2px solid #1F1B3A;border-radius:10px;padding:6px 9px;background:#fff;outline:none"></sc-if>
+</div>
+</sc-for>
+</div>
+<div style="flex:none;border-top:2.5px solid #1F1B3A;background:#fff;padding:12px 16px 20px;display:flex;flex-direction:column;gap:12px">
+<sc-if value="{{ hasTone }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;flex:none">Ton de {{ toneName }}</span><input value="{{ toneVal }}" onChange="{{ setTone }}" placeholder="voix douce, posée, un peu rigolote…" style="flex:1;min-width:0;font:600 13px Nunito,sans-serif;color:#1F1B3A;border:2px solid #1F1B3A;border-radius:10px;padding:6px 9px;background:#FFF4D9;outline:none"></div></sc-if>
+<div style="display:flex;justify-content:space-between">
+<sc-for list="{{ palette }}" as="v" hint-placeholder-count="6">
+<div onClick="{{ v.onPick }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;width:54px;opacity:{{ v.op }}">
+<div style="width:46px;height:46px;border-radius:50%;background:{{ v.hex }};border:2.5px solid #1F1B3A;box-shadow:{{ v.ring }};display:flex;align-items:center;justify-content:center;font:700 18px Fredoka,sans-serif">{{ v.initial }}</div>
+<span style="font:800 10.5px Nunito,sans-serif;white-space:nowrap">{{ v.member }}</span>
+</div>
+</sc-for>
+</div>
+<div onClick="{{ colorNext }}" style="height:52px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ colorNextBg }};opacity:{{ colorNextOp }};box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 17px Fredoka,sans-serif;cursor:pointer">{{ colorNextLabel }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="05 Vérifier" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:1;overflow:auto;padding:4px 18px 16px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;gap:14px;align-items:stretch">
+<div style="width:104px;aspect-ratio:3/4;flex:none;border-radius:16px;border:2.5px solid #1F1B3A;box-shadow:3px 3px 0 #1F1B3A;background:repeating-linear-gradient(45deg,#FF7A6B 0 10px,#FF968A 10px 20px);display:flex;align-items:flex-end;padding:8px;box-sizing:border-box"><span style="font:800 9px ui-monospace,Menlo,monospace;background:#FFF4D9;border-radius:6px;padding:2px 5px">page 1</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0">
+<label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Titre du livre</label>
+<input value="{{ title }}" onChange="{{ setTitle }}" style="font:600 17px Fredoka,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:10px 12px;background:#fff;outline:none;min-width:0">
+<span style="font:600 13px Nunito,sans-serif;opacity:.75">{{ pagesLabel }} · {{ lineCount }} répliques</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:600 20px Fredoka,sans-serif">La distribution</span>
+<sc-for list="{{ cast }}" as="c" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:12px;background:#fff;border:2.5px solid #1F1B3A;border-radius:18px;padding:10px 12px;box-shadow:3px 3px 0 #1F1B3A">
+<div style="width:44px;height:44px;border-radius:50%;background:{{ c.hex }};border:2.5px solid #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 18px Fredoka,sans-serif;flex:none">{{ c.initial }}</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font:800 15px Nunito,sans-serif">{{ c.member }}</span><span style="font:600 13px Nunito,sans-serif;opacity:.75">lit {{ c.chars }}</span></div>
+<span style="font:700 15px Fredoka,sans-serif;background:{{ c.hex }};border:2px solid #1F1B3A;border-radius:10px;padding:2px 9px">{{ c.count }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;padding:12px 18px 22px;border-top:2.5px solid #1F1B3A;background:#FFF4D9">
+<div onClick="{{ save }}" style="height:54px;border-radius:16px;border:2.5px solid #1F1B3A;background:#FFC940;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 17px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none">Enregistrer et passer au studio</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRecord }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="06 Studio" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:12px;padding:8px 18px 10px">
+<div onClick="{{ goLibrary }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font:600 19px/1 Fredoka,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Studio · {{ title }}</span>
+<div style="height:10px;border-radius:5px;border:2px solid #1F1B3A;background:#fff;overflow:hidden"><div style="height:100%;width:{{ recPct }};background:#4CD4A8;transition:width .3s"></div></div></div>
+<span style="font:700 15px Fredoka,sans-serif">{{ recDone }}/{{ lineCount }}</span>
+</div>
+<div style="flex:none;display:flex;gap:8px;padding:4px 18px 12px;overflow-x:auto">
+<sc-for list="{{ voiceTabs }}" as="v" hint-placeholder-count="5">
+<div onClick="{{ v.onPick }}" style="flex:none;display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ v.bg }};box-shadow:{{ v.shadow }};cursor:pointer">
+<span style="width:26px;height:26px;border-radius:50%;background:{{ v.hex }};border:2px solid #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 13px Fredoka,sans-serif">{{ v.initial }}</span>
+<span style="font:800 13px Nunito,sans-serif">{{ v.member }}</span><span style="font:700 12px Nunito,sans-serif;opacity:.7">{{ v.progress }}</span></div>
+</sc-for>
+</div>
+<div style="flex:1;overflow:auto;padding:4px 18px 12px;display:flex;flex-direction:column;gap:14px">
+<div style="background:{{ cur.hex }};border:3px solid #1F1B3A;border-radius:26px;box-shadow:4px 4px 0 #1F1B3A;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font:800 12px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase">{{ cur.member }} lit {{ cur.c }}</span><span style="font:800 11px Nunito,sans-serif;background:#FFF4D9;border:2px solid #1F1B3A;border-radius:9px;padding:2px 8px">{{ cur.state }}</span></div>
+<sc-if value="{{ cur.hasImg }}" hint-placeholder-val="{{ false }}"><div style="font:600 12.5px/1.35 Nunito,sans-serif;background:rgba(255,255,255,.7);border-radius:10px;padding:5px 9px">🖼 {{ cur.img }}</div></sc-if>
+<div style="font:600 24px/1.25 Fredoka,sans-serif;text-wrap:pretty">« {{ cur.t }} »</div>
+<sc-if value="{{ cur.hasTone }}" hint-placeholder-val="{{ false }}"><div style="font:700 13px/1.3 Nunito,sans-serif">Ton : {{ cur.tone }}</div></sc-if>
+<sc-if value="{{ cur.hasAudio }}" hint-placeholder-val="{{ false }}"><div onClick="{{ listenCur }}" style="align-self:flex-start;display:flex;align-items:center;gap:6px;background:#fff;border:2.5px solid #1F1B3A;border-radius:12px;padding:4px 11px;font:800 13px Nunito,sans-serif;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 4v16l13-8z" fill="#1F1B3A"></path></svg>Écouter ma voix</div></sc-if>
+<sc-if value="{{ cur.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font:700 13px/1.3 Nunito,sans-serif;background:#FFF4D9;border:2px solid #1F1B3A;border-radius:10px;padding:4px 9px;align-self:flex-start">✎ {{ cur.note }}</div></sc-if>
+<div style="height:54px;display:flex;align-items:center;gap:3px;margin-top:4px">
+<sc-for list="{{ wave }}" as="w" hint-placeholder-count="30"><div style="flex:1;height:{{ w.h }};border-radius:3px;background:#1F1B3A;opacity:{{ w.o }}"></div></sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font:800 12px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Répliques de {{ cur.member }}</span>
+<sc-for list="{{ voiceLines }}" as="l" hint-placeholder-count="2">
+<div onClick="{{ l.onTap }}" style="display:flex;gap:10px;align-items:center;padding:9px 12px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ l.bg }};cursor:pointer">
+<span style="width:22px;height:22px;border-radius:50%;border:2.5px solid #1F1B3A;background:{{ l.dot }};flex:none;display:flex;align-items:center;justify-content:center"><sc-if value="{{ l.done }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if></span>
+<span style="font:600 14px/1.3 Nunito,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ l.t }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;border-top:2.5px solid #1F1B3A;background:#fff;padding:14px 22px 22px">
+<sc-if value="{{ allRecorded }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ publish }}" style="height:58px;border-radius:18px;border:2.5px solid #1F1B3A;background:#4CD4A8;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;gap:10px;font:600 18px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none">Publier le livre pour la famille</div>
+</sc-if>
+<sc-if value="{{ notAllRecorded }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div onClick="{{ redo }}" style="width:84px;display:flex;flex-direction:column;align-items:center;gap:4px;font:800 12px Nunito,sans-serif;cursor:pointer;opacity:{{ redoOp }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"></path></svg>Refaire</div>
+<div onClick="{{ toggleRec }}" style="width:84px;height:84px;border-radius:50%;background:{{ recBtnBg }};border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none">
+<sc-if value="{{ recording }}" hint-placeholder-val="{{ false }}"><div style="width:28px;height:28px;border-radius:7px;background:#1F1B3A"></div></sc-if>
+<sc-if value="{{ notRecording }}" hint-placeholder-val="{{ true }}"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#1F1B3A"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"></path></svg></sc-if>
+</div>
+<div style="width:84px;display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font:700 22px Fredoka,sans-serif;font-variant-numeric:tabular-nums">{{ recTime }}</span><span style="font:800 11px Nunito,sans-serif;opacity:.7">{{ recLabel }}</span></div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReader }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="07 Lecteur" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:12px;padding:8px 18px 10px">
+<div onClick="{{ goLibrary }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:600 18px/1.1 Fredoka,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ readerTitle }}</span><span style="font:700 12px Nunito,sans-serif;opacity:.7">Page 1 sur 3</span></div>
+</div>
+<div style="flex:1;overflow:auto;padding:2px 18px 12px;display:flex;flex-direction:column;gap:12px">
+<div style="height:150px;flex:none;border-radius:22px;border:2.5px solid #1F1B3A;background:repeating-linear-gradient(45deg,#F7E3B0 0 10px,#EFD597 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font:800 11px ui-monospace,Menlo,monospace;background:#FFF4D9;border-radius:6px;padding:4px 8px">illustration de la page</span></div>
+<sc-for list="{{ readLines }}" as="l" hint-placeholder-count="6">
+<div onClick="{{ l.onTap }}" style="padding:8px 12px;border-radius:14px;border:2.5px solid {{ l.border }};background:{{ l.bg }};box-shadow:{{ l.shadow }};cursor:pointer;display:flex;gap:10px;align-items:flex-start;transition:background .2s">
+<span style="width:12px;height:12px;border-radius:50%;background:{{ l.hex }};border:2px solid #1F1B3A;flex:none;margin-top:5px"></span>
+<span style="font:{{ l.font }};font-style:{{ l.fs }};text-wrap:pretty">{{ l.t }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:none;background:#1F1B3A;color:#FFF4D9;border-radius:28px 28px 0 0;padding:14px 20px 22px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:34px;height:34px;border-radius:50%;background:{{ now.hex }};border:2px solid #FFF4D9;display:flex;align-items:center;justify-content:center;font:700 15px Fredoka,sans-serif;color:#1F1B3A;flex:none">{{ now.initial }}</span>
+<div style="flex:1;display:flex;flex-direction:column;min-width:0"><span style="font:800 14px Nunito,sans-serif">{{ now.member }}</span><span style="font:600 12px Nunito,sans-serif;opacity:.75">dans le rôle de {{ now.c }}</span></div>
+<div onClick="{{ cycleSpeed }}" style="font:700 14px Fredoka,sans-serif;border:2px solid #FFF4D9;border-radius:12px;padding:5px 10px;cursor:pointer">{{ speedLabel }}</div>
+</div>
+<div style="display:flex;gap:3px;height:12px">
+<sc-for list="{{ segs }}" as="s" hint-placeholder-count="7"><div onClick="{{ s.onTap }}" style="flex:{{ s.flex }};border-radius:4px;background:{{ s.hex }};opacity:{{ s.o }};position:relative;overflow:hidden;cursor:pointer"><div style="position:absolute;inset:0;width:{{ s.fill }};background:#FFF4D9;opacity:.55"></div></div></sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;font:700 12px Nunito,sans-serif;opacity:.75;font-variant-numeric:tabular-nums"><span>{{ elapsed }}</span><span>{{ total }}</span></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:34px">
+<div onClick="{{ prevLine }}" style="cursor:pointer;display:flex"><svg width="30" height="30" viewBox="0 0 24 24" fill="#FFF4D9"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"></path></svg></div>
+<div onClick="{{ togglePlay }}" style="width:70px;height:70px;border-radius:50%;background:#FFC940;border:3px solid #FFF4D9;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.94)">
+<sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="#1F1B3A"><rect x="6" y="5" width="4" height="14" rx="1.5"></rect><rect x="14" y="5" width="4" height="14" rx="1.5"></rect></svg></sc-if>
+<sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><svg width="32" height="32" viewBox="0 0 24 24" fill="#1F1B3A"><path d="M8 5v14l11-7z"></path></svg></sc-if>
+</div>
+<div onClick="{{ nextLine }}" style="cursor:pointer;display:flex"><svg width="30" height="30" viewBox="0 0 24 24" fill="#FFF4D9"><path d="M15.5 5H18v14h-2.5zM4 5v14l10.5-7z"></path></svg></div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidHome }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="08 Enfant accueil" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:1;overflow:auto;padding:12px 22px 22px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span style="font:700 32px/1 Fredoka,sans-serif">Salut {{ me.name }} !</span>
+<div onClick="{{ openSwitcher }}" style="display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border:2.5px solid #1F1B3A;border-radius:18px;background:#fff;box-shadow:3px 3px 0 #1F1B3A;cursor:pointer;flex:none" style-active="transform:translate(3px,3px);box-shadow:none"><span style="width:40px;height:40px;border-radius:14px;background:{{ me.hex }};border:2px solid #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 19px Fredoka,sans-serif">{{ me.initial }}</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></div>
+</div>
+<span style="font:600 21px/1.2 Fredoka,sans-serif">Qui te lit une histoire ?</span>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:26px 14px">
+<sc-for list="{{ rels }}" as="r" hint-placeholder-count="4">
+<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:8px">
+<div onClick="{{ r.onFace }}" style="width:132px;height:132px;border-radius:50%;background:{{ r.hex }};border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;padding:6px;box-sizing:border-box;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none">
+<image-slot id="face-{{ r.id }}" shape="circle" placeholder="Photo de {{ r.member }}" style="width:114px;height:114px;display:block"></image-slot>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font:600 18px Fredoka,sans-serif">{{ r.member }}</span>
+<sc-if value="{{ r.sentTag }}" hint-placeholder-val="{{ false }}"><span style="font:800 11px Nunito,sans-serif;background:#4CD4A8;border:2px solid #1F1B3A;border-radius:9px;padding:1px 8px">{{ r.sentLabel }}</span></sc-if></div>
+<sc-if value="{{ r.hasMsg }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ r.onMsg }}" style="position:absolute;top:-14px;right:-4px;background:#fff;border:2.5px solid #1F1B3A;border-radius:18px 18px 18px 4px;box-shadow:3px 3px 0 #1F1B3A;padding:7px 10px;display:flex;align-items:center;gap:6px;cursor:pointer;z-index:2">
+<sc-if value="{{ r.idle }}" hint-placeholder-val="{{ true }}"><span style="width:24px;height:24px;border-radius:50%;background:{{ r.hex }};border:2px solid #1F1B3A;display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M7 4v16l13-8z" fill="#1F1B3A"></path></svg></span><span style="font:800 12px Nunito,sans-serif">Message</span></sc-if>
+<sc-if value="{{ r.playing }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:3px;height:22px;padding:0 4px"><sc-for list="{{ r.bars }}" as="b" hint-placeholder-count="5"><span style="width:4px;height:{{ b.h }};border-radius:2px;background:#1F1B3A"></span></sc-for></div></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ msgText }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:2.5px solid #1F1B3A;border-radius:18px;padding:12px 14px;font:600 15px/1.4 Nunito,sans-serif;box-shadow:3px 3px 0 #1F1B3A">« {{ msgText }} »</div>
+</sc-if>
+<div onClick="{{ goKidLibrary }}" style="margin-top:auto;background:#1F1B3A;color:#FFF4D9;border-radius:26px;padding:18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:4px 4px 0 #FF7A6B" style-active="transform:translate(4px,4px);box-shadow:none">
+<div style="display:flex;flex:none"><sc-for list="{{ stackDots }}" as="d" hint-placeholder-count="4"><span style="width:38px;height:38px;border-radius:50%;background:{{ d.hex }};border:2.5px solid #FFF4D9;margin-left:-12px;display:flex;align-items:center;justify-content:center;font:700 15px Fredoka,sans-serif;color:#1F1B3A">{{ d.initial }}</span></sc-for></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:3px"><span style="font:600 19px/1.1 Fredoka,sans-serif">Histoires à plusieurs voix</span><span style="font:600 13px Nunito,sans-serif;opacity:.8">Toute la famille raconte</span></div>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFF4D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidPerson }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="09 Enfant proche" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;padding:8px 18px 0"><div onClick="{{ goKidHome }}" style="width:48px;height:48px;border-radius:16px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div></div>
+<div style="flex:1;overflow:auto;padding:0 22px 22px;display:flex;flex-direction:column;align-items:center;gap:18px">
+<div style="width:160px;height:160px;border-radius:50%;background:{{ kp.hex }};border:3px solid #1F1B3A;box-shadow:5px 5px 0 #1F1B3A;padding:7px;box-sizing:border-box;flex:none">
+<image-slot id="face-{{ kp.id }}" shape="circle" placeholder="Photo de {{ kp.member }}" style="width:140px;height:140px;display:block"></image-slot>
+</div>
+<span style="font:700 26px/1.1 Fredoka,sans-serif;text-align:center">Les histoires de {{ kp.member }}</span>
+<div onClick="{{ kpSend }}" style="display:flex;align-items:center;gap:10px;padding:10px 18px 10px 10px;border-radius:22px;background:#FF7A6B;border:2.5px solid #1F1B3A;box-shadow:3px 3px 0 #1F1B3A;cursor:pointer;font:600 17px Fredoka,sans-serif" style-active="transform:translate(3px,3px);box-shadow:none"><span style="width:40px;height:40px;border-radius:50%;background:#FFF4D9;border:2px solid #1F1B3A;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#1F1B3A"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"></path></svg></span>Envoyer un message</div>
+<div style="width:100%;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ soloBooks }}" as="b" hint-placeholder-count="2">
+<div onClick="{{ b.onPlay }}" style="display:flex;align-items:center;gap:14px;background:#fff;border:2.5px solid #1F1B3A;border-radius:22px;box-shadow:3px 3px 0 #1F1B3A;padding:10px;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none">
+<div style="width:74px;height:96px;border-radius:14px;border:2.5px solid #1F1B3A;flex:none;background:repeating-linear-gradient(45deg,{{ b.hex }} 0 9px,{{ b.hex2 }} 9px 18px)"></div>
+<span style="flex:1;font:600 18px/1.2 Fredoka,sans-serif">{{ b.title }}</span>
+<div style="width:56px;height:56px;border-radius:50%;background:{{ kp.hex }};border:2.5px solid #1F1B3A;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1F1B3A"></path></svg></div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidLibrary }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="10 Enfant plusieurs voix" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:14px;padding:8px 18px 12px"><div onClick="{{ goKidHome }}" style="width:48px;height:48px;border-radius:16px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><span style="font:700 24px/1.1 Fredoka,sans-serif">Plusieurs voix</span></div>
+<div style="flex:1;overflow:auto;padding:4px 22px 22px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-content:start">
+<sc-for list="{{ multiBooks }}" as="b" hint-placeholder-count="4">
+<div onClick="{{ b.onPlay }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+<div style="aspect-ratio:3/4;border-radius:20px;border:2.5px solid #1F1B3A;box-shadow:3px 3px 0 #1F1B3A;background:repeating-linear-gradient(45deg,{{ b.hex }} 0 10px,{{ b.hex2 }} 10px 20px);display:flex;align-items:center;justify-content:center" style-active="transform:translate(3px,3px);box-shadow:none"><div style="width:58px;height:58px;border-radius:50%;background:#FFF4D9;border:2.5px solid #1F1B3A;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1F1B3A"></path></svg></div></div>
+<span style="font:600 16px/1.2 Fredoka,sans-serif">{{ b.title }}</span>
+<div style="display:flex;padding-left:8px"><sc-for list="{{ b.dots }}" as="d" hint-placeholder-count="4"><span style="width:22px;height:22px;border-radius:50%;border:2px solid #1F1B3A;background:{{ d.hex }};margin-left:-8px"></span></sc-for></div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidReader }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="11 Enfant lecture" style="flex:1;display:flex;flex-direction:column;min-height:0;padding:6px 18px 24px;gap:14px">
+<div style="flex:none;display:flex;align-items:center;justify-content:space-between">
+<div onClick="{{ goKidHome }}" style="width:48px;height:48px;border-radius:16px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></div>
+<div style="display:flex;gap:6px;align-items:center"><sc-for list="{{ kPages }}" as="p" hint-placeholder-count="3"><span style="width:{{ p.w }};height:14px;border-radius:7px;border:2.5px solid #1F1B3A;background:{{ p.bg }}"></span></sc-for></div>
+<span style="width:48px;text-align:right;font:700 18px Fredoka,sans-serif">{{ kPageN }}</span>
+</div>
+<div style="flex:1;position:relative;border-radius:28px;border:3px solid #1F1B3A;box-shadow:5px 5px 0 #1F1B3A;background:{{ kNow.hex }};overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px">
+<div style="width:190px;height:190px;border-radius:50%;background:#FFF4D9;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:700 84px Fredoka,sans-serif">{{ kNow.initial }}</div><span style="font:700 30px Fredoka,sans-serif">{{ kNow.member }} lit</span>
+<div style="position:absolute;left:0;right:0;bottom:0;height:10px;background:rgba(31,27,58,.15)"><div style="height:100%;width:{{ kPagePct }};background:{{ kNow.hex }};transition:width .1s linear"></div></div>
+<sc-if value="{{ kDing }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(31,27,58,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px">
+<div style="width:170px;height:170px;border-radius:50%;background:#FFC940;border:3px solid #1F1B3A;box-shadow:0 0 0 6px #FFF4D9;display:flex;align-items:center;justify-content:center;transform:rotate({{ bellRot }})"><div style="width:130px;height:130px"><dc-import name="Maki" phones="#FF7A6B" hint-size="130px,130px"></dc-import></div></div>
+<span style="font:700 30px/1.1 Fredoka,sans-serif;color:#FFF4D9;text-align:center">Ding ! Tourne la page</span>
+<div onClick="{{ turned }}" style="height:66px;padding:0 26px;border-radius:22px;background:#4CD4A8;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;gap:10px;font:600 20px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none">C’est fait<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></div>
+</div>
+</sc-if>
+<sc-if value="{{ kEnd }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(31,27,58,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px">
+<span style="font:700 36px/1.1 Fredoka,sans-serif;color:#FFF4D9">Fin !</span>
+<div style="display:flex;gap:14px">
+<div onClick="{{ kReplay }}" style="height:60px;padding:0 20px;border-radius:20px;background:#FFC940;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;font:600 18px Fredoka,sans-serif;cursor:pointer">Encore !</div>
+<div onClick="{{ goKidHome }}" style="height:60px;padding:0 20px;border-radius:20px;background:#FFF4D9;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;font:600 18px Fredoka,sans-serif;cursor:pointer">Accueil</div>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="flex:none;display:flex;align-items:center;gap:16px">
+<div style="position:relative;width:84px;height:84px;border-radius:50%;background:{{ kNow.hex }};border:3px solid #1F1B3A;padding:5px;box-sizing:border-box;flex:none">
+<sc-for list="{{ kFaces }}" as="f" hint-placeholder-count="1"><div style="display:{{ f.display }};width:68px;height:68px"><image-slot id="face-{{ f.id }}" shape="circle" placeholder="{{ f.member }}" style="width:68px;height:68px;display:block"></image-slot></div></sc-for>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:600 20px/1.1 Fredoka,sans-serif">{{ kNow.member }}</span><span style="font:600 12px/1.3 Nunito,sans-serif;opacity:.7;text-wrap:pretty">Regarde ton livre en papier.</span></div>
+<div onClick="{{ kPlay }}" style="width:84px;height:84px;border-radius:50%;background:#FFC940;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none" style-active="transform:translate(4px,4px);box-shadow:none">
+<sc-if value="{{ kPlaying }}" hint-placeholder-val="{{ false }}"><svg width="34" height="34" viewBox="0 0 24 24" fill="#1F1B3A"><rect x="6" y="5" width="4" height="14" rx="1.5"></rect><rect x="14" y="5" width="4" height="14" rx="1.5"></rect></svg></sc-if>
+<sc-if value="{{ kNotPlaying }}" hint-placeholder-val="{{ true }}"><svg width="36" height="36" viewBox="0 0 24 24" fill="#1F1B3A"><path d="M8 5v14l11-7z"></path></svg></sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidStory }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="15 Enfant message reçu" style="position:absolute;top:48px;left:0;right:0;bottom:0;background:{{ stv.hex }};display:flex;flex-direction:column;padding:6px 18px 28px;gap:16px;z-index:5">
+<div style="height:10px;border-radius:5px;border:2.5px solid #1F1B3A;background:#FFF4D9;overflow:hidden;flex:none"><div style="height:100%;width:{{ stPct }};background:#1F1B3A"></div></div>
+<div style="display:flex;align-items:center;gap:10px;flex:none">
+<div style="flex:1;display:flex;flex-direction:column;gap:1px"><span style="font:700 22px/1.1 Fredoka,sans-serif">{{ stv.member }}</span><span style="font:700 13px Nunito,sans-serif">t’a laissé un message</span></div>
+<div onClick="{{ stClose }}" style="width:48px;height:48px;border-radius:16px;border:2.5px solid #1F1B3A;background:#FFF4D9;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+<div style="width:210px;height:210px;border-radius:50%;background:#FFF4D9;border:3px solid #1F1B3A;box-shadow:6px 6px 0 #1F1B3A;padding:8px;box-sizing:border-box"><image-slot id="face-{{ stv.id }}" shape="circle" placeholder="Photo de {{ stv.member }}" style="width:188px;height:188px;display:block"></image-slot></div>
+<div style="display:flex;align-items:center;gap:5px;height:56px"><sc-for list="{{ stBars }}" as="b" hint-placeholder-count="11"><span style="width:8px;height:{{ b.h }};border-radius:4px;background:#1F1B3A"></span></sc-for></div>
+<div style="background:#FFF4D9;border:2.5px solid #1F1B3A;border-radius:18px;padding:10px 14px;font:600 14px/1.4 Nunito,sans-serif;text-align:center;text-wrap:pretty">« {{ stText }} »</div>
+</div>
+<sc-if value="{{ stEnded }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px;flex:none">
+<div onClick="{{ stReply }}" style="height:70px;border-radius:24px;background:#FF7A6B;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;gap:12px;font:600 21px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#1F1B3A"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"></path></svg>Répondre</div>
+<span style="font:700 12px Nunito,sans-serif;text-align:center">Ce message a disparu après l’écoute</span>
+</div>
+</sc-if>
+<sc-if value="{{ stPlaying }}" hint-placeholder-val="{{ true }}"><span style="flex:none;height:82px;font:700 13px Nunito,sans-serif;text-align:center">Écoute bien, il ne passe qu’une fois</span></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isKidRecord }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="16 Enfant envoyer message" style="flex:1;display:flex;flex-direction:column;min-height:0;padding:8px 18px 28px">
+<div style="flex:none;display:flex;align-items:center;gap:14px"><div onClick="{{ goKidHome }}" style="width:48px;height:48px;border-radius:16px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><span style="font:700 24px/1.1 Fredoka,sans-serif">{{ krTitle }}</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+<div style="width:180px;height:180px;border-radius:50%;background:{{ kr.hex }};border:3px solid #1F1B3A;box-shadow:{{ krRing }};padding:8px;box-sizing:border-box;transition:box-shadow .2s"><image-slot id="face-{{ kr.id }}" shape="circle" placeholder="Photo de {{ kr.member }}" style="width:158px;height:158px;display:block"></image-slot></div>
+<div style="display:flex;align-items:center;gap:4px;height:60px"><sc-for list="{{ krBars }}" as="b" hint-placeholder-count="24"><span style="width:6px;height:{{ b.h }};border-radius:3px;background:#1F1B3A;opacity:{{ b.o }}"></span></sc-for></div>
+<span style="font:700 26px Fredoka,sans-serif;font-variant-numeric:tabular-nums">{{ krTime }}</span>
+</div>
+<div style="flex:none;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px">
+<sc-if value="{{ krIdle }}" hint-placeholder-val="{{ true }}">
+<div onClick="{{ krToggle }}" style="width:100px;height:100px;border-radius:50%;background:#FF7A6B;border:3px solid #1F1B3A;box-shadow:5px 5px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:translate(5px,5px);box-shadow:none"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#1F1B3A"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"></path></svg></div>
+<span style="font:800 14px Nunito,sans-serif">Touche pour parler</span>
+</sc-if>
+<sc-if value="{{ krRec }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ krToggle }}" style="width:100px;height:100px;border-radius:50%;background:{{ kr.hex }};border:3px solid #1F1B3A;box-shadow:5px 5px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer"><div style="width:34px;height:34px;border-radius:8px;background:#1F1B3A"></div></div>
+<span style="font:800 14px Nunito,sans-serif">Touche quand tu as fini</span>
+</sc-if>
+<sc-if value="{{ krDone }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:16px;width:100%">
+<div onClick="{{ krRedo }}" style="width:70px;height:70px;border-radius:24px;background:#fff;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"></path></svg></div>
+<div onClick="{{ krSend }}" style="flex:1;height:70px;border-radius:24px;background:#4CD4A8;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;gap:10px;font:600 21px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(4px,4px);box-shadow:none">Envoyer<svg width="26" height="26" viewBox="0 0 24 24" fill="#1F1B3A"><path d="M3 11.5L21 3l-6.5 18-3-7.5z"></path></svg></div>
+</div>
+<span style="font:700 12px Nunito,sans-serif;opacity:.75">{{ kr.member }} pourra l’écouter une seule fois</span>
+</sc-if>
+<sc-if value="{{ krSent }}" hint-placeholder-val="{{ false }}">
+<div style="width:84px;height:84px;border-radius:50%;background:#4CD4A8;border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;display:flex;align-items:center;justify-content:center"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></div>
+<span style="font:700 22px Fredoka,sans-serif">Envoyé à {{ kr.member }} !</span>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isFamily }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="12 Ma famille" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:14px;padding:8px 18px 12px"><div onClick="{{ goLibrary }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><span style="font:600 22px/1 Fredoka,sans-serif">Mes familles</span></div>
+<div style="flex:1;overflow:auto;padding:0 18px 16px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ families }}" as="f" hint-placeholder-count="2"><div onClick="{{ f.onPick }}" style="padding:9px 14px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ f.bg }};box-shadow:{{ f.shadow }};font:800 14px Nunito,sans-serif;cursor:pointer">{{ f.name }}</div></sc-for>
+<div onClick="{{ goAddFamily }}" style="padding:9px 14px;border:2.5px dashed #1F1B3A;border-radius:14px;font:800 14px Nunito,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Famille</div>
+</div>
+<div style="background:#1F1B3A;color:#FFF4D9;border-radius:22px;padding:16px;display:flex;align-items:center;gap:12px;box-shadow:4px 4px 0 #FFC940">
+<div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#FFC940">Code d’invitation</span><span style="font:700 26px Fredoka,sans-serif;letter-spacing:.06em">{{ fam.code }}</span><span style="font:600 12px Nunito,sans-serif;opacity:.8">À partager avec un proche pour qu’il rejoigne {{ fam.name }}</span></div>
+<div onClick="{{ copyCode }}" style="padding:10px 12px;border-radius:14px;background:#FFC940;color:#1F1B3A;border:2.5px solid #FFF4D9;font:800 13px Nunito,sans-serif;cursor:pointer;flex:none">{{ copyLabel }}</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 20px Fredoka,sans-serif">Les membres</span><span style="font:700 13px Nunito,sans-serif;opacity:.7">{{ famCount }} personnes</span></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ famMembers }}" as="m" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:12px;background:#fff;border:2.5px solid #1F1B3A;border-radius:18px;padding:8px 12px 8px 8px;box-shadow:3px 3px 0 #1F1B3A">
+<div style="width:52px;height:52px;border-radius:50%;background:{{ m.hex }};border:2.5px solid #1F1B3A;padding:3px;box-sizing:border-box;flex:none"><image-slot id="face-{{ m.key }}" shape="circle" placeholder="{{ m.initial }}" style="width:40px;height:40px;display:block"></image-slot></div>
+<div style="flex:1;display:flex;flex-direction:column;min-width:0"><span style="font:800 15px Nunito,sans-serif">{{ m.member }}</span><span style="font:700 11px Nunito,sans-serif;text-transform:uppercase;letter-spacing:.07em;opacity:.7">{{ m.role }}</span></div>
+<span style="font:800 11px Nunito,sans-serif;background:{{ m.statusBg }};border:2px solid #1F1B3A;border-radius:9px;padding:2px 8px">{{ m.status }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;padding:12px 18px 22px;border-top:2.5px solid #1F1B3A;background:#FFF4D9">
+<div onClick="{{ goAddRelative }}" style="height:54px;border-radius:16px;border:2.5px solid #1F1B3A;background:#FFC940;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;gap:8px;font:600 17px Fredoka,sans-serif;cursor:pointer" style-active="transform:translate(3px,3px);box-shadow:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Ajouter un proche</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAddRelative }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="13 Ajouter un proche" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:14px;padding:8px 18px 12px"><div onClick="{{ goFamily }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><div style="display:flex;flex-direction:column;gap:3px"><span style="font:600 22px/1 Fredoka,sans-serif">Ajouter un proche</span><span style="font:700 12px Nunito,sans-serif;opacity:.7">dans {{ fam.name }}</span></div></div>
+<div style="flex:1;overflow:auto;padding:4px 18px 16px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+<div style="width:128px;height:128px;border-radius:50%;background:{{ nrHex }};border:3px solid #1F1B3A;box-shadow:4px 4px 0 #1F1B3A;padding:6px;box-sizing:border-box"><image-slot id="face-{{ newKey }}" shape="circle" placeholder="Sa photo" style="width:110px;height:110px;display:block"></image-slot></div>
+<span style="font:700 12px Nunito,sans-serif;opacity:.7">L’enfant le reconnaîtra à son visage</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Prénom ou surnom</label><input value="{{ nrName }}" onChange="{{ setNrName }}" placeholder="Dadabe, Tatie Nirina…" style="font:600 17px Fredoka,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Rôle</label>
+<div style="display:flex;gap:8px"><sc-for list="{{ nrRoles }}" as="r" hint-placeholder-count="3"><div onClick="{{ r.onPick }}" style="flex:1;height:46px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ r.bg }};color:{{ r.ink }};display:flex;align-items:center;justify-content:center;font:800 14px Nunito,sans-serif;cursor:pointer">{{ r.label }}</div></sc-for></div>
+<span style="font:600 12px/1.35 Nunito,sans-serif;opacity:.75">{{ nrRoleHint }}</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Sa couleur de voix</label>
+<div style="display:flex;justify-content:space-between"><sc-for list="{{ nrColors }}" as="c" hint-placeholder-count="6"><div onClick="{{ c.onPick }}" style="width:44px;height:44px;border-radius:50%;background:{{ c.hex }};border:2.5px solid #1F1B3A;box-shadow:{{ c.ring }};cursor:pointer"></div></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Lui envoyer l’invitation par</label>
+<div style="display:flex;gap:8px"><sc-for list="{{ nrInvites }}" as="r" hint-placeholder-count="3"><div onClick="{{ r.onPick }}" style="flex:1;height:44px;border:2.5px solid #1F1B3A;border-radius:14px;background:{{ r.bg }};color:{{ r.ink }};display:flex;align-items:center;justify-content:center;font:800 13px Nunito,sans-serif;cursor:pointer">{{ r.label }}</div></sc-for></div>
+<span style="font:600 12px/1.35 Nunito,sans-serif;opacity:.75">Il recevra un lien pour enregistrer des histoires depuis son téléphone, même de loin.</span></div>
+</div>
+<div style="flex:none;padding:12px 18px 22px;border-top:2.5px solid #1F1B3A;background:#FFF4D9">
+<div onClick="{{ saveNr }}" style="height:54px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ nrBtnBg }};opacity:{{ nrBtnOp }};box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 17px Fredoka,sans-serif;cursor:pointer">Ajouter et inviter</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAddFamily }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="14 Ajouter une famille" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="flex:none;display:flex;align-items:center;gap:14px;padding:8px 18px 12px"><div onClick="{{ goFamily }}" style="width:42px;height:42px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F1B3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></div><span style="font:600 22px/1 Fredoka,sans-serif">Ajouter une famille</span></div>
+<div style="flex:1;overflow:auto;padding:4px 18px 16px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;border:2.5px solid #1F1B3A;border-radius:16px;padding:4px;background:#fff;gap:4px"><sc-for list="{{ nfModes }}" as="m" hint-placeholder-count="2"><div onClick="{{ m.onPick }}" style="flex:1;height:42px;border-radius:12px;background:{{ m.bg }};color:{{ m.ink }};display:flex;align-items:center;justify-content:center;font:800 14px Nunito,sans-serif;cursor:pointer">{{ m.label }}</div></sc-for></div>
+<sc-if value="{{ nfCreate }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<span style="font:600 14px/1.45 Nunito,sans-serif;text-wrap:pretty">Une famille, c’est un cercle qui partage ses livres et ses voix. Tu peux en avoir plusieurs : chez toi, chez les grands-parents, les cousins…</span>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Nom de la famille</label><input value="{{ nfName }}" onChange="{{ setNfName }}" placeholder="Les cousins d’Antsirabe" style="font:600 17px Fredoka,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"></div>
+<div style="background:#fff;border:2.5px dashed #1F1B3A;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:4px;align-items:center"><span style="font:800 11px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.7">Son code d’invitation</span><span style="font:700 28px Fredoka,sans-serif;letter-spacing:.06em">{{ nfCode }}</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ nfJoin }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<span style="font:600 14px/1.45 Nunito,sans-serif;text-wrap:pretty">Un proche t’a donné un code ? Entre-le pour rejoindre sa famille et écouter ses histoires.</span>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font:800 11px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Code reçu</label><input value="{{ nfJoinCode }}" onChange="{{ setNfJoin }}" placeholder="TAN-0000" style="font:700 26px Fredoka,sans-serif;letter-spacing:.08em;text-align:center;text-transform:uppercase;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:12px 14px;background:#fff;outline:none"></div>
+</div>
+</sc-if>
+</div>
+<div style="flex:none;padding:12px 18px 22px;border-top:2.5px solid #1F1B3A;background:#FFF4D9">
+<div onClick="{{ saveNf }}" style="height:54px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ nfBtnBg }};opacity:{{ nfBtnOp }};box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 17px Fredoka,sans-serif;cursor:pointer">{{ nfBtnLabel }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ switcher }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="00c Changer de profil" style="position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end">
+<div onClick="{{ closeSwitcher }}" style="flex:1;background:rgba(31,27,58,.55)"></div>
+<div style="background:#FFF4D9;border-top:3px solid #1F1B3A;border-radius:30px 30px 0 0;padding:12px 22px 30px;display:flex;flex-direction:column;gap:18px">
+<div style="align-self:center;width:44px;height:6px;border-radius:3px;background:#1F1B3A;opacity:.3"></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font:600 22px Fredoka,sans-serif">Qui écoute ?</span><span style="font:700 12px Nunito,sans-serif;opacity:.7">{{ famName }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+<sc-for list="{{ switchProfiles }}" as="p" hint-placeholder-count="4">
+<div onClick="{{ p.onPick }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer">
+<div style="width:66px;height:66px;border-radius:22px;background:{{ p.hex }};border:{{ p.border }};box-shadow:{{ p.shadow }};display:flex;align-items:center;justify-content:center;font:700 28px Fredoka,sans-serif;box-sizing:border-box">{{ p.initial }}</div>
+<span style="font:800 13px Nunito,sans-serif">{{ p.name }}</span>
+<span style="font:800 10px Nunito,sans-serif;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-top:-4px">{{ p.role }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ switchToFamily }}" style="flex:1;height:48px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:800 14px Nunito,sans-serif;cursor:pointer">Gérer la famille</div>
+<div onClick="{{ logout }}" style="flex:1;height:48px;border-radius:14px;border:2.5px solid #1F1B3A;background:#FFF4D9;display:flex;align-items:center;justify-content:center;font:800 14px Nunito,sans-serif;cursor:pointer">Se déconnecter</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<div onClick="{{ fbOpen }}" style="position:absolute;right:26px;top:12px;z-index:25;height:30px;padding:0 10px;border-radius:15px;background:#B08CFF;border:2.5px solid #1F1B3A;box-shadow:2px 2px 0 #1F1B3A;display:flex;align-items:center;gap:5px;font:800 12px Nunito,sans-serif;cursor:pointer" style-active="transform:translate(2px,2px);box-shadow:none">💬 Avis</div>
+<sc-if value="{{ fb.open }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Avis" style="position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:flex-end">
+<div onClick="{{ fbClose }}" style="flex:1;background:rgba(31,27,58,.55)"></div>
+<div style="background:#FFF4D9;border-top:3px solid #1F1B3A;border-radius:30px 30px 0 0;padding:14px 20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 21px Fredoka,sans-serif">Ton avis sur cet écran</span><span style="font:800 11px Nunito,sans-serif;opacity:.7">{{ fb.label }}</span></div>
+<div style="display:flex;gap:10px">
+<sc-for list="{{ fbMoods }}" as="m" hint-placeholder-count="3"><div onClick="{{ m.onPick }}" style="flex:1;height:58px;border-radius:16px;border:2.5px solid #1F1B3A;background:{{ m.bg }};box-shadow:{{ m.shadow }};display:flex;flex-direction:column;align-items:center;justify-content:center;font:800 11px Nunito,sans-serif;cursor:pointer"><span style="font-size:22px;line-height:1">{{ m.e }}</span>{{ m.t }}</div></sc-for>
+</div>
+<textarea onChange="{{ fbSetText }}" placeholder="Qu’est-ce qui est clair, pas clair, manquant ?" style="height:74px;resize:none;font:600 14px/1.35 Nunito,sans-serif;color:#1F1B3A;border:2.5px solid #1F1B3A;border-radius:14px;padding:9px 11px;background:#fff;outline:none">{{ fb.text }}</textarea>
+<div style="display:flex;gap:10px">
+<div onClick="{{ fbSave }}" style="flex:1;height:48px;border-radius:14px;border:2.5px solid #1F1B3A;background:#4CD4A8;box-shadow:3px 3px 0 #1F1B3A;display:flex;align-items:center;justify-content:center;font:600 16px Fredoka,sans-serif;cursor:pointer">Enregistrer</div>
+<div onClick="{{ fbCopy }}" style="flex:1;height:48px;border-radius:14px;border:2.5px solid #1F1B3A;background:#fff;display:flex;align-items:center;justify-content:center;font:800 13px Nunito,sans-serif;cursor:pointer">{{ fbCopyLabel }}</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ analyzing }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(31,27,58,.55);display:flex;align-items:center;justify-content:center;padding:30px">
+<div style="background:#FFF4D9;border:3px solid #1F1B3A;border-radius:24px;box-shadow:5px 5px 0 #1F1B3A;padding:22px 24px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+<div style="display:flex;gap:6px"><sc-for list="{{ loaderDots }}" as="d" hint-placeholder-count="6"><span style="width:14px;height:14px;border-radius:50%;border:2px solid #1F1B3A;background:{{ d.hex }};transform:translateY({{ d.y }})"></span></sc-for></div>
+<span style="font:600 19px Fredoka,sans-serif">Je lis les pages…</span>
+<span style="font:600 14px Nunito,sans-serif;opacity:.75">Je repère les répliques et les personnages.</span>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;appName&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Lio&quot;,&quot;Kalli&quot;,&quot;Mnémo&quot;,&quot;Zumi&quot;,&quot;Benzi&quot;,&quot;Clio&quot;,&quot;Tantara&quot;],&quot;default&quot;:&quot;Kalli&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;register&quot;,&quot;profiles&quot;,&quot;library&quot;,&quot;scan&quot;,&quot;color&quot;,&quot;review&quot;,&quot;record&quot;,&quot;reader&quot;,&quot;kidHome&quot;,&quot;kidPerson&quot;,&quot;kidLibrary&quot;,&quot;kidReader&quot;,&quot;kidStory&quot;,&quot;kidRecord&quot;,&quot;family&quot;,&quot;addRelative&quot;,&quot;addFamily&quot;],&quot;default&quot;:&quot;login&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;castingMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Par personnage&quot;,&quot;Par réplique&quot;],&quot;default&quot;:&quot;Par personnage&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const VOICES=[
+{id:'coral',hex:'#FF7A6B',hex2:'#FF968A',member:'Lova',role:'Enfant'},
+{id:'sun',hex:'#FFC940',hex2:'#FFD76E',member:'Maman',role:'Parent'},
+{id:'mint',hex:'#4CD4A8',hex2:'#72DEBB',member:'Papa',role:'Parent'},
+{id:'sky',hex:'#6BB6FF',hex2:'#8CC6FF',member:'Mamie',role:'Proche'},
+{id:'grape',hex:'#B08CFF',hex2:'#C3A6FF',member:'Tonton',role:'Proche'},
+{id:'pink',hex:'#FF94C8',hex2:'#FFAED5',member:'Soa',role:'Enfant'}];
+const LINES=[
+{c:'Narrateur',t:'Au bord du lac Itasy, le petit zébu regardait les oiseaux s’envoler.'},
+{c:'Petit Zébu',t:'Maman, pourquoi je n’ai pas d’ailes, moi ?'},
+{c:'Maman Zébu',t:'Parce que tu as quatre pattes solides, mon trésor.'},
+{c:'Le Lémurien',t:'Moi, je peux t’apprendre à sauter très, très haut !'},
+{c:'Narrateur',t:'Et le lémurien bondit de branche en branche.'},
+{c:'Petit Zébu',t:'Attends-moi ! J’arrive !'},
+{c:'Grand-père Baobab',t:'Doucement, les enfants… je suis bien vieux, vous savez.'}];
+const CHARS=[...new Set(LINES.map(l=>l.c))];
+const DEFAULT={'Narrateur':'mint','Petit Zébu':'coral','Maman Zébu':'sun','Le Lémurien':'pink','Grand-père Baobab':'sky'};
+const V=id=>VOICES.find(v=>v.id===id);
+const REAL={};
+const DUR=i=>REAL[i]||Math.max(1800,LINES[i].t.length*60);
+const fmt=ms=>{const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const ORDER=['login','register','profiles','library','scan','color','review','record','reader','kidHome','kidPerson','kidLibrary','kidReader','kidStory','kidRecord','family','addRelative','addFamily'];
+const LABELS=['Connexion','Inscription','Profils','Bibliothèque','Scanner les pages','Colorier les voix','Vérifier','Studio d’enregistrement','Lecteur','Enfant · accueil','Enfant · histoires d’un proche','Enfant · plusieurs voix','Enfant · image + ding','Enfant · message reçu','Enfant · envoyer un message','Mes familles','Ajouter un proche','Ajouter une famille'];
+const RELS=['sun','mint','sky','grape'];
+const MSGS={sky:'Bonne nuit mon petit cœur, Mamie t’embrasse très fort !',grape:'Coucou champion ! Tonton t’a enregistré une nouvelle histoire.'};
+const SOLO={sun:['Le Caméléon timide','Ravo et la lune'],mint:['Trois petits lémuriens'],sky:['Ravo et la lune','La Baleine de Nosy Be','Le Zébu qui voulait voler'],grape:['Le Caméléon timide']};
+const BOOKCOL={'Le Caméléon timide':'mint','Ravo et la lune':'sun','Trois petits lémuriens':'grape','La Baleine de Nosy Be':'sky','Le Zébu qui voulait voler':'coral'};
+const MULTI=[['La Baleine de Nosy Be',['sky','sun','coral','mint']],['Trois petits lémuriens',['grape','pink','sun']],['Ravo et la lune',['sun','sky','grape','pink','coral']],['Le Zébu qui voulait voler',['mint','coral','sun','pink','sky']]];
+const PAGES=[[0,1,2],[3,4],[5,6]];
+const REPLY='Merci mon trésor ! J’ai adoré ton message. Gros bisous !';
+const STORY_MS=4000,MAX_MSG=5;
+const pushMsg=(arr,m)=>[m,...(arr||[]).map(x=>({...x,heard:true}))].slice(0,MAX_MSG);
+class Component extends DCLogic {
+  state={nBlobs:0,micErr:false,fb:{open:false,mood:'',text:''},fbCopied:false,imgDesc:'',tones:{},notes:{},switcher:false,lg:{email:'maman.rakoto@gmail.com',pw:'tantara2026',show:false,err:'',busy:false},rg:{name:'',email:'',pw:'',fam:'',terms:false},screen:'login',profile:1,pages:0,flash:false,analyzing:false,tick:0,sel:null,aChar:{},aLine:{},title:'Le Zébu qui voulait voler',saved:false,recorded:{},recVoice:null,recLine:null,recording:false,recMs:0,lastMs:{},published:false,playIdx:0,playT:0,playing:false,speed:1,readerTitle:'Le Zébu qui voulait voler',
+    heard:{},msgPlaying:null,
+    inbox:{sky:[{text:MSGS.sky,heard:false},{text:'Tu as bien dormi ?',heard:true},{text:'Joyeux anniversaire !',heard:true}],grape:[{text:MSGS.grape,heard:false}]},
+    sent:{},story:null,kr:{key:'sky',reply:false,phase:'idle',ms:0},wob:0,kVoice:'sky',kMode:'solo',kTitle:'',kPage:0,kLine:0,kT:0,kPlaying:false,kDing:false,kEnd:false,
+    extras:[],families:[{name:'Famille Rakoto',code:'TAN-4821',keys:null},{name:'Chez Mamie',code:'TAN-7730',keys:['sky','sun','coral']}],famIdx:0,copied:false,
+    nr:{name:'',role:'Proche',voice:'grape',invite:'WhatsApp'},nf:{mode:'Créer',name:'',join:''}};
+  componentDidMount(){const s=this.props.startScreen;if(s&&ORDER.includes(s))this.jump(s);this.wobT=setInterval(()=>{const q=this.state;if(q.kDing||(q.story&&!q.story.ended)||q.kr.phase==='rec')this.setState(x=>({wob:x.wob+1}))},90)}
+  componentWillUnmount(){clearInterval(this.recT);clearInterval(this.playTm);clearInterval(this.anT);clearInterval(this.kTm);clearInterval(this.wobT);clearTimeout(this.msgTo);clearInterval(this.stT);clearInterval(this.krT);clearTimeout(this.simT);clearTimeout(this.backT)}
+  openStory(key){const box=this.state.inbox[key];if(!box||!box[0]||box[0].heard)return;clearInterval(this.stT);
+    this.setState(s=>({screen:'kidStory',story:{key,t:0,ended:false,text:box[0].text},inbox:{...s.inbox,[key]:s.inbox[key].map((m,i)=>i===0?{...m,heard:true}:m)}}));
+    this.stT=setInterval(()=>this.setState(s=>{if(!s.story)return null;const t=s.story.t+100;if(t>=STORY_MS){clearInterval(this.stT);return {story:{...s.story,t:STORY_MS,ended:true}}}return {story:{...s.story,t}}}),100)}
+  openRec(key,reply){clearInterval(this.stT);clearInterval(this.krT);this.setState({screen:'kidRecord',story:null,kr:{key,reply,phase:'idle',ms:0}})}
+  krToggle=()=>{const k=this.state.kr;
+    if(k.phase==='idle'){this.setState({kr:{...k,phase:'rec',ms:0}});this.krT=setInterval(()=>this.setState(s=>{const ms=s.kr.ms+100;if(ms>=60000){clearInterval(this.krT);return {kr:{...s.kr,ms,phase:'done'}}}return {kr:{...s.kr,ms}}}),100)}
+    else if(k.phase==='rec'){clearInterval(this.krT);this.setState({kr:{...k,phase:k.ms<500?'idle':'done'}})}}
+  krSend=()=>{const key=this.state.kr.key;
+    this.setState(s=>({kr:{...s.kr,phase:'sent'},sent:{...s.sent,[key]:pushMsg(s.sent[key],{heard:false,ms:s.kr.ms})}}));
+    clearTimeout(this.backT);this.backT=setTimeout(()=>this.setState(s=>s.screen==='kidRecord'?{screen:'kidHome'}:null),1600);
+    clearTimeout(this.simT);this.simT=setTimeout(()=>this.setState(s=>({sent:{...s.sent,[key]:(s.sent[key]||[]).map((m,i)=>i===0?{...m,heard:true}:m)},inbox:{...s.inbox,[key]:pushMsg(s.inbox[key],{text:REPLY,heard:false})}})),7000)}
+  members(){return VOICES.map(v=>({key:v.id,member:v.member,role:v.role,hex:v.hex})).concat(this.state.extras)}
+  ding(){try{const A=this.ac||(this.ac=new (window.AudioContext||window.webkitAudioContext)());[1318.5,1760].forEach((f,k)=>{const o=A.createOscillator(),g=A.createGain();o.type='sine';o.frequency.value=f;const t=A.currentTime+k*.16;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+1.2);o.connect(g);g.connect(A.destination);o.start(t);o.stop(t+1.3)})}catch(e){}}
+  playMsg(id){clearTimeout(this.msgTo);this.setState({msgPlaying:id});this.msgTo=setTimeout(()=>this.setState(s=>({msgPlaying:null,heard:{...s.heard,[id]:true}})),4000)}
+  openKid(mode,voice,title){this.stopAll();this.setState({screen:'kidReader',kMode:mode,kVoice:voice||this.state.kVoice,kTitle:title,kPage:0,kLine:0,kT:0,kDing:false,kEnd:false,kPlaying:false});setTimeout(()=>this.kPlay(),350)}
+  kPlay=()=>{const s0=this.state;if(s0.kPlaying){if(this.au)this.au.pause();clearInterval(this.kTm);this.setState({kPlaying:false});return}if(s0.kDing||s0.kEnd)return;
+    this.setState({kPlaying:true});clearInterval(this.kTm);this.lineAudio(PAGES[s0.kPage][s0.kLine]);
+    this.kTm=setInterval(()=>{const s=this.state,pg=PAGES[s.kPage],li=pg[s.kLine],t=s.kT+100;
+      if(t<DUR(li)){this.setState({kT:t});return}
+      if(s.kLine<pg.length-1){this.setState({kLine:s.kLine+1,kT:0});this.lineAudio(pg[s.kLine+1]);return}
+      clearInterval(this.kTm);if(s.kPage<PAGES.length-1){this.setState({kPlaying:false,kDing:true,kT:DUR(li)});this.ding()}else this.setState({kPlaying:false,kEnd:true})},100)}
+  turned=()=>{this.setState(s=>({kPage:s.kPage+1,kLine:0,kT:0,kDing:false}));setTimeout(()=>this.kPlay(),250)}
+  rgOk(){const r=this.state.rg;return r.name.trim()&&/.+@.+\..+/.test(r.email)&&r.pw.length>=8&&r.terms}
+  blobs={};
+  startMic(li){this.chunks=[];this.mr=null;if(!navigator.mediaDevices||!window.MediaRecorder){this.setState({micErr:true});return}
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stm=>{if(!this.state.recording){stm.getTracks().forEach(t=>t.stop());return}const mr=new MediaRecorder(stm);this.mr=mr;mr.ondataavailable=e=>{if(e.data.size)this.chunks.push(e.data)};mr.onstop=()=>{stm.getTracks().forEach(t=>t.stop());this.blobs[li]=new Blob(this.chunks,{type:mr.mimeType});this.setState(x=>({nBlobs:x.nBlobs+1}))};mr.start();this.setState({micErr:false})}).catch(()=>this.setState({micErr:true}))}
+  stopMic(li,ms){REAL[li]=Math.max(1200,ms+200);if(this.mr&&this.mr.state==='recording')this.mr.stop()}
+  lineAudio(i){try{if(this.au){this.au.pause();this.au=null}const b=this.blobs[i];if(b){this.au=new Audio(URL.createObjectURL(b));this.au.play().catch(()=>{})}}catch(e){}}
+  byLine(){return this.props.castingMode==='Par réplique'}
+  colorOf(i,st=this.state){return this.byLine()?st.aLine[i]:st.aChar[LINES[i].c]}
+  jump(s){
+    this.stopAll();
+    if(s.startsWith('kid')){this.setState({screen:s,profile:0,kVoice:'sky'});if(s==='kidReader')this.openKid('solo','sky','Ravo et la lune');
+      if(s==='kidStory'){this.setState(x=>({inbox:{...x.inbox,sky:pushMsg(x.inbox.sky,{text:MSGS.sky,heard:false})}}));setTimeout(()=>this.openStory('sky'),0)}
+      if(s==='kidRecord')this.openRec('sky',false);return}
+    if(['family','addRelative','addFamily','login','register'].includes(s)){this.setState({screen:s,switcher:false});return}
+    const idx=['profiles','library','scan','color','review','record','reader'].indexOf(s);const patch={screen:s};
+    if(idx>=3&&this.state.pages===0)patch.pages=3;
+    if(idx>=4){const aLine={};LINES.forEach((l,i)=>aLine[i]=DEFAULT[l.c]);patch.aChar={...DEFAULT};patch.aLine=aLine;patch.saved=true}
+    if(idx===6){const r={};LINES.forEach((_,i)=>r[i]=true);patch.recorded=r;patch.published=true;patch.playIdx=0;patch.playT=0}
+    this.setState(patch);
+  }
+  go(s){this.stopAll();this.setState({screen:s})}
+  stopAll(){if(this.au)this.au.pause();clearInterval(this.recT);clearInterval(this.playTm);clearInterval(this.kTm);this.setState({recording:false,playing:false,kPlaying:false})}
+  capture=()=>{this.setState(s=>({pages:Math.min(s.pages+1,8),flash:true}));setTimeout(()=>this.setState({flash:false}),140)}
+  scanNext=()=>{if(!this.state.pages)return;this.setState({analyzing:true,tick:0});this.anT=setInterval(()=>this.setState(s=>({tick:s.tick+1})),120);setTimeout(()=>{clearInterval(this.anT);this.setState({analyzing:false,screen:'color',sel:0})},1500)}
+  pick(id){const {sel}=this.state;if(sel==null)return;
+    this.setState(s=>{const aChar={...s.aChar},aLine={...s.aLine};
+      if(this.byLine()){aLine[sel]=id}else{const c=LINES[sel].c;aChar[c]=id;LINES.forEach((l,i)=>{if(l.c===c)aLine[i]=id})}
+      const ns={...s,aChar,aLine};let next=null;for(let k=1;k<=LINES.length;k++){const j=(sel+k)%LINES.length;if(!this.colorOf(j,ns)){next=j;break}}
+      return {aChar,aLine,sel:next==null?sel:next}});}
+  allAssigned(){return LINES.every((_,i)=>this.colorOf(i))}
+  voicesUsed(){return VOICES.filter(v=>LINES.some((_,i)=>this.colorOf(i)===v.id))}
+  linesOf(id){return LINES.map((l,i)=>({...l,i})).filter(l=>this.colorOf(l.i)===id)}
+  curRec(){const vs=this.voicesUsed();const vid=this.state.recVoice&&vs.find(v=>v.id===this.state.recVoice)?this.state.recVoice:(vs[0]&&vs[0].id);
+    const ls=this.linesOf(vid);let li=this.state.recLine;if(li==null||!ls.find(l=>l.i===li)){const u=ls.find(l=>!this.state.recorded[l.i]);li=(u||ls[0]||{i:0}).i}
+    return {vid,li,ls}}
+  toggleRec=()=>{const {vid,li}=this.curRec();
+    if(!this.state.recording){this.setState({recording:true,recMs:0,recVoice:vid,recLine:li});this.startMic(li);this.recT=setInterval(()=>this.setState(s=>({recMs:s.recMs+100})),100)}
+    else{clearInterval(this.recT);this.stopMic(li,this.state.recMs);this.setState(s=>{const recorded={...s.recorded,[li]:true};const lastMs={...s.lastMs,[li]:s.recMs};
+      let nv=vid,nl=null;const mine=this.linesOf(vid).find(l=>!recorded[l.i]);
+      if(mine)nl=mine.i;else{for(const v of this.voicesUsed()){const u=this.linesOf(v.id).find(l=>!recorded[l.i]);if(u){nv=v.id;nl=u.i;break}}}
+      return {recording:false,recorded,lastMs,recVoice:nv,recLine:nl==null?li:nl}})}}
+  togglePlay=()=>{if(this.state.playing){if(this.au)this.au.pause();clearInterval(this.playTm);this.setState({playing:false});return}
+    if(this.state.playIdx>=LINES.length-1&&this.state.playT>=DUR(LINES.length-1))this.setState({playIdx:0,playT:0});
+    this.setState({playing:true});this.lineAudio(this.state.playIdx);
+    this.playTm=setInterval(()=>this.setState(s=>{let t=s.playT+100*s.speed,i=s.playIdx;if(t>=DUR(i)){if(i>=LINES.length-1){clearInterval(this.playTm);return {playT:DUR(i),playing:false}}i++;t=0;this.lineAudio(i)}return {playIdx:i,playT:t}}),100)}
+  seek(i){this.setState({playIdx:Math.max(0,Math.min(LINES.length-1,i)),playT:0})}
+  renderVals(){
+    const st=this.state,s=st.screen,me=VOICES[st.profile];
+    const profiles=[0,1,2,3].map(k=>({name:VOICES[k].member,role:VOICES[k].role,hex:VOICES[k].hex,initial:VOICES[k].member[0],onPick:()=>this.setState({profile:k,screen:VOICES[k].role==='Enfant'?'kidHome':'library'})}));
+    const members=this.members();
+    const kidRels=RELS.map(id=>({key:id,member:V(id).member,hex:V(id).hex})).concat(st.extras.filter(x=>x.role!=='Enfant'));
+    const rels=kidRels.map(m=>{const ib=st.inbox[m.key],has=ib&&ib[0]&&!ib[0].heard,sm=st.sent[m.key]&&st.sent[m.key][0];return {id:m.key,hex:m.hex,member:m.member,hasMsg:!!has,playing:false,idle:true,sentTag:!!sm,sentLabel:sm&&sm.heard?'A écouté ✓':'Envoyé',bars:[0,1,2,3,4].map(k=>({h:Math.round(6+Math.abs(Math.sin(st.wob*.7+k*1.3))*12)+'px'})),onFace:()=>this.setState({screen:'kidPerson',kVoice:m.key}),onMsg:()=>this.openStory(m.key)}});
+    const stm=members.find(m=>m.key===(st.story&&st.story.key))||members[3],krm=members.find(m=>m.key===st.kr.key)||members[3],kph=st.kr.phase,stOn=!!(st.story&&!st.story.ended);
+    const kpm=members.find(m=>m.key===st.kVoice)||members[3];
+    const soloBooks=(SOLO[kpm.key]||[]).map(t=>{const c=V(BOOKCOL[t]);return {title:t,hex:c.hex,hex2:c.hex2,onPlay:()=>this.openKid('solo',kpm.key,t)}});
+    const kli=PAGES[st.kPage][st.kLine],kvId=st.kMode==='solo'?st.kVoice:DEFAULT[LINES[kli].c],kvm=members.find(m=>m.key===kvId)||members[0];
+    const pgDur=PAGES[st.kPage].reduce((a,i)=>a+DUR(i),0),pgEl=PAGES[st.kPage].slice(0,st.kLine).reduce((a,i)=>a+DUR(i),0)+st.kT;
+    const fam=st.families[st.famIdx];
+    const famMembers=(fam.keys?members.filter(m=>fam.keys.includes(m.key)&&!m.fam&&m.fam!==0):VOICES.map(v=>({key:v.id,member:v.member,role:v.role,hex:v.hex}))).concat(st.extras.filter(x=>x.fam===st.famIdx)).map(m=>({...m,initial:m.member[0],status:m.invited?'Invité':'Actif',statusBg:m.invited?'#FFF4D9':'#4CD4A8'}));
+    const chip=(cur,label,on)=>({label,bg:cur===label?'#1F1B3A':'#fff',ink:cur===label?'#FFF4D9':'#1F1B3A',onPick:on});
+    const nrOk=st.nr.name.trim().length>0,newKey='x'+(st.extras.length+1);
+    const nfCode='TAN-'+(5093+st.families.length*311),nfOk=st.nf.mode==='Créer'?st.nf.name.trim().length>0:/^TAN-?\d{4}$/i.test(st.nf.join.trim());
+    const setNr=p=>this.setState(s=>({nr:{...s.nr,...p}})),setNf=p=>this.setState(s=>({nf:{...s.nf,...p}}));
+    const dotsOf=ids=>ids.map(id=>({hex:V(id).hex}));
+    const books=[];
+    if(st.saved)books.push({title:st.title,hex:'#FF7A6B',hex2:'#FF968A',status:st.published?'Prêt':'À enregistrer',badgeBg:st.published?'#4CD4A8':'#FFF4D9',badgeInk:'#1F1B3A',dots:dotsOf(this.voicesUsed().map(v=>v.id)),onOpen:()=>st.published?this.setState({screen:'reader',readerTitle:st.title,playIdx:0,playT:0}):this.go('record')});
+    [['La Baleine de Nosy Be','sky',['sky','sun','coral','mint']],['Trois petits lémuriens','grape',['grape','pink','sun']],['Le Caméléon timide','mint',['mint','coral']],['Ravo et la lune','sun',['sun','sky','grape','pink','coral']]].forEach(([t,c,ds])=>books.push({title:t,hex:V(c).hex,hex2:V(c).hex2,status:'Prêt',badgeBg:'#4CD4A8',badgeInk:'#1F1B3A',dots:dotsOf(ds),onOpen:()=>{this.jump('reader');this.setState({readerTitle:t})}}));
+    const step=s==='scan'?1:s==='color'?2:3;
+    const assigned=CHARS.filter(c=>LINES.some((l,i)=>l.c===c&&this.colorOf(i))).length;
+    const colorLines=LINES.map((l,i)=>{const id=this.colorOf(i),v=id&&V(id),sel=st.sel===i;return {c:l.c,t:l.t,who:v?v.member:'à colorier',bg:v?v.hex:'#fff',border:v?'solid':'dashed',shadow:sel?'5px 5px 0 #1F1B3A':(v?'3px 3px 0 #1F1B3A':'none'),tf:sel?'translate(-2px,-2px)':'none',fs:l.c==='Narrateur'?'italic':'normal',note:st.notes[i]||'',showNote:!!st.notes[i]&&!sel,editNote:sel,onNote:e=>{const val=e.target.value;this.setState(x=>({notes:{...x.notes,[i]:val}}))},onTap:()=>this.setState({sel:i})}});
+    const selId=st.sel!=null&&this.colorOf(st.sel);
+    const palette=VOICES.map(v=>({hex:v.hex,member:v.member,initial:v.member[0],op:st.sel==null?.4:1,ring:selId===v.id?'0 0 0 3px #fff, 0 0 0 5.5px #1F1B3A':'2px 2px 0 #1F1B3A',onPick:()=>this.pick(v.id)}));
+    const all=this.allAssigned();const selV=selId&&V(selId);
+    const cast=this.voicesUsed().map(v=>{const ls=this.linesOf(v.id);return {hex:v.hex,member:v.member,initial:v.member[0],chars:[...new Set(ls.map(l=>l.c))].join(', '),count:ls.length}});
+    const {vid,li,ls}=this.curRec();const cv=V(vid)||VOICES[0];const done=Object.keys(st.recorded).length;
+    const isRec=st.recording,wasRec=st.recorded[li];
+    const wave=Array.from({length:30},(_,k)=>{let h;if(isRec)h=8+Math.abs(Math.sin(k*1.7+st.recMs/90))*38*(0.45+0.55*Math.abs(Math.sin(k*.5+st.recMs/400)));else if(wasRec)h=8+Math.abs(Math.sin(k*2.3+li))*30;else h=5;return {h:h+'px',o:isRec||wasRec?1:.3}});
+    const voiceTabs=this.voicesUsed().map(v=>{const l=this.linesOf(v.id);const d=l.filter(x=>st.recorded[x.i]).length;const a=v.id===vid;return {hex:v.hex,member:v.member,initial:v.member[0],progress:d+'/'+l.length,bg:a?v.hex:'#fff',shadow:a?'3px 3px 0 #1F1B3A':'none',onPick:()=>{if(!st.recording)this.setState({recVoice:v.id,recLine:null})}}});
+    const voiceLines=ls.map(l=>({t:l.t,done:!!st.recorded[l.i],dot:st.recorded[l.i]?cv.hex:'#fff',bg:l.i===li?'#FFF4D9':'#fff',onTap:()=>{if(!st.recording)this.setState({recLine:l.i})}}));
+    const totalMs=LINES.reduce((a,_,i)=>a+DUR(i),0);const elapsedMs=LINES.slice(0,st.playIdx).reduce((a,_,i)=>a+DUR(i),0)+st.playT;
+    const readLines=LINES.map((l,i)=>{const v=V(this.colorOf(i)||DEFAULT[l.c]);const on=i===st.playIdx;return {t:l.t,hex:v.hex,bg:on?v.hex:'transparent',border:on?'#1F1B3A':'transparent',shadow:on?'3px 3px 0 #1F1B3A':'none',font:l.c==='Narrateur'?'500 16px/1.45 Nunito,sans-serif':'700 17px/1.4 Nunito,sans-serif',fs:l.c==='Narrateur'?'italic':'normal',onTap:()=>this.seek(i)}});
+    const segs=LINES.map((l,i)=>{const v=V(this.colorOf(i)||DEFAULT[l.c]);return {hex:v.hex,flex:DUR(i),o:i<=st.playIdx?1:.35,fill:i===st.playIdx?Math.round(st.playT/DUR(i)*100)+'%':'0%',onTap:()=>this.seek(i)}});
+    const nl=LINES[st.playIdx],nv=V(this.colorOf(st.playIdx)||DEFAULT[nl.c]);
+    const dark=s==='reader'?false:false;
+    return {
+      screenLinks:ORDER.map((k,i)=>({n:i+1,label:LABELS[i],bg:k===s?'#FFC940':'#FFF4D9',onGo:()=>this.jump(k)})),
+      statusBg:s==='kidStory'?stm.hex:'#FFF4D9',
+      isKidStory:s==='kidStory',stv:{id:stm.key,hex:stm.hex,member:stm.member},stText:st.story?st.story.text:'',
+      stPct:(st.story?Math.round(st.story.t/STORY_MS*100):0)+'%',stEnded:!!(st.story&&st.story.ended),stPlaying:stOn,
+      stBars:Array.from({length:11},(_,k)=>({h:(stOn?Math.round(10+Math.abs(Math.sin(st.wob*.6+k*1.1))*44):8)+'px'})),
+      stClose:()=>{clearInterval(this.stT);this.setState({screen:'kidHome',story:null})},stReply:()=>this.openRec(stm.key,true),
+      isKidRecord:s==='kidRecord',kr:{id:krm.key,hex:krm.hex,member:krm.member},krTitle:(st.kr.reply?'Réponds à ':'Un message pour ')+krm.member,
+      krIdle:kph==='idle',krRec:kph==='rec',krDone:kph==='done',krSent:kph==='sent',krTime:fmt(st.kr.ms),
+      krRing:kph==='rec'?'0 0 0 8px #FFF4D9, 0 0 0 11px '+krm.hex+', 5px 5px 0 11px #1F1B3A':'5px 5px 0 #1F1B3A',
+      krBars:Array.from({length:24},(_,k)=>({h:(kph==='rec'?Math.round(8+Math.abs(Math.sin(st.wob*.8+k*1.4))*46*(.4+.6*Math.abs(Math.sin(k*.4+st.wob*.2)))):kph==='idle'?6:Math.round(8+Math.abs(Math.sin(k*2.1))*34))+'px',o:kph==='idle'?.3:1})),
+      krToggle:this.krToggle,krRedo:()=>this.setState(x=>({kr:{...x.kr,phase:'idle',ms:0}})),krSend:this.krSend,
+      kpSend:()=>this.openRec(kpm.key,false),statusInk:'#1F1B3A',
+      isProfiles:s==='profiles',isLibrary:s==='library',isScan:s==='scan',isColor:s==='color',isReview:s==='review',isRecord:s==='record',isReader:s==='reader',
+      inCreate:['scan','color','review'].includes(s),
+      profiles,me:{name:me.member,hex:me.hex,initial:me.member[0]},books,bookCount:books.length,
+      goProfiles:()=>this.go('profiles'),goLibrary:()=>this.go('library'),goScan:()=>this.setState({screen:'scan',pages:0,aChar:{},aLine:{},sel:null,recorded:{},published:false,saved:false,recLine:null,recVoice:null}),
+      openContinue:()=>{this.jump('reader');this.setState({readerTitle:'La Baleine de Nosy Be'})},
+      back:()=>this.go(s==='scan'?'library':s==='color'?'scan':'color'),
+      step,stepTitle:['Scanner les pages','Colorier les voix','Vérifier'][step-1],
+      stepDots:[1,2,3].map(n=>({w:n===step?'26px':'10px',bg:n<=step?'#1F1B3A':'#fff'})),
+      scanHint:st.pages?'Page '+(st.pages+1)+' dans le cadre':'Place la page dans le cadre',flash:st.flash,
+      pageThumbs:Array.from({length:st.pages},(_,k)=>({n:k+1})),noPages:!st.pages,pageCountLabel:st.pages?st.pages+(st.pages>1?' pages':' page'):'',
+      capture:this.capture,scanNext:this.scanNext,scanNextBg:st.pages?'#FFC940':'#fff',scanNextOp:st.pages?1:.45,
+      analyzing:st.analyzing,loaderDots:VOICES.map((v,k)=>({hex:v.hex,y:(Math.sin(st.tick*.9+k*.8)*5).toFixed(1)+'px'})),
+      imgDesc:st.imgDesc,setImgDesc:e=>this.setState({imgDesc:e.target.value}),
+      hasTone:!!selV,toneName:selV?selV.member:'',toneVal:selV?(st.tones[selV.id]||''):'',setTone:e=>{const val=e.target.value;if(selV)this.setState(x=>({tones:{...x.tones,[selV.id]:val}}))},
+      castHint:assigned+'/'+CHARS.length+' personnages ont une voix.',colorLines,palette,
+      colorNext:()=>{if(all)this.go('review')},colorNextBg:all?'#FFC940':'#fff',colorNextOp:all?1:.5,colorNextLabel:all?'Suivant':'Encore '+LINES.filter((_,i)=>!this.colorOf(i)).length+' répliques à colorier',
+      title:st.title,setTitle:e=>this.setState({title:e.target.value}),pagesLabel:st.pages+(st.pages>1?' pages':' page'),lineCount:LINES.length,cast,
+      save:()=>this.setState({saved:true,screen:'record',recVoice:null,recLine:null}),
+      recPct:Math.round(done/LINES.length*100)+'%',recDone:done,voiceTabs,voiceLines,
+      cur:{hex:cv.hex,member:cv.member,c:LINES[li].c,t:LINES[li].t,img:st.imgDesc,hasImg:!!st.imgDesc,tone:st.tones[cv.id]||'',hasTone:!!st.tones[cv.id],note:st.notes[li]||'',hasNote:!!st.notes[li],hasAudio:!!this.blobs[li]&&!isRec,state:st.micErr?'Micro bloqué':isRec?'● Enregistrement':wasRec?'Enregistré':'Prêt'},wave,
+      allRecorded:done===LINES.length&&!isRec,notAllRecorded:!(done===LINES.length&&!isRec),
+      recording:isRec,notRecording:!isRec,toggleRec:this.toggleRec,recBtnBg:isRec?cv.hex:'#FF7A6B',
+      recTime:fmt(isRec?st.recMs:(st.lastMs[li]||0)),recLabel:isRec?'Touche pour finir':wasRec?'Enregistré':'Touche le micro',
+      redo:()=>{if(st.recording||!wasRec)return;this.setState(x=>{const r={...x.recorded};delete r[li];return {recorded:r,recLine:li}})},redoOp:wasRec&&!isRec?1:.35,
+      publish:()=>this.setState({published:true,screen:'reader',readerTitle:st.title,playIdx:0,playT:0}),
+      readerTitle:st.readerTitle,readLines,segs,now:{hex:nv.hex,initial:nv.member[0],member:nv.member,c:nl.c},
+      elapsed:fmt(elapsedMs),total:fmt(totalMs),playing:st.playing,paused:!st.playing,togglePlay:this.togglePlay,
+      prevLine:()=>this.seek(st.playIdx-(st.playT>800?0:1)),nextLine:()=>this.seek(st.playIdx+1),
+      isKidHome:s==='kidHome',isKidPerson:s==='kidPerson',isKidLibrary:s==='kidLibrary',isKidReader:s==='kidReader',
+      goKidHome:()=>this.go('kidHome'),goKidLibrary:()=>this.go('kidLibrary'),
+      rels,msgText:st.msgPlaying?MSGS[st.msgPlaying]:'',stackDots:RELS.map(id=>({hex:V(id).hex,initial:V(id).member[0]})),
+      kp:{id:kpm.key,hex:kpm.hex,member:kpm.member},soloBooks,
+      multiBooks:MULTI.map(([t,ds])=>{const c=V(BOOKCOL[t]);return {title:t,hex:c.hex,hex2:c.hex2,dots:dotsOf(ds),onPlay:()=>this.openKid('multi',null,t)}}),
+      kPages:PAGES.map((_,i)=>({w:i===st.kPage?'30px':'14px',bg:i<=st.kPage?'#1F1B3A':'#fff'})),kPageN:st.kPage+1,kPagePct:Math.min(100,Math.round(pgEl/pgDur*100))+'%',
+      kNow:{hex:kvm.hex,member:kvm.member,initial:kvm.member[0]},kFaces:members.map(m=>({id:m.key,member:m.member,display:m.key===kvm.key?'block':'none'})),
+      kDing:st.kDing,kEnd:st.kEnd,kPlaying:st.kPlaying,kNotPlaying:!st.kPlaying,kPlay:this.kPlay,turned:this.turned,
+      kReplay:()=>this.openKid(st.kMode,st.kVoice,st.kTitle),bellRot:(Math.sin(st.wob*.9)*16).toFixed(1)+'deg',
+      isFamily:s==='family',isAddRelative:s==='addRelative',isAddFamily:s==='addFamily',
+      goFamily:()=>this.go('family'),
+      goAddRelative:()=>this.setState({screen:'addRelative',nr:{name:'',role:'Proche',voice:'grape',invite:'WhatsApp'}}),
+      goAddFamily:()=>this.setState({screen:'addFamily',nf:{mode:'Créer',name:'',join:''}}),
+      families:st.families.map((f,i)=>({name:f.name,bg:i===st.famIdx?'#FFC940':'#fff',shadow:i===st.famIdx?'3px 3px 0 #1F1B3A':'none',onPick:()=>this.setState({famIdx:i,copied:false})})),
+      fam:{name:fam.name,code:fam.code},famMembers,famCount:famMembers.length,
+      copyCode:()=>{this.setState({copied:true});setTimeout(()=>this.setState({copied:false}),1500)},copyLabel:st.copied?'Copié !':'Partager',
+      newKey,nrName:st.nr.name,setNrName:e=>setNr({name:e.target.value}),nrHex:V(st.nr.voice).hex,
+      nrRoles:['Parent','Proche','Enfant'].map(r=>chip(st.nr.role,r,()=>setNr({role:r}))),
+      nrRoleHint:{Parent:'Peut créer des livres et gérer la famille.',Proche:'Enregistre des histoires et laisse des messages à l’enfant.',Enfant:'Écoute les histoires, sans réglages ni création.'}[st.nr.role],
+      nrColors:VOICES.map(v=>({hex:v.hex,ring:st.nr.voice===v.id?'0 0 0 3px #FFF4D9, 0 0 0 5.5px #1F1B3A':'2px 2px 0 #1F1B3A',onPick:()=>setNr({voice:v.id})})),
+      nrInvites:['SMS','WhatsApp','E-mail'].map(r=>chip(st.nr.invite,r,()=>setNr({invite:r}))),
+      nrBtnBg:nrOk?'#FFC940':'#fff',nrBtnOp:nrOk?1:.5,
+      saveNr:()=>{if(!nrOk)return;this.setState(x=>({extras:[...x.extras,{key:newKey,member:x.nr.name.trim(),role:x.nr.role,hex:V(x.nr.voice).hex,fam:x.famIdx,invited:true}],screen:'family'}))},
+      nfModes:['Créer','Rejoindre'].map(m=>chip(st.nf.mode,m,()=>setNf({mode:m}))),nfCreate:st.nf.mode==='Créer',nfJoin:st.nf.mode==='Rejoindre',
+      nfName:st.nf.name,setNfName:e=>setNf({name:e.target.value}),nfCode,nfJoinCode:st.nf.join,setNfJoin:e=>setNf({join:e.target.value.toUpperCase()}),
+      nfBtnBg:nfOk?'#FFC940':'#fff',nfBtnOp:nfOk?1:.5,nfBtnLabel:st.nf.mode==='Créer'?'Créer la famille':'Rejoindre la famille',
+      saveNf:()=>{if(!nfOk)return;this.setState(x=>{const f=x.nf.mode==='Créer'?{name:x.nf.name.trim(),code:nfCode,keys:[VOICES[x.profile].id]}:{name:'Famille Randria',code:x.nf.join.trim(),keys:['sky','grape','pink']};return {families:[...x.families,f],famIdx:x.families.length,screen:'family'}})},
+      appName:this.props.appName||'Kalli',
+      listenCur:()=>this.lineAudio(li),
+      fb:{open:st.fb.open,text:st.fb.text,label:LABELS[ORDER.indexOf(s)]||s},fbBottom:['library','kidHome'].includes(s)?'96px':'16px',
+      fbOpen:()=>this.setState(x=>({fb:{open:true,mood:'',text:''},fbCopied:false})),fbClose:()=>this.setState(x=>({fb:{...x.fb,open:false}})),
+      fbSetText:e=>{const v=e.target.value;this.setState(x=>({fb:{...x.fb,text:v}}))},
+      fbMoods:[['😍','J’adore','love','#4CD4A8'],['🙂','Ça va','ok','#FFC940'],['😕','Pas clair','bad','#FF7A6B']].map(([e,t,k,c])=>({e,t,bg:st.fb.mood===k?c:'#fff',shadow:st.fb.mood===k?'3px 3px 0 #1F1B3A':'none',onPick:()=>this.setState(x=>({fb:{...x.fb,mood:k}}))})),
+      fbSave:()=>{try{const L=JSON.parse(localStorage.getItem('kalli_fb')||'[]');L.push({ecran:LABELS[ORDER.indexOf(s)]||s,profil:VOICES[st.profile].member,humeur:st.fb.mood,avis:st.fb.text,date:new Date().toISOString()});localStorage.setItem('kalli_fb',JSON.stringify(L))}catch(e){}this.setState(x=>({fb:{...x.fb,open:false}}))},
+      fbCopy:()=>{try{navigator.clipboard.writeText(localStorage.getItem('kalli_fb')||'[]');this.setState({fbCopied:true});setTimeout(()=>this.setState({fbCopied:false}),1600)}catch(e){}},fbCopyLabel:st.fbCopied?'Copié !':'Copier tous les avis',
+      isLogin:s==='login',isRegister:s==='register',authDots:VOICES.map(v=>({hex:v.hex})),
+      lgEmail:st.lg.email,lgPw:st.lg.pw,lgPwType:st.lg.show?'text':'password',pwToggleLabel:st.lg.show?'Cacher':'Voir',lgError:st.lg.err,lgBtnLabel:st.lg.busy?'Connexion…':'Se connecter',
+      setLgEmail:e=>this.setState(x=>({lg:{...x.lg,email:e.target.value,err:''}})),setLgPw:e=>this.setState(x=>({lg:{...x.lg,pw:e.target.value,err:''}})),
+      togglePw:()=>this.setState(x=>({lg:{...x.lg,show:!x.lg.show}})),
+      doLogin:()=>{const l=st.lg;if(!/.+@.+\..+/.test(l.email)||!l.pw){this.setState({lg:{...l,err:'Entre ton e-mail et ton mot de passe.'}});return}
+        this.setState({lg:{...l,busy:true}});setTimeout(()=>this.setState(x=>({lg:{...x.lg,busy:false},screen:'profiles'})),700)},
+      goRegister:()=>this.go('register'),goLogin:()=>this.go('login'),
+      rgName:st.rg.name,rgEmail:st.rg.email,rgPw:st.rg.pw,rgFam:st.rg.fam,rgTerms:st.rg.terms,termsBg:st.rg.terms?'#4CD4A8':'#fff',
+      setRgName:e=>this.setState(x=>({rg:{...x.rg,name:e.target.value}})),setRgEmail:e=>this.setState(x=>({rg:{...x.rg,email:e.target.value}})),
+      setRgPw:e=>this.setState(x=>({rg:{...x.rg,pw:e.target.value}})),setRgFam:e=>this.setState(x=>({rg:{...x.rg,fam:e.target.value}})),
+      toggleTerms:()=>this.setState(x=>({rg:{...x.rg,terms:!x.rg.terms}})),
+      pwBars:[0,1,2,3].map(k=>{const p=st.rg.pw,sc=(p.length>=8)+(/[A-Z]/.test(p))+(/\d/.test(p))+(/[^A-Za-z0-9]/.test(p))+(p.length>=12)-1;return {bg:p&&k<=sc?['#FF7A6B','#FFC940','#6BB6FF','#4CD4A8'][Math.max(0,sc)]:'#fff'}}),
+      rgBtnBg:this.rgOk()?'#FFC940':'#fff',rgBtnOp:this.rgOk()?1:.5,
+      doRegister:()=>{if(!this.rgOk())return;this.setState(x=>{const f=[...x.families];f[0]={...f[0],name:x.rg.fam.trim()||'Ma famille'};return {families:f,screen:'profiles',famIdx:0}})},
+      switcher:st.switcher,openSwitcher:()=>this.setState({switcher:true}),closeSwitcher:()=>this.setState({switcher:false}),famName:st.families[st.famIdx].name,
+      switchProfiles:[0,1,2,3].map(k=>{const v=VOICES[k],on=k===st.profile;return {name:v.member,role:v.role,hex:v.hex,initial:v.member[0],border:on?'3px solid #1F1B3A':'2.5px solid #1F1B3A',shadow:on?'0 0 0 3px #FFF4D9, 0 0 0 5.5px #1F1B3A':'3px 3px 0 #1F1B3A',onPick:()=>{this.stopAll();this.setState({profile:k,switcher:false,screen:v.role==='Enfant'?'kidHome':'library'})}}}),
+      switchToFamily:()=>this.setState({switcher:false,screen:'family'}),
+      logout:()=>{this.stopAll();this.setState({switcher:false,screen:'login'})},
+      speedLabel:st.speed+'×',cycleSpeed:()=>this.setState(x=>({speed:x.speed===1?1.25:x.speed===1.25?0.75:1}))
+    };
+  }
+}
+</script>
+</body>
+</html>
