@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     ssr: false,
     css: ['~/assets/css/main.css'],
     nitro: {
-        externals: { inline: ['postgres'] },
+        noExternals: true,
     },
     runtimeConfig: {
         public: {

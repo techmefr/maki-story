@@ -4312,7 +4312,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "77f59a95-c344-4277-bd4c-dc60251568cc",
+    "buildId": "391c1995-8868-4b12-bc0d-1314141b28da",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -7590,7 +7590,7 @@ const _lazy_sT2Xxa = () => import('../routes/api/index4.post.mjs');
 const _lazy_VmPbpj = () => import('../routes/api/messages/_id/listen.post.mjs');
 const _lazy_FeY_4W = () => import('../routes/api/index4.get.mjs');
 const _lazy_MYDw0r = () => import('../routes/api/index5.post.mjs');
-const _lazy_RMWy_0 = () => import('../routes/renderer.mjs');
+const _lazy_r6uuRZ = () => import('../routes/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _eTHiSc, lazy: false, middleware: true, method: undefined },
@@ -7615,9 +7615,9 @@ const handlers = [
   { route: '/api/messages/:id/listen', handler: _lazy_VmPbpj, lazy: true, middleware: false, method: "post" },
   { route: '/api/messages', handler: _lazy_FeY_4W, lazy: true, middleware: false, method: "get" },
   { route: '/api/messages', handler: _lazy_MYDw0r, lazy: true, middleware: false, method: "post" },
-  { route: '/__nuxt_error', handler: _lazy_RMWy_0, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_r6uuRZ, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_RMWy_0, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_r6uuRZ, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -7832,5 +7832,5 @@ const listener = function(req, res) {
   return handler(req, res);
 };
 
-export { SESSION_COOKIE as S, startSession as a, deleteCookie as b, createError$1 as c, defineEventHandler as d, setResponseHeader as e, getHeader as f, getDb as g, hasSession as h, readRawBody as i, getRouterParam as j, encodePath as k, joinRelativeURL as l, defineRenderHandler as m, getQuery as n, one as o, destr as p, getRouteRules as q, readBody as r, safeEqual as s, joinURL as t, useRuntimeConfig as u, getResponseStatusText as v, getResponseStatus as w, useNitroApp as x, listener as y };
+export { SESSION_COOKIE as S, startSession as a, deleteCookie as b, createError$1 as c, defineEventHandler as d, setResponseHeader as e, getHeader as f, getDb as g, hasSession as h, readRawBody as i, getRouterParam as j, encodePath as k, joinRelativeURL as l, defineRenderHandler as m, getQuery as n, one as o, destr as p, getRouteRules as q, readBody as r, safeEqual as s, joinURL as t, useRuntimeConfig as u, getResponseStatusText as v, withLeadingSlash as w, getResponseStatus as x, useNitroApp as y, listener as z };
 //# sourceMappingURL=nitro.mjs.map
