@@ -3,17 +3,18 @@
         <h1 class="title">Bibliothèque</h1>
         <GrimaceNudge />
         <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
+            <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">Écouter</span>
         </NuxtLink>
-        <NuxtLink to="/books/new" class="btn btn--block">Nouveau livre</NuxtLink>
+        <NuxtLink to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />Nouveau livre</NuxtLink>
         <div v-if="books.length === 0 && isLoaded" class="card center stack">
             <AppMaki :size="80" />
             <p class="subtitle">Aucun livre pour l’instant</p>
             <p class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
         </div>
         <div class="grid grid--books">
-            <BookCard v-for="book in books" :key="book.id" :book="book" />
+            <BookCard v-for="(book, index) in books" :key="book.id" :book="book" class="pop-in" :style="{ '--i': index }" />
         </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="stack">
-        <NuxtLink to="/kid" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/kid" class="btn btn--round btn--white" aria-label="Retour"><AppIcon name="back" :size="26" /></NuxtLink>
         <h1 class="title">Histoires à plusieurs voix</h1>
         <div class="grid grid--books">
         <NuxtLink

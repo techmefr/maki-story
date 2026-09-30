@@ -5,7 +5,14 @@
             <button type="button" class="btn btn--small btn--white" @click="leave">Se déconnecter</button>
         </div>
         <h1 class="title">Qui écoute ?</h1>
-        <button v-for="member in members" :key="member.id" type="button" class="card card--tap row" @click="choose(member)">
+        <button
+            v-for="(member, index) in members"
+            :key="member.id"
+            type="button"
+            class="card card--tap row pop-in"
+            :style="{ '--i': index }"
+            @click="choose(member)"
+        >
             <AppAvatar :member="member" :size="60" />
             <div class="grow">
                 <div class="subtitle">{{ member.name }}</div>

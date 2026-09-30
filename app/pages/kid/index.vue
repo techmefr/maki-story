@@ -3,7 +3,7 @@
         <h1 class="title">Coucou {{ current?.name }} !</h1>
         <GrimaceNudge />
         <div class="faces">
-            <div v-for="face in faces" :key="face.member.id" class="face">
+            <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="`/kid/${face.member.id}`" class="face__link">
                     <AppAvatar :member="face.member" :size="124" />
                     <span class="subtitle">{{ face.member.name }}</span>
@@ -14,11 +14,13 @@
                     class="face__bubble anim-bounce"
                     :style="{ background: face.hex }"
                 >
+                    <AppIcon name="message-heart" :size="22" motion="wiggle" />
                     Message
                 </NuxtLink>
             </div>
         </div>
         <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
+            <AppIcon name="book" :size="44" motion="float" />
             <span class="subtitle">Histoires à plusieurs voix</span>
             <VoiceDots :member-ids="faceIds" />
         </NuxtLink>
@@ -81,6 +83,9 @@ onBeforeUnmount(stopPolling)
     position: absolute;
     top: -6px;
     right: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     padding: 8px 14px;

@@ -1,6 +1,6 @@
 <template>
     <div class="stack center narrow" style="margin-top: 6vh">
-        <AppMaki :size="110" />
+        <AppMaki :size="110" class="anim-float" />
         <h1 class="title">Tantara</h1>
         <p class="muted">Les livres de la maison, lus par toute la famille.</p>
         <form class="card stack" style="width: 100%; text-align: left" @submit.prevent="submit">

@@ -11,17 +11,18 @@
         <div class="subtitle">{{ prompt }}</div>
         <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
         <template v-if="phase === 'idle'">
-            <button type="button" class="btn btn--block" @click="openCamera">Ouvrir la caméra</button>
+            <button type="button" class="btn btn--block" @click="openCamera"><AppIcon name="camera" :size="22" motion="wiggle" />Ouvrir la caméra</button>
         </template>
         <template v-else-if="phase === 'live'">
             <button type="button" class="btn btn--coral btn--block" :disabled="countdown > 0" @click="startCountdown">
+                <AppIcon name="camera" :size="22" />
                 {{ countdown > 0 ? 'Prépare ta grimace…' : 'Prendre la photo' }}
             </button>
         </template>
         <template v-else-if="phase === 'preview'">
             <div class="row" style="width: 100%">
-                <button type="button" class="btn btn--white grow" @click="retake">Refaire</button>
-                <button type="button" class="btn btn--mint grow" @click="keep">Garder</button>
+                <button type="button" class="btn btn--white grow" @click="retake"><AppIcon name="redo" :size="20" />Refaire</button>
+                <button type="button" class="btn btn--mint grow" @click="keep"><AppIcon name="check" :size="20" />Garder</button>
             </div>
         </template>
         <label v-if="phase !== 'preview'" class="btn btn--white btn--small">

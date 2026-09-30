@@ -6,6 +6,7 @@
         </NuxtLink>
         <nav v-if="!isChild" class="nav">
             <NuxtLink v-for="tab in tabs" :key="tab.path" :to="tab.path" class="nav__item" :class="{ 'nav__item--on': tab.isOn }">
+                <AppIcon :name="tab.icon" :size="18" motion="bounce" :is-active="tab.isOn" />
                 {{ tab.label }}
                 <span v-if="tab.hasBadge" class="pop" />
             </NuxtLink>
@@ -44,6 +45,12 @@ const openSwitcher = (): void => {
 .header__brand {
     color: inherit;
     text-decoration: none;
+}
+
+.header :deep(.nav__item) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .header__name {

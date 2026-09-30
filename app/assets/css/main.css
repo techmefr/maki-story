@@ -477,3 +477,209 @@ a {
         animation: none;
     }
 }
+
+.icon {
+    flex-shrink: 0;
+}
+
+@keyframes icon-bounce {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+    40% {
+        transform: translateY(-7px) scale(1.18);
+    }
+    70% {
+        transform: translateY(0) scale(0.94);
+    }
+}
+
+@keyframes icon-wiggle {
+    0%,
+    100% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-14deg);
+    }
+    75% {
+        transform: rotate(14deg);
+    }
+}
+
+@keyframes icon-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes icon-nudge {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(6px);
+    }
+}
+
+@keyframes icon-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes icon-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.icon--bounce.icon--on {
+    animation: icon-bounce 0.6s ease-out;
+}
+
+.icon--wiggle {
+    animation: icon-wiggle 1.6s ease-in-out infinite;
+    transform-origin: 50% 80%;
+}
+
+.icon--pulse {
+    animation: icon-pulse 1.3s ease-in-out infinite;
+}
+
+.icon--nudge {
+    animation: icon-nudge 1s ease-in-out infinite;
+}
+
+.icon--float {
+    animation: icon-float 1.6s ease-in-out infinite;
+}
+
+.icon--spin {
+    animation: icon-spin 2.4s linear infinite;
+}
+
+.btn:hover .icon,
+.card--tap:hover .icon {
+    animation: icon-wiggle 0.5s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .icon,
+    .btn:hover .icon,
+    .card--tap:hover .icon {
+        animation: none !important;
+    }
+}
+
+@keyframes float-soft {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+}
+
+.anim-float {
+    animation: float-soft 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .anim-float {
+        animation: none;
+    }
+}
+
+.page-enter-active,
+.page-leave-active,
+.slide-forward-enter-active,
+.slide-forward-leave-active,
+.slide-back-enter-active,
+.slide-back-leave-active {
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+.slide-forward-enter-from {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+.slide-forward-leave-to {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.slide-back-enter-from {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.slide-back-leave-to {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.92);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.pop-in {
+    animation: pop-in 0.45s cubic-bezier(0.3, 0.8, 0.3, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+.card--tap:hover,
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-enter-active,
+    .page-leave-active,
+    .slide-forward-enter-active,
+    .slide-forward-leave-active,
+    .slide-back-enter-active,
+    .slide-back-leave-active {
+        transition: none;
+    }
+
+    .pop-in {
+        animation: none;
+    }
+
+    .card--tap:hover,
+    .btn:hover:not(:disabled) {
+        transform: none;
+    }
+}

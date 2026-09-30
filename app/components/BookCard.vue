@@ -1,6 +1,7 @@
 <template>
     <NuxtLink :to="target" class="card card--tap book">
         <div class="book__cover" :style="{ background: `repeating-linear-gradient(135deg, ${hex} 0 10px, ${hexLight} 10px 20px)` }">
+            <AppIcon :name="isReady ? 'play' : 'mic'" :size="26" class="book__icon" :motion="isReady ? 'pulse' : 'wiggle'" />
             <span class="book__kind">{{ kindLabel }}</span>
         </div>
         <div class="grow stack" style="gap: 6px">
@@ -46,6 +47,20 @@ const progressLabel = computed(() => `${book.recordedCount}/${book.lineCount} r√
     display: flex;
     align-items: flex-end;
     padding: 6px;
+}
+
+.book__icon {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    padding: 4px;
+    margin-bottom: 6px;
+}
+
+.book__cover {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 
 .book__kind {

@@ -5,7 +5,7 @@
             <h1 class="title">{{ heading }}</h1>
             <template v-if="phase === 'sent'">
                 <AppMaki :size="100" />
-                <div class="subtitle">Envoyé !</div>
+                <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />Envoyé !</div>
             </template>
             <template v-else>
                 <WaveBars :is-active="isRecording" color="#1F1B3A" />
@@ -18,12 +18,12 @@
                     :aria-label="isRecording ? 'Arrêter' : 'Enregistrer'"
                     @click="toggle"
                 >
-                    <span class="rec__icon" />
+                    <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="56" :motion="isRecording ? 'pulse' : 'none'" />
                 </button>
                 <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
                 <div v-if="phase === 'done'" class="row">
-                    <button type="button" class="btn btn--white" @click="redo">Refaire</button>
-                    <button type="button" class="btn" :disabled="isBusy" @click="send">Envoyer</button>
+                    <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />Refaire</button>
+                    <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />Envoyer</button>
                 </div>
                 <div v-else class="muted">{{ isRecording ? 'Touche pour finir' : 'Touche le micro' }}</div>
             </template>
@@ -125,21 +125,11 @@ const send = async (): Promise<void> => {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--paper);
 }
 
 .rec--on {
     box-shadow: 0 0 0 8px var(--cream), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
 }
 
-.rec__icon {
-    width: 40px;
-    height: 40px;
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    border-radius: 50%;
-}
-
-.rec--on .rec__icon {
-    border-radius: 10px;
-}
 </style>

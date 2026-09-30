@@ -3,32 +3,32 @@
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
             <div class="title">Page suivante</div>
-            <button type="button" class="btn btn--big" @click="turnPage">→</button>
+            <button type="button" class="btn btn--big" aria-label="Tourner la page" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" /></button>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />
             <div class="title">C’est fini !</div>
-            <button type="button" class="btn btn--big btn--white" @click="replay">Recommencer</button>
-            <NuxtLink to="/kid" class="btn btn--big">Retour</NuxtLink>
+            <button type="button" class="btn btn--big btn--white" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />Recommencer</button>
+            <NuxtLink to="/kid" class="btn btn--big"><AppIcon name="home" :size="40" />Retour</NuxtLink>
         </div>
         <div v-else-if="phase === 'loading'" class="reader__center stack center">
             <AppMaki :size="120" class="anim-pulse" />
         </div>
         <div v-else-if="phase === 'ready'" class="reader__center stack center">
             <AppMaki :size="160" />
-            <button type="button" class="btn btn--big" @click="start">▶</button>
+            <button type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
         </div>
         <div v-else class="reader__center stack center">
             <AppAvatar :member="reader" :size="200" />
             <div class="title">{{ reader?.name }} lit</div>
             <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="togglePause">
-                {{ isPlaying ? 'II' : '▶' }}
+                <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
             </button>
         </div>
         <div class="reader__bottom">
             <div class="progress"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
             <div class="row" style="justify-content: space-between">
-                <NuxtLink to="/kid" class="btn btn--small btn--white">Quitter</NuxtLink>
+                <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />Quitter</NuxtLink>
                 <span class="badge">Page {{ pageNumber }}/{{ pageTotal }}</span>
             </div>
         </div>

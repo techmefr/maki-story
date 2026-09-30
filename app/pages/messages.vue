@@ -16,9 +16,10 @@
                 :to="`/message/listen/${child.incoming.id}`"
                 class="btn btn--mint btn--block"
             >
+                <AppIcon name="volume" :size="22" motion="pulse" />
                 Écouter son message
             </NuxtLink>
-            <NuxtLink :to="`/message/${child.member.id}`" class="btn btn--block">Lui envoyer un message</NuxtLink>
+            <NuxtLink :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />Lui envoyer un message</NuxtLink>
         </div>
         </div>
     </div>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@capacitor/core": "^8.5.2",
+    "lucide-vue-next": "^1.0.0",
     "nuxt": "^4.5.2",
     "postgres": "^3.4.9",
     "vue": "^3.5.43",

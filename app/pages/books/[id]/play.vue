@@ -25,11 +25,11 @@
             </div>
         </div>
         <div class="row" style="justify-content: center">
-            <button type="button" class="btn btn--round btn--white" aria-label="Précédent" @click="previous">‹</button>
+            <button type="button" class="btn btn--round btn--white" aria-label="Précédent" @click="previous"><AppIcon name="skip-back" :size="22" /></button>
             <button type="button" class="btn btn--round" style="width: 72px; min-height: 72px" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="toggle">
-                {{ isPlaying ? 'II' : '▶' }}
+                <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="34" />
             </button>
-            <button type="button" class="btn btn--round btn--white" aria-label="Suivant" @click="next">›</button>
+            <button type="button" class="btn btn--round btn--white" aria-label="Suivant" @click="next"><AppIcon name="skip-forward" :size="22" /></button>
         </div>
         <div class="stack">
             <button

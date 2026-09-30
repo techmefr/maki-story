@@ -37,15 +37,17 @@
                 :aria-label="isRecording ? 'Arrêter' : 'Enregistrer'"
                 @click="toggleRecord"
             >
-                <span class="rec__icon" />
+                <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="44" :motion="isRecording ? 'pulse' : 'none'" />
             </button>
             <div class="muted">{{ hint }}</div>
             <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
             <div class="row">
                 <button type="button" class="btn btn--white btn--small" :disabled="!currentLine.audioFileId || isRecording" @click="listen">
+                    <AppIcon :name="isPlaying ? 'stop' : 'volume'" :size="18" />
                     {{ isPlaying ? 'Stop' : 'Écouter' }}
                 </button>
                 <button type="button" class="btn btn--white btn--small" :disabled="!currentLine.audioFileId || isRecording" @click="redo">
+                    <AppIcon name="redo" :size="18" />
                     Refaire
                 </button>
             </div>
@@ -65,6 +67,7 @@
         </div>
         <p v-else class="muted">Cette voix n’a pas de réplique à enregistrer.</p>
         <button type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
+            <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
             {{ isComplete ? 'Publier le livre' : 'Enregistre toutes les répliques pour publier' }}
         </button>
         <button type="button" class="btn btn--white btn--small" @click="askDelete">Supprimer ce livre</button>
@@ -255,21 +258,11 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--paper);
 }
 
 .rec--on {
     box-shadow: 0 0 0 8px var(--cream), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
 }
 
-.rec__icon {
-    width: 30px;
-    height: 30px;
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    border-radius: 50%;
-}
-
-.rec--on .rec__icon {
-    border-radius: 8px;
-}
 </style>

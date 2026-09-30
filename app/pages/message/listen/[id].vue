@@ -7,9 +7,10 @@
             <div class="progress" style="width: 100%"><div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" /></div>
             <template v-if="isEnded">
                 <div class="subtitle">C’est fini</div>
-                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 22px">Répondre</NuxtLink>
+                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 22px"><AppIcon name="mic" :size="32" motion="wiggle" />Répondre</NuxtLink>
             </template>
             <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 22px" @click="play">
+                <AppIcon name="play" :size="32" motion="pulse" />
                 Écouter
             </button>
         </template>
@@ -17,7 +18,7 @@
             <AppMaki :size="100" />
             <div class="subtitle">Ce message a déjà été écouté</div>
         </template>
-        <NuxtLink :to="backPath" class="btn btn--white btn--small">Fermer</NuxtLink>
+        <NuxtLink :to="backPath" class="btn btn--white btn--small"><AppIcon name="close" :size="18" />Fermer</NuxtLink>
     </div>
 </template>
 

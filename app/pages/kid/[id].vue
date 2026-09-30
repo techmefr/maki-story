@@ -1,12 +1,14 @@
 <template>
     <div v-if="member" class="stack center narrow">
-        <NuxtLink to="/kid" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/kid" class="btn btn--round btn--white" aria-label="Retour"><AppIcon name="back" :size="26" /></NuxtLink>
         <AppAvatar :member="member" :size="150" />
         <h1 class="title">{{ member.name }}</h1>
         <NuxtLink v-if="incoming" :to="`/message/listen/${incoming.id}`" class="btn btn--mint btn--block anim-pulse" style="min-height: 72px; font-size: 22px">
+            <AppIcon name="volume" :size="32" motion="pulse" />
             Écouter son message
         </NuxtLink>
         <NuxtLink :to="`/message/${member.id}`" class="btn btn--block" style="min-height: 72px; font-size: 22px">
+            <AppIcon name="mic" :size="32" motion="wiggle" />
             Envoyer un message
         </NuxtLink>
         <span v-if="sentLabel" class="badge">{{ sentLabel }}</span>
@@ -20,7 +22,7 @@
                 :style="{ background: hexOfBook(book) }"
             >
                 <span class="subtitle grow">{{ book.title }}</span>
-                <span class="btn btn--round btn--white">▶</span>
+                <span class="btn btn--round btn--white"><AppIcon name="play" :size="26" motion="pulse" /></span>
             </NuxtLink>
             <p v-if="soloBooks.length === 0" class="muted center">Pas encore d’histoire avec cette voix.</p>
         </div>

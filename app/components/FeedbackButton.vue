@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="btn btn--small btn--white" @click="open">Avis</button>
+        <button type="button" class="btn btn--small btn--white" @click="open"><AppIcon name="smile" :size="18" />Avis</button>
         <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
             <div class="sheet stack">
                 <h2 class="subtitle">Ton avis sur cet écran</h2>
