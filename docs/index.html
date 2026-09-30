@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tantara - paper books, read aloud by the people you love</title>
+    <meta name="description" content="Tantara turns the paper books on your shelf into multi-voice audio stories. Every relative gets a color, every child listens book in hand, with no screen to stare at.">
+    <meta property="og:title" content="Tantara">
+    <meta property="og:description" content="Paper books, read aloud by the people you love. Each voice has its own color.">
+    <meta property="og:image" content="screenshots/kid-home.png">
+    <meta name="theme-color" content="#FFF4D9">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1f1b3a;
+            --cream: #fff4d9;
+            --paper: #fff;
+            --coral: #ff7a6b;
+            --sun: #ffc940;
+            --mint: #4cd4a8;
+            --sky: #6bb6ff;
+            --grape: #b08cff;
+            --pink: #ff94c8;
+            --shadow: 4px 4px 0 var(--ink);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: clip;
+            background: var(--cream);
+            color: var(--ink);
+            font: 500 18px/1.6 Nunito, sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Fredoka, sans-serif;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .wrap {
+            width: min(1120px, 100% - 40px);
+            margin: 0 auto;
+        }
+
+        header.top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font: 700 28px/1 Fredoka, sans-serif;
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+        }
+
+        nav.links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 10px 18px;
+            border: 3px solid var(--ink);
+            border-radius: 16px;
+            background: var(--paper);
+            box-shadow: 3px 3px 0 var(--ink);
+            font: 700 16px/1 Fredoka, sans-serif;
+            text-decoration: none;
+            transition: transform 0.15s;
+        }
+
+        .pill:hover {
+            transform: translateY(-2px);
+        }
+
+        .pill--sun {
+            background: var(--sun);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 48px;
+            align-items: center;
+            padding: 40px 0 70px;
+        }
+
+        .hero > div {
+            min-width: 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 68px);
+            letter-spacing: -0.01em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(transparent 62%, var(--sun) 62%);
+        }
+
+        .hero p {
+            font-size: 21px;
+            max-width: 34em;
+        }
+
+        .dots {
+            display: flex;
+            gap: 10px;
+            margin: 24px 0;
+        }
+
+        .dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid var(--ink);
+            animation: bob 2.4s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.18s);
+        }
+
+        @keyframes bob {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        .phones {
+            position: relative;
+            height: 520px;
+        }
+
+        .phone {
+            position: absolute;
+            width: 215px;
+            border: 5px solid var(--ink);
+            border-radius: 36px;
+            background: var(--ink);
+            box-shadow: 8px 8px 0 var(--ink);
+            overflow: hidden;
+        }
+
+        .phone img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .phone--a {
+            left: 0;
+            top: 40px;
+            transform: rotate(-6deg);
+        }
+
+        .phone--b {
+            right: 6px;
+            top: 0;
+            transform: rotate(5deg);
+            z-index: 2;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        section h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 14px;
+        }
+
+        .lead {
+            max-width: 40em;
+            margin-bottom: 34px;
+        }
+
+        .band {
+            background: var(--ink);
+            color: var(--cream);
+        }
+
+        .grid {
+            display: grid;
+            gap: 22px;
+        }
+
+        .grid--4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card {
+            background: var(--paper);
+            color: var(--ink);
+            border: 3px solid var(--ink);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 22px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .step-n {
+            display: inline-grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border: 3px solid var(--ink);
+            border-radius: 50%;
+            font: 700 22px/1 Fredoka, sans-serif;
+            margin-bottom: 14px;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 26px;
+            overflow-x: auto;
+            padding: 10px 6px 34px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .shot {
+            flex: 0 0 260px;
+            scroll-snap-align: center;
+        }
+
+        .shot .phone {
+            position: static;
+            width: 100%;
+            transform: none;
+        }
+
+        .shot figcaption {
+            margin-top: 14px;
+            font: 700 18px/1.3 Fredoka, sans-serif;
+            text-align: center;
+        }
+
+        .browser {
+            border: 5px solid var(--ink);
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 8px 8px 0 var(--ink);
+            background: var(--paper);
+        }
+
+        .browser__bar {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--sun);
+            border-bottom: 4px solid var(--ink);
+        }
+
+        .browser__bar i {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 3px solid var(--ink);
+            background: var(--paper);
+        }
+
+        .browser img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .stack-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stack-list span {
+            border: 3px solid var(--cream);
+            border-radius: 999px;
+            padding: 8px 16px;
+            font: 700 16px/1 Fredoka, sans-serif;
+        }
+
+        footer {
+            padding: 40px 0 60px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.3, 0.8, 0.3, 1);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 900px) {
+            .split {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .grid--4,
+            .grid--3 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .phones {
+                height: 520px;
+                width: min(440px, 100%);
+                margin: 0 auto;
+            }
+
+            nav.links .pill:not(.pill--sun) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .grid--4,
+            .grid--3 {
+                grid-template-columns: 1fr;
+            }
+
+            .phone {
+                width: 46%;
+            }
+
+            .phones {
+                height: 380px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .dot {
+                animation: none;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="top">
+            <a class="brand" href="#top"><img src="icon.svg" alt="">Tantara</a>
+            <nav class="links">
+                <a class="pill" href="#how">How it works</a>
+                <a class="pill" href="#screens">Screens</a>
+                <a class="pill pill--sun" href="#safe">Safe for kids</a>
+            </nav>
+        </header>
+
+        <div class="hero" id="top">
+            <div>
+                <h1>Paper books, read aloud by <span>the people you love</span>.</h1>
+                <div class="dots" aria-hidden="true">
+                    <i class="dot" style="--i:0;background:var(--coral)"></i>
+                    <i class="dot" style="--i:1;background:var(--sun)"></i>
+                    <i class="dot" style="--i:2;background:var(--mint)"></i>
+                    <i class="dot" style="--i:3;background:var(--sky)"></i>
+                    <i class="dot" style="--i:4;background:var(--grape)"></i>
+                    <i class="dot" style="--i:5;background:var(--pink)"></i>
+                </div>
+                <p>Tantara turns the books already on your shelf into multi-voice audio stories. Each relative gets a color, records their own lines from their phone, and the child listens book in hand, with no screen to stare at.</p>
+                <p><a class="pill pill--sun" href="#how">See how it works</a></p>
+            </div>
+            <div class="phones">
+                <div class="phone phone--a"><img src="screenshots/library.png" alt="The family library with books ready to listen to" width="780" height="1688"></div>
+                <div class="phone phone--b"><img src="screenshots/kid-home.png" alt="The child space showing the faces of relatives" width="780" height="1688"></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="band" id="how">
+        <div class="wrap">
+            <h2 class="reveal">From paper page to family voices</h2>
+            <p class="lead reveal">No catalog, no cloned voices: your books, your family, your real voices.</p>
+            <div class="grid grid--4">
+                <div class="card reveal"><span class="step-n" style="background:var(--coral)">1</span><h3>Scan the pages</h3><p>Photograph each page of a paper book and type the lines. The text only helps to split the story.</p></div>
+                <div class="card reveal"><span class="step-n" style="background:var(--sun)">2</span><h3>Color the voices</h3><p>Give every character to a relative. One relative, one color. Add a tone per voice and a hint per sentence.</p></div>
+                <div class="card reveal"><span class="step-n" style="background:var(--mint)">3</span><h3>Record from the phone</h3><p>Everyone opens the studio, sees their lines, and records them wherever they are.</p></div>
+                <div class="card reveal"><span class="step-n" style="background:var(--sky)">4</span><h3>Listen, book in hand</h3><p>The child sees who is reading, hears a soft ding at each page end, and turns the paper page.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="wrap">
+            <h2 class="reveal">Made for children who cannot read yet</h2>
+            <p class="lead reveal">Everything a child touches is an icon, a face, a color or a sound.</p>
+            <div class="grid grid--3">
+                <div class="card reveal"><h3>Screenless listening</h3><p>No text and no picture of the book is ever shown to the child, so there is no copyright worry and eyes stay on the paper pages.</p></div>
+                <div class="card reveal"><h3>Grimace photos</h3><p>Every relative takes a funny, unique face. The child recognizes Grandpa in a blink.</p></div>
+                <div class="card reveal"><h3>Voice messages</h3><p>Short voice notes between child and relatives. Listened once, the last five kept per conversation.</p></div>
+                <div class="card reveal"><h3>Colors everywhere</h3><p>Six voice colors follow the story from the casting to the player, so the reader is always obvious.</p></div>
+                <div class="card reveal"><h3>Animated and playful</h3><p>Icons, page transitions and small celebrations turn every tap into feedback.</p></div>
+                <div class="card reveal"><h3>Installable anywhere</h3><p>A fast web app that installs on the home screen today, with Capacitor apps for the stores next.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screens" style="background:var(--paper);border-top:4px solid var(--ink);border-bottom:4px solid var(--ink)">
+        <div class="wrap">
+            <h2 class="reveal">A look inside</h2>
+            <p class="lead reveal">Swipe through the main screens.</p>
+            <div class="gallery reveal">
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/kid-home.png" alt="Child home with relatives' faces"></div><figcaption>Child home: recognize your people</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/kid-reader.png" alt="The player colored like the reader"></div><figcaption>The player wears the reader's color</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/kid-next-page.png" alt="The next page screen with the mascot"></div><figcaption>Ding, then turn the page</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/library.png" alt="Family library"></div><figcaption>The family library</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/wizard-colors.png" alt="Coloring the voices of a book"></div><figcaption>Color the voices</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/studio.png" alt="The recording studio"></div><figcaption>The recording studio</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/messages.png" alt="Voice messages"></div><figcaption>Voice messages</figcaption></figure>
+                <figure class="shot"><div class="phone"><img loading="lazy" src="screenshots/family.png" alt="Family members"></div><figcaption>Family members</figcaption></figure>
+            </div>
+            <div class="split" style="margin-top:30px">
+                <div class="browser reveal"><div class="browser__bar"><i></i><i></i><i></i></div><img loading="lazy" src="screenshots/desktop-library.png" alt="The library on a desktop screen"></div>
+                <div class="browser reveal"><div class="browser__bar"><i></i><i></i><i></i></div><img loading="lazy" src="screenshots/desktop-family.png" alt="The family screen on a desktop screen"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="safe">
+        <div class="wrap">
+            <h2 class="reveal">Safe by design</h2>
+            <p class="lead reveal">Different roles, different powers, all enforced by the server.</p>
+            <div class="grid grid--3">
+                <div class="card reveal"><h3>Parents</h3><p>Create books, validate what relatives propose, manage the family and reset codes. Protected by a numeric code.</p></div>
+                <div class="card reveal"><h3>Relatives</h3><p>Propose books, record their own lines and leave voice messages. A parent approves every proposal.</p></div>
+                <div class="card reveal"><h3>Children</h3><p>Listen and reply. They unlock their profile by tapping a short sequence of shapes, and a parent gets a mail code if it is ever forgotten.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="band">
+        <div class="wrap">
+            <h2 class="reveal">Built with</h2>
+            <div class="stack-list reveal">
+                <span>Nuxt 4</span><span>Vue 3</span><span>TypeScript</span><span>Nitro</span><span>PostgreSQL</span><span>Capacitor</span><span>Lucide icons</span><span>Playwright e2e</span><span>Vercel</span>
+            </div>
+            <p class="reveal" style="margin-top:26px;max-width:42em">Tantara is currently in a private family beta. Real authentication, several families, invitations, a subscription and OCR for scanned pages come next.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap">Made with care for little listeners.</div>
+    </footer>
+
+    <script>
+        (function () {
+            var items = document.querySelectorAll('.reveal')
+            if (!('IntersectionObserver' in window)) {
+                items.forEach(function (item) { item.classList.add('is-visible') })
+                return
+            }
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible')
+                        observer.unobserve(entry.target)
+                    }
+                })
+            }, { threshold: 0.15 })
+            items.forEach(function (item) { observer.observe(item) })
+        })()
+    </script>
+</body>
+</html>

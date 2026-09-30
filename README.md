@@ -1,10 +1,82 @@
-# Tantara
+<p align="center">
+    <img src="public/icon.svg" alt="Tantara mascot: a ring-tailed lemur wearing headphones" width="120">
+</p>
 
-Family audio books: read paper books aloud with the voices of your loved ones, each voice with its own color. The child listens book in hand, with no text or image on screen, and can exchange voice messages with relatives.
+<h1 align="center">Tantara</h1>
 
-Private project, intended to become a SaaS. Stack: Nuxt 4, Capacitor, Supabase, Vercel.
+<p align="center">
+    <strong>Paper books, read aloud by the people you love. Each voice has its own color.</strong>
+</p>
+
+Tantara turns the paper books already on your shelf into multi-voice audio stories. A parent photographs the pages and splits the lines, every relative gets a color and records their own lines from their phone, and the child listens book in hand. The screen never shows the text or the pictures of the book, only who is reading, in their color.
+
+> Status: private family beta. It is meant to grow into a SaaS (real authentication, several families, invitations, subscription, OCR, native apps).
+
+## Screens
+
+| Child home | Player | Page turn |
+| --- | --- | --- |
+| <img src="docs/screenshots/kid-home.png" alt="Child home with the faces of relatives" width="240"> | <img src="docs/screenshots/kid-reader.png" alt="Player colored like the current reader" width="240"> | <img src="docs/screenshots/kid-next-page.png" alt="Next page screen with the mascot" width="240"> |
+
+| Library | Color the voices | Recording studio |
+| --- | --- | --- |
+| <img src="docs/screenshots/library.png" alt="Family library" width="240"> | <img src="docs/screenshots/wizard-colors.png" alt="Casting the voices of a book" width="240"> | <img src="docs/screenshots/studio.png" alt="Recording studio" width="240"> |
+
+| Voice messages | Family |
+| --- | --- |
+| <img src="docs/screenshots/messages.png" alt="Voice messages" width="240"> | <img src="docs/screenshots/family.png" alt="Family members" width="240"> |
+
+The layout adapts from phones to desktops:
+
+<img src="docs/screenshots/desktop-library.png" alt="Library on a desktop screen" width="720">
+
+The UI is in French for now (the audience is a French-speaking family). Code, documentation, commits and repository metadata are in English.
+
+## How it works
+
+1. **Scan** the pages of a paper book (photos, private to the family) and type the lines by hand.
+2. **Color the voices**: every character goes to a relative, per character or per line, with a tone per voice and a hint per sentence.
+3. **Record** in the studio from any phone, line by line, with the picture description, tone and hint in view.
+4. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end.
+5. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once).
+
+## Features
+
+- Multi-voice casting with six voice colors and a mascot (a lemur with headphones)
+- Screenless listening for children: faces, colors, icons and sounds only
+- "Grimace" profile photos taken from the camera or picked from the gallery, so children recognize relatives
+- Responsive design system (hard outlines, offset shadows, Fredoka and Nunito), animated Lucide icons, page transitions, reduced motion support
+- Installable PWA (manifest, icons, service worker), Capacitor ready for iOS and Android
+- Soft delete everywhere: nothing is ever hard deleted
+- Simple server logs written in plain sentences, easy to read in Vercel logs
+- End to end tests that run the whole product on a phone and a desktop viewport
+
+## Tech stack
+
+| Area | Choice |
+| --- | --- |
+| Front | Nuxt 4 (SPA), Vue 3, TypeScript |
+| Server | Nitro routes in `server/api`, bundled as a single file for Vercel |
+| Data | PostgreSQL (Neon on Vercel) through the `postgres` driver, files stored as `bytea` |
+| Icons | `lucide-vue-next` |
+| Mobile | Capacitor |
+| Tests | Playwright |
+| Hosting | Vercel |
+
+Project layout:
+
+```
+app/        Nuxt app: pages, components, composables, middleware, design system CSS
+server/     API routes, database schema, session and request logging
+shared/     Types and helpers shared by app and server
+tests/e2e/  Playwright specs and helpers
+docs/       GitHub Pages landing page and screenshots
+design/     Original clickable prototypes (French) the UI was built from
+```
 
 ## Getting started
+
+Requirements: Node 22, pnpm, a PostgreSQL database.
 
 ```bash
 pnpm install
@@ -12,25 +84,45 @@ cp .env.example .env
 pnpm dev
 ```
 
-## Environment
+### Environment
 
 | Variable | Purpose |
 | --- | --- |
-| `DATABASE_URL` | Postgres connection string (Neon on Vercel) |
-| `TEST_ACCESS_EMAIL` / `TEST_ACCESS_PASSWORD` | Shared test account |
-| `SESSION_SECRET` | Signs the session cookie |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `TEST_ACCESS_EMAIL` and `TEST_ACCESS_PASSWORD` | Shared test account |
+| `SESSION_SECRET` | Signs the session cookies |
+| `MAIL_MODE` | `capture` keeps mails in memory for tests (never in production) |
+| `BREVO_API_KEY` and `MAIL_FROM` | Optional transactional mail provider used for code recovery |
 
-The schema is created on first request.
+The database schema is created and migrated on the first request.
 
-## Scripts
+### Scripts
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm dev` | Dev server |
+| `pnpm dev` | Development server |
 | `pnpm generate` | Static build in `.output/public` |
 | `pnpm cap:sync` | Build and sync the Capacitor native projects |
+| `pnpm exec nuxt typecheck` | Type check the app and the server |
+| `pnpm exec playwright test` | Run the end to end suite |
 
-## Mobile
+### End to end tests
+
+The suite starts its own dev server and database and runs twice, on a phone and on a desktop viewport, with a fake microphone and camera.
+
+```bash
+createdb tantara_e2e
+pnpm exec playwright test
+```
+
+Run it against a deployed site (test data is soft deleted afterwards):
+
+```bash
+E2E_BASE_URL=https://your-app.vercel.app E2E_EMAIL=... E2E_PASSWORD=... E2E_PARENT_NAME=... \
+    pnpm exec playwright test
+```
+
+### Mobile apps
 
 ```bash
 pnpm exec cap add ios
@@ -38,6 +130,14 @@ pnpm exec cap add android
 pnpm cap:sync
 ```
 
-## Design
+## Deployment
 
-Clickable prototypes live in `design/`. Project context and roadmap are in `CLAUDE.md`.
+The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push.
+
+## Landing page
+
+A static presentation page lives in `docs/` and is published with GitHub Pages (source: `main` branch, `/docs` folder).
+
+## License
+
+All rights reserved. This is a private project.
