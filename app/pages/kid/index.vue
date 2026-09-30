@@ -1,6 +1,7 @@
 <template>
     <div class="stack">
         <h1 class="title">Coucou {{ current?.name }} !</h1>
+        <GrimaceNudge />
         <div class="faces">
             <div v-for="face in faces" :key="face.member.id" class="face">
                 <NuxtLink :to="`/kid/${face.member.id}`" class="face__link">
@@ -53,6 +54,12 @@ onBeforeUnmount(stopPolling)
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 18px 12px;
+}
+
+@media (min-width: 720px) {
+    .faces {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .face {

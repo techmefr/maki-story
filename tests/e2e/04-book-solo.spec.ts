@@ -1,0 +1,52 @@
+import { expect, test } from '@playwright/test'
+import { addLine, apiJson, chooseProfile, login, recordOnce, uniqueName } from './helpers'
+
+test.describe.configure({ mode: 'serial' })
+
+test.describe('single voice book', () => {
+    test('a relative creates, records and publishes a solo book', async ({ page }, info) => {
+        const project = info.project.name
+        const mamie = uniqueName('Mamie', project)
+        await login(page)
+        await chooseProfile(page, mamie)
+        await expect(page).toHaveURL(/\/home/)
+        await page.getByRole('link', { name: 'Nouveau livre' }).click()
+        await expect(page.getByRole('heading', { name: 'Scanner les pages' })).toBeVisible()
+        await expect(page.getByText('1/3')).toBeVisible()
+        await page.getByRole('button', { name: 'Continuer sans photo' }).click()
+        await expect(page.getByPlaceholder('Qui parle ? (Narrateur, Petit Zébu…)')).toHaveCount(0)
+        await addLine(page, 1, null, 'Il était une fois un caméléon timide.')
+        await addLine(page, 1, null, 'Il changeait de couleur quand on le regardait.')
+        await page.getByRole('button', { name: 'Suivant' }).click()
+        await expect(page.getByRole('heading', { name: 'Vérifier' })).toBeVisible()
+        await page.getByPlaceholder('Le Zébu qui voulait voler').fill(`Le caméléon ${project}`)
+        await page.getByRole('button', { name: 'Passer au studio' }).click()
+        await expect(page).toHaveURL(/\/studio/)
+        const rec = page.getByRole('button', { name: 'Enregistrer' })
+        await recordOnce(page, rec)
+        await expect(page.getByText('1/2').first()).toBeVisible()
+        await recordOnce(page, rec)
+        await expect(page.getByRole('button', { name: 'Publier le livre' })).toBeEnabled()
+        await page.getByRole('button', { name: 'Publier le livre' }).click()
+        await expect(page).toHaveURL(/\/play$/)
+        const books = await apiJson<{ kind: string; status: string; title: string }[]>(page, '/books')
+        const solo = books.find(book => book.title === `Le caméléon ${project}`)
+        expect(solo?.kind).toBe('solo')
+        expect(solo?.status).toBe('ready')
+    })
+
+    test('a parent can start a solo book for a chosen reader', async ({ page }, info) => {
+        const mamie = uniqueName('Mamie', info.project.name)
+        await login(page)
+        await chooseProfile(page, 'Parent')
+        await page.goto('/books/new')
+        await page.getByRole('button', { name: mamie }).click()
+        await expect(page.getByText('1/3')).toBeVisible()
+        await page.getByRole('button', { name: 'Continuer sans photo' }).click()
+        await addLine(page, 1, null, 'Une seule voix.')
+        await page.getByRole('button', { name: 'Suivant' }).click()
+        await expect(page.getByText('Mamie').first()).toBeVisible()
+        await page.getByRole('button', { name: 'Retour' }).click()
+        await expect(page.getByRole('heading', { name: 'Les répliques' })).toBeVisible()
+    })
+})

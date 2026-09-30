@@ -1,0 +1,44 @@
+import { defineConfig, devices } from '@playwright/test'
+
+const PORT = 3200
+const REMOTE_URL = process.env.E2E_BASE_URL
+const E2E_DATABASE_URL = process.env.E2E_DATABASE_URL ?? 'postgresql://tantara@localhost:5544/tantara_e2e'
+
+const fakeMicArgs = ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream']
+
+export default defineConfig({
+    testDir: './tests/e2e',
+    timeout: 90_000,
+    expect: { timeout: 10_000 },
+    fullyParallel: false,
+    workers: 1,
+    retries: 0,
+    reporter: [['list']],
+    globalSetup: REMOTE_URL ? undefined : './tests/e2e/global-setup.ts',
+    use: {
+        baseURL: REMOTE_URL ?? `http://localhost:${PORT}`,
+        permissions: ['microphone'],
+        launchOptions: { args: fakeMicArgs },
+        trace: 'retain-on-failure',
+        screenshot: 'only-on-failure',
+    },
+    projects: [
+        { name: 'mobile', use: { ...devices['Pixel 7'], launchOptions: { args: fakeMicArgs } } },
+        { name: 'desktop', use: { viewport: { width: 1280, height: 800 } } },
+    ],
+    webServer: REMOTE_URL
+        ? undefined
+        : {
+              command: `pnpm dev --port ${PORT}`,
+              url: `http://localhost:${PORT}/api/auth/me`,
+              reuseExistingServer: false,
+              timeout: 120_000,
+              env: {
+                  DATABASE_URL: E2E_DATABASE_URL,
+                  TEST_ACCESS_EMAIL: 'e2e@tantara.app',
+                  TEST_ACCESS_PASSWORD: 'e2e-password',
+                  SESSION_SECRET: 'e2e-secret',
+                  NUXT_IGNORE_LOCK: '1',
+              },
+          },
+})

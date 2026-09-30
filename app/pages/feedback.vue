@@ -1,5 +1,5 @@
 <template>
-    <div class="stack">
+    <div class="stack narrow">
         <NuxtLink to="/family" class="muted">Retour</NuxtLink>
         <h1 class="title">Avis des testeurs</h1>
         <p v-if="entries.length === 0" class="muted">Aucun avis pour l’instant.</p>

@@ -1,11 +1,10 @@
 <template>
     <form class="stack" @submit.prevent="save">
         <div class="row" style="justify-content: center">
-            <label class="photo">
-                <AppAvatar :member="preview" :size="96" />
-                <span class="badge photo__badge">Photo</span>
-                <input type="file" accept="image/*" hidden @change="pickPhoto" />
-            </label>
+            <button type="button" class="photo" aria-label="Changer la photo" @click="isCapturing = true">
+                <AppAvatar :member="preview" :size="110" />
+                <span class="badge photo__badge">{{ photoFileId ? 'Changer' : 'Grimace !' }}</span>
+            </button>
         </div>
         <label class="stack" style="gap: 6px">
             <span class="label">Prénom</span>
@@ -46,6 +45,14 @@
         <button v-if="member" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="askRemove">
             Supprimer ce proche
         </button>
+        <div v-if="isCapturing" class="sheet-backdrop" @click.self="isCapturing = false">
+            <div class="sheet stack">
+                <h2 class="subtitle">Ta plus belle grimace</h2>
+                <p class="muted">Chacun fait une grimace différente : l’enfant reconnaîtra ses proches.</p>
+                <PhotoCapture :frame-color="activeHex" @captured="onCaptured" />
+                <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">Annuler</button>
+            </div>
+        </div>
     </form>
 </template>
 
@@ -72,6 +79,8 @@ const role = ref<MemberRole>(member?.role ?? 'relative')
 const color = ref<VoiceColorId>(member?.color ?? 'grape')
 const photoFileId = ref<string | null>(member?.photoFileId ?? null)
 const isBusy = ref(false)
+const isCapturing = ref(false)
+const activeHex = computed(() => getVoiceColor(color.value).hex)
 const errorMessage = ref('')
 
 const canSave = computed(() => name.value.trim() !== '')
@@ -84,16 +93,12 @@ const preview = computed<IMember>(() => ({
     photoFileId: photoFileId.value,
 }))
 
-const pickPhoto = async (event: Event): Promise<void> => {
-    const input = event.target as HTMLInputElement
-    const file = input.files?.[0]
-    if (!file) {
-        return
-    }
+const onCaptured = async (blob: Blob): Promise<void> => {
+    errorMessage.value = ''
     try {
-        const blob = await compressImage(file)
         photoFileId.value = await upload(blob, 'image/jpeg')
         register(photoFileId.value, URL.createObjectURL(blob))
+        isCapturing.value = false
     } catch (error) {
         console.error('La photo n a pas pu être envoyée', error)
         errorMessage.value = 'La photo n’a pas pu être envoyée.'
@@ -145,6 +150,9 @@ const askRemove = async (): Promise<void> => {
 .photo {
     position: relative;
     cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
 }
 
 .photo__badge {

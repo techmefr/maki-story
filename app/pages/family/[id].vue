@@ -1,5 +1,5 @@
 <template>
-    <div class="stack">
+    <div class="stack narrow">
         <NuxtLink to="/family" class="muted">Retour</NuxtLink>
         <h1 class="title">Modifier</h1>
         <MemberForm v-if="member" :member="member" @saved="done" />

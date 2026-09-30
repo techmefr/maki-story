@@ -3,6 +3,9 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     ssr: false,
     css: ['~/assets/css/main.css'],
+    routeRules: {
+        '/sw.js': { headers: { 'cache-control': 'no-cache' } },
+    },
     nitro: {
         noExternals: true,
         inlineDynamicImports: true,

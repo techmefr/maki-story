@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.2",
+    "@playwright/test": "^1.63.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.11"
   }

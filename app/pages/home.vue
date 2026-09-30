@@ -1,6 +1,7 @@
 <template>
     <div class="stack">
         <h1 class="title">Bibliothèque</h1>
+        <GrimaceNudge />
         <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">Écouter</span>
@@ -11,7 +12,9 @@
             <p class="subtitle">Aucun livre pour l’instant</p>
             <p class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
         </div>
-        <BookCard v-for="book in books" :key="book.id" :book="book" />
+        <div class="grid grid--books">
+            <BookCard v-for="book in books" :key="book.id" :book="book" />
+        </div>
     </div>
 </template>
 

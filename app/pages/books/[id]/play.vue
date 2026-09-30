@@ -1,5 +1,5 @@
 <template>
-    <div v-if="book" class="stack">
+    <div v-if="book" class="stack narrow">
         <NuxtLink to="/home" class="muted">Retour</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <div class="segs">

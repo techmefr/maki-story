@@ -2,6 +2,7 @@
     <div class="stack">
         <NuxtLink to="/kid" class="muted">Retour</NuxtLink>
         <h1 class="title">Histoires à plusieurs voix</h1>
+        <div class="grid grid--books">
         <NuxtLink
             v-for="book in multiBooks"
             :key="book.id"
@@ -13,6 +14,7 @@
             <span class="subtitle">{{ book.title }}</span>
             <VoiceDots :member-ids="book.memberIds" />
         </NuxtLink>
+        </div>
         <p v-if="multiBooks.length === 0" class="muted center">Aucune histoire pour l’instant.</p>
     </div>
 </template>

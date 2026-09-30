@@ -1,5 +1,5 @@
 <template>
-    <div class="stack">
+    <div class="stack narrow">
         <NuxtLink to="/home" class="muted">Annuler</NuxtLink>
         <template v-if="!isStarted">
             <h1 class="title">Nouveau livre</h1>

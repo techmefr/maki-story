@@ -1,5 +1,5 @@
 <template>
-    <div v-if="member" class="stack center">
+    <div v-if="member" class="stack center narrow">
         <NuxtLink to="/kid" class="muted">Retour</NuxtLink>
         <AppAvatar :member="member" :size="150" />
         <h1 class="title">{{ member.name }}</h1>

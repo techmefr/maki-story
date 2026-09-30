@@ -1,5 +1,5 @@
 <template>
-    <div class="stack center" style="margin-top: 6vh">
+    <div class="stack center narrow" style="margin-top: 6vh">
         <AppMaki :size="110" />
         <h1 class="title">Tantara</h1>
         <p class="muted">Les livres de la maison, lus par toute la famille.</p>

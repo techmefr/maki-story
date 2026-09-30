@@ -2,6 +2,7 @@
     <div class="stack">
         <h1 class="title">Messages</h1>
         <p v-if="children.length === 0" class="muted">Ajoute un enfant dans la famille pour lui écrire en vocal.</p>
+        <div class="grid grid--people">
         <div v-for="child in threads" :key="child.member.id" class="card stack">
             <div class="row">
                 <AppAvatar :member="child.member" :size="52" />
@@ -18,6 +19,7 @@
                 Écouter son message
             </NuxtLink>
             <NuxtLink :to="`/message/${child.member.id}`" class="btn btn--block">Lui envoyer un message</NuxtLink>
+        </div>
         </div>
     </div>
 </template>

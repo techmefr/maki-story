@@ -1,6 +1,7 @@
 <template>
     <div class="stack">
         <h1 class="title">Ma famille</h1>
+        <div class="grid grid--people">
         <NuxtLink
             v-for="member in members"
             :key="member.id"
@@ -15,6 +16,7 @@
             </div>
             <span class="badge">Modifier</span>
         </NuxtLink>
+        </div>
         <NuxtLink to="/family/add" class="btn btn--block">Ajouter un proche</NuxtLink>
         <NuxtLink to="/feedback" class="btn btn--white btn--block">Avis des testeurs</NuxtLink>
     </div>
