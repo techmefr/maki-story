@@ -1,0 +1,33 @@
+<template>
+    <nav class="tabbar">
+        <div class="tabbar__inner">
+            <NuxtLink
+                v-for="tab in tabs"
+                :key="tab.path"
+                :to="tab.path"
+                class="tabbar__item"
+                :class="{ 'tabbar__item--on': tab.isOn }"
+            >
+                {{ tab.label }}
+                <span v-if="tab.hasBadge" class="pop" />
+            </NuxtLink>
+        </div>
+    </nav>
+</template>
+
+<script setup lang="ts">
+const route = useRoute()
+const { currentId } = useCurrentMember()
+const { unreadCountFor } = useMessages()
+
+const tabs = computed(() => [
+    { path: '/home', label: 'Bibliothèque', isOn: route.path === '/home' || route.path.startsWith('/books'), hasBadge: false },
+    {
+        path: '/messages',
+        label: 'Messages',
+        isOn: route.path === '/messages',
+        hasBadge: currentId.value !== null && unreadCountFor(currentId.value) > 0,
+    },
+    { path: '/family', label: 'Famille', isOn: route.path.startsWith('/family') || route.path === '/feedback', hasBadge: false },
+])
+</script>

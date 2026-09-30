@@ -1,4 +1,4 @@
-import { getDb } from '../../utils/db'
+import { getDb, one } from '../../utils/db'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
 interface IMemberPatch {
@@ -33,11 +33,10 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         color: body.color ?? current.color,
         photoFileId: body.photoFileId === undefined ? current.photoFileId : body.photoFileId,
     }
-    const [member] = await db<IMember[]>`
+    return one(await db<IMember[]>`
         update members
         set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}
         where id = ${id}
         returning id, name, role, color, photo_file_id
-    `
-    return member
+    `)
 })

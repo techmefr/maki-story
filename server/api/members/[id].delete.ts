@@ -1,12 +1,12 @@
-import { getDb } from '../../utils/db'
+import { getDb, one } from '../../utils/db'
 import { badRequest, requireParam } from '../../utils/validate'
 
 export default defineEventHandler(async event => {
     const id = requireParam(event, 'id')
     const db = getDb()
-    const [{ count }] = await db<{ count: number }[]>`
+    const { count } = one(await db<{ count: number }[]>`
         select count(*)::int as count from members where role = 'parent' and id <> ${id}
-    `
+    `)
     if (count === 0) {
         return badRequest('At least one parent is required')
     }

@@ -1,4 +1,4 @@
-import { getDb } from './db'
+import { getDb, one } from './db'
 import { notFound } from './validate'
 
 const SUMMARY_SELECT = `
@@ -24,7 +24,7 @@ export const loadBook = async (id: string): Promise<IBook> => {
     if (!summary) {
         return notFound('Book not found')
     }
-    const [{ imageDesc }] = await db<{ imageDesc: string }[]>`select image_desc from books where id = ${id}`
+    const { imageDesc } = one(await db<{ imageDesc: string }[]>`select image_desc from books where id = ${id}`)
     const pages = await db<IBookPage[]>`
         select id, position, file_id from book_pages where book_id = ${id} order by position
     `

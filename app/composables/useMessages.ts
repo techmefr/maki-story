@@ -1,0 +1,76 @@
+const POLL_INTERVAL_MS = 10000
+
+export const useMessages = () => {
+    const { request } = useApi()
+    const messages = useState<IMessage[]>('messages', () => [])
+    const pollTimer = useState<ReturnType<typeof setInterval> | null>('messages-timer', () => null)
+
+    const load = async (): Promise<void> => {
+        try {
+            messages.value = await request<IMessage[]>('/messages')
+        } catch (error) {
+            console.error('Impossible de charger les messages pour le moment', error)
+        }
+    }
+
+    const startPolling = (): void => {
+        if (pollTimer.value) {
+            return
+        }
+        pollTimer.value = setInterval(load, POLL_INTERVAL_MS)
+    }
+
+    const stopPolling = (): void => {
+        if (pollTimer.value) {
+            clearInterval(pollTimer.value)
+            pollTimer.value = null
+        }
+    }
+
+    const send = async (input: INewMessage): Promise<void> => {
+        await request('/messages', { method: 'POST', body: input })
+        await load()
+    }
+
+    const markListened = async (id: string): Promise<void> => {
+        await request(`/messages/${id}/listen`, { method: 'POST' })
+        const now = new Date().toISOString()
+        messages.value = messages.value.map(message => (message.id === id ? { ...message, listenedAt: now } : message))
+    }
+
+    const between = (a: string, b: string): IMessage[] => {
+        return messages.value.filter(
+            message =>
+                (message.fromMemberId === a && message.toMemberId === b) ||
+                (message.fromMemberId === b && message.toMemberId === a),
+        )
+    }
+
+    const playableFrom = (senderId: string, receiverId: string): IMessage | null => {
+        const latest = messages.value.find(
+            message => message.fromMemberId === senderId && message.toMemberId === receiverId,
+        )
+        return latest && !latest.listenedAt ? latest : null
+    }
+
+    const lastSentTo = (senderId: string, receiverId: string): IMessage | null => {
+        return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId) ?? null
+    }
+
+    const unreadCountFor = (receiverId: string): number => {
+        return messages.value.filter(message => message.toMemberId === receiverId && !message.listenedAt).length
+    }
+
+    return {
+        messages,
+        load,
+        startPolling,
+        stopPolling,
+        send,
+        markListened,
+        between,
+        playableFrom,
+        lastSentTo,
+        unreadCountFor,
+    }
+}

@@ -31,6 +31,14 @@ export const getDb = (): Sql => {
     return client
 }
 
+export const one = <T>(rows: readonly T[]): T => {
+    const [row] = rows
+    if (row === undefined) {
+        throw createError({ statusCode: 500, statusMessage: 'Expected a row' })
+    }
+    return row
+}
+
 export const ensureSchema = (): Promise<void> => {
     if (schemaReady) {
         return schemaReady
@@ -40,7 +48,7 @@ export const ensureSchema = (): Promise<void> => {
         for (const statement of SCHEMA_STATEMENTS) {
             await db.unsafe(statement)
         }
-        const [{ count }] = await db<{ count: number }[]>`select count(*)::int as count from members`
+        const { count } = one(await db<{ count: number }[]>`select count(*)::int as count from members`)
         if (count === 0) {
             await db`insert into members (name, role, color) values ('Parent', 'parent', 'sun')`
         }

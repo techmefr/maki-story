@@ -1,0 +1,1 @@
+var e=[{id:`coral`,hex:`#FF7A6B`,hexLight:`#FF968A`},{id:`sun`,hex:`#FFC940`,hexLight:`#FFD76E`},{id:`mint`,hex:`#4CD4A8`,hexLight:`#72DEBB`},{id:`sky`,hex:`#6BB6FF`,hexLight:`#8CC6FF`},{id:`grape`,hex:`#B08CFF`,hexLight:`#C3A6FF`},{id:`pink`,hex:`#FF94C8`,hexLight:`#FFAED5`}],t={id:`coral`,hex:`#FF7A6B`,hexLight:`#FF968A`},n=n=>e.find(e=>e.id===n)??t;export{n,e as t};
