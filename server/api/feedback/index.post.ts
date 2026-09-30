@@ -1,4 +1,5 @@
 import { getDb } from '../../utils/db'
+import { logEvent } from '../../utils/log'
 import { badRequest } from '../../utils/validate'
 
 const MOODS: FeedbackMood[] = ['love', 'ok', 'bad']
@@ -14,5 +15,6 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         insert into feedback (member_name, screen, mood, text)
         values (${body.memberName ?? ''}, ${body.screen ?? ''}, ${mood}, ${text})
     `
+    logEvent(`Avis reçu sur ${body.screen ?? '?'} (${mood ?? 'sans humeur'})`)
     return { ok: true }
 })

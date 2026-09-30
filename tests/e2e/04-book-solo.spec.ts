@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, login, recordOnce, uniqueName } from './helpers'
+import { addLine, apiJson, chooseProfile, login, recordOnce, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -38,7 +38,7 @@ test.describe('single voice book', () => {
     test('a parent can start a solo book for a chosen reader', async ({ page }, info) => {
         const mamie = uniqueName('Mamie', info.project.name)
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await page.getByRole('button', { name: mamie }).click()
         await expect(page.getByText('1/3')).toBeVisible()

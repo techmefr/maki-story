@@ -1,5 +1,5 @@
-import { deleteFiles } from '../../../../../utils/books'
 import { getDb } from '../../../../../utils/db'
+import { logEvent } from '../../../../../utils/log'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../utils/validate'
 
 interface IAudioBody {
@@ -22,6 +22,6 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         return notFound('Line not found')
     }
     await db`update lines set audio_file_id = ${body.fileId}, audio_ms = ${Math.round(body.ms ?? 0)} where id = ${lineId}`
-    await deleteFiles([previous.audioFileId])
+    logEvent('Enregistrement sauvegardé')
     return { ok: true }
 })

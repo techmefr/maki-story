@@ -15,6 +15,7 @@ export default defineConfig({
     retries: 0,
     reporter: [['list']],
     globalSetup: REMOTE_URL ? undefined : './tests/e2e/global-setup.ts',
+    globalTeardown: './tests/e2e/global-teardown.ts',
     use: {
         baseURL: REMOTE_URL ?? `http://localhost:${PORT}`,
         permissions: ['microphone'],

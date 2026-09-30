@@ -48,7 +48,7 @@ export const ensureSchema = (): Promise<void> => {
         for (const statement of SCHEMA_STATEMENTS) {
             await db.unsafe(statement)
         }
-        const { count } = one(await db<{ count: number }[]>`select count(*)::int as count from members`)
+        const { count } = one(await db<{ count: number }[]>`select count(*)::int as count from members where deleted_at is null`)
         if (count === 0) {
             await db`insert into members (name, role, color) values ('Parent', 'parent', 'sun')`
         }

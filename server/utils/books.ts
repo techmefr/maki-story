@@ -11,14 +11,14 @@ const SUMMARY_SELECT = `
 
 export const listBookSummaries = async (): Promise<IBookSummary[]> => {
     return getDb().unsafe<IBookSummary[]>(
-        `select ${SUMMARY_SELECT} from books b order by b.created_at desc`,
+        `select ${SUMMARY_SELECT} from books b where b.deleted_at is null order by b.created_at desc`,
     )
 }
 
 export const loadBook = async (id: string): Promise<IBook> => {
     const db = getDb()
     const [summary] = await db.unsafe<IBookSummary[]>(
-        `select ${SUMMARY_SELECT} from books b where b.id = $1`,
+        `select ${SUMMARY_SELECT} from books b where b.id = $1 and b.deleted_at is null`,
         [id],
     )
     if (!summary) {
@@ -40,12 +40,4 @@ export const loadBook = async (id: string): Promise<IBook> => {
         tones[voice.memberId] = voice.tone
     })
     return { ...summary, imageDesc, pages, lines, tones }
-}
-
-export const deleteFiles = async (ids: (string | null)[]): Promise<void> => {
-    const valid = ids.filter((id): id is string => id !== null)
-    if (valid.length === 0) {
-        return
-    }
-    await getDb()`delete from files where id in ${getDb()(valid)}`
 }

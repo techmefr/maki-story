@@ -1,5 +1,5 @@
 const PUBLIC_PATHS = ['/login']
-const CHILD_ALLOWED_PREFIXES = ['/kid', '/message', '/profiles', '/grimace']
+const CHILD_ALLOWED_PREFIXES = ['/kid', '/message/', '/profiles', '/grimace']
 
 export default defineNuxtRouteMiddleware(async to => {
     if (import.meta.server) {

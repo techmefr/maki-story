@@ -1,6 +1,6 @@
 <template>
     <div class="stack center screen" :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }">
-        <template v-if="message && sender">
+        <template v-if="message && sender && (isStarted || !wasHeard)">
             <AppAvatar :member="sender" :size="140" />
             <h1 class="title">{{ sender.name }}</h1>
             <WaveBars :is-active="isPlaying" color="#1F1B3A" />
@@ -33,6 +33,7 @@ const player = useAudioPlayer()
 const isStarted = ref(false)
 const isEnded = ref(false)
 const isMissing = ref(false)
+const wasHeard = ref(false)
 
 const message = computed(() => messages.value.find(item => item.id === String(route.params.id)) ?? null)
 const sender = computed(() => getById(message.value?.fromMemberId ?? null))
@@ -65,7 +66,8 @@ player.onEnded(() => {
 
 onMounted(async () => {
     await load()
-    if (!message.value || message.value.listenedAt) {
+    wasHeard.value = message.value?.listenedAt != null
+    if (!message.value || wasHeard.value) {
         isMissing.value = true
     }
 })

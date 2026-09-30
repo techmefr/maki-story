@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test'
-import { chooseProfile, login } from './helpers'
+import { chooseProfile, login, PARENT_NAME } from './helpers'
 
 test.describe('feedback', () => {
     test('sends a mood and a comment then lists them', async ({ page }, info) => {
         const comment = `Super écran ${info.project.name}`
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.getByRole('button', { name: 'Avis' }).click()
         await expect(page.getByRole('button', { name: 'Envoyer' })).toBeDisabled()
         await page.getByRole('button', { name: 'J’adore' }).click()

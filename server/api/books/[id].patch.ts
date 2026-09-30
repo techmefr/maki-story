@@ -1,5 +1,6 @@
 import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
+import { logEvent } from '../../utils/log'
 import { badRequest, requireParam } from '../../utils/validate'
 
 const STATUSES: BookStatus[] = ['draft', 'to_record', 'ready']
@@ -41,5 +42,9 @@ export default defineEventHandler(async (event): Promise<IBook> => {
             }
         }
     })
-    return loadBook(id)
+    const book = await loadBook(id)
+    if (body.status !== undefined) {
+        logEvent(`Livre « ${book.title} » passé en statut ${body.status}`)
+    }
+    return book
 })

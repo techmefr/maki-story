@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { chooseProfile, createReadyBook, login, uniqueName } from './helpers'
+import { chooseProfile, createReadyBook, login, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -14,7 +14,7 @@ test.describe('kid space', () => {
         const mamie = uniqueName('Mamie', project)
         const lova = uniqueName('Lova', project)
         multiId = await createReadyBook(page, `Histoire multi ${project}`, 'multi', [
-            { pageIndex: 0, character: 'Narrateur', text: 'Un', memberName: 'Parent' },
+            { pageIndex: 0, character: 'Narrateur', text: 'Un', memberName: PARENT_NAME },
             { pageIndex: 0, character: 'Petit', text: 'Deux', memberName: lova },
             { pageIndex: 1, character: 'Maman', text: 'Trois', memberName: mamie },
         ])

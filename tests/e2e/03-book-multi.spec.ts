@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, login, pngFile, recordOnce, uniqueName } from './helpers'
+import { addLine, apiJson, chooseProfile, login, pngFile, recordOnce, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -31,7 +31,7 @@ test.describe('multi voice book', () => {
         const mamie = uniqueName('Mamie', project)
         const lova = uniqueName('Lova', project)
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await page.getByRole('button', { name: /Plusieurs voix/ }).click()
 
@@ -58,7 +58,7 @@ test.describe('multi voice book', () => {
         await expect(page.getByRole('heading', { name: 'Colorier les voix' })).toBeVisible()
         await expect(page.getByRole('button', { name: /Encore 4 répliques à colorier/ })).toBeDisabled()
         await page.getByPlaceholder('Un petit zébu au bord d’un lac…').fill('Un zébu près du lac Itasy')
-        await castCharacter(page, 'Narrateur', 'Parent')
+        await castCharacter(page, 'Narrateur', PARENT_NAME)
         await castCharacter(page, 'Petit Zébu', lova)
         await expect(page.getByRole('button', { name: /Encore 1 répliques à colorier/ })).toBeDisabled()
         await castCharacter(page, 'Maman Zébu', mamie)
@@ -86,23 +86,23 @@ test.describe('multi voice book', () => {
 
     test('shows the book as to record in the library', async ({ page }, info) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` })).toContainText('À enregistrer')
     })
 
     test('records every line in the studio and publishes', async ({ page }, info) => {
         const project = info.project.name
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.goto(`/books/${bookId}/studio`)
         await expect(page.getByText('Au bord du lac, le zébu regardait les oiseaux.').first()).toBeVisible()
         await expect(page.getByRole('button', { name: /Enregistre toutes les répliques/ })).toBeDisabled()
         await expect(page.getByText('Voix douce').first()).toBeVisible()
-        await recordMemberLines(page, 'Parent')
+        await recordMemberLines(page, PARENT_NAME)
         await expect(page.getByRole('button', { name: 'Écouter' })).toBeEnabled()
         await page.getByRole('button', { name: 'Refaire' }).click()
         await expect(page.getByRole('button', { name: 'Écouter' })).toBeDisabled()
-        await recordMemberLines(page, 'Parent')
+        await recordMemberLines(page, PARENT_NAME)
         await recordMemberLines(page, uniqueName('Lova', project))
         await recordMemberLines(page, uniqueName('Mamie', project))
         await expect(page.getByRole('button', { name: 'Publier le livre' })).toBeEnabled()
@@ -115,7 +115,7 @@ test.describe('multi voice book', () => {
 
     test('plays the book from the parent reader', async ({ page }, info) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.goto(`/books/${bookId}/play`)
         await expect(page.getByRole('heading', { name: `Le petit zébu ${info.project.name}` })).toBeVisible()
         await expect(page.getByText('Pourquoi je n’ai pas d’ailes ?')).toBeVisible()
@@ -133,7 +133,7 @@ test.describe('multi voice book', () => {
 
     test('shows the published book as ready and deletes another one', async ({ page }, info) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` })).toContainText('Prêt')
         const response = await page.request.post('/api/books', {
             data: { title: 'A supprimer', kind: 'multi', soloMemberId: null, imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: '', text: 'x' }] },
@@ -152,7 +152,7 @@ test.describe('casting by line', () => {
     test('assigns each line separately', async ({ page }, info) => {
         const lova = uniqueName('Lova', info.project.name)
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await page.getByRole('button', { name: /Plusieurs voix/ }).click()
         await page.getByRole('button', { name: 'Continuer sans photo' }).click()
@@ -161,7 +161,7 @@ test.describe('casting by line', () => {
         await page.getByRole('button', { name: 'Suivant' }).click()
         await page.getByRole('button', { name: 'Par réplique' }).click()
         const first = page.locator('.card', { hasText: 'Première phrase.' }).filter({ has: page.locator('.picker') })
-        await first.locator('.picker', { hasText: 'Parent' }).click()
+        await first.locator('.picker', { hasText: PARENT_NAME }).click()
         await expect(page.getByRole('button', { name: /Encore 1 répliques à colorier/ })).toBeDisabled()
         const second = page.locator('.card', { hasText: 'Deuxième phrase.' }).filter({ has: page.locator('.picker') })
         await second.locator('.picker', { hasText: lova }).click()
@@ -169,7 +169,7 @@ test.describe('casting by line', () => {
         await page.getByPlaceholder('Le Zébu qui voulait voler').fill(`Par réplique ${info.project.name}`)
         await page.getByRole('button', { name: 'Passer au studio' }).click()
         await expect(page).toHaveURL(/\/studio/)
-        await expect(page.locator('.picker', { hasText: 'Parent' })).toBeVisible()
+        await expect(page.locator('.picker', { hasText: PARENT_NAME })).toBeVisible()
         await expect(page.locator('.picker', { hasText: lova })).toBeVisible()
     })
 })

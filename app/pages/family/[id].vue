@@ -11,7 +11,7 @@
 const route = useRoute()
 const { getById } = useMembers()
 
-const member = computed(() => getById(String(route.params.id)))
+const member = ref(getById(String(route.params.id)))
 
 const done = async (): Promise<void> => {
     await navigateTo('/family')

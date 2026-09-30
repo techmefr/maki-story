@@ -1,4 +1,5 @@
 import { getDb, one } from '../../utils/db'
+import { logEvent } from '../../utils/log'
 import { badRequest } from '../../utils/validate'
 
 const MAX_FILE_BYTES = 4 * 1024 * 1024
@@ -16,7 +17,9 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     if (raw.length > MAX_FILE_BYTES) {
         return badRequest('File is too large')
     }
-    return one(await getDb()<{ id: string }[]>`
+    const file = one(await getDb()<{ id: string }[]>`
         insert into files (mime, data) values (${mime}, ${raw}) returning id
     `)
+    logEvent(`Fichier reçu (${mime}, ${Math.round(raw.length / 1024)} Ko)`)
+    return file
 })

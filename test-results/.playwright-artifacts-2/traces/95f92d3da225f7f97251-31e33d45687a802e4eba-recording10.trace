@@ -1,0 +1,14 @@
+{"version":9,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"linux","wallTime":1790807999203,"monotonicTime":205865.883,"sdkLanguage":"javascript","title":"02-family.spec.ts:12 › family › starts with a single parent profile"}
+{"type":"before","callId":"call@189","startTime":207673.762,"class":"APIRequestContext","method":"fetch","params":{"url":"/api/members","method":"GET"},"stepId":"pw:api@41"}
+{"type":"log","callId":"call@189","time":207680.871,"message":"→ GET http://localhost:3200/api/members"}
+{"type":"log","callId":"call@189","time":207680.908,"message":"  user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36"}
+{"type":"log","callId":"call@189","time":207680.918,"message":"  accept: */*"}
+{"type":"log","callId":"call@189","time":207680.925,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"log","callId":"call@189","time":207680.931,"message":"  cookie: tantara_session=1793400000312.8IwCjCHoJExMa8hnLFbQPENe413cm8IJhRxJRpqHrP0"}
+{"type":"log","callId":"call@189","time":207691.786,"message":"← 200 OK"}
+{"type":"log","callId":"call@189","time":207691.825,"message":"  content-type: application/json"}
+{"type":"log","callId":"call@189","time":207691.837,"message":"  date: Wed, 30 Sep 2026 22:40:01 GMT"}
+{"type":"log","callId":"call@189","time":207691.848,"message":"  connection: keep-alive"}
+{"type":"log","callId":"call@189","time":207691.858,"message":"  keep-alive: timeout=5"}
+{"type":"log","callId":"call@189","time":207691.867,"message":"  content-length: 500"}
+{"type":"after","callId":"call@189","endTime":207692.086,"result":{"response":{"url":"http://localhost:3200/api/members","status":200,"statusText":"OK","headers":[{"name":"content-type","value":"application/json"},{"name":"date","value":"Wed, 30 Sep 2026 22:40:01 GMT"},{"name":"connection","value":"keep-alive"},{"name":"keep-alive","value":"timeout=5"},{"name":"content-length","value":"500"}],"serverAddr":{"ipAddress":"::1","port":3200},"timing":{"startTime":1790808001017,"domainLookupStart":0,"domainLookupEnd":2.3989999999757856,"connectStart":2.3989999999757856,"secureConnectionStart":-1,"connectEnd":4.0609999999869615,"requestStart":4.0609999999869615,"responseStart":10.637999999977183},"responseEndTiming":11.028999999980442,"fetchUid":"0b0909babb48e5f92421fd14b53f9652"}}}

@@ -1,5 +1,5 @@
-import { deleteFiles } from '../../utils/books'
 import { getDb, one } from '../../utils/db'
+import { logEvent } from '../../utils/log'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMessage> => {
@@ -21,13 +21,15 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     `)
     const stale = await db<{ id: string; fileId: string }[]>`
         select id, file_id from messages
-        where (from_member_id = ${body.fromMemberId} and to_member_id = ${body.toMemberId})
-           or (from_member_id = ${body.toMemberId} and to_member_id = ${body.fromMemberId})
+        where deleted_at is null and (
+            (from_member_id = ${body.fromMemberId} and to_member_id = ${body.toMemberId})
+            or (from_member_id = ${body.toMemberId} and to_member_id = ${body.fromMemberId})
+        )
         order by created_at desc offset ${MAX_MESSAGES_PER_CONVERSATION}
     `
     if (stale.length > 0) {
-        await db`delete from messages where id in ${db(stale.map(item => item.id))}`
-        await deleteFiles(stale.map(item => item.fileId))
+        await db`update messages set deleted_at = now() where id in ${db(stale.map(item => item.id))}`
     }
+    logEvent(`Message vocal envoyé (${message.durationMs} ms)`)
     return message
 })

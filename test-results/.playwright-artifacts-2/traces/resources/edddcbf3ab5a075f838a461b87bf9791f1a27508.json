@@ -1,0 +1,15 @@
+{
+  "error": true,
+  "url": "http://localhost:3200/api/auth/login",
+  "statusCode": 401,
+  "statusMessage": "Wrong email or password",
+  "message": "Wrong email or password",
+  "stack": [
+    "Error: Wrong email or password",
+    "at createError$1 (file:///home/gaetan/code/tantara/.nuxt/dev/index.mjs:927:15)",
+    "at Object.handler (file:///home/gaetan/code/tantara/.nuxt/dev/index.mjs:69818:11)",
+    "at async file:///home/gaetan/code/tantara/.nuxt/dev/index.mjs:1967:19",
+    "at async Object.callAsync (file:///home/gaetan/code/tantara/.nuxt/dev/index.mjs:7201:16)",
+    "at async Server.toNodeHandle (file:///home/gaetan/code/tantara/.nuxt/dev/index.mjs:2245:7)"
+  ]
+}

@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
-import { addMember, apiJson, chooseProfile, login, pngFile, uniqueName } from './helpers'
+import { addMember, apiJson, chooseProfile, login, pngFile, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
 test.describe('family', () => {
     test.beforeEach(async ({ page }) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
     })
 
     test('starts with a single parent profile', async ({ page }) => {
@@ -64,6 +64,8 @@ test.describe('family', () => {
         await page.getByRole('button', { name: 'Supprimer ce proche' }).click()
         await expect(page).toHaveURL(/\/family$/)
         await expect(page.getByText(name, { exact: true })).toHaveCount(0)
+        const members = await apiJson<{ name: string }[]>(page, '/members')
+        expect(members.some(member => member.name === name)).toBeFalsy()
     })
 
     test('lists members on the profile picker and opens the right space', async ({ page }, info) => {
@@ -71,7 +73,7 @@ test.describe('family', () => {
         await chooseProfile(page, child)
         await expect(page).toHaveURL(/\/kid/)
         await page.goto('/profiles')
-        await page.locator('button.card', { hasText: 'Parent' }).first().click()
+        await page.locator('button.card', { hasText: PARENT_NAME }).first().click()
         await expect(page).toHaveURL(/\/home/)
     })
 

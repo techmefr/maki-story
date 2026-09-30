@@ -2,6 +2,7 @@ import { expect } from '@playwright/test'
 import type { Locator, Page } from '@playwright/test'
 
 export const E2E_EMAIL = process.env.E2E_EMAIL ?? 'e2e@tantara.app'
+export const PARENT_NAME = process.env.E2E_PARENT_NAME ?? 'Parent'
 export const E2E_PASSWORD = process.env.E2E_PASSWORD ?? 'e2e-password'
 
 const PNG_PIXEL = Buffer.from(
@@ -44,10 +45,11 @@ export const addMember = async (page: Page, name: string, role: 'Parent' | 'Proc
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
 }
 
-export const recordOnce = async (page: Page, recordButton: Locator, ms = 1300): Promise<void> => {
-    await recordButton.click()
+export const recordOnce = async (page: Page, _unused?: Locator, ms = 1300): Promise<void> => {
+    await page.getByRole('button', { name: 'Enregistrer' }).click()
+    await expect(page.getByRole('button', { name: 'Arrêter' })).toBeVisible()
     await page.waitForTimeout(ms)
-    await recordButton.click()
+    await page.getByRole('button', { name: 'Arrêter' }).click()
 }
 
 export const apiJson = async <T>(page: Page, path: string): Promise<T> => {

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { chooseProfile, login, uniqueName } from './helpers'
+import { chooseProfile, login, uniqueName, PARENT_NAME } from './helpers'
 
 const hasNoHorizontalScroll = async (page: Page): Promise<boolean> => {
     return page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)
@@ -9,7 +9,7 @@ const hasNoHorizontalScroll = async (page: Page): Promise<boolean> => {
 test.describe('responsive layout', () => {
     test('uses the right navigation for the screen size', async ({ page }, info) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         const isDesktop = info.project.name === 'desktop'
         await expect(page.locator('.tabbar')).toBeVisible({ visible: !isDesktop })
         await expect(page.locator('.nav')).toBeVisible({ visible: isDesktop })
@@ -24,7 +24,7 @@ test.describe('responsive layout', () => {
 
     test('never scrolls horizontally on any screen', async ({ page }, info) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         for (const path of ['/home', '/books/new', '/family', '/family/add', '/messages', '/feedback', '/profiles']) {
             await page.goto(path)
             await page.waitForLoadState('networkidle')
@@ -46,7 +46,7 @@ test.describe('responsive layout', () => {
 
     test('the profile switcher opens as a sheet and closes', async ({ page }) => {
         await login(page)
-        await chooseProfile(page, 'Parent')
+        await chooseProfile(page, PARENT_NAME)
         await page.getByRole('button', { name: 'Changer de profil' }).click()
         await expect(page.locator('.sheet')).toBeVisible()
         await page.locator('.sheet-backdrop').click({ position: { x: 5, y: 5 } })

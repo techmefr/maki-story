@@ -64,4 +64,8 @@ export const SCHEMA_STATEMENTS: string[] = [
         text text not null default '',
         created_at timestamptz not null default now()
     )`,
+    `alter table members add column if not exists deleted_at timestamptz`,
+    `alter table books add column if not exists deleted_at timestamptz`,
+    `alter table messages add column if not exists deleted_at timestamptz`,
+    `alter table feedback add column if not exists deleted_at timestamptz`,
 ]

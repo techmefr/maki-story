@@ -1,5 +1,5 @@
-import { deleteFiles } from '../../../../../utils/books'
 import { getDb } from '../../../../../utils/db'
+import { logEvent } from '../../../../../utils/log'
 import { notFound, requireParam } from '../../../../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
@@ -13,6 +13,6 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         return notFound('Line not found')
     }
     await db`update lines set audio_file_id = null, audio_ms = 0 where id = ${lineId}`
-    await deleteFiles([previous.audioFileId])
+    logEvent('Enregistrement effacé (la phrase sera refaite)')
     return { ok: true }
 })

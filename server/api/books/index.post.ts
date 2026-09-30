@@ -1,4 +1,5 @@
 import { getDb, one } from '../../utils/db'
+import { logEvent } from '../../utils/log'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
 const MAX_PAGES = 40
@@ -23,7 +24,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     }
     const soloMemberId = kind === 'solo' ? (body.soloMemberId ?? null) : null
     const db = getDb()
-    return db.begin(async tx => {
+    const created = await db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
             insert into books (title, kind, solo_member_id, status, image_desc)
             values (${body.title!.trim()}, ${kind}, ${soloMemberId}, 'to_record', ${body.imageDesc ?? ''})
@@ -40,4 +41,6 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         }
         return book
     })
+    logEvent(`Livre créé : « ${body.title!.trim()} » (${lines.length} répliques, ${pageFileIds.length} pages)`)
+    return created
 })

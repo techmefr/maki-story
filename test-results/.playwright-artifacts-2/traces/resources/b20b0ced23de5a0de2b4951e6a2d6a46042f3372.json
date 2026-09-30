@@ -1,0 +1,44 @@
+[
+  {
+    "id": "828e62fd-288c-4522-a121-b1d12339e3d1",
+    "name": "Mamie-mobile",
+    "role": "relative",
+    "color": "coral",
+    "photoFileId": "c24a19bc-ae13-4689-a12a-3c82352564d8"
+  },
+  {
+    "id": "f0b348a0-42b3-4052-b319-b767d1ece702",
+    "name": "Lova-mobile",
+    "role": "child",
+    "color": "grape",
+    "photoFileId": null
+  },
+  {
+    "id": "372573c8-2b55-4d66-8b19-9bd943fc904c",
+    "name": "Papa-mobile",
+    "role": "parent",
+    "color": "grape",
+    "photoFileId": null
+  },
+  {
+    "id": "436caa07-9db0-45bf-be69-d857fba2206a",
+    "name": "Mamie-desktop",
+    "role": "relative",
+    "color": "grape",
+    "photoFileId": null
+  },
+  {
+    "id": "a1e1cd75-e238-4323-949c-2e8f6ff04aaf",
+    "name": "Lova-desktop",
+    "role": "child",
+    "color": "grape",
+    "photoFileId": null
+  },
+  {
+    "id": "4ffdfe8a-9fd1-4b19-b4c3-bc9c7ca22ff9",
+    "name": "Papa-desktop",
+    "role": "parent",
+    "color": "grape",
+    "photoFileId": null
+  }
+]

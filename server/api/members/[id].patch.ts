@@ -22,7 +22,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     }
     const db = getDb()
     const [current] = await db<IMember[]>`
-        select id, name, role, color, photo_file_id from members where id = ${id}
+        select id, name, role, color, photo_file_id from members where id = ${id} and deleted_at is null
     `
     if (!current) {
         return notFound('Member not found')
