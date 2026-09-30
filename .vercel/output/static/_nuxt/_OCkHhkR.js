@@ -1,1 +1,0 @@
-import{I as e,N as t,_ as n,f as r,l as i}from"./SDzfa6_M.js";import{t as a}from"#entry";import{n as o,t as s}from"./uHPocd_c.js";var c={},l={class:`app app--full`};function u(a,c){let u=o,d=s;return t(),r(`div`,null,[i(`div`,l,[n(u),e(a.$slots,`default`)]),n(d)])}var d=a(c,[[`render`,u]]);export{d as default};

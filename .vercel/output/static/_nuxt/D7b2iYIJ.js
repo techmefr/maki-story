@@ -1,1 +1,0 @@
-import{I as e,N as t,f as n}from"./SDzfa6_M.js";import{t as r}from"#entry";var i={},a={class:`app app--full`};function o(r,i){return t(),n(`div`,a,[e(r.$slots,`default`)])}var s=r(i,[[`render`,o]]);export{s as default};

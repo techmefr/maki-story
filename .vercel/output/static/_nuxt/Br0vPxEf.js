@@ -1,1 +1,0 @@
-import{t as e}from"./CcYS3iIw.js";var t=()=>{let{request:t}=e();return{send:e=>t(`/feedback`,{method:`POST`,body:e}),list:()=>t(`/feedback`)}};export{t};
