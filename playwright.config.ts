@@ -19,6 +19,7 @@ export default defineConfig({
     use: {
         baseURL: REMOTE_URL ?? `http://localhost:${PORT}`,
         permissions: ['microphone'],
+        contextOptions: { reducedMotion: 'reduce' },
         launchOptions: { args: fakeMicArgs },
         trace: 'retain-on-failure',
         screenshot: 'only-on-failure',

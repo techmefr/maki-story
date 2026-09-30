@@ -470,3 +470,10 @@ a {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .anim-bounce,
+    .anim-pulse {
+        animation: none;
+    }
+}

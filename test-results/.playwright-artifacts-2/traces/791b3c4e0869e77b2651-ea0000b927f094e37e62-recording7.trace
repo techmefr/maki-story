@@ -1,1 +1,0 @@
-{"version":9,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"linux","wallTime":1790807995985,"monotonicTime":202647.667,"sdkLanguage":"javascript","title":"01-auth.spec.ts:33 › authentication › signs in, keeps the session after a reload, then signs out"}
