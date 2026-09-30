@@ -1,1 +1,1 @@
-{"version":3,"file":"_id_.get.mjs","sources":["../../../../../../../../server/api/books/[id].get.ts"],"names":[],"mappings":";;;;;;;;;;;;AAGA,iBAAe,kBAAA,CAAmB,CAAC,KAAA,KAA0B,QAAA,CAAS,aAAa,KAAA,EAAO,IAAI,CAAC,CAAC,CAAA;;"}
+{"version":3,"file":"_id_.get.mjs","sources":["../../../../../../../../server/api/books/[id].get.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAGA,iBAAe,kBAAA,CAAmB,CAAC,KAAA,KAA0B,QAAA,CAAS,aAAa,KAAA,EAAO,IAAI,CAAC,CAAC,CAAA;;"}

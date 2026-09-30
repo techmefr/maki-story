@@ -8,7 +8,13 @@ import 'node:buffer';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
-import 'postgres';
+import 'os';
+import 'fs';
+import 'net';
+import 'tls';
+import 'crypto';
+import 'stream';
+import 'perf_hooks';
 
 const _id__get = defineEventHandler((event) => loadBook(requireParam(event, "id")));
 

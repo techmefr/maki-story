@@ -6,7 +6,13 @@ import 'node:buffer';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
-import 'postgres';
+import 'os';
+import 'fs';
+import 'net';
+import 'tls';
+import 'crypto';
+import 'stream';
+import 'perf_hooks';
 
 const FAILED_LOGIN_DELAY_MS = 600;
 const login_post = defineEventHandler(async (event) => {

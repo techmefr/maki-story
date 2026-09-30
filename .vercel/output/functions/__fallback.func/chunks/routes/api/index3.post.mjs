@@ -7,7 +7,13 @@ import 'node:buffer';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
-import 'postgres';
+import 'os';
+import 'fs';
+import 'net';
+import 'tls';
+import 'crypto';
+import 'stream';
+import 'perf_hooks';
 
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
 const ALLOWED_PREFIXES = ["image/", "audio/", "video/mp4", "video/webm"];
