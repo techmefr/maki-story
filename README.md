@@ -12,6 +12,16 @@ cp .env.example .env
 pnpm dev
 ```
 
+## Environment
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Postgres connection string (Neon on Vercel) |
+| `TEST_ACCESS_EMAIL` / `TEST_ACCESS_PASSWORD` | Shared test account |
+| `SESSION_SECRET` | Signs the session cookie |
+
+The schema is created on first request.
+
 ## Scripts
 
 | Command | Purpose |
