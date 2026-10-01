@@ -9,12 +9,16 @@
         </NuxtLink>
         <NuxtLink v-if="isOnline" to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />Nouveau livre</NuxtLink>
         <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />Nouveau livre (connexion nécessaire)</button>
+        <NuxtLink v-if="isOnline && isParent" to="/books/ai" class="btn btn--white btn--block" data-testid="ai-create">
+            <AppIcon name="sparkles" :size="22" motion="float" />Créer une histoire avec l’IA
+        </NuxtLink>
         <BookFilters @change="reload" />
-        <div v-if="books.length === 0 && isLoaded" class="card center stack">
+        <div v-if="listed.length === 0 && drafts.length === 0 && isLoaded" class="card center stack">
             <AppMaki :size="80" />
             <p class="subtitle">{{ hasFilter ? 'Aucun livre ne correspond' : 'Aucun livre pour l’instant' }}</p>
             <p v-if="!hasFilter" class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
         </div>
+        <AiDraftRow v-if="isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" />
     </div>
@@ -23,7 +27,7 @@
 <script setup lang="ts">
 const isOnline = useState<boolean>('is-online', () => true)
 const { books, load } = useBooks()
-const { currentId } = useCurrentMember()
+const { currentId, isParent } = useCurrentMember()
 const { ensureLoaded } = useMembers()
 const { unreadCountFor, load: loadMessages } = useMessages()
 
@@ -32,20 +36,22 @@ const sheetBook = ref<IBookSummary | null>(null)
 const activeQuery = ref<IBookQuery>({})
 
 const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
+const drafts = computed(() => books.value.filter(book => book.status === 'draft'))
+const listed = computed(() => books.value.filter(book => book.status !== 'draft'))
 const rows = computed(() =>
     [
-        { title: 'Propositions à relire', books: books.value.filter(book => book.submittedCount > 0), hasDownload: false },
+        { title: 'Propositions à relire', books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
         {
             title: 'En cours d’enregistrement',
-            books: books.value.filter(book => book.status !== 'ready' && book.recordedCount > 0),
+            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount > 0),
             hasDownload: false,
         },
         {
             title: 'À enregistrer',
-            books: books.value.filter(book => book.status !== 'ready' && book.recordedCount === 0),
+            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount === 0),
             hasDownload: false,
         },
-        { title: 'Tous nos livres', books: books.value, hasDownload: true },
+        { title: 'Tous nos livres', books: listed.value, hasDownload: true },
     ].filter(row => row.books.length > 0),
 )
 

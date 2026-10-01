@@ -10,6 +10,12 @@ export interface IDraftCharacter {
     memberId: string | null
 }
 
+export interface IDraftTranslation {
+    language: string
+    text: string
+    tone: string
+}
+
 export interface IDraftPanel {
     key: number
     description: string
@@ -33,6 +39,7 @@ export interface IDraftLine {
     text: string
     tone: string
     sceneDescription: string
+    translations: IDraftTranslation[]
 }
 
 export interface IDraftLineInput {
@@ -64,6 +71,7 @@ export const useBookDraft = () => {
     const pages = useState<IDraftPage[]>('draft-pages', () => [])
     const characters = useState<IDraftCharacter[]>('draft-characters', () => [])
     const lines = useState<IDraftLine[]>('draft-lines', () => [])
+    const isAiPrefilled = useState<boolean>('draft-ai-prefilled', () => false)
 
     const isSimple = computed(() => mode.value === 'simple')
     const isComic = computed(() => type.value === 'comic')
@@ -174,7 +182,62 @@ export const useBookDraft = () => {
         pages.value = []
         characters.value = []
         lines.value = []
+        isAiPrefilled.value = false
         ensureNarrator(reader)
+    }
+
+    const loadAiDraft = (draft: IAiBookDraft): void => {
+        title.value = draft.title
+        subtitle.value = draft.subtitle
+        language.value = draft.language
+        const reader = readerId.value
+        const loaded: IDraftCharacter[] = draft.characters.map(character => ({
+            key: nextKey++,
+            name: character.name,
+            color: character.color,
+            description: character.description,
+            isNarrator: character.isNarrator,
+            memberId: character.isNarrator && !isSimple.value ? reader : null,
+        }))
+        const used = new Set<string>()
+        characters.value = loaded.map(character => {
+            if (character.color !== null && !used.has(character.color)) {
+                used.add(character.color)
+                return character
+            }
+            const free = VOICE_COLORS.find(color => !used.has(color.id))?.id ?? VOICE_COLORS[0]!.id
+            used.add(free)
+            return { ...character, color: free }
+        })
+        if (narrator.value === null) {
+            ensureNarrator(reader)
+        }
+        const lastPage = Math.max(0, pages.value.length - 1)
+        pages.value = pages.value.map((page, position) => {
+            const proposal = draft.pages[position]
+            if (!proposal || page.kind === 'empty') {
+                return page
+            }
+            return {
+                ...page,
+                description: proposal.imageDescription,
+                panels: proposal.panels.map(description => ({ key: nextKey++, description })),
+            }
+        })
+        if (pages.value.some(page => page.panels.length > 0)) {
+            type.value = 'comic'
+        }
+        lines.value = draft.lines.map(line => ({
+            key: nextKey++,
+            pageIndex: Math.min(Math.max(0, line.pageIndex), lastPage),
+            panelIndex: null,
+            characterKey: characters.value.find(character => character.name.toLowerCase() === line.character.trim().toLowerCase())?.key ?? null,
+            text: line.text,
+            tone: line.tone,
+            sceneDescription: line.sceneDescription,
+            translations: [],
+        }))
+        isAiPrefilled.value = true
     }
 
     const addPhoto = (fileId: string, previewUrl: string): void => {
@@ -247,12 +310,27 @@ export const useBookDraft = () => {
                 text,
                 tone: input.tone.trim(),
                 sceneDescription: input.sceneDescription.trim(),
+                translations: [],
             }))
         lines.value = [...lines.value, ...added]
     }
 
     const updateLine = (key: number, patch: Partial<Pick<IDraftLine, 'tone' | 'sceneDescription' | 'characterKey' | 'text'>>): void => {
         lines.value = lines.value.map(line => (line.key === key ? { ...line, ...patch } : line))
+    }
+
+    const setTranslation = (key: number, translation: IDraftTranslation): void => {
+        lines.value = lines.value.map(line =>
+            line.key === key
+                ? { ...line, translations: [...line.translations.filter(item => item.language !== translation.language), translation] }
+                : line,
+        )
+    }
+
+    const removeTranslation = (key: number, languageCode: string): void => {
+        lines.value = lines.value.map(line =>
+            line.key === key ? { ...line, translations: line.translations.filter(item => item.language !== languageCode) } : line,
+        )
     }
 
     const removeLine = (key: number): void => {
@@ -312,6 +390,8 @@ export const useBookDraft = () => {
         return orderedLines().map(line => (isSimple.value ? readerId.value : (characterByKey(effectiveCharacterKey(line))?.memberId ?? null)))
     }
 
+    const translationsForSave = (): (IDraftTranslation[])[] => orderedLines().map(line => line.translations)
+
     return {
         step,
         mode,
@@ -327,6 +407,7 @@ export const useBookDraft = () => {
         pages,
         characters,
         lines,
+        isAiPrefilled,
         isSimple,
         isComic,
         isWordless,
@@ -348,6 +429,10 @@ export const useBookDraft = () => {
         setMode,
         setReader,
         reset,
+        loadAiDraft,
+        setTranslation,
+        removeTranslation,
+        translationsForSave,
         addPhoto,
         addEmptyPage,
         updatePage,

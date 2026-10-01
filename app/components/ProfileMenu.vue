@@ -89,6 +89,10 @@
                         <button type="submit" class="btn btn--white btn--block" :disabled="isBusy">Changer le mot de passe</button>
                     </form>
                 </section>
+                <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-ai">
+                    <h3 id="menu-ai" class="label">Intelligence artificielle</h3>
+                    <AiQuota />
+                </section>
                 <button type="button" class="btn btn--white btn--block" @click="openSwitcher">Changer de profil</button>
             </template>
         </div>
