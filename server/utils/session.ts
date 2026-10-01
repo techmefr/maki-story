@@ -5,8 +5,25 @@ export const SESSION_COOKIE = 'tantara_session'
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30
 const SESSION_MAX_AGE_MS = SESSION_MAX_AGE_SECONDS * 1000
 
+export interface ISession {
+    accountId: string
+    familyId: string
+    memberId: string | null
+}
+
+interface ISessionPayload {
+    a: string
+    f: string
+    m: string | null
+    e: number
+}
+
 const secret = (): string => {
-    return process.env.SESSION_SECRET ?? process.env.TEST_ACCESS_PASSWORD ?? ''
+    const value = process.env.SESSION_SECRET ?? ''
+    if (value === '') {
+        throw createError({ statusCode: 500, statusMessage: 'SESSION_SECRET is not configured' })
+    }
+    return value
 }
 
 const sign = (payload: string): string => {
@@ -19,24 +36,38 @@ export const safeEqual = (a: string, b: string): boolean => {
     return left.length === right.length && timingSafeEqual(left, right)
 }
 
-export const createSessionToken = (): string => {
-    const payload = String(Date.now() + SESSION_MAX_AGE_MS)
-    return `${payload}.${sign(payload)}`
+export const createSessionToken = (session: ISession): string => {
+    const payload: ISessionPayload = {
+        a: session.accountId,
+        f: session.familyId,
+        m: session.memberId,
+        e: Date.now() + SESSION_MAX_AGE_MS,
+    }
+    const encoded = Buffer.from(JSON.stringify(payload)).toString('base64url')
+    return `${encoded}.${sign(encoded)}`
 }
 
-export const isValidSessionToken = (token: string | undefined): boolean => {
-    if (!token || !secret()) {
-        return false
+export const parseSessionToken = (token: string | undefined): ISession | null => {
+    if (!token || !process.env.SESSION_SECRET) {
+        return null
     }
-    const [payload, signature] = token.split('.')
-    if (!payload || !signature || !safeEqual(signature, sign(payload))) {
-        return false
+    const [encoded, signature] = token.split('.')
+    if (!encoded || !signature || !safeEqual(signature, sign(encoded))) {
+        return null
     }
-    return Number(payload) > Date.now()
+    try {
+        const payload = JSON.parse(Buffer.from(encoded, 'base64url').toString('utf8')) as ISessionPayload
+        if (typeof payload.a !== 'string' || typeof payload.f !== 'string' || !(payload.e > Date.now())) {
+            return null
+        }
+        return { accountId: payload.a, familyId: payload.f, memberId: typeof payload.m === 'string' ? payload.m : null }
+    } catch (_error) {
+        return null
+    }
 }
 
-export const startSession = (event: H3Event): void => {
-    setCookie(event, SESSION_COOKIE, createSessionToken(), {
+export const startSession = (event: H3Event, session: ISession): void => {
+    setCookie(event, SESSION_COOKIE, createSessionToken(session), {
         httpOnly: true,
         secure: !import.meta.dev,
         sameSite: 'lax',
@@ -45,6 +76,6 @@ export const startSession = (event: H3Event): void => {
     })
 }
 
-export const hasSession = (event: H3Event): boolean => {
-    return isValidSessionToken(getCookie(event, SESSION_COOKIE))
+export const readSession = (event: H3Event): ISession | null => {
+    return parseSessionToken(getCookie(event, SESSION_COOKIE))
 }

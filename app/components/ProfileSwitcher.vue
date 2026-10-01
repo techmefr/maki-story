@@ -33,14 +33,14 @@ const close = (): void => {
 }
 
 const choose = async (member: IMember): Promise<void> => {
-    select(member.id)
+    await select(member.id)
     close()
     await navigateTo(member.role === 'child' ? '/kid' : '/home')
 }
 
 const leave = async (): Promise<void> => {
     close()
-    select(null)
+    await select(null)
     await logout()
 }
 </script>

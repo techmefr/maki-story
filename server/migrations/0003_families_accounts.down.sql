@@ -1,0 +1,18 @@
+drop index if exists members_family_idx;
+drop index if exists books_family_idx;
+drop index if exists files_family_idx;
+drop index if exists messages_family_idx;
+drop index if exists feedback_family_idx;
+alter table feedback drop column if exists family_id;
+alter table messages drop column if exists family_id;
+alter table files drop column if exists family_id;
+alter table book_voices drop column if exists family_id;
+alter table lines drop column if exists family_id;
+alter table book_pages drop column if exists family_id;
+alter table books drop column if exists family_id;
+alter table members drop column if exists status;
+alter table members drop column if exists pin_hash;
+alter table members drop column if exists family_id;
+drop table if exists account_families;
+drop table if exists accounts;
+drop table if exists families;

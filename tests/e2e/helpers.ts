@@ -1,9 +1,51 @@
-import { expect } from '@playwright/test'
-import type { Locator, Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
+import type { APIRequestContext, Locator, Page } from '@playwright/test'
+import { randomUUID } from 'node:crypto'
 
-export const E2E_EMAIL = process.env.E2E_EMAIL ?? 'e2e@tantara.app'
-export const PARENT_NAME = process.env.E2E_PARENT_NAME ?? 'Parent'
-export const E2E_PASSWORD = process.env.E2E_PASSWORD ?? 'e2e-password'
+export const RUN_ID = process.env.E2E_RUN_ID ?? String(Date.now())
+export const E2E_PASSWORD = 'e2e-password-123'
+export const PARENT_NAME = 'Parent'
+
+export interface IE2eAccount {
+    email: string
+    password: string
+    familyName: string
+}
+
+export const accountFor = (label: string): IE2eAccount => ({
+    email: `e2e-${RUN_ID}-${label}@tantara.test`,
+    password: E2E_PASSWORD,
+    familyName: `Famille ${label}`,
+})
+
+export const uniqueAccount = (label: string): IE2eAccount => accountFor(`${label}-${randomUUID().slice(0, 8)}`)
+
+export const signIn = async (api: APIRequestContext, account: IE2eAccount): Promise<void> => {
+    const registered = await api.post('/api/auth/register', {
+        data: { email: account.email, password: account.password, familyName: account.familyName, parentName: PARENT_NAME },
+    })
+    if (registered.status() === 409) {
+        const response = await api.post('/api/auth/login', { data: { email: account.email, password: account.password } })
+        expect(response.ok()).toBeTruthy()
+        return
+    }
+    expect(registered.ok()).toBeTruthy()
+}
+
+export const login = async (page: Page): Promise<void> => {
+    await signIn(page.request, accountFor(test.info().project.name))
+    await page.goto('/profiles')
+    await expect(page).toHaveURL(/\/profiles/)
+}
+
+export const useProfile = async (api: APIRequestContext, name: string): Promise<string> => {
+    const members = (await (await api.get('/api/members')).json()) as IApiMember[]
+    const member = members.find(item => item.name === name)
+    expect(member).toBeTruthy()
+    const response = await api.post('/api/auth/profile', { data: { memberId: member!.id } })
+    expect(response.ok()).toBeTruthy()
+    return member!.id
+}
 
 const PNG_PIXEL = Buffer.from(
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
@@ -15,14 +57,6 @@ export const pngFile = (name: string): { name: string; mimeType: string; buffer:
     mimeType: 'image/png',
     buffer: PNG_PIXEL,
 })
-
-export const login = async (page: Page): Promise<void> => {
-    await page.goto('/login')
-    await page.getByLabel('E-mail').fill(E2E_EMAIL)
-    await page.getByLabel('Mot de passe').fill(E2E_PASSWORD)
-    await page.getByRole('button', { name: 'Se connecter' }).click()
-    await expect(page).toHaveURL(/\/profiles/)
-}
 
 export const chooseProfile = async (page: Page, name: string): Promise<void> => {
     await page.goto('/profiles')

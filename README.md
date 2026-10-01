@@ -89,12 +89,12 @@ pnpm dev
 | Variable | Purpose |
 | --- | --- |
 | `DATABASE_URL` | PostgreSQL connection string |
-| `TEST_ACCESS_EMAIL` and `TEST_ACCESS_PASSWORD` | Shared test account |
-| `SESSION_SECRET` | Signs the session cookies |
+| `SESSION_SECRET` | Mandatory. Signs the session cookies; sessions are refused (HTTP 500) when it is missing |
+| `LEGACY_OWNER_EMAIL` | Optional. The account registered with this e-mail adopts the family created from pre-accounts data |
 | `MAIL_MODE` | `capture` keeps mails in memory for tests (never in production) |
 | `BREVO_API_KEY` and `MAIL_FROM` | Optional transactional mail provider used for code recovery |
 
-The database schema is created and migrated on the first request.
+The database schema is created and migrated on the first request. Accounts are created on `/register` (e-mail, password hashed with scrypt, one family and its first parent profile); every row belongs to a family and is only served to the accounts of that family.
 
 ### Scripts
 
@@ -115,7 +115,7 @@ createdb tantara_e2e
 pnpm exec playwright test
 ```
 
-Run it against a deployed site (test data is soft deleted afterwards):
+Run it against a deployed site (the suite registers its own accounts and soft deletes its test data afterwards):
 
 ```bash
 E2E_BASE_URL=https://your-app.vercel.app E2E_EMAIL=... E2E_PASSWORD=... E2E_PARENT_NAME=... \

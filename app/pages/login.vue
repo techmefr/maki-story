@@ -28,6 +28,7 @@
                 {{ isBusy ? 'Connexion…' : 'Se connecter' }}
             </button>
         </form>
+        <NuxtLink to="/register" class="btn btn--white btn--block">Créer un compte famille</NuxtLink>
         <div class="dots" style="justify-content: center">
             <span v-for="color in colors" :key="color.id" class="dot" :style="{ background: color.hex }" />
         </div>

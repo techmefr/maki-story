@@ -47,10 +47,6 @@ export const ensureSchema = (): Promise<void> => {
     const db = getDb()
     schemaReady = (async () => {
         await migrateUp(db, await loadMigrations())
-        const { count } = one(await db<{ count: number }[]>`select count(*)::int as count from members where deleted_at is null`)
-        if (count === 0) {
-            await db`insert into members (name, role, color) values ('Parent', 'parent', 'sun')`
-        }
     })().catch(error => {
         schemaReady = null
         throw error

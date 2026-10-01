@@ -1,5 +1,6 @@
-import { hasSession } from '../../utils/session'
+import { readSession } from '../../utils/session'
 
-export default defineEventHandler(event => {
-    return { isSignedIn: hasSession(event) }
+export default defineEventHandler((event): IAuthState => {
+    const session = readSession(event)
+    return { isSignedIn: session !== null, memberId: session?.memberId ?? null }
 })

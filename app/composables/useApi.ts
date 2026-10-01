@@ -4,6 +4,8 @@ interface IApiOptions {
     headers?: Record<string, string>
 }
 
+const AUTH_PATHS = ['/auth/login', '/auth/register']
+
 export const useApi = () => {
     const config = useRuntimeConfig()
     const isSignedIn = useState<boolean | null>('session-state', () => null)
@@ -19,7 +21,7 @@ export const useApi = () => {
             return result as T
         } catch (error) {
             const status = (error as { statusCode?: number }).statusCode
-            if (status === 401 && path !== '/auth/login') {
+            if (status === 401 && !AUTH_PATHS.includes(path)) {
                 isSignedIn.value = false
                 await navigateTo('/login')
             }

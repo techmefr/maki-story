@@ -66,10 +66,40 @@ test.describe('migrations', () => {
         await migrateUp(db, migrations)
         const fresh = await describeSchema(db)
         await db.unsafe('drop table schema_migrations')
-        await db`insert into members (id, name, role, color) values ('legacy', 'Ancien', 'parent', 'sun')`
+        await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`
+        await db`insert into members (id, family_id, name, role, color) values ('legacy', 'fam', 'Ancien', 'parent', 'sun')`
         expect(await migrateUp(db, migrations)).toEqual(migrations.map(item => item.name))
         expect(await describeSchema(db)).toEqual(fresh)
         const [member] = await db<{ name: string }[]>`select name from members where id = 'legacy'`
         expect(member?.name).toBe('Ancien')
+    })
+
+    test('the families migration back-fills existing rows into one family', async () => {
+        await migrateUp(db, migrations.slice(0, 2))
+        await db`insert into members (id, name, role, color) values ('m1', 'Maman', 'parent', 'sun')`
+        await db`insert into files (id, mime, data) values ('f1', 'audio/wav', '\\x00')`
+        await db`insert into books (id, title) values ('b1', 'Livre')`
+        await db`insert into book_pages (book_id, position, file_id) values ('b1', 0, 'f1')`
+        await db`insert into lines (id, book_id, position, text) values ('l1', 'b1', 0, 'Bonjour')`
+        await db`insert into book_voices (book_id, member_id) values ('b1', 'm1')`
+        await db`insert into messages (id, from_member_id, to_member_id, file_id, mime) values ('x1', 'm1', 'm1', 'f1', 'audio/wav')`
+        await db`insert into feedback (id, text) values ('fb1', 'Super')`
+        expect(await migrateUp(db, migrations)).toEqual(migrations.slice(2).map(item => item.name))
+        const families = await db<{ id: string; ownerPending: boolean }[]>`select id, owner_pending as "ownerPending" from families`
+        expect(families).toHaveLength(1)
+        expect(families[0]!.ownerPending).toBe(true)
+        for (const table of ['members', 'files', 'books', 'book_pages', 'lines', 'book_voices', 'messages', 'feedback']) {
+            const rows = await db.unsafe<{ familyId: string }[]>(`select family_id as "familyId" from ${table}`)
+            expect(rows).toHaveLength(1)
+            expect(rows[0]!.familyId).toBe(families[0]!.id)
+        }
+        const [member] = await db<{ status: string; pinHash: string | null }[]>`select status, pin_hash as "pinHash" from members where id = 'm1'`
+        expect(member).toEqual({ status: 'active', pinHash: null })
+    })
+
+    test('a fresh database gets no family', async () => {
+        await migrateUp(db, migrations)
+        const [row] = await db<{ count: number }[]>`select count(*)::int as count from families`
+        expect(row?.count).toBe(0)
     })
 })

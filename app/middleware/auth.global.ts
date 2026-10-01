@@ -1,4 +1,4 @@
-const PUBLIC_PATHS = ['/login']
+const PUBLIC_PATHS = ['/login', '/register']
 const CHILD_ALLOWED_PREFIXES = ['/kid', '/message/', '/profiles', '/grimace']
 
 export default defineNuxtRouteMiddleware(async to => {
@@ -17,7 +17,7 @@ export default defineNuxtRouteMiddleware(async to => {
     await ensureLoaded()
     const { currentId, select, isChild } = useCurrentMember()
     if (currentId.value && !getById(currentId.value)) {
-        select(null)
+        await select(null)
     }
     if (to.path === '/profiles') {
         return

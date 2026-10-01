@@ -1,34 +1,39 @@
 import { getDb, one } from '../../utils/db'
+import { assertFilesInFamily, assertMembersInFamily, requireMember, requireSession } from '../../utils/family'
 import { logEvent } from '../../utils/log'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMessage> => {
+    const { familyId } = requireSession(event)
     const body = await readBody<Partial<INewMessage>>(event)
-    if (
-        !isNonEmptyString(body.fromMemberId) ||
-        !isNonEmptyString(body.toMemberId) ||
-        !isNonEmptyString(body.fileId) ||
-        !isNonEmptyString(body.mime) ||
-        body.fromMemberId === body.toMemberId
-    ) {
+    if (!isNonEmptyString(body.toMemberId) || !isNonEmptyString(body.fileId) || !isNonEmptyString(body.mime)) {
+        return badRequest('Invalid message')
+    }
+    const fromMemberId = requireMember(event)
+    if (body.fromMemberId !== undefined && body.fromMemberId !== fromMemberId) {
+        throw createError({ statusCode: 403, statusMessage: 'You can only send messages as yourself' })
+    }
+    if (body.toMemberId === fromMemberId) {
         return badRequest('Invalid message')
     }
     const db = getDb()
+    await assertMembersInFamily(db, familyId, [fromMemberId, body.toMemberId])
+    await assertFilesInFamily(db, familyId, [body.fileId])
     const message = one(await db<IMessage[]>`
-        insert into messages (from_member_id, to_member_id, file_id, mime, duration_ms)
-        values (${body.fromMemberId}, ${body.toMemberId}, ${body.fileId}, ${body.mime}, ${Math.round(body.durationMs ?? 0)})
+        insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms)
+        values (${familyId}, ${fromMemberId}, ${body.toMemberId}, ${body.fileId}, ${body.mime}, ${Math.round(body.durationMs ?? 0)})
         returning id, from_member_id, to_member_id, file_id, mime, duration_ms, listened_at, created_at
     `)
     const stale = await db<{ id: string; fileId: string }[]>`
         select id, file_id from messages
-        where deleted_at is null and (
-            (from_member_id = ${body.fromMemberId} and to_member_id = ${body.toMemberId})
-            or (from_member_id = ${body.toMemberId} and to_member_id = ${body.fromMemberId})
+        where family_id = ${familyId} and deleted_at is null and (
+            (from_member_id = ${fromMemberId} and to_member_id = ${body.toMemberId})
+            or (from_member_id = ${body.toMemberId} and to_member_id = ${fromMemberId})
         )
         order by created_at desc offset ${MAX_MESSAGES_PER_CONVERSATION}
     `
     if (stale.length > 0) {
-        await db`update messages set deleted_at = now() where id in ${db(stale.map(item => item.id))}`
+        await db`update messages set deleted_at = now() where family_id = ${familyId} and id in ${db(stale.map(item => item.id))}`
     }
     logEvent(`Message vocal envoyé (${message.durationMs} ms)`)
     return message
