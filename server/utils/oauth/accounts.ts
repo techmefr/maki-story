@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto'
 import { getDb, one } from '../db'
 import { hashPassword } from '../password'
-import type { ISession } from '../session'
+import type { ISessionStart } from '../session'
 import { OAuthError } from './jwt'
 
 const MAX_NAME_LENGTH = 60
@@ -23,7 +23,7 @@ const firstFamilyOf = async (accountId: string): Promise<string | null> => {
     return link?.familyId ?? null
 }
 
-const sessionFor = async (accountId: string): Promise<ISession> => {
+const sessionFor = async (accountId: string): Promise<ISessionStart> => {
     const familyId = await firstFamilyOf(accountId)
     if (!familyId) {
         throw new OAuthError('oauth_failed')
@@ -31,7 +31,7 @@ const sessionFor = async (accountId: string): Promise<ISession> => {
     return { accountId, familyId, memberId: null }
 }
 
-export const resolveSocialAccount = async (identity: ISocialIdentity): Promise<ISession> => {
+export const resolveSocialAccount = async (identity: ISocialIdentity): Promise<ISessionStart> => {
     const db = getDb()
     const [known] = await db<{ accountId: string }[]>`
         select account_id from account_identities where provider = ${identity.provider} and subject = ${identity.subject}
