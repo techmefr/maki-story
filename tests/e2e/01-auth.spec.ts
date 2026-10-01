@@ -35,8 +35,8 @@ test.describe('authentication', () => {
     test('registers a family, keeps the session after a reload, signs out, then signs back in', async ({ page }) => {
         const account = uniqueAccount('register')
         await page.goto('/login')
-        await expect(page.getByRole('link', { name: 'Créer un compte famille' })).toHaveAttribute('href', '/register')
-        await page.goto('/register')
+        await page.getByRole('link', { name: 'Créer un compte famille' }).click()
+        await expect(page.getByRole('heading', { name: 'Créer ma famille' })).toBeVisible()
         await page.getByLabel('E-mail').fill(account.email)
         await page.getByLabel('Mot de passe').fill(account.password)
         await page.getByLabel('Nom de la famille').fill(account.familyName)

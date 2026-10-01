@@ -89,6 +89,7 @@ export const chooseProfile = async (page: Page, name: string, pin = PROFILE_PIN)
     await page.locator('button.card', { hasText: name }).first().click()
     await unlockProfile(page, pin)
     await expect(page).not.toHaveURL(/\/profiles/)
+    await expect(page.locator('.curtain')).toHaveClass(/curtain--idle/)
 }
 
 export const openSwitcher = async (page: Page): Promise<void> => {
