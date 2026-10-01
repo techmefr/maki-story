@@ -125,6 +125,32 @@ Every route under `server/api` resolves the active profile of the session on the
 | Members | Add, edit, remove, mark a relative left, deceased or blocked | List only | List only |
 | Feedback | Send, read, delete | Send | Send |
 | AI helpers and draft validation | Yes | No | No |
+| Family invite code | Read, renew, revoke | No | No |
+| Share a book with another family | Any book, then answer incoming requests | Propose their own single voice books (a parent approves) and record the lines requested from them | No |
+| Notifications | Family wide ones | Their own | No |
+
+## Sharing between families
+
+Every family has an invite code (`GET /api/family/invite`, renewed with `POST /api/family/invite/rotate`, disabled with `DELETE /api/family/invite`). Giving the code to another family lets that family send you a book; nothing else is exposed, and families stay isolated by default.
+
+A parent picks a book, enters the code of the other family and chooses how to share it (`POST /api/shares`):
+
+- `record`: "record my voice for this book". Only the chosen lines are shared. The receiving parent accepts and may name one adult as the recorder; that person gets a reduced view (`GET /api/shares/:id/book`, text, tone and hints of the requested lines, no pages, no library) and uploads takes with `PUT /api/shares/:id/lines/:lineId/audio`. The take is copied into the owner family as a `submitted` recording attributed to a guest voice (a `members` row with `source_member_id`, role relative, never able to sign in, receive messages or appear in profile pickers).
+- `copy`: "copy to your library". The receiver gets an independent text only copy (lines, characters, translations, no recordings, no images) as a draft.
+
+Rules: a relative can only propose their own single voice books and a parent of the owner family approves first (`proposed` then `pending`); sharing a received copy again needs the consent of the original owner (`awaiting_owner`); a book is shared with at most `MAX_FAMILIES_PER_BOOK` (10, `shared/utils/sharing.ts`) families counting the whole copy chain; a share can be stopped by either family and ends the access it granted. Share lifecycle: `proposed` / `awaiting_owner` / `pending` / `accepted` / `declined` / `revoked`. Looking up invite codes is limited per IP address.
+
+## Blocking a voice
+
+A parent can mark a relative as `blocked`, `left` the household or `deceased` (`PATCH /api/members/:id`, screen: Family, then the relative). For `left` and `deceased` the parent chooses a `voicePolicy` case by case: `keep` (default), `block` or `rerecord`. A book with at least one non stale recording by a blocked voice is hidden from children (library, book and file routes) until those lines are recorded by someone else: a parent recording such a line takes it over. Parents see the `Voix bloquée` badge, `isVoiceBlocked` and `blockedLineCount` on the book summary and the books concerned through `GET /api/members/:id/voice-books`. Books already downloaded for offline use on a device stay playable until that device synchronises again.
+
+## Notifications
+
+`GET /api/notifications` lists the notifications of the active profile (family scoped; parent wide ones go to parents, others to a given profile) with the unread count shown as a badge in the header, `POST /api/notifications/read` marks some (`ids`) or all as read. Recordings are batched: while a notification is unread, further recordings by the same person for the same book increase its counter ("X finished recording N lines of Book", "X sent their voice").
+
+## Request hardening
+
+State changing `/api` requests (anything but GET, HEAD, OPTIONS) are refused with 403 when the `Origin` header is not the host of the request or an entry of `TRUSTED_ORIGINS`, or when `Sec-Fetch-Site` says `same-site` or `cross-site` and no trusted origin is given. Requests without these headers (non browser clients) pass, the OAuth callbacks are exempt (they are protected by their signed state). Upload sessions are bound to the profile that started them. Account creation, OAuth callbacks and invite code lookups have a per IP budget (`REGISTER_IP_LIMIT`, `OAUTH_IP_LIMIT`).
 
 ## Profile menu
 
@@ -179,6 +205,8 @@ pnpm dev
 | `APPLE_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` | Optional. Enable Sign in with Apple (the key is the content of the `.p8` file, newlines may be written as `
 `) |
 | `OAUTH_REDIRECT_BASE` | Optional. Public origin used to build the OAuth redirect URI (default: the request origin, honouring `X-Forwarded-*`) |
+| `TRUSTED_ORIGINS` | Optional. Comma separated origins allowed to send state changing requests besides the host of the app (for example a native shell) |
+| `REGISTER_IP_LIMIT`, `OAUTH_IP_LIMIT` | Optional. Per IP budget over 15 minutes for account creation (default 20) and OAuth callbacks (default 30) |
 | `OIDC_FAKE` | `1` swaps Google and Apple for an in-app fake OpenID provider (tests only, never in production) |
 | `NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE` | `1` lets the e2e suite inject a mocked native biometric bridge (tests only, never in production) |
 | `LEGACY_OWNER_EMAIL` | Optional. The account registered with this e-mail adopts the family created from pre-accounts data |
