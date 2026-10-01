@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addMember, chooseProfile, createReadyBook, login, uniqueName, PARENT_NAME } from './helpers'
+import { addMember, chooseProfile, createReadyBook, login, openSwitcher, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -105,7 +105,7 @@ test.describe('offline books', () => {
         await page.getByRole('button', { name: 'Télécharger' }).click()
         await expect(page.getByText(/Disponible hors ligne · /)).toBeVisible()
         expect(await offlineBookCount(page)).toBe(1)
-        await page.getByRole('button', { name: 'Changer de profil' }).click()
+        await openSwitcher(page)
         await page.getByRole('button', { name: 'Se déconnecter' }).click()
         await expect(page).toHaveURL(/\/login/)
         expect(await offlineBookCount(page)).toBe(0)
