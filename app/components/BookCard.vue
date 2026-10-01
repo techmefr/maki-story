@@ -8,6 +8,7 @@
             <div class="subtitle">{{ book.title }}</div>
             <div class="row row--wrap">
                 <span class="badge" :style="{ background: statusBg }">{{ statusLabel }}</span>
+                <span v-if="book.isVoiceBlocked" class="badge" style="background: #ff7a6b">Voix bloquée</span>
                 <VoiceDots :member-ids="book.memberIds" />
             </div>
             <div class="muted">{{ progressLabel }}</div>

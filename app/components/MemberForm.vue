@@ -152,6 +152,8 @@ const preview = computed<IMember>(() => ({
     codeKind: member?.codeKind ?? null,
     spokenLanguages: member?.spokenLanguages ?? [],
     appLocale: member?.appLocale ?? null,
+    voicePolicy: member?.voicePolicy ?? 'keep',
+    isGuest: member?.isGuest ?? false,
 }))
 
 const onCaptured = async (blob: Blob): Promise<void> => {

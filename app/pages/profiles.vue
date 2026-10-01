@@ -29,7 +29,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'blank' })
 
-const { members } = useMembers()
+const { people: members } = useMembers()
 const { select } = useCurrentMember()
 const { logout } = useSession()
 

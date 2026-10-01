@@ -28,7 +28,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
         return badRequest('Only a recorded voice message can be sent')
     }
     const [recipient] = await db<{ id: string; role: MemberRole; name: string }[]>`
-        select id, role, name from members where id = ${body.toMemberId} and family_id = ${familyId} and deleted_at is null and status = 'active'
+        select id, role, name from members where id = ${body.toMemberId} and family_id = ${familyId} and deleted_at is null and status = 'active' and source_member_id is null
     `
     if (!recipient) {
         return badRequest('This person cannot receive messages')

@@ -9,9 +9,11 @@ interface IMemberPatch {
     color?: VoiceColorId
     photoFileId?: string | null
     status?: MemberStatus
+    voicePolicy?: VoicePolicy
 }
 
 const SETTABLE_STATUSES: MemberStatus[] = ['active', 'left', 'deceased', 'blocked']
+const VOICE_POLICIES: VoicePolicy[] = ['keep', 'block', 'rerecord']
 
 export default defineEventHandler(async (event): Promise<IMember> => {
     const { familyId } = await requirePermission(event, 'members.manage')
@@ -29,13 +31,19 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     if (body.status !== undefined && !SETTABLE_STATUSES.includes(body.status)) {
         return badRequest('Invalid status')
     }
+    if (body.voicePolicy !== undefined && !VOICE_POLICIES.includes(body.voicePolicy)) {
+        return badRequest('Invalid voice policy')
+    }
     const db = getDb()
     const [current] = await db<IMember[]>`
-        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale from members
+        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest from members
         where id = ${id} and family_id = ${familyId} and deleted_at is null
     `
     if (!current) {
         return notFound('Member not found')
+    }
+    if (current.isGuest && body.role !== undefined && body.role !== 'relative') {
+        return badRequest('A guest voice stays a relative')
     }
     if (body.status !== undefined && body.status !== current.status && current.role !== 'relative') {
         return badRequest('Only a relative can be marked as left, deceased or blocked')
@@ -58,11 +66,15 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         color: body.color ?? current.color,
         photoFileId: body.photoFileId === undefined ? current.photoFileId : body.photoFileId,
         status: body.status ?? current.status,
+        voicePolicy: body.voicePolicy ?? current.voicePolicy,
+    }
+    if (body.voicePolicy !== undefined && current.role !== 'relative') {
+        return badRequest('Only a relative has a voice policy')
     }
     return one(await db<IMember[]>`
         update members
-        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}
+        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}, voice_policy = ${next.voicePolicy}
         where id = ${id} and family_id = ${familyId}
-        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
+        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest
     `)
 })
