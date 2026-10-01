@@ -1,6 +1,8 @@
 export const useAudioPlayer = () => {
     const { fetchUrl } = useFiles()
     const isPlaying = ref(false)
+    const { setBusy } = useSoundCues()
+    watch(isPlaying, value => setBusy('playback', value))
     const positionMs = ref(0)
     const rate = ref(1)
     let audio: HTMLAudioElement | null = null
