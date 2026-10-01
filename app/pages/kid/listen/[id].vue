@@ -19,7 +19,9 @@
             <button type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
         </div>
         <div v-else class="reader__center stack center">
-            <AppAvatar :member="reader" :size="200" />
+            <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
+                <AppAvatar :member="reader" :size="200" />
+            </AppBlob>
             <div class="title">{{ reader?.name }} lit</div>
             <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="togglePause">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
@@ -59,6 +61,7 @@ const pageLines = computed(() =>
 )
 const currentLine = computed(() => pageLines.value[lineIndex.value] ?? null)
 const reader = computed(() => getById(currentLine.value?.memberId ?? null))
+const readerAccent = computed(() => memberHex(reader.value))
 const readerHex = computed(() => (phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF4D9'))
 const isPlaying = computed(() => player.isPlaying.value)
 const pageNumber = computed(() => pageIndex.value + 1)

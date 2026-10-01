@@ -18,7 +18,9 @@
             <button type="button" class="chip" @click="cycleRate">{{ player.rate.value }}×</button>
         </div>
         <div class="card row" :style="{ background: nowHex }">
-            <AppAvatar :member="nowMember" :size="48" />
+            <AppBlob :active="isPlaying" :color="INK_COLOR" :size="48">
+                <AppAvatar :member="nowMember" :size="48" />
+            </AppBlob>
             <div>
                 <div class="subtitle">{{ nowMember?.name }}</div>
                 <div class="muted">{{ currentLine?.character }}</div>
