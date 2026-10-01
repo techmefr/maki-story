@@ -1,0 +1,8 @@
+{
+    "chooseTitle": "Choisis la langue de l’histoire",
+    "choices": "Langues de l’histoire",
+    "change": "Changer de langue",
+    "lock": "Verrouiller la langue",
+    "unlock": "Déverrouiller la langue avec le code d’un parent",
+    "pair": "{first} puis {second}"
+}

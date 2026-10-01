@@ -1,0 +1,78 @@
+{
+    "title": "Condivisione tra famiglie",
+    "invite": {
+        "title": "Codice d’invito",
+        "help": "Dai questo codice a un’altra famiglia perché possa inviarti un libro o chiederti di registrare la tua voce.",
+        "codeLabel": "Codice d’invito della famiglia",
+        "revoked": "Il codice è disattivato. Rinnovalo per invitare di nuovo.",
+        "renew": "Rinnova il codice",
+        "disable": "Disattiva"
+    },
+    "approvals": {
+        "title": "Da approvare"
+    },
+    "approve": "Approva",
+    "decline": "Rifiuta",
+    "incoming": {
+        "title": "Ricevuti"
+    },
+    "whoRecords": "Chi registra?",
+    "allAdults": "Tutti gli adulti della famiglia",
+    "accept": "Accetta",
+    "recordMyVoice": "Registra la mia voce",
+    "stopShare": "Interrompi questa condivisione",
+    "outgoing": {
+        "title": "Inviati"
+    },
+    "noOutgoing": "Nessuna condivisione inviata. Usa il pulsante Condividi di un libro della biblioteca.",
+    "stop": "Interrompi",
+    "status": {
+        "proposed": "In attesa di approvazione da parte di un genitore",
+        "awaiting_owner": "In attesa del consenso del proprietario del libro",
+        "pending": "In attesa di risposta",
+        "accepted": "Accettato",
+        "declined": "Rifiutato",
+        "revoked": "Interrotto"
+    },
+    "mode": {
+        "record": {
+            "one": "registrare {count} battuta",
+            "other": "registrare {count} battute"
+        },
+        "copy": "copia nella biblioteca"
+    },
+    "approvalLabel": "{name} vorrebbe condividere questo libro con {family} ({mode}).",
+    "proposerFallback": "Un familiare",
+    "incomingLabel": "{family}: {mode}. {status}.",
+    "outgoingLabel": "Per {family}: {mode}. {status}.",
+    "actionFailed": "Non è stato possibile eseguire questa azione per ora.",
+    "detail": {
+        "help": "Registra la tua voce per le battute richieste. Puoi riascoltare prima di inviare.",
+        "narrator": "Narratore",
+        "narratorLower": "narratore",
+        "lineAria": "Battuta di {name}",
+        "sent": "Inviata",
+        "listenAgain": "Riascolta",
+        "redo": "Rifai",
+        "record": "Registra",
+        "unavailable": "Questa condivisione non è disponibile.",
+        "sendFailed": "L’invio non è riuscito. Riprova tra un attimo."
+    },
+    "dialog": {
+        "title": "Condividi «{title}»",
+        "code": "Codice della famiglia",
+        "how": "Come condividere?",
+        "modeRecord": "Registra la mia voce per questo libro",
+        "modeCopy": "Copia nella sua biblioteca",
+        "linesToRecord": "Battute da registrare",
+        "line": "{character}: {text}",
+        "note": "Un piccolo messaggio (facoltativo)",
+        "sentTo": "Inviato alla famiglia {name}.",
+        "needsApproval": "Salvato: un genitore deve approvare prima dell’invio.",
+        "notFound": "Questo codice non corrisponde a nessuna famiglia.",
+        "conflict": "Questo libro è già condiviso così, oppure ha raggiunto il numero massimo di famiglie.",
+        "tooMany": "Troppi tentativi. Riprova tra qualche minuto.",
+        "forbidden": "Il tuo profilo non può condividere questo libro.",
+        "failed": "Non è stato possibile inviare la condivisione."
+    }
+}

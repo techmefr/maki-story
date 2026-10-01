@@ -1,0 +1,45 @@
+{
+    "title": "Bibliothek",
+    "listen": "Anhören",
+    "messagesWaiting": {
+        "one": "Eine Nachricht wartet auf dich",
+        "other": "{count} Nachrichten warten auf dich"
+    },
+    "newBook": "Neues Buch",
+    "newBookOffline": "Neues Buch (Verbindung nötig)",
+    "createAi": "Geschichte mit KI erstellen",
+    "noMatch": "Kein Buch passt",
+    "empty": "Noch keine Bücher",
+    "emptyHint": "Fotografiere die Seiten eines Papierbuchs, schneide die Sprechtexte aus und färbe die Stimmen ein.",
+    "rows": {
+        "review": "Vorschläge zum Prüfen",
+        "recording": "Wird gerade aufgenommen",
+        "toRecord": "Aufzunehmen",
+        "all": "Alle unsere Bücher"
+    },
+    "storage": {
+        "title": "Offline-Speicher",
+        "unavailable": "Belegter Speicher ist auf diesem Gerät nicht verfügbar",
+        "usage": "{used} von {quota} belegt",
+        "downloaded": "Heruntergeladene Bücher: {size}",
+        "incomplete": "unvollständig",
+        "keep": "Daten auf diesem Gerät behalten",
+        "protected": "Speicher geschützt",
+        "empty": "Keine Bücher heruntergeladen. Lade ein Buch aus der Bibliothek herunter, um es ohne Verbindung anzuhören.",
+        "removeOne": "{title} löschen",
+        "removeAll": "Alles löschen",
+        "emptyTitle": "Kein Buch heruntergeladen",
+        "emptyHint": "Lade ein Buch aus der Bibliothek herunter, um es ohne Verbindung zu hören."
+    },
+    "grimace": {
+        "title": "Deine Grimasse!",
+        "help": "Zieh eine Grimasse, die sonst niemand macht: Das Kind erkennt dich sofort.",
+        "later": "Später",
+        "saveFailed": "Das Foto kann im Moment nicht gespeichert werden."
+    },
+    "grimaceNudge": {
+        "title": "Zieh deine Grimasse!",
+        "text": "Ein lustiges Foto, damit das Kind dich erkennt."
+    },
+    "noMatchHint": "Versuche andere Wörter oder entferne einen Filter."
+}

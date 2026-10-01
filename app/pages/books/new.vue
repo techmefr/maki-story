@@ -1,44 +1,45 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" />Annuler</NuxtLink>
+        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
         <div class="row" style="justify-content: space-between">
             <h1 class="title">{{ stepTitle }}</h1>
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
         </div>
-        <div v-if="!isWordless" class="row" role="group" aria-label="Nombre de voix">
+        <div v-if="!isWordless" class="row" role="group" :aria-label="t('bookDraft.wizard.voiceCount')">
             <button type="button" class="chip" :class="{ 'chip--on': isSimple }" :aria-pressed="isSimple" @click="setMode('simple')">
-                Une seule voix
+                {{ t('bookDraft.wizard.oneVoice') }}
             </button>
             <button type="button" class="chip" :class="{ 'chip--on': !isSimple }" :aria-pressed="!isSimple" @click="setMode('casting')">
-                Plusieurs voix
+                {{ t('bookDraft.wizard.severalVoices') }}
             </button>
         </div>
-        <AiNotice v-if="isAiPrefilled" text="Les personnages, les répliques et les tons viennent de l’IA et peuvent contenir des erreurs. Relis chaque étape avant d’enregistrer." />
+        <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="step === 'book' && isParent && !isAiPrefilled" />
         <BookStepBook v-if="step === 'book'" @next="goNext" />
         <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
         <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
         <BookStepLines v-else-if="step === 'lines'" @next="goNext" />
         <BookStepReview v-else />
-        <button v-if="step !== 'book'" type="button" class="btn btn--white btn--small" @click="back">Retour</button>
+        <button v-if="step !== 'book'" type="button" class="btn btn--white btn--small" @click="back">{{ t('common.back') }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
-const STEP_TITLES: Record<DraftStep, string> = {
-    book: 'Le livre',
-    pages: 'Les pages',
-    characters: 'Les personnages',
-    lines: 'Les répliques',
-    review: 'Vérifier',
+const STEP_TITLE_KEYS: Record<DraftStep, string> = {
+    book: 'bookDraft.wizard.stepBook',
+    pages: 'bookDraft.wizard.stepPages',
+    characters: 'bookDraft.wizard.stepCharacters',
+    lines: 'bookDraft.wizard.stepLines',
+    review: 'bookDraft.wizard.stepReview',
 }
 
+const { t } = useI18n()
 const { step, steps, isSimple, isWordless, isAiPrefilled, setMode, reset } = useBookDraft()
 const { current, isParent } = useCurrentMember()
 
 const stepCount = computed(() => steps.value.length)
 const stepNumber = computed(() => Math.max(1, steps.value.indexOf(step.value) + 1))
-const stepTitle = computed(() => STEP_TITLES[step.value])
+const stepTitle = computed(() => t(STEP_TITLE_KEYS[step.value]))
 
 const move = (offset: number): void => {
     const index = steps.value.indexOf(step.value)

@@ -206,7 +206,7 @@ test.describe('book editor', () => {
         await openEditor(page, `Malagasy ${info.project.name}`)
         const languages = await page.getByLabel('Langue du livre').locator('option').allTextContents()
         expect(languages).toHaveLength(9)
-        expect(languages.join(' ')).toContain('🇲🇬 Malgache')
+        expect(languages.join(' ')).toContain('🇲🇬 Malagasy')
         await page.getByLabel('Langue du livre').selectOption('mg')
         await page.getByText('Plus de détails (facultatif)').click()
         await page.getByLabel('Sous-titre').fill('Tantara kely')

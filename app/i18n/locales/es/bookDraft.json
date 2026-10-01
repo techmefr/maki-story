@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "El libro",
+        "stepPages": "Las páginas",
+        "stepCharacters": "Los personajes",
+        "stepLines": "Las frases",
+        "stepReview": "Revisar",
+        "voiceCount": "Número de voces",
+        "oneVoice": "Una sola voz",
+        "severalVoices": "Varias voces",
+        "aiNotice": "Los personajes, las frases y los tonos vienen de la IA y pueden contener errores. Relee cada paso antes de guardar."
+    },
+    "shared": {
+        "page": "Página {n}",
+        "cover": "Portada",
+        "emptyPage": "Página vacía",
+        "panel": "Viñeta {n}"
+    },
+    "book": {
+        "title": "Título del libro",
+        "titlePlaceholder": "El cebú que quería volar",
+        "type": "Tipo de libro",
+        "typeStandard": "Libro",
+        "typeComic": "Cómic",
+        "typeWordless": "Sin texto",
+        "typeChild": "Escrito por el niño",
+        "hintStandard": "Un libro ilustrado clásico, que se lee página a página.",
+        "hintComic": "Viñetas en cada página, cada una con sus frases en orden.",
+        "hintWordless": "Solo imágenes: no hay frases que grabar.",
+        "hintChild": "Copia las frases del niño tal como las escribió.",
+        "language": "Idioma del libro",
+        "reader": "¿Quién lee todo el libro?",
+        "more": "Más detalles (opcional)",
+        "subtitle": "Subtítulo",
+        "author": "Autor",
+        "authorChild": "Autor (el niño)",
+        "illustrator": "Ilustrador",
+        "ageMin": "Edad mínima",
+        "ageMax": "Edad máxima",
+        "tts": "Leer el título con una voz sintética mientras no esté grabado",
+        "errTitle": "Ponle un título al libro.",
+        "errReader": "Elige quién lee el libro.",
+        "errAge": "La edad mínima debe ser inferior a la edad máxima."
+    },
+    "pages": {
+        "intro": "Fotografía cada página del libro. Estas fotos son privadas de la familia y nunca se muestran al niño.",
+        "takePhoto": "Fotografiar una página",
+        "addPage": "Añadir una página",
+        "addEmpty": "Añadir una página vacía",
+        "sending": "Enviando las fotos…",
+        "photoFailed": "No se pudo enviar una foto. Inténtalo de nuevo.",
+        "removePage": "Quitar la página {n}",
+        "emptyNote": "Esta página no tiene imagen: se saltará al escuchar.",
+        "ttsFallback": "Voz sintética si nadie la lee",
+        "describe": "Describe la imagen de la página (opcional)",
+        "describePlaceholder": "Un pequeño cebú junto a un lago…",
+        "panelPlaceholder": "Lo que se ve en la viñeta",
+        "removePanel": "Quitar la viñeta {panel} de la página {page}",
+        "addPanel": "Añadir una viñeta",
+        "needsPhoto": "Este tipo de libro necesita al menos una página en foto.",
+        "continueNoPhoto": "Continuar sin foto"
+    },
+    "characters": {
+        "intro": "Define cada personaje una sola vez: luego lo encontrarás con un toque para cada frase. Elige quién lee su voz.",
+        "groupLabel": "Personaje {name}",
+        "name": "Nombre",
+        "remove": "Quitar a {name}",
+        "colors": "Color",
+        "colorLabel": "Color {color}",
+        "coral": "coral",
+        "sun": "sol",
+        "mint": "menta",
+        "sky": "cielo",
+        "grape": "uva",
+        "pink": "rosa",
+        "description": "Descripción (opcional)",
+        "descriptionPlaceholder": "Un pequeño cebú tímido",
+        "narrator": "Narrador",
+        "whoReads": "¿Quién lee su voz?",
+        "newCharacter": "Nuevo personaje",
+        "newPlaceholder": "Pequeño Cebú",
+        "add": "Añadir un personaje",
+        "castHint": "{done}/{total} personajes tienen una voz."
+    },
+    "lines": {
+        "introSimple": "Copia las frases, página por página. Pega todo un texto de una vez: una frase por línea. El texto solo sirve para dividir: el niño nunca lo verá.",
+        "introCast": "Copia las frases, página por página. Pega todo un texto de una vez: una frase por línea, o «Nombre: frase» para cambiar de personaje. El texto solo sirve para dividir: el niño nunca lo verá.",
+        "emptyNote": "Página vacía: nada que grabar, se saltará al escuchar.",
+        "image": "Imagen: {description}",
+        "panelWithDescription": "Viñeta {n}: {description}",
+        "needOne": "Añade al menos una frase para continuar.",
+        "count": {
+            "one": "{count} frase",
+            "other": "{count} frases"
+        }
+    },
+    "review": {
+        "readsAll": "{name} lee todo el libro",
+        "narratorName": "{name} (narrador)",
+        "pickVoice": "Voz por elegir",
+        "errLines": "Añade al menos una frase.",
+        "errNames": "Cada personaje necesita un nombre distinto.",
+        "errVoiceless": "Elige una voz para: {names}.",
+        "saving": "Guardando…",
+        "toStudio": "Pasar al estudio",
+        "saveFailed": "No se puede guardar el libro por el momento.",
+        "pages": {
+            "one": "{count} página",
+            "other": "{count} páginas"
+        }
+    }
+}

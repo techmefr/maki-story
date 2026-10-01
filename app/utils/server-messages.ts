@@ -1,0 +1,73 @@
+export const SERVER_MESSAGE_KEYS: Record<string, string> = {
+    'Not signed in': 'errors.server.notSignedIn',
+    'Choose a profile first': 'errors.server.chooseProfile',
+    'Not allowed to edit this profile': 'errors.server.forbidden',
+    'Not allowed to change this code': 'errors.server.forbidden',
+    'Your profile cannot do this': 'errors.server.forbidden',
+    'This profile is no longer available': 'errors.server.forbidden',
+    'This line is not assigned to you': 'errors.server.forbidden',
+    'A relative can only edit their own single voice books': 'errors.server.forbidden',
+    'A relative can only propose their own single voice books': 'errors.server.forbidden',
+    'A relative can only create a book read by themselves': 'errors.server.forbidden',
+    'A child can only change the photo': 'errors.server.forbidden',
+    'You can only send messages as yourself': 'errors.server.forbidden',
+    'You can only send files you uploaded': 'errors.server.forbidden',
+    'Only a parent can change the password': 'errors.server.forbidden',
+    'A parent must set this code': 'errors.server.forbidden',
+    'This file is not available to your profile': 'errors.server.forbidden',
+    'Cross-site request refused': 'errors.server.forbidden',
+    'Wrong device secret': 'errors.server.forbidden',
+    'This person cannot receive messages': 'errors.server.forbidden',
+    'Only a recorded voice message can be sent': 'errors.server.invalid',
+    'This voice is blocked': 'errors.server.voiceBlocked',
+    'Unknown invite code': 'errors.server.inviteUnknown',
+    'Too many attempts, try again later': 'errors.server.tooManyAttempts',
+    'Wrong code': 'errors.server.wrongCode',
+    'Invalid code': 'errors.server.wrongCode',
+    'Wrong email or password': 'errors.server.wrongLogin',
+    'Wrong current password': 'errors.server.wrongPassword',
+    'The new password must be different': 'errors.server.samePassword',
+    'Invalid e-mail': 'errors.server.invalidEmail',
+    'Invalid password': 'errors.server.invalidPassword',
+    'This e-mail is already registered': 'errors.server.emailTaken',
+    'File is too large': 'errors.server.fileTooLarge',
+    'Chunk is too large': 'errors.server.fileTooLarge',
+    'Chunk exceeds declared size': 'errors.server.fileTooLarge',
+    'Unsupported file type': 'errors.server.fileUnsupported',
+    'Empty file': 'errors.server.fileEmpty',
+    'Empty chunk': 'errors.server.fileEmpty',
+    'AI is not configured': 'errors.server.aiUnavailable',
+    'The AI provider failed': 'errors.server.aiUnavailable',
+    'The model returned an invalid answer': 'errors.server.aiUnavailable',
+    'Monthly AI budget exhausted': 'errors.server.aiBudget',
+    'SESSION_SECRET is not configured': 'errors.server.server',
+    'Database is not configured': 'errors.server.server',
+    'Expected a row': 'errors.server.server',
+    'Upload expired': 'errors.server.uploadExpired',
+    'Upload incomplete': 'errors.server.uploadExpired',
+    'Wrong offset': 'errors.server.uploadExpired',
+    'Listen to the previous message first': 'errors.server.listenFirst',
+    'This line already has a recording': 'errors.server.alreadyRecorded',
+    'Too many devices': 'errors.server.tooManyDevices',
+    'This book is already shared this way with this family': 'errors.server.alreadyShared',
+    'This book is already shared with the maximum number of families': 'errors.server.shareLimit',
+    'At least one parent is required': 'errors.server.parentRequired',
+    'This book already has a narrator': 'errors.server.narratorExists',
+    'This character already exists': 'errors.server.characterExists',
+}
+
+const MESSAGE_PATTERNS: { pattern: RegExp; key: string }[] = [
+    { pattern: /^Il y a déjà \d+ messages en attente/, key: 'errors.server.pendingLimit' },
+    { pattern: / not found$/, key: 'errors.server.notFound' },
+    { pattern: /^(Invalid|Missing|Unknown) /, key: 'errors.server.invalid' },
+    { pattern: / (is required|must be .*|is out of range)$/, key: 'errors.server.invalid' },
+    { pattern: /^(A|An) .* (needs|is required)/, key: 'errors.server.invalid' },
+]
+
+export const serverMessageKey = (message: string): string | null => {
+    const exact = SERVER_MESSAGE_KEYS[message]
+    if (exact) {
+        return exact
+    }
+    return MESSAGE_PATTERNS.find(entry => entry.pattern.test(message))?.key ?? null
+}

@@ -1,0 +1,110 @@
+{
+    "wizard": {
+        "stepBook": "图书",
+        "stepPages": "页面",
+        "stepCharacters": "角色",
+        "stepLines": "台词",
+        "stepReview": "检查",
+        "voiceCount": "声音数量",
+        "oneVoice": "一个声音",
+        "severalVoices": "多个声音",
+        "aiNotice": "角色、台词和语气由 AI 生成，可能有错误。保存之前请再检查每一步。"
+    },
+    "shared": {
+        "page": "第 {n} 页",
+        "cover": "封面",
+        "emptyPage": "空白页",
+        "panel": "第 {n} 格"
+    },
+    "book": {
+        "title": "书名",
+        "titlePlaceholder": "想飞的瘤牛",
+        "type": "图书类型",
+        "typeStandard": "图书",
+        "typeComic": "漫画",
+        "typeWordless": "无文字",
+        "typeChild": "孩子自己写的",
+        "hintStandard": "普通的绘本，一页一页地读。",
+        "hintComic": "每页有多个画格，每格的台词按顺序排列。",
+        "hintWordless": "只有图片：没有需要录制的台词。",
+        "hintChild": "照抄孩子写下的句子，保持原样。",
+        "language": "图书语言",
+        "reader": "谁来读整本书？",
+        "more": "更多详情（可选）",
+        "subtitle": "副标题",
+        "author": "作者",
+        "authorChild": "作者（孩子）",
+        "illustrator": "插画师",
+        "ageMin": "最小年龄",
+        "ageMax": "最大年龄",
+        "tts": "在标题录音之前，用合成语音朗读标题",
+        "errTitle": "请给图书起个标题。",
+        "errReader": "请选择谁来读这本书。",
+        "errAge": "最小年龄必须小于最大年龄。"
+    },
+    "pages": {
+        "intro": "给书的每一页拍照。这些照片只有家人能看到，不会展示给孩子。",
+        "takePhoto": "给一页拍照",
+        "addPage": "添加一页",
+        "addEmpty": "添加空白页",
+        "sending": "正在发送照片…",
+        "photoFailed": "有一张照片发送失败，请再试一次。",
+        "removePage": "移除第 {n} 页",
+        "emptyNote": "这一页没有图片：收听时会被跳过。",
+        "ttsFallback": "没有人朗读时使用合成语音",
+        "describe": "描述这一页的图片（可选）",
+        "describePlaceholder": "湖边的一头小瘤牛…",
+        "panelPlaceholder": "画格里能看到什么",
+        "removePanel": "从第 {page} 页移除第 {panel} 格",
+        "addPanel": "添加画格",
+        "needsPhoto": "这种图书至少需要一页照片。",
+        "continueNoPhoto": "不拍照，继续"
+    },
+    "characters": {
+        "intro": "每个角色只需设定一次，之后每句台词一点就能选到。请选择谁来为它配音。",
+        "groupLabel": "角色 {name}",
+        "name": "名字",
+        "remove": "移除 {name}",
+        "colors": "颜色",
+        "colorLabel": "颜色：{color}",
+        "coral": "珊瑚色",
+        "sun": "太阳色",
+        "mint": "薄荷色",
+        "sky": "天空色",
+        "grape": "葡萄色",
+        "pink": "粉色",
+        "description": "描述（可选）",
+        "descriptionPlaceholder": "一头害羞的小瘤牛",
+        "narrator": "旁白",
+        "whoReads": "谁来为它配音？",
+        "newCharacter": "新角色",
+        "newPlaceholder": "小瘤牛",
+        "add": "添加角色",
+        "castHint": "{done}/{total} 个角色已有配音。"
+    },
+    "lines": {
+        "introSimple": "按页抄入台词。可以一次粘贴整段文字：每行一句台词。文字只用来拆分，孩子永远看不到。",
+        "introCast": "按页抄入台词。可以一次粘贴整段文字：每行一句台词，或用“名字：台词”来切换角色。文字只用来拆分，孩子永远看不到。",
+        "emptyNote": "空白页：无需录音，收听时会被跳过。",
+        "image": "图片：{description}",
+        "panelWithDescription": "第 {n} 格：{description}",
+        "needOne": "请至少添加一句台词再继续。",
+        "count": {
+            "other": "{count} 句台词"
+        }
+    },
+    "review": {
+        "readsAll": "{name} 朗读整本书",
+        "narratorName": "{name}（旁白）",
+        "pickVoice": "待选择声音",
+        "errLines": "请至少添加一句台词。",
+        "errNames": "每个角色都需要不同的名字。",
+        "errVoiceless": "请为以下角色选择声音：{names}。",
+        "saving": "正在保存…",
+        "toStudio": "前往录音室",
+        "saveFailed": "暂时无法保存这本书。",
+        "pages": {
+            "other": "{count} 页"
+        }
+    }
+}

@@ -202,7 +202,6 @@ export interface IPanelBody {
 
 export interface IAgeTag {
     id: string
-    label: string
     min: number
     max: number
 }

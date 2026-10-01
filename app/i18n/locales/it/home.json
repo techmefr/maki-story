@@ -1,0 +1,45 @@
+{
+    "title": "Biblioteca",
+    "listen": "Ascolta",
+    "messagesWaiting": {
+        "one": "Ti aspetta un messaggio",
+        "other": "Ti aspettano {count} messaggi"
+    },
+    "newBook": "Nuovo libro",
+    "newBookOffline": "Nuovo libro (serve una connessione)",
+    "createAi": "Crea una storia con l’IA",
+    "noMatch": "Nessun libro corrisponde",
+    "empty": "Ancora nessun libro",
+    "emptyHint": "Fotografa le pagine di un libro di carta, ritaglia le battute e colora le voci.",
+    "rows": {
+        "review": "Proposte da rivedere",
+        "recording": "In registrazione",
+        "toRecord": "Da registrare",
+        "all": "Tutti i nostri libri"
+    },
+    "storage": {
+        "title": "Archiviazione offline",
+        "unavailable": "Spazio utilizzato non disponibile su questo dispositivo",
+        "usage": "{used} usati su {quota}",
+        "downloaded": "Libri scaricati: {size}",
+        "incomplete": "incompleto",
+        "keep": "Conserva i dati su questo dispositivo",
+        "protected": "Archiviazione protetta",
+        "empty": "Nessun libro scaricato. Scarica un libro dalla biblioteca per ascoltarlo senza connessione.",
+        "removeOne": "Elimina {title}",
+        "removeAll": "Elimina tutto",
+        "emptyTitle": "Nessun libro scaricato",
+        "emptyHint": "Scarica un libro dalla libreria per ascoltarlo senza connessione."
+    },
+    "grimace": {
+        "title": "La tua smorfia!",
+        "help": "Fai una smorfia che nessun altro fa: il bambino ti riconoscerà subito.",
+        "later": "Più tardi",
+        "saveFailed": "Impossibile salvare la foto per ora."
+    },
+    "grimaceNudge": {
+        "title": "Fai la tua smorfia!",
+        "text": "Una foto buffa perché il bambino ti riconosca."
+    },
+    "noMatchHint": "Prova con altre parole o togli un filtro."
+}

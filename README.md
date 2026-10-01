@@ -166,7 +166,7 @@ The header avatar opens the profile menu of the active profile.
 
 - Photo: grimace capture or gallery (`PUT /api/members/:id/photo`).
 - Spoken languages: multi-select with flags among fr, mg, en, es, it, de, pt, zh, ar, stored per member (`members.spoken_languages`). Malagasy (mg, labelled Malgache in the French UI) is a first-class language.
-- App language: stored per member (`members.app_locale`, null means device detection). The UI renders French only until the translation work lands; `useLocale` exposes `locale`, `activeLocale` and `setLocale` for it.
+- App language: stored per member (`members.app_locale`, null means device detection). `useLocale` exposes `locale`, `activeLocale` and `setLocale`; see the Languages section.
 - Account password (parents only): current password required, 8 characters minimum. `accounts.password_changed_at` invalidates every other session of the account; the session that made the change stays signed in.
 - Scope: a profile edits only itself, a parent also edits the children of the family (`PATCH /api/members/:id/settings`). A child sees a reduced menu (photo, plus the spoken languages a parent set) and cannot change languages or password.
 
@@ -192,6 +192,16 @@ tests/e2e/  Playwright specs and helpers
 docs/       GitHub Pages landing page and screenshots
 design/     Original clickable prototypes (French) the UI was built from
 ```
+
+## Languages
+
+The interface ships in French (source), English, Spanish, Italian, German, Portuguese, Chinese, Arabic (right to left) and a Malagasy draft that still needs a native review. Messages live in `app/i18n/locales/<locale>/<namespace>.json`, are loaded lazily per language and fall back to French. The language is chosen per profile in the profile menu (stored in `members.app_locale`) and defaults to the browser language.
+
+Adding a language:
+
+1. Add it to `LANGUAGES` in `shared/utils/languages.ts` (add it to `RTL_LOCALES` if it is right to left, or `DRAFT_LOCALES` if it needs review).
+2. Copy `app/i18n/locales/fr` to `app/i18n/locales/<code>` and translate every value, keeping `{placeholders}` and plural categories.
+3. Run `pnpm i18n:check`: it fails when a key present in French is missing or when placeholders differ. CI runs it too.
 
 ## Getting started
 

@@ -2,13 +2,13 @@
     <div class="stack narrow">
         <div class="row" style="justify-content: space-between">
             <AppLogo :size="48" />
-            <button type="button" class="btn btn--small btn--white" @click="leave">Se déconnecter</button>
+            <button type="button" class="btn btn--small btn--white" @click="leave">{{ t('profile.logout') }}</button>
         </div>
         <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
         <template v-else>
             <div class="row">
                 <AppMaki :size="56" class="anim-float" />
-                <h1 class="title">Qui écoute ?</h1>
+                <h1 class="title">{{ t('profile.who') }}</h1>
             </div>
             <button
                 v-for="(member, index) in members"
@@ -24,7 +24,7 @@
                     <div class="muted">{{ roleLabel(member.role) }}</div>
                 </div>
             </button>
-            <NuxtLink to="/family/add" class="btn btn--white btn--block">Ajouter un proche</NuxtLink>
+            <NuxtLink to="/family/add" class="btn btn--white btn--block">{{ t('family.index.add') }}</NuxtLink>
         </template>
     </div>
 </template>
@@ -35,6 +35,7 @@ definePageMeta({ layout: 'blank' })
 const { people: members } = useMembers()
 const { select } = useCurrentMember()
 const { logout } = useSession()
+const { t } = useI18n()
 
 const target = ref<IMember | null>(null)
 

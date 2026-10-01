@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "Ma famille",
+        "edit": "Modifier",
+        "guestVoices": "Voix invitées",
+        "guestHint": "Proches d’autres familles qui ont enregistré des répliques pour toi.",
+        "guestVoice": "Voix invitée",
+        "manage": "Gérer",
+        "add": "Ajouter un proche",
+        "storage": "Stockage hors ligne",
+        "sharing": "Partage entre familles",
+        "devices": "Appareils",
+        "feedback": "Avis des testeurs"
+    },
+    "edit": {
+        "title": "Modifier",
+        "missing": "Ce proche n’existe plus."
+    },
+    "add": {
+        "title": "Ajouter un proche"
+    },
+    "status": {
+        "blocked": "bloqué",
+        "left": "a quitté le foyer",
+        "deceased": "décédé"
+    },
+    "devices": {
+        "title": "Appareils",
+        "intro": "Les appareils qui ouvrent un profil avec l’empreinte ou le visage. Retire un appareil perdu ou prêté.",
+        "empty": "Aucun appareil enregistré.",
+        "revoke": "Retirer",
+        "revokeLabel": "Retirer {device} de {member}",
+        "loadError": "Impossible de charger les appareils.",
+        "revokeError": "Impossible de retirer cet appareil.",
+        "emptyHint": "Active l’empreinte ou le visage sur un profil pour le voir ici."
+    }
+}

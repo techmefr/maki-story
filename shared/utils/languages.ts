@@ -1,17 +1,18 @@
 export const DEFAULT_LANGUAGE = 'fr'
 export const DEFAULT_LOCALE = DEFAULT_LANGUAGE
-export const TRANSLATED_LOCALES = ['fr']
+export const RTL_LOCALES = ['ar']
+export const DRAFT_LOCALES = ['mg']
 
 export const LANGUAGES: ILanguage[] = [
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'mg', label: 'Malgache', flag: '🇲🇬' },
-    { code: 'en', label: 'Anglais', flag: '🇬🇧' },
-    { code: 'es', label: 'Espagnol', flag: '🇪🇸' },
-    { code: 'it', label: 'Italien', flag: '🇮🇹' },
-    { code: 'de', label: 'Allemand', flag: '🇩🇪' },
-    { code: 'pt', label: 'Portugais', flag: '🇵🇹' },
-    { code: 'zh', label: 'Chinois', flag: '🇨🇳' },
-    { code: 'ar', label: 'Arabe', flag: '🇸🇦' },
+    { code: 'mg', label: 'Malagasy', flag: '🇲🇬' },
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+    { code: 'pt', label: 'Português', flag: '🇵🇹' },
+    { code: 'zh', label: '中文', flag: '🇨🇳' },
+    { code: 'ar', label: 'العربية', flag: '🇸🇦' },
 ]
 
 export const languageLabel = (code: string): string => {
@@ -32,3 +33,5 @@ export const pickLocale = (candidates: readonly string[]): string => {
     }
     return DEFAULT_LOCALE
 }
+
+export const textDirection = (code: string): 'ltr' | 'rtl' => (RTL_LOCALES.includes(code) ? 'rtl' : 'ltr')

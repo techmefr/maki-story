@@ -1,0 +1,17 @@
+{
+    "title": "Hevitry ny mpitsapa",
+    "empty": "Mbola tsy misy hevitra.",
+    "moods": {
+        "love": "Tiako be",
+        "ok": "Mety",
+        "bad": "Tsy mazava"
+    },
+    "note": "Fanamarihana",
+    "button": "Hevitra",
+    "sheetTitle": "Ny hevitrao momba ity efijery ity",
+    "placeholder": "Izay mandeha, izay misakana, izay tsy ampy...",
+    "thanks": "Misaotra, voasoratra.",
+    "emptyHint": "Eto no hiseho ny hevitra alefa amin’ny bokotra Hevitra.",
+    "mood": "Ny toe-po anao",
+    "label": "Ny hevitrao"
+}

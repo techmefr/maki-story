@@ -1,9 +1,9 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
-        <h1 class="title">Appareils</h1>
-        <p class="muted">Les appareils qui ouvrent un profil avec l’empreinte ou le visage. Retire un appareil perdu ou prêté.</p>
-        <AppEmpty v-if="devices.length === 0" title="Aucun appareil enregistré." hint="Active l’empreinte ou le visage sur un profil pour le voir ici." />
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <h1 class="title">{{ t('family.devices.title') }}</h1>
+        <p class="muted">{{ t('family.devices.intro') }}</p>
+        <AppEmpty v-if="devices.length === 0" :title="t('family.devices.empty')" :hint="t('family.devices.emptyHint')" />
         <div v-for="device in devices" :key="device.id" class="card row">
             <div class="grow">
                 <div class="subtitle">{{ device.memberName }}</div>
@@ -12,10 +12,10 @@
             <button
                 type="button"
                 class="btn btn--small btn--white"
-                :aria-label="`Retirer ${device.label} de ${device.memberName}`"
+                :aria-label="t('family.devices.revokeLabel', { device: device.label, member: device.memberName })"
                 @click="revoke(device)"
             >
-                Retirer
+                {{ t('family.devices.revoke') }}
             </button>
         </div>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 const { request } = useApi()
+const { t } = useI18n()
 
 const devices = ref<IDevice[]>([])
 const errorMessage = ref('')
@@ -32,7 +33,7 @@ const load = async (): Promise<void> => {
     try {
         devices.value = await request<IDevice[]>('/devices')
     } catch (_error) {
-        errorMessage.value = 'Impossible de charger les appareils.'
+        errorMessage.value = t('family.devices.loadError')
     }
 }
 
@@ -42,7 +43,7 @@ const revoke = async (device: IDevice): Promise<void> => {
         await request(`/devices/${device.id}`, { method: 'DELETE' })
         devices.value = devices.value.filter(item => item.id !== device.id)
     } catch (_error) {
-        errorMessage.value = 'Impossible de retirer cet appareil.'
+        errorMessage.value = t('family.devices.revokeError')
     }
 }
 

@@ -1,17 +1,17 @@
 <template>
     <form class="stack" @submit.prevent="save">
         <div class="row" style="justify-content: center">
-            <button type="button" class="photo" aria-label="Changer la photo" @click="isCapturing = true">
+            <button type="button" class="photo" :aria-label="t('member.form.changePhoto')" @click="isCapturing = true">
                 <AppAvatar :member="preview" :size="110" />
-                <span class="badge photo__badge">{{ photoFileId ? 'Changer' : 'Grimace !' }}</span>
+                <span class="badge photo__badge">{{ photoFileId ? t('member.form.photoChange') : t('member.form.photoNew') }}</span>
             </button>
         </div>
         <label class="stack" style="gap: 6px">
-            <span class="label">Prénom</span>
-            <input v-model="name" class="input" placeholder="Maman, Mamie, Lova…" required />
+            <span class="label">{{ t('member.form.name') }}</span>
+            <input v-model="name" class="input" :placeholder="t('member.form.namePlaceholder')" required />
         </label>
         <div class="stack" style="gap: 6px">
-            <span class="label">Rôle</span>
+            <span class="label">{{ t('member.form.role') }}</span>
             <div class="row row--wrap">
                 <button
                     v-for="option in roles"
@@ -27,21 +27,21 @@
             </div>
             <span class="muted">{{ roleHint }}</span>
         </div>
-        <CodeField v-if="!member" v-model="code" :can-use-shapes="role === 'child'" label="Code secret du profil" />
+        <CodeField v-if="!member" v-model="code" :can-use-shapes="role === 'child'" :label="t('member.form.codeLabel')" />
         <div v-else-if="canChangeCode" class="stack" style="gap: 6px">
             <button type="button" class="btn btn--white btn--small" :aria-expanded="isChangingCode" @click="toggleCodeChange">
-                {{ isChangingCode ? 'Garder le code actuel' : member?.hasCode ? 'Changer le code' : 'Définir le code' }}
+                {{ isChangingCode ? t('member.form.keepCode') : member?.hasCode ? t('member.form.changeCode') : t('member.form.setCode') }}
             </button>
             <template v-if="isChangingCode">
                 <label v-if="needsCurrentCode" class="stack" style="gap: 6px">
-                    <span class="label">Code actuel</span>
+                    <span class="label">{{ t('member.form.currentCode') }}</span>
                     <input v-model="currentCode" class="input" type="password" inputmode="numeric" autocomplete="off" :maxlength="PIN_MAX_LENGTH" />
                 </label>
-                <CodeField v-model="code" :can-use-shapes="role === 'child'" label="Nouveau code" />
+                <CodeField v-model="code" :can-use-shapes="role === 'child'" :label="t('member.form.newCode')" />
             </template>
         </div>
         <div class="stack" style="gap: 6px">
-            <span class="label">Couleur de voix</span>
+            <span class="label">{{ t('member.form.voiceColor') }}</span>
             <div class="row row--wrap">
                 <button
                     v-for="option in colors"
@@ -56,32 +56,27 @@
             </div>
         </div>
         <div v-if="canSetLanguages" class="stack" style="gap: 6px">
-            <span class="label">Langues parlées</span>
-            <LanguagePicker v-model="spokenLanguages" label="Langues parlées" :is-disabled="isBusy" />
+            <span class="label">{{ t('member.form.spokenLanguages') }}</span>
+            <LanguagePicker v-model="spokenLanguages" :label="t('member.form.spokenLanguages')" :is-disabled="isBusy" />
         </div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="submit" class="btn btn--block" :disabled="!canSave || isBusy">Enregistrer</button>
+        <button type="submit" class="btn btn--block" :disabled="!canSave || isBusy">{{ t('common.save') }}</button>
         <button v-if="member" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="askRemove">
-            Supprimer ce proche
+            {{ t('member.form.remove') }}
         </button>
         <div v-if="isCapturing" class="sheet-backdrop" @click.self="isCapturing = false">
             <div v-sheet="() => (isCapturing = false)" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="capture-title">
-                <h2 id="capture-title" class="subtitle">Ta plus belle grimace</h2>
-                <p class="muted">Chacun fait une grimace différente : l’enfant reconnaîtra ses proches.</p>
+                <h2 id="capture-title" class="subtitle">{{ t('member.form.captureTitle') }}</h2>
+                <p class="muted">{{ t('member.form.captureHint') }}</p>
                 <PhotoCapture :frame-color="activeHex" @captured="onCaptured" />
-                <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">Annuler</button>
+                <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">{{ t('common.cancel') }}</button>
             </div>
         </div>
     </form>
 </template>
 
 <script setup lang="ts">
-const ROLE_HINTS: Record<MemberRole, string> = {
-    parent: 'Peut créer des livres et gérer la famille.',
-    relative: 'Enregistre des histoires et laisse des messages à l’enfant.',
-    child: 'Écoute les histoires, sans réglages ni création.',
-}
-
+const { t } = useI18n()
 const { member = null } = defineProps<{ member?: IMember | null }>()
 const emit = defineEmits<{ saved: [] }>()
 
@@ -142,7 +137,7 @@ const toggleCodeChange = (): void => {
     code.value = null
     currentCode.value = ''
 }
-const roleHint = computed(() => ROLE_HINTS[role.value])
+const roleHint = computed(() => t(`member.roleHint.${role.value}`))
 const preview = computed<IMember>(() => ({
     id: member?.id ?? 'new',
     name: name.value || '?',
@@ -166,7 +161,7 @@ const onCaptured = async (blob: Blob): Promise<void> => {
         isCapturing.value = false
     } catch (error) {
         console.error('La photo n a pas pu être envoyée', error)
-        errorMessage.value = 'La photo n’a pas pu être envoyée.'
+        errorMessage.value = t('member.form.photoError')
     }
 }
 
@@ -198,14 +193,14 @@ const save = async (): Promise<void> => {
     } catch (error) {
         console.error('Le proche n a pas pu être enregistré', error)
         const status = (error as { statusCode?: number }).statusCode
-        errorMessage.value = status === 403 || status === 429 ? 'Le code actuel est incorrect ou bloqué.' : 'Impossible d’enregistrer pour le moment.'
+        errorMessage.value = status === 403 || status === 429 ? t('member.form.codeBlocked') : t('member.form.saveError')
     } finally {
         isBusy.value = false
     }
 }
 
 const askRemove = async (): Promise<void> => {
-    if (!member || !window.confirm(`Supprimer ${member.name} ? Ses enregistrements seront perdus.`)) {
+    if (!member || !window.confirm(t('member.form.removeConfirm', { name: member.name }))) {
         return
     }
     isBusy.value = true
@@ -214,7 +209,7 @@ const askRemove = async (): Promise<void> => {
         emit('saved')
     } catch (error) {
         console.error('Le proche n a pas pu être supprimé', error)
-        errorMessage.value = 'Impossible de supprimer : il faut garder au moins un parent.'
+        errorMessage.value = t('member.form.removeError')
     } finally {
         isBusy.value = false
     }
@@ -232,7 +227,7 @@ const askRemove = async (): Promise<void> => {
 
 .photo__badge {
     position: absolute;
-    right: -10px;
+    inset-inline-end: -10px;
     bottom: -4px;
 }
 

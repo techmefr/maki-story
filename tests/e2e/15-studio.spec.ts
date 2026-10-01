@@ -217,7 +217,7 @@ test.describe('recording studio', () => {
         await expect(coverage.getByText(/Français 1\/2/)).toBeVisible()
         await expect(coverage.getByText(fixture.relativeName)).toBeVisible()
         await page.getByLabel('Langue de l’enregistrement').selectOption('mg')
-        await expect(coverage.getByRole('button', { name: /Page 1, Zébu, .*Malgache : manquant/ })).toBeVisible()
+        await expect(coverage.getByRole('button', { name: /Page 1, Zébu, .*Malagasy : manquant/ })).toBeVisible()
         await coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ }).click()
         await expect(page.getByLabel('Langue de l’enregistrement')).toHaveValue('fr')
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')

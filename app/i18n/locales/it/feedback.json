@@ -1,0 +1,17 @@
+{
+    "title": "Pareri dei tester",
+    "empty": "Ancora nessun parere.",
+    "moods": {
+        "love": "Lo adoro",
+        "ok": "Va bene",
+        "bad": "Non è chiaro"
+    },
+    "note": "Nota",
+    "button": "Parere",
+    "sheetTitle": "Il tuo parere su questa schermata",
+    "placeholder": "Cosa funziona, cosa si blocca, cosa manca...",
+    "thanks": "Grazie, preso nota.",
+    "emptyHint": "I pareri inviati con il pulsante Parere appariranno qui.",
+    "mood": "Il tuo umore",
+    "label": "Il tuo parere"
+}

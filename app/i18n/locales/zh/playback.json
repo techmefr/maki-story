@@ -1,0 +1,8 @@
+{
+    "chooseTitle": "选择故事的语言",
+    "choices": "故事语言",
+    "change": "更换语言",
+    "lock": "锁定语言",
+    "unlock": "用家长密码解锁语言",
+    "pair": "先{first}，再{second}"
+}

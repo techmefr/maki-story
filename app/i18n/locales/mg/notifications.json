@@ -1,0 +1,29 @@
+{
+    "title": "Fampandrenesana",
+    "markAllRead": "Marihana ho voavaky daholo",
+    "empty": "Mbola tsy misy fampandrenesana.",
+    "new": "Vaovao",
+    "read": "Voavaky",
+    "sharing": "Fizarana eo amin’ny fianakaviana",
+    "bellUnread": {
+        "one": "Fampandrenesana, {count} tsy mbola voavaky",
+        "other": "Fampandrenesana, {count} tsy mbola voavaky"
+    },
+    "describe": {
+        "default": "Fampandrenesana vaovao",
+        "receivedRecord": "{from} dia mangataka aminao handrakitra ny feonao ho an’ny « {title} »",
+        "receivedCopy": "{from} dia nandefa ny boky « {title} » taminao",
+        "accepted": "{name} dia nanaiky ny « {title} »",
+        "declined": "{name} dia nandà ny « {title} »",
+        "toApprove": "{from} dia manolotra ny « {title} »: mila ekena",
+        "approved": "Voaekena ny tolo-kevitrao « {title} »",
+        "voiceBatch": {
+            "one": "{from} dia nandefa ny feony: andalana {count} avy amin’ny « {title} »",
+            "other": "{from} dia nandefa ny feony: andalana {count} avy amin’ny « {title} »"
+        },
+        "recordingBatch": {
+            "one": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »",
+            "other": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »"
+        }
+    }
+}

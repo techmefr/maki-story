@@ -1,0 +1,17 @@
+{
+    "title": "Feedback der Tester",
+    "empty": "Noch kein Feedback.",
+    "moods": {
+        "love": "Ich liebe es",
+        "ok": "Geht so",
+        "bad": "Unklar"
+    },
+    "note": "Notiz",
+    "button": "Feedback",
+    "sheetTitle": "Deine Meinung zu diesem Bildschirm",
+    "placeholder": "Was klappt, was hakt, was fehlt...",
+    "thanks": "Danke, ist notiert.",
+    "emptyHint": "Mit der Schaltfläche Feedback gesendete Rückmeldungen erscheinen hier.",
+    "mood": "Deine Stimmung",
+    "label": "Dein Feedback"
+}

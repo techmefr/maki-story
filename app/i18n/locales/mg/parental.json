@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Kaody ny mombamomba",
+        "locked": "Voahidy ny mombamomba noho ny andrana be loatra.",
+        "none": "Tsy mbola misy kaody voafaritra.",
+        "shapes": "Voafaritra ny kaody amin’ny endrika.",
+        "digits": "Voafaritra ny kaody amin’ny isa.",
+        "unlock": "Sokafy ny mombamomba",
+        "remove": "Esory ny kaody",
+        "failed": "Tsy afaka ovaina ny kaody amin’izao.",
+        "removeConfirm": "Esorina ve ny kaodin’i {name}?"
+    },
+    "schedule": {
+        "title": "Fotoana fihainoana",
+        "free": "Afaka mihaino malalaka.",
+        "limited": "Voafetra amin’ny ora voafaritra ny fihainoana.",
+        "blockedManual": "Tapaka ny fihainoana mandra-pamerenanao azy.",
+        "blockedUntil": "Tapaka ny fihainoana hatramin’ny {time}.",
+        "blockNow": "Tapaho izao",
+        "restore": "Averina",
+        "until": "Tapaho hatramin’ny",
+        "untilButton": "Tapaho hatramin’io ora io",
+        "enabled": "Fetra ny fihainoana amin’ny ora etsy ambany",
+        "daysLabel": "Ora isan’andro",
+        "from": "Manomboka",
+        "to": "Hatramin’ny",
+        "dayOff": "Andro tsy hihainoana",
+        "save": "Ampiharo ny ora",
+        "saveFailed": "Tsy afaka voatahiry amin’izao. Hamarino fa alohan’ny ora farany ny ora fanombohana rehetra."
+    },
+    "gate": {
+        "title": "Kaodin’ny ray aman-dreny",
+        "noParent": "Tsy mbola misy ray aman-dreny manana kaody.",
+        "which": "Iza amin’izy ireo?",
+        "wrong": "Tsy mety io kaody io."
+    },
+    "locked": {
+        "clock": "Ora hiverenan’ny fihainoana",
+        "toParent": "Mankany amin’ny ray aman-dreny"
+    }
+}

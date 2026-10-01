@@ -1,0 +1,46 @@
+{
+    "hello": "Coucou {name} !",
+    "listenHer": "Écouter son message",
+    "sendMessage": "Envoyer un message",
+    "noSoloStory": "Pas encore d’histoire avec cette voix.",
+    "bubbleLabel": "{name} : {count} à écouter",
+    "bubble": "Message",
+    "multiVoice": "Histoires à plusieurs voix",
+    "library": {
+        "title": "Les histoires",
+        "sheet": "Fiche",
+        "sheetOf": "Fiche de {title}",
+        "empty": "Aucune histoire pour l’instant.",
+        "emptyHint": "Demande à un grand d’en enregistrer une !"
+    },
+    "listen": {
+        "nextPage": "Page suivante",
+        "turnPage": "Tourner la page",
+        "finished": "C’est fini !",
+        "restart": "Recommencer",
+        "fromStart": "Au début",
+        "read": "Lire",
+        "goodNight": "Bonne nuit",
+        "reads": "{name} lit",
+        "pause": "Pause",
+        "resumePlay": "Lecture",
+        "quit": "Quitter",
+        "soundOn": "Son",
+        "soundOff": "Sans son",
+        "sleepTimer": "Minuteur de sommeil",
+        "page": "Page {current}/{total}",
+        "progress": "Avancement de la page"
+    },
+    "sleep": {
+        "title": "Dodo dans…",
+        "endOfPage": "Dormir à la fin de la page",
+        "inMinutes": {
+            "one": "Dormir dans {count} minute",
+            "other": "Dormir dans {count} minutes"
+        },
+        "cancel": "Annuler le minuteur"
+    },
+    "noFaces": "Personne n’est encore là",
+    "noFacesHint": "Demande à un grand d’ajouter la famille.",
+    "noSoloHint": "Elle arrive bientôt !"
+}

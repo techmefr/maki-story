@@ -1,0 +1,39 @@
+{
+    "title": "消息",
+    "addChild": "在家庭里添加一个孩子，就可以给TA发语音消息。",
+    "sendHim": "给TA发消息",
+    "needConnection": "需要联网才能发送",
+    "status": {
+        "waiting": "有一条消息在等你",
+        "heard": "已收听 ✓",
+        "sent": "已发送",
+        "none": "没有消息"
+    },
+    "compose": {
+        "reply": "回复 {name}",
+        "messageFor": "给 {name} 的消息",
+        "sent": "已发送！",
+        "stop": "停止",
+        "record": "录音",
+        "redo": "重录",
+        "tapToFinish": "点一下结束",
+        "tapMic": "点一下麦克风",
+        "tooShort": "太短了，再来一次。",
+        "sendFailed": "消息没能发出去，再试一次。"
+    },
+    "listen": {
+        "finished": "播完啦",
+        "reply": "回复",
+        "play": "收听",
+        "alreadyHeard": "这条消息已经听过了",
+        "next": "下一条消息",
+        "nextWaiting": "下一条消息（{count} 条等待中）"
+    },
+    "strip": {
+        "label": "家人的消息",
+        "item": {
+            "other": "{name}：{count} 条消息待收听"
+        }
+    },
+    "noOneTitle": "没有可以发消息的人"
+}

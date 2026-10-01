@@ -6,5 +6,4 @@ export interface ILanguage {
 
 export interface IToneOption {
     id: string
-    label: string
 }

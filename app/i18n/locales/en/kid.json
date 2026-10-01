@@ -1,0 +1,46 @@
+{
+    "hello": "Hi {name}!",
+    "listenHer": "Listen to their message",
+    "sendMessage": "Send a message",
+    "noSoloStory": "No story with this voice yet.",
+    "bubbleLabel": "{name}: {count} to listen to",
+    "bubble": "Message",
+    "multiVoice": "Stories with many voices",
+    "library": {
+        "title": "Stories",
+        "sheet": "Details",
+        "sheetOf": "Details of {title}",
+        "empty": "No stories yet.",
+        "emptyHint": "Ask a grown-up to record one!"
+    },
+    "listen": {
+        "nextPage": "Next page",
+        "turnPage": "Turn the page",
+        "finished": "The end!",
+        "restart": "Start over",
+        "fromStart": "From the start",
+        "read": "Play",
+        "goodNight": "Good night",
+        "reads": "{name} is reading",
+        "pause": "Pause",
+        "resumePlay": "Play",
+        "quit": "Leave",
+        "soundOn": "Sound",
+        "soundOff": "No sound",
+        "sleepTimer": "Sleep timer",
+        "page": "Page {current}/{total}",
+        "progress": "Page progress"
+    },
+    "sleep": {
+        "title": "Sleepy in…",
+        "endOfPage": "Sleep at the end of the page",
+        "inMinutes": {
+            "one": "Sleep in {count} minute",
+            "other": "Sleep in {count} minutes"
+        },
+        "cancel": "Cancel the timer"
+    },
+    "noFaces": "Nobody is here yet",
+    "noFacesHint": "Ask a grown-up to add the family.",
+    "noSoloHint": "It is coming soon!"
+}

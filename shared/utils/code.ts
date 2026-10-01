@@ -2,12 +2,7 @@ export const PIN_MIN_LENGTH = 4
 export const PIN_MAX_LENGTH = 6
 export const SHAPE_CODE_LENGTH = 3
 
-export const SHAPES: { id: number; label: string }[] = [
-    { id: 0, label: 'Cercle' },
-    { id: 1, label: 'Carré' },
-    { id: 2, label: 'Triangle' },
-    { id: 3, label: 'Étoile' },
-]
+export const SHAPES: { id: number }[] = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 
 const PIN_PATTERN = new RegExp(`^[0-9]{${PIN_MIN_LENGTH},${PIN_MAX_LENGTH}}$`)
 const SHAPE_PATTERN = /^[0-3]{3}$/

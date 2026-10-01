@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "Ny ankohonako",
+        "edit": "Hanova",
+        "guestVoices": "Feo vahiny",
+        "guestHint": "Havana avy amin’ny ankohonana hafa izay nandray feo ho anao.",
+        "guestVoice": "Feo vahiny",
+        "manage": "Hitantana",
+        "add": "Hanampy havana",
+        "storage": "Fitahirizana tsy mila aterineto",
+        "sharing": "Fizarana eo amin’ny ankohonana",
+        "devices": "Fitaovana",
+        "feedback": "Hevitry ny mpitsapa"
+    },
+    "edit": {
+        "title": "Hanova",
+        "missing": "Tsy misy intsony ity havana ity."
+    },
+    "add": {
+        "title": "Hanampy havana"
+    },
+    "status": {
+        "blocked": "voasakana",
+        "left": "efa niala tao an-trano",
+        "deceased": "efa maty"
+    },
+    "devices": {
+        "title": "Fitaovana",
+        "intro": "Ny fitaovana manokatra mombamomba amin’ny rantsan-tanana na ny tarehy. Esory ny fitaovana very na nampindramina.",
+        "empty": "Tsy misy fitaovana voasoratra.",
+        "revoke": "Esory",
+        "revokeLabel": "Esory ny {device} an’i {member}",
+        "loadError": "Tsy afaka naka ny fitaovana.",
+        "revokeError": "Tsy afaka nanala ity fitaovana ity.",
+        "emptyHint": "Alefaso ny rantsantanana na ny tarehy amin’ny mombamomba mba hiseho eto."
+    }
+}

@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-const { time = null, label = 'Horloge' } = defineProps<{ time?: Date | null; label?: string }>()
+const { time = null, label = '' } = defineProps<{ time?: Date | null; label?: string }>()
 
 const MINUTES_PER_HOUR = 60
 const HOURS_ON_FACE = 12

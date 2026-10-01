@@ -1,0 +1,20 @@
+{
+    "back": "Retour au studio",
+    "title": "Traduire « {title} »",
+    "language": "Langue de la traduction",
+    "count": "{done}/{total} répliques traduites",
+    "suggest": "Suggérer une traduction",
+    "suggestionsHint": "Suggestions à relire : tu peux les modifier avant d’enregistrer.",
+    "line": "Réplique {n} · {name}",
+    "narrator": "Narrateur",
+    "translationIn": "Traduction en {language}",
+    "tone": "Ton (facultatif)",
+    "tonePlaceholder": "Doux, joyeux…",
+    "save": "Enregistrer la traduction",
+    "suggestFailed": "La suggestion n’a pas pu être faite. Tu peux traduire à la main.",
+    "saved": {
+        "one": "{count} réplique enregistrée en {language}.",
+        "other": "{count} répliques enregistrées en {language}."
+    },
+    "saveFailed": "L’enregistrement a échoué. Réessaie."
+}

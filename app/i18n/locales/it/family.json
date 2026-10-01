@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "La mia famiglia",
+        "edit": "Modifica",
+        "guestVoices": "Voci ospiti",
+        "guestHint": "Parenti di altre famiglie che hanno registrato battute per te.",
+        "guestVoice": "Voce ospite",
+        "manage": "Gestisci",
+        "add": "Aggiungi un familiare",
+        "storage": "Archiviazione offline",
+        "sharing": "Condivisione tra famiglie",
+        "devices": "Dispositivi",
+        "feedback": "Opinioni dei tester"
+    },
+    "edit": {
+        "title": "Modifica",
+        "missing": "Questo familiare non esiste più."
+    },
+    "add": {
+        "title": "Aggiungi un familiare"
+    },
+    "status": {
+        "blocked": "bloccato",
+        "left": "ha lasciato la casa",
+        "deceased": "scomparso"
+    },
+    "devices": {
+        "title": "Dispositivi",
+        "intro": "I dispositivi che aprono un profilo con l’impronta o il volto. Rimuovi un dispositivo perso o prestato.",
+        "empty": "Nessun dispositivo registrato.",
+        "revoke": "Rimuovi",
+        "revokeLabel": "Rimuovi {device} di {member}",
+        "loadError": "Impossibile caricare i dispositivi.",
+        "revokeError": "Impossibile rimuovere questo dispositivo.",
+        "emptyHint": "Attiva l’impronta o il volto su un profilo per vederlo qui."
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "role": {
+        "parent": "Ray aman-dreny",
+        "relative": "Havana",
+        "child": "Ankizy"
+    },
+    "roleHint": {
+        "parent": "Afaka mamorona boky sy mitantana ny ankohonana.",
+        "relative": "Mandrakitra tantara ary mamela hafatra ho an’ny ankizy.",
+        "child": "Mihaino tantara, tsy misy fanovana na famoronana."
+    },
+    "form": {
+        "changePhoto": "Hanova ny sary",
+        "photoChange": "Hanova",
+        "photoNew": "Tarehy mahatsikaiky!",
+        "name": "Anarana",
+        "namePlaceholder": "Neny, Dadabe, Lova…",
+        "role": "Andraikitra",
+        "codeLabel": "Kaody miafin’ny mombamomba",
+        "keepCode": "Tehirizo ny kaody ankehitriny",
+        "changeCode": "Hanova ny kaody",
+        "currentCode": "Kaody ankehitriny",
+        "newCode": "Kaody vaovao",
+        "voiceColor": "Lokon’ny feo",
+        "spokenLanguages": "Fiteny ampiasaina",
+        "remove": "Hamafa ity havana ity",
+        "captureTitle": "Ny tarehy mahatsikaiky indrindra aminao",
+        "captureHint": "Samy manao tarehy samihafa avy ny rehetra: ho fantatry ny ankizy ny havany.",
+        "photoError": "Tsy afaka nalefa ny sary.",
+        "codeBlocked": "Diso na voahidy ny kaody ankehitriny.",
+        "saveError": "Tsy afaka mitahiry amin’izao fotoana izao.",
+        "removeConfirm": "Hofafana ve i {name}? Ho very ny rakitsarany.",
+        "removeError": "Tsy afaka mamafa: tsy maintsy mijanona ray aman-dreny iray farafaharatsiny.",
+        "setCode": "Faritana ny kaody"
+    },
+    "voice": {
+        "title": "Toetry ny feo",
+        "group": "Toetra",
+        "active": "Eto",
+        "blocked": "Voasakana",
+        "left": "Efa niala tao an-trano",
+        "deceased": "Efa maty",
+        "policyQuestion": "Inona no hatao amin’ny boky misy io feo io?",
+        "keep": "Avela araka ny any ny boky",
+        "block": "Sakano ho an’ny ankizy ireo boky ireo",
+        "rerecord": "Angataho haka indray ireo lahatsoratra ireo",
+        "blockedNotice": "Tsy afaka mihaino ny boky misy io feo io intsony ny ankizy, mandra-pisy olon-kafa maka indray ny lahatsorany.",
+        "lines": {
+            "one": "Lahatsoratra {count}",
+            "other": "Lahatsoratra {count}"
+        },
+        "rerecordAction": "Haka indray",
+        "empty": "Tsy ao amin’ny boky na inona na inona io feo io amin’izao fotoana izao.",
+        "saveError": "Tsy afaka voatahiry ny fanovana."
+    }
+}

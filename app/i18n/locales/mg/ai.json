@@ -1,0 +1,86 @@
+{
+    "notice": {
+        "label": "Naroson’ny AI.",
+        "default": "Averinao vakina tsara ny rehetra ary ahitsio izay tokony hatsaraina alohan’ny hanohy."
+    },
+    "errors": {
+        "unavailable": "Tsy voalamina amin’ity serivera ity ny AI. Tsy azo ampiasaina ity fiasa ity amin’izao fotoana izao.",
+        "quota": "Lany ny teti-bola AI amin’ity volana ity. Averina amin’ny aloha ny fiandohan’ny volana manaraka.",
+        "forbidden": "Ny ray aman-dreny ihany no afaka mampiasa ny AI.",
+        "unusable": "Namaly tsy azo ampiasaina ny AI. Andramo indray afaka fotoana kely.",
+        "failed": "Tsy afaka namaly ny AI izao. Andramo indray any aoriana."
+    },
+    "quota": {
+        "label": "Teti-bola AI amin’ity volana ity: {remaining} sisa amin’ny {budget}."
+    },
+    "draft": {
+        "title": "Hovolavolaina",
+        "intro": "Ny AI no nanoratra ireo tantara ireo. Tsy hitan’ny ankizy raha tsy mbola nankatoavin’ny ray aman-dreny.",
+        "label": "Rakitra {title}",
+        "badge": "Noforonin’ny AI",
+        "meta": "Pejy {pages} · andian-teny {lines} · {language}",
+        "validate": "Hankatoavina",
+        "validateLabel": "Hankatoavina ny {title}",
+        "reject": "Laviana",
+        "rejectLabel": "Laviana ny {title}",
+        "error": "Tsy afaka notrandrahana ity rakitra ity amin’izao fotoana izao."
+    },
+    "prefill": {
+        "title": "Fenoy mialoha avy amin’ny sary",
+        "intro": "Alao sary ny pejy (4 no be indrindra). Vakin’ny AI ny lahatsoratra ary manolotra tarehintsary, andian-teny ary feo. Averinao vakina sy ahitsio ny rehetra amin’ny dingana manaraka alohan’ny hitahiry.",
+        "choose": "Misafidiana sary",
+        "reading": "Mamaky…",
+        "uploading": "Mandefa ny sary faha-{n} amin’ny {total}…",
+        "aiReading": "Mamaky ny pejy ny AI, mety haharitra iray minitra…"
+    },
+    "translate": {
+        "suggestButton": "Manolora fandikana",
+        "groupLabel": "Soso-kevitra fandikana",
+        "notice": "Fandikana naroson’ny AI: averinao vakina ary ahitsio alohan’ny handraisana azy.",
+        "translateTo": "Adikao amin’ny",
+        "busy": "Mandika…",
+        "proposed": "Fandikana naroso amin’ny {language}",
+        "accept": "Raiso",
+        "reject": "Laviana",
+        "suggest": "Manolora",
+        "removeLabel": "Esory ny fandikana amin’ny {language}"
+    },
+    "page": {
+        "title": "Mamoròna tantara miaraka amin’ny AI",
+        "parentsOnly": "Ny ray aman-dreny ihany no afaka mamorona tantara miaraka amin’ny AI.",
+        "notice": "Noforonin’ny AI ny tantara sy ny sary. Miafina ao amin’ny «Hovolavolaina» izy: tsy hitan’ny ankizy raha tsy mbola nankatoavinao.",
+        "draftCreated": "Voaforona ny rakitra",
+        "draftBody": "Miandry anao ao amin’ny andalana «Hovolavolaina» ao amin’ny tranombokin-tsary izy. Averinao vakina, avy eo ankatoavo.",
+        "seeLibrary": "Jereo ao amin’ny tranombokin-tsary",
+        "another": "Mamoròna tantara hafa",
+        "idea": "Ny hevitrao momba ny tantara",
+        "ideaPlaceholder": "Omby kely matahotra ny oram-baratra…",
+        "storyLanguage": "Fitenin’ny tantara",
+        "ageMin": "Taona farafahakeliny",
+        "ageMax": "Taona faran’ny be indrindra",
+        "allAges": "Rehetra",
+        "pageCount": "Isan’ny pejy",
+        "hero": "Faritano ny mpitarika (tsy voatery)",
+        "heroPlaceholder": "Omby volontsôkôlà manana kiraro mena",
+        "ageProblem": "Tsy maintsy ambany noho ny taona faran’ny be indrindra ny taona farafahakeliny.",
+        "sheetTitle": "Ny tarehintsary",
+        "sheetIntro": "Mitovy amin’ny pejy rehetra ity fisie ity mba hitovy foana ny endrik’ireo tarehintsary. Ovay raha ilaina.",
+        "characterLabel": "Tarehintsary {n}",
+        "name": "Anarana",
+        "description": "Famaritana",
+        "descriptionPlaceholder": "Kely, volontsôkôlà, kiraro mena",
+        "remove": "Esory",
+        "removeLabel": "Esory ny tarehintsary {n}",
+        "add": "Ampio tarehintsary",
+        "busyNote": "Mamorona ny tantara sy ny sary, mety haharitra minitra vitsivitsy…",
+        "generating": "Mamorona…",
+        "generate": "Foronina ny tantara",
+        "promptDefaultName": "Tarehintsary",
+        "promptEntry": "{name}: {description}",
+        "promptKeepSame": "Tarehintsary tsy maintsy hitovy amin’ny pejy rehetra:",
+        "skipped": {
+            "one": "Sary {count} no tsy voaforona: foana ny pejy voakasik’izany. Azonao fenoina any aoriana izany.",
+            "other": "Sary {count} no tsy voaforona: foana ny pejy voakasik’izany. Azonao fenoina any aoriana izany."
+        }
+    }
+}

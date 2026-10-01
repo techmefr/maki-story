@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Profilcode",
+        "locked": "Profil nach zu vielen Versuchen gesperrt.",
+        "none": "Kein Code festgelegt.",
+        "shapes": "Formen-Code festgelegt.",
+        "digits": "Zahlen-Code festgelegt.",
+        "unlock": "Profil entsperren",
+        "remove": "Code entfernen",
+        "failed": "Der Code kann gerade nicht geändert werden.",
+        "removeConfirm": "Code von {name} entfernen?"
+    },
+    "schedule": {
+        "title": "Hörzeit",
+        "free": "Freies Hören.",
+        "limited": "Hören auf die Zeiten beschränkt.",
+        "blockedManual": "Hören ausgeschaltet, bis du es wieder erlaubst.",
+        "blockedUntil": "Hören ausgeschaltet bis {time}.",
+        "blockNow": "Jetzt ausschalten",
+        "restore": "Wieder erlauben",
+        "until": "Ausschalten bis",
+        "untilButton": "Bis zu dieser Uhrzeit ausschalten",
+        "enabled": "Hören auf die Zeiten unten beschränken",
+        "daysLabel": "Zeiten pro Tag",
+        "from": "Von",
+        "to": "Bis",
+        "dayOff": "Tag ohne Hören",
+        "save": "Zeiten übernehmen",
+        "saveFailed": "Speichern gerade nicht möglich. Prüfe, ob jede Startzeit vor der Endzeit liegt."
+    },
+    "gate": {
+        "title": "Code eines Elternteils",
+        "noParent": "Noch kein Elternteil hat einen Code.",
+        "which": "Welches Elternteil?",
+        "wrong": "Dieser Code passt nicht."
+    },
+    "locked": {
+        "clock": "Uhrzeit, ab der wieder gehört wird",
+        "toParent": "Zu einem Elternteil wechseln"
+    }
+}

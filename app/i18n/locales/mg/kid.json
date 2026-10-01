@@ -1,0 +1,46 @@
+{
+    "hello": "Salama {name}!",
+    "listenHer": "Henoy ny hafatrany",
+    "sendMessage": "Alefaso hafatra",
+    "noSoloStory": "Mbola tsy misy tantara amin’ity feo ity.",
+    "bubbleLabel": "{name}: {count} henoina",
+    "bubble": "Hafatra",
+    "multiVoice": "Tantara maro feo",
+    "library": {
+        "title": "Ny tantara",
+        "sheet": "Fanazavana",
+        "sheetOf": "Fanazavana momba ny {title}",
+        "empty": "Mbola tsy misy tantara.",
+        "emptyHint": "Angataho ny olon-dehibe hamoaka iray!"
+    },
+    "listen": {
+        "nextPage": "Pejy manaraka",
+        "turnPage": "Ovay ny pejy",
+        "finished": "Vita!",
+        "restart": "Atombohy indray",
+        "fromStart": "Avy amin’ny voalohany",
+        "read": "Vakio",
+        "goodNight": "Mirary tsara",
+        "reads": "{name} no mamaky",
+        "pause": "Ajanony",
+        "resumePlay": "Alefaso",
+        "quit": "Hiala",
+        "soundOn": "Feo",
+        "soundOff": "Tsy misy feo",
+        "sleepTimer": "Mpanisa fotoana fatoriana",
+        "page": "Pejy {current}/{total}",
+        "progress": "Fandrosoan’ny pejy"
+    },
+    "sleep": {
+        "title": "Matory afaka…",
+        "endOfPage": "Matory rehefa tapitra ny pejy",
+        "inMinutes": {
+            "one": "Matory afaka minitra {count}",
+            "other": "Matory afaka minitra {count}"
+        },
+        "cancel": "Foano ny mpanisa fotoana"
+    },
+    "noFaces": "Tsy mbola misy olona",
+    "noFacesHint": "Angataho ny olon-dehibe hanampy ny fianakaviana.",
+    "noSoloHint": "Tonga tsy ho ela!"
+}

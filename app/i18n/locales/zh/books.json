@@ -1,0 +1,50 @@
+{
+    "card": {
+        "ready": "已就绪",
+        "toRecord": "待录音",
+        "voiceBlocked": "声音已锁定",
+        "kindSolo": "1 个声音",
+        "kindCast": "多个声音",
+        "progress": "已录 {recorded}/{total} 句台词"
+    },
+    "filters": {
+        "searchPlaceholder": "书名、作者…",
+        "searchLabel": "搜索图书",
+        "language": "语言",
+        "allLanguages": "所有语言",
+        "age": "年龄",
+        "age0_3": "0-3 岁",
+        "age4_6": "4-6 岁",
+        "age7_9": "7-9 岁",
+        "age10": "10 岁以上"
+    },
+    "sheet": {
+        "title": "{title} 的详情",
+        "voiceBlocked": "声音已锁定：孩子们无法收听",
+        "author": "作者",
+        "illustrator": "插画师",
+        "age": "年龄",
+        "language": "语言",
+        "readBy": "朗读者",
+        "nobody": "还没有人录下自己的声音。",
+        "listen": "收听",
+        "open": "打开图书",
+        "studio": "前往录音室",
+        "share": "分享"
+    },
+    "row": {
+        "sheet": "详情"
+    },
+    "offline": {
+        "noSpace": "此设备存储空间不足",
+        "interrupted": "下载已中断，你可以继续下载"
+    },
+    "age": {
+        "years": {
+            "other": "{count} 岁"
+        },
+        "range": {
+            "other": "{min}-{max} 岁"
+        }
+    }
+}

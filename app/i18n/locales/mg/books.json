@@ -1,0 +1,52 @@
+{
+    "card": {
+        "ready": "Vonona",
+        "toRecord": "Hirakitra",
+        "voiceBlocked": "Voady ny feo",
+        "kindSolo": "Feo 1",
+        "kindCast": "Feo maro",
+        "progress": "{recorded}/{total} ny andian-teny voarakitra"
+    },
+    "filters": {
+        "searchPlaceholder": "Lohateny, mpanoratra…",
+        "searchLabel": "Mitady boky",
+        "language": "Fiteny",
+        "allLanguages": "Ny fiteny rehetra",
+        "age": "Taona",
+        "age0_3": "0-3 taona",
+        "age4_6": "4-6 taona",
+        "age7_9": "7-9 taona",
+        "age10": "10 taona sy mihoatra"
+    },
+    "sheet": {
+        "title": "Fanazavana momba ny {title}",
+        "voiceBlocked": "Voady ny feo: tsy afaka mihaino azy ny ankizy",
+        "author": "Mpanoratra",
+        "illustrator": "Mpanao sary",
+        "age": "Taona",
+        "language": "Fiteny",
+        "readBy": "Novakian’i",
+        "nobody": "Mbola tsy nisy nandray ny feony.",
+        "listen": "Henoy",
+        "open": "Sokafy ny boky",
+        "studio": "Mankanesa any amin’ny studio",
+        "share": "Zarao"
+    },
+    "row": {
+        "sheet": "Fanazavana"
+    },
+    "offline": {
+        "noSpace": "Tsy ampy toerana intsony ity fitaovana ity",
+        "interrupted": "Nijanona ny fampidinana, azonao tohizana indray"
+    },
+    "age": {
+        "years": {
+            "one": "{count} taona",
+            "other": "{count} taona"
+        },
+        "range": {
+            "one": "{min}-{max} taona",
+            "other": "{min}-{max} taona"
+        }
+    }
+}

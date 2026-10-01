@@ -1,0 +1,8 @@
+{
+    "chooseTitle": "Elige el idioma del cuento",
+    "choices": "Idiomas del cuento",
+    "change": "Cambiar de idioma",
+    "lock": "Bloquear el idioma",
+    "unlock": "Desbloquear el idioma con el código de un padre o madre",
+    "pair": "{first} y luego {second}"
+}

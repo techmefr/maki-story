@@ -33,7 +33,7 @@ export const useFiles = () => {
             credentials: 'include',
         })
         if (!response.ok) {
-            throw new Error('Fichier introuvable')
+            throw new Error('File not found')
         }
         const url = URL.createObjectURL(await response.blob())
         urlCache.set(fileId, url)

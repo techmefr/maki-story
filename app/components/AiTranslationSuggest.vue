@@ -7,7 +7,7 @@
                 <button
                     type="button"
                     class="btn btn--small btn--white"
-                    :aria-label="`Retirer la traduction en ${languageLabel(item.language)}`"
+                    :aria-label="t('ai.translate.removeLabel', { language: languageLabel(item.language) })"
                     @click="removeTranslation(line.key, item.language)"
                 >
                     ×
@@ -15,31 +15,31 @@
             </li>
         </ul>
         <button v-if="!isOpen" type="button" class="chip" :aria-expanded="false" @click="open">
-            <AppIcon name="sparkles" :size="16" />Suggérer une traduction
+            <AppIcon name="sparkles" :size="16" />{{ t('ai.translate.suggestButton') }}
         </button>
-        <div v-else class="card stack" role="group" aria-label="Suggestion de traduction">
-            <AiNotice text="Traduction proposée par l’IA : relis-la et corrige-la avant de l’accepter." />
+        <div v-else class="card stack" role="group" :aria-label="t('ai.translate.groupLabel')">
+            <AiNotice :text="t('ai.translate.notice')" />
             <label class="stack" style="gap: 6px">
-                <span class="label">Traduire en</span>
+                <span class="label">{{ t('ai.translate.translateTo') }}</span>
                 <select v-model="target" class="input" :disabled="isBusy" @change="suggestion = null">
                     <option v-for="item in targets" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
                 </select>
             </label>
-            <p v-if="isUnavailable" class="error" role="alert">{{ AI_UNAVAILABLE_MESSAGE }}</p>
-            <p v-else-if="isExhausted" class="error" role="alert">{{ AI_QUOTA_MESSAGE }}</p>
+            <p v-if="isUnavailable" class="error" role="alert">{{ t(AI_UNAVAILABLE_KEY) }}</p>
+            <p v-else-if="isExhausted" class="error" role="alert">{{ t(AI_QUOTA_KEY) }}</p>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <p v-if="isBusy" class="muted" role="status">Traduction en cours…</p>
+            <p v-if="isBusy" class="muted" role="status">{{ t('ai.translate.busy') }}</p>
             <label v-if="suggestion !== null" class="stack" style="gap: 6px">
-                <span class="label">Traduction proposée en {{ languageLabel(target) }}</span>
+                <span class="label">{{ t('ai.translate.proposed', { language: languageLabel(target) }) }}</span>
                 <textarea v-model="suggestion" class="input" :lang="target" />
             </label>
             <div class="row row--wrap">
                 <template v-if="suggestion !== null">
-                    <button type="button" class="btn btn--mint btn--small" :disabled="suggestion.trim() === ''" @click="accept">Accepter</button>
-                    <button type="button" class="btn btn--white btn--small" @click="reject">Rejeter</button>
+                    <button type="button" class="btn btn--mint btn--small" :disabled="suggestion.trim() === ''" @click="accept">{{ t('ai.translate.accept') }}</button>
+                    <button type="button" class="btn btn--white btn--small" @click="reject">{{ t('ai.translate.reject') }}</button>
                 </template>
-                <button v-else type="button" class="btn btn--small" :disabled="isBusy || isUnavailable || isExhausted" @click="suggest">Suggérer</button>
-                <button type="button" class="btn btn--white btn--small" @click="close">Fermer</button>
+                <button v-else type="button" class="btn btn--small" :disabled="isBusy || isUnavailable || isExhausted" @click="suggest">{{ t('ai.translate.suggest') }}</button>
+                <button type="button" class="btn btn--white btn--small" @click="close">{{ t('common.close') }}</button>
             </div>
         </div>
     </div>
@@ -48,6 +48,7 @@
 <script setup lang="ts">
 const { line } = defineProps<{ line: IDraftLine }>()
 
+const { t } = useI18n()
 const { language, setTranslation, removeTranslation } = useBookDraft()
 const { suggestTranslation, refreshStatus, isExhausted, isUnavailable } = useAi()
 
@@ -85,7 +86,7 @@ const suggest = async (): Promise<void> => {
         suggestedTone.value = result.suggestions[0]?.tone ?? ''
     } catch (error) {
         console.error('La traduction n a pas abouti', error)
-        errorMessage.value = aiErrorMessage(error)
+        errorMessage.value = t(aiErrorKey(error))
     } finally {
         isBusy.value = false
         await refreshStatus()

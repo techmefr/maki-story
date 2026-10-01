@@ -12,7 +12,8 @@
     "typecheck": "nuxt typecheck",
     "migrate:up": "node --experimental-strip-types scripts/migrate.ts up",
     "migrate:down": "node --experimental-strip-types scripts/migrate.ts down",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "i18n:check": "node --experimental-strip-types scripts/check-i18n.ts"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.2",

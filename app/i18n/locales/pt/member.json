@@ -1,0 +1,56 @@
+{
+    "role": {
+        "parent": "Adulto",
+        "relative": "Familiar",
+        "child": "Criança"
+    },
+    "roleHint": {
+        "parent": "Pode criar livros e gerir a família.",
+        "relative": "Grava histórias e deixa mensagens à criança.",
+        "child": "Ouve as histórias, sem definições nem criação."
+    },
+    "form": {
+        "changePhoto": "Mudar a foto",
+        "photoChange": "Mudar",
+        "photoNew": "Careta!",
+        "name": "Nome",
+        "namePlaceholder": "Mamã, Avó, Lova…",
+        "role": "Papel",
+        "codeLabel": "Código secreto do perfil",
+        "keepCode": "Manter o código atual",
+        "changeCode": "Mudar o código",
+        "currentCode": "Código atual",
+        "newCode": "Novo código",
+        "voiceColor": "Cor da voz",
+        "spokenLanguages": "Idiomas falados",
+        "remove": "Remover este familiar",
+        "captureTitle": "A tua melhor careta",
+        "captureHint": "Cada um faz uma careta diferente: a criança reconhecerá os seus familiares.",
+        "photoError": "Não foi possível enviar a foto.",
+        "codeBlocked": "O código atual está incorreto ou bloqueado.",
+        "saveError": "Não foi possível guardar neste momento.",
+        "removeConfirm": "Remover {name}? As suas gravações serão perdidas.",
+        "removeError": "Não é possível remover: é preciso manter pelo menos um adulto.",
+        "setCode": "Definir o código"
+    },
+    "voice": {
+        "title": "Situação desta voz",
+        "group": "Situação",
+        "active": "Presente",
+        "blocked": "Bloqueado",
+        "left": "Saiu de casa",
+        "deceased": "Falecido",
+        "policyQuestion": "O que fazer com os livros com esta voz?",
+        "keep": "Manter os livros como estão",
+        "block": "Bloquear estes livros para as crianças",
+        "rerecord": "Pedir para voltar a gravar estas falas",
+        "blockedNotice": "As crianças já não podem ouvir os livros que contêm esta voz, até que as suas falas sejam gravadas de novo por outra pessoa.",
+        "lines": {
+            "one": "{count} fala",
+            "other": "{count} falas"
+        },
+        "rerecordAction": "Gravar de novo",
+        "empty": "Esta voz não está em nenhum livro por agora.",
+        "saveError": "Não foi possível guardar a alteração."
+    }
+}

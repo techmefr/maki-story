@@ -8,7 +8,7 @@
             <div class="subtitle">{{ book.title }}</div>
             <div class="row row--wrap">
                 <span class="badge" :style="{ background: statusBg }">{{ statusLabel }}</span>
-                <span v-if="book.isVoiceBlocked" class="badge" style="background: #ff7a6b">Voix bloquée</span>
+                <span v-if="book.isVoiceBlocked" class="badge" style="background: #ff7a6b">{{ t('books.card.voiceBlocked') }}</span>
                 <VoiceDots :member-ids="book.memberIds" />
             </div>
             <div class="muted">{{ progressLabel }}</div>
@@ -19,15 +19,16 @@
 <script setup lang="ts">
 const { book } = defineProps<{ book: IBookSummary }>()
 
+const { t } = useI18n()
 const palette = computed(() => pickVoiceByText(book.id))
 const hex = computed(() => palette.value.hex)
 const hexLight = computed(() => palette.value.hexLight)
 const isReady = computed(() => book.status === 'ready')
 const target = computed(() => (isReady.value ? `/books/${book.id}/play` : `/books/${book.id}/studio`))
-const statusLabel = computed(() => (isReady.value ? 'Prêt' : 'À enregistrer'))
+const statusLabel = computed(() => (isReady.value ? t('books.card.ready') : t('books.card.toRecord')))
 const statusBg = computed(() => (isReady.value ? '#4CD4A8' : '#FFF4D9'))
-const kindLabel = computed(() => (book.kind === 'solo' ? '1 voix' : 'Voix'))
-const progressLabel = computed(() => `${book.recordedCount}/${book.lineCount} répliques enregistrées`)
+const kindLabel = computed(() => (book.kind === 'solo' ? t('books.card.kindSolo') : t('books.card.kindCast')))
+const progressLabel = computed(() => t('books.card.progress', { recorded: book.recordedCount, total: book.lineCount }))
 </script>
 
 <style scoped>

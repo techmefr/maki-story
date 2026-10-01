@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Profile code",
+        "locked": "Profile locked after too many attempts.",
+        "none": "No code set.",
+        "shapes": "Shape code set.",
+        "digits": "Digit code set.",
+        "unlock": "Unlock the profile",
+        "remove": "Remove the code",
+        "failed": "The code cannot be changed right now.",
+        "removeConfirm": "Remove the code of {name}?"
+    },
+    "schedule": {
+        "title": "Listening time",
+        "free": "Listening is free.",
+        "limited": "Listening is limited to the schedule.",
+        "blockedManual": "Listening is off until you restore it.",
+        "blockedUntil": "Listening is off until {time}.",
+        "blockNow": "Turn off now",
+        "restore": "Restore",
+        "until": "Turn off until",
+        "untilButton": "Turn off until this time",
+        "enabled": "Limit listening to the hours below",
+        "daysLabel": "Hours per day",
+        "from": "From",
+        "to": "To",
+        "dayOff": "No listening this day",
+        "save": "Apply the schedule",
+        "saveFailed": "Could not save right now. Check that each start time is before its end time."
+    },
+    "gate": {
+        "title": "A parent’s code",
+        "noParent": "No parent has a code yet.",
+        "which": "Which parent?",
+        "wrong": "This code does not work."
+    },
+    "locked": {
+        "clock": "Time listening resumes",
+        "toParent": "Switch to a parent"
+    }
+}

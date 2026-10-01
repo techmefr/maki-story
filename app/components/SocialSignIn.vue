@@ -1,8 +1,8 @@
 
 <template>
-    <section class="stack social" aria-label="Autres façons de se connecter">
+    <section class="stack social" :aria-label="t('auth.social.ariaLabel')">
         <a v-for="provider in visibleProviders" :key="provider" class="btn btn--white btn--block" :href="startUrl(provider)">
-            Continuer avec {{ PROVIDER_LABELS[provider] }}
+            {{ t('auth.social.continueWith', { provider: PROVIDER_LABELS[provider] ?? provider }) }}
         </a>
         <button
             type="button"
@@ -11,12 +11,12 @@
             aria-controls="other-accounts"
             @click="isOtherOpen = !isOtherOpen"
         >
-            Autre compte
+            {{ t('auth.social.other') }}
         </button>
         <ul v-if="isOtherOpen" id="other-accounts" class="stack social__list">
             <li v-for="name in upcoming" :key="name">
                 <button type="button" class="btn btn--white btn--block social__disabled" disabled aria-disabled="true">
-                    {{ PROVIDER_LABELS[name] ?? name }} · bientôt disponible
+                    {{ t('auth.social.soon', { provider: PROVIDER_LABELS[name] ?? name }) }}
                 </button>
             </li>
         </ul>
@@ -31,6 +31,7 @@ const PROVIDER_LABELS: Record<string, string> = {
     facebook: 'Facebook',
 }
 
+const { t } = useI18n()
 const config = useRuntimeConfig()
 const { request } = useApi()
 

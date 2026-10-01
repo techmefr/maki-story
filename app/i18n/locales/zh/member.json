@@ -1,0 +1,55 @@
+{
+    "role": {
+        "parent": "家长",
+        "relative": "亲友",
+        "child": "孩子"
+    },
+    "roleHint": {
+        "parent": "可以创建图书并管理家庭。",
+        "relative": "录制故事，并给孩子留言。",
+        "child": "听故事，不能进行设置和创建。"
+    },
+    "form": {
+        "changePhoto": "更换照片",
+        "photoChange": "更换",
+        "photoNew": "鬼脸！",
+        "name": "名字",
+        "namePlaceholder": "妈妈、奶奶、Lova…",
+        "role": "角色",
+        "codeLabel": "档案密码",
+        "keepCode": "保留当前密码",
+        "changeCode": "更改密码",
+        "currentCode": "当前密码",
+        "newCode": "新密码",
+        "voiceColor": "声音颜色",
+        "spokenLanguages": "会说的语言",
+        "remove": "删除这位家人",
+        "captureTitle": "你最棒的鬼脸",
+        "captureHint": "每个人做不同的鬼脸：孩子就能认出自己的亲人。",
+        "photoError": "照片没能发送出去。",
+        "codeBlocked": "当前密码不正确或已被锁定。",
+        "saveError": "暂时无法保存。",
+        "removeConfirm": "删除 {name}？ta 的录音将会丢失。",
+        "removeError": "无法删除：至少要保留一位家长。",
+        "setCode": "设置密码"
+    },
+    "voice": {
+        "title": "这个声音的状态",
+        "group": "状态",
+        "active": "在家",
+        "blocked": "已屏蔽",
+        "left": "已离开家庭",
+        "deceased": "已故",
+        "policyQuestion": "含有这个声音的图书怎么处理？",
+        "keep": "保持原样",
+        "block": "对孩子屏蔽这些图书",
+        "rerecord": "请求重新录制这些台词",
+        "blockedNotice": "孩子无法再听含有这个声音的图书，直到这些台词由别人重新录制。",
+        "lines": {
+            "other": "{count} 句台词"
+        },
+        "rerecordAction": "重新录制",
+        "empty": "这个声音目前不在任何图书里。",
+        "saveError": "无法保存这次更改。"
+    }
+}

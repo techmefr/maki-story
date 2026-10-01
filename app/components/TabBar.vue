@@ -1,5 +1,5 @@
 <template>
-    <nav class="tabbar" aria-label="Navigation principale">
+    <nav class="tabbar" :aria-label="t('shell.mainNav')">
         <div class="tabbar__inner">
             <NuxtLink
                 v-for="tab in tabs"
@@ -10,13 +10,14 @@
             >
                 <AppIcon :name="tab.icon" :size="26" motion="bounce" :is-active="tab.isOn" />
                 <span>{{ tab.label }}</span>
-                <span v-if="tab.hasBadge" class="pop" role="img" aria-label="nouveau" />
+                <span v-if="tab.hasBadge" class="pop" role="img" :aria-label="t('shell.newBadge')" />
             </NuxtLink>
         </div>
     </nav>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const { tabs } = useNavTabs()
 </script>
 

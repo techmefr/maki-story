@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "Le livre",
+        "stepPages": "Les pages",
+        "stepCharacters": "Les personnages",
+        "stepLines": "Les répliques",
+        "stepReview": "Vérifier",
+        "voiceCount": "Nombre de voix",
+        "oneVoice": "Une seule voix",
+        "severalVoices": "Plusieurs voix",
+        "aiNotice": "Les personnages, les répliques et les tons viennent de l’IA et peuvent contenir des erreurs. Relis chaque étape avant d’enregistrer."
+    },
+    "shared": {
+        "page": "Page {n}",
+        "cover": "Couverture",
+        "emptyPage": "Page vide",
+        "panel": "Case {n}"
+    },
+    "book": {
+        "title": "Titre du livre",
+        "titlePlaceholder": "Le Zébu qui voulait voler",
+        "type": "Type de livre",
+        "typeStandard": "Livre",
+        "typeComic": "Bande dessinée",
+        "typeWordless": "Sans texte",
+        "typeChild": "Écrit par l’enfant",
+        "hintStandard": "Un livre illustré classique, lu page par page.",
+        "hintComic": "Des cases par page, chacune avec ses répliques dans l’ordre.",
+        "hintWordless": "Des images seulement : pas de répliques à enregistrer.",
+        "hintChild": "Recopie les phrases de l’enfant telles qu’il les a écrites.",
+        "language": "Langue du livre",
+        "reader": "Qui lit tout le livre ?",
+        "more": "Plus de détails (facultatif)",
+        "subtitle": "Sous-titre",
+        "author": "Auteur",
+        "authorChild": "Auteur (l’enfant)",
+        "illustrator": "Dessinateur",
+        "ageMin": "Âge minimum",
+        "ageMax": "Âge maximum",
+        "tts": "Lire le titre avec une voix de synthèse tant qu’il n’est pas enregistré",
+        "errTitle": "Donne un titre au livre.",
+        "errReader": "Choisis qui lit le livre.",
+        "errAge": "L’âge minimum doit être inférieur à l’âge maximum."
+    },
+    "pages": {
+        "intro": "Photographie chaque page du livre. Ces photos restent privées à la famille et ne sont jamais montrées à l’enfant.",
+        "takePhoto": "Prendre une page en photo",
+        "addPage": "Ajouter une page",
+        "addEmpty": "Ajouter une page vide",
+        "sending": "Envoi des photos…",
+        "photoFailed": "Une photo n’a pas pu être envoyée. Réessaie.",
+        "removePage": "Retirer la page {n}",
+        "emptyNote": "Cette page n’a pas d’image : elle sera passée à l’écoute.",
+        "ttsFallback": "Voix de synthèse si personne ne la lit",
+        "describe": "Décris l’image de la page (facultatif)",
+        "describePlaceholder": "Un petit zébu au bord d’un lac…",
+        "panelPlaceholder": "Ce qu’on voit dans la case",
+        "removePanel": "Retirer la case {panel} de la page {page}",
+        "addPanel": "Ajouter une case",
+        "needsPhoto": "Ce type de livre a besoin d’au moins une page en photo.",
+        "continueNoPhoto": "Continuer sans photo"
+    },
+    "characters": {
+        "intro": "Définis chaque personnage une seule fois : tu le retrouveras ensuite en un clic pour chaque réplique. Choisis qui lit sa voix.",
+        "groupLabel": "Personnage {name}",
+        "name": "Nom",
+        "remove": "Retirer {name}",
+        "colors": "Couleur",
+        "colorLabel": "Couleur {color}",
+        "coral": "corail",
+        "sun": "soleil",
+        "mint": "menthe",
+        "sky": "ciel",
+        "grape": "raisin",
+        "pink": "rose",
+        "description": "Description (facultatif)",
+        "descriptionPlaceholder": "Un petit zébu timide",
+        "narrator": "Narrateur",
+        "whoReads": "Qui lit sa voix ?",
+        "newCharacter": "Nouveau personnage",
+        "newPlaceholder": "Petit Zébu",
+        "add": "Ajouter un personnage",
+        "castHint": "{done}/{total} personnages ont une voix."
+    },
+    "lines": {
+        "introSimple": "Recopie les répliques, page par page. Colle tout un texte d’un coup : une réplique par ligne. Le texte sert seulement à découper : l’enfant ne le verra jamais.",
+        "introCast": "Recopie les répliques, page par page. Colle tout un texte d’un coup : une réplique par ligne, ou « Nom : réplique » pour changer de personnage. Le texte sert seulement à découper : l’enfant ne le verra jamais.",
+        "emptyNote": "Page vide : rien à enregistrer, elle sera passée à l’écoute.",
+        "image": "Image : {description}",
+        "panelWithDescription": "Case {n} : {description}",
+        "needOne": "Ajoute au moins une réplique pour continuer.",
+        "count": {
+            "one": "{count} réplique",
+            "other": "{count} répliques"
+        }
+    },
+    "review": {
+        "readsAll": "{name} lit tout le livre",
+        "narratorName": "{name} (narrateur)",
+        "pickVoice": "Voix à choisir",
+        "errLines": "Ajoute au moins une réplique.",
+        "errNames": "Chaque personnage a besoin d’un nom différent.",
+        "errVoiceless": "Choisis une voix pour : {names}.",
+        "saving": "Enregistrement…",
+        "toStudio": "Passer au studio",
+        "saveFailed": "Impossible d’enregistrer le livre pour le moment.",
+        "pages": {
+            "one": "{count} page",
+            "other": "{count} pages"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "card": {
+        "ready": "Ready",
+        "toRecord": "To record",
+        "voiceBlocked": "Voice blocked",
+        "kindSolo": "1 voice",
+        "kindCast": "Voices",
+        "progress": "{recorded}/{total} lines recorded"
+    },
+    "filters": {
+        "searchPlaceholder": "Title, author…",
+        "searchLabel": "Search for a book",
+        "language": "Language",
+        "allLanguages": "All languages",
+        "age": "Age",
+        "age0_3": "0-3 years",
+        "age4_6": "4-6 years",
+        "age7_9": "7-9 years",
+        "age10": "10 years and up"
+    },
+    "sheet": {
+        "title": "Details of {title}",
+        "voiceBlocked": "Voice blocked: children cannot listen to it",
+        "author": "Author",
+        "illustrator": "Illustrator",
+        "age": "Age",
+        "language": "Language",
+        "readBy": "Read by",
+        "nobody": "Nobody has recorded their voice yet.",
+        "listen": "Listen",
+        "open": "Open the book",
+        "studio": "Go to the studio",
+        "share": "Share"
+    },
+    "row": {
+        "sheet": "Details"
+    },
+    "offline": {
+        "noSpace": "Not enough space left on this device",
+        "interrupted": "The download stopped, you can resume it"
+    },
+    "age": {
+        "years": {
+            "one": "{count} year",
+            "other": "{count} years"
+        },
+        "range": {
+            "one": "{min}-{max} years",
+            "other": "{min}-{max} years"
+        }
+    }
+}

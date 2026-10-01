@@ -2,10 +2,10 @@
     <div class="stack center narrow" style="margin-top: 6vh">
         <AppLogo :size="110" class="anim-float" />
         <h1 class="title">Tantara</h1>
-        <p class="muted">Les livres de la maison, lus par toute la famille.</p>
-        <form class="card stack" style="width: 100%; text-align: left" @submit.prevent="submit">
+        <p class="muted">{{ t('auth.login.tagline') }}</p>
+        <form class="card stack" style="width: 100%; text-align: start" @submit.prevent="submit">
             <label class="stack" style="gap: 6px">
-                <span class="label">E-mail</span>
+                <span class="label">{{ t('auth.login.email') }}</span>
                 <input
                     v-model="email"
                     class="input"
@@ -19,7 +19,7 @@
                 />
             </label>
             <label class="stack" style="gap: 6px">
-                <span class="label">Mot de passe</span>
+                <span class="label">{{ t('auth.login.password') }}</span>
                 <div class="row">
                     <input
                         v-model="password"
@@ -32,16 +32,16 @@
                         required
                     />
                     <button type="button" class="btn btn--small btn--white" @click="isVisible = !isVisible">
-                        {{ isVisible ? 'Cacher' : 'Voir' }}
+                        {{ isVisible ? t('auth.login.hide') : t('auth.login.show') }}
                     </button>
                 </div>
             </label>
             <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
             <button type="submit" class="btn btn--block" :disabled="isBusy">
-                {{ isBusy ? 'Connexion…' : 'Se connecter' }}
+                {{ isBusy ? t('auth.login.submitting') : t('auth.login.submit') }}
             </button>
         </form>
-        <NuxtLink to="/register" class="btn btn--white btn--block">Créer un compte famille</NuxtLink>
+        <NuxtLink to="/register" class="btn btn--white btn--block">{{ t('auth.login.createFamily') }}</NuxtLink>
         <SocialSignIn />
         <div class="dots" style="justify-content: center" aria-hidden="true">
             <span v-for="color in colors" :key="color.id" class="dot" :style="{ background: color.hex }" />
@@ -54,6 +54,7 @@ definePageMeta({ layout: 'blank' })
 
 const colors = VOICE_COLORS
 const { login } = useSession()
+const { t } = useI18n()
 
 const email = ref('')
 const password = ref('')
@@ -61,25 +62,25 @@ const isVisible = ref(false)
 const isBusy = ref(false)
 const route = useRoute()
 const SOCIAL_ERRORS: Record<string, string> = {
-    email_unverified: 'Ce compte n’a pas d’e-mail vérifié. Connecte-toi avec ton e-mail et ton mot de passe.',
-    oauth_state: 'La connexion a expiré. Réessaie.',
-    oauth_denied: 'La connexion a été annulée.',
-    oauth_failed: 'La connexion avec ce compte a échoué. Réessaie.',
+    email_unverified: 'auth.login.emailUnverified',
+    oauth_state: 'auth.login.oauthState',
+    oauth_denied: 'auth.login.oauthDenied',
+    oauth_failed: 'auth.login.oauthFailed',
 }
-const errorMessage = ref(SOCIAL_ERRORS[String(route.query.error ?? '')] ?? '')
+const socialKey = SOCIAL_ERRORS[String(route.query.error ?? '')]
+const errorMessage = ref(socialKey ? t(socialKey) : '')
 
 const loginMessage = (result: TAuthResult): string => {
     if (result.status === 'throttled') {
-        const unit = result.retryAfterMinutes > 1 ? 'minutes' : 'minute'
-        return `Trop d’essais, réessaie dans ${result.retryAfterMinutes} ${unit}.`
+        return t('auth.login.throttled', { count: result.retryAfterMinutes })
     }
     if (result.status === 'unreachable') {
-        return 'Impossible de joindre le serveur. Vérifie ta connexion et réessaie.'
+        return t('auth.login.unreachable')
     }
     if (result.status === 'error') {
-        return 'Le serveur a rencontré un problème. Réessaie dans un instant.'
+        return t('auth.login.serverError')
     }
-    return 'E-mail ou mot de passe incorrect.'
+    return t('auth.login.invalid')
 }
 
 const submit = async (): Promise<void> => {

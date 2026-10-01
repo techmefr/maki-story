@@ -1,13 +1,13 @@
 <template>
     <section class="stack code-admin" aria-labelledby="code-admin-title" data-testid="code-admin">
-        <h2 id="code-admin-title" class="subtitle">Code du profil</h2>
+        <h2 id="code-admin-title" class="subtitle">{{ t('parental.codeAdmin.title') }}</h2>
         <p class="muted" role="status" data-testid="code-state">{{ stateLabel }}</p>
         <div class="row row--wrap">
             <button v-if="member.isCodeLocked" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="unlock">
-                Débloquer le profil
+                {{ t('parental.codeAdmin.unlock') }}
             </button>
             <button v-if="member.hasCode" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="removeCurrent">
-                Retirer le code
+                {{ t('parental.codeAdmin.remove') }}
             </button>
         </div>
         <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
@@ -17,6 +17,7 @@
 <script setup lang="ts">
 const { member } = defineProps<{ member: IMember }>()
 
+const { t } = useI18n()
 const { removeCode, unlockCode } = useMembers()
 
 const isBusy = ref(false)
@@ -24,12 +25,12 @@ const errorMessage = ref('')
 
 const stateLabel = computed(() => {
     if (member.isCodeLocked) {
-        return 'Profil bloqué après trop d’essais.'
+        return t('parental.codeAdmin.locked')
     }
     if (!member.hasCode) {
-        return 'Aucun code défini.'
+        return t('parental.codeAdmin.none')
     }
-    return member.codeKind === 'shapes' ? 'Code en formes défini.' : 'Code en chiffres défini.'
+    return member.codeKind === 'shapes' ? t('parental.codeAdmin.shapes') : t('parental.codeAdmin.digits')
 })
 
 const run = async (action: () => Promise<void>): Promise<void> => {
@@ -39,7 +40,7 @@ const run = async (action: () => Promise<void>): Promise<void> => {
         await action()
     } catch (error) {
         console.error('Le code n a pas pu être modifié', error)
-        errorMessage.value = 'Impossible de modifier le code pour le moment.'
+        errorMessage.value = t('parental.codeAdmin.failed')
     } finally {
         isBusy.value = false
     }
@@ -48,7 +49,7 @@ const run = async (action: () => Promise<void>): Promise<void> => {
 const unlock = (): Promise<void> => run(() => unlockCode(member.id))
 
 const removeCurrent = async (): Promise<void> => {
-    if (!window.confirm(`Retirer le code de ${member.name} ?`)) {
+    if (!window.confirm(t('parental.codeAdmin.removeConfirm', { name: member.name }))) {
         return
     }
     await run(() => removeCode(member.id))

@@ -17,6 +17,25 @@
     --tap: 44px;
     --tap-kid: 66px;
     --text-scale: 1;
+    --dir-sign: 1;
+}
+
+:root[dir='rtl'] {
+    --dir-sign: -1;
+}
+
+:root[dir='rtl'] .mirror-rtl {
+    transform: scaleX(-1);
+}
+
+:root:lang(zh) {
+    --font-title: Fredoka, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+    --font-body: Nunito, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+}
+
+:root:lang(ar) {
+    --font-title: Fredoka, 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+    --font-body: Nunito, 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
 }
 
 html {
@@ -133,7 +152,7 @@ select {
 
 .card--tap {
     cursor: pointer;
-    text-align: left;
+    text-align: start;
     width: 100%;
     font: inherit;
 }
@@ -304,7 +323,7 @@ textarea.input {
 }
 
 .dots > * + * {
-    margin-left: -6px;
+    margin-inline-start: -6px;
 }
 
 .dot {
@@ -339,8 +358,7 @@ textarea.input {
 
 .tabbar {
     position: fixed;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     bottom: 0;
     z-index: 20;
     display: flex;
@@ -375,7 +393,7 @@ textarea.input {
 .pop {
     position: absolute;
     top: 6px;
-    right: calc(50% - 26px);
+    inset-inline-end: calc(50% - 26px);
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -415,7 +433,8 @@ textarea.input {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 4px 12px 4px 4px;
+    padding-block: 4px;
+    padding-inline: 4px 12px;
     min-height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 999px;
@@ -473,7 +492,7 @@ a {
         display: flex;
         gap: 8px;
         flex: 1;
-        margin-left: 18px;
+        margin-inline-start: 18px;
     }
 
     .nav__item {
@@ -496,8 +515,7 @@ a {
     .narrow {
         max-width: 640px;
         width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        margin-inline: auto;
     }
 
     .sheet-backdrop {
@@ -577,7 +595,7 @@ a {
         transform: translateX(0);
     }
     50% {
-        transform: translateX(6px);
+        transform: translateX(calc(6px * var(--dir-sign)));
     }
 }
 
@@ -690,22 +708,22 @@ a {
 
 .slide-forward-enter-from {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateX(calc(40px * var(--dir-sign)));
 }
 
 .slide-forward-leave-to {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(calc(-40px * var(--dir-sign)));
 }
 
 .slide-back-enter-from {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(calc(-40px * var(--dir-sign)));
 }
 
 .slide-back-leave-to {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateX(calc(40px * var(--dir-sign)));
 }
 
 @keyframes pop-in {

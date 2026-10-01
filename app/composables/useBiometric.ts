@@ -1,5 +1,4 @@
 const DECLINED_KEY = 'tantara-biometric-declined'
-const REASON = 'Confirme ton identité pour ouvrir ton profil'
 
 const readDeclined = (): string[] => {
     try {
@@ -9,18 +8,19 @@ const readDeclined = (): string[] => {
     }
 }
 
-const deviceLabel = (): string => {
-    const agent = navigator.userAgent
-    if (/iPhone|iPad|iPod/.test(agent)) {
-        return 'iPhone ou iPad'
-    }
-    return /Android/.test(agent) ? 'Téléphone Android' : 'Appareil'
-}
-
 export const useBiometric = () => {
     const config = useRuntimeConfig()
+    const { t } = useI18n()
     const { request } = useApi()
     const isSupported = useState<boolean>('biometric-supported', () => false)
+
+    const deviceLabel = (): string => {
+        const agent = navigator.userAgent
+        if (/iPhone|iPad|iPod/.test(agent)) {
+            return t('auth.biometric.deviceApple')
+        }
+        return /Android/.test(agent) ? t('auth.biometric.deviceAndroid') : t('auth.biometric.deviceOther')
+    }
 
     const bridge = (): Promise<IBiometricBridge | null> => loadBiometricBridge(Boolean(config.public.biometricTestBridge))
 
@@ -59,7 +59,7 @@ export const useBiometric = () => {
 
     const enrol = async (memberId: string): Promise<boolean> => {
         const native = await bridge()
-        if (!native || !(await native.verify(REASON))) {
+        if (!native || !(await native.verify(t('auth.biometric.reason')))) {
             return false
         }
         const device = await request<IDeviceEnrolment>('/devices', { method: 'POST', body: { label: deviceLabel() } })
@@ -74,7 +74,7 @@ export const useBiometric = () => {
 
     const prove = async (memberId: string): Promise<IProfileProof | null> => {
         const native = await bridge()
-        if (!native || !(await native.verify(REASON))) {
+        if (!native || !(await native.verify(t('auth.biometric.reason')))) {
             return null
         }
         const device = await native.readSecret(memberId)
@@ -83,7 +83,9 @@ export const useBiometric = () => {
 
     const unlocker: IProfileUnlocker = {
         id: 'biometric',
-        label: 'Utiliser l’empreinte ou le visage',
+        get label() {
+            return t('auth.biometric.unlocker')
+        },
         isAvailable: async memberId => (await detect()) && (await isEnrolled(memberId)),
         prove,
     }

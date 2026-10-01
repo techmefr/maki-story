@@ -1,0 +1,20 @@
+{
+    "back": "Volver al estudio",
+    "title": "Traducir «{title}»",
+    "language": "Idioma de la traducción",
+    "count": "{done}/{total} réplicas traducidas",
+    "suggest": "Sugerir una traducción",
+    "suggestionsHint": "Sugerencias por revisar: puedes modificarlas antes de guardar.",
+    "line": "Réplica {n} · {name}",
+    "narrator": "Narrador",
+    "translationIn": "Traducción al {language}",
+    "tone": "Tono (opcional)",
+    "tonePlaceholder": "Suave, alegre…",
+    "save": "Guardar la traducción",
+    "suggestFailed": "No se pudo hacer la sugerencia. Puedes traducir a mano.",
+    "saved": {
+        "one": "{count} réplica guardada en {language}.",
+        "other": "{count} réplicas guardadas en {language}."
+    },
+    "saveFailed": "No se pudo guardar. Inténtalo de nuevo."
+}

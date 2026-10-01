@@ -1,9 +1,9 @@
 export const TEXT_SIZES = [
-    { id: 'normal', label: 'Normal', scale: 1 },
-    { id: 'large', label: 'Grand', scale: 1.25 },
-    { id: 'xlarge', label: 'Très grand', scale: 1.6 },
-    { id: 'huge', label: 'Énorme', scale: 2 },
-    { id: 'max', label: 'Maximum', scale: 2.5 },
+    { id: 'normal', scale: 1 },
+    { id: 'large', scale: 1.25 },
+    { id: 'xlarge', scale: 1.6 },
+    { id: 'huge', scale: 2 },
+    { id: 'max', scale: 2.5 },
 ] as const
 
 export type TTextSizeId = (typeof TEXT_SIZES)[number]['id']

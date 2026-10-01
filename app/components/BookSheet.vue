@@ -1,42 +1,42 @@
 <template>
     <div class="sheet-backdrop" @click.self="emit('close')">
-        <div ref="panel" class="sheet stack" role="dialog" aria-modal="true" :aria-label="`Fiche de ${book.title}`" @keydown.esc.prevent="emit('close')">
+        <div ref="panel" class="sheet stack" role="dialog" aria-modal="true" :aria-label="t('books.sheet.title', { title: book.title })" @keydown.esc.prevent="emit('close')">
             <h2 class="title">{{ book.title }}</h2>
             <p v-if="book.subtitle" class="subtitle">{{ book.subtitle }}</p>
-            <p v-if="book.isVoiceBlocked && !isChild"><span class="badge" style="background: #ff7a6b">Voix bloquée : les enfants ne peuvent pas l’écouter</span></p>
+            <p v-if="book.isVoiceBlocked && !isChild"><span class="badge" style="background: #ff7a6b">{{ t('books.sheet.voiceBlocked') }}</span></p>
             <dl class="sheet__facts">
                 <div v-if="book.author">
-                    <dt>Auteur</dt>
+                    <dt>{{ t('books.sheet.author') }}</dt>
                     <dd>{{ book.author }}</dd>
                 </div>
                 <div v-if="book.illustrator">
-                    <dt>Dessinateur</dt>
+                    <dt>{{ t('books.sheet.illustrator') }}</dt>
                     <dd>{{ book.illustrator }}</dd>
                 </div>
                 <div v-if="ageLabel">
-                    <dt>Âge</dt>
+                    <dt>{{ t('books.sheet.age') }}</dt>
                     <dd><span class="badge">{{ ageLabel }}</span></dd>
                 </div>
                 <div>
-                    <dt>Langue</dt>
+                    <dt>{{ t('books.sheet.language') }}</dt>
                     <dd>{{ languageLabel(book.language) }}</dd>
                 </div>
             </dl>
             <section class="stack" style="gap: 8px" aria-labelledby="book-readers">
-                <h3 id="book-readers" class="label">Lu par</h3>
+                <h3 id="book-readers" class="label">{{ t('books.sheet.readBy') }}</h3>
                 <ul v-if="readers.length > 0" class="readers">
                     <li v-for="reader in readers" :key="reader.id" class="row readers__item">
                         <AppAvatar :member="reader" :size="40" />
                         <span class="subtitle" :style="{ borderBottom: `4px solid ${memberHex(reader)}` }">{{ reader.name }}</span>
                     </li>
                 </ul>
-                <p v-else class="muted">Personne n’a encore enregistré sa voix.</p>
+                <p v-else class="muted">{{ t('books.sheet.nobody') }}</p>
             </section>
             <NuxtLink v-if="target" :to="target.path" class="btn btn--block" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
             </NuxtLink>
-            <button v-if="canShare" type="button" class="btn btn--white btn--block" @click="emit('share', book)">Partager</button>
-            <button type="button" class="btn btn--white btn--block" @click="emit('close')">Fermer</button>
+            <button v-if="canShare" type="button" class="btn btn--white btn--block" @click="emit('share', book)">{{ t('books.sheet.share') }}</button>
+            <button type="button" class="btn btn--white btn--block" @click="emit('close')">{{ t('common.close') }}</button>
         </div>
     </div>
 </template>
@@ -45,6 +45,7 @@
 const { book } = defineProps<{ book: IBookSummary }>()
 const emit = defineEmits<{ close: []; share: [book: IBookSummary] }>()
 
+const { t } = useI18n()
 const { getById } = useMembers()
 const { isChild, current } = useCurrentMember()
 const isOnline = useState<boolean>('is-online', () => true)
@@ -60,14 +61,22 @@ const canShare = computed(() => {
     }
     return current.value.role === 'relative' && book.kind === 'solo' && book.soloMemberId === current.value.id
 })
-const ageLabel = computed(() => ageLabelOf(book.ageMin, book.ageMax))
+const ageLabel = computed(() => {
+    if (book.ageMin === null) {
+        return ''
+    }
+    if (book.ageMax === null || book.ageMax === book.ageMin) {
+        return t('books.age.years', { count: book.ageMin })
+    }
+    return t('books.age.range', { min: book.ageMin, max: book.ageMax, count: book.ageMax })
+})
 const target = computed((): { path: string; label: string; icon: IconName } => {
     if (isChild.value) {
-        return { path: `/kid/listen/${book.id}`, label: 'Écouter', icon: 'play' }
+        return { path: `/kid/listen/${book.id}`, label: t('books.sheet.listen'), icon: 'play' }
     }
     return book.status === 'ready'
-        ? { path: `/books/${book.id}/play`, label: 'Ouvrir le livre', icon: 'play' }
-        : { path: `/books/${book.id}/studio`, label: 'Aller au studio', icon: 'mic' }
+        ? { path: `/books/${book.id}/play`, label: t('books.sheet.open'), icon: 'play' }
+        : { path: `/books/${book.id}/studio`, label: t('books.sheet.studio'), icon: 'mic' }
 })
 
 onMounted(() => {

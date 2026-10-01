@@ -1,0 +1,20 @@
+{
+    "back": "Back to the studio",
+    "title": "Translate “{title}”",
+    "language": "Translation language",
+    "count": "{done}/{total} lines translated",
+    "suggest": "Suggest a translation",
+    "suggestionsHint": "Suggestions to review: you can edit them before saving.",
+    "line": "Line {n} · {name}",
+    "narrator": "Narrator",
+    "translationIn": "Translation in {language}",
+    "tone": "Tone (optional)",
+    "tonePlaceholder": "Gentle, cheerful…",
+    "save": "Save the translation",
+    "suggestFailed": "The suggestion could not be made. You can translate by hand.",
+    "saved": {
+        "one": "{count} line saved in {language}.",
+        "other": "{count} lines saved in {language}."
+    },
+    "saveFailed": "Saving failed. Try again."
+}

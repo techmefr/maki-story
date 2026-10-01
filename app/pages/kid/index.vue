@@ -2,7 +2,7 @@
     <div class="stack">
         <div class="row hello">
             <AppMaki :size="64" class="anim-float" />
-            <h1 class="title">Coucou {{ current?.name }} !</h1>
+            <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
         </div>
         <GrimaceNudge />
         <div class="faces">
@@ -19,15 +19,15 @@
                     :aria-label="face.bubbleLabel"
                 >
                     <AppIcon name="message-heart" :size="22" motion="wiggle" />
-                    Message
-                    <span class="face__count" data-bubble-count>{{ face.count }}</span>
+                    {{ t('kid.bubble') }}
+                    <span class="face__count" data-bubble-count>{{ formatNumber(face.count) }}</span>
                 </NuxtLink>
             </div>
         </div>
-        <AppEmpty v-if="faces.length === 0" title="Personne n’est encore là" hint="Demande à un grand d’ajouter la famille." />
+        <AppEmpty v-if="faces.length === 0" :title="t('kid.noFaces')" :hint="t('kid.noFacesHint')" />
         <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
             <AppIcon name="book" :size="44" motion="float" />
-            <span class="subtitle">Histoires à plusieurs voix</span>
+            <span class="subtitle">{{ t('kid.multiVoice') }}</span>
             <VoiceDots :member-ids="faceIds" />
         </NuxtLink>
     </div>
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'kid' })
 
+const { t, formatNumber } = useI18n()
 const { current, currentId } = useCurrentMember()
 const { grownUps } = useMembers()
 const { load, startPolling, stopPolling, playableFrom, unreadFrom } = useMessages()
@@ -46,7 +47,7 @@ const faces = computed(() =>
         hex: memberHex(member),
         message: currentId.value ? playableFrom(member.id, currentId.value) : null,
         count: currentId.value ? unreadFrom(member.id, currentId.value) : 0,
-        bubbleLabel: `${member.name} : ${currentId.value ? unreadFrom(member.id, currentId.value) : 0} à écouter`,
+        bubbleLabel: t('kid.bubbleLabel', { name: member.name, count: currentId.value ? unreadFrom(member.id, currentId.value) : 0 }),
     })),
 )
 const faceIds = computed(() => grownUps.value.map(member => member.id))
@@ -105,7 +106,7 @@ onBeforeUnmount(stopPolling)
 .face__bubble {
     position: absolute;
     top: -6px;
-    right: 6px;
+    inset-inline-end: 6px;
     display: inline-flex;
     align-items: center;
     gap: 6px;

@@ -1,6 +1,7 @@
 export const useLocale = () => {
     const { current } = useCurrentMember()
     const { updateSettings } = useMembers()
+    const { locale: shown, setLocale: applyLocale } = useI18n()
 
     const detected = computed(() => {
         if (!import.meta.client) {
@@ -10,8 +11,7 @@ export const useLocale = () => {
     })
     const preference = computed(() => current.value?.appLocale ?? null)
     const locale = computed(() => preference.value ?? detected.value)
-    const activeLocale = computed(() => (TRANSLATED_LOCALES.includes(locale.value) ? locale.value : DEFAULT_LOCALE))
-    const isTranslated = (code: string): boolean => TRANSLATED_LOCALES.includes(code)
+    const activeLocale = computed(() => (isLanguageCode(locale.value) ? locale.value : DEFAULT_LOCALE))
 
     const setLocale = async (code: string | null): Promise<void> => {
         if (current.value) {
@@ -19,5 +19,11 @@ export const useLocale = () => {
         }
     }
 
-    return { languages: LANGUAGES, detected, preference, locale, activeLocale, isTranslated, setLocale }
+    const syncLocale = async (): Promise<void> => {
+        if (shown.value !== activeLocale.value) {
+            await applyLocale(activeLocale.value)
+        }
+    }
+
+    return { languages: LANGUAGES, detected, preference, locale, activeLocale, setLocale, syncLocale }
 }

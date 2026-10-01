@@ -1,0 +1,40 @@
+{
+    "title": "Hafatra",
+    "addChild": "Ampio zaza ao amin’ny fianakaviana mba handefasana hafatra feo aminy.",
+    "sendHim": "Alefaso hafatra izy",
+    "needConnection": "Mila tambajotra mba handefasana",
+    "status": {
+        "waiting": "Misy hafatra miandry anao",
+        "heard": "Efa nihaino ✓",
+        "sent": "Alefa",
+        "none": "Tsy misy hafatra"
+    },
+    "compose": {
+        "reply": "Valio i {name}",
+        "messageFor": "Hafatra ho an’i {name}",
+        "sent": "Lasa!",
+        "stop": "Atsaharo",
+        "record": "Haka feo",
+        "redo": "Avereno",
+        "tapToFinish": "Tendreo hamaranana",
+        "tapMic": "Tendreo ny mikrofaona",
+        "tooShort": "Fohy loatra, atombohy indray.",
+        "sendFailed": "Tsy afaka nalefa ny hafatra. Andramo indray."
+    },
+    "listen": {
+        "finished": "Vita",
+        "reply": "Valio",
+        "play": "Henoy",
+        "alreadyHeard": "Efa henoina ity hafatra ity",
+        "next": "Hafatra manaraka",
+        "nextWaiting": "Hafatra manaraka ({count} miandry)"
+    },
+    "strip": {
+        "label": "Hafatra avy amin’ny fianakaviana",
+        "item": {
+            "one": "{name}: hafatra {count} henoina",
+            "other": "{name}: hafatra {count} henoina"
+        }
+    },
+    "noOneTitle": "Tsy misy olona hosoratana"
+}

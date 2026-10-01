@@ -1,12 +1,12 @@
 <template>
     <div class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
         <div class="gate__panel stack">
-            <h2 id="gate-title" class="subtitle" tabindex="-1">Code d’un parent</h2>
+            <h2 id="gate-title" class="subtitle" tabindex="-1">{{ t('parental.gate.title') }}</h2>
             <template v-if="parents.length === 0">
-                <p class="muted">Aucun parent n’a de code pour l’instant.</p>
+                <p class="muted">{{ t('parental.gate.noParent') }}</p>
             </template>
             <template v-else>
-                <div class="row row--wrap" role="group" aria-label="Quel parent ?">
+                <div class="row row--wrap" role="group" :aria-label="t('parental.gate.which')">
                     <button
                         v-for="parent in parents"
                         :key="parent.id"
@@ -23,7 +23,7 @@
                 <PinPad v-else :key="attempt" :is-disabled="isBusy" @submit="onCode" />
             </template>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <button type="button" class="btn btn--white btn--small" @click="emit('cancel')">Annuler</button>
+            <button type="button" class="btn btn--white btn--small" @click="emit('cancel')">{{ t('common.cancel') }}</button>
         </div>
     </div>
 </template>
@@ -35,6 +35,7 @@ const { members, isBusy = false, errorMessage = '', attempt = 0 } = defineProps<
     errorMessage?: string
     attempt?: number
 }>()
+const { t } = useI18n()
 const emit = defineEmits<{ submit: [parentId: string, code: string]; cancel: [] }>()
 
 const parents = computed(() => members.filter(member => member.role === 'parent' && member.status === 'active' && member.hasCode))

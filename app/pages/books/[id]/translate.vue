@@ -1,25 +1,25 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink :to="`/books/${book.id}/studio`" class="muted">Retour au studio</NuxtLink>
-        <h1 class="title">Traduire « {{ book.title }} »</h1>
+        <NuxtLink :to="`/books/${book.id}/studio`" class="muted">{{ t('translate.back') }}</NuxtLink>
+        <h1 class="title">{{ t('translate.title', { title: book.title }) }}</h1>
         <div class="stack">
-            <label class="label" for="translate-language">Langue de la traduction</label>
+            <label class="label" for="translate-language">{{ t('translate.language') }}</label>
             <select id="translate-language" v-model="target" class="input" @change="loadDrafts">
                 <option v-for="option in targets" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
             </select>
-            <span class="badge" role="status">{{ translatedCount }}/{{ book.lines.length }} répliques traduites</span>
+            <span class="badge" role="status">{{ t('translate.count', { done: translatedCount, total: book.lines.length }) }}</span>
         </div>
         <div v-if="isAiEnabled" class="stack">
             <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="suggest">
-                <AppIcon name="sparkles" :size="22" />Suggérer une traduction
+                <AppIcon name="sparkles" :size="22" />{{ t('translate.suggest') }}
             </button>
-            <p v-if="hasSuggestions" class="muted" role="status">Suggestions à relire : tu peux les modifier avant d’enregistrer.</p>
+            <p v-if="hasSuggestions" class="muted" role="status">{{ t('translate.suggestionsHint') }}</p>
         </div>
         <ul class="stack translate__list">
             <li v-for="(line, index) in book.lines" :key="line.id" class="card stack">
-                <div class="label">Réplique {{ index + 1 }} · {{ line.character || 'Narrateur' }}</div>
+                <div class="label">{{ t('translate.line', { n: index + 1, name: line.character || t('translate.narrator') }) }}</div>
                 <p class="translate__original" :lang="book.language">{{ line.text }}</p>
-                <label class="label" :for="`translate-text-${line.id}`">Traduction en {{ targetLabel }}</label>
+                <label class="label" :for="`translate-text-${line.id}`">{{ t('translate.translationIn', { language: targetLabel }) }}</label>
                 <textarea
                     :id="`translate-text-${line.id}`"
                     v-model="drafts[line.id]!.text"
@@ -28,17 +28,17 @@
                     :lang="target"
                     :data-testid="`translate-text-${index}`"
                 />
-                <label class="label" :for="`translate-tone-${line.id}`">Ton (facultatif)</label>
-                <input :id="`translate-tone-${line.id}`" v-model="drafts[line.id]!.tone" class="input" placeholder="Doux, joyeux…" />
+                <label class="label" :for="`translate-tone-${line.id}`">{{ t('translate.tone') }}</label>
+                <input :id="`translate-tone-${line.id}`" v-model="drafts[line.id]!.tone" class="input" :placeholder="t('translate.tonePlaceholder')" />
             </li>
         </ul>
         <p v-if="message" class="muted" role="status">{{ message }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <button type="button" class="btn btn--mint btn--block" :disabled="isBusy" @click="save">
-            <AppIcon name="check" :size="22" />Enregistrer la traduction
+            <AppIcon name="check" :size="22" />{{ t('translate.save') }}
         </button>
     </div>
-    <p v-else class="muted">Chargement…</p>
+    <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +47,7 @@ interface IDraft {
     tone: string
 }
 
+const { t } = useI18n()
 const route = useRoute()
 const bookId = String(route.params.id)
 const { get, setTranslation } = useBooks()
@@ -96,7 +97,7 @@ const suggest = async (): Promise<void> => {
         hasSuggestions.value = true
     } catch (error) {
         console.error('La suggestion de traduction a échoué', error)
-        errorMessage.value = 'La suggestion n’a pas pu être faite. Tu peux traduire à la main.'
+        errorMessage.value = t('translate.suggestFailed')
     } finally {
         isBusy.value = false
     }
@@ -123,10 +124,10 @@ const save = async (): Promise<void> => {
             }
         }
         hasSuggestions.value = false
-        message.value = `${saved} répliques enregistrées en ${targetLabel.value}.`
+        message.value = t('translate.saved', { count: saved, language: targetLabel.value })
     } catch (error) {
         console.error('La traduction n a pas pu être enregistrée', error)
-        errorMessage.value = 'L’enregistrement a échoué. Réessaie.'
+        errorMessage.value = t('translate.saveFailed')
     } finally {
         isBusy.value = false
     }

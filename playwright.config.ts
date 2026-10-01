@@ -19,6 +19,7 @@ export default defineConfig({
     globalSetup: REMOTE_URL ? undefined : './tests/e2e/global-setup.ts',
     globalTeardown: './tests/e2e/global-teardown.ts',
     use: {
+        locale: 'fr-FR',
         baseURL: REMOTE_URL ?? `http://localhost:${PORT}`,
         permissions: ['microphone'],
         contextOptions: { reducedMotion: 'reduce' },

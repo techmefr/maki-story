@@ -1,0 +1,78 @@
+{
+    "title": "Sharing between families",
+    "invite": {
+        "title": "Invitation code",
+        "help": "Give this code to another family so they can send you a book or ask you to record your voice.",
+        "codeLabel": "Family invitation code",
+        "revoked": "The code is disabled. Renew it to invite again.",
+        "renew": "Renew the code",
+        "disable": "Disable"
+    },
+    "approvals": {
+        "title": "To approve"
+    },
+    "approve": "Approve",
+    "decline": "Decline",
+    "incoming": {
+        "title": "Received"
+    },
+    "whoRecords": "Who records?",
+    "allAdults": "All adults in the family",
+    "accept": "Accept",
+    "recordMyVoice": "Record my voice",
+    "stopShare": "Stop this share",
+    "outgoing": {
+        "title": "Sent"
+    },
+    "noOutgoing": "No shares sent. Use the Share button on a book in the library.",
+    "stop": "Stop",
+    "status": {
+        "proposed": "Waiting for a parent to approve",
+        "awaiting_owner": "Waiting for the book owner’s agreement",
+        "pending": "Waiting for a reply",
+        "accepted": "Accepted",
+        "declined": "Declined",
+        "revoked": "Stopped"
+    },
+    "mode": {
+        "record": {
+            "one": "record {count} line",
+            "other": "record {count} lines"
+        },
+        "copy": "copy to the library"
+    },
+    "approvalLabel": "{name} would like to share this book with {family} ({mode}).",
+    "proposerFallback": "A relative",
+    "incomingLabel": "{family}: {mode}. {status}.",
+    "outgoingLabel": "For {family}: {mode}. {status}.",
+    "actionFailed": "This action could not be done right now.",
+    "detail": {
+        "help": "Record your voice for the requested lines. You can listen again before sending.",
+        "narrator": "Narrator",
+        "narratorLower": "narrator",
+        "lineAria": "Line by {name}",
+        "sent": "Sent",
+        "listenAgain": "Listen again",
+        "redo": "Redo",
+        "record": "Record",
+        "unavailable": "This share is not available.",
+        "sendFailed": "Sending didn’t work. Try again in a moment."
+    },
+    "dialog": {
+        "title": "Share “{title}”",
+        "code": "Family code",
+        "how": "How to share?",
+        "modeRecord": "Record my voice for this book",
+        "modeCopy": "Copy to their library",
+        "linesToRecord": "Lines to record",
+        "line": "{character}: {text}",
+        "note": "A little note (optional)",
+        "sentTo": "Sent to the {name} family.",
+        "needsApproval": "Saved: a parent must approve before it is sent.",
+        "notFound": "This code doesn’t match any family.",
+        "conflict": "This book is already shared this way, or it has reached the maximum number of families.",
+        "tooMany": "Too many tries. Try again in a few minutes.",
+        "forbidden": "Your profile can’t share this book.",
+        "failed": "The share could not be sent."
+    }
+}

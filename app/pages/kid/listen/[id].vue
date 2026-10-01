@@ -2,22 +2,22 @@
     <div class="reader" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
-            <h1 class="title">Page suivante</h1>
-            <button type="button" class="btn btn--big" aria-label="Tourner la page" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" /></button>
+            <h1 class="title">{{ t('kid.listen.nextPage') }}</h1>
+            <button type="button" class="btn btn--big" :aria-label="t('kid.listen.turnPage')" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></button>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />
-            <h1 class="title">C’est fini !</h1>
-            <button type="button" class="btn btn--big btn--white" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />Recommencer</button>
-            <NuxtLink to="/kid" class="btn btn--big"><AppIcon name="home" :size="40" />Retour</NuxtLink>
+            <h1 class="title">{{ t('kid.listen.finished') }}</h1>
+            <button type="button" class="btn btn--big btn--white" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />{{ t('kid.listen.restart') }}</button>
+            <NuxtLink to="/kid" class="btn btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</NuxtLink>
         </div>
         <div v-else-if="phase === 'loading'" class="reader__center stack center">
             <AppMaki :size="120" class="anim-pulse" />
         </div>
         <div v-else-if="phase === 'languages'" class="reader__center stack center">
             <AppIcon name="languages" :size="64" motion="float" />
-            <h1 class="sr-only">Choisis la langue de l’histoire</h1>
-            <div class="choices" role="group" aria-label="Langues de l’histoire">
+            <h1 class="sr-only">{{ t('playback.chooseTitle') }}</h1>
+            <div class="choices" role="group" :aria-label="t('playback.choices')">
                 <button
                     v-for="choice in choices"
                     :key="choice.join('-')"
@@ -38,7 +38,7 @@
                     v-if="!isLocked"
                     type="button"
                     class="choice choice--small"
-                    aria-label="Changer de langue"
+                    :aria-label="t('playback.change')"
                     data-testid="change-language"
                     @click="phase = 'languages'"
                 >
@@ -50,7 +50,7 @@
                 <button
                     type="button"
                     class="btn btn--white btn--round"
-                    :aria-label="isLocked ? 'Déverrouiller la langue avec le code d’un parent' : 'Verrouiller la langue'"
+                    :aria-label="isLocked ? t('playback.unlock') : t('playback.lock')"
                     :aria-pressed="isLocked"
                     data-testid="language-lock"
                     @click="onLockClick"
@@ -59,43 +59,43 @@
                 </button>
             </div>
             <div v-if="resumeProgress" class="row">
-                <button type="button" class="btn btn--big" aria-label="Continuer" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></button>
-                <button type="button" class="btn btn--big btn--white" aria-label="Au début" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></button>
+                <button type="button" class="btn btn--big" :aria-label="t('common.continue')" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></button>
+                <button type="button" class="btn btn--big btn--white" :aria-label="t('kid.listen.fromStart')" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></button>
             </div>
-            <button v-else type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
+            <button v-else type="button" class="btn btn--big" :aria-label="t('kid.listen.read')" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
         </div>
         <div v-else-if="phase === 'sleep'" class="reader__center stack center">
             <AppIcon name="moon" :size="140" motion="float" />
-            <h1 class="title">Bonne nuit</h1>
-            <NuxtLink to="/kid" class="btn btn--big btn--white"><AppIcon name="home" :size="40" />Retour</NuxtLink>
+            <h1 class="title">{{ t('kid.listen.goodNight') }}</h1>
+            <NuxtLink to="/kid" class="btn btn--big btn--white"><AppIcon name="home" :size="40" />{{ t('common.back') }}</NuxtLink>
         </div>
         <div v-else class="reader__center stack center" :class="{ reader__flash: isCueFlashing }">
             <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
                 <AppAvatar :member="reader" :size="200" />
             </AppBlob>
-            <h1 class="title">{{ reader?.name }} lit</h1>
-            <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="togglePause">
+            <h1 class="title">{{ t('kid.listen.reads', { name: reader?.name ?? '' }) }}</h1>
+            <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
             </button>
         </div>
         <div class="reader__bottom">
-            <div class="progress" role="progressbar" aria-label="Avancement de la page" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
+            <div class="progress" role="progressbar" :aria-label="t('kid.listen.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
             <div class="row row--wrap" style="justify-content: space-between">
-                <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />Quitter</NuxtLink>
+                <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />{{ t('kid.listen.quit') }}</NuxtLink>
                 <button type="button" class="btn btn--small btn--white" :aria-pressed="isSoundOn" @click="toggleSound">
-                    <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? 'Son' : 'Sans son' }}
+                    <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? t('kid.listen.soundOn') : t('kid.listen.soundOff') }}
                 </button>
                 <button
                     v-if="canSleep"
                     type="button"
                     class="btn btn--small btn--white"
                     :aria-pressed="sleepTimer.choice.value !== null"
-                    aria-label="Minuteur de sommeil"
+                    :aria-label="t('kid.listen.sleepTimer')"
                     @click="isSleepOpen = true"
                 >
                     <AppIcon name="moon" :size="22" :is-active="sleepTimer.choice.value !== null" />
                 </button>
-                <span class="badge">Page {{ pageNumber }}/{{ pageTotal }}</span>
+                <span class="badge">{{ t('kid.listen.page', { current: formatNumber(pageNumber), total: formatNumber(pageTotal) }) }}</span>
             </div>
         </div>
         <ParentGate
@@ -122,6 +122,7 @@ type Phase = 'loading' | 'languages' | 'ready' | 'playing' | 'page' | 'end' | 's
 
 definePageMeta({ layout: 'blank' })
 
+const { t, formatNumber } = useI18n()
 const route = useRoute()
 const { get } = useBooks()
 const { members, getById, ensureLoaded } = useMembers()
@@ -231,7 +232,8 @@ const cancelSleep = (): void => {
 }
 
 const choiceLabel = (codes: string[]): string => {
-    return codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code).join(' puis ')
+    const labels = codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code)
+    return labels.length === 2 ? t('playback.pair', { first: labels[0]!, second: labels[1]! }) : labels.join(', ')
 }
 
 const restoreProgress = async (): Promise<void> => {
@@ -295,7 +297,7 @@ const unlockWithParent = async (parentId: string, code: string): Promise<void> =
         isGateOpen.value = false
     } catch (error) {
         console.error('Le code du parent a été refusé', error)
-        gateError.value = 'Ce code ne convient pas.'
+        gateError.value = t('parental.gate.wrong')
         gateAttempt.value += 1
     } finally {
         isGateBusy.value = false

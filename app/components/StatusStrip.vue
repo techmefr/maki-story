@@ -1,5 +1,5 @@
 <template>
-    <nav v-if="items.length > 0" class="status-strip" aria-label="Messages de la famille">
+    <nav v-if="items.length > 0" class="status-strip" :aria-label="t('messages.strip.label')">
         <NuxtLink
             v-for="item in items"
             :key="item.member.id"
@@ -11,12 +11,13 @@
         >
             <AppAvatar :member="item.member" :size="48" />
             <span class="status-strip__name">{{ item.member.name }}</span>
-            <span class="status-strip__count" aria-hidden="true">{{ item.count }}</span>
+            <span class="status-strip__count" aria-hidden="true">{{ formatNumber(item.count) }}</span>
         </NuxtLink>
     </nav>
 </template>
 
 <script setup lang="ts">
+const { t, formatNumber } = useI18n()
 const { currentId } = useCurrentMember()
 const { grownUps } = useMembers()
 const { queueFrom } = useMessages()
@@ -28,7 +29,7 @@ const items = computed(() =>
         if (!head) {
             return []
         }
-        const label = `${member.name} : ${queue.length} ${queue.length > 1 ? 'messages' : 'message'} à écouter`
+        const label = t('messages.strip.item', { name: member.name, count: queue.length })
         return [{ member, head, count: queue.length, label }]
     }),
 )
@@ -53,7 +54,8 @@ const items = computed(() =>
     gap: 10px;
     border: 2.5px solid var(--ink);
     border-radius: 999px;
-    padding: 6px 18px 6px 8px;
+    padding-block: 6px;
+    padding-inline: 8px 18px;
     color: var(--ink);
     text-decoration: none;
     box-shadow: var(--shadow);

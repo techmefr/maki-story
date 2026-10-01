@@ -2,13 +2,14 @@
     <NuxtLink v-if="isMissing" to="/grimace" class="card card--tap row nudge" :style="{ background: hex }">
         <AppAvatar :member="current" :size="56" />
         <div class="grow">
-            <div class="subtitle">Fais ta grimace !</div>
-            <div class="muted">Une photo rigolote pour que l’enfant te reconnaisse.</div>
+            <div class="subtitle">{{ t('home.grimaceNudge.title') }}</div>
+            <div class="muted">{{ t('home.grimaceNudge.text') }}</div>
         </div>
     </NuxtLink>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const { current } = useCurrentMember()
 
 const isMissing = computed(() => current.value !== null && current.value.photoFileId === null)

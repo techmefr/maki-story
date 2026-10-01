@@ -5,6 +5,7 @@ const wait = (ms: number): Promise<void> => new Promise(resolve => setTimeout(re
 const bytesOf = (record: IOfflineBook): number => Object.values(record.sizes).reduce((sum, size) => sum + size, 0)
 
 export const useOfflineBooks = () => {
+    const { t } = useI18n()
     const config = useRuntimeConfig()
     const { request } = useApi()
     const records = useState<Record<string, IOfflineBook>>('offline-books', () => ({}))
@@ -47,7 +48,7 @@ export const useOfflineBooks = () => {
             try {
                 const response = await fetch(`${config.public.apiBase}/api/files/${fileId}`, { credentials: 'include' })
                 if (!response.ok) {
-                    throw new Error('Fichier introuvable')
+                    throw new Error('File not found')
                 }
                 return await response.blob()
             } catch (error) {
@@ -103,7 +104,7 @@ export const useOfflineBooks = () => {
             const isQuota = error instanceof DOMException && error.name === 'QuotaExceededError'
             errors.value = {
                 ...errors.value,
-                [id]: isQuota ? 'Plus assez de place sur cet appareil' : 'Le téléchargement s’est arrêté, tu peux le reprendre',
+                [id]: isQuota ? t('books.offline.noSpace') : t('books.offline.interrupted'),
             }
             console.warn('Le téléchargement n a pas pu se terminer', error)
             return false

@@ -1,0 +1,86 @@
+{
+    "notice": {
+        "label": "Von der KI vorgeschlagen.",
+        "default": "Lies alles aufmerksam durch und korrigiere, was nötig ist, bevor du weitermachst."
+    },
+    "errors": {
+        "unavailable": "Die KI ist auf diesem Server nicht eingerichtet. Diese Funktion ist vorerst nicht verfügbar.",
+        "quota": "Das KI-Budget dieses Monats ist aufgebraucht. Es wird zu Beginn des nächsten Monats zurückgesetzt.",
+        "forbidden": "Nur Eltern können die KI nutzen.",
+        "unusable": "Die KI hat eine unbrauchbare Antwort gegeben. Versuch es gleich noch einmal.",
+        "failed": "Die KI konnte im Moment nicht antworten. Versuch es später noch einmal."
+    },
+    "quota": {
+        "label": "KI-Budget des Monats: noch {remaining} von {budget}."
+    },
+    "draft": {
+        "title": "Zu bestätigen",
+        "intro": "Diese Geschichten hat die KI geschrieben. Kinder sehen sie erst, wenn ein Elternteil sie bestätigt hat.",
+        "label": "Entwurf {title}",
+        "badge": "Von der KI erstellt",
+        "meta": "{pages} Seiten · {lines} Sätze · {language}",
+        "validate": "Bestätigen",
+        "validateLabel": "{title} bestätigen",
+        "reject": "Ablehnen",
+        "rejectLabel": "{title} ablehnen",
+        "error": "Dieser Entwurf kann im Moment nicht bearbeitet werden."
+    },
+    "prefill": {
+        "title": "Aus einem Foto vorausfüllen",
+        "intro": "Fotografiere die Seiten (höchstens 4). Die KI liest den Text und schlägt Figuren, Sätze und Tonlagen vor. Du liest und korrigierst alles in den nächsten Schritten, bevor du speicherst.",
+        "choose": "Fotos auswählen",
+        "reading": "Wird gelesen…",
+        "uploading": "Foto {n} von {total} wird gesendet…",
+        "aiReading": "Die KI liest die Seiten, das kann eine Minute dauern…"
+    },
+    "translate": {
+        "suggestButton": "Übersetzung vorschlagen",
+        "groupLabel": "Übersetzungsvorschlag",
+        "notice": "Von der KI vorgeschlagene Übersetzung: Lies sie durch und korrigiere sie, bevor du sie annimmst.",
+        "translateTo": "Übersetzen in",
+        "busy": "Wird übersetzt…",
+        "proposed": "Vorgeschlagene Übersetzung auf {language}",
+        "accept": "Annehmen",
+        "reject": "Ablehnen",
+        "suggest": "Vorschlagen",
+        "removeLabel": "Übersetzung auf {language} entfernen"
+    },
+    "page": {
+        "title": "Eine Geschichte mit der KI erstellen",
+        "parentsOnly": "Nur Eltern können eine Geschichte mit der KI erstellen.",
+        "notice": "Geschichte und Bilder werden von der KI erfunden. Sie landet versteckt unter „Zu bestätigen“: Kinder sehen sie erst, nachdem du sie bestätigt hast.",
+        "draftCreated": "Entwurf erstellt",
+        "draftBody": "Er wartet in der Reihe „Zu bestätigen“ der Bibliothek auf dich. Lies ihn durch und bestätige ihn dann.",
+        "seeLibrary": "In der Bibliothek ansehen",
+        "another": "Noch eine Geschichte erstellen",
+        "idea": "Deine Geschichtenidee",
+        "ideaPlaceholder": "Ein kleines Zebu, das Angst vor Gewitter hat…",
+        "storyLanguage": "Sprache der Geschichte",
+        "ageMin": "Mindestalter",
+        "ageMax": "Höchstalter",
+        "allAges": "Alle",
+        "pageCount": "Anzahl der Seiten",
+        "hero": "Beschreibe den Helden (optional)",
+        "heroPlaceholder": "Ein braunes Zebu mit rotem Schal",
+        "ageProblem": "Das Mindestalter muss kleiner als das Höchstalter sein.",
+        "sheetTitle": "Die Figuren",
+        "sheetIntro": "Dieser Steckbrief bleibt auf allen Seiten gleich, damit die Figuren immer gleich aussehen. Ändere ihn bei Bedarf.",
+        "characterLabel": "Figur {n}",
+        "name": "Name",
+        "description": "Beschreibung",
+        "descriptionPlaceholder": "Klein, braun, roter Schal",
+        "remove": "Entfernen",
+        "removeLabel": "Figur {n} entfernen",
+        "add": "Figur hinzufügen",
+        "busyNote": "Geschichte und Bilder werden erstellt, das kann einige Minuten dauern…",
+        "generating": "Wird erstellt…",
+        "generate": "Geschichte erstellen",
+        "promptDefaultName": "Figur",
+        "promptEntry": "{name}: {description}",
+        "promptKeepSame": "Figuren, die auf allen Seiten gleich bleiben sollen:",
+        "skipped": {
+            "one": "{count} Bild konnte nicht erstellt werden: Die betroffenen Seiten sind leer. Du kannst sie später ergänzen.",
+            "other": "{count} Bilder konnten nicht erstellt werden: Die betroffenen Seiten sind leer. Du kannst sie später ergänzen."
+        }
+    }
+}

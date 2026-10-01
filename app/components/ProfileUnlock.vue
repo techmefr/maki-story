@@ -2,22 +2,22 @@
     <div class="stack unlock">
         <button type="button" class="btn btn--white btn--small unlock__back" @click="emit('cancel')">
             <AppIcon name="back" :size="18" />
-            Changer de profil
+            {{ t('profile.switchProfile') }}
         </button>
         <div class="stack unlock__head">
             <AppAvatar :member="member" :size="84" />
             <div class="subtitle">{{ member.name }}</div>
         </div>
         <template v-if="stage === 'offer'">
-            <h2 class="subtitle" tabindex="-1">Activer l’empreinte ou le visage ?</h2>
-            <p class="muted">Tu pourras ouvrir ton profil sans taper ton code sur cet appareil. Le code reste disponible.</p>
-            <button type="button" class="btn btn--block" :disabled="isBusy" @click="onEnrol">Activer</button>
-            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="onSkipOffer">Pas maintenant</button>
+            <h2 class="subtitle" tabindex="-1">{{ t('profile.unlock.offerTitle') }}</h2>
+            <p class="muted">{{ t('profile.unlock.offerBody') }}</p>
+            <button type="button" class="btn btn--block" :disabled="isBusy" @click="onEnrol">{{ t('profile.unlock.enable') }}</button>
+            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="onSkipOffer">{{ t('profile.unlock.notNow') }}</button>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
         <template v-else-if="mode === 'blocked'">
-            <h2 class="subtitle" tabindex="-1">Code à créer</h2>
-            <p class="muted">Un parent doit d’abord choisir le code de {{ member.name }}.</p>
+            <h2 class="subtitle" tabindex="-1">{{ t('profile.unlock.blockedTitle') }}</h2>
+            <p class="muted">{{ t('profile.unlock.blockedBody', { name: member.name }) }}</p>
         </template>
         <template v-else>
             <h2 class="subtitle" tabindex="-1">{{ heading }}</h2>
@@ -43,6 +43,7 @@
 const { member } = defineProps<{ member: IMember }>()
 const emit = defineEmits<{ unlocked: []; cancel: [] }>()
 
+const { t } = useI18n()
 const { select } = useCurrentMember()
 const { load } = useMembers()
 const { unlockers } = useProfileUnlockers()
@@ -64,15 +65,15 @@ const mode = computed<'enter' | 'create' | 'blocked'>(() => {
 const padKind = computed<MemberCodeKind>(() => (mode.value === 'enter' ? (member.codeKind ?? 'pin') : 'pin'))
 const heading = computed(() => {
     if (mode.value === 'enter') {
-        return 'Entre ton code'
+        return t('profile.unlock.enterTitle')
     }
-    return firstEntry.value === null ? 'Crée ton code' : 'Confirme ton code'
+    return firstEntry.value === null ? t('profile.unlock.createTitle') : t('profile.unlock.confirmTitle')
 })
 const hint = computed(() => {
     if (mode.value === 'enter') {
-        return padKind.value === 'shapes' ? 'Touche les 3 formes dans le bon ordre.' : 'Tape ton code secret.'
+        return padKind.value === 'shapes' ? t('profile.unlock.hintShapes') : t('profile.unlock.hintPin')
     }
-    return firstEntry.value === null ? 'Choisis 4 à 6 chiffres. Il te sera demandé à chaque fois.' : 'Tape le même code une seconde fois.'
+    return firstEntry.value === null ? t('profile.unlock.hintCreate') : t('profile.unlock.hintConfirm')
 })
 
 const resetPad = (): void => {
@@ -82,11 +83,11 @@ const resetPad = (): void => {
 const fail = (error: unknown): void => {
     const status = (error as { statusCode?: number }).statusCode
     if (status === 403) {
-        errorMessage.value = 'Code incorrect. Essaie encore.'
+        errorMessage.value = t('profile.unlock.wrong')
     } else if (status === 429) {
-        errorMessage.value = 'Trop d’essais. Réessaie dans quelques minutes.'
+        errorMessage.value = t('profile.unlock.throttled')
     } else {
-        errorMessage.value = 'Impossible de continuer pour le moment.'
+        errorMessage.value = t('profile.unlock.failed')
     }
     resetPad()
 }
@@ -110,7 +111,7 @@ const unlock = async (proof: IProfileProof): Promise<void> => {
         if (proof.device) {
             await biometric.forget(member.id)
             availableUnlockers.value = availableUnlockers.value.filter(item => item.id !== 'biometric')
-            errorMessage.value = 'L’empreinte n’est plus valable. Utilise ton code.'
+            errorMessage.value = t('profile.unlock.biometricExpired')
         }
     } finally {
         isBusy.value = false
@@ -135,7 +136,7 @@ const onUnlocker = async (unlocker: IProfileUnlocker): Promise<void> => {
     }
     isBusy.value = false
     if (!proof) {
-        errorMessage.value = 'Vérification annulée. Tape ton code.'
+        errorMessage.value = t('profile.unlock.cancelled')
         return
     }
     await unlock(proof)
@@ -149,9 +150,9 @@ const onEnrol = async (): Promise<void> => {
             emit('unlocked')
             return
         }
-        errorMessage.value = 'Vérification annulée. Tu pourras réessayer plus tard.'
+        errorMessage.value = t('profile.unlock.enrolCancelled')
     } catch (_error) {
-        errorMessage.value = 'Impossible d’activer pour le moment.'
+        errorMessage.value = t('profile.unlock.enrolFailed')
     } finally {
         isBusy.value = false
     }
@@ -185,7 +186,7 @@ const onCode = async (value: string): Promise<void> => {
     }
     if (firstEntry.value !== value) {
         firstEntry.value = null
-        errorMessage.value = 'Les deux codes sont différents. Recommence.'
+        errorMessage.value = t('profile.unlock.mismatch')
         resetPad()
         return
     }
@@ -205,5 +206,9 @@ const onCode = async (value: string): Promise<void> => {
 
 .unlock__head {
     align-items: center;
+}
+
+[dir='rtl'] .unlock__back :deep(svg) {
+    transform: scaleX(-1);
 }
 </style>

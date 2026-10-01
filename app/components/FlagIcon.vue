@@ -28,7 +28,11 @@
 const { codes, size = 64 } = defineProps<{ codes: string[]; size?: number }>()
 
 const uid = useId()
-const label = computed(() => codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code).join(' puis '))
+const { t } = useI18n()
+const label = computed(() => {
+    const labels = codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code)
+    return labels.length === 2 ? t('playback.pair', { first: labels[0]!, second: labels[1]! }) : labels.join(', ')
+})
 </script>
 
 <style scoped>

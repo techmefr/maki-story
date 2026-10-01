@@ -1,0 +1,86 @@
+{
+    "notice": {
+        "label": "Proposé par l’IA.",
+        "default": "Relis tout avec attention et corrige ce qui doit l’être avant de continuer."
+    },
+    "errors": {
+        "unavailable": "L’IA n’est pas configurée sur ce serveur. Cette fonction est indisponible pour l’instant.",
+        "quota": "Le budget IA de ce mois est épuisé. Il sera remis à zéro au début du mois prochain.",
+        "forbidden": "Seuls les parents peuvent utiliser l’IA.",
+        "unusable": "L’IA a donné une réponse inutilisable. Réessaie dans un instant.",
+        "failed": "L’IA n’a pas pu répondre pour le moment. Réessaie plus tard."
+    },
+    "quota": {
+        "label": "Budget IA du mois : il reste {remaining} sur {budget}."
+    },
+    "draft": {
+        "title": "À valider",
+        "intro": "Ces histoires ont été écrites par l’IA. Les enfants ne les voient pas tant qu’un parent ne les a pas validées.",
+        "label": "Brouillon {title}",
+        "badge": "Généré par l’IA",
+        "meta": "{pages} pages · {lines} répliques · {language}",
+        "validate": "Valider",
+        "validateLabel": "Valider {title}",
+        "reject": "Rejeter",
+        "rejectLabel": "Rejeter {title}",
+        "error": "Impossible de traiter ce brouillon pour le moment."
+    },
+    "prefill": {
+        "title": "Pré-remplir depuis une photo",
+        "intro": "Photographie les pages (4 au maximum). L’IA lit le texte et propose les personnages, les répliques et les tons. Tu relis et tu corriges tout dans les étapes suivantes avant d’enregistrer.",
+        "choose": "Choisir des photos",
+        "reading": "Lecture en cours…",
+        "uploading": "Envoi de la photo {n} sur {total}…",
+        "aiReading": "L’IA lit les pages, cela peut prendre une minute…"
+    },
+    "translate": {
+        "suggestButton": "Suggérer une traduction",
+        "groupLabel": "Suggestion de traduction",
+        "notice": "Traduction proposée par l’IA : relis-la et corrige-la avant de l’accepter.",
+        "translateTo": "Traduire en",
+        "busy": "Traduction en cours…",
+        "proposed": "Traduction proposée en {language}",
+        "accept": "Accepter",
+        "reject": "Rejeter",
+        "suggest": "Suggérer",
+        "removeLabel": "Retirer la traduction en {language}"
+    },
+    "page": {
+        "title": "Créer une histoire avec l’IA",
+        "parentsOnly": "Seuls les parents peuvent créer une histoire avec l’IA.",
+        "notice": "L’histoire et les images sont inventées par l’IA. Elle arrive cachée dans « À valider » : les enfants ne la voient qu’après ta validation.",
+        "draftCreated": "Brouillon créé",
+        "draftBody": "Il t’attend dans la rangée « À valider » de la bibliothèque. Relis-le, puis valide-le.",
+        "seeLibrary": "Voir dans la bibliothèque",
+        "another": "Créer une autre histoire",
+        "idea": "Ton idée d’histoire",
+        "ideaPlaceholder": "Un petit zébu qui a peur de l’orage…",
+        "storyLanguage": "Langue de l’histoire",
+        "ageMin": "Âge minimum",
+        "ageMax": "Âge maximum",
+        "allAges": "Tous",
+        "pageCount": "Nombre de pages",
+        "hero": "Décris le héros (facultatif)",
+        "heroPlaceholder": "Un zébu brun avec une écharpe rouge",
+        "ageProblem": "L’âge minimum doit être inférieur à l’âge maximum.",
+        "sheetTitle": "Les personnages",
+        "sheetIntro": "Cette fiche reste la même sur toutes les pages, pour que les personnages gardent le même aspect. Modifie-la si besoin.",
+        "characterLabel": "Personnage {n}",
+        "name": "Nom",
+        "description": "Description",
+        "descriptionPlaceholder": "Petit, brun, écharpe rouge",
+        "remove": "Retirer",
+        "removeLabel": "Retirer le personnage {n}",
+        "add": "Ajouter un personnage",
+        "busyNote": "Écriture de l’histoire et des images, cela peut prendre quelques minutes…",
+        "generating": "Génération en cours…",
+        "generate": "Générer l’histoire",
+        "promptDefaultName": "Personnage",
+        "promptEntry": "{name} : {description}",
+        "promptKeepSame": "Personnages à garder identiques sur toutes les pages :",
+        "skipped": {
+            "one": "{count} image n’a pas pu être créée : les pages concernées sont vides. Tu peux les compléter plus tard.",
+            "other": "{count} images n’ont pas pu être créées : les pages concernées sont vides. Tu peux les compléter plus tard."
+        }
+    }
+}

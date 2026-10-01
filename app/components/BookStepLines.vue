@@ -1,36 +1,33 @@
 <template>
     <div class="stack">
-        <p class="muted">
-            Recopie les répliques, page par page. Colle tout un texte d’un coup : une réplique par ligne
-            <template v-if="!isSimple">, ou « Nom : réplique » pour changer de personnage</template>.
-            Le texte sert seulement à découper : l’enfant ne le verra jamais.
-        </p>
-        <div v-for="(page, index) in displayPages" :key="page.key" class="card stack" role="group" :aria-label="`Page ${index + 1}`">
+        <p class="muted">{{ t(isSimple ? 'bookDraft.lines.introSimple' : 'bookDraft.lines.introCast') }}</p>
+        <div v-for="(page, index) in displayPages" :key="page.key" class="card stack" role="group" :aria-label="t('bookDraft.shared.page', { n: index + 1 })">
             <div class="row" style="justify-content: space-between">
-                <span class="subtitle">Page {{ index + 1 }}</span>
-                <span v-if="page.kind === 'cover'" class="badge">Couverture</span>
-                <span v-else-if="page.kind === 'empty'" class="badge">Page vide</span>
-                <span v-else class="badge">{{ linesOfPage(index).length }} répliques</span>
+                <span class="subtitle">{{ t('bookDraft.shared.page', { n: index + 1 }) }}</span>
+                <span v-if="page.kind === 'cover'" class="badge">{{ t('bookDraft.shared.cover') }}</span>
+                <span v-else-if="page.kind === 'empty'" class="badge">{{ t('bookDraft.shared.emptyPage') }}</span>
+                <span v-else class="badge">{{ t('bookDraft.lines.count', { count: linesOfPage(index).length }) }}</span>
             </div>
-            <p v-if="page.kind === 'empty'" class="muted">Page vide : rien à enregistrer, elle sera passée à l’écoute.</p>
+            <p v-if="page.kind === 'empty'" class="muted">{{ t('bookDraft.lines.emptyNote') }}</p>
             <template v-else>
-                <div v-if="page.description" class="muted">Image : {{ page.description }}</div>
+                <div v-if="page.description" class="muted">{{ t('bookDraft.lines.image', { description: page.description }) }}</div>
                 <div v-for="(panel, panelIndex) in page.panels" :key="panel.key" class="stack panel">
-                    <div class="label">Case {{ panelIndex + 1 }}<span v-if="panel.description"> : {{ panel.description }}</span></div>
+                    <div class="label">{{ panel.description ? t('bookDraft.lines.panelWithDescription', { n: panelIndex + 1, description: panel.description }) : t('bookDraft.shared.panel', { n: panelIndex + 1 }) }}</div>
                     <BookLineRow v-for="line in linesOfPanel(index, panelIndex)" :key="line.key" :line="line" />
                 </div>
                 <BookLineRow v-for="line in linesOfPanel(index, null)" :key="line.key" :line="line" />
                 <BookLineComposer :page-index="index" :panels="page.panels" />
             </template>
         </div>
-        <div v-if="!hasLines" class="muted">Ajoute au moins une réplique pour continuer.</div>
-        <button type="button" class="btn btn--block" :disabled="!hasLines" @click="emit('next')">Suivant</button>
+        <div v-if="!hasLines" class="muted">{{ t('bookDraft.lines.needOne') }}</div>
+        <button type="button" class="btn btn--block" :disabled="!hasLines" @click="emit('next')">{{ t('common.next') }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
 const emit = defineEmits<{ next: [] }>()
 
+const { t } = useI18n()
 const { pages, hasLines, isSimple, linesOfPage, linesOfPanel } = useBookDraft()
 
 const displayPages = computed<IDraftPage[]>(() =>
@@ -42,7 +39,7 @@ const displayPages = computed<IDraftPage[]>(() =>
 
 <style scoped>
 .panel {
-    border-left: 4px solid var(--ink);
-    padding-left: 10px;
+    border-inline-start: 4px solid var(--ink);
+    padding-inline-start: 10px;
 }
 </style>

@@ -1,0 +1,45 @@
+{
+    "title": "Tranombokatra",
+    "listen": "Henoy",
+    "messagesWaiting": {
+        "one": "Misy hafatra miandry anao",
+        "other": "Misy hafatra {count} miandry anao"
+    },
+    "newBook": "Boky vaovao",
+    "newBookOffline": "Boky vaovao (mila tambajotra)",
+    "createAi": "Mamorona tantara amin’ny AI",
+    "noMatch": "Tsy misy boky mifanaraka",
+    "empty": "Mbola tsy misy boky",
+    "emptyHint": "Alaharo sary ny pejin’ny boky taratasy, tapaho ny andalana ary loko ny feo.",
+    "rows": {
+        "review": "Tolo-kevitra hodinihina",
+        "recording": "Eo am-pandrakofana",
+        "toRecord": "Horakofana",
+        "all": "Ny bokintsika rehetra"
+    },
+    "storage": {
+        "title": "Fitahirizana tsy miankina amin’ny tambajotra",
+        "unavailable": "Tsy hita eto amin’ity fitaovana ity ny habaka ampiasaina",
+        "usage": "{used} ampiasaina amin’ny {quota}",
+        "downloaded": "Boky voasintona: {size}",
+        "incomplete": "tsy feno",
+        "keep": "Tehirizo ao amin’ity fitaovana ity ny angona",
+        "protected": "Voaaro ny fitahirizana",
+        "empty": "Tsy misy boky voasintona. Sintono avy ao amin’ny tranombokatra ny boky iray mba hohenoina tsy misy tambajotra.",
+        "removeOne": "Fafao {title}",
+        "removeAll": "Fafao daholo",
+        "emptyTitle": "Tsy misy boky voasintona",
+        "emptyHint": "Sintony boky avy ao amin’ny tranombokin-drakitra mba hihainoana tsy misy aterineto."
+    },
+    "grimace": {
+        "title": "Ny endrika mampihomehy anao!",
+        "help": "Manaova endrika mampihomehy tsy ataon’olon-kafa: ho fantatry ny ankizy avy hatrany ianao.",
+        "later": "Any aoriana",
+        "saveFailed": "Tsy afaka voatahiry ny sary amin’izao fotoana izao."
+    },
+    "grimaceNudge": {
+        "title": "Manaova ny endrikao mampihomehy!",
+        "text": "Sary mampihomehy mba ho fantatry ny ankizy ianao."
+    },
+    "noMatchHint": "Andramo teny hafa na esory ny sivana."
+}

@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "个人资料密码",
+        "locked": "尝试次数过多，个人资料已锁定。",
+        "none": "尚未设置密码。",
+        "shapes": "已设置图形密码。",
+        "digits": "已设置数字密码。",
+        "unlock": "解锁个人资料",
+        "remove": "移除密码",
+        "failed": "暂时无法修改密码。",
+        "removeConfirm": "要移除 {name} 的密码吗？"
+    },
+    "schedule": {
+        "title": "收听时间",
+        "free": "收听不受限制。",
+        "limited": "收听仅限于设定的时间段。",
+        "blockedManual": "收听已关闭，直到你恢复。",
+        "blockedUntil": "收听已关闭，直到 {time}。",
+        "blockNow": "立即关闭",
+        "restore": "恢复",
+        "until": "关闭至",
+        "untilButton": "关闭至此时间",
+        "enabled": "仅在下方时间段内允许收听",
+        "daysLabel": "每日时间段",
+        "from": "从",
+        "to": "到",
+        "dayOff": "这天不能收听",
+        "save": "应用时间段",
+        "saveFailed": "暂时无法保存。请确认每个开始时间都早于结束时间。"
+    },
+    "gate": {
+        "title": "家长密码",
+        "noParent": "目前还没有家长设置密码。",
+        "which": "哪位家长？",
+        "wrong": "密码不正确。"
+    },
+    "locked": {
+        "clock": "恢复收听的时间",
+        "toParent": "切换到家长"
+    }
+}

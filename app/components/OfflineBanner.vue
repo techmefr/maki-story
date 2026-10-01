@@ -1,13 +1,14 @@
 <template>
     <div v-if="!isOnline" class="offline-banner" role="status">
         <AppIcon name="cloud-off" :size="18" />
-        <span>Pas de connexion : seuls les livres téléchargés sont disponibles.</span>
-        <button type="button" class="offline-banner__retry" :disabled="isChecking" @click="retry">Réessayer</button>
+        <span>{{ t('shell.offline.banner') }}</span>
+        <button type="button" class="offline-banner__retry" :disabled="isChecking" @click="retry">{{ t('common.retry') }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
 const { isOnline, check } = useConnectivity()
+const { t } = useI18n()
 const isChecking = ref(false)
 
 const retry = async () => {
@@ -20,8 +21,7 @@ const retry = async () => {
 <style scoped>
 .offline-banner {
     position: fixed;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     bottom: 0;
     z-index: 60;
     display: flex;

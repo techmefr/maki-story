@@ -1,0 +1,56 @@
+{
+    "role": {
+        "parent": "Parent",
+        "relative": "Relative",
+        "child": "Child"
+    },
+    "roleHint": {
+        "parent": "Can create books and manage the family.",
+        "relative": "Records stories and leaves messages for the child.",
+        "child": "Listens to stories, with no settings or creation."
+    },
+    "form": {
+        "changePhoto": "Change the photo",
+        "photoChange": "Change",
+        "photoNew": "Silly face!",
+        "name": "First name",
+        "namePlaceholder": "Mum, Granny, Lova…",
+        "role": "Role",
+        "codeLabel": "Profile secret code",
+        "keepCode": "Keep the current code",
+        "changeCode": "Change the code",
+        "currentCode": "Current code",
+        "newCode": "New code",
+        "voiceColor": "Voice colour",
+        "spokenLanguages": "Spoken languages",
+        "remove": "Remove this family member",
+        "captureTitle": "Your best silly face",
+        "captureHint": "Everyone pulls a different face: the child will recognise their loved ones.",
+        "photoError": "The photo couldn’t be sent.",
+        "codeBlocked": "The current code is incorrect or locked.",
+        "saveError": "Couldn’t save right now.",
+        "removeConfirm": "Remove {name}? Their recordings will be lost.",
+        "removeError": "Can’t remove: at least one parent must stay.",
+        "setCode": "Set the code"
+    },
+    "voice": {
+        "title": "This voice’s status",
+        "group": "Status",
+        "active": "Present",
+        "blocked": "Blocked",
+        "left": "Left the household",
+        "deceased": "Deceased",
+        "policyQuestion": "What should happen to books with this voice?",
+        "keep": "Keep the books as they are",
+        "block": "Block these books for children",
+        "rerecord": "Ask for these lines to be re-recorded",
+        "blockedNotice": "Children can no longer listen to books that contain this voice, until its lines are re-recorded by someone else.",
+        "lines": {
+            "one": "{count} line",
+            "other": "{count} lines"
+        },
+        "rerecordAction": "Re-record",
+        "empty": "This voice isn’t in any book yet.",
+        "saveError": "The change couldn’t be saved."
+    }
+}

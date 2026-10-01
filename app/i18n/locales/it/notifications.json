@@ -1,0 +1,29 @@
+{
+    "title": "Notifiche",
+    "markAllRead": "Segna tutto come letto",
+    "empty": "Ancora nessuna notifica.",
+    "new": "Nuovo",
+    "read": "Letto",
+    "sharing": "Condivisione tra famiglie",
+    "bellUnread": {
+        "one": "Notifiche, {count} non letta",
+        "other": "Notifiche, {count} non lette"
+    },
+    "describe": {
+        "default": "Nuova notifica",
+        "receivedRecord": "{from} ti chiede di registrare la tua voce per «{title}»",
+        "receivedCopy": "{from} ti ha inviato il libro «{title}»",
+        "accepted": "{name} ha accettato «{title}»",
+        "declined": "{name} ha rifiutato «{title}»",
+        "toApprove": "{from} propone «{title}»: da approvare",
+        "approved": "La tua proposta «{title}» è stata approvata",
+        "voiceBatch": {
+            "one": "{from} ha inviato la sua voce: {count} battuta di «{title}»",
+            "other": "{from} ha inviato la sua voce: {count} battute di «{title}»"
+        },
+        "recordingBatch": {
+            "one": "{name} ha finito di registrare {count} battuta di «{title}»",
+            "other": "{name} ha finito di registrare {count} battute di «{title}»"
+        }
+    }
+}

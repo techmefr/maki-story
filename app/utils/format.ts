@@ -18,14 +18,16 @@ export const hashText = (text: string): number => {
 }
 
 export const formatBytes = (bytes: number): string => {
+    const { t, formatNumber } = useI18n()
+    const oneDecimal = { maximumFractionDigits: 1, minimumFractionDigits: 1 }
     if (bytes < 1024) {
-        return `${bytes} o`
+        return t('shell.bytes.b', { value: formatNumber(bytes) })
     }
     if (bytes < 1024 * 1024) {
-        return `${Math.round(bytes / 1024)} Ko`
+        return t('shell.bytes.kb', { value: formatNumber(Math.round(bytes / 1024)) })
     }
     if (bytes < 1024 * 1024 * 1024) {
-        return `${(bytes / (1024 * 1024)).toFixed(1).replace('.', ',')} Mo`
+        return t('shell.bytes.mb', { value: formatNumber(bytes / (1024 * 1024), oneDecimal) })
     }
-    return `${(bytes / (1024 * 1024 * 1024)).toFixed(1).replace('.', ',')} Go`
+    return t('shell.bytes.gb', { value: formatNumber(bytes / (1024 * 1024 * 1024), oneDecimal) })
 }

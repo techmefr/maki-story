@@ -1,0 +1,56 @@
+{
+    "role": {
+        "parent": "Elternteil",
+        "relative": "Angehörige",
+        "child": "Kind"
+    },
+    "roleHint": {
+        "parent": "Kann Bücher erstellen und die Familie verwalten.",
+        "relative": "Nimmt Geschichten auf und hinterlässt Nachrichten für das Kind.",
+        "child": "Hört Geschichten, ohne Einstellungen und ohne Erstellen."
+    },
+    "form": {
+        "changePhoto": "Foto ändern",
+        "photoChange": "Ändern",
+        "photoNew": "Grimasse!",
+        "name": "Vorname",
+        "namePlaceholder": "Mama, Oma, Lova…",
+        "role": "Rolle",
+        "codeLabel": "Geheimcode des Profils",
+        "keepCode": "Aktuellen Code behalten",
+        "changeCode": "Code ändern",
+        "currentCode": "Aktueller Code",
+        "newCode": "Neuer Code",
+        "voiceColor": "Stimmfarbe",
+        "spokenLanguages": "Gesprochene Sprachen",
+        "remove": "Diese Person entfernen",
+        "captureTitle": "Deine schönste Grimasse",
+        "captureHint": "Jeder schneidet eine andere Grimasse: Das Kind erkennt so seine Lieben.",
+        "photoError": "Das Foto konnte nicht gesendet werden.",
+        "codeBlocked": "Der aktuelle Code ist falsch oder gesperrt.",
+        "saveError": "Speichern ist gerade nicht möglich.",
+        "removeConfirm": "{name} entfernen? Die Aufnahmen gehen verloren.",
+        "removeError": "Entfernen nicht möglich: Mindestens ein Elternteil muss bleiben.",
+        "setCode": "Code festlegen"
+    },
+    "voice": {
+        "title": "Status dieser Stimme",
+        "group": "Status",
+        "active": "Anwesend",
+        "blocked": "Gesperrt",
+        "left": "Hat den Haushalt verlassen",
+        "deceased": "Verstorben",
+        "policyQuestion": "Was soll mit den Büchern mit dieser Stimme geschehen?",
+        "keep": "Bücher unverändert lassen",
+        "block": "Diese Bücher für Kinder sperren",
+        "rerecord": "Bitten, diese Sätze neu aufzunehmen",
+        "blockedNotice": "Kinder können Bücher mit dieser Stimme nicht mehr hören, bis die Sätze von jemand anderem neu aufgenommen wurden.",
+        "lines": {
+            "one": "{count} Satz",
+            "other": "{count} Sätze"
+        },
+        "rerecordAction": "Neu aufnehmen",
+        "empty": "Diese Stimme kommt im Moment in keinem Buch vor.",
+        "saveError": "Die Änderung konnte nicht gespeichert werden."
+    }
+}

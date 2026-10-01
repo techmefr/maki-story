@@ -1,25 +1,25 @@
 <template>
     <div class="stack">
         <p class="muted">
-            Photographie chaque page du livre. Ces photos restent privées à la famille et ne sont jamais montrées à l’enfant.
+            {{ t('bookDraft.pages.intro') }}
         </p>
         <label class="btn btn--block">
-            {{ pages.length === 0 ? 'Prendre une page en photo' : 'Ajouter une page' }}
+            {{ pages.length === 0 ? t('bookDraft.pages.takePhoto') : t('bookDraft.pages.addPage') }}
             <input type="file" accept="image/*" capture="environment" multiple hidden @change="addPhotos" />
         </label>
-        <button v-if="!isWordless" type="button" class="btn btn--white btn--block" @click="addEmptyPage">Ajouter une page vide</button>
-        <div v-if="isBusy" class="muted" role="status">Envoi des photos…</div>
+        <button v-if="!isWordless" type="button" class="btn btn--white btn--block" @click="addEmptyPage">{{ t('bookDraft.pages.addEmpty') }}</button>
+        <div v-if="isBusy" class="muted" role="status">{{ t('bookDraft.pages.sending') }}</div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <div v-for="(page, index) in pages" :key="page.key" class="card stack" :aria-label="`Page ${index + 1}`" role="group">
+        <div v-for="(page, index) in pages" :key="page.key" class="card stack" :aria-label="t('bookDraft.shared.page', { n: index + 1 })" role="group">
             <div class="row" style="justify-content: space-between">
-                <span class="subtitle">Page {{ index + 1 }}</span>
-                <span v-if="page.kind === 'cover'" class="badge">Couverture</span>
-                <span v-else-if="page.kind === 'empty'" class="badge">Page vide</span>
-                <button type="button" class="btn btn--small btn--white" :aria-label="`Retirer la page ${index + 1}`" @click="removePage(index)">×</button>
+                <span class="subtitle">{{ t('bookDraft.shared.page', { n: index + 1 }) }}</span>
+                <span v-if="page.kind === 'cover'" class="badge">{{ t('bookDraft.shared.cover') }}</span>
+                <span v-else-if="page.kind === 'empty'" class="badge">{{ t('bookDraft.shared.emptyPage') }}</span>
+                <button type="button" class="btn btn--small btn--white" :aria-label="t('bookDraft.pages.removePage', { n: index + 1 })" @click="removePage(index)">×</button>
             </div>
             <div v-if="page.previewUrl" class="thumb" :style="{ backgroundImage: `url(${page.previewUrl})` }" />
             <template v-if="page.kind === 'empty'">
-                <p class="muted">Cette page n’a pas d’image : elle sera passée à l’écoute.</p>
+                <p class="muted">{{ t('bookDraft.pages.emptyNote') }}</p>
                 <label class="row">
                     <input
                         type="checkbox"
@@ -27,49 +27,49 @@
                         :checked="page.ttsFallback"
                         @change="updatePage(index, { ttsFallback: ($event.target as HTMLInputElement).checked })"
                     />
-                    <span>Voix de synthèse si personne ne la lit</span>
+                    <span>{{ t('bookDraft.pages.ttsFallback') }}</span>
                 </label>
             </template>
             <template v-else>
                 <button type="button" class="chip" :class="{ 'chip--on': page.kind === 'cover' }" :aria-pressed="page.kind === 'cover'" @click="toggleCover(index)">
-                    Couverture
+                    {{ t('bookDraft.shared.cover') }}
                 </button>
                 <label class="stack" style="gap: 6px">
-                    <span class="label">Décris l’image de la page (facultatif)</span>
+                    <span class="label">{{ t('bookDraft.pages.describe') }}</span>
                     <input
                         class="input"
                         :value="page.description"
-                        placeholder="Un petit zébu au bord d’un lac…"
+                        :placeholder="t('bookDraft.pages.describePlaceholder')"
                         @input="updatePage(index, { description: ($event.target as HTMLInputElement).value })"
                     />
                 </label>
                 <div v-if="isComic" class="stack">
                     <div v-for="(panel, panelIndex) in page.panels" :key="panel.key" class="row">
                         <label class="stack grow" style="gap: 4px">
-                            <span class="label">Case {{ panelIndex + 1 }}</span>
+                            <span class="label">{{ t('bookDraft.shared.panel', { n: panelIndex + 1 }) }}</span>
                             <input
                                 class="input"
                                 :value="panel.description"
-                                placeholder="Ce qu’on voit dans la case"
+                                :placeholder="t('bookDraft.pages.panelPlaceholder')"
                                 @input="updatePanel(index, panelIndex, ($event.target as HTMLInputElement).value)"
                             />
                         </label>
                         <button
                             type="button"
                             class="btn btn--small btn--white"
-                            :aria-label="`Retirer la case ${panelIndex + 1} de la page ${index + 1}`"
+                            :aria-label="t('bookDraft.pages.removePanel', { panel: panelIndex + 1, page: index + 1 })"
                             @click="removePanel(index, panelIndex)"
                         >
                             ×
                         </button>
                     </div>
-                    <button type="button" class="btn btn--white btn--small" @click="addPanel(index)">Ajouter une case</button>
+                    <button type="button" class="btn btn--white btn--small" @click="addPanel(index)">{{ t('bookDraft.pages.addPanel') }}</button>
                 </div>
             </template>
         </div>
-        <div v-if="needsPhoto" class="muted">Ce type de livre a besoin d’au moins une page en photo.</div>
+        <div v-if="needsPhoto" class="muted">{{ t('bookDraft.pages.needsPhoto') }}</div>
         <button type="button" class="btn btn--block" :disabled="isBusy || needsPhoto" @click="emit('next')">
-            {{ pages.length === 0 && !needsPhoto ? 'Continuer sans photo' : 'Suivant' }}
+            {{ pages.length === 0 && !needsPhoto ? t('bookDraft.pages.continueNoPhoto') : t('common.next') }}
         </button>
     </div>
 </template>
@@ -77,6 +77,7 @@
 <script setup lang="ts">
 const emit = defineEmits<{ next: [] }>()
 
+const { t } = useI18n()
 const { pages, isComic, isWordless, addPhoto, addEmptyPage, updatePage, removePage, addPanel, updatePanel, removePanel } = useBookDraft()
 const { upload } = useFiles()
 
@@ -100,7 +101,7 @@ const addPhotos = async (event: Event): Promise<void> => {
         }
     } catch (error) {
         console.error('Une photo n a pas pu être envoyée', error)
-        errorMessage.value = 'Une photo n’a pas pu être envoyée. Réessaie.'
+        errorMessage.value = t('bookDraft.pages.photoFailed')
     } finally {
         isBusy.value = false
     }

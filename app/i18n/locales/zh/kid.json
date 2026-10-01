@@ -1,0 +1,45 @@
+{
+    "hello": "你好，{name}！",
+    "listenHer": "听TA的消息",
+    "sendMessage": "发送消息",
+    "noSoloStory": "这个声音还没有故事。",
+    "bubbleLabel": "{name}：{count} 条待收听",
+    "bubble": "消息",
+    "multiVoice": "多种声音的故事",
+    "library": {
+        "title": "故事",
+        "sheet": "详情",
+        "sheetOf": "{title} 的详情",
+        "empty": "暂时还没有故事。",
+        "emptyHint": "请大人录一个吧！"
+    },
+    "listen": {
+        "nextPage": "下一页",
+        "turnPage": "翻页",
+        "finished": "讲完啦！",
+        "restart": "重新开始",
+        "fromStart": "从头开始",
+        "read": "播放",
+        "goodNight": "晚安",
+        "reads": "{name} 在读",
+        "pause": "暂停",
+        "resumePlay": "播放",
+        "quit": "退出",
+        "soundOn": "声音",
+        "soundOff": "静音",
+        "sleepTimer": "睡眠定时器",
+        "page": "第 {current}/{total} 页",
+        "progress": "页面进度"
+    },
+    "sleep": {
+        "title": "多久后睡觉…",
+        "endOfPage": "读完这一页后睡觉",
+        "inMinutes": {
+            "other": "{count} 分钟后睡觉"
+        },
+        "cancel": "取消定时器"
+    },
+    "noFaces": "这里还没有人",
+    "noFacesHint": "请大人添加家人。",
+    "noSoloHint": "马上就来！"
+}

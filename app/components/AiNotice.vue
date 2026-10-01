@@ -1,12 +1,14 @@
 <template>
     <p class="card ai-notice" role="note">
         <AppIcon name="sparkles" :size="20" />
-        <span><strong>Proposé par l’IA.</strong> {{ text }}</span>
+        <span><strong>{{ t('ai.notice.label') }}</strong> {{ text ?? t('ai.notice.default') }}</span>
     </p>
 </template>
 
 <script setup lang="ts">
-const { text = 'Relis tout avec attention et corrige ce qui doit l’être avant de continuer.' } = defineProps<{ text?: string }>()
+const { text } = defineProps<{ text?: string }>()
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

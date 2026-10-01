@@ -1,0 +1,17 @@
+{
+    "title": "Avis des testeurs",
+    "empty": "Aucun avis pour l’instant.",
+    "moods": {
+        "love": "J’adore",
+        "ok": "Ça va",
+        "bad": "Pas clair"
+    },
+    "note": "Note",
+    "button": "Avis",
+    "sheetTitle": "Ton avis sur cet écran",
+    "placeholder": "Ce qui marche, ce qui bloque, ce qui manque...",
+    "thanks": "Merci, c’est noté.",
+    "emptyHint": "Les avis envoyés avec le bouton Avis apparaîtront ici.",
+    "mood": "Ton humeur",
+    "label": "Ton avis"
+}

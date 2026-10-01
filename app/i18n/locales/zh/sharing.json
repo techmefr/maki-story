@@ -1,0 +1,77 @@
+{
+    "title": "家庭之间分享",
+    "invite": {
+        "title": "邀请码",
+        "help": "把这个邀请码交给另一个家庭，他们就能给你发书，或请你录下你的声音。",
+        "codeLabel": "家庭邀请码",
+        "revoked": "邀请码已停用。重新生成后才能再次邀请。",
+        "renew": "重新生成邀请码",
+        "disable": "停用"
+    },
+    "approvals": {
+        "title": "待审批"
+    },
+    "approve": "批准",
+    "decline": "拒绝",
+    "incoming": {
+        "title": "已收到"
+    },
+    "whoRecords": "谁来录音？",
+    "allAdults": "家里所有的大人",
+    "accept": "接受",
+    "recordMyVoice": "录下我的声音",
+    "stopShare": "停止此分享",
+    "outgoing": {
+        "title": "已发出"
+    },
+    "noOutgoing": "还没有发出的分享。请使用图书馆里某本书的“分享”按钮。",
+    "stop": "停止",
+    "status": {
+        "proposed": "等待家长审批",
+        "awaiting_owner": "等待书的主人同意",
+        "pending": "等待回复",
+        "accepted": "已接受",
+        "declined": "已拒绝",
+        "revoked": "已停止"
+    },
+    "mode": {
+        "record": {
+            "other": "录制 {count} 句台词"
+        },
+        "copy": "复制到图书馆"
+    },
+    "approvalLabel": "{name} 想把这本书分享给 {family}（{mode}）。",
+    "proposerFallback": "一位亲人",
+    "incomingLabel": "{family}：{mode}。{status}。",
+    "outgoingLabel": "发给 {family}：{mode}。{status}。",
+    "actionFailed": "暂时无法完成这个操作。",
+    "detail": {
+        "help": "为被请求的台词录下你的声音。发送前可以先重听。",
+        "narrator": "旁白",
+        "narratorLower": "旁白",
+        "lineAria": "{name} 的台词",
+        "sent": "已发送",
+        "listenAgain": "重听",
+        "redo": "重录",
+        "record": "录音",
+        "unavailable": "这个分享不可用。",
+        "sendFailed": "发送没有成功，稍后再试一次。"
+    },
+    "dialog": {
+        "title": "分享《{title}》",
+        "code": "家庭邀请码",
+        "how": "怎么分享？",
+        "modeRecord": "为这本书录下我的声音",
+        "modeCopy": "复制到对方的图书馆",
+        "linesToRecord": "要录制的台词",
+        "line": "{character}：{text}",
+        "note": "留句话（可选）",
+        "sentTo": "已发送给 {name} 家。",
+        "needsApproval": "已保存：发送前需要家长批准。",
+        "notFound": "这个邀请码没有对应的家庭。",
+        "conflict": "这本书已经这样分享过了，或已达到家庭数量上限。",
+        "tooMany": "尝试次数太多，请几分钟后再试。",
+        "forbidden": "你的资料不能分享这本书。",
+        "failed": "分享没能发出去。"
+    }
+}

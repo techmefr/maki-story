@@ -1,0 +1,45 @@
+{
+    "title": "Bibliothèque",
+    "listen": "Écouter",
+    "messagesWaiting": {
+        "one": "Un message t’attend",
+        "other": "{count} messages t’attendent"
+    },
+    "newBook": "Nouveau livre",
+    "newBookOffline": "Nouveau livre (connexion nécessaire)",
+    "createAi": "Créer une histoire avec l’IA",
+    "noMatch": "Aucun livre ne correspond",
+    "empty": "Aucun livre pour l’instant",
+    "emptyHint": "Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.",
+    "rows": {
+        "review": "Propositions à relire",
+        "recording": "En cours d’enregistrement",
+        "toRecord": "À enregistrer",
+        "all": "Tous nos livres"
+    },
+    "storage": {
+        "title": "Stockage hors ligne",
+        "unavailable": "Espace utilisé indisponible sur cet appareil",
+        "usage": "{used} utilisés sur {quota}",
+        "downloaded": "Livres téléchargés : {size}",
+        "incomplete": "incomplet",
+        "keep": "Garder les données sur cet appareil",
+        "protected": "Stockage protégé",
+        "empty": "Aucun livre téléchargé. Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion.",
+        "removeOne": "Supprimer {title}",
+        "removeAll": "Tout supprimer",
+        "emptyTitle": "Aucun livre téléchargé",
+        "emptyHint": "Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion."
+    },
+    "grimace": {
+        "title": "Ta grimace !",
+        "help": "Fais une grimace que personne d’autre ne fait : l’enfant te reconnaîtra tout de suite.",
+        "later": "Plus tard",
+        "saveFailed": "Impossible d’enregistrer la photo pour le moment."
+    },
+    "grimaceNudge": {
+        "title": "Fais ta grimace !",
+        "text": "Une photo rigolote pour que l’enfant te reconnaisse."
+    },
+    "noMatchHint": "Essaie avec d’autres mots ou retire un filtre."
+}

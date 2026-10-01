@@ -1,61 +1,61 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
-        <h1 class="title">Partage entre familles</h1>
+        <NuxtLink to="/family" class="muted">{{ t('common.back') }}</NuxtLink>
+        <h1 class="title">{{ t('sharing.title') }}</h1>
 
         <section v-if="isParent" class="card stack" aria-labelledby="invite-title">
-            <h2 id="invite-title" class="subtitle">Code d’invitation</h2>
-            <p class="muted">Donne ce code à une autre famille pour qu’elle puisse t’envoyer un livre ou te demander d’enregistrer ta voix.</p>
-            <p v-if="invite && !invite.isRevoked" class="code" aria-label="Code d’invitation de la famille">{{ invite.code }}</p>
-            <p v-else class="muted">Le code est désactivé. Renouvelle-le pour inviter de nouveau.</p>
+            <h2 id="invite-title" class="subtitle">{{ t('sharing.invite.title') }}</h2>
+            <p class="muted">{{ t('sharing.invite.help') }}</p>
+            <p v-if="invite && !invite.isRevoked" class="code" :aria-label="t('sharing.invite.codeLabel')">{{ invite.code }}</p>
+            <p v-else class="muted">{{ t('sharing.invite.revoked') }}</p>
             <div class="row row--wrap">
-                <button type="button" class="btn btn--small" @click="rotateInvite">Renouveler le code</button>
-                <button v-if="invite && !invite.isRevoked" type="button" class="btn btn--white btn--small" @click="revokeInvite">Désactiver</button>
+                <button type="button" class="btn btn--small" @click="rotateInvite">{{ t('sharing.invite.renew') }}</button>
+                <button v-if="invite && !invite.isRevoked" type="button" class="btn btn--white btn--small" @click="revokeInvite">{{ t('sharing.invite.disable') }}</button>
             </div>
         </section>
 
         <section v-if="lists.approvals.length > 0" class="stack" aria-labelledby="approvals-title">
-            <h2 id="approvals-title" class="subtitle">À valider</h2>
+            <h2 id="approvals-title" class="subtitle">{{ t('sharing.approvals.title') }}</h2>
             <article v-for="share in lists.approvals" :key="share.id" class="card stack">
                 <div class="subtitle">{{ share.bookTitle }}</div>
                 <p class="muted">{{ approvalLabel(share) }}</p>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--mint btn--small" @click="run(() => act(share.id, 'approve'))">Approuver</button>
-                    <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">Refuser</button>
+                    <button type="button" class="btn btn--mint btn--small" @click="run(() => act(share.id, 'approve'))">{{ t('sharing.approve') }}</button>
+                    <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</button>
                 </div>
             </article>
         </section>
 
         <section v-if="lists.incoming.length > 0" class="stack" aria-labelledby="incoming-title">
-            <h2 id="incoming-title" class="subtitle">Reçus</h2>
+            <h2 id="incoming-title" class="subtitle">{{ t('sharing.incoming.title') }}</h2>
             <article v-for="share in lists.incoming" :key="share.id" class="card stack">
                 <div class="subtitle">{{ share.bookTitle }}</div>
                 <p class="muted">{{ incomingLabel(share) }}</p>
                 <template v-if="share.status === 'pending' && isParent">
                     <label v-if="share.mode === 'record'" class="stack" style="gap: 6px">
-                        <span class="label">Qui enregistre ?</span>
+                        <span class="label">{{ t('sharing.whoRecords') }}</span>
                         <select v-model="recorders[share.id]" class="input">
-                            <option value="">Tous les adultes de la famille</option>
+                            <option value="">{{ t('sharing.allAdults') }}</option>
                             <option v-for="member in adults" :key="member.id" :value="member.id">{{ member.name }}</option>
                         </select>
                     </label>
                     <div class="row row--wrap">
-                        <button type="button" class="btn btn--mint btn--small" @click="accept(share)">Accepter</button>
-                        <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">Refuser</button>
+                        <button type="button" class="btn btn--mint btn--small" @click="accept(share)">{{ t('sharing.accept') }}</button>
+                        <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</button>
                     </div>
                 </template>
                 <NuxtLink v-if="share.status === 'accepted' && share.mode === 'record'" :to="`/sharing/${share.id}`" class="btn btn--small">
-                    Enregistrer ma voix
+                    {{ t('sharing.recordMyVoice') }}
                 </NuxtLink>
                 <button v-if="share.status === 'accepted' && isParent" type="button" class="btn btn--white btn--small" @click="run(() => stop(share.id))">
-                    Arrêter ce partage
+                    {{ t('sharing.stopShare') }}
                 </button>
             </article>
         </section>
 
         <section class="stack" aria-labelledby="outgoing-title">
-            <h2 id="outgoing-title" class="subtitle">Envoyés</h2>
-            <p v-if="lists.outgoing.length === 0" class="muted">Aucun partage envoyé. Utilise le bouton Partager d’un livre de la bibliothèque.</p>
+            <h2 id="outgoing-title" class="subtitle">{{ t('sharing.outgoing.title') }}</h2>
+            <p v-if="lists.outgoing.length === 0" class="muted">{{ t('sharing.noOutgoing') }}</p>
             <article v-for="share in lists.outgoing" :key="share.id" class="card row">
                 <div class="grow">
                     <div class="subtitle">{{ share.bookTitle }}</div>
@@ -67,7 +67,7 @@
                     class="btn btn--white btn--small"
                     @click="run(() => stop(share.id))"
                 >
-                    Arrêter
+                    {{ t('sharing.stop') }}
                 </button>
             </article>
         </section>
@@ -76,15 +76,7 @@
 </template>
 
 <script setup lang="ts">
-const STATUS_LABELS: Record<ShareStatus, string> = {
-    proposed: 'En attente de validation par un parent',
-    awaiting_owner: 'En attente de l’accord du propriétaire du livre',
-    pending: 'En attente de réponse',
-    accepted: 'Accepté',
-    declined: 'Refusé',
-    revoked: 'Arrêté',
-}
-
+const { t } = useI18n()
 const { current } = useCurrentMember()
 const { members } = useMembers()
 const { lists, invite, load, act, stop, loadInvite, rotateInvite, revokeInvite } = useShares()
@@ -95,17 +87,20 @@ const errorMessage = ref('')
 const isParent = computed(() => current.value?.role === 'parent')
 const adults = computed(() => members.value.filter(member => !member.isGuest && member.status === 'active' && member.role !== 'child'))
 
-const modeLabel = (share: IShare): string => (share.mode === 'record' ? `enregistrer ${share.lineCount} répliques` : 'copie dans la bibliothèque')
-const approvalLabel = (share: IShare): string => `${share.proposedByName ?? 'Un proche'} voudrait partager ce livre avec ${share.targetFamilyName} (${modeLabel(share)}).`
-const incomingLabel = (share: IShare): string => `${share.ownerFamilyName} : ${modeLabel(share)}. ${STATUS_LABELS[share.status]}.`
-const outgoingLabel = (share: IShare): string => `Pour ${share.targetFamilyName} : ${modeLabel(share)}. ${STATUS_LABELS[share.status]}.`
+const modeLabel = (share: IShare): string => (share.mode === 'record' ? t('sharing.mode.record', { count: share.lineCount }) : t('sharing.mode.copy'))
+const approvalLabel = (share: IShare): string =>
+    t('sharing.approvalLabel', { name: share.proposedByName ?? t('sharing.proposerFallback'), family: share.targetFamilyName, mode: modeLabel(share) })
+const incomingLabel = (share: IShare): string =>
+    t('sharing.incomingLabel', { family: share.ownerFamilyName, mode: modeLabel(share), status: t(`sharing.status.${share.status}`) })
+const outgoingLabel = (share: IShare): string =>
+    t('sharing.outgoingLabel', { family: share.targetFamilyName, mode: modeLabel(share), status: t(`sharing.status.${share.status}`) })
 
 const run = async (action: () => Promise<void>): Promise<void> => {
     errorMessage.value = ''
     try {
         await action()
     } catch (_error) {
-        errorMessage.value = 'Cette action n’a pas pu être faite pour le moment.'
+        errorMessage.value = t('sharing.actionFailed')
     }
 }
 

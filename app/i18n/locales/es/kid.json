@@ -1,0 +1,46 @@
+{
+    "hello": "¡Hola, {name}!",
+    "listenHer": "Escuchar su mensaje",
+    "sendMessage": "Enviar un mensaje",
+    "noSoloStory": "Todavía no hay cuentos con esta voz.",
+    "bubbleLabel": "{name}: {count} por escuchar",
+    "bubble": "Mensaje",
+    "multiVoice": "Cuentos con muchas voces",
+    "library": {
+        "title": "Los cuentos",
+        "sheet": "Ficha",
+        "sheetOf": "Ficha de {title}",
+        "empty": "Todavía no hay cuentos.",
+        "emptyHint": "¡Pide a un mayor que grabe una!"
+    },
+    "listen": {
+        "nextPage": "Página siguiente",
+        "turnPage": "Pasar la página",
+        "finished": "¡Se acabó!",
+        "restart": "Empezar de nuevo",
+        "fromStart": "Desde el principio",
+        "read": "Leer",
+        "goodNight": "Buenas noches",
+        "reads": "{name} está leyendo",
+        "pause": "Pausa",
+        "resumePlay": "Reproducir",
+        "quit": "Salir",
+        "soundOn": "Sonido",
+        "soundOff": "Sin sonido",
+        "sleepTimer": "Temporizador de sueño",
+        "page": "Página {current}/{total}",
+        "progress": "Progreso de la página"
+    },
+    "sleep": {
+        "title": "A dormir en…",
+        "endOfPage": "Dormir al final de la página",
+        "inMinutes": {
+            "one": "Dormir en {count} minuto",
+            "other": "Dormir en {count} minutos"
+        },
+        "cancel": "Cancelar el temporizador"
+    },
+    "noFaces": "Todavía no hay nadie",
+    "noFacesHint": "Pide a un mayor que añada a la familia.",
+    "noSoloHint": "¡Llegará pronto!"
+}

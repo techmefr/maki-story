@@ -1,0 +1,27 @@
+{
+    "nav": {
+        "library": "Biblioteca",
+        "messages": "Mensajes",
+        "family": "Familia"
+    },
+    "profile": {
+        "open": "Mi perfil"
+    },
+    "offline": {
+        "banner": "Sin conexión: solo están disponibles los libros descargados.",
+        "downloading": "Descargando {done}/{total}",
+        "available": "Disponible sin conexión · {size}",
+        "remove": "Quitar la descarga",
+        "resume": "Reanudar la descarga",
+        "download": "Descargar"
+    },
+    "bytes": {
+        "b": "{value} B",
+        "kb": "{value} KB",
+        "mb": "{value} MB",
+        "gb": "{value} GB"
+    },
+    "skip": "Ir al contenido",
+    "mainNav": "Navegación principal",
+    "newBadge": "nuevo"
+}

@@ -1,0 +1,45 @@
+{
+    "title": "Library",
+    "listen": "Listen",
+    "messagesWaiting": {
+        "one": "A message is waiting for you",
+        "other": "{count} messages are waiting for you"
+    },
+    "newBook": "New book",
+    "newBookOffline": "New book (connection needed)",
+    "createAi": "Create a story with AI",
+    "noMatch": "No matching books",
+    "empty": "No books yet",
+    "emptyHint": "Photograph the pages of a paper book, cut out the lines and colour the voices.",
+    "rows": {
+        "review": "Suggestions to review",
+        "recording": "Being recorded",
+        "toRecord": "To record",
+        "all": "All our books"
+    },
+    "storage": {
+        "title": "Offline storage",
+        "unavailable": "Used space is not available on this device",
+        "usage": "{used} used out of {quota}",
+        "downloaded": "Downloaded books: {size}",
+        "incomplete": "incomplete",
+        "keep": "Keep the data on this device",
+        "protected": "Storage protected",
+        "empty": "No downloaded books. Download a book from the library to listen to it without a connection.",
+        "removeOne": "Delete {title}",
+        "removeAll": "Delete everything",
+        "emptyTitle": "No downloaded book",
+        "emptyHint": "Download a book from the library to listen without a connection."
+    },
+    "grimace": {
+        "title": "Your funny face!",
+        "help": "Pull a funny face nobody else makes: the child will recognise you right away.",
+        "later": "Later",
+        "saveFailed": "Unable to save the photo right now."
+    },
+    "grimaceNudge": {
+        "title": "Make your funny face!",
+        "text": "A funny photo so the child recognises you."
+    },
+    "noMatchHint": "Try other words or remove a filter."
+}

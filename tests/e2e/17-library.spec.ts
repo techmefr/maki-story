@@ -198,7 +198,7 @@ test.describe('library', () => {
         await expect(sheet.getByText('Un grand voyage')).toBeVisible()
         await expect(sheet.getByText('Rabe')).toBeVisible()
         await expect(sheet.getByText('4-6 ans')).toBeVisible()
-        await expect(sheet.getByText('Malgache')).toBeVisible()
+        await expect(sheet.getByText('Malagasy')).toBeVisible()
         const readers = sheet.getByRole('list').getByRole('listitem')
         await expect(readers).toHaveCount(2)
         await expect(readers.filter({ hasText: 'Mamie' })).toHaveCount(1)

@@ -4,8 +4,8 @@
         <div class="book-row">
             <div v-for="book in books" :key="book.id" class="book-row__item stack" style="gap: 8px">
                 <BookCard :book="book" />
-                <button type="button" class="btn btn--small btn--white" :aria-label="`Fiche de ${book.title}`" @click="emit('open', book)">
-                    <AppIcon name="book" :size="16" />Fiche
+                <button type="button" class="btn btn--small btn--white" :aria-label="t('books.sheet.title', { title: book.title })" @click="emit('open', book)">
+                    <AppIcon name="book" :size="16" />{{ t('books.row.sheet') }}
                 </button>
                 <OfflineToggle v-if="hasDownload && book.status === 'ready'" :book-id="book.id" />
             </div>
@@ -17,6 +17,7 @@
 const { title, books, hasDownload = false } = defineProps<{ title: string; books: IBookSummary[]; hasDownload?: boolean }>()
 const emit = defineEmits<{ open: [book: IBookSummary] }>()
 
+const { t } = useI18n()
 const headingId = computed(() => `row-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)
 </script>
 
@@ -25,7 +26,8 @@ const headingId = computed(() => `row-${title.toLowerCase().replace(/[^a-z0-9]+/
     display: flex;
     gap: 14px;
     overflow-x: auto;
-    padding: 4px 6px 12px 4px;
+    padding-block: 4px 12px;
+    padding-inline: 4px 6px;
     scroll-snap-type: x proximity;
 }
 

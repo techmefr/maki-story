@@ -1,0 +1,56 @@
+{
+    "role": {
+        "parent": "Adulto",
+        "relative": "Familiar",
+        "child": "Niño"
+    },
+    "roleHint": {
+        "parent": "Puede crear libros y gestionar la familia.",
+        "relative": "Graba cuentos y deja mensajes al niño.",
+        "child": "Escucha los cuentos, sin ajustes ni creación."
+    },
+    "form": {
+        "changePhoto": "Cambiar la foto",
+        "photoChange": "Cambiar",
+        "photoNew": "¡Una mueca!",
+        "name": "Nombre",
+        "namePlaceholder": "Mamá, Abuela, Lova…",
+        "role": "Rol",
+        "codeLabel": "Código secreto del perfil",
+        "keepCode": "Mantener el código actual",
+        "changeCode": "Cambiar el código",
+        "currentCode": "Código actual",
+        "newCode": "Código nuevo",
+        "voiceColor": "Color de la voz",
+        "spokenLanguages": "Idiomas que habla",
+        "remove": "Eliminar este familiar",
+        "captureTitle": "Tu mejor mueca",
+        "captureHint": "Cada uno hace una mueca distinta: el niño reconocerá a sus seres queridos.",
+        "photoError": "No se pudo enviar la foto.",
+        "codeBlocked": "El código actual es incorrecto o está bloqueado.",
+        "saveError": "No se puede guardar por ahora.",
+        "removeConfirm": "¿Eliminar a {name}? Se perderán sus grabaciones.",
+        "removeError": "No se puede eliminar: hay que conservar al menos un adulto.",
+        "setCode": "Definir el código"
+    },
+    "voice": {
+        "title": "Situación de esta voz",
+        "group": "Situación",
+        "active": "Presente",
+        "blocked": "Bloqueado",
+        "left": "Ha dejado el hogar",
+        "deceased": "Fallecido",
+        "policyQuestion": "¿Qué hacer con los libros con esta voz?",
+        "keep": "Dejar los libros tal cual",
+        "block": "Bloquear estos libros para los niños",
+        "rerecord": "Pedir que se regraben estas frases",
+        "blockedNotice": "Los niños ya no pueden escuchar los libros que contienen esta voz, hasta que otra persona regrabe sus frases.",
+        "lines": {
+            "one": "{count} frase",
+            "other": "{count} frases"
+        },
+        "rerecordAction": "Regrabar",
+        "empty": "Esta voz no está en ningún libro por ahora.",
+        "saveError": "No se pudo guardar el cambio."
+    }
+}
