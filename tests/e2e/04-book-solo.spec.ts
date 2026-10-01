@@ -4,7 +4,7 @@ import { addLine, apiJson, chooseProfile, login, nextStep, recordAndSend, unique
 test.describe.configure({ mode: 'serial' })
 
 test.describe('single voice book', () => {
-    test('a relative creates, records and publishes a solo book', async ({ page }, info) => {
+    test('a relative creates and records a solo book that goes to review', async ({ page }, info) => {
         const project = info.project.name
         const mamie = uniqueName('Mamie', project)
         await login(page)
@@ -28,13 +28,12 @@ test.describe('single voice book', () => {
         await recordAndSend(page)
         await expect(page.getByText('1/2').first()).toBeVisible()
         await recordAndSend(page)
-        await expect(page.getByRole('button', { name: 'Publier le livre' })).toBeEnabled()
-        await page.getByRole('button', { name: 'Publier le livre' }).click()
-        await expect(page).toHaveURL(/\/play$/)
+        await expect(page.getByRole('button', { name: 'Publier le livre' })).toHaveCount(0)
+        await expect(page.getByRole('button', { name: 'Aucune prise à envoyer' })).toBeVisible()
         const books = await apiJson<{ kind: string; status: string; title: string }[]>(page, '/books')
         const solo = books.find(book => book.title === `Le caméléon ${project}`)
         expect(solo?.kind).toBe('solo')
-        expect(solo?.status).toBe('ready')
+        expect(solo?.status).toBe('in_review')
     })
 
     test('a parent can start a solo book for a chosen reader', async ({ page }, info) => {

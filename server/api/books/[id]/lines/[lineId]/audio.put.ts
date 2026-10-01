@@ -2,8 +2,8 @@ import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
-import { notify } from '../../../../../utils/notifications'
 import { assertCanRecordLine, requireActorMember, requirePermission } from '../../../../../utils/permissions'
+import { findReviewBook, recordSubmission } from '../../../../../utils/review'
 import { isVoiceBlocked } from '../../../../../../shared/utils/blocking'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../utils/validate'
 
@@ -44,23 +44,28 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     }
     const language = body.language === undefined ? line.language : checkLanguage(body.language)
     const [file] = await db<{ mime: string }[]>`select mime from files where id = ${body.fileId} and family_id = ${familyId}`
-    await db`
-        insert into recordings (family_id, line_id, member_id, language, file_id, duration_ms, mime, status)
-        values (${familyId}, ${lineId}, ${recorderId}, ${language}, ${body.fileId}, ${Math.max(0, Math.round(body.ms ?? 0))}, ${file!.mime}, 'draft')
-        on conflict (line_id, language) do update set
-            member_id = excluded.member_id, file_id = excluded.file_id, duration_ms = excluded.duration_ms,
-            mime = excluded.mime, status = 'draft', created_at = now()
-    `
-    if (actor.role === 'relative') {
-        const [member] = await db<{ name: string }[]>`select name from members where id = ${recorderId}`
-        await notify(db, {
-            familyId,
-            recipientMemberId: null,
-            kind: 'recording_batch',
-            payload: { memberName: member?.name ?? '', bookTitle: line.title, bookId },
-            groupKey: `recording:${bookId}:${recorderId}`,
-        })
-    }
+    const fileId = body.fileId
+    const durationMs = Math.max(0, Math.round(body.ms ?? 0))
+    await db.begin(async tx => {
+        const [previous] = await tx<{ status: RecordingStatus }[]>`
+            select status from recordings where line_id = ${lineId} and family_id = ${familyId} and language = ${language} for update
+        `
+        const [open] = await tx<{ id: string }[]>`select id from review_comments where line_id = ${lineId} and resolved_at is null limit 1`
+        const isRedo = actor.role === 'relative' && (previous?.status === 'changes_requested' || open !== undefined)
+        const status: RecordingStatus = isRedo ? 'submitted' : 'draft'
+        await tx`
+            insert into recordings (family_id, line_id, member_id, language, file_id, duration_ms, mime, status)
+            values (${familyId}, ${lineId}, ${recorderId}, ${language}, ${fileId}, ${durationMs}, ${file!.mime}, ${status})
+            on conflict (line_id, language) do update set
+                member_id = excluded.member_id, file_id = excluded.file_id, duration_ms = excluded.duration_ms,
+                mime = excluded.mime, status = excluded.status, created_at = now()
+        `
+        if (isRedo) {
+            await tx`update review_comments set resolved_at = now() where line_id = ${lineId} and resolved_at is null`
+            const book = await findReviewBook(tx, bookId, familyId)
+            await recordSubmission(tx, { familyId, book, memberId: recorderId, count: 1, lineId, kind: 'resubmitted' })
+        }
+    })
     logEvent('Enregistrement sauvegardé')
     return { ok: true }
 })

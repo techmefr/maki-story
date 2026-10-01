@@ -4,6 +4,7 @@ export type Permission =
     | 'books.create'
     | 'books.edit'
     | 'books.delete'
+    | 'books.review'
     | 'lines.record'
     | 'files.upload'
     | 'files.upload.image'

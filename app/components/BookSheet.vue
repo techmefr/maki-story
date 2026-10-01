@@ -50,6 +50,7 @@ const { getById } = useMembers()
 const { isChild, current } = useCurrentMember()
 const isOnline = useState<boolean>('is-online', () => true)
 const panel = ref<HTMLElement | null>(null)
+const isParent = computed(() => current.value?.role === 'parent')
 
 const readers = computed(() => book.readerIds.map(id => getById(id)).filter((member): member is IMember => member !== null))
 const canShare = computed(() => {
@@ -73,6 +74,9 @@ const ageLabel = computed(() => {
 const target = computed((): { path: string; label: string; icon: IconName } => {
     if (isChild.value) {
         return { path: `/kid/listen/${book.id}`, label: t('books.sheet.listen'), icon: 'play' }
+    }
+    if (isParent.value && book.submittedCount > 0) {
+        return { path: `/books/${book.id}/review`, label: t('review.sheetReview'), icon: 'check' }
     }
     return book.status === 'ready'
         ? { path: `/books/${book.id}/play`, label: t('books.sheet.open'), icon: 'play' }

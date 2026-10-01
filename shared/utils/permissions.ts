@@ -6,6 +6,7 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'books.create': ['parent', 'relative'],
     'books.edit': ['parent', 'relative'],
     'books.delete': ['parent'],
+    'books.review': ['parent'],
     'lines.record': ['parent', 'relative'],
     'files.upload': EVERYONE,
     'files.upload.image': ['parent', 'relative'],

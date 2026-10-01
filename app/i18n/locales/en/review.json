@@ -1,0 +1,109 @@
+{
+    "title": "Review: {title}",
+    "back": "Back",
+    "activity": "Activity",
+    "dotLabel": "Takes are waiting for your review",
+    "sheetReview": "Review the takes",
+    "voicesTitle": "Progress per voice",
+    "voiceProgress": "{done}/{total} approved",
+    "validateAll": "Approve the whole book",
+    "validateHint": {
+        "redo": "Some lines are waiting for a new take.",
+        "missing": "Every line has to be recorded.",
+        "done": "Everything is already approved."
+    },
+    "filtersLabel": "Filter the lines",
+    "filters": {
+        "all": "All",
+        "to_review": "To review",
+        "changes": "To redo",
+        "approved": "Approved",
+        "redo": "To redo"
+    },
+    "state": {
+        "missing": "Not recorded yet",
+        "stale": "Text changed, to redo",
+        "to_review": "To review",
+        "changes": "To redo",
+        "approved": "Approved"
+    },
+    "bookStatus": {
+        "draft": "Draft",
+        "to_record": "To record",
+        "in_review": "In review",
+        "ready": "Ready"
+    },
+    "lineMeta": "Page {page} · {character} · {voice}",
+    "narrator": "Narrator",
+    "voice": "Voice",
+    "parent": "Parent",
+    "play": "Listen",
+    "playAria": "Listen to the line on page {page}",
+    "approve": "Approve",
+    "approveAria": "Approve the line on page {page}",
+    "redoAria": "Ask to redo the line on page {page}",
+    "commentLabel": "What needs to change",
+    "sendRequest": "Send the request",
+    "cancel": "Cancel",
+    "comments": "Comments",
+    "resolved": "Resolved",
+    "emptyFilter": "No line in this filter.",
+    "errorSave": "Could not save right now. Try again.",
+    "studio": {
+        "filterLabel": "Filter my lines",
+        "all": "All",
+        "redoCount": "To redo ({count})",
+        "stale": "The text changed: record this line again.",
+        "comment": "To redo, {name}: {text}",
+        "hintChanges": "To redo (see the comment)",
+        "send": {
+            "one": "Send {count} take for review",
+            "other": "Send {count} takes for review"
+        },
+        "nothingToSend": "No take to send",
+        "sendError": "The takes could not be sent. Try again."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} approved",
+            "other": "{count} approved"
+        },
+        "returned": "{count} to redo",
+        "result": "“{title}”: {parts}"
+    },
+    "activityPage": {
+        "back": "Back to the review",
+        "fresh": "Since your last visit",
+        "history": "History",
+        "empty": "Nothing to report yet.",
+        "noNews": "Nothing new since your last visit",
+        "news": {
+            "one": "{count} new thing since your last visit",
+            "other": "{count} new things since your last visit"
+        },
+        "someone": "Someone",
+        "sentence": {
+            "submitted": {
+                "one": "{name} sent {count} take to review",
+                "other": "{name} sent {count} takes to review"
+            },
+            "resubmitted": "{name} redid a line",
+            "approved": "{actor} approved a line by {name}",
+            "changesRequested": "{actor} asks {name} to redo a line",
+            "validated": {
+                "one": "{name} approved the book ({count} take)",
+                "other": "{name} approved the book ({count} takes)"
+            },
+            "stale": "The text changed: {name}’s take has to be redone",
+            "voiceAdded": "{name} added their voice to the book"
+        }
+    },
+    "kid": {
+        "title": "New voices",
+        "none": "No new voice for now.",
+        "joined": "{name} joined this story",
+        "aVoice": "A voice",
+        "listen": "Listen to the story",
+        "newVoicesFor": "New voices for {title}"
+    }
+}

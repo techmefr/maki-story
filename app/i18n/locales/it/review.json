@@ -1,0 +1,109 @@
+{
+    "title": "Revisione: {title}",
+    "back": "Indietro",
+    "activity": "Attività",
+    "dotLabel": "Ci sono registrazioni da rivedere",
+    "sheetReview": "Rivedi le registrazioni",
+    "voicesTitle": "Avanzamento per voce",
+    "voiceProgress": "{done}/{total} approvate",
+    "validateAll": "Approva tutto il libro",
+    "validateHint": {
+        "redo": "Alcune battute aspettano una nuova registrazione.",
+        "missing": "Tutte le battute devono essere registrate.",
+        "done": "Tutto è già approvato."
+    },
+    "filtersLabel": "Filtra le battute",
+    "filters": {
+        "all": "Tutto",
+        "to_review": "Da rivedere",
+        "changes": "Da rifare",
+        "approved": "Approvate",
+        "redo": "Da rifare"
+    },
+    "state": {
+        "missing": "Non ancora registrata",
+        "stale": "Testo modificato, da rifare",
+        "to_review": "Da rivedere",
+        "changes": "Da rifare",
+        "approved": "Approvata"
+    },
+    "bookStatus": {
+        "draft": "Bozza",
+        "to_record": "Da registrare",
+        "in_review": "In revisione",
+        "ready": "Pronto"
+    },
+    "lineMeta": "Pagina {page} · {character} · {voice}",
+    "narrator": "Narratore",
+    "voice": "Voce",
+    "parent": "Genitore",
+    "play": "Ascolta",
+    "playAria": "Ascolta la battuta a pagina {page}",
+    "approve": "Approva",
+    "approveAria": "Approva la battuta a pagina {page}",
+    "redoAria": "Chiedi di rifare la battuta a pagina {page}",
+    "commentLabel": "Cosa va cambiato",
+    "sendRequest": "Invia la richiesta",
+    "cancel": "Annulla",
+    "comments": "Commenti",
+    "resolved": "Risolto",
+    "emptyFilter": "Nessuna battuta in questo filtro.",
+    "errorSave": "Impossibile salvare per ora. Riprova.",
+    "studio": {
+        "filterLabel": "Filtra le mie battute",
+        "all": "Tutte",
+        "redoCount": "Da rifare ({count})",
+        "stale": "Il testo è cambiato: registra di nuovo questa battuta.",
+        "comment": "Da rifare, {name}: {text}",
+        "hintChanges": "Da rifare (vedi il commento)",
+        "send": {
+            "one": "Invia {count} registrazione in revisione",
+            "other": "Invia {count} registrazioni in revisione"
+        },
+        "nothingToSend": "Nessuna registrazione da inviare",
+        "sendError": "Le registrazioni non sono state inviate. Riprova."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} approvata",
+            "other": "{count} approvate"
+        },
+        "returned": "{count} da rifare",
+        "result": "«{title}»: {parts}"
+    },
+    "activityPage": {
+        "back": "Torna alla revisione",
+        "fresh": "Dalla tua ultima visita",
+        "history": "Cronologia",
+        "empty": "Niente da segnalare per ora.",
+        "noNews": "Niente di nuovo dalla tua ultima visita",
+        "news": {
+            "one": "{count} novità dalla tua ultima visita",
+            "other": "{count} novità dalla tua ultima visita"
+        },
+        "someone": "Qualcuno",
+        "sentence": {
+            "submitted": {
+                "one": "{name} ha inviato {count} registrazione da rivedere",
+                "other": "{name} ha inviato {count} registrazioni da rivedere"
+            },
+            "resubmitted": "{name} ha rifatto una battuta",
+            "approved": "{actor} ha approvato una battuta di {name}",
+            "changesRequested": "{actor} chiede a {name} di rifare una battuta",
+            "validated": {
+                "one": "{name} ha approvato il libro ({count} registrazione)",
+                "other": "{name} ha approvato il libro ({count} registrazioni)"
+            },
+            "stale": "Il testo è cambiato: la registrazione di {name} va rifatta",
+            "voiceAdded": "{name} ha aggiunto la sua voce al libro"
+        }
+    },
+    "kid": {
+        "title": "Nuove voci",
+        "none": "Nessuna nuova voce per ora.",
+        "joined": "{name} si è unito a questa storia",
+        "aVoice": "Una voce",
+        "listen": "Ascolta la storia",
+        "newVoicesFor": "Nuove voci per {title}"
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "title": "Revisão: {title}",
+    "back": "Voltar",
+    "activity": "Atividade",
+    "dotLabel": "Há gravações à espera da tua revisão",
+    "sheetReview": "Rever as gravações",
+    "voicesTitle": "Progresso por voz",
+    "voiceProgress": "{done}/{total} aprovadas",
+    "validateAll": "Aprovar o livro todo",
+    "validateHint": {
+        "redo": "Algumas falas esperam uma nova gravação.",
+        "missing": "Todas as falas têm de estar gravadas.",
+        "done": "Tudo já está aprovado."
+    },
+    "filtersLabel": "Filtrar as falas",
+    "filters": {
+        "all": "Tudo",
+        "to_review": "Por rever",
+        "changes": "A refazer",
+        "approved": "Aprovadas",
+        "redo": "A refazer"
+    },
+    "state": {
+        "missing": "Ainda não gravada",
+        "stale": "Texto alterado, a refazer",
+        "to_review": "Por rever",
+        "changes": "A refazer",
+        "approved": "Aprovada"
+    },
+    "bookStatus": {
+        "draft": "Rascunho",
+        "to_record": "Por gravar",
+        "in_review": "Em revisão",
+        "ready": "Pronto"
+    },
+    "lineMeta": "Página {page} · {character} · {voice}",
+    "narrator": "Narrador",
+    "voice": "Voz",
+    "parent": "Pai ou mãe",
+    "play": "Ouvir",
+    "playAria": "Ouvir a fala da página {page}",
+    "approve": "Aprovar",
+    "approveAria": "Aprovar a fala da página {page}",
+    "redoAria": "Pedir para refazer a fala da página {page}",
+    "commentLabel": "O que é preciso mudar",
+    "sendRequest": "Enviar o pedido",
+    "cancel": "Cancelar",
+    "comments": "Comentários",
+    "resolved": "Resolvido",
+    "emptyFilter": "Nenhuma fala neste filtro.",
+    "errorSave": "Não foi possível guardar agora. Tenta de novo.",
+    "studio": {
+        "filterLabel": "Filtrar as minhas falas",
+        "all": "Todas",
+        "redoCount": "A refazer ({count})",
+        "stale": "O texto mudou: grava esta fala de novo.",
+        "comment": "A refazer, {name}: {text}",
+        "hintChanges": "A refazer (vê o comentário)",
+        "send": {
+            "one": "Enviar {count} gravação para revisão",
+            "other": "Enviar {count} gravações para revisão"
+        },
+        "nothingToSend": "Nenhuma gravação para enviar",
+        "sendError": "As gravações não puderam ser enviadas. Tenta de novo."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} aprovada",
+            "other": "{count} aprovadas"
+        },
+        "returned": "{count} a refazer",
+        "result": "«{title}»: {parts}"
+    },
+    "activityPage": {
+        "back": "Voltar à revisão",
+        "fresh": "Desde a tua última visita",
+        "history": "Histórico",
+        "empty": "Nada a assinalar por agora.",
+        "noNews": "Nada de novo desde a tua última visita",
+        "news": {
+            "one": "{count} novidade desde a tua última visita",
+            "other": "{count} novidades desde a tua última visita"
+        },
+        "someone": "Alguém",
+        "sentence": {
+            "submitted": {
+                "one": "{name} enviou {count} gravação para rever",
+                "other": "{name} enviou {count} gravações para rever"
+            },
+            "resubmitted": "{name} refez uma fala",
+            "approved": "{actor} aprovou uma fala de {name}",
+            "changesRequested": "{actor} pede a {name} que refaça uma fala",
+            "validated": {
+                "one": "{name} aprovou o livro ({count} gravação)",
+                "other": "{name} aprovou o livro ({count} gravações)"
+            },
+            "stale": "O texto mudou: a gravação de {name} tem de ser refeita",
+            "voiceAdded": "{name} juntou a sua voz ao livro"
+        }
+    },
+    "kid": {
+        "title": "Vozes novas",
+        "none": "Sem vozes novas por agora.",
+        "joined": "{name} juntou-se a esta história",
+        "aVoice": "Uma voz",
+        "listen": "Ouvir a história",
+        "newVoicesFor": "Vozes novas para {title}"
+    }
+}

@@ -314,9 +314,21 @@ Targets: the PWA runs on phones, tablets and desktop browsers (Chrome, Edge, Saf
 
 ## Library
 
-- `GET /api/books` accepts `q` (title, subtitle, author), `language`, `age` (one of `0-3`, `4-6`, `7-9`, `10+`, matched on overlap with the book age range), `limit` (200 max) and `offset`; the total is returned in the `X-Total-Count` header. Everything is family scoped and filtered by role: a child only gets validated books with at least one non stale recording, a relative only the books with a line cast to them.
+- `GET /api/books` accepts `q` (title, subtitle, author), `language`, `age` (one of `0-3`, `4-6`, `7-9`, `10+`, matched on overlap with the book age range), `limit` (200 max) and `offset`; the total is returned in the `X-Total-Count` header. Everything is family scoped and filtered by role: a child only gets validated books with at least one approved recording, a relative only the books with a line cast to them.
 - Parent home: horizontal rows (proposals to review, books being recorded, books waiting for a recording, all our books) with search, language and age chips. Each book has a sheet (title, subtitle, author, age tag, language) with a "Lu par" list of every relative who recorded a voice.
 - Child library: the same search and sheet on validated books only. On tablets (768 px and wider) a status strip with one bubble per relative and the unread count stays pinned at the top.
+
+## Book review and activity
+
+Every book goes through a parent before the family library, whether a parent created it or a relative proposed it. Status flow: `draft`, `to_record`, `in_review`, `ready`.
+
+- A take saved in the studio is a `draft`. `POST /api/books/:id/submit` (relative only) turns the caller's drafts into `submitted` and moves the book to `in_review`. The studio calls it when the relative taps "Envoyer pour relecture", right after the last assigned line is recorded, and when the relative leaves the studio with unsent takes. A relative cannot set a book `ready`.
+- A parent reviews on `/books/:id/review`: play each take, approve it, or send it back with a mandatory comment (`POST /api/books/:id/lines/:lineId/review` with `approve` or `request_changes`). The recording becomes `approved` or `changes_requested` and the comment is stored in `review_comments` (family scoped, `resolved_at` set when the thread is closed). Filters: to review, to redo, approved. Progress is shown per voice.
+- `POST /api/books/:id/validate-all` approves every pending take at once and makes the book `ready`; it answers 409 while a line is waiting for a new take, is stale or has no take. Approving the last missing line also makes the book `ready`, so line by line review reaches the same state.
+- The relative sees the comment on the line in the studio and gets an "À refaire" filter. A new take on a flagged line resolves the thread and goes straight back to `submitted`. Editing a line text or tone still marks its takes `stale`; the review page and the studio flag them and validation is blocked until they are redone.
+- Children only get `approved` takes, so a book (or a new voice added to a ready book) reaches them only after validation.
+- Notifications reuse the `notifications` table and the header bell. A take saved in the studio is private, so nothing is sent until the batch is submitted: the parents then get one `recording_batch` notification per book and relative (grouped while unread, its count grows with each submitted batch), and the relative gets one `review_result` notification per book with the approved and returned counts. A coral dot on the book card tells a parent that takes await review.
+- Activity: `/books/:id/activity` lists everything since the parent's last visit (`book_visits` stores `last_seen_at` per profile and book) above the full history of submissions, comments, approvals, validations and stale edits, with who and when. A text free version for children (`/kid/activity/:id`) only shows the avatars of voices newly added to a book they can play, and the kid library marks those books.
 
 ## Android TV and tablets
 

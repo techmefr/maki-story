@@ -19,10 +19,20 @@
                         <VoiceDots :member-ids="book.readerIds" />
                     </span>
                 </NuxtLink>
+                <OfflineToggle :book-id="book.id" />
                 <button type="button" class="btn btn--small btn--white" :aria-label="t('kid.library.sheetOf', { title: book.title })" @click="sheetBook = book">
                     <AppIcon name="book" :size="16" />{{ t('kid.library.sheet') }}
                 </button>
-                <OfflineToggle :book-id="book.id" />
+                <NuxtLink
+                    v-if="newVoicesOf(book.id).length > 0"
+                    :to="`/kid/activity/${book.id}`"
+                    class="btn btn--small btn--mint"
+                    data-testid="new-voice-link"
+                    :aria-label="t('review.kid.newVoicesFor', { title: book.title })"
+                >
+                    <AppIcon name="sparkles" :size="18" motion="wiggle" />
+                    <AppAvatar v-for="member in newVoicesOf(book.id)" :key="member.id" :member="member" :size="28" />
+                </NuxtLink>
             </div>
         </div>
         <AppEmpty v-if="books.length === 0 && isLoaded" :title="t('kid.library.empty')" :hint="t('kid.library.emptyHint')" />
@@ -36,9 +46,16 @@ definePageMeta({ layout: 'kid' })
 const { t } = useI18n()
 const { books, load } = useBooks()
 const { load: loadMessages, startPolling, stopPolling } = useMessages()
-const { ensureLoaded } = useMembers()
+const { ensureLoaded, getById } = useMembers()
+const { loadNewVoices } = useReview()
 
 const isLoaded = ref(false)
+const newVoices = ref<INewVoices[]>([])
+
+const newVoicesOf = (bookId: string): IMember[] => {
+    const entry = newVoices.value.find(item => item.bookId === bookId)
+    return (entry?.memberIds ?? []).map(id => getById(id)).filter((member): member is IMember => member !== null)
+}
 const sheetBook = ref<IBookSummary | null>(null)
 
 const hexOfBook = (book: IBookSummary): string => pickVoiceByText(book.id).hex
@@ -58,6 +75,11 @@ const reload = (query: IBookQuery): Promise<void> => load(query)
 onMounted(async () => {
     await Promise.all([load(), loadMessages(), ensureLoaded()])
     isLoaded.value = true
+    try {
+        newVoices.value = await loadNewVoices()
+    } catch (error) {
+        console.error('Les nouvelles voix n ont pas pu être chargées', error)
+    }
     startPolling()
 })
 

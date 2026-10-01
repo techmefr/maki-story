@@ -1,0 +1,104 @@
+{
+    "title": "审阅：{title}",
+    "back": "返回",
+    "activity": "动态",
+    "dotLabel": "有录音等待你审阅",
+    "sheetReview": "审阅录音",
+    "voicesTitle": "各声音的进度",
+    "voiceProgress": "已通过 {done}/{total}",
+    "validateAll": "通过整本书",
+    "validateHint": {
+        "redo": "有些台词在等待重新录音。",
+        "missing": "所有台词都必须录好。",
+        "done": "全部已通过。"
+    },
+    "filtersLabel": "筛选台词",
+    "filters": {
+        "all": "全部",
+        "to_review": "待审阅",
+        "changes": "需重录",
+        "approved": "已通过",
+        "redo": "需重录"
+    },
+    "state": {
+        "missing": "尚未录音",
+        "stale": "文字已修改，需重录",
+        "to_review": "待审阅",
+        "changes": "需重录",
+        "approved": "已通过"
+    },
+    "bookStatus": {
+        "draft": "草稿",
+        "to_record": "待录音",
+        "in_review": "审阅中",
+        "ready": "已就绪"
+    },
+    "lineMeta": "第 {page} 页 · {character} · {voice}",
+    "narrator": "旁白",
+    "voice": "声音",
+    "parent": "家长",
+    "play": "试听",
+    "playAria": "试听第 {page} 页的台词",
+    "approve": "通过",
+    "approveAria": "通过第 {page} 页的台词",
+    "redoAria": "请求重录第 {page} 页的台词",
+    "commentLabel": "需要修改的地方",
+    "sendRequest": "发送请求",
+    "cancel": "取消",
+    "comments": "评论",
+    "resolved": "已解决",
+    "emptyFilter": "此筛选下没有台词。",
+    "errorSave": "暂时无法保存，请重试。",
+    "studio": {
+        "filterLabel": "筛选我的台词",
+        "all": "全部",
+        "redoCount": "需重录（{count}）",
+        "stale": "文字已更改：请重新录这句台词。",
+        "comment": "需重录，{name}：{text}",
+        "hintChanges": "需重录（见评论）",
+        "send": {
+            "other": "发送 {count} 条录音供审阅"
+        },
+        "nothingToSend": "没有可发送的录音",
+        "sendError": "录音发送失败，请重试。"
+    },
+    "notice": {
+        "approved": {
+            "other": "已通过 {count}"
+        },
+        "returned": "需重录 {count}",
+        "result": "《{title}》：{parts}"
+    },
+    "activityPage": {
+        "back": "返回审阅",
+        "fresh": "自你上次访问以来",
+        "history": "历史记录",
+        "empty": "暂时没有动态。",
+        "noNews": "自你上次访问以来没有新内容",
+        "news": {
+            "other": "自你上次访问以来有 {count} 条新动态"
+        },
+        "someone": "某人",
+        "sentence": {
+            "submitted": {
+                "other": "{name} 发送了 {count} 条录音供审阅"
+            },
+            "resubmitted": "{name} 重录了一句台词",
+            "approved": "{actor} 通过了 {name} 的一句台词",
+            "changesRequested": "{actor} 请 {name} 重录一句台词",
+            "validated": {
+                "other": "{name} 通过了整本书（{count} 条录音）"
+            },
+            "stale": "文字已更改：{name} 的录音需要重录",
+            "voiceAdded": "{name} 为这本书加入了自己的声音"
+        }
+    },
+    "kid": {
+        "title": "新声音",
+        "none": "暂时没有新声音。",
+        "joined": "{name} 加入了这个故事",
+        "aVoice": "一个声音",
+        "listen": "听故事",
+        "newVoicesFor": "《{title}》的新声音"
+    }
+}

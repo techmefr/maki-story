@@ -1,0 +1,109 @@
+{
+    "title": "Prüfung: {title}",
+    "back": "Zurück",
+    "activity": "Aktivität",
+    "dotLabel": "Aufnahmen warten auf deine Prüfung",
+    "sheetReview": "Aufnahmen prüfen",
+    "voicesTitle": "Fortschritt pro Stimme",
+    "voiceProgress": "{done}/{total} freigegeben",
+    "validateAll": "Ganzes Buch freigeben",
+    "validateHint": {
+        "redo": "Einige Zeilen warten auf eine neue Aufnahme.",
+        "missing": "Alle Zeilen müssen aufgenommen sein.",
+        "done": "Alles ist schon freigegeben."
+    },
+    "filtersLabel": "Zeilen filtern",
+    "filters": {
+        "all": "Alle",
+        "to_review": "Zu prüfen",
+        "changes": "Neu aufnehmen",
+        "approved": "Freigegeben",
+        "redo": "Neu aufnehmen"
+    },
+    "state": {
+        "missing": "Noch nicht aufgenommen",
+        "stale": "Text geändert, neu aufnehmen",
+        "to_review": "Zu prüfen",
+        "changes": "Neu aufnehmen",
+        "approved": "Freigegeben"
+    },
+    "bookStatus": {
+        "draft": "Entwurf",
+        "to_record": "Aufzunehmen",
+        "in_review": "In Prüfung",
+        "ready": "Bereit"
+    },
+    "lineMeta": "Seite {page} · {character} · {voice}",
+    "narrator": "Erzähler",
+    "voice": "Stimme",
+    "parent": "Elternteil",
+    "play": "Anhören",
+    "playAria": "Zeile auf Seite {page} anhören",
+    "approve": "Freigeben",
+    "approveAria": "Zeile auf Seite {page} freigeben",
+    "redoAria": "Bitten, die Zeile auf Seite {page} neu aufzunehmen",
+    "commentLabel": "Was geändert werden soll",
+    "sendRequest": "Bitte senden",
+    "cancel": "Abbrechen",
+    "comments": "Kommentare",
+    "resolved": "Erledigt",
+    "emptyFilter": "Keine Zeile in diesem Filter.",
+    "errorSave": "Speichern gerade nicht möglich. Versuche es erneut.",
+    "studio": {
+        "filterLabel": "Meine Zeilen filtern",
+        "all": "Alle",
+        "redoCount": "Neu aufnehmen ({count})",
+        "stale": "Der Text hat sich geändert: nimm diese Zeile neu auf.",
+        "comment": "Neu aufnehmen, {name}: {text}",
+        "hintChanges": "Neu aufnehmen (siehe Kommentar)",
+        "send": {
+            "one": "{count} Aufnahme zur Prüfung senden",
+            "other": "{count} Aufnahmen zur Prüfung senden"
+        },
+        "nothingToSend": "Keine Aufnahme zu senden",
+        "sendError": "Die Aufnahmen konnten nicht gesendet werden. Versuche es erneut."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} freigegeben",
+            "other": "{count} freigegeben"
+        },
+        "returned": "{count} neu aufnehmen",
+        "result": "„{title}“: {parts}"
+    },
+    "activityPage": {
+        "back": "Zurück zur Prüfung",
+        "fresh": "Seit deinem letzten Besuch",
+        "history": "Verlauf",
+        "empty": "Noch nichts zu melden.",
+        "noNews": "Nichts Neues seit deinem letzten Besuch",
+        "news": {
+            "one": "{count} Neuigkeit seit deinem letzten Besuch",
+            "other": "{count} Neuigkeiten seit deinem letzten Besuch"
+        },
+        "someone": "Jemand",
+        "sentence": {
+            "submitted": {
+                "one": "{name} hat {count} Aufnahme zur Prüfung gesendet",
+                "other": "{name} hat {count} Aufnahmen zur Prüfung gesendet"
+            },
+            "resubmitted": "{name} hat eine Zeile neu aufgenommen",
+            "approved": "{actor} hat eine Zeile von {name} freigegeben",
+            "changesRequested": "{actor} bittet {name}, eine Zeile neu aufzunehmen",
+            "validated": {
+                "one": "{name} hat das Buch freigegeben ({count} Aufnahme)",
+                "other": "{name} hat das Buch freigegeben ({count} Aufnahmen)"
+            },
+            "stale": "Der Text hat sich geändert: die Aufnahme von {name} muss neu gemacht werden",
+            "voiceAdded": "{name} hat seine Stimme zum Buch hinzugefügt"
+        }
+    },
+    "kid": {
+        "title": "Neue Stimmen",
+        "none": "Gerade keine neue Stimme.",
+        "joined": "{name} ist dieser Geschichte beigetreten",
+        "aVoice": "Eine Stimme",
+        "listen": "Geschichte anhören",
+        "newVoicesFor": "Neue Stimmen für {title}"
+    }
+}

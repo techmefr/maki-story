@@ -1,0 +1,109 @@
+{
+    "title": "المراجعة: {title}",
+    "back": "رجوع",
+    "activity": "النشاط",
+    "dotLabel": "هناك تسجيلات تنتظر مراجعتك",
+    "sheetReview": "مراجعة التسجيلات",
+    "voicesTitle": "التقدم لكل صوت",
+    "voiceProgress": "تمت الموافقة على {done}/{total}",
+    "validateAll": "الموافقة على الكتاب كله",
+    "validateHint": {
+        "redo": "بعض الجمل تنتظر تسجيلاً جديداً.",
+        "missing": "يجب تسجيل كل الجمل.",
+        "done": "كل شيء تمت الموافقة عليه."
+    },
+    "filtersLabel": "تصفية الجمل",
+    "filters": {
+        "all": "الكل",
+        "to_review": "للمراجعة",
+        "changes": "للإعادة",
+        "approved": "تمت الموافقة",
+        "redo": "للإعادة"
+    },
+    "state": {
+        "missing": "لم تُسجَّل بعد",
+        "stale": "تغيّر النص، للإعادة",
+        "to_review": "للمراجعة",
+        "changes": "للإعادة",
+        "approved": "تمت الموافقة"
+    },
+    "bookStatus": {
+        "draft": "مسودة",
+        "to_record": "للتسجيل",
+        "in_review": "قيد المراجعة",
+        "ready": "جاهز"
+    },
+    "lineMeta": "الصفحة {page} · {character} · {voice}",
+    "narrator": "الراوي",
+    "voice": "صوت",
+    "parent": "ولي الأمر",
+    "play": "استمع",
+    "playAria": "استمع إلى الجملة في الصفحة {page}",
+    "approve": "موافقة",
+    "approveAria": "الموافقة على الجملة في الصفحة {page}",
+    "redoAria": "طلب إعادة الجملة في الصفحة {page}",
+    "commentLabel": "ما الذي يجب تغييره",
+    "sendRequest": "إرسال الطلب",
+    "cancel": "إلغاء",
+    "comments": "التعليقات",
+    "resolved": "تمت المعالجة",
+    "emptyFilter": "لا توجد جمل في هذه التصفية.",
+    "errorSave": "تعذّر الحفظ الآن. حاول مرة أخرى.",
+    "studio": {
+        "filterLabel": "تصفية جملي",
+        "all": "الكل",
+        "redoCount": "للإعادة ({count})",
+        "stale": "تغيّر النص: سجّل هذه الجملة من جديد.",
+        "comment": "للإعادة، {name}: {text}",
+        "hintChanges": "للإعادة (انظر التعليق)",
+        "send": {
+            "one": "إرسال {count} تسجيل للمراجعة",
+            "other": "إرسال {count} تسجيلات للمراجعة"
+        },
+        "nothingToSend": "لا يوجد تسجيل للإرسال",
+        "sendError": "تعذّر إرسال التسجيلات. حاول مرة أخرى."
+    },
+    "notice": {
+        "approved": {
+            "one": "تمت الموافقة على {count}",
+            "other": "تمت الموافقة على {count}"
+        },
+        "returned": "{count} للإعادة",
+        "result": "«{title}»: {parts}"
+    },
+    "activityPage": {
+        "back": "العودة إلى المراجعة",
+        "fresh": "منذ زيارتك الأخيرة",
+        "history": "السجل",
+        "empty": "لا شيء يُذكر حتى الآن.",
+        "noNews": "لا جديد منذ زيارتك الأخيرة",
+        "news": {
+            "one": "{count} جديد منذ زيارتك الأخيرة",
+            "other": "{count} مستجدات منذ زيارتك الأخيرة"
+        },
+        "someone": "شخص ما",
+        "sentence": {
+            "submitted": {
+                "one": "أرسل {name} {count} تسجيلاً للمراجعة",
+                "other": "أرسل {name} {count} تسجيلات للمراجعة"
+            },
+            "resubmitted": "أعاد {name} تسجيل جملة",
+            "approved": "وافق {actor} على جملة لـ {name}",
+            "changesRequested": "يطلب {actor} من {name} إعادة جملة",
+            "validated": {
+                "one": "وافق {name} على الكتاب ({count} تسجيل)",
+                "other": "وافق {name} على الكتاب ({count} تسجيلات)"
+            },
+            "stale": "تغيّر النص: يجب إعادة تسجيل {name}",
+            "voiceAdded": "أضاف {name} صوته إلى الكتاب"
+        }
+    },
+    "kid": {
+        "title": "أصوات جديدة",
+        "none": "لا توجد أصوات جديدة الآن.",
+        "joined": "انضم {name} إلى هذه القصة",
+        "aVoice": "صوت",
+        "listen": "استمع إلى القصة",
+        "newVoicesFor": "أصوات جديدة لـ {title}"
+    }
+}
