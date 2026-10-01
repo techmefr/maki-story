@@ -1,0 +1,109 @@
+{
+    "title": "Relecture : {title}",
+    "back": "Retour",
+    "activity": "Activité",
+    "dotLabel": "Des prises attendent ta relecture",
+    "sheetReview": "Relire les prises",
+    "voicesTitle": "Avancement par voix",
+    "voiceProgress": "{done}/{total} validées",
+    "validateAll": "Valider tout le livre",
+    "validateHint": {
+        "redo": "Des répliques attendent une nouvelle prise.",
+        "missing": "Toutes les répliques doivent être enregistrées.",
+        "done": "Tout est déjà validé."
+    },
+    "filtersLabel": "Filtrer les répliques",
+    "filters": {
+        "all": "Tout",
+        "to_review": "À relire",
+        "changes": "À refaire",
+        "approved": "Validées",
+        "redo": "À refaire"
+    },
+    "state": {
+        "missing": "Pas encore enregistrée",
+        "stale": "Texte modifié, à refaire",
+        "to_review": "À relire",
+        "changes": "À refaire",
+        "approved": "Validée"
+    },
+    "bookStatus": {
+        "draft": "Brouillon",
+        "to_record": "À enregistrer",
+        "in_review": "En relecture",
+        "ready": "Prêt"
+    },
+    "lineMeta": "Page {page} · {character} · {voice}",
+    "narrator": "Narrateur",
+    "voice": "Voix",
+    "parent": "Parent",
+    "play": "Écouter",
+    "playAria": "Écouter la réplique page {page}",
+    "approve": "Approuver",
+    "approveAria": "Approuver la réplique page {page}",
+    "redoAria": "Demander de refaire la réplique page {page}",
+    "commentLabel": "Ce qu’il faut changer",
+    "sendRequest": "Envoyer la demande",
+    "cancel": "Annuler",
+    "comments": "Commentaires",
+    "resolved": "Résolu",
+    "emptyFilter": "Aucune réplique dans ce filtre.",
+    "errorSave": "Impossible d’enregistrer pour le moment. Réessaie.",
+    "studio": {
+        "filterLabel": "Filtrer mes répliques",
+        "all": "Toutes",
+        "redoCount": "À refaire ({count})",
+        "stale": "Le texte a changé : refais cette réplique.",
+        "comment": "À refaire, {name} : {text}",
+        "hintChanges": "À refaire (voir le commentaire)",
+        "send": {
+            "one": "Envoyer {count} prise pour relecture",
+            "other": "Envoyer {count} prises pour relecture"
+        },
+        "nothingToSend": "Aucune prise à envoyer",
+        "sendError": "Les prises n’ont pas pu être envoyées. Réessaie."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} validée",
+            "other": "{count} validées"
+        },
+        "returned": "{count} à refaire",
+        "result": "« {title} » : {parts}"
+    },
+    "activityPage": {
+        "back": "Retour à la relecture",
+        "fresh": "Depuis ta dernière visite",
+        "history": "Historique",
+        "empty": "Rien à signaler pour l’instant.",
+        "noNews": "Rien de nouveau depuis ta dernière visite",
+        "news": {
+            "one": "{count} nouveauté depuis ta dernière visite",
+            "other": "{count} nouveautés depuis ta dernière visite"
+        },
+        "someone": "Quelqu’un",
+        "sentence": {
+            "submitted": {
+                "one": "{name} a envoyé {count} prise à relire",
+                "other": "{name} a envoyé {count} prises à relire"
+            },
+            "resubmitted": "{name} a refait une réplique",
+            "approved": "{actor} a validé une réplique de {name}",
+            "changesRequested": "{actor} demande à {name} de refaire une réplique",
+            "validated": {
+                "one": "{name} a validé le livre ({count} prise)",
+                "other": "{name} a validé le livre ({count} prises)"
+            },
+            "stale": "Le texte a changé : la prise de {name} est à refaire",
+            "voiceAdded": "{name} a ajouté sa voix au livre"
+        }
+    },
+    "kid": {
+        "title": "Nouvelles voix",
+        "none": "Pas de nouvelle voix pour l’instant.",
+        "joined": "{name} a rejoint cette histoire",
+        "aVoice": "Une voix",
+        "listen": "Écouter l’histoire",
+        "newVoicesFor": "Nouvelles voix pour {title}"
+    }
+}

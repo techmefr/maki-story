@@ -1,0 +1,109 @@
+{
+    "title": "Revisión: {title}",
+    "back": "Volver",
+    "activity": "Actividad",
+    "dotLabel": "Hay tomas esperando tu revisión",
+    "sheetReview": "Revisar las tomas",
+    "voicesTitle": "Progreso por voz",
+    "voiceProgress": "{done}/{total} aprobadas",
+    "validateAll": "Aprobar todo el libro",
+    "validateHint": {
+        "redo": "Algunas frases esperan una nueva toma.",
+        "missing": "Todas las frases deben estar grabadas.",
+        "done": "Todo ya está aprobado."
+    },
+    "filtersLabel": "Filtrar las frases",
+    "filters": {
+        "all": "Todo",
+        "to_review": "Por revisar",
+        "changes": "Por rehacer",
+        "approved": "Aprobadas",
+        "redo": "Por rehacer"
+    },
+    "state": {
+        "missing": "Aún sin grabar",
+        "stale": "Texto modificado, por rehacer",
+        "to_review": "Por revisar",
+        "changes": "Por rehacer",
+        "approved": "Aprobada"
+    },
+    "bookStatus": {
+        "draft": "Borrador",
+        "to_record": "Por grabar",
+        "in_review": "En revisión",
+        "ready": "Listo"
+    },
+    "lineMeta": "Página {page} · {character} · {voice}",
+    "narrator": "Narrador",
+    "voice": "Voz",
+    "parent": "Padre o madre",
+    "play": "Escuchar",
+    "playAria": "Escuchar la frase de la página {page}",
+    "approve": "Aprobar",
+    "approveAria": "Aprobar la frase de la página {page}",
+    "redoAria": "Pedir que se rehaga la frase de la página {page}",
+    "commentLabel": "Lo que hay que cambiar",
+    "sendRequest": "Enviar la petición",
+    "cancel": "Cancelar",
+    "comments": "Comentarios",
+    "resolved": "Resuelto",
+    "emptyFilter": "Ninguna frase en este filtro.",
+    "errorSave": "No se pudo guardar ahora. Inténtalo de nuevo.",
+    "studio": {
+        "filterLabel": "Filtrar mis frases",
+        "all": "Todas",
+        "redoCount": "Por rehacer ({count})",
+        "stale": "El texto cambió: vuelve a grabar esta frase.",
+        "comment": "Por rehacer, {name}: {text}",
+        "hintChanges": "Por rehacer (mira el comentario)",
+        "send": {
+            "one": "Enviar {count} toma a revisión",
+            "other": "Enviar {count} tomas a revisión"
+        },
+        "nothingToSend": "Ninguna toma que enviar",
+        "sendError": "No se pudieron enviar las tomas. Inténtalo de nuevo."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} aprobada",
+            "other": "{count} aprobadas"
+        },
+        "returned": "{count} por rehacer",
+        "result": "«{title}»: {parts}"
+    },
+    "activityPage": {
+        "back": "Volver a la revisión",
+        "fresh": "Desde tu última visita",
+        "history": "Historial",
+        "empty": "Nada que señalar por ahora.",
+        "noNews": "Nada nuevo desde tu última visita",
+        "news": {
+            "one": "{count} novedad desde tu última visita",
+            "other": "{count} novedades desde tu última visita"
+        },
+        "someone": "Alguien",
+        "sentence": {
+            "submitted": {
+                "one": "{name} envió {count} toma para revisar",
+                "other": "{name} envió {count} tomas para revisar"
+            },
+            "resubmitted": "{name} rehízo una frase",
+            "approved": "{actor} aprobó una frase de {name}",
+            "changesRequested": "{actor} pide a {name} que rehaga una frase",
+            "validated": {
+                "one": "{name} aprobó el libro ({count} toma)",
+                "other": "{name} aprobó el libro ({count} tomas)"
+            },
+            "stale": "El texto cambió: la toma de {name} debe rehacerse",
+            "voiceAdded": "{name} añadió su voz al libro"
+        }
+    },
+    "kid": {
+        "title": "Voces nuevas",
+        "none": "No hay voces nuevas por ahora.",
+        "joined": "{name} se unió a este cuento",
+        "aVoice": "Una voz",
+        "listen": "Escuchar el cuento",
+        "newVoicesFor": "Voces nuevas para {title}"
+    }
+}

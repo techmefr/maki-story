@@ -3,18 +3,23 @@ import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
 import { assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
-import { requireBookEditor } from '../../utils/permissions'
+import { requireActorMember, requireBookEditor } from '../../utils/permissions'
 import { markLineRecordingsStale } from '../../utils/recordings'
+import { approveBook, findReviewBook } from '../../utils/review'
 import { badRequest, isNonEmptyString, requireParam } from '../../utils/validate'
 
-const STATUSES: BookStatus[] = ['draft', 'to_record', 'ready']
+const STATUSES: BookStatus[] = ['draft', 'to_record', 'in_review', 'ready']
 
 export default defineEventHandler(async (event): Promise<IBook> => {
-    const { familyId } = await requireBookEditor(event)
+    const actor = await requireBookEditor(event)
+    const { familyId } = actor
     const id = requireParam(event, 'id')
     const body = await readBody<IBookPatch>(event)
     if (body.status !== undefined && !STATUSES.includes(body.status)) {
         return badRequest('Invalid status')
+    }
+    if (body.status !== undefined && actor.role !== 'parent' && (body.status === 'ready' || body.status === 'in_review')) {
+        throw createError({ statusCode: 403, statusMessage: 'A parent has to validate this book' })
     }
     const current = await loadBook(id, familyId)
     const ageMin = body.ageMin === undefined ? current.ageMin : checkAge(body.ageMin)
@@ -51,7 +56,9 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         if (body.imageDesc !== undefined) {
             await tx`update books set image_desc = ${body.imageDesc} where id = ${id} and family_id = ${familyId}`
         }
-        if (body.status !== undefined) {
+        if (body.status === 'ready') {
+            await approveBook(tx, familyId, await findReviewBook(tx, id, familyId), requireActorMember(actor))
+        } else if (body.status !== undefined) {
             await tx`update books set status = ${body.status} where id = ${id} and family_id = ${familyId}`
         }
         for (const [memberId, tone] of Object.entries(body.tones ?? {})) {
@@ -94,7 +101,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
                 isEdited = isEdited || changed.length > 0
             }
             if (isEdited) {
-                await markLineRecordingsStale(tx, patch.id, familyId, current.language)
+                await markLineRecordingsStale(tx, patch.id, familyId, current.language, actor.memberId)
             }
             if (patch.sceneDescription !== undefined) {
                 await tx`

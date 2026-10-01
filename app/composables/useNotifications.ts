@@ -20,6 +20,13 @@ export const describeNotification = (notification: INotification, t: (key: strin
             return t('notifications.describe.voiceBatch', { from, title, count })
         case 'recording_batch':
             return t('notifications.describe.recordingBatch', { name: text(payload.memberName), title, count })
+        case 'review_result': {
+            const parts = [
+                Number(payload.approved) > 0 ? t('review.notice.approved', { count: Number(payload.approved) }) : '',
+                Number(payload.returned) > 0 ? t('review.notice.returned', { count: Number(payload.returned) }) : '',
+            ]
+            return t('review.notice.result', { title, parts: parts.filter(part => part !== '').join(', ') })
+        }
         default:
             return t('notifications.describe.default')
     }

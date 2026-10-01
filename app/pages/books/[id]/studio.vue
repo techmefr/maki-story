@@ -29,6 +29,14 @@
                 <span>{{ tab.member.name }} {{ tab.progress }}</span>
             </button>
         </div>
+        <div v-if="redoCount > 0 || isRedoOnly" class="row row--wrap" role="group" :aria-label="t('review.studio.filterLabel')">
+            <button type="button" class="chip studio__chip" :class="{ 'chip--on': !isRedoOnly }" :aria-pressed="!isRedoOnly" :disabled="isLocked" @click="setRedoOnly(false)">
+                {{ t('review.studio.all') }}
+            </button>
+            <button type="button" class="chip studio__chip" :class="{ 'chip--on': isRedoOnly }" :aria-pressed="isRedoOnly" :disabled="isLocked" @click="setRedoOnly(true)">
+                {{ t('review.studio.redoCount', { count: redoCount }) }}
+            </button>
+        </div>
         <section
             v-if="currentLine"
             class="stage"
@@ -79,6 +87,10 @@
                 <div v-if="lineTone(currentLine)" class="hint">{{ t('studio.toneLine', { text: lineTone(currentLine) }) }}</div>
                 <div v-if="currentLine.sceneDescription" class="hint">{{ t('studio.sceneLine', { text: currentLine.sceneDescription }) }}</div>
                 <div v-if="currentPageDescription" class="hint">{{ t('studio.pageLine', { text: currentPageDescription }) }}</div>
+                <div v-if="isStale(currentLine)" class="hint" data-testid="stale-notice">{{ t('review.studio.stale') }}</div>
+                <div v-for="comment in openCommentsOf(currentLine)" :key="comment.id" class="hint" data-testid="line-comment">
+                    {{ t('review.studio.comment', { name: memberName(comment.authorMemberId), text: comment.body }) }}
+                </div>
                 <p v-if="nextLine" class="stage__next">{{ t('studio.next', { text: lineText(nextLine) }) }}</p>
             </div>
             <div class="stage__controls stack center">
@@ -147,6 +159,7 @@
             >
                 <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : '#fff' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
                 <span class="grow">{{ lineText(line) }}</span>
+                <span v-if="needsRedo(line)" class="badge studio__redo">{{ t('review.filters.redo') }}</span>
             </button>
         </div>
         <p v-else class="muted">{{ t('studio.noLines') }}</p>
@@ -158,11 +171,15 @@
             :get-member-name="memberName"
             @select="jumpTo"
         />
+        <button v-if="isRestricted" type="button" class="btn btn--mint btn--block" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
+            <AppIcon name="send" :size="22" />
+            {{ draftCount > 0 ? t('review.studio.send', { count: draftCount }) : t('review.studio.nothingToSend') }}
+        </button>
         <template v-if="canManage">
             <NuxtLink v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`" class="btn btn--white btn--block">
                 <AppIcon name="languages" :size="22" />{{ t('studio.translateBook') }}
             </NuxtLink>
-            <button type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
+            <button v-if="!isRestricted" type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
                 {{ isComplete ? t('studio.publish') : t('studio.recordAll') }}
             </button>
@@ -191,6 +208,7 @@ interface IPendingTake {
 const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { get, patch, remove, setLineAudio, clearLineAudio } = useBooks()
+const { submit, validateAll, loadComments } = useReview()
 const { getById } = useMembers()
 const { currentId, current } = useCurrentMember()
 const { upload } = useFiles()
@@ -201,6 +219,8 @@ const speech = useSpeechAssist()
 const wakeLock = useWakeLock()
 
 const book = ref<IBook | null>(null)
+const comments = ref<IReviewComment[]>([])
+const isRedoOnly = ref(false)
 const activeMemberId = ref<string | null>(null)
 const currentLineId = ref<string | null>(null)
 const language = ref('')
@@ -227,10 +247,35 @@ const recordingOf = (lineId: string, code: string): ILineRecording | null => {
 
 const hasVoice = (line: ILine, code: string): boolean => {
     const recording = recordingOf(line.id, code)
-    return recording !== null && recording.status !== 'stale'
+    return recording !== null && recording.status !== 'stale' && recording.status !== 'changes_requested'
 }
 
-const isDone = (line: ILine): boolean => line.audioFileId !== null && line.recordingStatus !== 'stale'
+const isDone = (line: ILine): boolean =>
+    line.audioFileId !== null && line.recordingStatus !== 'stale' && line.recordingStatus !== 'changes_requested'
+
+const isStale = (line: ILine): boolean => recordingOf(line.id, language.value)?.status === 'stale'
+
+const needsRedo = (line: ILine): boolean => {
+    const status = recordingOf(line.id, language.value)?.status
+    return status === 'stale' || status === 'changes_requested'
+}
+
+const openCommentsOf = (line: ILine): IReviewComment[] => comments.value.filter(item => item.lineId === line.id && item.resolvedAt === null)
+
+const draftCount = computed(
+    () => (book.value?.recordings ?? []).filter(item => item.memberId === currentId.value && item.status === 'draft').length,
+)
+
+const setRedoOnly = (value: boolean): void => {
+    if (isLocked.value) {
+        return
+    }
+    isRedoOnly.value = value
+    const first = memberLines.value[0]
+    if (!memberLines.value.some(line => line.id === currentLineId.value) && first) {
+        currentLineId.value = first.id
+    }
+}
 
 const translationOf = (line: ILine): ILineTranslation | null => {
     return book.value?.translations.find(item => item.lineId === line.id && item.language === language.value) ?? null
@@ -254,7 +299,10 @@ const activeMember = computed(() => getById(activeMemberId.value))
 const activeHex = computed(() => memberHex(activeMember.value))
 const activeTone = computed(() => (activeMemberId.value ? (book.value?.tones[activeMemberId.value] ?? '') : ''))
 const currentPageDescription = computed(() => book.value?.pages[currentLine.value?.pageIndex ?? -1]?.description ?? '')
-const memberLines = computed(() => visibleLines.value.filter(line => line.memberId === activeMemberId.value))
+const redoCount = computed(() => visibleLines.value.filter(needsRedo).length)
+const memberLines = computed(() =>
+    visibleLines.value.filter(line => line.memberId === activeMemberId.value && (!isRedoOnly.value || needsRedo(line))),
+)
 const currentLine = computed(() => memberLines.value.find(line => line.id === currentLineId.value) ?? null)
 const currentIndex = computed(() => memberLines.value.findIndex(line => line.id === currentLineId.value))
 const nextLine = computed(() => memberLines.value[currentIndex.value + 1] ?? null)
@@ -282,6 +330,9 @@ const hint = computed(() => {
     }
     if (currentRecording.value?.status === 'stale') {
         return t('studio.hints.stale')
+    }
+    if (currentRecording.value?.status === 'changes_requested') {
+        return t('review.studio.hintChanges')
     }
     return currentRecording.value ? t('studio.hints.recorded') : t('studio.hints.tapMic')
 })
@@ -398,6 +449,10 @@ const sendTake = async (): Promise<void> => {
         book.value = await get(bookId)
         discardPending()
         limitNotice.value = ''
+        if (isRestricted.value && visibleLines.value.every(line => hasVoice(line, take.language))) {
+            await sendDrafts()
+        }
+        comments.value = await loadComments(bookId)
         goToNextLine(take.lineId)
     } catch (error) {
         console.error('L enregistrement n a pas pu être sauvegardé', error)
@@ -439,9 +494,27 @@ const redo = async (): Promise<void> => {
     }
 }
 
+const sendDrafts = async (): Promise<void> => {
+    await submit(bookId)
+    book.value = await get(bookId)
+}
+
+const sendForReview = async (): Promise<void> => {
+    isBusy.value = true
+    errorMessage.value = ''
+    try {
+        await sendDrafts()
+    } catch (error) {
+        console.error('Les prises n ont pas pu être envoyées', error)
+        errorMessage.value = t('review.studio.sendError')
+    } finally {
+        isBusy.value = false
+    }
+}
+
 const publish = async (): Promise<void> => {
     try {
-        await patch(bookId, { status: 'ready' })
+        await validateAll(bookId)
         await navigateTo(`/books/${bookId}/play`)
     } catch (error) {
         console.error('Le livre n a pas pu être publié', error)
@@ -482,11 +555,17 @@ watch(language, () => {
     }
 })
 
-onBeforeUnmount(discardPending)
+onBeforeUnmount(() => {
+    discardPending()
+    if (isRestricted.value && draftCount.value > 0) {
+        submit(bookId).catch(error => console.error('Les prises n ont pas pu être envoyées en quittant le studio', error))
+    }
+})
 
 onMounted(async () => {
     try {
         book.value = await get(bookId)
+        comments.value = await loadComments(bookId).catch(() => [])
         const bookLanguage = book.value.language || DEFAULT_LANGUAGE
         const spoken = (current.value?.spokenLanguages ?? []).filter(code => LANGUAGES.some(item => item.code === code))
         language.value = spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!
@@ -502,6 +581,14 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.studio__chip {
+    min-height: 44px;
+}
+
+.studio__redo {
+    background: var(--coral);
+}
+
 .stage {
     border: 3px solid var(--ink);
     border-radius: 24px;

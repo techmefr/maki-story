@@ -9,6 +9,7 @@ export type NotificationKind =
     | 'share_approved'
     | 'voice_batch'
     | 'recording_batch'
+    | 'review_result'
 
 export interface IFamilyInvite {
     code: string

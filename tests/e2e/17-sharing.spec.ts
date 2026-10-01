@@ -233,6 +233,7 @@ test.describe('sharing between families', () => {
         for (const lineId of mine.lineIds.slice(0, 2)) {
             expect((await mamie.put(`/api/books/${mine.id}/lines/${lineId}/audio`, { data: { fileId: await uploadAudio(mamie), ms: 300 } })).status()).toBe(200)
         }
+        expect((await mamie.post(`/api/books/${mine.id}/submit`, { data: {} })).status()).toBe(200)
         const find = async (): Promise<INotification[]> => (await notifications(a.parent)).items.filter(item => item.kind === 'recording_batch' && item.payload.bookId === mine.id)
         const [batch] = await find()
         expect(batch).toMatchObject({ count: 2, isRead: false })
@@ -241,6 +242,7 @@ test.describe('sharing between families', () => {
         expect((await a.parent.post('/api/notifications/read', { data: { ids: [batch!.id] } })).status()).toBe(200)
         expect((await notifications(a.parent)).unreadCount).toBe(before - 1)
         await mamie.put(`/api/books/${mine.id}/lines/${mine.lineIds[2]}/audio`, { data: { fileId: await uploadAudio(mamie), ms: 300 } })
+        await mamie.post(`/api/books/${mine.id}/submit`, { data: {} })
         const next = await find()
         expect(next).toHaveLength(2)
         expect(next[0]).toMatchObject({ count: 1, isRead: false })

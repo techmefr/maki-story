@@ -1,0 +1,109 @@
+{
+    "title": "Famerenana: {title}",
+    "back": "Miverina",
+    "activity": "Hetsika",
+    "dotLabel": "Misy rakitra miandry ny famerenanao",
+    "sheetReview": "Hamerina ireo rakitra",
+    "voicesTitle": "Fandrosoana isaky ny feo",
+    "voiceProgress": "{done}/{total} voaaiky",
+    "validateAll": "Hanaiky ny boky manontolo",
+    "validateHint": {
+        "redo": "Misy andalana miandry rakitra vaovao.",
+        "missing": "Tsy maintsy voarakitra ny andalana rehetra.",
+        "done": "Efa voaaiky daholo ny zavatra rehetra."
+    },
+    "filtersLabel": "Sivano ny andalana",
+    "filters": {
+        "all": "Rehetra",
+        "to_review": "Hamerina",
+        "changes": "Averina",
+        "approved": "Voaaiky",
+        "redo": "Averina"
+    },
+    "state": {
+        "missing": "Mbola tsy voarakitra",
+        "stale": "Niova ny lahatsoratra, averina",
+        "to_review": "Hamerina",
+        "changes": "Averina",
+        "approved": "Voaaiky"
+    },
+    "bookStatus": {
+        "draft": "Rakitra mialoha",
+        "to_record": "Horakitra",
+        "in_review": "Eo am-pamerenana",
+        "ready": "Vita"
+    },
+    "lineMeta": "Pejy {page} · {character} · {voice}",
+    "narrator": "Mpitantara",
+    "voice": "Feo",
+    "parent": "Ray aman-dreny",
+    "play": "Henoy",
+    "playAria": "Henoy ny andalana ao amin’ny pejy {page}",
+    "approve": "Ekeo",
+    "approveAria": "Ekeo ny andalana ao amin’ny pejy {page}",
+    "redoAria": "Angataho averina ny andalana ao amin’ny pejy {page}",
+    "commentLabel": "Izay tokony hovana",
+    "sendRequest": "Alefaso ny fangatahana",
+    "cancel": "Foano",
+    "comments": "Fanehoan-kevitra",
+    "resolved": "Voavaha",
+    "emptyFilter": "Tsy misy andalana amin’ity sivana ity.",
+    "errorSave": "Tsy afaka voatahiry izao. Andramo indray.",
+    "studio": {
+        "filterLabel": "Sivano ny andalako",
+        "all": "Rehetra",
+        "redoCount": "Averina ({count})",
+        "stale": "Niova ny lahatsoratra: avereno ity andalana ity.",
+        "comment": "Averina, {name}: {text}",
+        "hintChanges": "Averina (jereo ny fanehoan-kevitra)",
+        "send": {
+            "one": "Alefaso ho an’ny famerenana ny rakitra {count}",
+            "other": "Alefaso ho an’ny famerenana ny rakitra {count}"
+        },
+        "nothingToSend": "Tsy misy rakitra halefa",
+        "sendError": "Tsy tafalefa ny rakitra. Andramo indray."
+    },
+    "notice": {
+        "approved": {
+            "one": "{count} voaaiky",
+            "other": "{count} voaaiky"
+        },
+        "returned": "{count} averina",
+        "result": "«{title}»: {parts}"
+    },
+    "activityPage": {
+        "back": "Miverina amin’ny famerenana",
+        "fresh": "Hatramin’ny fitsidikao farany",
+        "history": "Tantara",
+        "empty": "Tsy misy zavatra hotononina izao.",
+        "noNews": "Tsy misy vaovao hatramin’ny fitsidikao farany",
+        "news": {
+            "one": "Vaovao {count} hatramin’ny fitsidikao farany",
+            "other": "Vaovao {count} hatramin’ny fitsidikao farany"
+        },
+        "someone": "Olona iray",
+        "sentence": {
+            "submitted": {
+                "one": "{name} dia nandefa rakitra {count} hamerina",
+                "other": "{name} dia nandefa rakitra {count} hamerina"
+            },
+            "resubmitted": "{name} dia nanao indray andalana iray",
+            "approved": "{actor} dia nanaiky andalana iray nataon’i {name}",
+            "changesRequested": "{actor} dia mangataka amin’i {name} hanao indray andalana iray",
+            "validated": {
+                "one": "{name} dia nanaiky ny boky (rakitra {count})",
+                "other": "{name} dia nanaiky ny boky (rakitra {count})"
+            },
+            "stale": "Niova ny lahatsoratra: tsy maintsy averina ny rakitr’i {name}",
+            "voiceAdded": "{name} dia nanampy ny feony tamin’ny boky"
+        }
+    },
+    "kid": {
+        "title": "Feo vaovao",
+        "none": "Tsy misy feo vaovao izao.",
+        "joined": "{name} dia nanatevin’ity tantara ity",
+        "aVoice": "Feo iray",
+        "listen": "Henoy ny tantara",
+        "newVoicesFor": "Feo vaovao ho an’ny {title}"
+    }
+}

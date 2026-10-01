@@ -1,5 +1,5 @@
 export type BookKind = 'multi' | 'solo'
-export type BookStatus = 'draft' | 'to_record' | 'ready'
+export type BookStatus = 'draft' | 'to_record' | 'in_review' | 'ready'
 export type BookType = 'standard' | 'comic' | 'wordless' | 'child-written'
 export type PageKind = 'cover' | 'content' | 'empty'
 export type RecordingStatus = 'draft' | 'submitted' | 'approved' | 'changes_requested' | 'stale'
@@ -27,6 +27,7 @@ export interface IBookSummary {
     submittedCount: number
     isVoiceBlocked: boolean
     blockedLineCount: number
+    changesRequestedCount: number
     createdAt: string
 }
 

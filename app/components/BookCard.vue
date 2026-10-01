@@ -1,5 +1,6 @@
 <template>
     <NuxtLink :to="target" class="card card--tap book">
+        <span v-if="hasDot" class="book__dot" data-testid="review-dot" role="img" :aria-label="dotLabel" />
         <div class="book__cover" :style="{ background: `repeating-linear-gradient(135deg, ${hex} 0 10px, ${hexLight} 10px 20px)` }">
             <AppIcon :name="isReady ? 'play' : 'mic'" :size="26" class="book__icon" :motion="isReady ? 'pulse' : 'wiggle'" />
             <span class="book__kind">{{ kindLabel }}</span>
@@ -23,9 +24,19 @@ const { t } = useI18n()
 const palette = computed(() => pickVoiceByText(book.id))
 const hex = computed(() => palette.value.hex)
 const hexLight = computed(() => palette.value.hexLight)
+const { current } = useCurrentMember()
+
 const isReady = computed(() => book.status === 'ready')
-const target = computed(() => (isReady.value ? `/books/${book.id}/play` : `/books/${book.id}/studio`))
-const statusLabel = computed(() => (isReady.value ? t('books.card.ready') : t('books.card.toRecord')))
+const isParent = computed(() => current.value?.role === 'parent')
+const hasDot = computed(() => isParent.value && book.submittedCount > 0)
+const dotLabel = computed(() => (hasDot.value ? t('review.dotLabel') : ''))
+const target = computed(() => {
+    if (hasDot.value) {
+        return `/books/${book.id}/review`
+    }
+    return isReady.value ? `/books/${book.id}/play` : `/books/${book.id}/studio`
+})
+const statusLabel = computed(() => t(`review.bookStatus.${book.status}`))
 const statusBg = computed(() => (isReady.value ? '#4CD4A8' : '#FFF4D9'))
 const kindLabel = computed(() => (book.kind === 'solo' ? t('books.card.kindSolo') : t('books.card.kindCast')))
 const progressLabel = computed(() => t('books.card.progress', { recorded: book.recordedCount, total: book.lineCount }))
@@ -33,11 +44,24 @@ const progressLabel = computed(() => t('books.card.progress', { recorded: book.r
 
 <style scoped>
 .book {
+    position: relative;
     display: flex;
     gap: 14px;
     align-items: center;
     color: inherit;
     text-decoration: none;
+}
+
+.book__dot {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--coral);
+    border: 3px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
 }
 
 .book__cover {
