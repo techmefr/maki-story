@@ -6,6 +6,7 @@ export type IconName =
     | 'camera'
     | 'check'
     | 'ear'
+    | 'eye'
     | 'headphones'
     | 'heart'
     | 'home'

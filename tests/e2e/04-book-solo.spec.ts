@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, login, nextStep, recordOnce, uniqueName, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, login, nextStep, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -25,10 +25,9 @@ test.describe('single voice book', () => {
         await expect(page.getByRole('heading', { name: 'Vérifier' })).toBeVisible()
         await page.getByRole('button', { name: 'Passer au studio' }).click()
         await expect(page).toHaveURL(/\/studio/)
-        const rec = page.getByRole('button', { name: 'Enregistrer' })
-        await recordOnce(page, rec)
+        await recordAndSend(page)
         await expect(page.getByText('1/2').first()).toBeVisible()
-        await recordOnce(page, rec)
+        await recordAndSend(page)
         await expect(page.getByRole('button', { name: 'Publier le livre' })).toBeEnabled()
         await page.getByRole('button', { name: 'Publier le livre' }).click()
         await expect(page).toHaveURL(/\/play$/)

@@ -95,7 +95,7 @@ const addPhotos = async (event: Event): Promise<void> => {
     try {
         for (const file of files) {
             const blob = await compressImage(file)
-            const fileId = await upload(blob, 'image/jpeg')
+            const fileId = await upload(blob, blob.type)
             addPhoto(fileId, URL.createObjectURL(blob))
         }
     } catch (error) {

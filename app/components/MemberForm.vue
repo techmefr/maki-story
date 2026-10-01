@@ -157,7 +157,7 @@ const preview = computed<IMember>(() => ({
 const onCaptured = async (blob: Blob): Promise<void> => {
     errorMessage.value = ''
     try {
-        photoFileId.value = await upload(blob, 'image/jpeg')
+        photoFileId.value = await upload(blob, blob.type)
         register(photoFileId.value, URL.createObjectURL(blob))
         isCapturing.value = false
     } catch (error) {
