@@ -1,0 +1,40 @@
+{
+    "title": "Mensagens",
+    "addChild": "Adicione uma criança à família para enviar mensagens de voz.",
+    "sendHim": "Enviar-lhe uma mensagem",
+    "needConnection": "É preciso ter conexão para enviar",
+    "status": {
+        "waiting": "Uma mensagem espera por você",
+        "heard": "Já ouviu ✓",
+        "sent": "Enviado",
+        "none": "Nenhuma mensagem"
+    },
+    "compose": {
+        "reply": "Responda a {name}",
+        "messageFor": "Uma mensagem para {name}",
+        "sent": "Enviado!",
+        "stop": "Parar",
+        "record": "Gravar",
+        "redo": "Refazer",
+        "tapToFinish": "Toque para terminar",
+        "tapMic": "Toque no microfone",
+        "tooShort": "Muito curto, comece de novo.",
+        "sendFailed": "Não foi possível enviar a mensagem. Tente de novo."
+    },
+    "listen": {
+        "finished": "Acabou",
+        "reply": "Responder",
+        "play": "Ouvir",
+        "alreadyHeard": "Esta mensagem já foi ouvida",
+        "next": "Próxima mensagem",
+        "nextWaiting": "Próxima mensagem ({count} aguardando)"
+    },
+    "strip": {
+        "label": "Mensagens da família",
+        "item": {
+            "one": "{name}: {count} mensagem para ouvir",
+            "other": "{name}: {count} mensagens para ouvir"
+        }
+    },
+    "noOneTitle": "Ninguém a quem escrever"
+}

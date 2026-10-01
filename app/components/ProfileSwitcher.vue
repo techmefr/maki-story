@@ -1,9 +1,9 @@
 <template>
     <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
-        <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-label="Changer de profil">
+        <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" :aria-label="t('profile.switchProfile')">
             <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
             <template v-else>
-                <h2 class="subtitle">Qui écoute ?</h2>
+                <h2 class="subtitle">{{ t('profile.who') }}</h2>
                 <button
                     v-for="member in members"
                     :key="member.id"
@@ -18,14 +18,15 @@
                         <div class="muted">{{ roleLabel(member.role) }}</div>
                     </div>
                 </button>
-                <NuxtLink to="/family" class="btn btn--white btn--block" @click="close">Gérer la famille</NuxtLink>
-                <button type="button" class="btn btn--white btn--block" @click="leave">Se déconnecter</button>
+                <NuxtLink to="/family" class="btn btn--white btn--block" @click="close">{{ t('profile.manageFamily') }}</NuxtLink>
+                <button type="button" class="btn btn--white btn--block" @click="leave">{{ t('profile.logout') }}</button>
             </template>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const isOpen = useState<boolean>('switcher-open', () => false)
 const { people: members } = useMembers()
 const { currentId, select } = useCurrentMember()

@@ -1,0 +1,50 @@
+{
+    "hello": "مرحباً {name}!",
+    "listenHer": "استمع إلى رسالته",
+    "sendMessage": "أرسل رسالة",
+    "noSoloStory": "لا توجد قصة بهذا الصوت بعد.",
+    "bubbleLabel": "{name}: {count} للاستماع",
+    "bubble": "رسالة",
+    "multiVoice": "قصص بأصوات متعددة",
+    "library": {
+        "title": "القصص",
+        "sheet": "التفاصيل",
+        "sheetOf": "تفاصيل {title}",
+        "empty": "لا توجد قصص حتى الآن.",
+        "emptyHint": "اطلب من أحد الكبار تسجيل واحدة!"
+    },
+    "listen": {
+        "nextPage": "الصفحة التالية",
+        "turnPage": "اقلب الصفحة",
+        "finished": "انتهت القصة!",
+        "restart": "ابدأ من جديد",
+        "fromStart": "من البداية",
+        "read": "اقرأ",
+        "goodNight": "تصبح على خير",
+        "reads": "{name} يقرأ",
+        "pause": "إيقاف مؤقت",
+        "resumePlay": "تشغيل",
+        "quit": "خروج",
+        "soundOn": "الصوت",
+        "soundOff": "بدون صوت",
+        "sleepTimer": "مؤقت النوم",
+        "page": "الصفحة {current}/{total}",
+        "progress": "تقدم الصفحة"
+    },
+    "sleep": {
+        "title": "النوم بعد…",
+        "endOfPage": "النوم عند نهاية الصفحة",
+        "inMinutes": {
+            "zero": "النوم بعد {count} دقيقة",
+            "one": "النوم بعد دقيقة واحدة",
+            "two": "النوم بعد دقيقتين",
+            "few": "النوم بعد {count} دقائق",
+            "many": "النوم بعد {count} دقيقة",
+            "other": "النوم بعد {count} دقيقة"
+        },
+        "cancel": "إلغاء المؤقت"
+    },
+    "noFaces": "لا أحد هنا بعد",
+    "noFacesHint": "اطلب من أحد الكبار إضافة العائلة.",
+    "noSoloHint": "ستصل قريبًا!"
+}

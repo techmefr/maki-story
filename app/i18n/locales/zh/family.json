@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "我的家庭",
+        "edit": "编辑",
+        "guestVoices": "客串声音",
+        "guestHint": "其他家庭的亲友为你录了台词。",
+        "guestVoice": "客串声音",
+        "manage": "管理",
+        "add": "添加家人",
+        "storage": "离线存储",
+        "sharing": "家庭间分享",
+        "devices": "设备",
+        "feedback": "测试者反馈"
+    },
+    "edit": {
+        "title": "编辑",
+        "missing": "这位家人已经不存在了。"
+    },
+    "add": {
+        "title": "添加家人"
+    },
+    "status": {
+        "blocked": "已屏蔽",
+        "left": "已离开家庭",
+        "deceased": "已故"
+    },
+    "devices": {
+        "title": "设备",
+        "intro": "可以用指纹或面容打开档案的设备。把丢失或借出的设备移除。",
+        "empty": "没有已登记的设备。",
+        "revoke": "移除",
+        "revokeLabel": "从 {member} 移除 {device}",
+        "loadError": "无法加载设备。",
+        "revokeError": "无法移除这台设备。",
+        "emptyHint": "在个人资料中开启指纹或面容解锁后，会显示在这里。"
+    }
+}

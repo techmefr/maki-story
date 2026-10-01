@@ -1,0 +1,27 @@
+{
+    "nav": {
+        "library": "المكتبة",
+        "messages": "الرسائل",
+        "family": "العائلة"
+    },
+    "profile": {
+        "open": "ملفي الشخصي"
+    },
+    "offline": {
+        "banner": "لا يوجد اتصال: الكتب التي تم تنزيلها فقط متاحة.",
+        "downloading": "جارٍ التنزيل {done}/{total}",
+        "available": "متاح دون اتصال · {size}",
+        "remove": "إزالة التنزيل",
+        "resume": "استئناف التنزيل",
+        "download": "تنزيل"
+    },
+    "bytes": {
+        "b": "{value} بايت",
+        "kb": "{value} ك.ب",
+        "mb": "{value} م.ب",
+        "gb": "{value} ج.ب"
+    },
+    "skip": "انتقل إلى المحتوى",
+    "mainNav": "التنقل الرئيسي",
+    "newBadge": "جديد"
+}

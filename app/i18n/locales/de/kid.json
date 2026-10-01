@@ -1,0 +1,46 @@
+{
+    "hello": "Hallo {name}!",
+    "listenHer": "Nachricht anhören",
+    "sendMessage": "Nachricht senden",
+    "noSoloStory": "Noch keine Geschichte mit dieser Stimme.",
+    "bubbleLabel": "{name}: {count} zum Anhören",
+    "bubble": "Nachricht",
+    "multiVoice": "Geschichten mit vielen Stimmen",
+    "library": {
+        "title": "Die Geschichten",
+        "sheet": "Info",
+        "sheetOf": "Info zu {title}",
+        "empty": "Noch keine Geschichten.",
+        "emptyHint": "Bitte einen Erwachsenen, eine aufzunehmen!"
+    },
+    "listen": {
+        "nextPage": "Nächste Seite",
+        "turnPage": "Umblättern",
+        "finished": "Das war’s!",
+        "restart": "Nochmal von vorn",
+        "fromStart": "Von Anfang an",
+        "read": "Vorlesen",
+        "goodNight": "Gute Nacht",
+        "reads": "{name} liest vor",
+        "pause": "Pause",
+        "resumePlay": "Abspielen",
+        "quit": "Verlassen",
+        "soundOn": "Ton",
+        "soundOff": "Ohne Ton",
+        "sleepTimer": "Schlaf-Timer",
+        "page": "Seite {current}/{total}",
+        "progress": "Fortschritt der Seite"
+    },
+    "sleep": {
+        "title": "Schlafen in…",
+        "endOfPage": "Am Ende der Seite schlafen",
+        "inMinutes": {
+            "one": "In {count} Minute schlafen",
+            "other": "In {count} Minuten schlafen"
+        },
+        "cancel": "Timer abbrechen"
+    },
+    "noFaces": "Noch niemand da",
+    "noFacesHint": "Bitte einen Erwachsenen, die Familie hinzuzufügen.",
+    "noSoloHint": "Sie kommt bald!"
+}

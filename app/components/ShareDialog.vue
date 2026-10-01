@@ -1,38 +1,38 @@
 <template>
     <div class="sheet-backdrop" @click.self="emit('close')">
         <form class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="share-title" @submit.prevent="submit">
-            <h2 id="share-title" class="subtitle">Partager « {{ book.title }} »</h2>
+            <h2 id="share-title" class="subtitle">{{ t('sharing.dialog.title', { title: book.title }) }}</h2>
             <label class="stack" style="gap: 6px">
-                <span class="label">Code de la famille</span>
+                <span class="label">{{ t('sharing.dialog.code') }}</span>
                 <input v-model="code" class="input" autocomplete="off" autocapitalize="none" spellcheck="false" required />
             </label>
             <fieldset class="stack fieldset">
-                <legend class="label">Comment partager ?</legend>
+                <legend class="label">{{ t('sharing.dialog.how') }}</legend>
                 <label class="row">
                     <input v-model="mode" type="radio" value="record" />
-                    <span>Enregistrer ma voix pour ce livre</span>
+                    <span>{{ t('sharing.dialog.modeRecord') }}</span>
                 </label>
                 <label class="row">
                     <input v-model="mode" type="radio" value="copy" />
-                    <span>Copier dans sa bibliothèque</span>
+                    <span>{{ t('sharing.dialog.modeCopy') }}</span>
                 </label>
             </fieldset>
             <fieldset v-if="mode === 'record'" class="stack fieldset">
-                <legend class="label">Répliques à enregistrer</legend>
-                <p v-if="lines.length === 0" class="muted">Chargement…</p>
+                <legend class="label">{{ t('sharing.dialog.linesToRecord') }}</legend>
+                <p v-if="lines.length === 0" class="muted">{{ t('common.loading') }}</p>
                 <label v-for="line in lines" :key="line.id" class="row">
                     <input v-model="selected" type="checkbox" :value="line.id" />
-                    <span>{{ line.character ? `${line.character} : ` : '' }}{{ line.text }}</span>
+                    <span>{{ line.character ? t('sharing.dialog.line', { character: line.character, text: line.text }) : line.text }}</span>
                 </label>
             </fieldset>
             <label class="stack" style="gap: 6px">
-                <span class="label">Un petit mot (facultatif)</span>
+                <span class="label">{{ t('sharing.dialog.note') }}</span>
                 <input v-model="message" class="input" maxlength="200" />
             </label>
             <p v-if="statusMessage" class="muted" role="status">{{ statusMessage }}</p>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <button type="submit" class="btn btn--block" :disabled="!canSubmit || isBusy">Envoyer</button>
-            <button type="button" class="btn btn--white btn--block" @click="emit('close')">Fermer</button>
+            <button type="submit" class="btn btn--block" :disabled="!canSubmit || isBusy">{{ t('common.send') }}</button>
+            <button type="button" class="btn btn--white btn--block" @click="emit('close')">{{ t('common.close') }}</button>
         </form>
     </div>
 </template>
@@ -41,6 +41,7 @@
 const { book } = defineProps<{ book: IBookSummary }>()
 const emit = defineEmits<{ close: [] }>()
 
+const { t } = useI18n()
 const { get } = useBooks()
 const { create } = useShares()
 
@@ -55,11 +56,11 @@ const statusMessage = ref('')
 
 const canSubmit = computed(() => code.value.trim() !== '' && (mode.value === 'copy' || selected.value.length > 0))
 
-const ERRORS: Record<number, string> = {
-    404: 'Ce code ne correspond à aucune famille.',
-    409: 'Ce livre est déjà partagé ainsi, ou il a atteint le nombre maximum de familles.',
-    429: 'Trop d’essais. Réessaie dans quelques minutes.',
-    403: 'Ton profil ne peut pas partager ce livre.',
+const ERROR_KEYS: Record<number, string> = {
+    404: 'sharing.dialog.notFound',
+    409: 'sharing.dialog.conflict',
+    429: 'sharing.dialog.tooMany',
+    403: 'sharing.dialog.forbidden',
 }
 
 watch(mode, async value => {
@@ -84,11 +85,11 @@ const submit = async (): Promise<void> => {
         })
         statusMessage.value =
             result.status === 'pending'
-                ? `Envoyé à la famille ${result.targetFamilyName}.`
-                : 'Enregistré : un parent doit valider avant l’envoi.'
+                ? t('sharing.dialog.sentTo', { name: result.targetFamilyName })
+                : t('sharing.dialog.needsApproval')
     } catch (error) {
         const status = (error as { statusCode?: number }).statusCode ?? 0
-        errorMessage.value = ERRORS[status] ?? 'Le partage n’a pas pu être envoyé.'
+        errorMessage.value = t(ERROR_KEYS[status] ?? 'sharing.dialog.failed')
     } finally {
         isBusy.value = false
     }

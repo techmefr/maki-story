@@ -3,7 +3,10 @@
 </template>
 
 <script setup lang="ts">
+const { t, formatNumber } = useI18n()
 const { aiStatus, refreshStatus } = useAi()
+
+const formatUsd = (amount: number): string => formatNumber(amount, { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 const label = computed(() => {
     const value = aiStatus.value
@@ -11,12 +14,12 @@ const label = computed(() => {
         return ''
     }
     if (!value.enabled) {
-        return AI_UNAVAILABLE_MESSAGE
+        return t(AI_UNAVAILABLE_KEY)
     }
     if (value.remainingUsd <= 0) {
-        return AI_QUOTA_MESSAGE
+        return t(AI_QUOTA_KEY)
     }
-    return `Budget IA du mois : il reste ${formatUsd(value.remainingUsd)} sur ${formatUsd(value.monthlyBudgetUsd)}.`
+    return t('ai.quota.label', { remaining: formatUsd(value.remainingUsd), budget: formatUsd(value.monthlyBudgetUsd) })
 })
 
 onMounted(refreshStatus)

@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "Ny boky",
+        "stepPages": "Ny pejy",
+        "stepCharacters": "Ny tarehintsary",
+        "stepLines": "Ny andian-teny",
+        "stepReview": "Hamarino",
+        "voiceCount": "Isan’ny feo",
+        "oneVoice": "Feo iray ihany",
+        "severalVoices": "Feo maro",
+        "aiNotice": "Avy amin’ny AI ny tarehintsary, ny andian-teny ary ny feo ary mety hisy diso. Averinao vakina ny dingana rehetra alohan’ny hitahiry."
+    },
+    "shared": {
+        "page": "Pejy {n}",
+        "cover": "Fonony",
+        "emptyPage": "Pejy foana",
+        "panel": "Efi-tsary {n}"
+    },
+    "book": {
+        "title": "Lohatenin’ny boky",
+        "titlePlaceholder": "Ny omby izay naniry handeha",
+        "type": "Karazan’ny boky",
+        "typeStandard": "Boky",
+        "typeComic": "Tantara an-tsary",
+        "typeWordless": "Tsy misy lahatsoratra",
+        "typeChild": "Nosoratan’ny ankizy",
+        "hintStandard": "Boky misy sary mahazatra, vakina pejy aorian’ny pejy.",
+        "hintComic": "Efi-tsary maromaro isaky ny pejy, samy manana ny andian-tenin’izy ireo araka ny filaharana.",
+        "hintWordless": "Sary fotsiny: tsy misy andian-teny horakitra.",
+        "hintChild": "Adikao araka ny nanoratan’ny ankizy ny fehezanteniny.",
+        "language": "Fitenin’ny boky",
+        "reader": "Iza no mamaky ny boky manontolo?",
+        "more": "Fanazavana fanampiny (tsy voatery)",
+        "subtitle": "Lohateny faharoa",
+        "author": "Mpanoratra",
+        "authorChild": "Mpanoratra (ny ankizy)",
+        "illustrator": "Mpanao sary",
+        "ageMin": "Taona farafahakeliny",
+        "ageMax": "Taona faran’ny be indrindra",
+        "tts": "Vakio amin’ny feo famolavolana ny lohateny mandra-pahaterany",
+        "errTitle": "Omeo lohateny ny boky.",
+        "errReader": "Fidio izay hamaky ny boky.",
+        "errAge": "Tsy maintsy ambany noho ny taona faran’ny be indrindra ny taona farafahakeliny."
+    },
+    "pages": {
+        "intro": "Alao sary ny pejy rehetra amin’ny boky. Mijanona ho an’ny fianakaviana ireo sary ireo ary tsy aseho ny ankizy mihitsy.",
+        "takePhoto": "Alao sary ny pejy",
+        "addPage": "Ampio pejy",
+        "addEmpty": "Ampio pejy foana",
+        "sending": "Mandefa ny sary…",
+        "photoFailed": "Tsy afaka naharitra ny sary iray. Andramo indray.",
+        "removePage": "Esory ny pejy {n}",
+        "emptyNote": "Tsy misy sary ity pejy ity: ariana rehefa mihaino.",
+        "ttsFallback": "Feo famolavolana raha tsy misy mamaky azy",
+        "describe": "Faritano ny sarin’ny pejy (tsy voatery)",
+        "describePlaceholder": "Omby kely eo amoron’ny farihy…",
+        "panelPlaceholder": "Izay hita ao amin’ny efi-tsary",
+        "removePanel": "Esory ny efi-tsary {panel} amin’ny pejy {page}",
+        "addPanel": "Ampio efi-tsary",
+        "needsPhoto": "Mila pejy iray farafahakeliny amin’ny sary ity karazam-boky ity.",
+        "continueNoPhoto": "Tohizo tsy misy sary"
+    },
+    "characters": {
+        "intro": "Faritano indray mandeha ihany ny tarehintsary tsirairay: hitanao amin’ny tsindry iray isaky ny andian-teny avy eo. Fidio izay hamaky ny feony.",
+        "groupLabel": "Tarehintsary {name}",
+        "name": "Anarana",
+        "remove": "Esory i {name}",
+        "colors": "Loko",
+        "colorLabel": "Loko {color}",
+        "coral": "koraly",
+        "sun": "masoandro",
+        "mint": "menta",
+        "sky": "lanitra",
+        "grape": "voaloboka",
+        "pink": "mavokely",
+        "description": "Famaritana (tsy voatery)",
+        "descriptionPlaceholder": "Omby kely menatra",
+        "narrator": "Mpanoratra",
+        "whoReads": "Iza no mamaky ny feony?",
+        "newCharacter": "Tarehintsary vaovao",
+        "newPlaceholder": "Omby Kely",
+        "add": "Ampio tarehintsary",
+        "castHint": "{done}/{total} tarehintsary no manana feo."
+    },
+    "lines": {
+        "introSimple": "Adikao ny andian-teny, pejy aorian’ny pejy. Apetraho indray mandeha ny lahatsoratra manontolo: andian-teny iray isaky ny andalana. Ampiasaina hanasaraka fotsiny ny lahatsoratra: tsy ho hitan’ny ankizy mihitsy.",
+        "introCast": "Adikao ny andian-teny, pejy aorian’ny pejy. Apetraho indray mandeha ny lahatsoratra manontolo: andian-teny iray isaky ny andalana, na «Anarana: andian-teny» raha hanova tarehintsary. Ampiasaina hanasaraka fotsiny ny lahatsoratra: tsy ho hitan’ny ankizy mihitsy.",
+        "emptyNote": "Pejy foana: tsy misy horakitra, ariana rehefa mihaino.",
+        "image": "Sary: {description}",
+        "panelWithDescription": "Efi-tsary {n}: {description}",
+        "needOne": "Ampio andian-teny iray farafahakeliny hanohizana.",
+        "count": {
+            "one": "Andian-teny {count}",
+            "other": "Andian-teny {count}"
+        }
+    },
+    "review": {
+        "readsAll": "{name} no mamaky ny boky manontolo",
+        "narratorName": "{name} (mpanoratra)",
+        "pickVoice": "Feo hofidiana",
+        "errLines": "Ampio andian-teny iray farafahakeliny.",
+        "errNames": "Mila anarana samihafa ny tarehintsary tsirairay.",
+        "errVoiceless": "Mifidiana feo ho an’i: {names}.",
+        "saving": "Mitahiry…",
+        "toStudio": "Mankanesa any amin’ny studio",
+        "saveFailed": "Tsy afaka mitahiry ny boky amin’izao fotoana izao.",
+        "pages": {
+            "one": "Pejy {count}",
+            "other": "Pejy {count}"
+        }
+    }
+}

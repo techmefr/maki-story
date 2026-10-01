@@ -1,0 +1,52 @@
+{
+    "card": {
+        "ready": "Pronto",
+        "toRecord": "Da registrare",
+        "voiceBlocked": "Voce bloccata",
+        "kindSolo": "1 voce",
+        "kindCast": "Voci",
+        "progress": "{recorded}/{total} battute registrate"
+    },
+    "filters": {
+        "searchPlaceholder": "Titolo, autore…",
+        "searchLabel": "Cerca un libro",
+        "language": "Lingua",
+        "allLanguages": "Tutte le lingue",
+        "age": "Età",
+        "age0_3": "0-3 anni",
+        "age4_6": "4-6 anni",
+        "age7_9": "7-9 anni",
+        "age10": "10 anni e più"
+    },
+    "sheet": {
+        "title": "Scheda di {title}",
+        "voiceBlocked": "Voce bloccata: i bambini non possono ascoltarla",
+        "author": "Autore",
+        "illustrator": "Illustratore",
+        "age": "Età",
+        "language": "Lingua",
+        "readBy": "Letto da",
+        "nobody": "Nessuno ha ancora registrato la propria voce.",
+        "listen": "Ascolta",
+        "open": "Apri il libro",
+        "studio": "Vai allo studio",
+        "share": "Condividi"
+    },
+    "row": {
+        "sheet": "Scheda"
+    },
+    "offline": {
+        "noSpace": "Spazio insufficiente su questo dispositivo",
+        "interrupted": "Il download si è fermato, puoi riprenderlo"
+    },
+    "age": {
+        "years": {
+            "one": "{count} anno",
+            "other": "{count} anni"
+        },
+        "range": {
+            "one": "{min}-{max} anni",
+            "other": "{min}-{max} anni"
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "A minha família",
+        "edit": "Editar",
+        "guestVoices": "Vozes convidadas",
+        "guestHint": "Familiares de outras famílias que gravaram falas para ti.",
+        "guestVoice": "Voz convidada",
+        "manage": "Gerir",
+        "add": "Adicionar um familiar",
+        "storage": "Armazenamento offline",
+        "sharing": "Partilha entre famílias",
+        "devices": "Dispositivos",
+        "feedback": "Opiniões dos testadores"
+    },
+    "edit": {
+        "title": "Editar",
+        "missing": "Este familiar já não existe."
+    },
+    "add": {
+        "title": "Adicionar um familiar"
+    },
+    "status": {
+        "blocked": "bloqueado",
+        "left": "saiu de casa",
+        "deceased": "falecido"
+    },
+    "devices": {
+        "title": "Dispositivos",
+        "intro": "Os dispositivos que abrem um perfil com a impressão digital ou o rosto. Remove um dispositivo perdido ou emprestado.",
+        "empty": "Nenhum dispositivo registado.",
+        "revoke": "Remover",
+        "revokeLabel": "Remover {device} de {member}",
+        "loadError": "Não foi possível carregar os dispositivos.",
+        "revokeError": "Não foi possível remover este dispositivo.",
+        "emptyHint": "Ativa a impressão digital ou o rosto num perfil para o ver aqui."
+    }
+}

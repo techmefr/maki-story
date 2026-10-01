@@ -38,6 +38,7 @@ const openMicrophone = async (): Promise<MediaStream> => {
 
 export const useRecorder = (onLimit?: (recording: IRecording | null) => void) => {
     const isRecording = ref(false)
+    const { t } = useI18n()
     const { setBusy } = useSoundCues()
     watch(isRecording, value => setBusy('recording', value))
     const elapsedMs = ref(0)
@@ -74,7 +75,7 @@ export const useRecorder = (onLimit?: (recording: IRecording | null) => void) =>
     const start = async (): Promise<boolean> => {
         errorMessage.value = ''
         if (!navigator.mediaDevices || typeof MediaRecorder === 'undefined') {
-            errorMessage.value = 'Ce navigateur ne permet pas d’enregistrer la voix.'
+            errorMessage.value = t('recorder.unsupported')
             return false
         }
         try {
@@ -116,7 +117,7 @@ export const useRecorder = (onLimit?: (recording: IRecording | null) => void) =>
             return true
         } catch (_error) {
             releaseStream()
-            errorMessage.value = 'Le micro est bloqué. Autorise-le dans les réglages du navigateur.'
+            errorMessage.value = t('recorder.micBlocked')
             return false
         }
     }

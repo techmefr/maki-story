@@ -1,0 +1,17 @@
+{
+    "title": "Opiniones de los probadores",
+    "empty": "Todavía no hay opiniones.",
+    "moods": {
+        "love": "Me encanta",
+        "ok": "Está bien",
+        "bad": "No está claro"
+    },
+    "note": "Nota",
+    "button": "Opinión",
+    "sheetTitle": "Tu opinión sobre esta pantalla",
+    "placeholder": "Lo que funciona, lo que se atasca, lo que falta...",
+    "thanks": "Gracias, anotado.",
+    "emptyHint": "Las opiniones enviadas con el botón Opinión aparecerán aquí.",
+    "mood": "Tu estado de ánimo",
+    "label": "Tu opinión"
+}

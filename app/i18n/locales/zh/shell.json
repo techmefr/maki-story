@@ -1,0 +1,27 @@
+{
+    "nav": {
+        "library": "书库",
+        "messages": "消息",
+        "family": "家人"
+    },
+    "profile": {
+        "open": "我的资料"
+    },
+    "offline": {
+        "banner": "没有网络：只能看已下载的书。",
+        "downloading": "正在下载 {done}/{total}",
+        "available": "可离线使用 · {size}",
+        "remove": "删除下载",
+        "resume": "继续下载",
+        "download": "下载"
+    },
+    "bytes": {
+        "b": "{value} B",
+        "kb": "{value} KB",
+        "mb": "{value} MB",
+        "gb": "{value} GB"
+    },
+    "skip": "跳到内容",
+    "mainNav": "主导航",
+    "newBadge": "新"
+}

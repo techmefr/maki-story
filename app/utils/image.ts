@@ -13,7 +13,7 @@ export const encodeCanvas = async (canvas: HTMLCanvasElement): Promise<Blob> => 
     }
     const jpeg = await toBlob(canvas, 'image/jpeg', JPEG_FALLBACK_QUALITY)
     if (!jpeg) {
-        throw new Error('Compression impossible')
+        throw new Error('Compression failed')
     }
     return jpeg
 }
@@ -26,7 +26,7 @@ export const compressImage = async (file: File): Promise<Blob> => {
     canvas.height = Math.round(bitmap.height * ratio)
     const context = canvas.getContext('2d')
     if (!context) {
-        throw new Error('Canvas indisponible')
+        throw new Error('Canvas unavailable')
     }
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
     return encodeCanvas(canvas)

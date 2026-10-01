@@ -1,0 +1,45 @@
+{
+    "title": "Biblioteca",
+    "listen": "Escuchar",
+    "messagesWaiting": {
+        "one": "Te espera un mensaje",
+        "other": "Te esperan {count} mensajes"
+    },
+    "newBook": "Nuevo libro",
+    "newBookOffline": "Nuevo libro (se necesita conexión)",
+    "createAi": "Crear un cuento con IA",
+    "noMatch": "Ningún libro coincide",
+    "empty": "Todavía no hay libros",
+    "emptyHint": "Fotografía las páginas de un libro en papel, recorta las frases y colorea las voces.",
+    "rows": {
+        "review": "Propuestas por revisar",
+        "recording": "En grabación",
+        "toRecord": "Por grabar",
+        "all": "Todos nuestros libros"
+    },
+    "storage": {
+        "title": "Almacenamiento sin conexión",
+        "unavailable": "El espacio utilizado no está disponible en este dispositivo",
+        "usage": "{used} usados de {quota}",
+        "downloaded": "Libros descargados: {size}",
+        "incomplete": "incompleto",
+        "keep": "Conservar los datos en este dispositivo",
+        "protected": "Almacenamiento protegido",
+        "empty": "No hay libros descargados. Descarga un libro desde la biblioteca para escucharlo sin conexión.",
+        "removeOne": "Eliminar {title}",
+        "removeAll": "Eliminar todo",
+        "emptyTitle": "Ningún libro descargado",
+        "emptyHint": "Descarga un libro desde la biblioteca para escucharlo sin conexión."
+    },
+    "grimace": {
+        "title": "¡Tu mueca!",
+        "help": "Haz una mueca que nadie más haga: el niño te reconocerá enseguida.",
+        "later": "Más tarde",
+        "saveFailed": "No se puede guardar la foto por ahora."
+    },
+    "grimaceNudge": {
+        "title": "¡Haz tu mueca!",
+        "text": "Una foto graciosa para que el niño te reconozca."
+    },
+    "noMatchHint": "Prueba con otras palabras o quita un filtro."
+}

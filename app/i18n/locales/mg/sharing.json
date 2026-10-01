@@ -1,0 +1,78 @@
+{
+    "title": "Fizarana eo amin’ny fianakaviana",
+    "invite": {
+        "title": "Kaody fanasana",
+        "help": "Omeo fianakaviana hafa ity kaody ity mba hahafahany mandefa boky aminao na mangataka aminao handrakitra ny feonao.",
+        "codeLabel": "Kaody fanasan’ny fianakaviana",
+        "revoked": "Tsy mandeha ny kaody. Havaozy mba hanasa indray.",
+        "renew": "Havaozy ny kaody",
+        "disable": "Atsaharo"
+    },
+    "approvals": {
+        "title": "Hekena"
+    },
+    "approve": "Ekeo",
+    "decline": "Lavo",
+    "incoming": {
+        "title": "Voaray"
+    },
+    "whoRecords": "Iza no handrakitra?",
+    "allAdults": "Ny olon-dehibe rehetra ao amin’ny fianakaviana",
+    "accept": "Raiso",
+    "recordMyVoice": "Handrakitra ny feoko",
+    "stopShare": "Atsaharo ity fizarana ity",
+    "outgoing": {
+        "title": "Alefa"
+    },
+    "noOutgoing": "Tsy mbola nisy fizarana nalefa. Ampiasao ny bokotra Zarao amin’ny boky iray ao amin’ny tranombokatra.",
+    "stop": "Atsaharo",
+    "status": {
+        "proposed": "Miandry ny fankatoavan’ny ray aman-dreny",
+        "awaiting_owner": "Miandry ny fanekem-be an’ny tompon’ny boky",
+        "pending": "Miandry valiny",
+        "accepted": "Voaray",
+        "declined": "Nolavina",
+        "revoked": "Natsahatra"
+    },
+    "mode": {
+        "record": {
+            "one": "handrakitra andalana {count}",
+            "other": "handrakitra andalana {count}"
+        },
+        "copy": "dika ao amin’ny tranombokatra"
+    },
+    "approvalLabel": "Te hizara ity boky ity amin’ny {family} i {name} ({mode}).",
+    "proposerFallback": "Havana iray",
+    "incomingLabel": "{family}: {mode}. {status}.",
+    "outgoingLabel": "Ho an’ny {family}: {mode}. {status}.",
+    "actionFailed": "Tsy azo natao amin’izao fotoana izao io hetsika io.",
+    "detail": {
+        "help": "Alaharo ny feonao ho an’ireo andalana angatahina. Afaka mihaino indray ianao alohan’ny handefasana.",
+        "narrator": "Mpitantara",
+        "narratorLower": "mpitantara",
+        "lineAria": "Andalan’i {name}",
+        "sent": "Alefa",
+        "listenAgain": "Henoy indray",
+        "redo": "Avereno",
+        "record": "Haka feo",
+        "unavailable": "Tsy azo ampiasaina ity fizarana ity.",
+        "sendFailed": "Tsy nahomby ny fandefasana. Andramo indray afaka kelikely."
+    },
+    "dialog": {
+        "title": "Zaraho ny « {title} »",
+        "code": "Kaody ny fianakaviana",
+        "how": "Ahoana no hizarana?",
+        "modeRecord": "Handrakitra ny feoko ho an’ity boky ity",
+        "modeCopy": "Adikao ao amin’ny tranombokatrany",
+        "linesToRecord": "Andalana horakofana",
+        "line": "{character}: {text}",
+        "note": "Teny kely (tsy voatery)",
+        "sentTo": "Alefa any amin’ny fianakaviana {name}.",
+        "needsApproval": "Voatahiry: tsy maintsy ekena ny ray aman-dreny aloha vao alefa.",
+        "notFound": "Tsy mifanaraka amin’ny fianakaviana iray ity kaody ity.",
+        "conflict": "Efa zaraina toy izany ity boky ity, na tonga tamin’ny isa ambony indrindra amin’ny fianakaviana.",
+        "tooMany": "Be loatra ny andrana. Andramo indray afaka minitra vitsy.",
+        "forbidden": "Tsy afaka mizara ity boky ity ny mombamomba anao.",
+        "failed": "Tsy afaka nalefa ny fizarana."
+    }
+}

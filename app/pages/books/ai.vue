@@ -1,84 +1,84 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/home" class="muted">Annuler</NuxtLink>
-        <h1 class="title">Créer une histoire avec l’IA</h1>
-        <p v-if="!isParent" class="card" role="alert">Seuls les parents peuvent créer une histoire avec l’IA.</p>
+        <NuxtLink to="/home" class="muted">{{ t('common.cancel') }}</NuxtLink>
+        <h1 class="title">{{ t('ai.page.title') }}</h1>
+        <p v-if="!isParent" class="card" role="alert">{{ t('ai.page.parentsOnly') }}</p>
         <template v-else>
-            <AiNotice text="L’histoire et les images sont inventées par l’IA. Elle arrive cachée dans « À valider » : les enfants ne la voient qu’après ta validation." />
+            <AiNotice :text="t('ai.page.notice')" />
             <AiQuota />
-            <p v-if="isUnavailable" class="error" role="alert">{{ AI_UNAVAILABLE_MESSAGE }}</p>
+            <p v-if="isUnavailable" class="error" role="alert">{{ t(AI_UNAVAILABLE_KEY) }}</p>
             <div v-if="result" class="card stack" role="status" data-testid="ai-result">
-                <h2 class="subtitle">Brouillon créé</h2>
-                <p>Il t’attend dans la rangée « À valider » de la bibliothèque. Relis-le, puis valide-le.</p>
+                <h2 class="subtitle">{{ t('ai.page.draftCreated') }}</h2>
+                <p>{{ t('ai.page.draftBody') }}</p>
                 <p v-if="result.imagesSkipped > 0" class="error" data-testid="ai-images-skipped">
                     {{ skippedLabel }}
                 </p>
-                <NuxtLink to="/home" class="btn btn--block">Voir dans la bibliothèque</NuxtLink>
-                <button type="button" class="btn btn--white btn--block" @click="restart">Créer une autre histoire</button>
+                <NuxtLink to="/home" class="btn btn--block">{{ t('ai.page.seeLibrary') }}</NuxtLink>
+                <button type="button" class="btn btn--white btn--block" @click="restart">{{ t('ai.page.another') }}</button>
             </div>
             <form v-else-if="step === 'idea'" class="stack" @submit.prevent="toSheet">
                 <label class="stack" style="gap: 6px">
-                    <span class="label">Ton idée d’histoire</span>
-                    <textarea v-model="idea" class="input" maxlength="600" required placeholder="Un petit zébu qui a peur de l’orage…" />
+                    <span class="label">{{ t('ai.page.idea') }}</span>
+                    <textarea v-model="idea" class="input" maxlength="600" required :placeholder="t('ai.page.ideaPlaceholder')" />
                 </label>
                 <label class="stack" style="gap: 6px">
-                    <span class="label">Langue de l’histoire</span>
+                    <span class="label">{{ t('ai.page.storyLanguage') }}</span>
                     <select v-model="language" class="input">
                         <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
                     </select>
                 </label>
                 <div class="row">
                     <label class="stack grow" style="gap: 6px">
-                        <span class="label">Âge minimum</span>
+                        <span class="label">{{ t('ai.page.ageMin') }}</span>
                         <select v-model="ageMin" class="input">
-                            <option :value="null">Tous</option>
-                            <option v-for="age in AGES" :key="age" :value="age">{{ age }} ans</option>
+                            <option :value="null">{{ t('ai.page.allAges') }}</option>
+                            <option v-for="age in AGES" :key="age" :value="age">{{ t('books.age.years', { count: age }) }}</option>
                         </select>
                     </label>
                     <label class="stack grow" style="gap: 6px">
-                        <span class="label">Âge maximum</span>
+                        <span class="label">{{ t('ai.page.ageMax') }}</span>
                         <select v-model="ageMax" class="input">
-                            <option :value="null">Tous</option>
-                            <option v-for="age in AGES" :key="age" :value="age">{{ age }} ans</option>
+                            <option :value="null">{{ t('ai.page.allAges') }}</option>
+                            <option v-for="age in AGES" :key="age" :value="age">{{ t('books.age.years', { count: age }) }}</option>
                         </select>
                     </label>
                 </div>
                 <label class="stack" style="gap: 6px">
-                    <span class="label">Nombre de pages</span>
+                    <span class="label">{{ t('ai.page.pageCount') }}</span>
                     <input v-model.number="pageCount" class="input" type="number" min="1" :max="MAX_AI_PAGES" required />
                 </label>
                 <label class="stack" style="gap: 6px">
-                    <span class="label">Décris le héros (facultatif)</span>
-                    <input v-model="hero" class="input" placeholder="Un zébu brun avec une écharpe rouge" />
+                    <span class="label">{{ t('ai.page.hero') }}</span>
+                    <input v-model="hero" class="input" :placeholder="t('ai.page.heroPlaceholder')" />
                 </label>
                 <p v-if="ageProblem" class="error" role="alert">{{ ageProblem }}</p>
-                <button type="submit" class="btn btn--block" :disabled="isUnavailable || isExhausted || ageProblem !== '' || idea.trim() === ''">Suivant</button>
+                <button type="submit" class="btn btn--block" :disabled="isUnavailable || isExhausted || ageProblem !== '' || idea.trim() === ''">{{ t('common.next') }}</button>
             </form>
             <div v-else class="stack">
-                <h2 class="subtitle">Les personnages</h2>
+                <h2 class="subtitle">{{ t('ai.page.sheetTitle') }}</h2>
                 <p class="muted">
-                    Cette fiche reste la même sur toutes les pages, pour que les personnages gardent le même aspect. Modifie-la si besoin.
+                    {{ t('ai.page.sheetIntro') }}
                 </p>
-                <div v-for="(character, index) in sheet" :key="index" class="card stack" role="group" :aria-label="`Personnage ${index + 1}`">
+                <div v-for="(character, index) in sheet" :key="index" class="card stack" role="group" :aria-label="t('ai.page.characterLabel', { n: index + 1 })">
                     <label class="stack" style="gap: 6px">
-                        <span class="label">Nom</span>
+                        <span class="label">{{ t('ai.page.name') }}</span>
                         <input v-model="character.name" class="input" />
                     </label>
                     <label class="stack" style="gap: 6px">
-                        <span class="label">Description</span>
-                        <input v-model="character.description" class="input" placeholder="Petit, brun, écharpe rouge" />
+                        <span class="label">{{ t('ai.page.description') }}</span>
+                        <input v-model="character.description" class="input" :placeholder="t('ai.page.descriptionPlaceholder')" />
                     </label>
-                    <button type="button" class="btn btn--white btn--small" :aria-label="`Retirer le personnage ${index + 1}`" @click="sheet.splice(index, 1)">
-                        Retirer
+                    <button type="button" class="btn btn--white btn--small" :aria-label="t('ai.page.removeLabel', { n: index + 1 })" @click="sheet.splice(index, 1)">
+                        {{ t('ai.page.remove') }}
                     </button>
                 </div>
-                <button type="button" class="btn btn--white btn--small" @click="sheet.push({ name: '', description: '' })">Ajouter un personnage</button>
-                <p v-if="isBusy" class="muted" role="status">Écriture de l’histoire et des images, cela peut prendre quelques minutes…</p>
+                <button type="button" class="btn btn--white btn--small" @click="sheet.push({ name: '', description: '' })">{{ t('ai.page.add') }}</button>
+                <p v-if="isBusy" class="muted" role="status">{{ t('ai.page.busyNote') }}</p>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
                 <button type="button" class="btn btn--block" :disabled="isBusy" @click="generate">
-                    {{ isBusy ? 'Génération en cours…' : 'Générer l’histoire' }}
+                    {{ isBusy ? t('ai.page.generating') : t('ai.page.generate') }}
                 </button>
-                <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="step = 'idea'">Retour</button>
+                <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="step = 'idea'">{{ t('common.back') }}</button>
             </div>
         </template>
     </div>
@@ -94,6 +94,7 @@ interface ISheetEntry {
     description: string
 }
 
+const { t } = useI18n()
 const { isParent } = useCurrentMember()
 const { generateBook, refreshStatus, isExhausted, isUnavailable } = useAi()
 const { load } = useBooks()
@@ -111,11 +112,10 @@ const errorMessage = ref('')
 const result = ref<IAiBookGenerationResult | null>(null)
 
 const ageProblem = computed(() => {
-    return ageMin.value !== null && ageMax.value !== null && ageMin.value > ageMax.value ? 'L’âge minimum doit être inférieur à l’âge maximum.' : ''
+    return ageMin.value !== null && ageMax.value !== null && ageMin.value > ageMax.value ? t('ai.page.ageProblem') : ''
 })
 const skippedLabel = computed(() => {
-    const count = result.value?.imagesSkipped ?? 0
-    return `${count} ${count > 1 ? 'images n’ont pas pu être créées' : 'image n’a pas pu être créée'} : les pages concernées sont vides. Tu peux les compléter plus tard.`
+    return t('ai.page.skipped', { count: result.value?.imagesSkipped ?? 0 })
 })
 
 const toSheet = (): void => {
@@ -130,8 +130,8 @@ const toSheet = (): void => {
 const buildIdea = (): string => {
     const characters = sheet.value
         .filter(entry => entry.name.trim() !== '' || entry.description.trim() !== '')
-        .map(entry => `${entry.name.trim() || 'Personnage'} : ${entry.description.trim()}`)
-    const suffix = characters.length > 0 ? `\nPersonnages à garder identiques sur toutes les pages :\n${characters.join('\n')}` : ''
+        .map(entry => t('ai.page.promptEntry', { name: entry.name.trim() || t('ai.page.promptDefaultName'), description: entry.description.trim() }))
+    const suffix = characters.length > 0 ? `\n${t('ai.page.promptKeepSame')}\n${characters.join('\n')}` : ''
     return `${idea.value.trim()}${suffix}`.slice(0, MAX_IDEA_CHARS)
 }
 
@@ -149,7 +149,7 @@ const generate = async (): Promise<void> => {
         await load()
     } catch (error) {
         console.error('La génération n a pas abouti', error)
-        errorMessage.value = aiErrorMessage(error)
+        errorMessage.value = t(aiErrorKey(error))
     } finally {
         isBusy.value = false
         await refreshStatus()

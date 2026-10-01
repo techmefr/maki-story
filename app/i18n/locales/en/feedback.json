@@ -1,0 +1,17 @@
+{
+    "title": "Tester feedback",
+    "empty": "No feedback yet.",
+    "moods": {
+        "love": "I love it",
+        "ok": "It’s OK",
+        "bad": "Unclear"
+    },
+    "note": "Note",
+    "button": "Feedback",
+    "sheetTitle": "What you think of this screen",
+    "placeholder": "What works, what’s stuck, what’s missing...",
+    "thanks": "Thanks, noted.",
+    "emptyHint": "Feedback sent with the Feedback button will appear here.",
+    "mood": "Your mood",
+    "label": "Your feedback"
+}

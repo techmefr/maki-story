@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a class="skip-link" href="#main">Aller au contenu</a>
+        <a class="skip-link" href="#main">{{ t('shell.skip') }}</a>
         <div class="app">
             <AppHeader />
             <main id="main" tabindex="-1">
@@ -14,5 +14,6 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const { isChild } = useCurrentMember()
 </script>

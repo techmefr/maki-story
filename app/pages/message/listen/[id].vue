@@ -6,7 +6,7 @@
             <WaveBars :is-active="isPlaying" color="#1F1B3A" />
             <div class="progress" style="width: 100%"><div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" /></div>
             <template v-if="isEnded">
-                <div class="subtitle">C’est fini</div>
+                <div class="subtitle">{{ t('messages.listen.finished') }}</div>
                 <NuxtLink
                     v-if="nextMessage"
                     :to="`/message/listen/${nextMessage.id}`"
@@ -17,24 +17,25 @@
                     <AppIcon name="volume" :size="32" motion="pulse" />
                     {{ nextLabel }}
                 </NuxtLink>
-                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />Répondre</NuxtLink>
+                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />{{ t('messages.listen.reply') }}</NuxtLink>
             </template>
             <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
                 <AppIcon name="play" :size="32" motion="pulse" />
-                Écouter
+                {{ t('messages.listen.play') }}
             </button>
         </template>
         <template v-else-if="isMissing">
             <AppMaki :size="100" />
-            <div class="subtitle">Ce message a déjà été écouté</div>
+            <div class="subtitle">{{ t('messages.listen.alreadyHeard') }}</div>
         </template>
-        <NuxtLink :to="backPath" class="btn btn--white btn--small"><AppIcon name="close" :size="18" />Fermer</NuxtLink>
+        <NuxtLink :to="backPath" class="btn btn--white btn--small"><AppIcon name="close" :size="18" />{{ t('common.close') }}</NuxtLink>
     </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({ layout: 'blank', key: route => route.fullPath })
 
+const { t } = useI18n()
 const route = useRoute()
 const { getById } = useMembers()
 const { current, currentId, isChild } = useCurrentMember()
@@ -57,7 +58,7 @@ const waiting = computed(() => {
     return heard && currentId.value ? queueFrom(heard.fromMemberId, currentId.value).filter(item => item.id !== heard.id) : []
 })
 const nextMessage = computed(() => waiting.value[0] ?? null)
-const nextLabel = computed(() => (waiting.value.length > 1 ? `Message suivant (${waiting.value.length} en attente)` : 'Message suivant'))
+const nextLabel = computed(() => (waiting.value.length > 1 ? t('messages.listen.nextWaiting', { count: waiting.value.length }) : t('messages.listen.next')))
 const percent = computed(() => {
     const total = message.value?.durationMs ?? 0
     return total > 0 ? `${Math.min(100, Math.round((player.positionMs.value / total) * 100))}%` : '0%'

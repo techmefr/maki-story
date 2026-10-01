@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "Mi familia",
+        "edit": "Editar",
+        "guestVoices": "Voces invitadas",
+        "guestHint": "Familiares de otras familias que han grabado frases para ti.",
+        "guestVoice": "Voz invitada",
+        "manage": "Gestionar",
+        "add": "Añadir un familiar",
+        "storage": "Almacenamiento sin conexión",
+        "sharing": "Compartir entre familias",
+        "devices": "Dispositivos",
+        "feedback": "Opiniones de los probadores"
+    },
+    "edit": {
+        "title": "Editar",
+        "missing": "Este familiar ya no existe."
+    },
+    "add": {
+        "title": "Añadir un familiar"
+    },
+    "status": {
+        "blocked": "bloqueado",
+        "left": "ha dejado el hogar",
+        "deceased": "fallecido"
+    },
+    "devices": {
+        "title": "Dispositivos",
+        "intro": "Los dispositivos que abren un perfil con la huella o la cara. Quita un dispositivo perdido o prestado.",
+        "empty": "Ningún dispositivo registrado.",
+        "revoke": "Quitar",
+        "revokeLabel": "Quitar {device} de {member}",
+        "loadError": "No se pudieron cargar los dispositivos.",
+        "revokeError": "No se pudo quitar este dispositivo.",
+        "emptyHint": "Activa la huella o el rostro en un perfil para verlo aquí."
+    }
+}

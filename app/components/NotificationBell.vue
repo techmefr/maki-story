@@ -1,17 +1,18 @@
 <template>
     <NuxtLink v-if="isVisible" to="/notifications" class="bell" :aria-label="label">
         <AppIcon name="sparkles" :size="26" />
-        <span v-if="unreadCount > 0" class="bell__count" aria-hidden="true">{{ unreadCount > 9 ? '9+' : unreadCount }}</span>
+        <span v-if="unreadCount > 0" class="bell__count" aria-hidden="true">{{ unreadCount > 9 ? `${formatNumber(9)}+` : formatNumber(unreadCount) }}</span>
     </NuxtLink>
 </template>
 
 <script setup lang="ts">
+const { t, formatNumber } = useI18n()
 const route = useRoute()
 const { current } = useCurrentMember()
 const { unreadCount, load } = useNotifications()
 
 const isVisible = computed(() => current.value !== null && current.value.role !== 'child')
-const label = computed(() => (unreadCount.value > 0 ? `Notifications, ${unreadCount.value} non lue${unreadCount.value > 1 ? 's' : ''}` : 'Notifications'))
+const label = computed(() => (unreadCount.value > 0 ? t('notifications.bellUnread', { count: unreadCount.value }) : t('notifications.title')))
 
 const refresh = async (): Promise<void> => {
     if (isVisible.value) {
@@ -41,7 +42,7 @@ watch(() => [route.path, current.value?.id], refresh)
 .bell__count {
     position: absolute;
     top: -8px;
-    right: -8px;
+    inset-inline-end: -8px;
     min-width: 22px;
     height: 22px;
     padding: 0 5px;

@@ -4,21 +4,21 @@
             <div class="subtitle">{{ title }}</div>
             <div class="muted">{{ typeLabel }} · {{ languageLabel(language) }}</div>
             <div class="row" style="justify-content: space-between">
-                <span class="subtitle">{{ pages.length }} {{ pages.length > 1 ? 'pages' : 'page' }}</span>
-                <span class="subtitle">{{ isWordless ? 'Sans texte' : `${lines.length} répliques` }}</span>
+                <span class="subtitle">{{ t('bookDraft.review.pages', { count: pages.length }) }}</span>
+                <span class="subtitle">{{ isWordless ? t('bookDraft.book.typeWordless') : t('bookDraft.lines.count', { count: lines.length }) }}</span>
             </div>
             <template v-if="isSimple">
                 <div v-if="reader && !isWordless" class="row">
                     <AppAvatar :member="reader" :size="36" />
-                    <div class="grow label">{{ reader.name }} lit tout le livre</div>
+                    <div class="grow label">{{ t('bookDraft.review.readsAll', { name: reader.name }) }}</div>
                 </div>
             </template>
             <template v-else-if="!isWordless">
                 <div v-for="character in usedCharacters" :key="character.key" class="row">
                     <AppAvatar :member="getById(character.memberId)" :size="36" />
                     <div class="grow">
-                        <div class="label">{{ character.name }}{{ character.isNarrator ? ' (narrateur)' : '' }}</div>
-                        <div class="muted">{{ getById(character.memberId)?.name ?? 'Voix à choisir' }}</div>
+                        <div class="label">{{ character.isNarrator ? t('bookDraft.review.narratorName', { name: character.name }) : character.name }}</div>
+                        <div class="muted">{{ getById(character.memberId)?.name ?? t('bookDraft.review.pickVoice') }}</div>
                     </div>
                     <span class="badge">{{ countOf(character.key) }}</span>
                 </div>
@@ -27,19 +27,20 @@
         <div v-if="problem" class="error" role="alert">{{ problem }}</div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <button type="button" class="btn btn--block" :disabled="problem !== '' || isBusy" @click="save">
-            {{ isBusy ? 'Enregistrement…' : 'Passer au studio' }}
+            {{ isBusy ? t('bookDraft.review.saving') : t('bookDraft.review.toStudio') }}
         </button>
     </div>
 </template>
 
 <script setup lang="ts">
-const TYPE_LABELS: Record<BookType, string> = {
-    standard: 'Livre',
-    comic: 'Bande dessinée',
-    wordless: 'Sans texte',
-    'child-written': 'Écrit par l’enfant',
+const TYPE_KEYS: Record<BookType, string> = {
+    standard: 'bookDraft.book.typeStandard',
+    comic: 'bookDraft.book.typeComic',
+    wordless: 'bookDraft.book.typeWordless',
+    'child-written': 'bookDraft.book.typeChild',
 }
 
+const { t } = useI18n()
 const {
     title,
     language,
@@ -66,23 +67,23 @@ const isBusy = ref(false)
 const errorMessage = ref('')
 
 const reader = computed(() => getById(readerId.value))
-const typeLabel = computed(() => TYPE_LABELS[type.value])
+const typeLabel = computed(() => t(TYPE_KEYS[type.value]))
 const countOf = (key: number): number => lines.value.filter(line => effectiveCharacterKey(line) === key).length
 
 const problem = computed(() => {
     if (title.value.trim() === '') {
-        return 'Donne un titre au livre.'
+        return t('bookDraft.book.errTitle')
     }
     if (!isWordless.value && lines.value.length === 0) {
-        return 'Ajoute au moins une réplique.'
+        return t('bookDraft.review.errLines')
     }
     if (!isSimple.value && !isWordless.value) {
         const names = characters.value.map(character => character.name.trim().toLowerCase())
         if (names.some(name => name === '') || new Set(names).size !== names.length) {
-            return 'Chaque personnage a besoin d’un nom différent.'
+            return t('bookDraft.review.errNames')
         }
         if (voicelessCharacters.value.length > 0) {
-            return `Choisis une voix pour : ${voicelessCharacters.value.map(character => character.name).join(', ')}.`
+            return t('bookDraft.review.errVoiceless', { names: voicelessCharacters.value.map(character => character.name).join(', ') })
         }
     }
     return ''
@@ -111,7 +112,7 @@ const save = async (): Promise<void> => {
         await navigateTo(`/books/${created.id}/studio`)
     } catch (error) {
         console.error('Le livre n a pas pu être enregistré', error)
-        errorMessage.value = apiErrorMessage(error, 'Impossible d’enregistrer le livre pour le moment.')
+        errorMessage.value = apiErrorMessage(error, t('bookDraft.review.saveFailed'))
     } finally {
         isBusy.value = false
     }

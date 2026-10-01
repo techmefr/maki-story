@@ -1,38 +1,39 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/sharing" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/sharing" class="muted">{{ t('common.back') }}</NuxtLink>
         <template v-if="book">
             <h1 class="title">{{ book.title }}</h1>
-            <p class="muted">Enregistre ta voix pour les répliques demandées. Tu peux réécouter avant d’envoyer.</p>
-            <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="`Réplique de ${line.character || 'narrateur'}`">
+            <p class="muted">{{ t('sharing.detail.help') }}</p>
+            <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="t('sharing.detail.lineAria', { name: line.character || t('sharing.detail.narratorLower') })">
                 <div class="row">
-                    <span class="badge">{{ line.character || 'Narrateur' }}</span>
-                    <span v-if="line.hasRecording" class="badge" style="background: #4cd4a8">Envoyée</span>
+                    <span class="badge">{{ line.character || t('sharing.detail.narrator') }}</span>
+                    <span v-if="line.hasRecording" class="badge" style="background: #4cd4a8">{{ t('sharing.detail.sent') }}</span>
                 </div>
                 <p>{{ line.text }}</p>
                 <p v-if="line.tone || line.note || line.sceneDescription" class="muted">{{ hint(line) }}</p>
                 <template v-if="activeId === line.id">
                     <div class="row row--wrap">
-                        <button v-if="isRecording" type="button" class="btn btn--coral btn--small" @click="stopRecording">Arrêter</button>
+                        <button v-if="isRecording" type="button" class="btn btn--coral btn--small" @click="stopRecording">{{ t('messages.compose.stop') }}</button>
                         <template v-else-if="take">
-                            <button type="button" class="btn btn--white btn--small" @click="listen">Réécouter</button>
-                            <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="send(line)">Envoyer</button>
-                            <button type="button" class="btn btn--white btn--small" @click="discard">Annuler</button>
+                            <button type="button" class="btn btn--white btn--small" @click="listen">{{ t('sharing.detail.listenAgain') }}</button>
+                            <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="send(line)">{{ t('common.send') }}</button>
+                            <button type="button" class="btn btn--white btn--small" @click="discard">{{ t('common.cancel') }}</button>
                         </template>
                     </div>
                 </template>
                 <button v-else type="button" class="btn btn--small" :disabled="isRecording" @click="startRecording(line)">
-                    {{ line.hasRecording ? 'Refaire' : 'Enregistrer' }}
+                    {{ line.hasRecording ? t('sharing.detail.redo') : t('sharing.detail.record') }}
                 </button>
             </article>
         </template>
-        <p v-else-if="!errorMessage" class="muted">Chargement…</p>
+        <p v-else-if="!errorMessage" class="muted">{{ t('common.loading') }}</p>
         <p v-if="recorderError" class="error" role="alert">{{ recorderError }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </div>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const route = useRoute()
 const { getBook, putLine } = useShares()
 const { upload } = useFiles()
@@ -51,7 +52,7 @@ const load = async (): Promise<void> => {
     try {
         book.value = await getBook(shareId)
     } catch (_error) {
-        errorMessage.value = 'Ce partage n’est pas disponible.'
+        errorMessage.value = t('sharing.detail.unavailable')
     }
 }
 
@@ -92,7 +93,7 @@ const send = async (line: IShareLine): Promise<void> => {
         discard()
         await load()
     } catch (_error) {
-        errorMessage.value = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'
+        errorMessage.value = t('sharing.detail.sendFailed')
     } finally {
         isBusy.value = false
     }

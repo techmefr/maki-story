@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "Das Buch",
+        "stepPages": "Die Seiten",
+        "stepCharacters": "Die Figuren",
+        "stepLines": "Die Sätze",
+        "stepReview": "Prüfen",
+        "voiceCount": "Anzahl der Stimmen",
+        "oneVoice": "Eine Stimme",
+        "severalVoices": "Mehrere Stimmen",
+        "aiNotice": "Figuren, Sätze und Tonlagen stammen von der KI und können Fehler enthalten. Lies jeden Schritt noch einmal durch, bevor du speicherst."
+    },
+    "shared": {
+        "page": "Seite {n}",
+        "cover": "Umschlag",
+        "emptyPage": "Leere Seite",
+        "panel": "Bild {n}"
+    },
+    "book": {
+        "title": "Titel des Buchs",
+        "titlePlaceholder": "Das Zebu, das fliegen wollte",
+        "type": "Art des Buchs",
+        "typeStandard": "Buch",
+        "typeComic": "Comic",
+        "typeWordless": "Ohne Text",
+        "typeChild": "Vom Kind geschrieben",
+        "hintStandard": "Ein klassisches Bilderbuch, Seite für Seite gelesen.",
+        "hintComic": "Mehrere Bilder pro Seite, jedes mit seinen Sätzen in der richtigen Reihenfolge.",
+        "hintWordless": "Nur Bilder: keine Sätze aufzunehmen.",
+        "hintChild": "Schreib die Sätze des Kindes genau so ab, wie es sie geschrieben hat.",
+        "language": "Sprache des Buchs",
+        "reader": "Wer liest das ganze Buch?",
+        "more": "Mehr Details (optional)",
+        "subtitle": "Untertitel",
+        "author": "Autor",
+        "authorChild": "Autor (das Kind)",
+        "illustrator": "Illustrator",
+        "ageMin": "Mindestalter",
+        "ageMax": "Höchstalter",
+        "tts": "Den Titel mit einer Computerstimme vorlesen, bis er aufgenommen ist",
+        "errTitle": "Gib dem Buch einen Titel.",
+        "errReader": "Wähle aus, wer das Buch liest.",
+        "errAge": "Das Mindestalter muss kleiner als das Höchstalter sein."
+    },
+    "pages": {
+        "intro": "Fotografiere jede Seite des Buchs. Diese Fotos bleiben privat in der Familie und werden dem Kind nie gezeigt.",
+        "takePhoto": "Eine Seite fotografieren",
+        "addPage": "Seite hinzufügen",
+        "addEmpty": "Leere Seite hinzufügen",
+        "sending": "Fotos werden gesendet…",
+        "photoFailed": "Ein Foto konnte nicht gesendet werden. Versuch es noch einmal.",
+        "removePage": "Seite {n} entfernen",
+        "emptyNote": "Diese Seite hat kein Bild: sie wird beim Anhören übersprungen.",
+        "ttsFallback": "Computerstimme, wenn niemand sie liest",
+        "describe": "Beschreibe das Bild der Seite (optional)",
+        "describePlaceholder": "Ein kleines Zebu am Ufer eines Sees…",
+        "panelPlaceholder": "Was man im Bild sieht",
+        "removePanel": "Bild {panel} von Seite {page} entfernen",
+        "addPanel": "Bild hinzufügen",
+        "needsPhoto": "Für diese Art von Buch braucht es mindestens eine Seite als Foto.",
+        "continueNoPhoto": "Ohne Foto weiter"
+    },
+    "characters": {
+        "intro": "Lege jede Figur nur einmal an: Danach findest du sie bei jedem Satz mit einem Tippen. Wähle aus, wer ihre Stimme liest.",
+        "groupLabel": "Figur {name}",
+        "name": "Name",
+        "remove": "{name} entfernen",
+        "colors": "Farbe",
+        "colorLabel": "Farbe {color}",
+        "coral": "Koralle",
+        "sun": "Sonne",
+        "mint": "Minze",
+        "sky": "Himmel",
+        "grape": "Traube",
+        "pink": "Rosa",
+        "description": "Beschreibung (optional)",
+        "descriptionPlaceholder": "Ein schüchternes kleines Zebu",
+        "narrator": "Erzähler",
+        "whoReads": "Wer liest ihre Stimme?",
+        "newCharacter": "Neue Figur",
+        "newPlaceholder": "Kleines Zebu",
+        "add": "Figur hinzufügen",
+        "castHint": "{done}/{total} Figuren haben eine Stimme."
+    },
+    "lines": {
+        "introSimple": "Schreib die Sätze Seite für Seite ab. Füge einen ganzen Text auf einmal ein: ein Satz pro Zeile. Der Text dient nur zum Aufteilen: Das Kind sieht ihn nie.",
+        "introCast": "Schreib die Sätze Seite für Seite ab. Füge einen ganzen Text auf einmal ein: ein Satz pro Zeile, oder „Name: Satz“, um die Figur zu wechseln. Der Text dient nur zum Aufteilen: Das Kind sieht ihn nie.",
+        "emptyNote": "Leere Seite: nichts aufzunehmen, sie wird beim Anhören übersprungen.",
+        "image": "Bild: {description}",
+        "panelWithDescription": "Bild {n}: {description}",
+        "needOne": "Füge mindestens einen Satz hinzu, um fortzufahren.",
+        "count": {
+            "one": "{count} Satz",
+            "other": "{count} Sätze"
+        }
+    },
+    "review": {
+        "readsAll": "{name} liest das ganze Buch",
+        "narratorName": "{name} (Erzähler)",
+        "pickVoice": "Stimme auswählen",
+        "errLines": "Füge mindestens einen Satz hinzu.",
+        "errNames": "Jede Figur braucht einen eigenen Namen.",
+        "errVoiceless": "Wähle eine Stimme für: {names}.",
+        "saving": "Wird gespeichert…",
+        "toStudio": "Weiter zum Studio",
+        "saveFailed": "Das Buch kann im Moment nicht gespeichert werden.",
+        "pages": {
+            "one": "{count} Seite",
+            "other": "{count} Seiten"
+        }
+    }
+}

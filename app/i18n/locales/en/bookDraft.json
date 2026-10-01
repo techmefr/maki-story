@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "The book",
+        "stepPages": "The pages",
+        "stepCharacters": "The characters",
+        "stepLines": "The lines",
+        "stepReview": "Review",
+        "voiceCount": "Number of voices",
+        "oneVoice": "A single voice",
+        "severalVoices": "Several voices",
+        "aiNotice": "The characters, lines and tones come from the AI and may contain mistakes. Read each step again before saving."
+    },
+    "shared": {
+        "page": "Page {n}",
+        "cover": "Cover",
+        "emptyPage": "Blank page",
+        "panel": "Panel {n}"
+    },
+    "book": {
+        "title": "Book title",
+        "titlePlaceholder": "The Zebu Who Wanted to Fly",
+        "type": "Type of book",
+        "typeStandard": "Book",
+        "typeComic": "Comic",
+        "typeWordless": "Wordless",
+        "typeChild": "Written by the child",
+        "hintStandard": "A classic picture book, read page by page.",
+        "hintComic": "Panels on each page, each with its lines in order.",
+        "hintWordless": "Pictures only: no lines to record.",
+        "hintChild": "Copy the child’s sentences exactly as they wrote them.",
+        "language": "Book language",
+        "reader": "Who reads the whole book?",
+        "more": "More details (optional)",
+        "subtitle": "Subtitle",
+        "author": "Author",
+        "authorChild": "Author (the child)",
+        "illustrator": "Illustrator",
+        "ageMin": "Minimum age",
+        "ageMax": "Maximum age",
+        "tts": "Read the title with a synthetic voice until it is recorded",
+        "errTitle": "Give the book a title.",
+        "errReader": "Choose who reads the book.",
+        "errAge": "The minimum age must be lower than the maximum age."
+    },
+    "pages": {
+        "intro": "Take a photo of each page of the book. These photos stay private to the family and are never shown to the child.",
+        "takePhoto": "Take a photo of a page",
+        "addPage": "Add a page",
+        "addEmpty": "Add a blank page",
+        "sending": "Sending the photos…",
+        "photoFailed": "A photo could not be sent. Try again.",
+        "removePage": "Remove page {n}",
+        "emptyNote": "This page has no image: it will be skipped when listening.",
+        "ttsFallback": "Synthetic voice if nobody reads it",
+        "describe": "Describe the picture on the page (optional)",
+        "describePlaceholder": "A little zebu by a lake…",
+        "panelPlaceholder": "What we see in the panel",
+        "removePanel": "Remove panel {panel} from page {page}",
+        "addPanel": "Add a panel",
+        "needsPhoto": "This type of book needs at least one page as a photo.",
+        "continueNoPhoto": "Continue without a photo"
+    },
+    "characters": {
+        "intro": "Define each character only once: you will then find it in one tap for each line. Choose who reads its voice.",
+        "groupLabel": "Character {name}",
+        "name": "Name",
+        "remove": "Remove {name}",
+        "colors": "Colour",
+        "colorLabel": "Colour {color}",
+        "coral": "coral",
+        "sun": "sun",
+        "mint": "mint",
+        "sky": "sky",
+        "grape": "grape",
+        "pink": "pink",
+        "description": "Description (optional)",
+        "descriptionPlaceholder": "A shy little zebu",
+        "narrator": "Narrator",
+        "whoReads": "Who reads its voice?",
+        "newCharacter": "New character",
+        "newPlaceholder": "Little Zebu",
+        "add": "Add a character",
+        "castHint": "{done}/{total} characters have a voice."
+    },
+    "lines": {
+        "introSimple": "Copy the lines, page by page. Paste a whole text at once: one line per row. The text is only used to split things up: the child will never see it.",
+        "introCast": "Copy the lines, page by page. Paste a whole text at once: one line per row, or “Name: line” to switch character. The text is only used to split things up: the child will never see it.",
+        "emptyNote": "Blank page: nothing to record, it will be skipped when listening.",
+        "image": "Picture: {description}",
+        "panelWithDescription": "Panel {n}: {description}",
+        "needOne": "Add at least one line to continue.",
+        "count": {
+            "one": "{count} line",
+            "other": "{count} lines"
+        }
+    },
+    "review": {
+        "readsAll": "{name} reads the whole book",
+        "narratorName": "{name} (narrator)",
+        "pickVoice": "Voice to choose",
+        "errLines": "Add at least one line.",
+        "errNames": "Each character needs a different name.",
+        "errVoiceless": "Choose a voice for: {names}.",
+        "saving": "Saving…",
+        "toStudio": "Go to the studio",
+        "saveFailed": "Unable to save the book right now.",
+        "pages": {
+            "one": "{count} page",
+            "other": "{count} pages"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "title": "Messages",
+    "addChild": "Add a child to the family to send them voice messages.",
+    "sendHim": "Send them a message",
+    "needConnection": "Connection needed to send",
+    "status": {
+        "waiting": "A message is waiting for you",
+        "heard": "Listened ✓",
+        "sent": "Sent",
+        "none": "No messages"
+    },
+    "compose": {
+        "reply": "Reply to {name}",
+        "messageFor": "A message for {name}",
+        "sent": "Sent!",
+        "stop": "Stop",
+        "record": "Record",
+        "redo": "Redo",
+        "tapToFinish": "Tap to finish",
+        "tapMic": "Tap the microphone",
+        "tooShort": "Too short, try again.",
+        "sendFailed": "The message could not be sent. Try again."
+    },
+    "listen": {
+        "finished": "All done",
+        "reply": "Reply",
+        "play": "Listen",
+        "alreadyHeard": "This message has already been listened to",
+        "next": "Next message",
+        "nextWaiting": "Next message ({count} waiting)"
+    },
+    "strip": {
+        "label": "Family messages",
+        "item": {
+            "one": "{name}: {count} message to listen to",
+            "other": "{name}: {count} messages to listen to"
+        }
+    },
+    "noOneTitle": "Nobody to write to"
+}

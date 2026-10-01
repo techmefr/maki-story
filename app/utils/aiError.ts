@@ -1,23 +1,19 @@
-export const AI_UNAVAILABLE_MESSAGE = 'L’IA n’est pas configurée sur ce serveur. Cette fonction est indisponible pour l’instant.'
-export const AI_QUOTA_MESSAGE = 'Le budget IA de ce mois est épuisé. Il sera remis à zéro au début du mois prochain.'
+export const AI_UNAVAILABLE_KEY = 'ai.errors.unavailable'
+export const AI_QUOTA_KEY = 'ai.errors.quota'
 
-export const aiErrorMessage = (error: unknown): string => {
+export const aiErrorKey = (error: unknown): string => {
     const status = (error as { statusCode?: number }).statusCode
     if (status === 429) {
-        return AI_QUOTA_MESSAGE
+        return AI_QUOTA_KEY
     }
     if (status === 503) {
-        return AI_UNAVAILABLE_MESSAGE
+        return AI_UNAVAILABLE_KEY
     }
     if (status === 403) {
-        return 'Seuls les parents peuvent utiliser l’IA.'
+        return 'ai.errors.forbidden'
     }
     if (status === 502) {
-        return 'L’IA a donné une réponse inutilisable. Réessaie dans un instant.'
+        return 'ai.errors.unusable'
     }
-    return 'L’IA n’a pas pu répondre pour le moment. Réessaie plus tard.'
-}
-
-export const formatUsd = (amount: number): string => {
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)
+    return 'ai.errors.failed'
 }

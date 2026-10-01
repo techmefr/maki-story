@@ -1,0 +1,85 @@
+{
+    "notice": {
+        "label": "AI 建议。",
+        "default": "请仔细检查所有内容，需要改的地方改好之后再继续。"
+    },
+    "errors": {
+        "unavailable": "此服务器未配置 AI，该功能暂时不可用。",
+        "quota": "本月的 AI 额度已用完，下个月初会重置。",
+        "forbidden": "只有家长可以使用 AI。",
+        "unusable": "AI 给出的回答无法使用，请稍后再试。",
+        "failed": "AI 暂时无法回答，请稍后再试。"
+    },
+    "quota": {
+        "label": "本月 AI 额度：{budget} 中还剩 {remaining}。"
+    },
+    "draft": {
+        "title": "待确认",
+        "intro": "这些故事由 AI 编写。在家长确认之前，孩子看不到它们。",
+        "label": "草稿 {title}",
+        "badge": "AI 生成",
+        "meta": "{pages} 页 · {lines} 句台词 · {language}",
+        "validate": "确认",
+        "validateLabel": "确认 {title}",
+        "reject": "拒绝",
+        "rejectLabel": "拒绝 {title}",
+        "error": "暂时无法处理这份草稿。"
+    },
+    "prefill": {
+        "title": "从照片自动填写",
+        "intro": "给书页拍照（最多 4 张）。AI 会读取文字，并给出角色、台词和语气建议。保存之前，你可以在后面的步骤里检查并修改一切。",
+        "choose": "选择照片",
+        "reading": "正在读取…",
+        "uploading": "正在发送第 {n} / {total} 张照片…",
+        "aiReading": "AI 正在读取页面，可能需要一分钟…"
+    },
+    "translate": {
+        "suggestButton": "建议译文",
+        "groupLabel": "译文建议",
+        "notice": "AI 建议的译文：接受之前请先检查并修改。",
+        "translateTo": "翻译成",
+        "busy": "正在翻译…",
+        "proposed": "{language} 译文建议",
+        "accept": "接受",
+        "reject": "拒绝",
+        "suggest": "建议",
+        "removeLabel": "移除{language}译文"
+    },
+    "page": {
+        "title": "用 AI 创作故事",
+        "parentsOnly": "只有家长可以用 AI 创作故事。",
+        "notice": "故事和图片都由 AI 创作。它会先隐藏在“待确认”里：你确认之后，孩子才能看到。",
+        "draftCreated": "草稿已创建",
+        "draftBody": "它在书库的“待确认”一栏等着你。先读一读，再确认。",
+        "seeLibrary": "在书库中查看",
+        "another": "再创作一个故事",
+        "idea": "你的故事点子",
+        "ideaPlaceholder": "一头害怕雷雨的小瘤牛…",
+        "storyLanguage": "故事语言",
+        "ageMin": "最小年龄",
+        "ageMax": "最大年龄",
+        "allAges": "不限",
+        "pageCount": "页数",
+        "hero": "描述主角（可选）",
+        "heroPlaceholder": "一头围着红围巾的棕色瘤牛",
+        "ageProblem": "最小年龄必须小于最大年龄。",
+        "sheetTitle": "角色",
+        "sheetIntro": "这张角色卡在每一页都保持不变，让角色的外观前后一致。需要时可以修改。",
+        "characterLabel": "角色 {n}",
+        "name": "名字",
+        "description": "描述",
+        "descriptionPlaceholder": "个子小，棕色，红围巾",
+        "remove": "移除",
+        "removeLabel": "移除角色 {n}",
+        "add": "添加角色",
+        "busyNote": "正在创作故事和图片，可能需要几分钟…",
+        "generating": "正在生成…",
+        "generate": "生成故事",
+        "promptDefaultName": "角色",
+        "promptEntry": "{name}：{description}",
+        "promptKeepSame": "每一页都要保持一致的角色：",
+        "skipped": {
+            "other": "有 {count} 张图片没能生成：相关页面是空白的。你可以稍后再补上。"
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "index": {
+        "title": "My family",
+        "edit": "Edit",
+        "guestVoices": "Guest voices",
+        "guestHint": "Relatives from other families who recorded lines for you.",
+        "guestVoice": "Guest voice",
+        "manage": "Manage",
+        "add": "Add a family member",
+        "storage": "Offline storage",
+        "sharing": "Sharing between families",
+        "devices": "Devices",
+        "feedback": "Tester feedback"
+    },
+    "edit": {
+        "title": "Edit",
+        "missing": "This family member no longer exists."
+    },
+    "add": {
+        "title": "Add a family member"
+    },
+    "status": {
+        "blocked": "blocked",
+        "left": "left the household",
+        "deceased": "deceased"
+    },
+    "devices": {
+        "title": "Devices",
+        "intro": "The devices that open a profile with fingerprint or face. Remove a lost or lent device.",
+        "empty": "No devices registered.",
+        "revoke": "Remove",
+        "revokeLabel": "Remove {device} from {member}",
+        "loadError": "Couldn’t load the devices.",
+        "revokeError": "Couldn’t remove this device.",
+        "emptyHint": "Turn on fingerprint or face unlock on a profile to see it here."
+    }
+}

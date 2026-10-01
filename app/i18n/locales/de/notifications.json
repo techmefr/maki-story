@@ -1,0 +1,29 @@
+{
+    "title": "Benachrichtigungen",
+    "markAllRead": "Alle als gelesen markieren",
+    "empty": "Noch keine Benachrichtigungen.",
+    "new": "Neu",
+    "read": "Gelesen",
+    "sharing": "Teilen zwischen Familien",
+    "bellUnread": {
+        "one": "Benachrichtigungen, {count} ungelesen",
+        "other": "Benachrichtigungen, {count} ungelesen"
+    },
+    "describe": {
+        "default": "Neue Benachrichtigung",
+        "receivedRecord": "{from} bittet dich, deine Stimme für „{title}“ aufzunehmen",
+        "receivedCopy": "{from} hat dir das Buch „{title}“ geschickt",
+        "accepted": "{name} hat „{title}“ angenommen",
+        "declined": "{name} hat „{title}“ abgelehnt",
+        "toApprove": "{from} schlägt „{title}“ vor: zu bestätigen",
+        "approved": "Dein Vorschlag „{title}“ wurde genehmigt",
+        "voiceBatch": {
+            "one": "{from} hat die eigene Stimme geschickt: {count} Sprechtext aus „{title}“",
+            "other": "{from} hat die eigene Stimme geschickt: {count} Sprechtexte aus „{title}“"
+        },
+        "recordingBatch": {
+            "one": "{name} hat {count} Sprechtext aus „{title}“ fertig aufgenommen",
+            "other": "{name} hat {count} Sprechtexte aus „{title}“ fertig aufgenommen"
+        }
+    }
+}

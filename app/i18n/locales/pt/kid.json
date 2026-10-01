@@ -1,0 +1,46 @@
+{
+    "hello": "Oi, {name}!",
+    "listenHer": "Ouvir a mensagem",
+    "sendMessage": "Enviar uma mensagem",
+    "noSoloStory": "Ainda não há histórias com esta voz.",
+    "bubbleLabel": "{name}: {count} para ouvir",
+    "bubble": "Mensagem",
+    "multiVoice": "Histórias com muitas vozes",
+    "library": {
+        "title": "As histórias",
+        "sheet": "Ficha",
+        "sheetOf": "Ficha de {title}",
+        "empty": "Ainda não há histórias.",
+        "emptyHint": "Pede a um adulto para gravar uma!"
+    },
+    "listen": {
+        "nextPage": "Próxima página",
+        "turnPage": "Virar a página",
+        "finished": "Acabou!",
+        "restart": "Recomeçar",
+        "fromStart": "Do início",
+        "read": "Ler",
+        "goodNight": "Boa noite",
+        "reads": "{name} está lendo",
+        "pause": "Pausa",
+        "resumePlay": "Reproduzir",
+        "quit": "Sair",
+        "soundOn": "Som",
+        "soundOff": "Sem som",
+        "sleepTimer": "Temporizador de sono",
+        "page": "Página {current}/{total}",
+        "progress": "Progresso da página"
+    },
+    "sleep": {
+        "title": "Soneca em…",
+        "endOfPage": "Dormir no fim da página",
+        "inMinutes": {
+            "one": "Dormir em {count} minuto",
+            "other": "Dormir em {count} minutos"
+        },
+        "cancel": "Cancelar o temporizador"
+    },
+    "noFaces": "Ainda não está cá ninguém",
+    "noFacesHint": "Pede a um adulto para adicionar a família.",
+    "noSoloHint": "Vai chegar em breve!"
+}

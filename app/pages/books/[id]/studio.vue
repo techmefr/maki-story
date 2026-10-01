@@ -1,18 +1,18 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
+        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <div class="row">
-            <div class="progress grow" role="progressbar" aria-label="Avancement des enregistrements" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
+            <div class="progress grow" role="progressbar" :aria-label="t('studio.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
             <span class="badge">{{ recordedCount }}/{{ visibleLines.length }}</span>
         </div>
         <div class="stack">
-            <label class="label" for="studio-language">Langue de l’enregistrement</label>
+            <label class="label" for="studio-language">{{ t('studio.recordingLanguage') }}</label>
             <select id="studio-language" v-model="language" class="input" required :disabled="isLocked">
-                <option value="">Choisis une langue</option>
+                <option value="">{{ t('studio.chooseLanguage') }}</option>
                 <option v-for="option in LANGUAGES" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
             </select>
-            <p v-if="!isLanguageChosen" class="error" role="alert">Choisis la langue avant d’enregistrer.</p>
+            <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
         </div>
         <div class="row row--wrap">
             <button
@@ -34,23 +34,23 @@
             class="stage"
             :class="{ 'stage--prompter': isPrompter }"
             :style="{ background: activeHex }"
-            aria-label="Prompteur"
+            :aria-label="t('studio.prompter')"
         >
             <div class="stage__bar row row--wrap">
                 <button type="button" class="btn btn--white btn--small" :aria-pressed="isPrompter" @click="togglePrompter">
                     <AppIcon :name="isPrompter ? 'close' : 'eye'" :size="18" />
-                    {{ isPrompter ? 'Quitter le prompteur' : 'Prompteur' }}
+                    {{ isPrompter ? t('studio.prompterExit') : t('studio.prompter') }}
                 </button>
                 <button
                     v-if="speech.isAvailable.value"
                     type="button"
                     class="btn btn--white btn--small"
                     :aria-pressed="speech.isEnabled.value"
-                    aria-label="Aide vocale"
+                    :aria-label="t('studio.assist')"
                     @click="toggleAssist"
                 >
                     <AppIcon :name="speech.isEnabled.value ? 'volume' : 'mute'" :size="18" />
-                    {{ speech.isEnabled.value ? 'Aide vocale activée' : 'Aide vocale coupée' }}
+                    {{ speech.isEnabled.value ? t('studio.assistOn') : t('studio.assistOff') }}
                 </button>
             </div>
             <div v-if="speech.isAvailable.value && speech.isEnabled.value" class="stage__bar row row--wrap">
@@ -63,40 +63,40 @@
                     :aria-pressed="speech.categories[category.id]"
                     @click="speech.toggleCategory(category.id)"
                 >
-                    {{ category.label }}
+                    {{ t(`studio.categories.${category.id}`) }}
                 </button>
                 <button type="button" class="btn btn--white btn--small" :disabled="isRecording" @click="assistCurrentLine">
                     <AppIcon name="ear" :size="18" />
-                    Relire l’aide
+                    {{ t('studio.replayAssist') }}
                 </button>
             </div>
             <div class="stage__script stack">
-                <div class="label">{{ currentLine.character || 'Narrateur' }} · réplique {{ currentIndex + 1 }}/{{ memberLines.length }}</div>
+                <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
                 <p class="stage__text" data-testid="teleprompter-text">{{ lineText(currentLine) }}</p>
-                <div v-if="book.imageDesc" class="hint">Image : {{ book.imageDesc }}</div>
-                <div v-if="activeTone" class="hint">Ton de la voix : {{ activeTone }}</div>
-                <div v-if="currentLine.note" class="hint">Indication : {{ currentLine.note }}</div>
-                <div v-if="lineTone(currentLine)" class="hint">Ton : {{ lineTone(currentLine) }}</div>
-                <div v-if="currentLine.sceneDescription" class="hint">Scène : {{ currentLine.sceneDescription }}</div>
-                <div v-if="currentPageDescription" class="hint">Page : {{ currentPageDescription }}</div>
-                <p v-if="nextLine" class="stage__next">Ensuite : {{ lineText(nextLine) }}</p>
+                <div v-if="book.imageDesc" class="hint">{{ t('studio.image', { text: book.imageDesc }) }}</div>
+                <div v-if="activeTone" class="hint">{{ t('studio.voiceTone', { text: activeTone }) }}</div>
+                <div v-if="currentLine.note" class="hint">{{ t('studio.note', { text: currentLine.note }) }}</div>
+                <div v-if="lineTone(currentLine)" class="hint">{{ t('studio.toneLine', { text: lineTone(currentLine) }) }}</div>
+                <div v-if="currentLine.sceneDescription" class="hint">{{ t('studio.sceneLine', { text: currentLine.sceneDescription }) }}</div>
+                <div v-if="currentPageDescription" class="hint">{{ t('studio.pageLine', { text: currentPageDescription }) }}</div>
+                <p v-if="nextLine" class="stage__next">{{ t('studio.next', { text: lineText(nextLine) }) }}</p>
             </div>
             <div class="stage__controls stack center">
                 <WaveBars :is-active="isRecording" :color="activeHex" />
                 <div class="subtitle" role="timer">{{ timeLabel }}</div>
-                <div v-if="isRecording" class="badge" data-testid="countdown">Reste {{ formatDuration(remainingMs) }}</div>
+                <div v-if="isRecording" class="badge" data-testid="countdown">{{ t('studio.remaining', { time: formatDuration(remainingMs) }) }}</div>
                 <p v-if="limitNotice" class="error" role="status">{{ limitNotice }}</p>
                 <template v-if="pending">
-                    <p class="label">Écoute ta prise avant de l’envoyer</p>
-                    <audio class="stage__audio" :src="pending.url" controls aria-label="Prise à écouter" />
+                    <p class="label">{{ t('studio.listenBeforeSend') }}</p>
+                    <audio class="stage__audio" :src="pending.url" controls :aria-label="t('studio.takeAudio')" />
                     <div class="row row--wrap">
                         <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="sendTake">
                             <AppIcon name="send" :size="18" />
-                            {{ isBusy ? 'Envoi…' : 'Envoyer' }}
+                            {{ isBusy ? t('studio.sending') : t('common.send') }}
                         </button>
                         <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="cancelTake">
                             <AppIcon name="close" :size="18" />
-                            Annuler
+                            {{ t('common.cancel') }}
                         </button>
                     </div>
                 </template>
@@ -106,7 +106,7 @@
                     class="rec"
                     :class="{ 'rec--on': isRecording }"
                     :disabled="isBusy || !isLanguageChosen"
-                    :aria-label="isRecording ? 'Arrêter' : 'Enregistrer'"
+                    :aria-label="isRecording ? t('studio.stopRecord') : t('studio.record')"
                     @click="toggleRecord"
                 >
                     <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="44" :motion="isRecording ? 'pulse' : 'none'" />
@@ -115,22 +115,22 @@
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div class="row row--wrap">
                     <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
-                        <AppIcon name="skip-back" :size="18" />
-                        Précédente
+                        <AppIcon name="skip-back" :size="18" class="mirror-rtl" />
+                        {{ t('studio.previousLine') }}
                     </button>
                     <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasNext" @click="goRelative(1)">
-                        Suivante
-                        <AppIcon name="skip-forward" :size="18" />
+                        {{ t('studio.nextLine') }}
+                        <AppIcon name="skip-forward" :size="18" class="mirror-rtl" />
                     </button>
                 </div>
                 <div class="row row--wrap">
                     <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="listen">
                         <AppIcon :name="isPlaying ? 'stop' : 'volume'" :size="18" />
-                        {{ isPlaying ? 'Stop' : 'Écouter' }}
+                        {{ isPlaying ? t('studio.stopPlayback') : t('studio.listen') }}
                     </button>
                     <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="redo">
                         <AppIcon name="redo" :size="18" />
-                        Refaire
+                        {{ t('studio.redo') }}
                     </button>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 <span class="grow">{{ lineText(line) }}</span>
             </button>
         </div>
-        <p v-else class="muted">Cette voix n’a pas de réplique à enregistrer.</p>
+        <p v-else class="muted">{{ t('studio.noLines') }}</p>
         <CoverageTable
             v-if="visibleLines.length > 0"
             :lines="visibleLines"
@@ -160,23 +160,23 @@
         />
         <template v-if="canManage">
             <NuxtLink v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`" class="btn btn--white btn--block">
-                <AppIcon name="languages" :size="22" />Traduire ce livre
+                <AppIcon name="languages" :size="22" />{{ t('studio.translateBook') }}
             </NuxtLink>
             <button type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
-                {{ isComplete ? 'Publier le livre' : 'Enregistre toutes les répliques pour publier' }}
+                {{ isComplete ? t('studio.publish') : t('studio.recordAll') }}
             </button>
-            <button type="button" class="btn btn--white btn--small" @click="askDelete">Supprimer ce livre</button>
+            <button type="button" class="btn btn--white btn--small" @click="askDelete">{{ t('studio.deleteBook') }}</button>
         </template>
     </div>
-    <p v-else class="muted">Chargement…</p>
+    <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
 
 <script setup lang="ts">
-const SPEECH_CATEGORIES: { id: SpeechCategory; label: string }[] = [
-    { id: 'dialogue', label: 'Réplique' },
-    { id: 'tone', label: 'Ton' },
-    { id: 'scene', label: 'Scène' },
+const SPEECH_CATEGORIES: { id: SpeechCategory }[] = [
+    { id: 'dialogue' },
+    { id: 'tone' },
+    { id: 'scene' },
 ]
 
 interface IPendingTake {
@@ -188,6 +188,7 @@ interface IPendingTake {
     language: string
 }
 
+const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { get, patch, remove, setLineAudio, clearLineAudio } = useBooks()
 const { getById } = useMembers()
@@ -271,21 +272,21 @@ const coverageLanguages = computed(() => {
 })
 const hint = computed(() => {
     if (isRecording.value) {
-        return 'Touche pour finir'
+        return t('studio.hints.finish')
     }
     if (pending.value) {
-        return 'Envoie cette prise ou annule pour recommencer'
+        return t('studio.hints.pending')
     }
     if (!isLanguageChosen.value) {
-        return 'Choisis la langue d’abord'
+        return t('studio.hints.chooseLanguage')
     }
     if (currentRecording.value?.status === 'stale') {
-        return 'À refaire (texte modifié)'
+        return t('studio.hints.stale')
     }
-    return currentRecording.value ? 'Enregistré' : 'Touche le micro'
+    return currentRecording.value ? t('studio.hints.recorded') : t('studio.hints.tapMic')
 })
 
-const memberName = (memberId: string): string => getById(memberId)?.name ?? 'Voix'
+const memberName = (memberId: string): string => getById(memberId)?.name ?? t('studio.voice')
 
 const speechParts = (line: ILine): ISpeechParts => ({
     dialogue: lineText(line),
@@ -361,10 +362,10 @@ const discardPending = (): void => {
 function takeRecording(recording: IRecording | null, isLimit: boolean): void {
     const line = currentLine.value
     if (!recording || !line) {
-        errorMessage.value = 'Trop court, recommence.'
+        errorMessage.value = t('studio.tooShort')
         return
     }
-    limitNotice.value = isLimit ? `Durée maximale atteinte (${formatDuration(recorder.limitMs.value)}). La prise a été arrêtée.` : ''
+    limitNotice.value = isLimit ? t('studio.limitReached', { time: formatDuration(recorder.limitMs.value) }) : ''
     pending.value = { ...recording, url: URL.createObjectURL(recording.blob), lineId: line.id, language: language.value }
 }
 
@@ -400,7 +401,7 @@ const sendTake = async (): Promise<void> => {
         goToNextLine(take.lineId)
     } catch (error) {
         console.error('L enregistrement n a pas pu être sauvegardé', error)
-        errorMessage.value = 'L’enregistrement n’a pas pu être sauvegardé. Réessaie.'
+        errorMessage.value = t('studio.saveFailed')
     } finally {
         isBusy.value = false
     }
@@ -448,7 +449,7 @@ const publish = async (): Promise<void> => {
 }
 
 const askDelete = async (): Promise<void> => {
-    if (!book.value || !window.confirm(`Supprimer « ${book.value.title} » ?`)) {
+    if (!book.value || !window.confirm(t('studio.confirmDelete', { title: book.value.title }))) {
         return
     }
     try {

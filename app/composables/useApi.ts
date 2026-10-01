@@ -5,7 +5,7 @@ interface IApiOptions {
 }
 
 const AUTH_PATHS = ['/auth/login', '/auth/register']
-export const UNREACHABLE_MESSAGE = 'Impossible de joindre le serveur, réessaie'
+export const UNREACHABLE_MESSAGE = 'api-unreachable'
 const BOOK_PATH = /^\/books\/([^/]+)$/
 
 const readSaved = async <T>(path: string): Promise<T | null> => {

@@ -1,18 +1,18 @@
 <template>
     <div v-if="member" class="stack center narrow">
-        <NuxtLink to="/kid" class="btn btn--round btn--white" aria-label="Retour"><AppIcon name="back" :size="26" /></NuxtLink>
+        <NuxtLink to="/kid" class="btn btn--round btn--white" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></NuxtLink>
         <AppAvatar :member="member" :size="150" />
         <h1 class="title">{{ member.name }}</h1>
         <NuxtLink v-if="incoming" :to="`/message/listen/${incoming.id}`" class="btn btn--mint btn--block anim-pulse" style="min-height: 72px; font-size: 1.375rem">
             <AppIcon name="volume" :size="32" motion="pulse" />
-            Écouter son message
+            {{ t('kid.listenHer') }}
         </NuxtLink>
         <NuxtLink :to="`/message/${member.id}`" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem">
             <AppIcon name="mic" :size="32" motion="wiggle" />
-            Envoyer un message
+            {{ t('kid.sendMessage') }}
         </NuxtLink>
         <span v-if="sentLabel" class="badge">{{ sentLabel }}</span>
-        <div class="stack" style="width: 100%; text-align: left">
+        <div class="stack" style="width: 100%; text-align: start">
             <NuxtLink
                 v-for="book in soloBooks"
                 :key="book.id"
@@ -24,7 +24,7 @@
                 <span class="subtitle grow">{{ book.title }}</span>
                 <span class="btn btn--round btn--white"><AppIcon name="play" :size="26" motion="pulse" /></span>
             </NuxtLink>
-            <AppEmpty v-if="soloBooks.length === 0" title="Pas encore d’histoire avec cette voix." hint="Elle arrive bientôt !" />
+            <AppEmpty v-if="soloBooks.length === 0" :title="t('kid.noSoloStory')" :hint="t('kid.noSoloHint')" />
         </div>
     </div>
 </template>
@@ -32,6 +32,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'kid' })
 
+const { t } = useI18n()
 const route = useRoute()
 const { getById } = useMembers()
 const { currentId } = useCurrentMember()
@@ -46,7 +47,7 @@ const sentLabel = computed(() => {
     if (!sent) {
         return ''
     }
-    return sent.listenedAt ? 'A écouté ✓' : 'Envoyé'
+    return sent.listenedAt ? t('messages.status.heard') : t('messages.status.sent')
 })
 
 const hexOfBook = (book: IBookSummary): string => pickVoiceByText(book.id).hex

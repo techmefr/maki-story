@@ -1,16 +1,16 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
+        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <OfflineToggle :book-id="book.id" />
-        <div class="segs" role="group" aria-label="Répliques">
+        <div class="segs" role="group" :aria-label="t('play.lines')">
             <button
                 v-for="(line, index) in lines"
                 :key="line.id"
                 type="button"
                 class="seg"
                 :style="{ flex: Math.max(1, line.audioMs), background: hexOfLine(line), opacity: index <= currentIndex ? 1 : 0.35 }"
-                :aria-label="`Réplique ${index + 1}`"
+                :aria-label="t('play.lineAria', { index: index + 1 })"
                 @click="jumpTo(index)"
             />
         </div>
@@ -28,11 +28,11 @@
             </div>
         </div>
         <div class="row" style="justify-content: center">
-            <button type="button" class="btn btn--round btn--white" aria-label="Précédent" @click="previous"><AppIcon name="skip-back" :size="22" /></button>
-            <button type="button" class="btn btn--round" style="width: 72px; min-height: 72px" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="toggle">
+            <button type="button" class="btn btn--round btn--white" :aria-label="t('common.previous')" @click="previous"><AppIcon name="skip-back" :size="22" class="mirror-rtl" /></button>
+            <button type="button" class="btn btn--round" style="width: 72px; min-height: 72px" :aria-label="isPlaying ? t('play.pause') : t('play.play')" @click="toggle">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="34" />
             </button>
-            <button type="button" class="btn btn--round btn--white" aria-label="Suivant" @click="next"><AppIcon name="skip-forward" :size="22" /></button>
+            <button type="button" class="btn btn--round btn--white" :aria-label="t('common.next')" @click="next"><AppIcon name="skip-forward" :size="22" class="mirror-rtl" /></button>
         </div>
         <div class="stack">
             <button
@@ -49,14 +49,15 @@
                 {{ line.text }}
             </button>
         </div>
-        <NuxtLink :to="`/books/${book.id}/studio`" class="btn btn--white btn--small">Modifier les enregistrements</NuxtLink>
+        <NuxtLink :to="`/books/${book.id}/studio`" class="btn btn--white btn--small">{{ t('play.editRecordings') }}</NuxtLink>
     </div>
-    <p v-else class="muted">Chargement…</p>
+    <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
 
 <script setup lang="ts">
 const RATES = [1, 1.25, 0.75]
 
+const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { get } = useBooks()
 const { getById } = useMembers()

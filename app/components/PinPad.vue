@@ -3,28 +3,28 @@
         <div class="pad__dots" aria-hidden="true">
             <span v-for="slot in PIN_MAX_LENGTH" :key="slot" class="pad__dot" :class="{ 'pad__dot--on': slot <= value.length }" />
         </div>
-        <p class="sr-only" role="status" aria-live="polite">{{ value.length }} sur {{ PIN_MAX_LENGTH }} chiffres saisis</p>
+        <p class="sr-only" role="status" aria-live="polite">{{ t('profile.pad.progress', { count: value.length, max: PIN_MAX_LENGTH }) }}</p>
         <div class="pad__grid">
             <button
                 v-for="digit in digits"
                 :key="digit"
                 type="button"
                 class="pad__key"
-                :aria-label="`Chiffre ${digit}`"
+                :aria-label="t('profile.pad.digit', { digit })"
                 :disabled="isDisabled || value.length >= PIN_MAX_LENGTH"
                 @click="push(digit)"
             >
                 {{ digit }}
             </button>
-            <button type="button" class="pad__key pad__key--soft" aria-label="Effacer le dernier chiffre" :disabled="isDisabled || value === ''" @click="pop">
+            <button type="button" class="pad__key pad__key--soft" :aria-label="t('profile.pad.erase')" :disabled="isDisabled || value === ''" @click="pop">
                 <AppIcon name="back" :size="26" />
             </button>
-            <button type="button" class="pad__key" aria-label="Chiffre 0" :disabled="isDisabled || value.length >= PIN_MAX_LENGTH" @click="push('0')">
+            <button type="button" class="pad__key" :aria-label="t('profile.pad.digit', { digit: '0' })" :disabled="isDisabled || value.length >= PIN_MAX_LENGTH" @click="push('0')">
                 0
             </button>
             <button type="button" class="pad__key pad__key--ok" :disabled="isDisabled || value.length < PIN_MIN_LENGTH" @click="submit">
                 <AppIcon name="check" :size="26" />
-                <span class="sr-only">Valider</span>
+                <span class="sr-only">{{ t('profile.pad.submit') }}</span>
             </button>
         </div>
     </div>
@@ -33,6 +33,7 @@
 <script setup lang="ts">
 const { isDisabled = false } = defineProps<{ isDisabled?: boolean }>()
 const emit = defineEmits<{ submit: [value: string] }>()
+const { t } = useI18n()
 
 const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 const value = ref('')
@@ -131,6 +132,10 @@ defineExpose({ clear })
 
 .pad__key--soft {
     background: var(--cream);
+}
+
+[dir='rtl'] .pad__key--soft :deep(svg) {
+    transform: scaleX(-1);
 }
 
 .pad__key--ok {

@@ -1,0 +1,60 @@
+{
+    "card": {
+        "ready": "جاهز",
+        "toRecord": "بانتظار التسجيل",
+        "voiceBlocked": "الصوت محظور",
+        "kindSolo": "صوت واحد",
+        "kindCast": "أصوات",
+        "progress": "تم تسجيل {recorded}/{total} من الجمل"
+    },
+    "filters": {
+        "searchPlaceholder": "العنوان، المؤلف…",
+        "searchLabel": "ابحث عن كتاب",
+        "language": "اللغة",
+        "allLanguages": "كل اللغات",
+        "age": "العمر",
+        "age0_3": "٠-٣ سنوات",
+        "age4_6": "٤-٦ سنوات",
+        "age7_9": "٧-٩ سنوات",
+        "age10": "١٠ سنوات فأكثر"
+    },
+    "sheet": {
+        "title": "بطاقة {title}",
+        "voiceBlocked": "الصوت محظور: لا يستطيع الأطفال الاستماع إليه",
+        "author": "المؤلف",
+        "illustrator": "الرسام",
+        "age": "العمر",
+        "language": "اللغة",
+        "readBy": "قراءة",
+        "nobody": "لم يسجّل أحد صوته بعد.",
+        "listen": "استمع",
+        "open": "افتح الكتاب",
+        "studio": "اذهب إلى الاستوديو",
+        "share": "مشاركة"
+    },
+    "row": {
+        "sheet": "البطاقة"
+    },
+    "offline": {
+        "noSpace": "لا توجد مساحة كافية على هذا الجهاز",
+        "interrupted": "توقّف التنزيل، يمكنك استئنافه"
+    },
+    "age": {
+        "years": {
+            "zero": "{count} سنة",
+            "one": "سنة واحدة",
+            "two": "سنتان",
+            "few": "{count} سنوات",
+            "many": "{count} سنة",
+            "other": "{count} سنة"
+        },
+        "range": {
+            "zero": "{min}-{max} سنة",
+            "one": "{min}-{max} سنة",
+            "two": "{min}-{max} سنة",
+            "few": "{min}-{max} سنوات",
+            "many": "{min}-{max} سنة",
+            "other": "{min}-{max} سنة"
+        }
+    }
+}

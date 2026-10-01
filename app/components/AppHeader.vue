@@ -4,18 +4,18 @@
             <AppLogo :size="40" />
             <span class="header__name">Tantara</span>
         </NuxtLink>
-        <nav v-if="!isChild" class="nav" aria-label="Navigation principale">
+        <nav v-if="!isChild" class="nav" :aria-label="t('shell.mainNav')">
             <NuxtLink v-for="tab in tabs" :key="tab.path" :to="tab.path" class="nav__item" :class="{ 'nav__item--on': tab.isOn }">
                 <AppIcon :name="tab.icon" :size="18" motion="bounce" :is-active="tab.isOn" />
                 {{ tab.label }}
-                <span v-if="tab.hasBadge" class="pop" role="img" aria-label="nouveau" />
+                <span v-if="tab.hasBadge" class="pop" role="img" :aria-label="t('shell.newBadge')" />
             </NuxtLink>
         </nav>
         <div v-else class="grow" />
         <div class="row">
             <FeedbackButton />
             <NotificationBell />
-            <button class="header__me" type="button" aria-label="Mon profil" @click="openMenu">
+            <button class="header__me" type="button" :aria-label="t('shell.profile.open')" @click="openMenu">
                 <AppAvatar :member="current" :size="isChild ? 66 : 48" />
             </button>
         </div>
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 const { current, homePath, isChild } = useCurrentMember()
 const { tabs } = useNavTabs()
+const { t } = useI18n()
 const isMenuOpen = useState<boolean>('profile-menu-open', () => false)
 
 const openMenu = (): void => {

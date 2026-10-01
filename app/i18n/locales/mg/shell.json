@@ -1,0 +1,27 @@
+{
+    "nav": {
+        "library": "Trano boky",
+        "messages": "Hafatra",
+        "family": "Fianakaviana"
+    },
+    "profile": {
+        "open": "Ny mombamomba ahy"
+    },
+    "offline": {
+        "banner": "Tsy misy tambajotra: ireo boky nalaina ihany no azo jerena.",
+        "downloading": "Eo am-pandrefesana {done}/{total}",
+        "available": "Azo jerena tsy misy tambajotra · {size}",
+        "remove": "Esory ny nalaina",
+        "resume": "Tohizo ny fandrefesana",
+        "download": "Alaivo"
+    },
+    "bytes": {
+        "b": "{value} o",
+        "kb": "{value} Ko",
+        "mb": "{value} Mo",
+        "gb": "{value} Go"
+    },
+    "skip": "Mankany amin’ny votoaty",
+    "mainNav": "Fitetezana lehibe",
+    "newBadge": "vaovao"
+}

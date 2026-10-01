@@ -1,0 +1,55 @@
+{
+    "role": {
+        "parent": "Genitore",
+        "relative": "Parente",
+        "child": "Bambino"
+    },
+    "roleHint": {
+        "parent": "Può creare libri e gestire la famiglia.",
+        "relative": "Registra storie e lascia messaggi al bambino.",
+        "child": "Ascolta le storie, senza impostazioni né creazione."
+    },
+    "form": {
+        "changePhoto": "Cambia la foto",
+        "photoChange": "Cambia",
+        "photoNew": "Smorfia!",
+        "name": "Nome",
+        "namePlaceholder": "Mamma, Nonna, Lova…",
+        "role": "Ruolo",
+        "codeLabel": "Codice segreto del profilo",
+        "keepCode": "Mantieni il codice attuale",
+        "changeCode": "Cambia il codice",
+        "currentCode": "Codice attuale",
+        "newCode": "Nuovo codice",
+        "voiceColor": "Colore della voce",
+        "spokenLanguages": "Lingue parlate",
+        "remove": "Elimina questo familiare",
+        "captureTitle": "La tua smorfia più bella",
+        "captureHint": "Ognuno fa una smorfia diversa: il bambino riconoscerà i suoi cari.",
+        "photoError": "Non è stato possibile inviare la foto.",
+        "codeBlocked": "Il codice attuale è errato o bloccato.",
+        "saveError": "Impossibile salvare per il momento.",
+        "removeConfirm": "Eliminare {name}? Le sue registrazioni andranno perse.",
+        "removeError": "Impossibile eliminare: bisogna tenere almeno un genitore."
+    },
+    "voice": {
+        "title": "Situazione di questa voce",
+        "group": "Situazione",
+        "active": "Presente",
+        "blocked": "Bloccato",
+        "left": "Ha lasciato la casa",
+        "deceased": "Scomparso",
+        "policyQuestion": "Che fare dei libri con questa voce?",
+        "keep": "Tenere i libri così come sono",
+        "block": "Bloccare questi libri per i bambini",
+        "rerecord": "Chiedere di registrare di nuovo queste battute",
+        "blockedNotice": "I bambini non possono più ascoltare i libri che contengono questa voce, finché le sue battute non saranno registrate di nuovo da qualcun altro.",
+        "lines": {
+            "one": "{count} battuta",
+            "other": "{count} battute"
+        },
+        "rerecordAction": "Registra di nuovo",
+        "empty": "Questa voce per ora non è in nessun libro.",
+        "saveError": "Non è stato possibile salvare la modifica."
+    }
+}

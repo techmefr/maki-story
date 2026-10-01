@@ -5,7 +5,7 @@
             <h1 class="title">{{ heading }}</h1>
             <template v-if="phase === 'sent'">
                 <AppMaki :size="100" />
-                <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />Envoyé !</div>
+                <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />{{ t('messages.compose.sent') }}</div>
             </template>
             <template v-else>
                 <WaveBars :is-active="isRecording" color="#1F1B3A" />
@@ -15,19 +15,19 @@
                     type="button"
                     class="rec"
                     :class="{ 'rec--on': isRecording }"
-                    :aria-label="isRecording ? 'Arrêter' : 'Enregistrer'"
+                    :aria-label="isRecording ? t('messages.compose.stop') : t('messages.compose.record')"
                     @click="toggle"
                 >
                     <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="56" :motion="isRecording ? 'pulse' : 'none'" />
                 </button>
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div v-if="phase === 'done'" class="row">
-                    <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />Refaire</button>
-                    <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />Envoyer</button>
+                    <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />{{ t('messages.compose.redo') }}</button>
+                    <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />{{ t('common.send') }}</button>
                 </div>
-                <div v-else class="muted">{{ isRecording ? 'Touche pour finir' : 'Touche le micro' }}</div>
+                <div v-else class="muted">{{ isRecording ? t('messages.compose.tapToFinish') : t('messages.compose.tapMic') }}</div>
             </template>
-            <NuxtLink :to="backPath" class="btn btn--white btn--small">Retour</NuxtLink>
+            <NuxtLink :to="backPath" class="btn btn--white btn--small">{{ t('common.back') }}</NuxtLink>
         </template>
     </div>
 </template>
@@ -38,6 +38,7 @@ const BACK_DELAY_MS = 1600
 
 definePageMeta({ layout: 'blank' })
 
+const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { getById } = useMembers()
 const { currentId, isChild } = useCurrentMember()
@@ -51,8 +52,10 @@ const recording = ref<IRecording | null>(null)
 
 const target = computed(() => getById(String(route.params.toId)))
 const backPath = computed(() => (isChild.value ? `/kid/${target.value?.id}` : '/messages'))
-const heading = computed(() => (route.query.reply ? `Réponds à ${target.value?.name}` : `Un message pour ${target.value?.name}`))
-const timeLabel = computed(() => formatDuration(phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value))
+const heading = computed(() =>
+    route.query.reply ? t('messages.compose.reply', { name: target.value?.name ?? '' }) : t('messages.compose.messageFor', { name: target.value?.name ?? '' }),
+)
+const timeLabel = computed(() => formatDuration((phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value) / 1000))
 
 const toggle = async (): Promise<void> => {
     if (!isRecording.value) {
@@ -61,7 +64,7 @@ const toggle = async (): Promise<void> => {
     }
     const result = await stop()
     if (!result) {
-        errorMessage.value = 'Trop court, recommence.'
+        errorMessage.value = t('messages.compose.tooShort')
         return
     }
     recording.value = result
@@ -97,11 +100,7 @@ const send = async (): Promise<void> => {
         setTimeout(() => navigateTo(isChild.value ? '/kid' : '/messages'), BACK_DELAY_MS)
     } catch (error) {
         console.error('Le message n a pas pu être envoyé', error)
-        const failure = error as { statusCode?: number; statusMessage?: string }
-        errorMessage.value =
-            failure.statusCode === 409 && failure.statusMessage
-                ? failure.statusMessage
-                : apiErrorMessage(error, 'Le message n’a pas pu être envoyé. Réessaie.')
+        errorMessage.value = errorText(error, 'messages.compose.sendFailed')
     } finally {
         isBusy.value = false
     }

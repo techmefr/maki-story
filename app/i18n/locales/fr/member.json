@@ -1,0 +1,55 @@
+{
+    "role": {
+        "parent": "Parent",
+        "relative": "Proche",
+        "child": "Enfant"
+    },
+    "roleHint": {
+        "parent": "Peut créer des livres et gérer la famille.",
+        "relative": "Enregistre des histoires et laisse des messages à l’enfant.",
+        "child": "Écoute les histoires, sans réglages ni création."
+    },
+    "form": {
+        "changePhoto": "Changer la photo",
+        "photoChange": "Changer",
+        "photoNew": "Grimace !",
+        "name": "Prénom",
+        "namePlaceholder": "Maman, Mamie, Lova…",
+        "role": "Rôle",
+        "codeLabel": "Code secret du profil",
+        "keepCode": "Garder le code actuel",
+        "changeCode": "Changer le code",
+        "currentCode": "Code actuel",
+        "newCode": "Nouveau code",
+        "voiceColor": "Couleur de voix",
+        "spokenLanguages": "Langues parlées",
+        "remove": "Supprimer ce proche",
+        "captureTitle": "Ta plus belle grimace",
+        "captureHint": "Chacun fait une grimace différente : l’enfant reconnaîtra ses proches.",
+        "photoError": "La photo n’a pas pu être envoyée.",
+        "codeBlocked": "Le code actuel est incorrect ou bloqué.",
+        "saveError": "Impossible d’enregistrer pour le moment.",
+        "removeConfirm": "Supprimer {name} ? Ses enregistrements seront perdus.",
+        "removeError": "Impossible de supprimer : il faut garder au moins un parent."
+    },
+    "voice": {
+        "title": "Situation de cette voix",
+        "group": "Situation",
+        "active": "Présent",
+        "blocked": "Bloqué",
+        "left": "A quitté le foyer",
+        "deceased": "Décédé",
+        "policyQuestion": "Que faire des livres avec cette voix ?",
+        "keep": "Garder les livres tels quels",
+        "block": "Bloquer ces livres pour les enfants",
+        "rerecord": "Demander de réenregistrer ces répliques",
+        "blockedNotice": "Les enfants ne peuvent plus écouter les livres qui contiennent cette voix, jusqu’à ce que ses répliques soient réenregistrées par quelqu’un d’autre.",
+        "lines": {
+            "one": "{count} réplique",
+            "other": "{count} répliques"
+        },
+        "rerecordAction": "Réenregistrer",
+        "empty": "Cette voix n’est dans aucun livre pour l’instant.",
+        "saveError": "Le changement n’a pas pu être enregistré."
+    }
+}

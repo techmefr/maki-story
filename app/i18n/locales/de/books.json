@@ -1,0 +1,52 @@
+{
+    "card": {
+        "ready": "Fertig",
+        "toRecord": "Aufzunehmen",
+        "voiceBlocked": "Stimme gesperrt",
+        "kindSolo": "1 Stimme",
+        "kindCast": "Stimmen",
+        "progress": "{recorded}/{total} Sätze aufgenommen"
+    },
+    "filters": {
+        "searchPlaceholder": "Titel, Autor…",
+        "searchLabel": "Ein Buch suchen",
+        "language": "Sprache",
+        "allLanguages": "Alle Sprachen",
+        "age": "Alter",
+        "age0_3": "0-3 Jahre",
+        "age4_6": "4-6 Jahre",
+        "age7_9": "7-9 Jahre",
+        "age10": "Ab 10 Jahren"
+    },
+    "sheet": {
+        "title": "Steckbrief von {title}",
+        "voiceBlocked": "Stimme gesperrt: Kinder können sie nicht anhören",
+        "author": "Autor",
+        "illustrator": "Illustrator",
+        "age": "Alter",
+        "language": "Sprache",
+        "readBy": "Gelesen von",
+        "nobody": "Noch niemand hat seine Stimme aufgenommen.",
+        "listen": "Anhören",
+        "open": "Buch öffnen",
+        "studio": "Zum Studio",
+        "share": "Teilen"
+    },
+    "row": {
+        "sheet": "Steckbrief"
+    },
+    "offline": {
+        "noSpace": "Nicht genug Speicherplatz auf diesem Gerät",
+        "interrupted": "Der Download wurde unterbrochen, du kannst ihn fortsetzen"
+    },
+    "age": {
+        "years": {
+            "one": "{count} Jahr",
+            "other": "{count} Jahre"
+        },
+        "range": {
+            "one": "{min}-{max} Jahre",
+            "other": "{min}-{max} Jahre"
+        }
+    }
+}

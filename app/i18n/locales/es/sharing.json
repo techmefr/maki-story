@@ -1,0 +1,78 @@
+{
+    "title": "Compartir entre familias",
+    "invite": {
+        "title": "Código de invitación",
+        "help": "Dale este código a otra familia para que pueda enviarte un libro o pedirte que grabes tu voz.",
+        "codeLabel": "Código de invitación de la familia",
+        "revoked": "El código está desactivado. Renuévalo para volver a invitar.",
+        "renew": "Renovar el código",
+        "disable": "Desactivar"
+    },
+    "approvals": {
+        "title": "Por aprobar"
+    },
+    "approve": "Aprobar",
+    "decline": "Rechazar",
+    "incoming": {
+        "title": "Recibidos"
+    },
+    "whoRecords": "¿Quién graba?",
+    "allAdults": "Todos los adultos de la familia",
+    "accept": "Aceptar",
+    "recordMyVoice": "Grabar mi voz",
+    "stopShare": "Detener este uso compartido",
+    "outgoing": {
+        "title": "Enviados"
+    },
+    "noOutgoing": "No has enviado ningún libro compartido. Usa el botón Compartir de un libro de la biblioteca.",
+    "stop": "Detener",
+    "status": {
+        "proposed": "Pendiente de aprobación por un padre",
+        "awaiting_owner": "Pendiente del visto bueno del propietario del libro",
+        "pending": "Esperando respuesta",
+        "accepted": "Aceptado",
+        "declined": "Rechazado",
+        "revoked": "Detenido"
+    },
+    "mode": {
+        "record": {
+            "one": "grabar {count} frase",
+            "other": "grabar {count} frases"
+        },
+        "copy": "copia en la biblioteca"
+    },
+    "approvalLabel": "{name} quiere compartir este libro con {family} ({mode}).",
+    "proposerFallback": "Un allegado",
+    "incomingLabel": "{family}: {mode}. {status}.",
+    "outgoingLabel": "Para {family}: {mode}. {status}.",
+    "actionFailed": "Esta acción no se pudo realizar por ahora.",
+    "detail": {
+        "help": "Graba tu voz para las frases solicitadas. Puedes volver a escucharla antes de enviarla.",
+        "narrator": "Narrador",
+        "narratorLower": "narrador",
+        "lineAria": "Frase de {name}",
+        "sent": "Enviada",
+        "listenAgain": "Volver a escuchar",
+        "redo": "Repetir",
+        "record": "Grabar",
+        "unavailable": "Este elemento compartido no está disponible.",
+        "sendFailed": "El envío no funcionó. Inténtalo de nuevo en un momento."
+    },
+    "dialog": {
+        "title": "Compartir «{title}»",
+        "code": "Código de la familia",
+        "how": "¿Cómo compartir?",
+        "modeRecord": "Grabar mi voz para este libro",
+        "modeCopy": "Copiar en su biblioteca",
+        "linesToRecord": "Frases por grabar",
+        "line": "{character}: {text}",
+        "note": "Una notita (opcional)",
+        "sentTo": "Enviado a la familia {name}.",
+        "needsApproval": "Guardado: un padre debe aprobarlo antes del envío.",
+        "notFound": "Este código no corresponde a ninguna familia.",
+        "conflict": "Este libro ya se comparte así, o ha alcanzado el número máximo de familias.",
+        "tooMany": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
+        "forbidden": "Tu perfil no puede compartir este libro.",
+        "failed": "No se pudo enviar el elemento compartido."
+    }
+}

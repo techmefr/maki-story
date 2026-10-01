@@ -1,14 +1,15 @@
 <template>
     <div class="stack center narrow">
-        <h1 class="title">Ta grimace !</h1>
-        <p class="muted">Fais une grimace que personne d’autre ne fait : l’enfant te reconnaîtra tout de suite.</p>
+        <h1 class="title">{{ t('home.grimace.title') }}</h1>
+        <p class="muted">{{ t('home.grimace.help') }}</p>
         <PhotoCapture :frame-color="hex" @captured="onCaptured" />
-        <NuxtLink :to="homePath" class="btn btn--white btn--small">Plus tard</NuxtLink>
+        <NuxtLink :to="homePath" class="btn btn--white btn--small">{{ t('home.grimace.later') }}</NuxtLink>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
     </div>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const { current, homePath } = useCurrentMember()
 const { update } = useMembers()
 const { upload } = useFiles()
@@ -28,7 +29,7 @@ const onCaptured = async (blob: Blob): Promise<void> => {
         await navigateTo(homePath.value)
     } catch (error) {
         console.error('La grimace n a pas pu être enregistrée', error)
-        errorMessage.value = 'Impossible d’enregistrer la photo pour le moment.'
+        errorMessage.value = t('home.grimace.saveFailed')
     }
 }
 </script>

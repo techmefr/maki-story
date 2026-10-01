@@ -1,0 +1,46 @@
+{
+    "hello": "Ciao {name}!",
+    "listenHer": "Ascolta il suo messaggio",
+    "sendMessage": "Invia un messaggio",
+    "noSoloStory": "Ancora nessuna storia con questa voce.",
+    "bubbleLabel": "{name}: {count} da ascoltare",
+    "bubble": "Messaggio",
+    "multiVoice": "Storie a più voci",
+    "library": {
+        "title": "Le storie",
+        "sheet": "Scheda",
+        "sheetOf": "Scheda di {title}",
+        "empty": "Ancora nessuna storia.",
+        "emptyHint": "Chiedi a un grande di registrarne una!"
+    },
+    "listen": {
+        "nextPage": "Pagina successiva",
+        "turnPage": "Gira la pagina",
+        "finished": "È finita!",
+        "restart": "Ricomincia",
+        "fromStart": "Dall’inizio",
+        "read": "Leggi",
+        "goodNight": "Buonanotte",
+        "reads": "{name} legge",
+        "pause": "Pausa",
+        "resumePlay": "Riproduci",
+        "quit": "Esci",
+        "soundOn": "Suono",
+        "soundOff": "Senza suono",
+        "sleepTimer": "Timer del sonno",
+        "page": "Pagina {current}/{total}",
+        "progress": "Avanzamento della pagina"
+    },
+    "sleep": {
+        "title": "Nanna tra…",
+        "endOfPage": "Dormi alla fine della pagina",
+        "inMinutes": {
+            "one": "Dormi tra {count} minuto",
+            "other": "Dormi tra {count} minuti"
+        },
+        "cancel": "Annulla il timer"
+    },
+    "noFaces": "Non c’è ancora nessuno",
+    "noFacesHint": "Chiedi a un grande di aggiungere la famiglia.",
+    "noSoloHint": "Arriverà presto!"
+}

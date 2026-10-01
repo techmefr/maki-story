@@ -1,0 +1,86 @@
+{
+    "notice": {
+        "label": "Proposto pela IA.",
+        "default": "Relê tudo com atenção e corrige o que for preciso antes de continuar."
+    },
+    "errors": {
+        "unavailable": "A IA não está configurada neste servidor. Esta função está indisponível por agora.",
+        "quota": "O orçamento de IA deste mês esgotou-se. Será reposto no início do mês seguinte.",
+        "forbidden": "Só os pais podem usar a IA.",
+        "unusable": "A IA deu uma resposta inutilizável. Tenta de novo daqui a pouco.",
+        "failed": "A IA não conseguiu responder neste momento. Tenta mais tarde."
+    },
+    "quota": {
+        "label": "Orçamento de IA do mês: restam {remaining} de {budget}."
+    },
+    "draft": {
+        "title": "Por validar",
+        "intro": "Estas histórias foram escritas pela IA. As crianças não as veem até que um pai as valide.",
+        "label": "Rascunho {title}",
+        "badge": "Gerado pela IA",
+        "meta": "{pages} páginas · {lines} falas · {language}",
+        "validate": "Validar",
+        "validateLabel": "Validar {title}",
+        "reject": "Rejeitar",
+        "rejectLabel": "Rejeitar {title}",
+        "error": "Não foi possível processar este rascunho neste momento."
+    },
+    "prefill": {
+        "title": "Preencher a partir de uma foto",
+        "intro": "Fotografa as páginas (no máximo 4). A IA lê o texto e propõe as personagens, as falas e os tons. Relês e corriges tudo nos passos seguintes antes de guardar.",
+        "choose": "Escolher fotos",
+        "reading": "A ler…",
+        "uploading": "A enviar a foto {n} de {total}…",
+        "aiReading": "A IA está a ler as páginas, pode demorar um minuto…"
+    },
+    "translate": {
+        "suggestButton": "Sugerir uma tradução",
+        "groupLabel": "Sugestão de tradução",
+        "notice": "Tradução proposta pela IA: relê-a e corrige-a antes de a aceitar.",
+        "translateTo": "Traduzir para",
+        "busy": "A traduzir…",
+        "proposed": "Tradução proposta em {language}",
+        "accept": "Aceitar",
+        "reject": "Rejeitar",
+        "suggest": "Sugerir",
+        "removeLabel": "Remover a tradução para {language}"
+    },
+    "page": {
+        "title": "Criar uma história com a IA",
+        "parentsOnly": "Só os pais podem criar uma história com a IA.",
+        "notice": "A história e as imagens são inventadas pela IA. Chega escondida em «Por validar»: as crianças só a veem depois de a validares.",
+        "draftCreated": "Rascunho criado",
+        "draftBody": "Está à tua espera na fila «Por validar» da biblioteca. Relê-o e depois valida-o.",
+        "seeLibrary": "Ver na biblioteca",
+        "another": "Criar outra história",
+        "idea": "A tua ideia de história",
+        "ideaPlaceholder": "Um pequeno zebu que tem medo da trovoada…",
+        "storyLanguage": "Idioma da história",
+        "ageMin": "Idade mínima",
+        "ageMax": "Idade máxima",
+        "allAges": "Todos",
+        "pageCount": "Número de páginas",
+        "hero": "Descreve o herói (opcional)",
+        "heroPlaceholder": "Um zebu castanho com um cachecol vermelho",
+        "ageProblem": "A idade mínima tem de ser inferior à idade máxima.",
+        "sheetTitle": "As personagens",
+        "sheetIntro": "Esta ficha mantém-se igual em todas as páginas, para que as personagens tenham sempre o mesmo aspeto. Altera-a se for preciso.",
+        "characterLabel": "Personagem {n}",
+        "name": "Nome",
+        "description": "Descrição",
+        "descriptionPlaceholder": "Pequeno, castanho, cachecol vermelho",
+        "remove": "Remover",
+        "removeLabel": "Remover a personagem {n}",
+        "add": "Adicionar uma personagem",
+        "busyNote": "A escrever a história e as imagens, pode demorar alguns minutos…",
+        "generating": "A gerar…",
+        "generate": "Gerar a história",
+        "promptDefaultName": "Personagem",
+        "promptEntry": "{name}: {description}",
+        "promptKeepSame": "Personagens a manter idênticas em todas as páginas:",
+        "skipped": {
+            "one": "Não foi possível criar {count} imagem: as páginas afetadas estão vazias. Podes completá-las mais tarde.",
+            "other": "Não foi possível criar {count} imagens: as páginas afetadas estão vazias. Podes completá-las mais tarde."
+        }
+    }
+}

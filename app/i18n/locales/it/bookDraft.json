@@ -1,0 +1,112 @@
+{
+    "wizard": {
+        "stepBook": "Il libro",
+        "stepPages": "Le pagine",
+        "stepCharacters": "I personaggi",
+        "stepLines": "Le battute",
+        "stepReview": "Controlla",
+        "voiceCount": "Numero di voci",
+        "oneVoice": "Una sola voce",
+        "severalVoices": "Più voci",
+        "aiNotice": "I personaggi, le battute e i toni vengono dall’IA e possono contenere errori. Rileggi ogni passaggio prima di salvare."
+    },
+    "shared": {
+        "page": "Pagina {n}",
+        "cover": "Copertina",
+        "emptyPage": "Pagina vuota",
+        "panel": "Vignetta {n}"
+    },
+    "book": {
+        "title": "Titolo del libro",
+        "titlePlaceholder": "Lo zebù che voleva volare",
+        "type": "Tipo di libro",
+        "typeStandard": "Libro",
+        "typeComic": "Fumetto",
+        "typeWordless": "Senza testo",
+        "typeChild": "Scritto dal bambino",
+        "hintStandard": "Un classico libro illustrato, letto pagina per pagina.",
+        "hintComic": "Vignette in ogni pagina, ciascuna con le sue battute in ordine.",
+        "hintWordless": "Solo immagini: nessuna battuta da registrare.",
+        "hintChild": "Ricopia le frasi del bambino così come le ha scritte.",
+        "language": "Lingua del libro",
+        "reader": "Chi legge tutto il libro?",
+        "more": "Più dettagli (facoltativo)",
+        "subtitle": "Sottotitolo",
+        "author": "Autore",
+        "authorChild": "Autore (il bambino)",
+        "illustrator": "Illustratore",
+        "ageMin": "Età minima",
+        "ageMax": "Età massima",
+        "tts": "Leggi il titolo con una voce sintetica finché non è registrato",
+        "errTitle": "Dai un titolo al libro.",
+        "errReader": "Scegli chi legge il libro.",
+        "errAge": "L’età minima deve essere inferiore all’età massima."
+    },
+    "pages": {
+        "intro": "Fotografa ogni pagina del libro. Queste foto restano private per la famiglia e non vengono mai mostrate al bambino.",
+        "takePhoto": "Fotografa una pagina",
+        "addPage": "Aggiungi una pagina",
+        "addEmpty": "Aggiungi una pagina vuota",
+        "sending": "Invio delle foto…",
+        "photoFailed": "Non è stato possibile inviare una foto. Riprova.",
+        "removePage": "Rimuovi la pagina {n}",
+        "emptyNote": "Questa pagina non ha immagine: verrà saltata durante l’ascolto.",
+        "ttsFallback": "Voce sintetica se nessuno la legge",
+        "describe": "Descrivi l’immagine della pagina (facoltativo)",
+        "describePlaceholder": "Un piccolo zebù in riva a un lago…",
+        "panelPlaceholder": "Cosa si vede nella vignetta",
+        "removePanel": "Rimuovi la vignetta {panel} dalla pagina {page}",
+        "addPanel": "Aggiungi una vignetta",
+        "needsPhoto": "Questo tipo di libro ha bisogno di almeno una pagina in foto.",
+        "continueNoPhoto": "Continua senza foto"
+    },
+    "characters": {
+        "intro": "Definisci ogni personaggio una volta sola: lo ritroverai poi con un tocco per ogni battuta. Scegli chi legge la sua voce.",
+        "groupLabel": "Personaggio {name}",
+        "name": "Nome",
+        "remove": "Rimuovi {name}",
+        "colors": "Colore",
+        "colorLabel": "Colore {color}",
+        "coral": "corallo",
+        "sun": "sole",
+        "mint": "menta",
+        "sky": "cielo",
+        "grape": "uva",
+        "pink": "rosa",
+        "description": "Descrizione (facoltativo)",
+        "descriptionPlaceholder": "Un piccolo zebù timido",
+        "narrator": "Narratore",
+        "whoReads": "Chi legge la sua voce?",
+        "newCharacter": "Nuovo personaggio",
+        "newPlaceholder": "Piccolo Zebù",
+        "add": "Aggiungi un personaggio",
+        "castHint": "{done}/{total} personaggi hanno una voce."
+    },
+    "lines": {
+        "introSimple": "Ricopia le battute, pagina per pagina. Incolla un intero testo in una volta: una battuta per riga. Il testo serve solo a dividere: il bambino non lo vedrà mai.",
+        "introCast": "Ricopia le battute, pagina per pagina. Incolla un intero testo in una volta: una battuta per riga, oppure «Nome: battuta» per cambiare personaggio. Il testo serve solo a dividere: il bambino non lo vedrà mai.",
+        "emptyNote": "Pagina vuota: niente da registrare, verrà saltata durante l’ascolto.",
+        "image": "Immagine: {description}",
+        "panelWithDescription": "Vignetta {n}: {description}",
+        "needOne": "Aggiungi almeno una battuta per continuare.",
+        "count": {
+            "one": "{count} battuta",
+            "other": "{count} battute"
+        }
+    },
+    "review": {
+        "readsAll": "{name} legge tutto il libro",
+        "narratorName": "{name} (narratore)",
+        "pickVoice": "Voce da scegliere",
+        "errLines": "Aggiungi almeno una battuta.",
+        "errNames": "Ogni personaggio ha bisogno di un nome diverso.",
+        "errVoiceless": "Scegli una voce per: {names}.",
+        "saving": "Salvataggio…",
+        "toStudio": "Vai allo studio",
+        "saveFailed": "Impossibile salvare il libro al momento.",
+        "pages": {
+            "one": "{count} pagina",
+            "other": "{count} pagine"
+        }
+    }
+}

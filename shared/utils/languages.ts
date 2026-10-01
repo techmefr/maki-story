@@ -34,4 +34,4 @@ export const pickLocale = (candidates: readonly string[]): string => {
     return DEFAULT_LOCALE
 }
 
-export const textDirection = (code: string): \x27ltr\x27 | \x27rtl\x27 => (RTL_LOCALES.includes(code) ? \x27rtl\x27 : \x27ltr\x27)
+export const textDirection = (code: string): 'ltr' | 'rtl' => (RTL_LOCALES.includes(code) ? 'rtl' : 'ltr')

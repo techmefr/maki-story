@@ -1,0 +1,44 @@
+{
+    "title": "图书馆",
+    "listen": "收听",
+    "messagesWaiting": {
+        "other": "有 {count} 条消息在等你"
+    },
+    "newBook": "新书",
+    "newBookOffline": "新书（需要联网）",
+    "createAi": "用 AI 创作故事",
+    "noMatch": "没有符合的书",
+    "empty": "暂时还没有书",
+    "emptyHint": "拍下纸质书的每一页，剪出台词，再给每个声音涂上颜色。",
+    "rows": {
+        "review": "待审阅的提议",
+        "recording": "录音进行中",
+        "toRecord": "待录音",
+        "all": "我们所有的书"
+    },
+    "storage": {
+        "title": "离线存储",
+        "unavailable": "此设备无法显示已用空间",
+        "usage": "已用 {used}，共 {quota}",
+        "downloaded": "已下载的书：{size}",
+        "incomplete": "不完整",
+        "keep": "把数据保留在此设备上",
+        "protected": "存储已受保护",
+        "empty": "还没有下载的书。从图书馆下载一本书，就能在没网时收听。",
+        "removeOne": "删除 {title}",
+        "removeAll": "全部删除",
+        "emptyTitle": "没有已下载的书",
+        "emptyHint": "从书库下载一本书，就可以离线收听。"
+    },
+    "grimace": {
+        "title": "你的鬼脸！",
+        "help": "做一个别人都不会做的鬼脸：孩子一眼就能认出你。",
+        "later": "以后再说",
+        "saveFailed": "暂时无法保存照片。"
+    },
+    "grimaceNudge": {
+        "title": "来做你的鬼脸吧！",
+        "text": "拍一张有趣的照片，让孩子认出你。"
+    },
+    "noMatchHint": "试试其他词，或去掉一个筛选条件。"
+}

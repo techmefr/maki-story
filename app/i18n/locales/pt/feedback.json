@@ -1,0 +1,17 @@
+{
+    "title": "Opiniões dos testadores",
+    "empty": "Ainda não há opiniões.",
+    "moods": {
+        "love": "Eu adoro",
+        "ok": "Está bom",
+        "bad": "Não está claro"
+    },
+    "note": "Nota",
+    "button": "Opinião",
+    "sheetTitle": "Sua opinião sobre esta tela",
+    "placeholder": "O que funciona, o que trava, o que falta...",
+    "thanks": "Obrigado, anotado.",
+    "emptyHint": "Os comentários enviados com o botão Opinião aparecerão aqui.",
+    "mood": "O teu humor",
+    "label": "A tua opinião"
+}

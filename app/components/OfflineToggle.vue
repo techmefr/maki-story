@@ -4,16 +4,16 @@
             <div class="progress" role="progressbar" :aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress__fill" :style="{ width: `${percent}%` }" />
             </div>
-            <span class="muted">Téléchargement {{ current.done }}/{{ current.total }}</span>
+            <span class="muted">{{ t('shell.offline.downloading', { done: current.done, total: current.total }) }}</span>
         </div>
         <div v-else-if="isDownloaded(bookId)" class="row row--wrap">
-            <span class="badge" style="background: #4cd4a8">Disponible hors ligne · {{ sizeLabel }}</span>
+            <span class="badge" style="background: #4cd4a8">{{ t('shell.offline.available', { size: sizeLabel }) }}</span>
             <button type="button" class="btn btn--small btn--white" @click="remove(bookId)">
-                <AppIcon name="trash" :size="16" />Retirer le téléchargement
+                <AppIcon name="trash" :size="16" />{{ t('shell.offline.remove') }}
             </button>
         </div>
         <button v-else type="button" class="btn btn--small btn--white" :disabled="!isOnline" @click="download(bookId)">
-            <AppIcon name="download" :size="16" />{{ isPartial(bookId) ? 'Reprendre le téléchargement' : 'Télécharger' }}
+            <AppIcon name="download" :size="16" />{{ isPartial(bookId) ? t('shell.offline.resume') : t('shell.offline.download') }}
         </button>
         <p v-if="errors[bookId]" class="error" role="alert">{{ errors[bookId] }}</p>
     </div>
@@ -22,6 +22,7 @@
 <script setup lang="ts">
 const { bookId } = defineProps<{ bookId: string }>()
 
+const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { records, progress, errors, bytesOf, isBusy, isDownloaded, isPartial, download, remove, refresh } = useOfflineBooks()
 

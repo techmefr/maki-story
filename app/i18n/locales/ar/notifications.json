@@ -1,0 +1,41 @@
+{
+    "title": "الإشعارات",
+    "markAllRead": "تعليم الكل كمقروء",
+    "empty": "لا توجد إشعارات حتى الآن.",
+    "new": "جديد",
+    "read": "مقروء",
+    "sharing": "المشاركة بين العائلات",
+    "bellUnread": {
+        "zero": "الإشعارات، لا إشعارات غير مقروءة",
+        "one": "الإشعارات، إشعار واحد غير مقروء",
+        "two": "الإشعارات، إشعاران غير مقروءين",
+        "few": "الإشعارات، {count} إشعارات غير مقروءة",
+        "many": "الإشعارات، {count} إشعاراً غير مقروء",
+        "other": "الإشعارات، {count} إشعاراً غير مقروء"
+    },
+    "describe": {
+        "default": "إشعار جديد",
+        "receivedRecord": "{from} يطلب منك تسجيل صوتك لـ «{title}»",
+        "receivedCopy": "{from} أرسل إليك الكتاب «{title}»",
+        "accepted": "{name} قبل «{title}»",
+        "declined": "{name} رفض «{title}»",
+        "toApprove": "{from} يقترح «{title}»: بانتظار الموافقة",
+        "approved": "تمت الموافقة على اقتراحك «{title}»",
+        "voiceBatch": {
+            "zero": "أرسل {from} صوته: لا جمل من «{title}»",
+            "one": "أرسل {from} صوته: جملة واحدة من «{title}»",
+            "two": "أرسل {from} صوته: جملتان من «{title}»",
+            "few": "أرسل {from} صوته: {count} جمل من «{title}»",
+            "many": "أرسل {from} صوته: {count} جملة من «{title}»",
+            "other": "أرسل {from} صوته: {count} جملة من «{title}»"
+        },
+        "recordingBatch": {
+            "zero": "{name} لم يسجّل أي جملة من «{title}»",
+            "one": "{name} أنهى تسجيل جملة واحدة من «{title}»",
+            "two": "{name} أنهى تسجيل جملتين من «{title}»",
+            "few": "{name} أنهى تسجيل {count} جمل من «{title}»",
+            "many": "{name} أنهى تسجيل {count} جملة من «{title}»",
+            "other": "{name} أنهى تسجيل {count} جملة من «{title}»"
+        }
+    }
+}

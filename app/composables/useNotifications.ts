@@ -1,32 +1,27 @@
-const MODE_VERBS: Record<string, string> = {
-    record: 'vous demande d’enregistrer votre voix pour',
-    copy: 'vous a envoyé le livre',
-}
-
 const text = (value: string | number | undefined): string => (value === undefined ? '' : String(value))
 
-export const describeNotification = (notification: INotification): string => {
+export const describeNotification = (notification: INotification, t: (key: string, params?: Record<string, string | number>) => string): string => {
     const { payload, count } = notification
     const from = text(payload.fromName) || text(payload.familyName)
-    const title = `« ${text(payload.bookTitle)} »`
-    const lines = count > 1 ? `${count} répliques` : '1 réplique'
+    const title = text(payload.bookTitle)
+    const familyName = text(payload.familyName)
     switch (notification.kind) {
         case 'share_received':
-            return `${from} ${MODE_VERBS[text(payload.mode)] ?? MODE_VERBS.copy} ${title}`
+            return t(text(payload.mode) === 'record' ? 'notifications.describe.receivedRecord' : 'notifications.describe.receivedCopy', { from, title })
         case 'share_accepted':
-            return `${text(payload.familyName)} a accepté ${title}`
+            return t('notifications.describe.accepted', { name: familyName, title })
         case 'share_declined':
-            return `${text(payload.familyName)} a refusé ${title}`
+            return t('notifications.describe.declined', { name: familyName, title })
         case 'share_to_approve':
-            return `${from} propose ${title} : à valider`
+            return t('notifications.describe.toApprove', { from, title })
         case 'share_approved':
-            return `Ta proposition ${title} a été approuvée`
+            return t('notifications.describe.approved', { title })
         case 'voice_batch':
-            return `${from} a envoyé sa voix : ${lines} de ${title}`
+            return t('notifications.describe.voiceBatch', { from, title, count })
         case 'recording_batch':
-            return `${text(payload.memberName)} a fini d’enregistrer ${lines} de ${title}`
+            return t('notifications.describe.recordingBatch', { name: text(payload.memberName), title, count })
         default:
-            return 'Nouvelle notification'
+            return t('notifications.describe.default')
     }
 }
 

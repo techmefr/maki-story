@@ -1,0 +1,78 @@
+{
+    "title": "Teilen zwischen Familien",
+    "invite": {
+        "title": "Einladungscode",
+        "help": "Gib diesen Code einer anderen Familie, damit sie dir ein Buch schicken oder dich bitten kann, deine Stimme aufzunehmen.",
+        "codeLabel": "Einladungscode der Familie",
+        "revoked": "Der Code ist deaktiviert. Erneuere ihn, um wieder einzuladen.",
+        "renew": "Code erneuern",
+        "disable": "Deaktivieren"
+    },
+    "approvals": {
+        "title": "Zu bestätigen"
+    },
+    "approve": "Genehmigen",
+    "decline": "Ablehnen",
+    "incoming": {
+        "title": "Erhalten"
+    },
+    "whoRecords": "Wer nimmt auf?",
+    "allAdults": "Alle Erwachsenen der Familie",
+    "accept": "Annehmen",
+    "recordMyVoice": "Meine Stimme aufnehmen",
+    "stopShare": "Dieses Teilen beenden",
+    "outgoing": {
+        "title": "Gesendet"
+    },
+    "noOutgoing": "Noch nichts geteilt. Nutze die Schaltfläche „Teilen“ bei einem Buch in der Bibliothek.",
+    "stop": "Beenden",
+    "status": {
+        "proposed": "Wartet auf die Bestätigung durch einen Elternteil",
+        "awaiting_owner": "Wartet auf das Einverständnis des Buchbesitzers",
+        "pending": "Wartet auf Antwort",
+        "accepted": "Angenommen",
+        "declined": "Abgelehnt",
+        "revoked": "Beendet"
+    },
+    "mode": {
+        "record": {
+            "one": "{count} Sprechtext aufnehmen",
+            "other": "{count} Sprechtexte aufnehmen"
+        },
+        "copy": "Kopie in der Bibliothek"
+    },
+    "approvalLabel": "{name} möchte dieses Buch mit {family} teilen ({mode}).",
+    "proposerFallback": "Ein Angehöriger",
+    "incomingLabel": "{family}: {mode}. {status}.",
+    "outgoingLabel": "Für {family}: {mode}. {status}.",
+    "actionFailed": "Diese Aktion ist im Moment nicht möglich.",
+    "detail": {
+        "help": "Nimm deine Stimme für die gewünschten Sprechtexte auf. Du kannst vor dem Senden noch einmal zuhören.",
+        "narrator": "Erzähler",
+        "narratorLower": "Erzähler",
+        "lineAria": "Sprechtext von {name}",
+        "sent": "Gesendet",
+        "listenAgain": "Nochmal anhören",
+        "redo": "Nochmal aufnehmen",
+        "record": "Aufnehmen",
+        "unavailable": "Diese Freigabe ist nicht verfügbar.",
+        "sendFailed": "Das Senden hat nicht geklappt. Versuch es gleich noch einmal."
+    },
+    "dialog": {
+        "title": "„{title}“ teilen",
+        "code": "Familiencode",
+        "how": "Wie teilen?",
+        "modeRecord": "Meine Stimme für dieses Buch aufnehmen",
+        "modeCopy": "In ihre Bibliothek kopieren",
+        "linesToRecord": "Aufzunehmende Sprechtexte",
+        "line": "{character}: {text}",
+        "note": "Ein kleines Wort (optional)",
+        "sentTo": "An die Familie {name} gesendet.",
+        "needsApproval": "Gespeichert: Ein Elternteil muss vor dem Senden zustimmen.",
+        "notFound": "Dieser Code gehört zu keiner Familie.",
+        "conflict": "Dieses Buch ist bereits so geteilt oder hat die maximale Anzahl an Familien erreicht.",
+        "tooMany": "Zu viele Versuche. Versuch es in ein paar Minuten noch einmal.",
+        "forbidden": "Dein Profil darf dieses Buch nicht teilen.",
+        "failed": "Die Freigabe konnte nicht gesendet werden."
+    }
+}

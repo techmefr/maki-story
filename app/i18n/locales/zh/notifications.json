@@ -1,0 +1,26 @@
+{
+    "title": "通知",
+    "markAllRead": "全部标为已读",
+    "empty": "暂时没有通知。",
+    "new": "新",
+    "read": "已读",
+    "sharing": "家庭之间分享",
+    "bellUnread": {
+        "other": "通知，{count} 条未读"
+    },
+    "describe": {
+        "default": "新通知",
+        "receivedRecord": "{from} 请你为《{title}》录下你的声音",
+        "receivedCopy": "{from} 给你发来了《{title}》",
+        "accepted": "{name} 接受了《{title}》",
+        "declined": "{name} 拒绝了《{title}》",
+        "toApprove": "{from} 提议分享《{title}》：待审批",
+        "approved": "你提议的《{title}》已获批准",
+        "voiceBatch": {
+            "other": "{from} 发来了声音：《{title}》的 {count} 句台词"
+        },
+        "recordingBatch": {
+            "other": "{name} 录完了《{title}》的 {count} 句台词"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "title": "Nachrichten",
+    "addChild": "Füge ein Kind zur Familie hinzu, um ihm Sprachnachrichten zu schicken.",
+    "sendHim": "Ihm eine Nachricht schicken",
+    "needConnection": "Zum Senden ist eine Verbindung nötig",
+    "status": {
+        "waiting": "Eine Nachricht wartet auf dich",
+        "heard": "Hat angehört ✓",
+        "sent": "Gesendet",
+        "none": "Keine Nachricht"
+    },
+    "compose": {
+        "reply": "Antworte {name}",
+        "messageFor": "Eine Nachricht für {name}",
+        "sent": "Gesendet!",
+        "stop": "Stopp",
+        "record": "Aufnehmen",
+        "redo": "Nochmal",
+        "tapToFinish": "Tippe zum Beenden",
+        "tapMic": "Tippe auf das Mikrofon",
+        "tooShort": "Zu kurz, versuch es noch einmal.",
+        "sendFailed": "Die Nachricht konnte nicht gesendet werden. Versuch es noch einmal."
+    },
+    "listen": {
+        "finished": "Fertig",
+        "reply": "Antworten",
+        "play": "Anhören",
+        "alreadyHeard": "Diese Nachricht wurde schon angehört",
+        "next": "Nächste Nachricht",
+        "nextWaiting": "Nächste Nachricht ({count} wartend)"
+    },
+    "strip": {
+        "label": "Nachrichten der Familie",
+        "item": {
+            "one": "{name}: {count} Nachricht zum Anhören",
+            "other": "{name}: {count} Nachrichten zum Anhören"
+        }
+    },
+    "noOneTitle": "Niemand zum Schreiben"
+}

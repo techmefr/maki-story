@@ -1,0 +1,40 @@
+{
+    "title": "Messages",
+    "addChild": "Ajoute un enfant dans la famille pour lui écrire en vocal.",
+    "sendHim": "Lui envoyer un message",
+    "needConnection": "Connexion nécessaire pour envoyer",
+    "status": {
+        "waiting": "Un message t’attend",
+        "heard": "A écouté ✓",
+        "sent": "Envoyé",
+        "none": "Aucun message"
+    },
+    "compose": {
+        "reply": "Réponds à {name}",
+        "messageFor": "Un message pour {name}",
+        "sent": "Envoyé !",
+        "stop": "Arrêter",
+        "record": "Enregistrer",
+        "redo": "Refaire",
+        "tapToFinish": "Touche pour finir",
+        "tapMic": "Touche le micro",
+        "tooShort": "Trop court, recommence.",
+        "sendFailed": "Le message n’a pas pu être envoyé. Réessaie."
+    },
+    "listen": {
+        "finished": "C’est fini",
+        "reply": "Répondre",
+        "play": "Écouter",
+        "alreadyHeard": "Ce message a déjà été écouté",
+        "next": "Message suivant",
+        "nextWaiting": "Message suivant ({count} en attente)"
+    },
+    "strip": {
+        "label": "Messages de la famille",
+        "item": {
+            "one": "{name} : {count} message à écouter",
+            "other": "{name} : {count} messages à écouter"
+        }
+    },
+    "noOneTitle": "Personne à qui écrire"
+}

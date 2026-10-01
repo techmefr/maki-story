@@ -1,0 +1,86 @@
+{
+    "notice": {
+        "label": "Proposto dall’IA.",
+        "default": "Rileggi tutto con attenzione e correggi ciò che va corretto prima di continuare."
+    },
+    "errors": {
+        "unavailable": "L’IA non è configurata su questo server. Questa funzione al momento non è disponibile.",
+        "quota": "Il budget IA di questo mese è esaurito. Verrà azzerato all’inizio del mese prossimo.",
+        "forbidden": "Solo i genitori possono usare l’IA.",
+        "unusable": "L’IA ha dato una risposta inutilizzabile. Riprova tra un attimo.",
+        "failed": "L’IA non ha potuto rispondere al momento. Riprova più tardi."
+    },
+    "quota": {
+        "label": "Budget IA del mese: restano {remaining} su {budget}."
+    },
+    "draft": {
+        "title": "Da approvare",
+        "intro": "Queste storie sono state scritte dall’IA. I bambini non le vedono finché un genitore non le approva.",
+        "label": "Bozza {title}",
+        "badge": "Generato dall’IA",
+        "meta": "{pages} pagine · {lines} battute · {language}",
+        "validate": "Approva",
+        "validateLabel": "Approva {title}",
+        "reject": "Rifiuta",
+        "rejectLabel": "Rifiuta {title}",
+        "error": "Impossibile elaborare questa bozza al momento."
+    },
+    "prefill": {
+        "title": "Precompila da una foto",
+        "intro": "Fotografa le pagine (al massimo 4). L’IA legge il testo e propone personaggi, battute e toni. Rileggi e correggi tutto nei passaggi successivi prima di salvare.",
+        "choose": "Scegli le foto",
+        "reading": "Lettura in corso…",
+        "uploading": "Invio della foto {n} di {total}…",
+        "aiReading": "L’IA sta leggendo le pagine, può volerci un minuto…"
+    },
+    "translate": {
+        "suggestButton": "Suggerisci una traduzione",
+        "groupLabel": "Suggerimento di traduzione",
+        "notice": "Traduzione proposta dall’IA: rileggila e correggila prima di accettarla.",
+        "translateTo": "Traduci in",
+        "busy": "Traduzione in corso…",
+        "proposed": "Traduzione proposta in {language}",
+        "accept": "Accetta",
+        "reject": "Rifiuta",
+        "suggest": "Suggerisci",
+        "removeLabel": "Rimuovi la traduzione in {language}"
+    },
+    "page": {
+        "title": "Crea una storia con l’IA",
+        "parentsOnly": "Solo i genitori possono creare una storia con l’IA.",
+        "notice": "La storia e le immagini sono inventate dall’IA. Arriva nascosta in «Da approvare»: i bambini la vedono solo dopo la tua approvazione.",
+        "draftCreated": "Bozza creata",
+        "draftBody": "Ti aspetta nella riga «Da approvare» della biblioteca. Rileggilo, poi approvalo.",
+        "seeLibrary": "Vedi nella biblioteca",
+        "another": "Crea un’altra storia",
+        "idea": "La tua idea di storia",
+        "ideaPlaceholder": "Un piccolo zebù che ha paura del temporale…",
+        "storyLanguage": "Lingua della storia",
+        "ageMin": "Età minima",
+        "ageMax": "Età massima",
+        "allAges": "Tutti",
+        "pageCount": "Numero di pagine",
+        "hero": "Descrivi l’eroe (facoltativo)",
+        "heroPlaceholder": "Uno zebù marrone con una sciarpa rossa",
+        "ageProblem": "L’età minima deve essere inferiore all’età massima.",
+        "sheetTitle": "I personaggi",
+        "sheetIntro": "Questa scheda resta la stessa su tutte le pagine, così i personaggi mantengono lo stesso aspetto. Modificala se serve.",
+        "characterLabel": "Personaggio {n}",
+        "name": "Nome",
+        "description": "Descrizione",
+        "descriptionPlaceholder": "Piccolo, marrone, sciarpa rossa",
+        "remove": "Rimuovi",
+        "removeLabel": "Rimuovi il personaggio {n}",
+        "add": "Aggiungi un personaggio",
+        "busyNote": "Scrittura della storia e delle immagini, può volerci qualche minuto…",
+        "generating": "Generazione in corso…",
+        "generate": "Genera la storia",
+        "promptDefaultName": "Personaggio",
+        "promptEntry": "{name}: {description}",
+        "promptKeepSame": "Personaggi da mantenere identici su tutte le pagine:",
+        "skipped": {
+            "one": "Non è stato possibile creare {count} immagine: le pagine interessate sono vuote. Puoi completarle più tardi.",
+            "other": "Non è stato possibile creare {count} immagini: le pagine interessate sono vuote. Puoi completarle più tardi."
+        }
+    }
+}

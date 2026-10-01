@@ -1,0 +1,78 @@
+{
+    "title": "Partage entre familles",
+    "invite": {
+        "title": "Code d’invitation",
+        "help": "Donne ce code à une autre famille pour qu’elle puisse t’envoyer un livre ou te demander d’enregistrer ta voix.",
+        "codeLabel": "Code d’invitation de la famille",
+        "revoked": "Le code est désactivé. Renouvelle-le pour inviter de nouveau.",
+        "renew": "Renouveler le code",
+        "disable": "Désactiver"
+    },
+    "approvals": {
+        "title": "À valider"
+    },
+    "approve": "Approuver",
+    "decline": "Refuser",
+    "incoming": {
+        "title": "Reçus"
+    },
+    "whoRecords": "Qui enregistre ?",
+    "allAdults": "Tous les adultes de la famille",
+    "accept": "Accepter",
+    "recordMyVoice": "Enregistrer ma voix",
+    "stopShare": "Arrêter ce partage",
+    "outgoing": {
+        "title": "Envoyés"
+    },
+    "noOutgoing": "Aucun partage envoyé. Utilise le bouton Partager d’un livre de la bibliothèque.",
+    "stop": "Arrêter",
+    "status": {
+        "proposed": "En attente de validation par un parent",
+        "awaiting_owner": "En attente de l’accord du propriétaire du livre",
+        "pending": "En attente de réponse",
+        "accepted": "Accepté",
+        "declined": "Refusé",
+        "revoked": "Arrêté"
+    },
+    "mode": {
+        "record": {
+            "one": "enregistrer {count} réplique",
+            "other": "enregistrer {count} répliques"
+        },
+        "copy": "copie dans la bibliothèque"
+    },
+    "approvalLabel": "{name} voudrait partager ce livre avec {family} ({mode}).",
+    "proposerFallback": "Un proche",
+    "incomingLabel": "{family} : {mode}. {status}.",
+    "outgoingLabel": "Pour {family} : {mode}. {status}.",
+    "actionFailed": "Cette action n’a pas pu être faite pour le moment.",
+    "detail": {
+        "help": "Enregistre ta voix pour les répliques demandées. Tu peux réécouter avant d’envoyer.",
+        "narrator": "Narrateur",
+        "narratorLower": "narrateur",
+        "lineAria": "Réplique de {name}",
+        "sent": "Envoyée",
+        "listenAgain": "Réécouter",
+        "redo": "Refaire",
+        "record": "Enregistrer",
+        "unavailable": "Ce partage n’est pas disponible.",
+        "sendFailed": "L’envoi n’a pas fonctionné. Réessaie dans un instant."
+    },
+    "dialog": {
+        "title": "Partager « {title} »",
+        "code": "Code de la famille",
+        "how": "Comment partager ?",
+        "modeRecord": "Enregistrer ma voix pour ce livre",
+        "modeCopy": "Copier dans sa bibliothèque",
+        "linesToRecord": "Répliques à enregistrer",
+        "line": "{character} : {text}",
+        "note": "Un petit mot (facultatif)",
+        "sentTo": "Envoyé à la famille {name}.",
+        "needsApproval": "Enregistré : un parent doit valider avant l’envoi.",
+        "notFound": "Ce code ne correspond à aucune famille.",
+        "conflict": "Ce livre est déjà partagé ainsi, ou il a atteint le nombre maximum de familles.",
+        "tooMany": "Trop d’essais. Réessaie dans quelques minutes.",
+        "forbidden": "Ton profil ne peut pas partager ce livre.",
+        "failed": "Le partage n’a pas pu être envoyé."
+    }
+}
