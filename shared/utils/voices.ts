@@ -12,6 +12,7 @@ const FALLBACK_VOICE: IVoiceColor = { id: 'coral', hex: '#FF7A6B', hexLight: '#F
 export const INK_COLOR = '#1F1B3A'
 export const CREAM_COLOR = '#FFF4D9'
 export const MAX_MESSAGES_PER_CONVERSATION = 5
+export const MAX_STATUS_MESSAGES_PER_RELATIVE = 3
 
 export const getVoiceColor = (id: VoiceColorId): IVoiceColor => {
     return VOICE_COLORS.find(color => color.id === id) ?? FALLBACK_VOICE

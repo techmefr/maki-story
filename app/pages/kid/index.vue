@@ -13,9 +13,11 @@
                     :to="`/message/listen/${face.message.id}`"
                     class="face__bubble anim-bounce"
                     :style="{ background: face.hex }"
+                    :aria-label="face.bubbleLabel"
                 >
                     <AppIcon name="message-heart" :size="22" motion="wiggle" />
                     Message
+                    <span class="face__count" data-bubble-count>{{ face.count }}</span>
                 </NuxtLink>
             </div>
         </div>
@@ -32,13 +34,15 @@ definePageMeta({ layout: 'kid' })
 
 const { current, currentId } = useCurrentMember()
 const { grownUps } = useMembers()
-const { load, startPolling, stopPolling, playableFrom } = useMessages()
+const { load, startPolling, stopPolling, playableFrom, unreadFrom } = useMessages()
 
 const faces = computed(() =>
     grownUps.value.map(member => ({
         member,
         hex: memberHex(member),
         message: currentId.value ? playableFrom(member.id, currentId.value) : null,
+        count: currentId.value ? unreadFrom(member.id, currentId.value) : 0,
+        bubbleLabel: `${member.name} : ${currentId.value ? unreadFrom(member.id, currentId.value) : 0} à écouter`,
     })),
 )
 const faceIds = computed(() => grownUps.value.map(member => member.id))
@@ -52,6 +56,18 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
+.face__count {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    border: 2.5px solid var(--ink);
+    background: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
 .faces {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

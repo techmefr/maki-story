@@ -46,12 +46,17 @@ export const useMessages = () => {
         )
     }
 
-    const playableFrom = (senderId: string, receiverId: string): IMessage | null => {
-        const latest = messages.value.find(
-            message => message.fromMemberId === senderId && message.toMemberId === receiverId,
-        )
-        return latest && !latest.listenedAt ? latest : null
+    const queueFrom = (senderId: string, receiverId: string): IMessage[] => {
+        return messages.value
+            .filter(message => message.fromMemberId === senderId && message.toMemberId === receiverId && !message.listenedAt)
+            .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
     }
+
+    const playableFrom = (senderId: string, receiverId: string): IMessage | null => {
+        return queueFrom(senderId, receiverId)[0] ?? null
+    }
+
+    const unreadFrom = (senderId: string, receiverId: string): number => queueFrom(senderId, receiverId).length
 
     const lastSentTo = (senderId: string, receiverId: string): IMessage | null => {
         return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId) ?? null
@@ -69,7 +74,9 @@ export const useMessages = () => {
         send,
         markListened,
         between,
+        queueFrom,
         playableFrom,
+        unreadFrom,
         lastSentTo,
         unreadCountFor,
     }

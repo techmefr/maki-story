@@ -97,7 +97,11 @@ const send = async (): Promise<void> => {
         setTimeout(() => navigateTo(isChild.value ? '/kid' : '/messages'), BACK_DELAY_MS)
     } catch (error) {
         console.error('Le message n a pas pu être envoyé', error)
-        errorMessage.value = 'Le message n’a pas pu être envoyé. Réessaie.'
+        const failure = error as { statusCode?: number; statusMessage?: string }
+        errorMessage.value =
+            failure.statusCode === 409 && failure.statusMessage
+                ? failure.statusMessage
+                : 'Le message n’a pas pu être envoyé. Réessaie.'
     } finally {
         isBusy.value = false
     }
