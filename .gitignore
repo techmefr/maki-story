@@ -8,3 +8,5 @@ dist
 ios
 android
 .vercel
+test-results
+playwright-report
