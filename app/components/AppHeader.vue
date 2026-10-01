@@ -1,7 +1,7 @@
 <template>
     <header class="row header">
         <NuxtLink :to="homePath" class="row header__brand">
-            <AppMaki :size="40" />
+            <AppLogo :size="40" />
             <span class="header__name">Tantara</span>
         </NuxtLink>
         <nav v-if="!isChild" class="nav">

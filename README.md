@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="public/icon.svg" alt="Tantara mascot: a ring-tailed lemur wearing headphones" width="120">
+    <img src="public/icon-512.png" alt="Tantara mascot: a ring-tailed lemur wearing headphones" width="120">
 </p>
 
 <h1 align="center">Tantara</h1>
