@@ -9,10 +9,30 @@ const SUMMARY_SELECT = `
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
     (select count(*)::int from lines l join recordings r on r.line_id = l.id and r.language = b.language and r.status <> 'stale'
         where l.book_id = b.id) as recorded_count,
-    coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids
+    (select count(*)::int from lines l join recordings r on r.line_id = l.id and r.status = 'submitted' where l.book_id = b.id) as submitted_count,
+    coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids,
+    coalesce((select array_agg(distinct r.member_id) from lines l join recordings r on r.line_id = l.id and r.status <> 'stale' where l.book_id = b.id), '{}') as reader_ids
 `
 
-const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id where sl.book_id = b.id)`
+const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id and sr.status <> 'stale' where sl.book_id = b.id)`
+
+const MAX_PAGE_SIZE = 200
+const LIKE_SPECIALS = /[\\%_]/g
+
+const readText = (value: unknown): string | undefined => (typeof value === 'string' && value.trim() !== '' ? value.trim().slice(0, 80) : undefined)
+
+const readCount = (value: unknown, fallback: number, max: number): number => {
+    const parsed = Number.parseInt(String(value ?? ''), 10)
+    return Number.isFinite(parsed) && parsed >= 0 ? Math.min(parsed, max) : fallback
+}
+
+export const parseBookQuery = (raw: Record<string, unknown>): IBookQuery => ({
+    q: readText(raw.q),
+    language: readText(raw.language),
+    age: readText(raw.age),
+    limit: Math.max(1, readCount(raw.limit, MAX_PAGE_SIZE, MAX_PAGE_SIZE)),
+    offset: readCount(raw.offset, 0, 100000),
+})
 
 export const bookScope = (actor: IActor, memberParam: number): string => {
     if (actor.role === 'parent') {
@@ -26,11 +46,35 @@ export const bookScope = (actor: IActor, memberParam: number): string => {
 
 export const bookScopeParams = (actor: IActor): string[] => (actor.role === 'relative' && actor.memberId ? [actor.memberId] : [])
 
-export const listBookSummaries = async (actor: IActor): Promise<IBookSummary[]> => {
-    return getDb().unsafe<IBookSummary[]>(
-        `select ${SUMMARY_SELECT} from books b where b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)} order by b.created_at desc`,
-        [actor.familyId, ...bookScopeParams(actor)],
+export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): Promise<IBookList> => {
+    const params: string[] = [actor.familyId, ...bookScopeParams(actor)]
+    const filters: string[] = []
+    const bind = (value: string | number): string => {
+        params.push(String(value))
+        return `$${params.length}`
+    }
+    if (query.q) {
+        const needle = bind(`%${query.q.replace(LIKE_SPECIALS, match => `\\${match}`)}%`)
+        filters.push(`(b.title ilike ${needle} or b.subtitle ilike ${needle} or b.author ilike ${needle})`)
+    }
+    if (query.language) {
+        filters.push(`b.language = ${bind(query.language)}`)
+    }
+    const tag = AGE_TAGS.find(item => item.id === query.age)
+    if (tag) {
+        filters.push(`b.age_min is not null and b.age_min <= ${bind(tag.max)}::int and coalesce(b.age_max, b.age_min) >= ${bind(tag.min)}::int`)
+    }
+    const where = `b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)}${filters.map(item => ` and ${item}`).join('')}`
+    const filterParams = [...params]
+    const limit = bind(query.limit ?? MAX_PAGE_SIZE)
+    const offset = bind(query.offset ?? 0)
+    const db = getDb()
+    const items = await db.unsafe<IBookSummary[]>(
+        `select ${SUMMARY_SELECT} from books b where ${where} order by b.created_at desc limit ${limit}::int offset ${offset}::int`,
+        params,
     )
+    const [counted] = await db.unsafe<{ total: number }[]>(`select count(*)::int as total from books b where ${where}`, filterParams)
+    return { items, total: counted?.total ?? 0 }
 }
 
 export const assertBookReadable = async (actor: IActor, bookId: string): Promise<void> => {
