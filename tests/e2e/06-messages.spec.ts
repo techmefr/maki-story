@@ -34,7 +34,17 @@ test.describe('voice messages', () => {
         await expect(page.getByRole('heading', { name: new RegExp('Un message pour') })).toBeVisible()
         await recordOnce(page, page.getByRole('button', { name: 'Enregistrer' }))
         await page.getByRole('button', { name: 'Refaire' }).click()
+        let dropped = 0
+        await page.route('**/api/uploads/*', async route => {
+            if (route.request().method() === 'PATCH' && dropped < 1) {
+                dropped += 1
+                await route.abort('connectionreset')
+                return
+            }
+            await route.continue()
+        })
         await sendVoiceMessage(page)
+        expect(dropped).toBe(1)
         await expect(page).toHaveURL(/\/kid$/, { timeout: 10000 })
         await page.locator('.face__link', { hasText: uniqueName('Mamie', project) }).click()
         await expect(page.getByText('Envoyé', { exact: true })).toBeVisible()
