@@ -1,6 +1,10 @@
 <template>
-    <div class="curtain" :class="`curtain--${phase}`" aria-hidden="true">
-        <div v-for="(color, index) in colors" :key="color.id" class="curtain__band" :style="{ background: color.hex, '--i': index }" />
+    <div class="curtain" :class="[`curtain--${phase}`, `curtain--${kind}`]" aria-hidden="true">
+        <template v-if="kind !== 'bars'">
+            <div class="curtain__cover curtain__cover--left" />
+            <div class="curtain__cover curtain__cover--right" />
+        </template>
+        <div v-for="(color, index) in colors" v-show="kind === 'bars'" :key="color.id" class="curtain__band" :style="{ background: color.hex, '--i': index }" />
         <AppMaki class="curtain__maki" :size="96" />
     </div>
 </template>
@@ -10,6 +14,7 @@ const COVER_MS = 300
 const SAFETY_MS = 1800
 
 const colors = VOICE_COLORS.slice(0, 4)
+const kind = useState<string>('transition-kind', () => 'bars')
 const phase = ref<'idle' | 'in' | 'out'>('idle')
 const nuxtApp = useNuxtApp()
 let coveredAt = 0
@@ -91,6 +96,98 @@ onBeforeUnmount(clearTimers)
 
 .curtain--in .curtain__maki {
     animation: maki-pop 0.4s ease-out 0.15s forwards;
+}
+
+.curtain__cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: var(--cream);
+    display: none;
+}
+
+.curtain__cover--left {
+    left: 0;
+    border-right: 3px solid var(--ink);
+    transform-origin: left center;
+}
+
+.curtain__cover--right {
+    right: 0;
+    border-left: 3px solid var(--ink);
+    transform-origin: right center;
+}
+
+.curtain--book-open .curtain__cover,
+.curtain--book-close .curtain__cover {
+    display: block;
+}
+
+.curtain--book-open.curtain--in .curtain__cover--left {
+    animation: cover-left-in 0.3s ease-out forwards;
+}
+
+.curtain--book-open.curtain--in .curtain__cover--right {
+    animation: cover-right-in 0.3s ease-out forwards;
+}
+
+.curtain--book-open.curtain--out .curtain__cover--left {
+    animation: cover-left-in 0.3s ease-in reverse forwards;
+}
+
+.curtain--book-open.curtain--out .curtain__cover--right {
+    animation: cover-right-in 0.3s ease-in reverse forwards;
+}
+
+.curtain--book-close.curtain--in .curtain__cover--left,
+.curtain--book-close.curtain--in .curtain__cover--right {
+    animation: cover-slide-in 0.3s ease-out forwards;
+}
+
+.curtain--book-close.curtain--out .curtain__cover--left,
+.curtain--book-close.curtain--out .curtain__cover--right {
+    animation: cover-slide-in 0.3s ease-in reverse forwards;
+}
+
+.curtain--book-close .curtain__cover--left {
+    --slide: -100%;
+}
+
+.curtain--book-close .curtain__cover--right {
+    --slide: 100%;
+}
+
+.curtain--book-open .curtain__maki,
+.curtain--book-close .curtain__maki {
+    z-index: 1;
+}
+
+@keyframes cover-left-in {
+    from {
+        transform: perspective(900px) rotateY(80deg);
+    }
+    to {
+        transform: perspective(900px) rotateY(0);
+    }
+}
+
+@keyframes cover-slide-in {
+    from {
+        transform: translateX(var(--slide));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes cover-right-in {
+    from {
+        transform: perspective(900px) rotateY(-80deg);
+    }
+    to {
+        transform: perspective(900px) rotateY(0);
+    }
 }
 
 @keyframes band-in {

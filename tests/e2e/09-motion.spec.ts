@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { chooseProfile, login, PARENT_NAME } from './helpers'
+import { chooseProfile, createReadyBook, login, PARENT_NAME, uniqueName } from './helpers'
 
 test.describe('motion', () => {
     test.use({ contextOptions: { reducedMotion: 'no-preference' } })
@@ -28,5 +28,35 @@ test.describe('motion', () => {
         const cards = page.locator('button.card.pop-in')
         await expect(cards.first()).toBeVisible()
         await expect(cards.first()).toHaveCSS('opacity', '1')
+    })
+
+    test('reader entry and exit use the book transitions and the blob follows playback', async ({ page }, info) => {
+        await login(page)
+        await chooseProfile(page, PARENT_NAME)
+        const lines = [0, 1, 2, 3, 4, 5].map(index => ({ pageIndex: 0, character: '', text: `Ligne ${index}`, memberName: PARENT_NAME }))
+        const title = uniqueName('Blob', info.project.name)
+        await createReadyBook(page, title, 'solo', lines)
+        await page.goto('/home')
+        const curtain = page.locator('.curtain')
+        await page.getByRole('link', { name: new RegExp(title) }).click()
+        await expect(curtain).toHaveClass(/curtain--book-open/)
+        await expect(page.getByRole('button', { name: 'Lecture' })).toBeVisible()
+        await expect(page.locator('.blob--active')).toHaveCount(0)
+        await page.getByRole('button', { name: 'Lecture' }).click()
+        await expect(page.locator('.blob--active')).toHaveCount(1)
+        await page.getByRole('button', { name: 'Pause' }).click()
+        await expect(page.locator('.blob--active')).toHaveCount(0)
+        await page.getByRole('link', { name: 'Retour' }).click()
+        await expect(curtain).toHaveClass(/curtain--book-close/)
+    })
+
+    test.describe('reduced motion', () => {
+        test.use({ contextOptions: { reducedMotion: 'reduce' } })
+
+        test('curtain is disabled', async ({ page }) => {
+            await login(page)
+            await page.goto('/profiles')
+            await expect(page.locator('.curtain')).toHaveCSS('display', 'none')
+        })
     })
 })

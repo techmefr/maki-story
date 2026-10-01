@@ -607,7 +607,11 @@ a {
 .slide-forward-enter-active,
 .slide-forward-leave-active,
 .slide-back-enter-active,
-.slide-back-leave-active {
+.slide-back-leave-active,
+.book-open-enter-active,
+.book-open-leave-active,
+.book-close-enter-active,
+.book-close-leave-active {
     transition:
         opacity 0.22s ease,
         transform 0.22s cubic-bezier(0.3, 0.7, 0.3, 1);
@@ -617,6 +621,18 @@ a {
 .page-leave-to {
     opacity: 0;
     transform: scale(0.97);
+}
+
+.book-open-enter-from,
+.book-close-leave-to {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.book-open-leave-to,
+.book-close-enter-from {
+    opacity: 0;
+    transform: scale(1.05);
 }
 
 .slide-forward-enter-from {
@@ -670,7 +686,11 @@ a {
     .slide-forward-enter-active,
     .slide-forward-leave-active,
     .slide-back-enter-active,
-    .slide-back-leave-active {
+    .slide-back-leave-active,
+    .book-open-enter-active,
+    .book-open-leave-active,
+    .book-close-enter-active,
+    .book-close-leave-active {
         transition: none;
     }
 
