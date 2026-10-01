@@ -2,6 +2,7 @@ import type { H3Event } from 'h3'
 import type { Sql, TransactionSql } from 'postgres'
 import type { IUploadState } from '../../shared/types/upload'
 import { UPLOAD_CHUNK_BYTES } from '../../shared/utils/upload'
+import type { IActor } from './permissions'
 import { notFound, requireParam } from './validate'
 
 export interface IUploadSession {
@@ -22,18 +23,18 @@ export const toUploadState = (session: IUploadSession): IUploadState => ({
 export const loadUploadSession = async (
     db: Sql | TransactionSql,
     event: H3Event,
-    familyId: string,
+    actor: IActor,
     lock = false,
 ): Promise<IUploadSession> => {
     const id = requireParam(event, 'id')
     const rows = lock
         ? await db<IUploadSession[]>`
             select id, family_id, mime, size, received from upload_sessions
-            where id = ${id} and family_id = ${familyId} for update
+            where id = ${id} and family_id = ${actor.familyId} and member_id is not distinct from ${actor.memberId}::text for update
         `
         : await db<IUploadSession[]>`
             select id, family_id, mime, size, received from upload_sessions
-            where id = ${id} and family_id = ${familyId}
+            where id = ${id} and family_id = ${actor.familyId} and member_id is not distinct from ${actor.memberId}::text
         `
     const [session] = rows
     if (!session) {

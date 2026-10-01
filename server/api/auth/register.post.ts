@@ -2,15 +2,20 @@ import { getDb, one } from '../../utils/db'
 import { logEvent } from '../../utils/log'
 import { hashPassword } from '../../utils/password'
 import { startSession } from '../../utils/session'
+import { assertIpBudget, recordIpHit } from '../../utils/throttle'
 import { badRequest, isNonEmptyString, normalizeEmail } from '../../utils/validate'
 
 const MIN_PASSWORD_LENGTH = 8
 const MAX_PASSWORD_LENGTH = 200
 const MAX_NAME_LENGTH = 60
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const DEFAULT_REGISTRATIONS_PER_WINDOW = 20
 const DEFAULT_PARENT_COLOR: VoiceColorId = 'sun'
 
 export default defineEventHandler(async (event): Promise<IAuthState> => {
+    const limit = Number(process.env.REGISTER_IP_LIMIT) || DEFAULT_REGISTRATIONS_PER_WINDOW
+    await assertIpBudget(event, 'register', limit)
+    await recordIpHit(event, 'register')
     const body = await readBody<Partial<IRegisterInput>>(event)
     const email = normalizeEmail(body.email)
     const password = typeof body.password === 'string' ? body.password : ''

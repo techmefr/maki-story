@@ -36,3 +36,17 @@ export const recordFailure = async (event: H3Event, email: string): Promise<void
 export const clearFailures = async (email: string): Promise<void> => {
     await getDb()`delete from login_failures where bucket = ${`account:${email}`}`
 }
+
+const ipBucket = (event: H3Event, scope: string): string => `ip:${scope}:${getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'}`
+
+export const assertIpBudget = async (event: H3Event, scope: string, max: number): Promise<void> => {
+    if ((await countFailures(ipBucket(event, scope))) >= max) {
+        throw createError({ statusCode: 429, statusMessage: 'Too many attempts, try again later' })
+    }
+}
+
+export const recordIpHit = async (event: H3Event, scope: string): Promise<void> => {
+    const db = getDb()
+    await db`insert into login_failures (bucket) values (${ipBucket(event, scope)})`
+    await db`delete from login_failures where created_at < now() - interval '1 day'`
+}
