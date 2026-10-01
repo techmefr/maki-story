@@ -6,11 +6,31 @@
         <form class="card stack" style="width: 100%; text-align: left" @submit.prevent="submit">
             <label class="stack" style="gap: 6px">
                 <span class="label">E-mail</span>
-                <input v-model="email" class="input" type="email" autocomplete="email" required />
+                <input
+                    v-model="email"
+                    class="input"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                    required
+                />
             </label>
             <label class="stack" style="gap: 6px">
                 <span class="label">Mot de passe (8 caractères minimum)</span>
-                <input v-model="password" class="input" type="password" autocomplete="new-password" minlength="8" required />
+                <input
+                    v-model="password"
+                    class="input"
+                    type="password"
+                    autocomplete="new-password"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                    minlength="8"
+                    required
+                />
             </label>
             <label class="stack" style="gap: 6px">
                 <span class="label">Nom de la famille</span>
@@ -44,14 +64,18 @@ const errorMessage = ref('')
 const submit = async (): Promise<void> => {
     errorMessage.value = ''
     isBusy.value = true
-    const isOk = await register({
-        email: email.value,
+    const result = await register({
+        email: email.value.trim(),
         password: password.value,
         familyName: familyName.value,
         parentName: parentName.value,
     })
     isBusy.value = false
-    if (!isOk) {
+    if (result.status === 'unreachable') {
+        errorMessage.value = 'Impossible de joindre le serveur. Vérifie ta connexion et réessaie.'
+        return
+    }
+    if (result.status !== 'ok') {
         errorMessage.value = 'Impossible de créer le compte : vérifiez les champs, ou cet e-mail est déjà utilisé.'
         return
     }

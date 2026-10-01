@@ -92,6 +92,99 @@ test.describe('authentication', () => {
         await attacker.dispose()
     })
 
+    test('keeps mobile keyboards from rewriting the credentials', async ({ page }) => {
+        for (const path of ['/login', '/register']) {
+            await page.goto(path)
+            const email = page.getByLabel('E-mail')
+            await expect(email).toHaveAttribute('autocapitalize', 'off')
+            await expect(email).toHaveAttribute('autocorrect', 'off')
+            await expect(email).toHaveAttribute('spellcheck', 'false')
+            await expect(email).toHaveAttribute('inputmode', 'email')
+            const password = page.getByLabel('Mot de passe')
+            await expect(password).toHaveAttribute('autocapitalize', 'off')
+            await expect(password).toHaveAttribute('autocorrect', 'off')
+            await expect(password).toHaveAttribute('spellcheck', 'false')
+        }
+        await page.goto('/login')
+        await expect(page.getByLabel('Mot de passe')).toHaveAttribute('autocomplete', 'current-password')
+        await page.getByRole('button', { name: 'Voir' }).click()
+        const visible = page.getByLabel('Mot de passe')
+        await expect(visible).toHaveAttribute('autocapitalize', 'off')
+        await expect(visible).toHaveAttribute('autocorrect', 'off')
+        await expect(visible).toHaveAttribute('spellcheck', 'false')
+    })
+
+    test('tells apart a wrong password, a throttle and an unreachable server', async ({ page }) => {
+        await page.goto('/login')
+        await page.getByLabel('E-mail').fill('someone@else.app')
+        await page.getByLabel('Mot de passe').fill('nope-nope')
+        await page.getByRole('button', { name: 'Se connecter' }).click()
+        await expect(page.getByText('E-mail ou mot de passe incorrect.')).toBeVisible()
+        await page.route('**/api/auth/login', route =>
+            route.fulfill({
+                status: 429,
+                contentType: 'application/json',
+                headers: { 'retry-after': '420' },
+                body: JSON.stringify({ statusCode: 429, statusMessage: 'Too many attempts, try again later', data: { retryAfterSeconds: 420 } }),
+            }),
+        )
+        await page.getByRole('button', { name: 'Se connecter' }).click()
+        await expect(page.getByText('Trop d’essais, réessaie dans 7 minutes.')).toBeVisible()
+        await page.unroute('**/api/auth/login')
+        await page.route('**/api/auth/login', route => route.abort('failed'))
+        await page.getByRole('button', { name: 'Se connecter' }).click()
+        await expect(page.getByText('Impossible de joindre le serveur. Vérifie ta connexion et réessaie.')).toBeVisible()
+        await page.unroute('**/api/auth/login')
+        await page.route('**/api/auth/login', route => route.fulfill({ status: 500, contentType: 'application/json', body: '{}' }))
+        await page.getByRole('button', { name: 'Se connecter' }).click()
+        await expect(page.getByText('Le serveur a rencontré un problème. Réessaie dans un instant.')).toBeVisible()
+    })
+
+    test('reports the real retry delay when the server throttles', async ({ playwright, baseURL }) => {
+        const account = uniqueAccount('retry')
+        const api = await playwright.request.newContext({ baseURL })
+        await signIn(api, account)
+        const attacker = await playwright.request.newContext({ baseURL })
+        for (let attempt = 0; attempt < 5; attempt++) {
+            await attacker.post('/api/auth/login', { data: { email: account.email, password: 'wrong-password' } })
+        }
+        const blocked = await attacker.post('/api/auth/login', { data: { email: account.email, password: account.password } })
+        expect(blocked.status()).toBe(429)
+        const retryAfter = Number(blocked.headers()['retry-after'])
+        expect(retryAfter).toBeGreaterThan(0)
+        expect(retryAfter).toBeLessThanOrEqual(15 * 60)
+        const body = await blocked.json()
+        expect(body.data.retryAfterSeconds).toBe(retryAfter)
+        await api.dispose()
+        await attacker.dispose()
+    })
+
+    test('signs in with a padded, capitalised e-mail', async ({ page, request }) => {
+        const account = uniqueAccount('padded')
+        await signIn(request, account)
+        await page.goto('/login')
+        await page.getByLabel('E-mail').fill(`  ${account.email.toUpperCase()}  `)
+        await page.getByLabel('Mot de passe').fill(account.password)
+        await page.getByRole('button', { name: 'Se connecter' }).click()
+        await expect(page).toHaveURL(/\/profiles/)
+    })
+
+    test('treats composed and decomposed e-mails as the same account', async ({ playwright, baseURL }) => {
+        const local = `e2e-${Date.now()}-café`
+        const api = await playwright.request.newContext({ baseURL })
+        const registered = await api.post('/api/auth/register', {
+            data: { email: `${local}@tantara.test`, password: E2E_PASSWORD, familyName: 'Unicode', parentName: PARENT_NAME },
+        })
+        expect(registered.ok()).toBeTruthy()
+        const other = await playwright.request.newContext({ baseURL })
+        const decomposed = await other.post('/api/auth/login', {
+            data: { email: ` ${local.normalize('NFD').toUpperCase()}@TANTARA.TEST `, password: E2E_PASSWORD },
+        })
+        expect(decomposed.ok()).toBeTruthy()
+        await api.dispose()
+        await other.dispose()
+    })
+
     test('protects the api without a session', async ({ request }) => {
         for (const path of ['/api/members', '/api/books', '/api/messages', '/api/feedback']) {
             const response = await request.get(path)

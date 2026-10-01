@@ -1,3 +1,26 @@
+export type TAuthResult =
+    | { status: 'ok' }
+    | { status: 'invalid' }
+    | { status: 'throttled'; retryAfterMinutes: number }
+    | { status: 'unreachable' }
+    | { status: 'error' }
+
+const toAuthFailure = (error: unknown): TAuthResult => {
+    const failure = error as { statusCode?: number; status?: number; data?: { data?: { retryAfterSeconds?: number } } }
+    const code = failure.statusCode ?? failure.status
+    if (code === undefined) {
+        return { status: 'unreachable' }
+    }
+    if (code === 429) {
+        const seconds = failure.data?.data?.retryAfterSeconds ?? 60
+        return { status: 'throttled', retryAfterMinutes: Math.max(1, Math.ceil(seconds / 60)) }
+    }
+    if (code >= 500) {
+        return { status: 'error' }
+    }
+    return { status: 'invalid' }
+}
+
 export const useSession = () => {
     const nuxtApp = useNuxtApp()
     const { request } = useApi()
@@ -27,7 +50,7 @@ export const useSession = () => {
         return isSignedIn.value === true
     }
 
-    const start = async (path: string, body: object): Promise<boolean> => {
+    const start = async (path: string, body: object): Promise<TAuthResult> => {
         try {
             const result = await request<IAuthState>(path, { method: 'POST', body })
             await clearOfflineData()
@@ -36,17 +59,17 @@ export const useSession = () => {
                 useState<boolean | null>('session-state', () => null).value = result.isSignedIn
                 useState<string | null>('current-member-id', () => null).value = result.memberId
             })
-            return true
-        } catch (_error) {
-            return false
+            return { status: 'ok' }
+        } catch (error) {
+            return toAuthFailure(error)
         }
     }
 
-    const login = (email: string, password: string): Promise<boolean> => {
+    const login = (email: string, password: string): Promise<TAuthResult> => {
         return start('/auth/login', { email, password })
     }
 
-    const register = (input: IRegisterInput): Promise<boolean> => {
+    const register = (input: IRegisterInput): Promise<TAuthResult> => {
         return start('/auth/register', input)
     }
 
