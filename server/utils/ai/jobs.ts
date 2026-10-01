@@ -1,6 +1,6 @@
 import type { Sql } from 'postgres'
 import { getDb, one } from '../db'
-import { requireMember, requireSession } from '../family'
+import { requireActorMember, requirePermission } from '../permissions'
 import { requireProvider } from './provider'
 import type { IAiProvider, IAiTextRequest, IAiUsage } from './provider'
 import type { H3Event } from 'h3'
@@ -35,15 +35,8 @@ export const assertQuota = async (db: Sql, familyId: string): Promise<void> => {
 }
 
 export const requireParentMember = async (event: H3Event): Promise<{ familyId: string; memberId: string }> => {
-    const { familyId } = requireSession(event)
-    const memberId = requireMember(event)
-    const rows = await getDb()<{ role: string }[]>`
-        select role from members where id = ${memberId} and family_id = ${familyId} and deleted_at is null and status = 'active'
-    `
-    if (rows[0]?.role !== 'parent') {
-        throw createError({ statusCode: 403, statusMessage: 'Only a parent can use AI' })
-    }
-    return { familyId, memberId }
+    const actor = await requirePermission(event, 'ai.use')
+    return { familyId: actor.familyId, memberId: requireActorMember(actor) }
 }
 
 export const requireAiParent = async (event: H3Event): Promise<IAiContext> => {

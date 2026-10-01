@@ -15,3 +15,4 @@ export type Permission =
     | 'messages.listen'
     | 'feedback.send'
     | 'feedback.manage'
+    | 'ai.use'

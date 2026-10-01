@@ -79,6 +79,7 @@ Every route under `server/api` resolves the active profile of the session on the
 | Messages | See and replay every message | See own, send, mark received as listened | See own, send, mark received as listened (no replay) |
 | Members | Add, edit, remove, mark a relative left, deceased or blocked | List only | List only |
 | Feedback | Send, read, delete | Send | Send |
+| AI helpers and draft validation | Yes | No | No |
 
 ## Tech stack
 
