@@ -1,9 +1,9 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">Appareils</h1>
         <p class="muted">Les appareils qui ouvrent un profil avec l’empreinte ou le visage. Retire un appareil perdu ou prêté.</p>
-        <p v-if="devices.length === 0" class="muted">Aucun appareil enregistré.</p>
+        <AppEmpty v-if="devices.length === 0" title="Aucun appareil enregistré." hint="Active l’empreinte ou le visage sur un profil pour le voir ici." />
         <div v-for="device in devices" :key="device.id" class="card row">
             <div class="grow">
                 <div class="subtitle">{{ device.memberName }}</div>

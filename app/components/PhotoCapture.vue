@@ -6,10 +6,10 @@
             <div v-if="phase === 'idle'" class="capture__placeholder">
                 <AppMaki :size="90" />
             </div>
-            <div v-if="countdown > 0" class="capture__count">{{ countdown }}</div>
+            <div v-if="countdown > 0" class="capture__count" role="status" aria-live="assertive">{{ countdown }}</div>
         </div>
         <div class="subtitle">{{ prompt }}</div>
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+        <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <template v-if="phase === 'idle'">
             <button type="button" class="btn btn--block" @click="openCamera"><AppIcon name="camera" :size="22" motion="wiggle" />Ouvrir la caméra</button>
         </template>
@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font: 700 96px/1 var(--font-title);
+    font: 700 6rem/1 var(--font-title);
     color: var(--paper);
     text-shadow: 4px 4px 0 var(--ink);
 }

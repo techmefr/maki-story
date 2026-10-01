@@ -111,7 +111,7 @@ const progressRows = computed(() => {
 .coverage__table {
     border-collapse: collapse;
     width: 100%;
-    font: 700 14px/1.2 var(--font-body);
+    font: 700 0.875rem/1.2 var(--font-body);
 }
 
 .coverage__table th,
@@ -127,8 +127,8 @@ const progressRows = computed(() => {
 }
 
 .coverage__page {
-    font: 700 12px/1.2 var(--font-title);
-    opacity: 0.7;
+    font: 700 0.75rem/1.2 var(--font-title);
+    color: var(--ink-soft);
 }
 
 .coverage__cell {
@@ -137,7 +137,7 @@ const progressRows = computed(() => {
     border: 2.5px solid var(--ink);
     border-radius: 12px;
     background: var(--paper);
-    font: 700 18px/1 var(--font-title);
+    font: 700 1.125rem/1 var(--font-title);
     cursor: pointer;
 }
 

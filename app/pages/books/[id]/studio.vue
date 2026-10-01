@@ -1,14 +1,14 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/home" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <div class="row">
-            <div class="progress grow"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
+            <div class="progress grow" role="progressbar" aria-label="Avancement des enregistrements" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
             <span class="badge">{{ recordedCount }}/{{ visibleLines.length }}</span>
         </div>
         <div class="stack">
             <label class="label" for="studio-language">Langue de l’enregistrement</label>
-            <select id="studio-language" v-model="language" required :disabled="isLocked">
+            <select id="studio-language" v-model="language" class="input" required :disabled="isLocked">
                 <option value="">Choisis une langue</option>
                 <option v-for="option in LANGUAGES" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
             </select>
@@ -21,6 +21,7 @@
                 type="button"
                 class="picker"
                 :disabled="isLocked"
+                :aria-pressed="tab.member.id === activeMemberId"
                 :style="{ background: tab.member.id === activeMemberId ? tab.hex : '#fff' }"
                 @click="selectMember(tab.member.id)"
             >
@@ -111,7 +112,7 @@
                     <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="44" :motion="isRecording ? 'pulse' : 'none'" />
                 </button>
                 <div class="muted">{{ hint }}</div>
-                <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+                <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div class="row row--wrap">
                     <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
                         <AppIcon name="skip-back" :size="18" />
@@ -144,7 +145,7 @@
                 :style="{ background: line.id === currentLineId ? '#FFF4D9' : '#fff' }"
                 @click="currentLineId = line.id"
             >
-                <span class="dot" :style="{ background: hasVoice(line, language) ? activeHex : '#fff' }" />
+                <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : '#fff' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
                 <span class="grow">{{ lineText(line) }}</span>
             </button>
         </div>
@@ -262,6 +263,7 @@ const currentRecording = computed(() => (currentLine.value ? recordingOf(current
 const recordedCount = computed(() => visibleLines.value.filter(line => hasVoice(line, language.value)).length)
 const isComplete = computed(() => book.value !== null && book.value.lines.every(isDone))
 const progressPercent = computed(() => `${Math.round((recordedCount.value / Math.max(1, visibleLines.value.length)) * 100)}%`)
+const progressValue = computed(() => Number.parseInt(progressPercent.value, 10))
 const timeLabel = computed(() => formatDuration(isRecording.value ? elapsedMs.value : (currentRecording.value?.durationMs ?? 0)))
 const coverageLanguages = computed(() => {
     const codes = [book.value?.language ?? DEFAULT_LANGUAGE, language.value, ...(book.value?.recordings ?? []).map(item => item.language), ...(book.value?.translations ?? []).map(item => item.language)]
@@ -510,14 +512,14 @@ onMounted(async () => {
 
 .stage__text {
     margin: 0;
-    font: 700 22px/1.4 var(--font-body);
+    font: 700 1.375rem/1.4 var(--font-body);
     overflow-wrap: anywhere;
 }
 
 .stage__next {
     margin: 0;
     font-weight: 700;
-    opacity: 0.7;
+    color: var(--ink-soft);
 }
 
 .stage__audio {
@@ -527,7 +529,7 @@ onMounted(async () => {
 
 .hint {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     padding: 6px 10px;

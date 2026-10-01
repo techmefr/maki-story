@@ -1,6 +1,6 @@
 <template>
     <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
-        <div class="sheet stack">
+        <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-label="Changer de profil">
             <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
             <template v-else>
                 <h2 class="subtitle">Qui écoute ?</h2>

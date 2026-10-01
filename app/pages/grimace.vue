@@ -4,7 +4,7 @@
         <p class="muted">Fais une grimace que personne d’autre ne fait : l’enfant te reconnaîtra tout de suite.</p>
         <PhotoCapture :frame-color="hex" @captured="onCaptured" />
         <NuxtLink :to="homePath" class="btn btn--white btn--small">Plus tard</NuxtLink>
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+        <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
     </div>
 </template>
 

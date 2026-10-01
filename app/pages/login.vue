@@ -43,7 +43,7 @@
         </form>
         <NuxtLink to="/register" class="btn btn--white btn--block">Créer un compte famille</NuxtLink>
         <SocialSignIn />
-        <div class="dots" style="justify-content: center">
+        <div class="dots" style="justify-content: center" aria-hidden="true">
             <span v-for="color in colors" :key="color.id" class="dot" :style="{ background: color.hex }" />
         </div>
     </div>

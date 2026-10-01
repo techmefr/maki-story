@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">Stockage hors ligne</h1>
         <div class="card stack">
             <div class="subtitle">{{ usageLabel }}</div>
@@ -11,7 +11,7 @@
             <button v-if="!usage.isPersisted" type="button" class="btn btn--small btn--white" @click="keep">Garder les données sur cet appareil</button>
             <span v-else class="badge" style="background: #4cd4a8">Stockage protégé</span>
         </div>
-        <p v-if="list.length === 0" class="muted">Aucun livre téléchargé. Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion.</p>
+        <AppEmpty v-if="list.length === 0" title="Aucun livre téléchargé" hint="Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion." />
         <div v-for="record in list" :key="record.id" class="card row" data-offline-book>
             <div class="grow">
                 <div class="subtitle">{{ record.title }}</div>

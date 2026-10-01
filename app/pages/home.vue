@@ -13,11 +13,11 @@
             <AppIcon name="sparkles" :size="22" motion="float" />Créer une histoire avec l’IA
         </NuxtLink>
         <BookFilters @change="reload" />
-        <div v-if="listed.length === 0 && drafts.length === 0 && isLoaded" class="card center stack">
-            <AppMaki :size="80" />
-            <p class="subtitle">{{ hasFilter ? 'Aucun livre ne correspond' : 'Aucun livre pour l’instant' }}</p>
-            <p v-if="!hasFilter" class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
-        </div>
+        <AppEmpty
+            v-if="listed.length === 0 && drafts.length === 0 && isLoaded"
+            :title="hasFilter ? 'Aucun livre ne correspond' : 'Aucun livre pour l’instant'"
+            :hint="hasFilter ? 'Essaie avec d’autres mots ou retire un filtre.' : 'Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.'"
+        />
         <AiDraftRow v-if="isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
