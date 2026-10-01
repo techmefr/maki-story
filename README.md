@@ -327,6 +327,14 @@ Capacitor Android setup (done once after `pnpm exec cap add android`, in `androi
 
 Provide a 320x180 `tv_banner` drawable. To make the hardware Back button follow the in-app behaviour, install `@capacitor/app` and listen to `backButton`, dispatching a `keydown` with `key: "GoBack"` on `window`. The microphone is optional so the app installs on TVs without one: recording stays on phones and tablets, the TV only plays stories and messages. Not verified on a physical device: the remote handling is covered by keyboard end to end tests only.
 
+## Multilingual playback
+
+- Each line can be translated (text and tone) per language from the book studio (parent only, "Traduire ce livre"); the AI suggestion endpoint pre-fills editable fields when enabled.
+- A playback plan is a language sequence applied to every line (for example fr, mg, fr, en). `GET /api/books/:id/playback?languages=fr,mg,fr` returns the ordered steps; a language without a recording for a line is skipped, and a line left with nothing falls back to the book language.
+- The child opens a book with one tap and plays the saved configuration (per profile, per book, with a profile default). Without one, a flag screen offers full flags (one language) and split flags (two languages alternated), then a big play button.
+- A parent can lock the choice; unlocking from a child profile needs a parent profile code. The server ignores requested languages for a locked child.
+- Flags are inline SVG, so they render the same on every platform.
+
 ## Sleep timer and resume
 
 In the child player, the moon button opens a sheet with big icon buttons: 10, 20 or 30 minutes, or the end of the current page. The volume fades out over the last seconds, playback stops and a calm good night screen appears; the timer can be cancelled from the same sheet. The deadline is checked against the clock (also when the tab becomes visible again), so a throttled background tab still stops on time. Durations live in `shared/utils/sleep.ts`; `NUXT_PUBLIC_SLEEP_MINUTE_MS` and `NUXT_PUBLIC_SLEEP_FADE_MS` override the length of a minute and of the fade (the e2e suite uses short values).

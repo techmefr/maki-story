@@ -27,7 +27,7 @@
                     <template v-if="isChild">
                         <ul class="row row--wrap menu__list">
                             <li v-for="language in spokenOptions" :key="language.code" class="badge">
-                                <span aria-hidden="true">{{ language.flag }}</span>
+                                <FlagIcon :codes="[language.code]" :size="24" aria-hidden="true" />
                                 {{ language.label }}
                             </li>
                         </ul>
@@ -61,7 +61,7 @@
                             :lang="language.code"
                             @click="chooseLocale(language.code)"
                         >
-                            <span aria-hidden="true">{{ language.flag }}</span>
+                            <FlagIcon :codes="[language.code]" :size="24" aria-hidden="true" />
                             {{ language.label }}
                         </button>
                     </div>

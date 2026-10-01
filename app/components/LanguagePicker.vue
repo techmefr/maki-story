@@ -11,7 +11,7 @@
             :lang="language.code"
             @click="toggle(language.code)"
         >
-            <span aria-hidden="true">{{ language.flag }}</span>
+            <FlagIcon :codes="[language.code]" :size="24" aria-hidden="true" />
             {{ language.label }}
         </button>
     </div>
