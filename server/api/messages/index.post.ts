@@ -1,15 +1,17 @@
 import { getDb, one } from '../../utils/db'
-import { assertFilesInFamily, assertMembersInFamily, requireMember, requireSession } from '../../utils/family'
+import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
+import { requireActorMember, requirePermission } from '../../utils/permissions'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMessage> => {
-    const { familyId } = requireSession(event)
+    const actor = await requirePermission(event, 'messages.send')
+    const { familyId } = actor
     const body = await readBody<Partial<INewMessage>>(event)
     if (!isNonEmptyString(body.toMemberId) || !isNonEmptyString(body.fileId) || !isNonEmptyString(body.mime)) {
         return badRequest('Invalid message')
     }
-    const fromMemberId = requireMember(event)
+    const fromMemberId = requireActorMember(actor)
     if (body.fromMemberId !== undefined && body.fromMemberId !== fromMemberId) {
         throw createError({ statusCode: 403, statusMessage: 'You can only send messages as yourself' })
     }
@@ -19,6 +21,20 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     const db = getDb()
     await assertMembersInFamily(db, familyId, [fromMemberId, body.toMemberId])
     await assertFilesInFamily(db, familyId, [body.fileId])
+    const [recipient] = await db<{ id: string }[]>`
+        select id from members where id = ${body.toMemberId} and family_id = ${familyId} and deleted_at is null and status = 'active'
+    `
+    if (!recipient) {
+        return badRequest('This person cannot receive messages')
+    }
+    if (actor.role !== 'parent') {
+        const [owned] = await db<{ id: string }[]>`
+            select id from files where id = ${body.fileId} and family_id = ${familyId} and created_by_member_id = ${fromMemberId}
+        `
+        if (!owned) {
+            throw createError({ statusCode: 403, statusMessage: 'You can only send files you uploaded' })
+        }
+    }
     const message = one(await db<IMessage[]>`
         insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms)
         values (${familyId}, ${fromMemberId}, ${body.toMemberId}, ${body.fileId}, ${body.mime}, ${Math.round(body.durationMs ?? 0)})

@@ -1,4 +1,5 @@
 import { getDb, one } from './db'
+import type { IActor } from './permissions'
 import { notFound } from './validate'
 
 const SUMMARY_SELECT = `
@@ -11,11 +12,35 @@ const SUMMARY_SELECT = `
     coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids
 `
 
-export const listBookSummaries = async (familyId: string): Promise<IBookSummary[]> => {
+const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id where sl.book_id = b.id)`
+
+export const bookScope = (actor: IActor, memberParam: number): string => {
+    if (actor.role === 'parent') {
+        return 'true'
+    }
+    if (actor.role === 'child') {
+        return CHILD_SCOPE
+    }
+    return `exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam})`
+}
+
+export const bookScopeParams = (actor: IActor): string[] => (actor.role === 'relative' && actor.memberId ? [actor.memberId] : [])
+
+export const listBookSummaries = async (actor: IActor): Promise<IBookSummary[]> => {
     return getDb().unsafe<IBookSummary[]>(
-        `select ${SUMMARY_SELECT} from books b where b.family_id = $1 and b.deleted_at is null order by b.created_at desc`,
-        [familyId],
+        `select ${SUMMARY_SELECT} from books b where b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)} order by b.created_at desc`,
+        [actor.familyId, ...bookScopeParams(actor)],
     )
+}
+
+export const assertBookReadable = async (actor: IActor, bookId: string): Promise<void> => {
+    const rows = await getDb().unsafe(
+        `select 1 from books b where b.id = $1 and b.family_id = $2 and b.deleted_at is null and ${bookScope(actor, 3)}`,
+        [bookId, actor.familyId, ...bookScopeParams(actor)],
+    )
+    if (rows.length === 0) {
+        notFound('Book not found')
+    }
 }
 
 export const loadBook = async (id: string, familyId: string): Promise<IBook> => {

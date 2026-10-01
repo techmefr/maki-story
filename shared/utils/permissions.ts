@@ -1,0 +1,22 @@
+const EVERYONE: MemberRole[] = ['parent', 'relative', 'child']
+
+export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
+    'books.list': EVERYONE,
+    'books.read': EVERYONE,
+    'books.create': ['parent', 'relative'],
+    'books.edit': ['parent', 'relative'],
+    'books.delete': ['parent'],
+    'lines.record': ['parent', 'relative'],
+    'files.upload': EVERYONE,
+    'files.upload.image': ['parent', 'relative'],
+    'files.read': EVERYONE,
+    'members.list': EVERYONE,
+    'members.manage': ['parent'],
+    'messages.list': EVERYONE,
+    'messages.send': EVERYONE,
+    'messages.listen': EVERYONE,
+    'feedback.send': EVERYONE,
+    'feedback.manage': ['parent'],
+}
+
+export const can = (role: MemberRole, permission: Permission): boolean => ROLE_PERMISSIONS[permission].includes(role)

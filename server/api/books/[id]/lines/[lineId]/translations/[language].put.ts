@@ -1,11 +1,11 @@
 import { checkLanguage, checkText } from '../../../../../../utils/bookModel'
 import { getDb, one } from '../../../../../../utils/db'
-import { requireFamily } from '../../../../../../utils/family'
+import { requireBookEditor } from '../../../../../../utils/permissions'
 import { markLineRecordingsStale } from '../../../../../../utils/recordings'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<ILineTranslation> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requireBookEditor(event)
     const bookId = requireParam(event, 'id')
     const lineId = requireParam(event, 'lineId')
     const language = checkLanguage(requireParam(event, 'language'))

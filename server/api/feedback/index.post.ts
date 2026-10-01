@@ -1,12 +1,12 @@
 import { getDb } from '../../utils/db'
-import { requireFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
+import { requirePermission } from '../../utils/permissions'
 import { badRequest } from '../../utils/validate'
 
 const MOODS: FeedbackMood[] = ['love', 'ok', 'bad']
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requirePermission(event, 'feedback.send')
     const body = await readBody<Partial<INewFeedback>>(event)
     const mood = body.mood && MOODS.includes(body.mood) ? body.mood : null
     const text = (body.text ?? '').trim()

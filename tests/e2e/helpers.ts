@@ -49,7 +49,7 @@ export const useProfile = async (api: APIRequestContext, name: string): Promise<
     return member!.id
 }
 
-const PNG_PIXEL = Buffer.from(
+export const PNG_PIXEL = Buffer.from(
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
     'base64',
 )

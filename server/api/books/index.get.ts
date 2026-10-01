@@ -1,4 +1,4 @@
 import { listBookSummaries } from '../../utils/books'
-import { requireFamily } from '../../utils/family'
+import { requirePermission } from '../../utils/permissions'
 
-export default defineEventHandler((event): Promise<IBookSummary[]> => listBookSummaries(requireFamily(event)))
+export default defineEventHandler(async (event): Promise<IBookSummary[]> => listBookSummaries(await requirePermission(event, 'books.list')))

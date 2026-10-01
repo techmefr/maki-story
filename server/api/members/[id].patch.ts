@@ -1,5 +1,6 @@
 import { getDb, one } from '../../utils/db'
-import { assertFilesInFamily, requireFamily } from '../../utils/family'
+import { assertFilesInFamily } from '../../utils/family'
+import { requirePermission } from '../../utils/permissions'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
 interface IMemberPatch {
@@ -7,10 +8,13 @@ interface IMemberPatch {
     role?: MemberRole
     color?: VoiceColorId
     photoFileId?: string | null
+    status?: MemberStatus
 }
 
+const SETTABLE_STATUSES: MemberStatus[] = ['active', 'left', 'deceased', 'blocked']
+
 export default defineEventHandler(async (event): Promise<IMember> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requirePermission(event, 'members.manage')
     const id = requireParam(event, 'id')
     const body = await readBody<IMemberPatch>(event)
     if (body.name !== undefined && !isNonEmptyString(body.name)) {
@@ -22,6 +26,9 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     if (body.color !== undefined && !isVoiceColor(body.color)) {
         return badRequest('Invalid color')
     }
+    if (body.status !== undefined && !SETTABLE_STATUSES.includes(body.status)) {
+        return badRequest('Invalid status')
+    }
     const db = getDb()
     const [current] = await db<IMember[]>`
         select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind from members
@@ -29,6 +36,18 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     `
     if (!current) {
         return notFound('Member not found')
+    }
+    if (body.status !== undefined && body.status !== current.status && current.role !== 'relative') {
+        return badRequest('Only a relative can be marked as left, deceased or blocked')
+    }
+    if (current.role === 'parent' && body.role !== undefined && body.role !== 'parent') {
+        const { count } = one(await db<{ count: number }[]>`
+            select count(*)::int as count from members
+            where family_id = ${familyId} and role = 'parent' and deleted_at is null and id <> ${id}
+        `)
+        if (count === 0) {
+            return badRequest('At least one parent is required')
+        }
     }
     if (typeof body.photoFileId === 'string') {
         await assertFilesInFamily(db, familyId, [body.photoFileId])
@@ -38,10 +57,11 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         role: body.role ?? current.role,
         color: body.color ?? current.color,
         photoFileId: body.photoFileId === undefined ? current.photoFileId : body.photoFileId,
+        status: body.status ?? current.status,
     }
     return one(await db<IMember[]>`
         update members
-        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}
+        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}
         where id = ${id} and family_id = ${familyId}
         returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind
     `)

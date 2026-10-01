@@ -64,6 +64,22 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 - The client clears the active profile on a cold start and after `PROFILE_IDLE_LOCK_MS` in the background (`app/utils/profile-lock.ts`).
 - Biometrics plug in through `useProfileUnlockers` (see `IProfileUnlocker`), not implemented yet.
 
+## Roles and permissions
+
+Every route under `server/api` resolves the active profile of the session on the server and checks it against `ROLE_PERMISSIONS` (`shared/utils/permissions.ts`). A profile that is removed, left, deceased or blocked is refused everywhere.
+
+| Capability | Parent | Relative | Child |
+| --- | --- | --- | --- |
+| List and read books | All books of the family | Only books with lines assigned to them | Only ready books that have recordings |
+| Create and edit books, characters, pages, panels, translations | Yes | Only their own single voice books | No |
+| Delete a book | Yes | No | No |
+| Record or erase a line | Any line | Lines assigned to them | No |
+| Upload files | Everything | Audio and images | Audio only |
+| Read a file | Every file of the family | Own uploads, own messages, files of books they can read | Own messages, files of books they can read, a received message until it is listened |
+| Messages | See and replay every message | See own, send, mark received as listened | See own, send, mark received as listened (no replay) |
+| Members | Add, edit, remove, mark a relative left, deceased or blocked | List only | List only |
+| Feedback | Send, read, delete | Send | Send |
+
 ## Tech stack
 
 | Area | Choice |

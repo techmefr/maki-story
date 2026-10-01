@@ -1,10 +1,10 @@
 import { assertBookOwned, checkColor, checkName, checkText } from '../../../../utils/bookModel'
 import { getDb, one } from '../../../../utils/db'
-import { requireFamily } from '../../../../utils/family'
+import { requireBookEditor } from '../../../../utils/permissions'
 import { badRequest, notFound, requireParam } from '../../../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<ICharacter> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requireBookEditor(event)
     const bookId = requireParam(event, 'id')
     const characterId = requireParam(event, 'characterId')
     const body = await readBody<ICharacterBody>(event)

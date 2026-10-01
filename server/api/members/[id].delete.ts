@@ -1,10 +1,10 @@
 import { getDb, one } from '../../utils/db'
-import { requireFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
+import { requirePermission } from '../../utils/permissions'
 import { badRequest, notFound, requireParam } from '../../utils/validate'
 
 export default defineEventHandler(async event => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requirePermission(event, 'members.manage')
     const id = requireParam(event, 'id')
     const db = getDb()
     const [target] = await db<{ id: string }[]>`
