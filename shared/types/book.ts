@@ -17,6 +17,7 @@ export interface IBookSummary {
     kind: BookKind
     soloMemberId: string | null
     status: BookStatus
+    aiGenerated: boolean
     pageCount: number
     lineCount: number
     recordedCount: number

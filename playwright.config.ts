@@ -41,6 +41,8 @@ export default defineConfig({
                   DATABASE_URL: E2E_DATABASE_URL,
                   SESSION_SECRET: 'e2e-secret',
                   NUXT_IGNORE_LOCK: '1',
+                  AI_PROVIDER: 'fake',
+                  AI_MONTHLY_BUDGET_USD: '0.12',
               },
           },
 })
