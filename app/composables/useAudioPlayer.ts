@@ -36,12 +36,13 @@ export const useAudioPlayer = () => {
         endedHandler = handler
     }
 
-    const play = async (fileId: string): Promise<boolean> => {
+    const play = async (fileId: string, startMs = 0): Promise<boolean> => {
         try {
             const element = ensureAudio()
             element.src = await fetchUrl(fileId)
             element.playbackRate = rate.value
-            positionMs.value = 0
+            element.currentTime = startMs / 1000
+            positionMs.value = startMs
             await element.play()
             return true
         } catch (error) {
@@ -74,6 +75,12 @@ export const useAudioPlayer = () => {
         isPlaying.value = false
     }
 
+    const setVolume = (value: number): void => {
+        if (audio) {
+            audio.volume = Math.min(1, Math.max(0, value))
+        }
+    }
+
     const setRate = (value: number): void => {
         rate.value = value
         if (audio) {
@@ -87,5 +94,5 @@ export const useAudioPlayer = () => {
         audio = null
     })
 
-    return { isPlaying, positionMs, rate, unlock, onEnded, play, pause, resume, stop, setRate }
+    return { isPlaying, positionMs, rate, unlock, onEnded, play, pause, resume, stop, setRate, setVolume }
 }

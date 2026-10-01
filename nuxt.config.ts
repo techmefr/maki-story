@@ -17,6 +17,8 @@ export default defineNuxtConfig({
         public: {
             apiBase: '',
             biometricTestBridge: false,
+            sleepMinuteMs: 60000,
+            sleepFadeMs: 8000,
         },
     },
     app: {
