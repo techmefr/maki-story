@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { chooseProfile, openSwitcher, login, uniqueName, PARENT_NAME } from './helpers'
+import { addMember, chooseProfile, openSwitcher, login, uniqueName, PARENT_NAME } from './helpers'
 
 const hasNoHorizontalScroll = async (page: Page): Promise<boolean> => {
     return page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)
@@ -30,7 +30,9 @@ test.describe('responsive layout', () => {
             await page.waitForLoadState('networkidle')
             expect(await hasNoHorizontalScroll(page), `horizontal scroll on ${path}`).toBeTruthy()
         }
-        await chooseProfile(page, uniqueName('Lova', info.project.name))
+        const child = uniqueName('Lova', info.project.name)
+        await addMember(page, child, 'Enfant')
+        await chooseProfile(page, child)
         for (const path of ['/kid', '/kid/library']) {
             await page.goto(path)
             await page.waitForLoadState('networkidle')

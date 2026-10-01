@@ -49,6 +49,23 @@ test.describe('migrations', () => {
         expect(await migrateUp(db, migrations)).toEqual([])
     })
 
+    test('migration names are unique and apply and revert in name order on a fresh database', async () => {
+        const names = migrations.map(item => item.name)
+        expect(new Set(names).size).toBe(names.length)
+        expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)))
+        const files = readdirSync(DIRECTORY)
+        for (const name of names) {
+            expect(files.filter(file => file === `${name}.up.sql`)).toHaveLength(1)
+            expect(files.filter(file => file === `${name}.down.sql`)).toHaveLength(1)
+        }
+        expect(await migrateUp(db, migrations)).toEqual(names)
+        const applied = await db<{ name: string }[]>`select name from schema_migrations order by applied_at, name`
+        expect(applied.map(row => row.name)).toEqual(names)
+        for (const name of [...names].reverse()) {
+            expect(await migrateDown(db, migrations)).toBe(name)
+        }
+    })
+
     test('each down reverts its up and up can run again', async () => {
         await migrateUp(db, migrations)
         const full = await describeSchema(db)
