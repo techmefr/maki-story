@@ -40,6 +40,5 @@ export type IconName =
     | 'close'
     | 'download'
     | 'cloud-off'
-    | 'lock'
 
 export type IconMotion = 'none' | 'bounce' | 'wiggle' | 'pulse' | 'nudge' | 'spin' | 'float'

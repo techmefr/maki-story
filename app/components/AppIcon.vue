@@ -18,7 +18,6 @@ import {
     Camera,
     Check,
     CloudOff,
-    Lock,
     Download,
     Ear,
     Eye,
@@ -98,7 +97,6 @@ const ICONS: Record<IconName, Component> = {
     close: X,
     download: Download,
     'cloud-off': CloudOff,
-    lock: Lock,
 }
 
 const {
