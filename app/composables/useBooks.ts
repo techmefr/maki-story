@@ -25,12 +25,13 @@ export const useBooks = () => {
         books.value = books.value.filter(book => book.id !== id)
     }
 
-    const setLineAudio = async (bookId: string, lineId: string, fileId: string, ms: number): Promise<void> => {
-        await request(`/books/${bookId}/lines/${lineId}/audio`, { method: 'PUT', body: { fileId, ms } })
+    const setLineAudio = async (bookId: string, lineId: string, fileId: string, ms: number, language?: string): Promise<void> => {
+        await request(`/books/${bookId}/lines/${lineId}/audio`, { method: 'PUT', body: { fileId, ms, language } })
     }
 
-    const clearLineAudio = async (bookId: string, lineId: string): Promise<void> => {
-        await request(`/books/${bookId}/lines/${lineId}/audio`, { method: 'DELETE' })
+    const clearLineAudio = async (bookId: string, lineId: string, language?: string): Promise<void> => {
+        const query = language ? `?language=${encodeURIComponent(language)}` : ''
+        await request(`/books/${bookId}/lines/${lineId}/audio${query}`, { method: 'DELETE' })
     }
 
     const readyBooks = computed(() => books.value.filter(book => book.status === 'ready'))

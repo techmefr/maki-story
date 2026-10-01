@@ -22,7 +22,7 @@ const onCaptured = async (blob: Blob): Promise<void> => {
         return
     }
     try {
-        const fileId = await upload(blob, 'image/jpeg')
+        const fileId = await upload(blob, blob.type)
         register(fileId, URL.createObjectURL(blob))
         await update(current.value.id, { photoFileId: fileId })
         await navigateTo(homePath.value)

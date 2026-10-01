@@ -1,20 +1,19 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, recordOnce, uniqueName, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 test.describe.configure({ mode: 'serial' })
 
 const recordMemberLines = async (page: Page, member: string): Promise<void> => {
     await page.locator('.picker', { hasText: member }).first().click()
-    const rec = page.getByRole('button', { name: 'Enregistrer' })
     for (let i = 0; i < 5; i++) {
         const isStillTodo = await page.locator('.picker', { hasText: new RegExp(`${member}.* (\\d+)/(\\d+)`) }).first().innerText()
         const [, done, total] = isStillTodo.match(/(\d+)\/(\d+)/) ?? []
         if (done === total) {
             return
         }
-        await recordOnce(page, rec)
+        await recordAndSend(page)
         await expect(page.locator('.picker', { hasText: member }).first()).not.toHaveText(new RegExp(`${done}/${total}$`), { timeout: 15000 })
     }
 }

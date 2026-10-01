@@ -125,6 +125,11 @@ export const recordOnce = async (page: Page, _unused?: Locator, ms = 1300): Prom
     await page.getByRole('button', { name: 'Arrêter' }).click()
 }
 
+export const recordAndSend = async (page: Page, ms = 1300): Promise<void> => {
+    await recordOnce(page, undefined, ms)
+    await page.getByRole('button', { name: 'Envoyer', exact: true }).click()
+}
+
 export const apiJson = async <T>(page: Page, path: string): Promise<T> => {
     const response = await page.request.get(`/api${path}`)
     expect(response.ok()).toBeTruthy()

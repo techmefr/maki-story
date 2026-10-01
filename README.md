@@ -227,6 +227,28 @@ pnpm exec cap add android
 pnpm cap:sync
 ```
 
+## Recording studio
+
+- Teleprompter: one tap on "Prompteur" turns the current line into a full screen view with large text, the character color, tone and scene hints, big tap targets and a landscape layout for tablets. The screen is kept awake (Screen Wake Lock API) while the prompter is open or a take is running, where the browser supports it.
+- Speech assist: the Web Speech API (`speechSynthesis`, language aware) can read the scene, the tone and the dialogue to guide the recorder. It is toggled on the fly, per category, stops as soon as the microphone opens and is never recorded nor stored. It is simply hidden when the browser has no speech synthesis.
+- Free replay: a take is only kept locally after "Arrêter". The relative listens to the whole take, then chooses "Envoyer" (uploaded once through the chunked uploader) or "Annuler" (nothing leaves the device). After sending, the studio moves to the next line of the same voice.
+- Language: chosen before recording (book language by default), mandatory, stored with each recording; a line can have one take per language.
+- Limit: 10 minutes per take, with a visible countdown and an automatic stop (`shared/utils/recording.ts`; the end to end tests lower it through `window.__TANTARA_MAX_RECORDING_MS__`).
+- Coverage table: one row per line and one column per language with done, to redo (stale) and missing cells, progress per voice, and a tap on a cell jumps to that line. A relative only sees the lines assigned to them.
+
+## Media weight
+
+Images (page scans, profile photos) are resized client side to 1200 px on the longest side and encoded as WebP at quality 75, with a JPEG fallback when the browser cannot encode WebP. Audio is captured mono at 16 kHz and recorded as Opus (`audio/webm;codecs=opus`) at 24 kbps, with `audio/mp4` (AAC) as the iOS Safari fallback; the mime is stored with every recording.
+
+Measured in the end to end suite (Chromium, synthetic test image, not a real photo):
+
+| Media | Input | Stored | Ratio |
+| --- | --- | --- | --- |
+| Page scan | 3000x2000 JPEG q92, 797 KB | 1200x800 WebP q75, 90 KB | about 11% |
+| Voice take | microphone, 1.4 s | Opus webm, about 2.8 KB | about 2 KB per second |
+
+At 24 kbps a full 10 minute take weighs about 1.8 MB.
+
 ## Resumable audio upload
 
 Audio is sent in 256 KB chunks so a dropped connection never loses a take. `POST /api/uploads` (size, mime) opens a session, `PATCH /api/uploads/:id` with an `Upload-Offset` header appends a chunk (a replayed chunk is accepted, a wrong offset answers 409 with the current offset), `GET /api/uploads/:id` returns the offset to resume from, `POST /api/uploads/:id/finish` assembles a `files` row (audio mime allowlist, 16 MB cap, family scoped) and `DELETE` aborts. Unfinished sessions expire after 24 hours. On the client, `useChunkedUpload` retries with backoff and resumes from the server offset; `useFiles.upload` uses it for audio and keeps the single request for images.

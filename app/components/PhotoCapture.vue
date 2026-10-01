@@ -44,7 +44,6 @@ const GRIMACES = [
 const COUNTDOWN_START = 3
 const COUNTDOWN_STEP_MS = 800
 const OUTPUT_SIZE_PX = 480
-const JPEG_QUALITY = 0.85
 
 const { frameColor = '#1F1B3A' } = defineProps<{ frameColor?: string }>()
 const emit = defineEmits<{ captured: [blob: Blob] }>()
@@ -98,9 +97,7 @@ const toSquareBlob = async (source: CanvasImageSource, width: number, height: nu
         context.scale(-1, 1)
     }
     context.drawImage(source, (width - side) / 2, (height - side) / 2, side, side, 0, 0, OUTPUT_SIZE_PX, OUTPUT_SIZE_PX)
-    return new Promise((resolve, reject) => {
-        canvas.toBlob(blob => (blob ? resolve(blob) : reject(new Error('Photo impossible'))), 'image/jpeg', JPEG_QUALITY)
-    })
+    return encodeCanvas(canvas)
 }
 
 const showPreview = (blob: Blob): void => {
