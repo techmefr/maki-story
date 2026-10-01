@@ -46,6 +46,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const language = body.language === undefined ? 'fr' : checkLanguage(body.language)
     const subtitle = checkText(body.subtitle, 'subtitle')
     const author = checkText(body.author, 'author')
+    const illustrator = checkText(body.illustrator, 'illustrator')
     const plannedPages = pages.map(page => {
         const pageKind = page.kind === undefined ? 'content' : checkPageKind(page.kind)
         if (page.fileId === null && pageKind !== 'empty') {
@@ -91,8 +92,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     await assertMembersInFamily(db, familyId, soloMemberId ? [soloMemberId] : [])
     const created = await db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
-            insert into books (family_id, title, subtitle, author, age_min, age_max, language, type, tts_fallback, kind, solo_member_id, status, image_desc)
-            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${ageMin}, ${ageMax}, ${language}, ${type},
+            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, type, tts_fallback, kind, solo_member_id, status, image_desc)
+            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${type},
                 ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, 'to_record', ${body.imageDesc ?? ''})
             returning id
         `)

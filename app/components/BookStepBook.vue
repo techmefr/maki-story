@@ -42,6 +42,10 @@
                     <span class="label">{{ type === 'child-written' ? 'Auteur (l’enfant)' : 'Auteur' }}</span>
                     <input v-model="author" class="input" />
                 </label>
+                <label class="stack" style="gap: 6px">
+                    <span class="label">Dessinateur</span>
+                    <input v-model="illustrator" class="input" />
+                </label>
                 <div class="row">
                     <label class="stack grow" style="gap: 6px">
                         <span class="label">Âge minimum</span>
@@ -73,7 +77,7 @@ const TYPE_OPTIONS: { id: BookType; label: string; hint: string }[] = [
     { id: 'child-written', label: 'Écrit par l’enfant', hint: 'Recopie les phrases de l’enfant telles qu’il les a écrites.' },
 ]
 
-const { title, subtitle, author, ageMin, ageMax, language, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
+const { title, subtitle, author, illustrator, ageMin, ageMax, language, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
 
 const errorMessage = ref('')
 const typeHint = computed(() => TYPE_OPTIONS.find(option => option.id === type.value)?.hint ?? '')

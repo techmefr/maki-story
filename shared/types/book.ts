@@ -9,6 +9,7 @@ export interface IBookSummary {
     title: string
     subtitle: string
     author: string
+    illustrator: string
     ageMin: number | null
     ageMax: number | null
     language: string
@@ -139,6 +140,7 @@ export interface INewBook {
     title: string
     subtitle?: string
     author?: string
+    illustrator?: string
     ageMin?: number | null
     ageMax?: number | null
     language?: string
@@ -168,6 +170,7 @@ export interface IBookPatch {
     title?: string
     subtitle?: string
     author?: string
+    illustrator?: string
     ageMin?: number | null
     ageMax?: number | null
     language?: string
