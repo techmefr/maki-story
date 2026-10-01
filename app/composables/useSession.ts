@@ -12,6 +12,10 @@ export const useSession = () => {
             const result = await request<IAuthState>('/auth/me')
             isSignedIn.value = result.isSignedIn
             currentId.value = result.memberId
+            if (result.isSignedIn && result.memberId && !isProfileUnlockedInSession()) {
+                await request('/auth/profile', { method: 'POST', body: { memberId: null } })
+                currentId.value = null
+            }
         } catch (_error) {
             isSignedIn.value = false
         }

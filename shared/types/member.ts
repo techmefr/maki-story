@@ -1,5 +1,6 @@
 export type MemberRole = 'parent' | 'relative' | 'child'
 export type MemberStatus = 'active' | 'invited' | 'left' | 'deceased' | 'blocked'
+export type MemberCodeKind = 'pin' | 'shapes'
 
 export interface IMember {
     id: string
@@ -8,10 +9,27 @@ export interface IMember {
     color: VoiceColorId
     photoFileId: string | null
     status: MemberStatus
+    hasCode: boolean
+    codeKind: MemberCodeKind | null
+}
+
+export interface IMemberCodeInput {
+    kind: MemberCodeKind
+    value: string
 }
 
 export interface IMemberInput {
     name: string
     role: MemberRole
     color: VoiceColorId
+    code?: IMemberCodeInput
+}
+
+export interface IProfileProof {
+    code?: string
+    newCode?: IMemberCodeInput
+}
+
+export interface IMemberCodeUpdate extends IMemberCodeInput {
+    currentCode?: string
 }
