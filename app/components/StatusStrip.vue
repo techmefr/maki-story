@@ -57,7 +57,7 @@ const items = computed(() =>
     color: var(--ink);
     text-decoration: none;
     box-shadow: var(--shadow);
-    font: 700 18px/1 var(--font-title);
+    font: 700 1.125rem/1 var(--font-title);
     min-height: 64px;
 }
 

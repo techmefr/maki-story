@@ -31,7 +31,7 @@ const retry = async () => {
     padding: 10px 16px calc(env(safe-area-inset-bottom) + 10px);
     background: #ffc940;
     border-top: 2.5px solid var(--ink);
-    font: 700 14px/1.3 var(--font-title);
+    font: 700 0.875rem/1.3 var(--font-title);
 }
 
 .offline-banner__retry {

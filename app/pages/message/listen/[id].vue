@@ -1,5 +1,5 @@
 <template>
-    <div class="stack center screen" :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }">
+    <div class="stack center screen" :class="{ kid: isChild }" :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }">
         <template v-if="message && sender && (isStarted || !wasHeard)">
             <AppAvatar :member="sender" :size="140" />
             <h1 class="title">{{ sender.name }}</h1>
@@ -11,15 +11,15 @@
                     v-if="nextMessage"
                     :to="`/message/listen/${nextMessage.id}`"
                     class="btn btn--mint btn--block"
-                    style="min-height: 72px; font-size: 22px"
+                    style="min-height: 72px; font-size: 1.375rem"
                     data-focus-default
                 >
                     <AppIcon name="volume" :size="32" motion="pulse" />
                     {{ nextLabel }}
                 </NuxtLink>
-                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 22px"><AppIcon name="mic" :size="32" motion="wiggle" />Répondre</NuxtLink>
+                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />Répondre</NuxtLink>
             </template>
-            <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 22px" data-focus-default @click="play">
+            <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
                 <AppIcon name="play" :size="32" motion="pulse" />
                 Écouter
             </button>
@@ -108,7 +108,8 @@ onMounted(async () => {
     position: fixed;
     inset: 0;
     z-index: 40;
-    justify-content: center;
+    justify-content: safe center;
+    overflow-y: auto;
     padding: 16px;
 }
 </style>

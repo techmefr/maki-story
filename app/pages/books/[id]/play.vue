@@ -1,9 +1,9 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink to="/home" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <OfflineToggle :book-id="book.id" />
-        <div class="segs">
+        <div class="segs" role="group" aria-label="Répliques">
             <button
                 v-for="(line, index) in lines"
                 :key="line.id"
@@ -137,8 +137,8 @@ onMounted(async () => {
 <style scoped>
 .segs {
     display: flex;
-    gap: 3px;
-    height: 16px;
+    gap: 4px;
+    height: 32px;
 }
 
 .seg {

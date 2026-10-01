@@ -12,6 +12,17 @@
     --shadow-lg: 5px 5px 0 var(--ink);
     --font-title: Fredoka, sans-serif;
     --font-body: Nunito, sans-serif;
+    --ink-soft: #38345a;
+    --danger: #b3261e;
+    --tap: 44px;
+    --tap-kid: 66px;
+    --text-scale: 1;
+}
+
+html {
+    font-size: calc(16px * var(--text-scale));
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 * {
@@ -25,8 +36,12 @@ body {
     background: var(--cream);
     color: var(--ink);
     font-family: var(--font-body);
-    font-size: 16px;
+    line-height: 1.4;
     overscroll-behavior: none;
+}
+
+body {
+    font-size: 1rem;
 }
 
 button,
@@ -42,7 +57,8 @@ select {
     max-width: 560px;
     min-height: 100dvh;
     margin: 0 auto;
-    padding: calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 96px);
+    padding: calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 6em);
+    overflow-wrap: break-word;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -53,19 +69,21 @@ select {
 }
 
 .title {
-    font: 700 28px/1.1 var(--font-title);
+    font: 700 min(1.75rem, 11vw)/1.1 var(--font-title);
     margin: 0;
+    overflow-wrap: anywhere;
 }
 
 .subtitle {
-    font: 700 20px/1.2 var(--font-title);
+    font: 700 1.25rem/1.2 var(--font-title);
     margin: 0;
+    overflow-wrap: anywhere;
 }
 
 .muted {
-    opacity: 0.65;
+    color: var(--ink-soft);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .stack {
@@ -87,6 +105,16 @@ select {
 .grow {
     flex: 1;
     min-width: 0;
+}
+
+.row > * {
+    min-width: 0;
+}
+
+.row > .avatar,
+.row > .icon,
+.row > svg {
+    min-width: auto;
 }
 
 .center {
@@ -127,7 +155,7 @@ select {
     border-radius: 18px;
     background: var(--sun);
     box-shadow: 4px 4px 0 var(--ink);
-    font: 700 17px/1 var(--font-title);
+    font: 700 1.0625rem/1 var(--font-title);
     cursor: pointer;
     text-decoration: none;
     color: var(--ink);
@@ -155,15 +183,16 @@ select {
 }
 
 .btn--small {
-    min-height: 40px;
+    min-height: var(--tap);
     padding: 8px 14px;
-    font-size: 15px;
+    font-size: 0.9375rem;
     border-radius: 14px;
     box-shadow: 3px 3px 0 var(--ink);
 }
 
 .btn--round {
     width: 52px;
+    height: 52px;
     min-height: 52px;
     padding: 0;
     border-radius: 50%;
@@ -176,12 +205,24 @@ select {
     border: 2.5px solid var(--ink);
     border-radius: 14px;
     background: var(--paper);
-    font: 700 16px/1.3 var(--font-body);
+    font: 700 1rem/1.3 var(--font-body);
 }
 
-.input:focus {
-    outline: 3px solid var(--sky);
-    outline-offset: 1px;
+.input:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 7px var(--sky);
+}
+
+select.input {
+    appearance: none;
+    padding-right: 40px;
+    background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231f1b3a%27 stroke-width=%273%27 stroke-linecap=%27round%27%3E%3Cpath d=%27M6 9l6 6 6-6%27/%3E%3C/svg%3E") no-repeat right 12px center / 20px;
+}
+
+.input::placeholder {
+    color: #6b6788;
+    opacity: 1;
 }
 
 textarea.input {
@@ -190,7 +231,7 @@ textarea.input {
 }
 
 .label {
-    font: 700 14px/1 var(--font-title);
+    font: 700 0.875rem/1 var(--font-title);
 }
 
 .chip {
@@ -198,8 +239,16 @@ textarea.input {
     border-radius: 999px;
     background: var(--paper);
     padding: 8px 14px;
-    font: 700 14px/1 var(--font-title);
+    min-height: var(--tap);
+    font: 700 0.875rem/1.1 var(--font-title);
     cursor: pointer;
+    transition:
+        transform 0.12s,
+        background 0.12s;
+}
+
+.chip:active:not(:disabled) {
+    transform: scale(0.95);
 }
 
 .chip--on {
@@ -215,7 +264,7 @@ textarea.input {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font: 700 20px/1 var(--font-title);
+    font: 700 1.25rem/1 var(--font-title);
     background-size: cover;
     background-position: center;
     flex-shrink: 0;
@@ -226,14 +275,14 @@ textarea.input {
     border: 2px solid var(--ink);
     border-radius: 999px;
     padding: 3px 10px;
-    font: 700 12px/1.3 var(--font-title);
+    font: 700 0.75rem/1.3 var(--font-title);
     background: var(--cream);
 }
 
 .error {
-    color: #b3261e;
+    color: var(--danger);
     font-weight: 800;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .progress {
@@ -310,8 +359,10 @@ textarea.input {
 .tabbar__item {
     flex: 1;
     padding: 12px 4px;
+    min-height: 56px;
     text-align: center;
-    font: 700 13px/1 var(--font-title);
+    overflow-wrap: anywhere;
+    font: 700 min(0.8125rem, 4.2vw)/1.1 var(--font-title);
     color: var(--ink);
     text-decoration: none;
     position: relative;
@@ -365,10 +416,11 @@ textarea.input {
     align-items: center;
     gap: 8px;
     padding: 4px 12px 4px 4px;
+    min-height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     background: var(--paper);
-    font: 700 14px/1 var(--font-title);
+    font: 700 0.875rem/1 var(--font-title);
     cursor: pointer;
 }
 
@@ -383,7 +435,7 @@ a {
 .grid {
     display: grid;
     gap: 14px;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .nav {
@@ -402,15 +454,15 @@ a {
     }
 
     .title {
-        font-size: 34px;
+        font-size: 2.125rem;
     }
 
     .grid--books {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .grid--people {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .tabbar {
@@ -426,9 +478,10 @@ a {
 
     .nav__item {
         padding: 10px 16px;
+        min-height: var(--tap);
         border: 2.5px solid transparent;
         border-radius: 14px;
-        font: 700 15px/1 var(--font-title);
+        font: 700 0.9375rem/1 var(--font-title);
         text-decoration: none;
         color: var(--ink);
         position: relative;
@@ -463,11 +516,11 @@ a {
     }
 
     .grid--books {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .grid--people {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -712,6 +765,15 @@ select:focus-visible,
     outline-offset: 3px;
 }
 
+.sheet :focus-visible,
+.on-dark :focus-visible {
+    outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+    outline-color: var(--cream);
+}
+
 .remote a:focus-visible,
 .remote button:focus-visible {
     outline: 6px solid var(--ink);
@@ -725,7 +787,7 @@ select:focus-visible,
     }
 
     .app--full .grid--books {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -735,6 +797,197 @@ select:focus-visible,
     }
 
     .app--full .grid--books {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+}
+
+.btn,
+.card--tap {
+    transition:
+        transform 0.12s,
+        box-shadow 0.12s;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: fixed;
+    left: 12px;
+    top: -80px;
+    z-index: 200;
+    padding: 12px 18px;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    background: var(--sun);
+    box-shadow: var(--shadow);
+    font: 700 1rem/1 var(--font-title);
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 16px;
+    min-width: 0;
+    outline: none;
+}
+
+.link-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    min-height: var(--tap);
+    padding: 0 10px 0 4px;
+    font: 700 0.9375rem/1 var(--font-title);
+    color: var(--ink-soft);
+    text-decoration: none;
+}
+
+.link-back:hover {
+    color: var(--ink);
+    text-decoration: underline;
+}
+
+.check {
+    width: 28px;
+    height: 28px;
+    accent-color: var(--ink);
+    flex-shrink: 0;
+}
+
+label.row {
+    min-height: var(--tap);
+}
+
+.swatch {
+    width: 44px;
+    height: 44px;
+    border: 2.5px solid var(--ink);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+}
+
+.swatch--on {
+    box-shadow: 3px 3px 0 var(--ink);
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+}
+
+.empty {
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 22px 16px;
+    background: var(--paper);
+    border: 2.5px dashed var(--ink);
+    border-radius: 24px;
+}
+
+.empty__title {
+    font: 700 1.25rem/1.2 var(--font-title);
+    margin: 0;
+}
+
+.empty__hint {
+    margin: 0;
+    max-width: 34ch;
+    font-weight: 700;
+    color: var(--ink-soft);
+}
+
+.empty .btn {
+    margin-top: 6px;
+}
+
+.error,
+[role="alert"] {
+    animation: pop-in 0.3s ease-out;
+}
+
+.kid .btn,
+.kid .chip,
+.kid .picker,
+.reader .btn {
+    min-height: var(--tap-kid);
+}
+
+.kid .btn--round,
+.reader .btn--round {
+    width: var(--tap-kid);
+    height: var(--tap-kid);
+}
+
+.kid .btn--small,
+.reader .btn--small {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.size-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.size-picker .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.size-picker__a {
+    font-family: var(--font-title);
+    font-weight: 700;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.dot--mark {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 0.8125rem/1 var(--font-title);
+}
+
+.hello {
+    gap: 12px;
+}
+
+.grid > * {
+    min-width: 0;
+}
+
+.card--tap.row {
+    flex-wrap: wrap;
 }

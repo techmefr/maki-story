@@ -1,8 +1,11 @@
 <template>
     <div>
+        <a class="skip-link" href="#main">Aller au contenu</a>
         <div class="app">
             <AppHeader />
-            <slot />
+            <main id="main" tabindex="-1">
+                <slot />
+            </main>
         </div>
         <TabBar v-if="!isChild" />
         <ProfileMenu />

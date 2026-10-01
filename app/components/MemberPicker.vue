@@ -6,6 +6,7 @@
             type="button"
             class="picker"
             :class="{ 'picker--on': member.id === modelValue }"
+            :aria-pressed="member.id === modelValue"
             :style="{ background: member.id === modelValue ? hexOf(member) : '#fff' }"
             @click="emit('update:modelValue', member.id)"
         >

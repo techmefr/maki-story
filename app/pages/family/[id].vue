@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">Modifier</h1>
         <MemberForm v-if="member && !member.isGuest" :member="member" @saved="done" />
         <h2 v-else-if="member" class="subtitle">{{ member.name }}</h2>

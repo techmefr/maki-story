@@ -1,6 +1,6 @@
 <template>
     <div class="sheet-backdrop" @click.self="emit('close')">
-        <div class="sheet stack" role="dialog" aria-label="Minuteur de sommeil">
+        <div v-sheet="() => emit('close')" class="sheet stack" role="dialog" aria-modal="true" aria-label="Minuteur de sommeil">
             <h2 class="subtitle">Dodo dans…</h2>
             <div class="sleep-grid">
                 <button
@@ -46,7 +46,7 @@ const emit = defineEmits<{
 
 .btn--big-tile {
     min-height: 110px;
-    font-size: 40px;
+    font-size: 2.5rem;
     border-radius: 28px;
     flex-direction: column;
     gap: 4px;

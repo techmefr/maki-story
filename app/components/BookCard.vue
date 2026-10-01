@@ -65,7 +65,7 @@ const progressLabel = computed(() => `${book.recordedCount}/${book.lineCount} r√
 }
 
 .book__kind {
-    font: 700 11px/1 var(--font-title);
+    font: 700 0.6875rem/1 var(--font-title);
     background: var(--paper);
     border: 2px solid var(--ink);
     border-radius: 999px;

@@ -1,13 +1,13 @@
 <template>
-    <div class="reader" :style="{ background: readerHex }">
+    <div class="reader" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
-            <div class="title">Page suivante</div>
+            <h1 class="title">Page suivante</h1>
             <button type="button" class="btn btn--big" aria-label="Tourner la page" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" /></button>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />
-            <div class="title">C’est fini !</div>
+            <h1 class="title">C’est fini !</h1>
             <button type="button" class="btn btn--big btn--white" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />Recommencer</button>
             <NuxtLink to="/kid" class="btn btn--big"><AppIcon name="home" :size="40" />Retour</NuxtLink>
         </div>
@@ -66,21 +66,21 @@
         </div>
         <div v-else-if="phase === 'sleep'" class="reader__center stack center">
             <AppIcon name="moon" :size="140" motion="float" />
-            <div class="title">Bonne nuit</div>
+            <h1 class="title">Bonne nuit</h1>
             <NuxtLink to="/kid" class="btn btn--big btn--white"><AppIcon name="home" :size="40" />Retour</NuxtLink>
         </div>
         <div v-else class="reader__center stack center" :class="{ reader__flash: isCueFlashing }">
             <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
                 <AppAvatar :member="reader" :size="200" />
             </AppBlob>
-            <div class="title">{{ reader?.name }} lit</div>
+            <h1 class="title">{{ reader?.name }} lit</h1>
             <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? 'Pause' : 'Lecture'" @click="togglePause">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
             </button>
         </div>
         <div class="reader__bottom">
-            <div class="progress"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
-            <div class="row" style="justify-content: space-between">
+            <div class="progress" role="progressbar" aria-label="Avancement de la page" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
+            <div class="row row--wrap" style="justify-content: space-between">
                 <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />Quitter</NuxtLink>
                 <button type="button" class="btn btn--small btn--white" :aria-pressed="isSoundOn" @click="toggleSound">
                     <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? 'Son' : 'Sans son' }}
@@ -183,6 +183,8 @@ const progressPercent = computed(() => {
     const done = pageLines.value.slice(0, lineIndex.value).reduce((sum, line) => sum + line.durationMs, 0) + player.positionMs.value
     return `${Math.min(100, Math.round((done / total) * 100))}%`
 })
+
+const progressValue = computed(() => Number.parseInt(progressPercent.value, 10))
 
 const saveProgress = async (): Promise<void> => {
     if (phase.value !== 'playing') {
@@ -430,13 +432,20 @@ onBeforeUnmount(() => {
     inset: 0;
     z-index: 40;
     padding: calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);
+    overflow-y: auto;
     transition: background 0.3s;
+}
+
+.reader--night {
+    color: var(--cream);
 }
 
 .reader__center {
     flex: 1;
     display: flex;
     gap: 18px;
+    min-height: 0;
+    justify-content: safe center;
 }
 
 .reader__bottom {
@@ -505,7 +514,7 @@ onBeforeUnmount(() => {
 .btn--big {
     min-width: 96px;
     min-height: 84px;
-    font-size: 34px;
+    font-size: min(2.125rem, 8vw);
     border-radius: 28px;
 }
 </style>

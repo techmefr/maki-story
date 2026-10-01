@@ -1,6 +1,6 @@
 <template>
-    <div v-if="isOpen && current" class="sheet-backdrop" @click.self="close" @keydown.esc="close">
-        <div class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="profile-menu-title">
+    <div v-if="isOpen && current" class="sheet-backdrop" @click.self="close">
+        <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="profile-menu-title">
             <template v-if="view === 'photo'">
                 <h2 id="profile-menu-title" class="subtitle">Ta plus belle grimace</h2>
                 <PhotoCapture :frame-color="memberHex(current)" @captured="onCaptured" />
@@ -36,6 +36,24 @@
                         <p class="muted">Coche les langues que tu parles : elles serviront à proposer la bonne langue d’enregistrement.</p>
                         <LanguagePicker v-model="spokenModel" label="Langues parlées" :is-disabled="isBusy" />
                     </template>
+                </section>
+                <section class="stack menu__section" aria-labelledby="menu-text-size">
+                    <h3 id="menu-text-size" class="label">Taille du texte</h3>
+                    <div class="size-picker" role="group" aria-label="Taille du texte">
+                        <button
+                            v-for="size in textSizes"
+                            :key="size.id"
+                            type="button"
+                            class="chip"
+                            :class="{ 'chip--on': textSizeId === size.id }"
+                            :aria-pressed="textSizeId === size.id"
+                            :data-text-size="size.id"
+                            @click="chooseTextSize(size.id)"
+                        >
+                            <span class="size-picker__a" aria-hidden="true" :style="{ fontSize: `${16 * size.scale}px` }">A</span>
+                            {{ size.label }}
+                        </button>
+                    </div>
                 </section>
                 <section v-if="!isChild" class="stack menu__section" aria-labelledby="menu-locale">
                     <h3 id="menu-locale" class="label">Langue de l’application</h3>
@@ -128,6 +146,7 @@ const { updateSettings, changePhoto } = useMembers()
 const { request } = useApi()
 const { isCueOn, cueVolume, setCueOn, setCueVolume, play } = useSoundCues()
 const { languages, preference, locale, isTranslated, setLocale } = useLocale()
+const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
 
 const view = ref<'menu' | 'photo'>('menu')
 const isBusy = ref(false)

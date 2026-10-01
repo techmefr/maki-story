@@ -1,8 +1,8 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">Avis des testeurs</h1>
-        <p v-if="entries.length === 0" class="muted">Aucun avis pour l’instant.</p>
+        <AppEmpty v-if="entries.length === 0" title="Aucun avis pour l’instant." hint="Les avis envoyés avec le bouton Avis apparaîtront ici." />
         <div v-for="entry in entries" :key="entry.id" class="card stack" style="gap: 6px">
             <div class="row row--wrap">
                 <span class="badge" :style="{ background: moodColor(entry.mood) }">{{ moodLabel(entry.mood) }}</span>

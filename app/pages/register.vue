@@ -40,7 +40,7 @@
                 <span class="label">Votre prénom</span>
                 <input v-model="parentName" class="input" type="text" placeholder="Maman, Papa…" required />
             </label>
-            <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+            <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
             <button type="submit" class="btn btn--block" :disabled="isBusy">
                 {{ isBusy ? 'Création…' : 'Créer mon compte' }}
             </button>

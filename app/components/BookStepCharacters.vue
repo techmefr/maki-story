@@ -93,24 +93,3 @@ const add = (): void => {
     newName.value = ''
 }
 </script>
-
-<style scoped>
-.swatch {
-    width: 40px;
-    height: 40px;
-    border: 2.5px solid var(--ink);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.swatch--on {
-    box-shadow: 3px 3px 0 var(--ink);
-    outline: 3px solid var(--ink);
-    outline-offset: 2px;
-}
-
-.swatch:focus-visible {
-    outline: 3px solid var(--sky);
-    outline-offset: 2px;
-}
-</style>

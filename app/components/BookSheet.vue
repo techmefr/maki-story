@@ -90,7 +90,7 @@ onMounted(() => {
 }
 
 .sheet__facts dt {
-    font: 700 14px/1 var(--font-title);
+    font: 700 0.875rem/1 var(--font-title);
     min-width: 70px;
 }
 

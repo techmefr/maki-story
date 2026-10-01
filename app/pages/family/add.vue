@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">Retour</NuxtLink>
+        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" />Retour</NuxtLink>
         <h1 class="title">Ajouter un proche</h1>
         <MemberForm @saved="done" />
     </div>

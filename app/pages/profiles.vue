@@ -6,7 +6,10 @@
         </div>
         <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
         <template v-else>
-            <h1 class="title">Qui écoute ?</h1>
+            <div class="row">
+                <AppMaki :size="56" class="anim-float" />
+                <h1 class="title">Qui écoute ?</h1>
+            </div>
             <button
                 v-for="(member, index) in members"
                 :key="member.id"

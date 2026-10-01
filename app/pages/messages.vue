@@ -1,7 +1,9 @@
 <template>
     <div class="stack">
         <h1 class="title">Messages</h1>
-        <p v-if="children.length === 0" class="muted">Ajoute un enfant dans la famille pour lui écrire en vocal.</p>
+        <AppEmpty v-if="children.length === 0" title="Personne à qui écrire" hint="Ajoute un enfant dans la famille pour lui écrire en vocal.">
+            <NuxtLink to="/family/add" class="btn btn--white"><AppIcon name="user-plus" :size="22" />Ajouter un proche</NuxtLink>
+        </AppEmpty>
         <div class="grid grid--people">
         <div v-for="child in threads" :key="child.member.id" class="card stack">
             <div class="row">

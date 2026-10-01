@@ -19,6 +19,7 @@
                     type="button"
                     class="chip"
                     :class="{ 'chip--on': role === option }"
+                    :aria-pressed="role === option"
                     @click="role = option"
                 >
                     {{ roleLabel(option) }}
@@ -49,6 +50,7 @@
                     class="swatch"
                     :style="{ background: option.hex, boxShadow: color === option.id ? swatchRing : 'none' }"
                     :aria-label="option.id"
+                    :aria-pressed="color === option.id"
                     @click="color = option.id"
                 />
             </div>
@@ -57,14 +59,14 @@
             <span class="label">Langues parlées</span>
             <LanguagePicker v-model="spokenLanguages" label="Langues parlées" :is-disabled="isBusy" />
         </div>
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+        <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <button type="submit" class="btn btn--block" :disabled="!canSave || isBusy">Enregistrer</button>
         <button v-if="member" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="askRemove">
             Supprimer ce proche
         </button>
         <div v-if="isCapturing" class="sheet-backdrop" @click.self="isCapturing = false">
-            <div class="sheet stack">
-                <h2 class="subtitle">Ta plus belle grimace</h2>
+            <div v-sheet="() => (isCapturing = false)" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="capture-title">
+                <h2 id="capture-title" class="subtitle">Ta plus belle grimace</h2>
                 <p class="muted">Chacun fait une grimace différente : l’enfant reconnaîtra ses proches.</p>
                 <PhotoCapture :frame-color="activeHex" @captured="onCaptured" />
                 <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">Annuler</button>
@@ -234,11 +236,4 @@ const askRemove = async (): Promise<void> => {
     bottom: -4px;
 }
 
-.swatch {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2.5px solid var(--ink);
-    cursor: pointer;
-}
 </style>

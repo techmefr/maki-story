@@ -100,10 +100,6 @@ defineExpose({ clear })
     cursor: pointer;
 }
 
-.shapes__key:focus-visible {
-    outline: 4px solid var(--sky);
-    outline-offset: 3px;
-}
 
 .shapes__key:active:not(:disabled) {
     transform: translate(3px, 3px);

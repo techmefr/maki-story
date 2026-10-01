@@ -25,7 +25,7 @@
                 <OfflineToggle :book-id="book.id" />
             </div>
         </div>
-        <p v-if="books.length === 0 && isLoaded" class="muted center">Aucune histoire pour l’instant.</p>
+        <AppEmpty v-if="books.length === 0 && isLoaded" title="Aucune histoire pour l’instant." hint="Demande à un grand d’en enregistrer une !" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" />
     </div>
 </template>

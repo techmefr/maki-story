@@ -118,10 +118,6 @@ defineExpose({ clear })
     cursor: pointer;
 }
 
-.pad__key:focus-visible {
-    outline: 4px solid var(--sky);
-    outline-offset: 3px;
-}
 
 .pad__key:active:not(:disabled) {
     transform: translate(3px, 3px);

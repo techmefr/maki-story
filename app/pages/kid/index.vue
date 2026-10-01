@@ -1,6 +1,9 @@
 <template>
     <div class="stack">
-        <h1 class="title">Coucou {{ current?.name }} !</h1>
+        <div class="row hello">
+            <AppMaki :size="64" class="anim-float" />
+            <h1 class="title">Coucou {{ current?.name }} !</h1>
+        </div>
         <GrimaceNudge />
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
@@ -21,6 +24,7 @@
                 </NuxtLink>
             </div>
         </div>
+        <AppEmpty v-if="faces.length === 0" title="Personne n’est encore là" hint="Demande à un grand d’ajouter la famille." />
         <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
             <AppIcon name="book" :size="44" motion="float" />
             <span class="subtitle">Histoires à plusieurs voix</span>
@@ -65,18 +69,18 @@ onBeforeUnmount(stopPolling)
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .faces {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px 12px;
 }
 
 @media (min-width: 720px) {
     .faces {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
@@ -93,6 +97,9 @@ onBeforeUnmount(stopPolling)
     gap: 6px;
     color: inherit;
     text-decoration: none;
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .face__bubble {
@@ -105,7 +112,7 @@ onBeforeUnmount(stopPolling)
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     padding: 8px 14px;
-    font: 700 15px/1 var(--font-title);
+    font: 700 0.9375rem/1 var(--font-title);
     color: var(--ink);
     text-decoration: none;
     box-shadow: var(--shadow);

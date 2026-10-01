@@ -128,10 +128,4 @@ const toggleCover = (index: number): void => {
     background-position: center;
 }
 
-.check {
-    width: 24px;
-    height: 24px;
-    accent-color: var(--ink);
-    flex-shrink: 0;
-}
 </style>

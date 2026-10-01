@@ -107,10 +107,4 @@ const goNext = (): void => {
     margin: 0;
 }
 
-.check {
-    width: 24px;
-    height: 24px;
-    accent-color: var(--ink);
-    flex-shrink: 0;
-}
 </style>

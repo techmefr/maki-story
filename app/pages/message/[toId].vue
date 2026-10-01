@@ -1,5 +1,5 @@
 <template>
-    <div class="stack center screen" :style="{ background: target ? memberHexLight(target) : '#FFF4D9' }">
+    <div class="stack center screen" :class="{ kid: isChild }" :style="{ background: target ? memberHexLight(target) : '#FFF4D9' }">
         <template v-if="target">
             <AppAvatar :member="target" :size="120" />
             <h1 class="title">{{ heading }}</h1>
@@ -20,7 +20,7 @@
                 >
                     <AppIcon :name="isRecording ? 'stop' : 'mic'" :size="56" :motion="isRecording ? 'pulse' : 'none'" />
                 </button>
-                <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+                <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div v-if="phase === 'done'" class="row">
                     <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />Refaire</button>
                     <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />Envoyer</button>
@@ -114,7 +114,8 @@ const send = async (): Promise<void> => {
     position: fixed;
     inset: 0;
     z-index: 40;
-    justify-content: center;
+    justify-content: safe center;
+    overflow-y: auto;
     padding: 16px;
 }
 
