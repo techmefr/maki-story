@@ -26,7 +26,7 @@ const secret = (): string => {
     return value
 }
 
-const sign = (payload: string): string => {
+export const sign = (payload: string): string => {
     return createHmac('sha256', secret()).update(payload).digest('base64url')
 }
 

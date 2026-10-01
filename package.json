@@ -40,5 +40,8 @@
   "packageManager": "pnpm@12.8.1",
   "engines": {
     "node": ">=22"
+  },
+  "optionalDependencies": {
+    "@capgo/capacitor-native-biometric": "^8.7.0"
   }
 }

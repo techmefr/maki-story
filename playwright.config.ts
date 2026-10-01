@@ -43,6 +43,10 @@ export default defineConfig({
                   NUXT_IGNORE_LOCK: '1',
                   AI_PROVIDER: 'fake',
                   AI_MONTHLY_BUDGET_USD: '0.12',
+                  OIDC_FAKE: '1',
+                  GOOGLE_CLIENT_ID: 'fake-google-client',
+                  APPLE_CLIENT_ID: 'fake-apple-client',
+                  NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE: '1',
               },
           },
 })

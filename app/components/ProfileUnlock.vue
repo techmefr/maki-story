@@ -8,7 +8,14 @@
             <AppAvatar :member="member" :size="84" />
             <div class="subtitle">{{ member.name }}</div>
         </div>
-        <template v-if="mode === 'blocked'">
+        <template v-if="stage === 'offer'">
+            <h2 class="subtitle" tabindex="-1">Activer l’empreinte ou le visage ?</h2>
+            <p class="muted">Tu pourras ouvrir ton profil sans taper ton code sur cet appareil. Le code reste disponible.</p>
+            <button type="button" class="btn btn--block" :disabled="isBusy" @click="onEnrol">Activer</button>
+            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="onSkipOffer">Pas maintenant</button>
+            <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+        </template>
+        <template v-else-if="mode === 'blocked'">
             <h2 class="subtitle" tabindex="-1">Code à créer</h2>
             <p class="muted">Un parent doit d’abord choisir le code de {{ member.name }}.</p>
         </template>
@@ -17,6 +24,16 @@
             <p class="muted">{{ hint }}</p>
             <ShapePad v-if="padKind === 'shapes'" :key="padKey" :is-disabled="isBusy" @submit="onCode" />
             <PinPad v-else :key="padKey" :is-disabled="isBusy" @submit="onCode" />
+            <button
+                v-for="unlocker in availableUnlockers"
+                :key="unlocker.id"
+                type="button"
+                class="btn btn--white btn--block"
+                :disabled="isBusy"
+                @click="onUnlocker(unlocker)"
+            >
+                {{ unlocker.label }}
+            </button>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
     </div>
@@ -28,11 +45,15 @@ const emit = defineEmits<{ unlocked: []; cancel: [] }>()
 
 const { select } = useCurrentMember()
 const { load } = useMembers()
+const { unlockers } = useProfileUnlockers()
+const biometric = useBiometric()
 
 const padKey = ref(0)
 const isBusy = ref(false)
 const errorMessage = ref('')
 const firstEntry = ref<string | null>(null)
+const stage = ref<'code' | 'offer'>('code')
+const availableUnlockers = ref<IProfileUnlocker[]>([])
 
 const mode = computed<'enter' | 'create' | 'blocked'>(() => {
     if (member.hasCode) {
@@ -78,14 +99,78 @@ const unlock = async (proof: IProfileProof): Promise<void> => {
         if (proof.newCode) {
             await load()
         }
+        if (!proof.device && (await shouldOfferBiometric())) {
+            stage.value = 'offer'
+            return
+        }
         emit('unlocked')
     } catch (error) {
         fail(error)
         firstEntry.value = null
+        if (proof.device) {
+            await biometric.forget(member.id)
+            availableUnlockers.value = availableUnlockers.value.filter(item => item.id !== 'biometric')
+            errorMessage.value = 'L’empreinte n’est plus valable. Utilise ton code.'
+        }
     } finally {
         isBusy.value = false
     }
 }
+
+const shouldOfferBiometric = async (): Promise<boolean> => {
+    if (biometric.isDeclined(member.id) || !(await biometric.detect())) {
+        return false
+    }
+    return !(await biometric.isEnrolled(member.id))
+}
+
+const onUnlocker = async (unlocker: IProfileUnlocker): Promise<void> => {
+    isBusy.value = true
+    errorMessage.value = ''
+    let proof: IProfileProof | null = null
+    try {
+        proof = await unlocker.prove(member.id)
+    } catch (_error) {
+        proof = null
+    }
+    isBusy.value = false
+    if (!proof) {
+        errorMessage.value = 'Vérification annulée. Tape ton code.'
+        return
+    }
+    await unlock(proof)
+}
+
+const onEnrol = async (): Promise<void> => {
+    isBusy.value = true
+    errorMessage.value = ''
+    try {
+        if (await biometric.enrol(member.id)) {
+            emit('unlocked')
+            return
+        }
+        errorMessage.value = 'Vérification annulée. Tu pourras réessayer plus tard.'
+    } catch (_error) {
+        errorMessage.value = 'Impossible d’activer pour le moment.'
+    } finally {
+        isBusy.value = false
+    }
+}
+
+const onSkipOffer = (): void => {
+    biometric.decline(member.id)
+    emit('unlocked')
+}
+
+onMounted(async () => {
+    if (mode.value !== 'enter') {
+        return
+    }
+    const checks = await Promise.all(
+        unlockers.value.map(async unlocker => ((await unlocker.isAvailable(member.id).catch(() => false)) ? unlocker : null)),
+    )
+    availableUnlockers.value = checks.filter((item): item is IProfileUnlocker => item !== null)
+})
 
 const onCode = async (value: string): Promise<void> => {
     if (mode.value === 'enter') {
