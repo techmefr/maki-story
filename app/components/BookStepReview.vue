@@ -55,8 +55,10 @@ const {
     effectiveCharacterKey,
     toNewBook,
     memberIdsForSave,
+    translationsForSave,
     reset,
 } = useBookDraft()
+const { saveTranslation } = useAi()
 const { getById } = useMembers()
 const { create, get, patch } = useBooks()
 
@@ -91,10 +93,19 @@ const save = async (): Promise<void> => {
     errorMessage.value = ''
     try {
         const created = await create(toNewBook())
-        if (!isSimple.value && !isWordless.value) {
+        const translations = translationsForSave()
+        const hasTranslations = translations.some(list => list.length > 0)
+        if ((!isSimple.value && !isWordless.value) || hasTranslations) {
             const book = await get(created.id)
-            const memberIds = memberIdsForSave()
-            await patch(created.id, { lines: book.lines.map((saved, index) => ({ id: saved.id, memberId: memberIds[index] ?? null })) })
+            if (!isSimple.value && !isWordless.value) {
+                const memberIds = memberIdsForSave()
+                await patch(created.id, { lines: book.lines.map((saved, index) => ({ id: saved.id, memberId: memberIds[index] ?? null })) })
+            }
+            for (const [index, saved] of book.lines.entries()) {
+                for (const item of translations[index] ?? []) {
+                    await saveTranslation(created.id, saved.id, item.language, item.text, item.tone)
+                }
+            }
         }
         reset(isSimple.value ? 'simple' : 'casting', readerId.value)
         await navigateTo(`/books/${created.id}/studio`)

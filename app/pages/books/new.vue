@@ -13,6 +13,8 @@
                 Plusieurs voix
             </button>
         </div>
+        <AiNotice v-if="isAiPrefilled" text="Les personnages, les répliques et les tons viennent de l’IA et peuvent contenir des erreurs. Relis chaque étape avant d’enregistrer." />
+        <AiPrefillCard v-if="step === 'book' && isParent && !isAiPrefilled" />
         <BookStepBook v-if="step === 'book'" @next="goNext" />
         <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
         <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
@@ -31,8 +33,8 @@ const STEP_TITLES: Record<DraftStep, string> = {
     review: 'Vérifier',
 }
 
-const { step, steps, isSimple, isWordless, setMode, reset } = useBookDraft()
-const { current } = useCurrentMember()
+const { step, steps, isSimple, isWordless, isAiPrefilled, setMode, reset } = useBookDraft()
+const { current, isParent } = useCurrentMember()
 
 const stepCount = computed(() => steps.value.length)
 const stepNumber = computed(() => Math.max(1, steps.value.indexOf(step.value) + 1))

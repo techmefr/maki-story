@@ -5,6 +5,7 @@ export const useCurrentMember = () => {
 
     const current = computed(() => getById(currentId.value))
     const isChild = computed(() => current.value?.role === 'child')
+    const isParent = computed(() => current.value?.role === 'parent')
 
     const select = async (id: string | null, proof: IProfileProof = {}): Promise<void> => {
         await request('/auth/profile', { method: 'POST', body: { memberId: id, ...proof } })
@@ -20,5 +21,5 @@ export const useCurrentMember = () => {
 
     const homePath = computed(() => (isChild.value ? '/kid' : '/home'))
 
-    return { currentId, current, isChild, homePath, select, lock }
+    return { currentId, current, isChild, isParent, homePath, select, lock }
 }

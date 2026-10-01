@@ -219,6 +219,13 @@ pnpm dev
 
 AI features (parent profiles only): `POST /api/ai/photo-prefill` turns page photos into an unsaved draft, `POST /api/ai/book-generation` writes a book from an idea (a fixed character sheet is repeated in every image prompt) and stores it as a hidden draft (`status = draft`, `ai_generated = true`), `POST /api/ai/translation` suggests translations, `POST /api/books/:id/validate` is the parental validation that releases a draft. Model output is validated against a strict schema and size limits; text read from photos is treated as data, never as instructions.
 
+AI interface (parent profiles only, hidden for children and relatives):
+
+- **Pre-fill from photos**: first step of the book wizard. Up to 4 page photos are uploaded, the returned draft (characters with colors, lines, tones, panels) is loaded into the normal wizard steps and flagged as AI content to review before saving.
+- **Create a story with AI**: `/books/ai`, from an idea, language, age range, page count and an editable character sheet. The result is a hidden draft shown in the parent-only "À valider" row of the library, released by the "Valider" button (`POST /api/books/:id/validate`) or deleted with "Rejeter". Partial image failures (`imagesSkipped`) are reported.
+- **Translation suggestions**: per line in the lines step, into any supported language (including Malagasy). The suggestion is editable and is stored in `line_translations` only when the parent accepts it and saves the book.
+- **Budget**: the remaining monthly budget is shown in the profile menu. A 429 shows an exhausted-budget message, a 503 (or `enabled: false`) shows the feature as unavailable.
+
 The database schema is created and migrated on the first request. Accounts are created on `/register` (e-mail, password hashed with scrypt, one family and its first parent profile); every row belongs to a family and is only served to the accounts of that family.
 
 ### Scripts

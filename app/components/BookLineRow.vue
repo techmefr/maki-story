@@ -14,6 +14,7 @@
             </button>
             <button type="button" class="btn btn--small btn--white" aria-label="Retirer la réplique" @click="removeLine(line.key)">×</button>
         </div>
+        <AiTranslationSuggest v-if="isParent && !isWordless" :line="line" />
         <ToneChips v-if="isEditing" :model-value="line.tone" @update:model-value="updateLine(line.key, { tone: $event })" />
     </div>
 </template>
@@ -21,7 +22,8 @@
 <script setup lang="ts">
 const props = defineProps<{ line: IDraftLine }>()
 
-const { isSimple, characterByKey, effectiveCharacterKey, updateLine, removeLine } = useBookDraft()
+const { isParent } = useCurrentMember()
+const { isSimple, isWordless, characterByKey, effectiveCharacterKey, updateLine, removeLine } = useBookDraft()
 
 const isEditing = ref(false)
 
