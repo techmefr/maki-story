@@ -16,7 +16,11 @@ export const assertFileReadable = async (actor: IActor, fileId: string): Promise
             or exists (
                 select 1 from messages m
                 where m.file_id = $1 and m.family_id = $2 and m.deleted_at is null
-                    and (m.from_member_id = $3 or (m.to_member_id = $3 and (m.listened_at is null or not $4::boolean)))
+                    and (m.from_member_id = $3 or (m.to_member_id = $3 and (not $4::boolean or (m.listened_at is null and not exists (
+                        select 1 from messages o
+                        where o.family_id = m.family_id and o.to_member_id = m.to_member_id and o.from_member_id = m.from_member_id
+                            and o.deleted_at is null and o.listened_at is null and o.created_at < m.created_at
+                    )))))
             )
             or exists (
                 select 1 from recordings r join lines l on l.id = r.line_id join books b on b.id = l.book_id

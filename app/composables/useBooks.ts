@@ -2,9 +2,20 @@ export const useBooks = () => {
     const { request } = useApi()
     const books = useState<IBookSummary[]>('books', () => [])
 
-    const load = async (): Promise<void> => {
+    const buildPath = (query: IBookQuery): string => {
+        const params = new URLSearchParams()
+        Object.entries(query).forEach(([key, value]) => {
+            if (value !== undefined && value !== '') {
+                params.set(key, String(value))
+            }
+        })
+        const text = params.toString()
+        return text ? `/books?${text}` : '/books'
+    }
+
+    const load = async (query: IBookQuery = {}): Promise<void> => {
         try {
-            books.value = await request<IBookSummary[]>('/books')
+            books.value = await request<IBookSummary[]>(buildPath(query))
         } catch (error) {
             console.error('Impossible de charger la bibliotheque pour le moment', error)
         }

@@ -22,6 +22,8 @@ export interface IBookSummary {
     lineCount: number
     recordedCount: number
     memberIds: string[]
+    readerIds: string[]
+    submittedCount: number
     createdAt: string
 }
 
@@ -190,4 +192,24 @@ export interface IPagePatch {
 export interface IPanelBody {
     description?: string
     position?: number
+}
+
+export interface IAgeTag {
+    id: string
+    label: string
+    min: number
+    max: number
+}
+
+export interface IBookQuery {
+    q?: string
+    language?: string
+    age?: string
+    limit?: number
+    offset?: number
+}
+
+export interface IBookList {
+    items: IBookSummary[]
+    total: number
 }
