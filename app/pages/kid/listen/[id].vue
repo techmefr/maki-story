@@ -3,7 +3,7 @@
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
             <div class="title">Page suivante</div>
-            <button type="button" class="btn btn--big" aria-label="Tourner la page" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" /></button>
+            <button type="button" class="btn btn--big" aria-label="Tourner la page" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" /></button>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />

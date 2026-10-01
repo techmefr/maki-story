@@ -93,6 +93,25 @@
                     <h3 id="menu-ai" class="label">Intelligence artificielle</h3>
                     <AiQuota />
                 </section>
+                <section class="stack menu__section" aria-labelledby="menu-sounds">
+                    <h3 id="menu-sounds" class="label">Sons des boutons</h3>
+                    <label class="row">
+                        <input type="checkbox" :checked="isCueOn" @change="setCueOn(($event.target as HTMLInputElement).checked)" />
+                        <span>Activer les sons</span>
+                    </label>
+                    <label class="stack menu__field">
+                        <span class="label">Volume des sons</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            :value="cueVolume"
+                            :disabled="!isCueOn"
+                            @input="setCueVolume(Number(($event.target as HTMLInputElement).value))"
+                        />
+                    </label>
+                </section>
                 <button type="button" class="btn btn--white btn--block" @click="openSwitcher">Changer de profil</button>
             </template>
         </div>
@@ -107,6 +126,7 @@ const isSwitcherOpen = useState<boolean>('switcher-open', () => false)
 const { current, isChild } = useCurrentMember()
 const { updateSettings, changePhoto } = useMembers()
 const { request } = useApi()
+const { isCueOn, cueVolume, setCueOn, setCueVolume, play } = useSoundCues()
 const { languages, preference, locale, isTranslated, setLocale } = useLocale()
 
 const view = ref<'menu' | 'photo'>('menu')
@@ -152,9 +172,11 @@ const run = async (action: () => Promise<void>): Promise<void> => {
     try {
         await action()
         statusMessage.value = 'Enregistré.'
+        play('success')
     } catch (error) {
         console.error('Le réglage n a pas pu être enregistré', error)
         errorMessage.value = 'Impossible d’enregistrer pour le moment.'
+        play('error')
     } finally {
         isBusy.value = false
     }

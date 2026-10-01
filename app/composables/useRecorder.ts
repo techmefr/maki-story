@@ -38,6 +38,8 @@ const openMicrophone = async (): Promise<MediaStream> => {
 
 export const useRecorder = (onLimit?: (recording: IRecording | null) => void) => {
     const isRecording = ref(false)
+    const { setBusy } = useSoundCues()
+    watch(isRecording, value => setBusy('recording', value))
     const elapsedMs = ref(0)
     const errorMessage = ref('')
     const limitMs = ref(resolveRecordingLimitMs(undefined))

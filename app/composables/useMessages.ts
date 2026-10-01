@@ -2,12 +2,22 @@ const POLL_INTERVAL_MS = 10000
 
 export const useMessages = () => {
     const { request } = useApi()
+    const { currentId } = useCurrentMember()
+    const { play } = useSoundCues()
     const messages = useState<IMessage[]>('messages', () => [])
     const pollTimer = useState<ReturnType<typeof setInterval> | null>('messages-timer', () => null)
 
     const load = async (): Promise<void> => {
         try {
-            messages.value = await request<IMessage[]>('/messages')
+            const previousIds = new Set(messages.value.map(message => message.id))
+            const loaded = await request<IMessage[]>('/messages')
+            const receiverId = currentId.value
+            const hasNewIncoming =
+                previousIds.size > 0 && loaded.some(message => !previousIds.has(message.id) && message.toMemberId === receiverId)
+            messages.value = loaded
+            if (hasNewIncoming) {
+                play('message')
+            }
         } catch (error) {
             console.error('Impossible de charger les messages pour le moment', error)
         }
