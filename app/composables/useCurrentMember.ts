@@ -6,12 +6,19 @@ export const useCurrentMember = () => {
     const current = computed(() => getById(currentId.value))
     const isChild = computed(() => current.value?.role === 'child')
 
-    const select = async (id: string | null): Promise<void> => {
-        await request('/auth/profile', { method: 'POST', body: { memberId: id } })
+    const select = async (id: string | null, proof: IProfileProof = {}): Promise<void> => {
+        await request('/auth/profile', { method: 'POST', body: { memberId: id, ...proof } })
         currentId.value = id
+        if (id === null) {
+            markProfileLocked()
+        } else {
+            markProfileUnlocked()
+        }
     }
+
+    const lock = (): Promise<void> => select(null)
 
     const homePath = computed(() => (isChild.value ? '/kid' : '/home'))
 
-    return { currentId, current, isChild, homePath, select }
+    return { currentId, current, isChild, homePath, select, lock }
 }

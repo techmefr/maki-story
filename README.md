@@ -49,9 +49,18 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 - Installable PWA (manifest, icons, service worker), Capacitor ready for iOS and Android
 - Book model: subtitle, author, age range, language and type (standard, comic, wordless, child-written), characters defined once per book (one narrator at most), pages of kind cover, content or empty, comic panels, tone and scene description per line
 - Recordings per line and language (draft, submitted, approved, changes requested, stale), line translations, and a recording turns stale when the text or tone of its line is edited
+- Profile picker on every launch: every profile has its own code (4 to 6 digits, or 3 shapes out of 4 in order for children), checked server side with scrypt, per-profile lockout after 5 wrong tries, and the app returns to the picker on a cold start or after 30 seconds in the background
 - Soft delete everywhere: nothing is ever hard deleted
 - Simple server logs written in plain sentences, easy to read in Vercel logs
 - End to end tests that run the whole product on a phone and a desktop viewport
+
+## Profile codes
+
+- A parent without a code creates one the first time the profile is selected. A child code (digits or shapes) is set by a parent, in the family screen.
+- The session only changes profile after a verified code. A child session can never open a parent or relative profile, nor change anyone else code.
+- Five wrong codes lock the profile for five minutes (persisted in `members`), whatever the session.
+- The client clears the active profile on a cold start and after `PROFILE_IDLE_LOCK_MS` in the background (`app/utils/profile-lock.ts`).
+- Biometrics plug in through `useProfileUnlockers` (see `IProfileUnlocker`), not implemented yet.
 
 ## Tech stack
 

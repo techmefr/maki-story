@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addMember, apiJson, chooseProfile, login, pngFile, uniqueName, PARENT_NAME } from './helpers'
+import { addMember, apiJson, chooseProfile, login, pngFile, unlockProfile, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -74,6 +74,7 @@ test.describe('family', () => {
         await expect(page).toHaveURL(/\/kid/)
         await page.goto('/profiles')
         await page.locator('button.card', { hasText: PARENT_NAME }).first().click()
+        await unlockProfile(page)
         await expect(page).toHaveURL(/\/home/)
     })
 

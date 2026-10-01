@@ -36,6 +36,11 @@ export const useMembers = () => {
         await preload(members.value)
     }
 
+    const setCode = async (id: string, input: IMemberCodeUpdate): Promise<void> => {
+        await request(`/members/${id}/code`, { method: 'PUT', body: input })
+        await load()
+    }
+
     const remove = async (id: string): Promise<void> => {
         await request(`/members/${id}`, { method: 'DELETE' })
         members.value = members.value.filter(member => member.id !== id)
@@ -44,5 +49,5 @@ export const useMembers = () => {
     const children = computed(() => members.value.filter(member => member.role === 'child'))
     const grownUps = computed(() => members.value.filter(member => member.role !== 'child'))
 
-    return { members, children, grownUps, load, ensureLoaded, getById, add, update, remove }
+    return { members, children, grownUps, load, ensureLoaded, getById, add, update, setCode, remove }
 }

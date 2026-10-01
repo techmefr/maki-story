@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { apiJson, chooseProfile, login, recordOnce, uniqueName, uploadWav, useProfile } from './helpers'
+import { apiJson, chooseProfile, login, recordOnce, switchProfile, uniqueName, uploadWav, useProfile } from './helpers'
 import type { IApiMember } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
@@ -75,8 +75,7 @@ test.describe('voice messages', () => {
         await page.locator('.card', { hasText: uniqueName('Lova', project) }).getByRole('link', { name: 'Lui envoyer un message' }).click()
         await sendVoiceMessage(page)
         await expect(page).toHaveURL(/\/messages/, { timeout: 10000 })
-        await page.getByRole('button', { name: 'Changer de profil' }).click()
-        await page.locator('.sheet button.card', { hasText: uniqueName('Lova', project) }).click()
+        await switchProfile(page, uniqueName('Lova', project))
         await expect(page).toHaveURL(/\/kid$/)
         await expect(page.locator('.face__bubble')).toBeVisible()
         await page.locator('.face__bubble').click()

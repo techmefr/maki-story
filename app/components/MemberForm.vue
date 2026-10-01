@@ -26,6 +26,19 @@
             </div>
             <span class="muted">{{ roleHint }}</span>
         </div>
+        <CodeField v-if="!member" v-model="code" :can-use-shapes="role === 'child'" label="Code secret du profil" />
+        <div v-else-if="canChangeCode" class="stack" style="gap: 6px">
+            <button type="button" class="btn btn--white btn--small" :aria-expanded="isChangingCode" @click="toggleCodeChange">
+                {{ isChangingCode ? 'Garder le code actuel' : 'Changer le code' }}
+            </button>
+            <template v-if="isChangingCode">
+                <label v-if="needsCurrentCode" class="stack" style="gap: 6px">
+                    <span class="label">Code actuel</span>
+                    <input v-model="currentCode" class="input" type="password" inputmode="numeric" autocomplete="off" :maxlength="PIN_MAX_LENGTH" />
+                </label>
+                <CodeField v-model="code" :can-use-shapes="role === 'child'" label="Nouveau code" />
+            </template>
+        </div>
         <div class="stack" style="gap: 6px">
             <span class="label">Couleur de voix</span>
             <div class="row row--wrap">
@@ -66,7 +79,8 @@ const ROLE_HINTS: Record<MemberRole, string> = {
 const { member = null } = defineProps<{ member?: IMember | null }>()
 const emit = defineEmits<{ saved: [] }>()
 
-const { add, update, remove } = useMembers()
+const { add, update, remove, setCode } = useMembers()
+const { current } = useCurrentMember()
 const { upload } = useFiles()
 const { register } = useMemberPhotos()
 
@@ -83,7 +97,34 @@ const isCapturing = ref(false)
 const activeHex = computed(() => getVoiceColor(color.value).hex)
 const errorMessage = ref('')
 
-const canSave = computed(() => name.value.trim() !== '')
+const code = ref<IMemberCodeInput | null>(null)
+const currentCode = ref('')
+const isChangingCode = ref(false)
+
+const isSelf = computed(() => member !== null && member.id === current.value?.id)
+const canChangeCode = computed(() => {
+    if (!member || !current.value) {
+        return false
+    }
+    return isSelf.value ? current.value.role !== 'child' : current.value.role === 'parent' && member.role !== 'parent'
+})
+const needsCurrentCode = computed(() => isSelf.value && member?.hasCode === true)
+const isCodeReady = computed(() => {
+    if (!member) {
+        return code.value !== null
+    }
+    if (!isChangingCode.value) {
+        return true
+    }
+    return code.value !== null && (!needsCurrentCode.value || currentCode.value !== '')
+})
+const canSave = computed(() => name.value.trim() !== '' && isCodeReady.value)
+
+const toggleCodeChange = (): void => {
+    isChangingCode.value = !isChangingCode.value
+    code.value = null
+    currentCode.value = ''
+}
 const roleHint = computed(() => ROLE_HINTS[role.value])
 const preview = computed<IMember>(() => ({
     id: member?.id ?? 'new',
@@ -92,6 +133,8 @@ const preview = computed<IMember>(() => ({
     color: color.value,
     photoFileId: photoFileId.value,
     status: member?.status ?? 'active',
+    hasCode: member?.hasCode ?? false,
+    codeKind: member?.codeKind ?? null,
 }))
 
 const onCaptured = async (blob: Blob): Promise<void> => {
@@ -115,8 +158,11 @@ const save = async (): Promise<void> => {
     try {
         if (member) {
             await update(member.id, { name: name.value, role: role.value, color: color.value, photoFileId: photoFileId.value })
+            if (isChangingCode.value && code.value) {
+                await setCode(member.id, { ...code.value, currentCode: needsCurrentCode.value ? currentCode.value : undefined })
+            }
         } else {
-            const created = await add({ name: name.value, role: role.value, color: color.value })
+            const created = await add({ name: name.value, role: role.value, color: color.value, code: code.value ?? undefined })
             if (photoFileId.value) {
                 await update(created.id, { photoFileId: photoFileId.value })
             }
@@ -124,7 +170,8 @@ const save = async (): Promise<void> => {
         emit('saved')
     } catch (error) {
         console.error('Le proche n a pas pu être enregistré', error)
-        errorMessage.value = 'Impossible d’enregistrer pour le moment.'
+        const status = (error as { statusCode?: number }).statusCode
+        errorMessage.value = status === 403 || status === 429 ? 'Le code actuel est incorrect ou bloqué.' : 'Impossible d’enregistrer pour le moment.'
     } finally {
         isBusy.value = false
     }
