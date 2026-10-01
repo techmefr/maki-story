@@ -51,6 +51,7 @@ export default defineConfig({
                   NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE: '1',
                   NUXT_PUBLIC_SLEEP_MINUTE_MS: '100',
                   NUXT_PUBLIC_SLEEP_FADE_MS: '300',
+                  NUXT_PUBLIC_ACCESS_POLL_MS: '1000',
               },
           },
 })

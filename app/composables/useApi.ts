@@ -67,6 +67,10 @@ export const useApi = () => {
                 isSignedIn.value = false
                 await navigateTo('/login')
             }
+            if (status === 403 && (error as { data?: { data?: { code?: string } } }).data?.data?.code === 'outside-hours') {
+                useAccess().markLocked()
+                await navigateTo('/kid/locked')
+            }
             throw error
         }
     }

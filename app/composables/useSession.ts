@@ -46,6 +46,7 @@ export const useSession = () => {
             } catch (_error) {
                 console.warn('Le profil n a pas pu être verrouillé hors ligne')
             }
+            currentId.value = null
         }
         return isSignedIn.value === true
     }

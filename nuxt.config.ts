@@ -19,6 +19,7 @@ export default defineNuxtConfig({
             biometricTestBridge: false,
             sleepMinuteMs: 60000,
             sleepFadeMs: 8000,
+            accessPollMs: 15000,
         },
     },
     app: {

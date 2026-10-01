@@ -23,3 +23,5 @@ export type Permission =
     | 'shares.review'
     | 'shares.record'
     | 'notifications.list'
+    | 'members.code.manage'
+    | 'members.schedule.manage'

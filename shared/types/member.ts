@@ -15,6 +15,7 @@ export interface IMember {
     appLocale: string | null
     voicePolicy: VoicePolicy
     isGuest: boolean
+    isCodeLocked?: boolean
 }
 
 export interface IMemberCodeInput {

@@ -88,7 +88,38 @@ export const useAudioPlayer = () => {
         }
     }
 
+    const FADE_STEPS = 10
+    let fadeTimer: ReturnType<typeof setInterval> | null = null
+
+    const fadeOut = (): void => {
+        if (!audio || audio.paused || fadeTimer !== null) {
+            return
+        }
+        const startVolume = audio.volume
+        let step = 0
+        fadeTimer = setInterval(() => {
+            step += 1
+            setVolume(startVolume * (1 - step / FADE_STEPS))
+            if (step >= FADE_STEPS) {
+                clearInterval(fadeTimer ?? undefined)
+                fadeTimer = null
+                pause()
+                setVolume(startVolume)
+            }
+        }, ACCESS_FADE_MS / FADE_STEPS)
+    }
+
+    if (import.meta.client) {
+        window.addEventListener(ACCESS_CLOSING_EVENT, fadeOut)
+    }
+
     onBeforeUnmount(() => {
+        if (import.meta.client) {
+            window.removeEventListener(ACCESS_CLOSING_EVENT, fadeOut)
+        }
+        if (fadeTimer !== null) {
+            clearInterval(fadeTimer)
+        }
         stop()
         endedHandler = null
         audio = null

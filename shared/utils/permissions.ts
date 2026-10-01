@@ -25,6 +25,8 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'shares.review': ['parent'],
     'shares.record': ['parent', 'relative'],
     'notifications.list': ['parent', 'relative'],
+    'members.code.manage': ['parent'],
+    'members.schedule.manage': ['parent'],
 }
 
 export const can = (role: MemberRole, permission: Permission): boolean => ROLE_PERMISSIONS[permission].includes(role)
