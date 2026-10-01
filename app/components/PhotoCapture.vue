@@ -30,49 +30,6 @@
             <input type="file" accept="image/*" capture="user" hidden @change="pickFile" />
         </label>
     </div>
-    <div class="subtitle">{{ prompt }}</div>
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-    <template v-if="phase === 'idle'">
-      <button type="button" class="btn btn--block" @click="openCamera">
-        <AppIcon name="camera" :size="22" motion="wiggle" />{{
-          t("studio.photo.open")
-        }}
-      </button>
-    </template>
-    <template v-else-if="phase === 'live'">
-      <button
-        type="button"
-        class="btn btn--coral btn--block"
-        :disabled="countdown > 0"
-        @click="startCountdown"
-      >
-        <AppIcon name="camera" :size="22" />
-        {{
-          countdown > 0 ? t("studio.photo.getReady") : t("studio.photo.take")
-        }}
-      </button>
-    </template>
-    <template v-else-if="phase === 'preview'">
-      <div class="row" style="width: 100%">
-        <button type="button" class="btn btn--white grow" @click="retake">
-          <AppIcon name="redo" :size="20" />{{ t("studio.redo") }}
-        </button>
-        <button type="button" class="btn btn--mint grow" @click="keep">
-          <AppIcon name="check" :size="20" />{{ t("studio.photo.keep") }}
-        </button>
-      </div>
-    </template>
-    <label v-if="phase !== 'preview'" class="btn btn--white btn--small">
-      {{ t("studio.photo.pick") }}
-      <input
-        type="file"
-        accept="image/*"
-        capture="user"
-        hidden
-        @change="pickFile"
-      />
-    </label>
-  </div>
 </template>
 
 <script setup lang="ts">
