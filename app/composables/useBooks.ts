@@ -45,7 +45,11 @@ export const useBooks = () => {
         await request(`/books/${bookId}/lines/${lineId}/audio${query}`, { method: 'DELETE' })
     }
 
+    const setTranslation = (bookId: string, lineId: string, language: string, body: ITranslationBody): Promise<ILineTranslation> => {
+        return request<ILineTranslation>(`/books/${bookId}/lines/${lineId}/translations/${language}`, { method: 'PUT', body })
+    }
+
     const readyBooks = computed(() => books.value.filter(book => book.status === 'ready'))
 
-    return { books, readyBooks, load, get, create, patch, remove, setLineAudio, clearLineAudio }
+    return { books, readyBooks, load, get, create, patch, remove, setLineAudio, clearLineAudio, setTranslation }
 }

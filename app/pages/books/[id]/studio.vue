@@ -158,6 +158,9 @@
             @select="jumpTo"
         />
         <template v-if="canManage">
+            <NuxtLink v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`" class="btn btn--white btn--block">
+                <AppIcon name="languages" :size="22" />Traduire ce livre
+            </NuxtLink>
             <button type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
                 {{ isComplete ? 'Publier le livre' : 'Enregistre toutes les répliques pour publier' }}
