@@ -47,6 +47,8 @@ export default defineConfig({
                   GOOGLE_CLIENT_ID: 'fake-google-client',
                   APPLE_CLIENT_ID: 'fake-apple-client',
                   NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE: '1',
+                  NUXT_PUBLIC_SLEEP_MINUTE_MS: '100',
+                  NUXT_PUBLIC_SLEEP_FADE_MS: '300',
               },
           },
 })

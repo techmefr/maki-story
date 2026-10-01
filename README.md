@@ -237,6 +237,12 @@ A ready book can be downloaded for offline listening (button on the library, the
 
 Targets: the PWA runs on phones, tablets and desktop browsers (Chrome, Edge, Safari, Firefox), and the same build runs in Capacitor on Android and iOS. Android TV and a leanback layout are planned separately (#31) and not implemented here.
 
+## Sleep timer and resume
+
+In the child player, the moon button opens a sheet with big icon buttons: 10, 20 or 30 minutes, or the end of the current page. The volume fades out over the last seconds, playback stops and a calm good night screen appears; the timer can be cancelled from the same sheet. The deadline is checked against the clock (also when the tab becomes visible again), so a throttled background tab still stops on time. Durations live in `shared/utils/sleep.ts`; `NUXT_PUBLIC_SLEEP_MINUTE_MS` and `NUXT_PUBLIC_SLEEP_FADE_MS` override the length of a minute and of the fade (the e2e suite uses short values).
+
+Progress is stored per profile and per book in `playback_progress` (family scoped, migration `0011`): page, line and position. `GET`, `PUT` and `DELETE /api/books/:id/progress` need a chosen profile. The player saves on every line change, on pause, on leaving, when the page goes to the background and every 5 seconds while playing, and clears it when the book is finished. Opening a book with saved progress offers two icon buttons: continue or start over.
+
 ## Deployment
 
 The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push.

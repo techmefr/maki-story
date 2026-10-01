@@ -16,7 +16,16 @@
         </div>
         <div v-else-if="phase === 'ready'" class="reader__center stack center">
             <AppMaki :size="160" />
-            <button type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
+            <div v-if="resumeProgress" class="row">
+                <button type="button" class="btn btn--big" aria-label="Continuer" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></button>
+                <button type="button" class="btn btn--big btn--white" aria-label="Au début" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></button>
+            </div>
+            <button v-else type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
+        </div>
+        <div v-else-if="phase === 'sleep'" class="reader__center stack center">
+            <AppIcon name="moon" :size="140" motion="float" />
+            <div class="title">Bonne nuit</div>
+            <NuxtLink to="/kid" class="btn btn--big btn--white"><AppIcon name="home" :size="40" />Retour</NuxtLink>
         </div>
         <div v-else class="reader__center stack center" :class="{ reader__flash: isCueFlashing }">
             <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
@@ -34,14 +43,31 @@
                 <button type="button" class="btn btn--small btn--white" :aria-pressed="isSoundOn" @click="toggleSound">
                     <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? 'Son' : 'Sans son' }}
                 </button>
+                <button
+                    v-if="canSleep"
+                    type="button"
+                    class="btn btn--small btn--white"
+                    :aria-pressed="sleepTimer.choice.value !== null"
+                    aria-label="Minuteur de sommeil"
+                    @click="isSleepOpen = true"
+                >
+                    <AppIcon name="moon" :size="22" :is-active="sleepTimer.choice.value !== null" />
+                </button>
                 <span class="badge">Page {{ pageNumber }}/{{ pageTotal }}</span>
             </div>
         </div>
+        <SleepSheet
+            v-if="isSleepOpen"
+            :active="sleepTimer.choice.value"
+            @select="chooseSleep"
+            @cancel="cancelSleep"
+            @close="isSleepOpen = false"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
-type Phase = 'loading' | 'ready' | 'playing' | 'page' | 'end'
+type Phase = 'loading' | 'ready' | 'playing' | 'page' | 'end' | 'sleep'
 
 definePageMeta({ layout: 'blank' })
 
@@ -50,12 +76,22 @@ const { get } = useBooks()
 const { getById } = useMembers()
 const { ding, unlock, panelCue, isCueFlashing } = useDing()
 const { isSoundOn, toggleSound } = useSoundSetting()
+const bookId = String(route.params.id)
+const progressStore = usePlaybackProgress(bookId)
+const sleepTimer = useSleepTimer()
+let lastSavedAt = 0
+let lastPosition = 0
+
+onBeforeUnmount(() => leave())
+
 const player = useAudioPlayer()
 
 const book = ref<IBook | null>(null)
 const phase = ref<Phase>('loading')
 const pageIndex = ref(0)
 const lineIndex = ref(0)
+const resumeProgress = ref<IPlaybackProgress | null>(null)
+const isSleepOpen = ref(false)
 
 const pageNumbers = computed(() =>
     [...new Set((book.value?.lines ?? []).filter(line => line.audioFileId).map(line => line.pageIndex))].sort((a, b) => a - b),
@@ -66,7 +102,13 @@ const pageLines = computed(() =>
 const currentLine = computed(() => pageLines.value[lineIndex.value] ?? null)
 const reader = computed(() => getById(currentLine.value?.memberId ?? null))
 const readerAccent = computed(() => memberHex(reader.value))
-const readerHex = computed(() => (phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF4D9'))
+const readerHex = computed(() => {
+    if (phase.value === 'sleep') {
+        return '#3B3470'
+    }
+    return phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF4D9'
+})
+const canSleep = computed(() => ['ready', 'playing', 'page'].includes(phase.value))
 const isPlaying = computed(() => player.isPlaying.value)
 const pageNumber = computed(() => pageIndex.value + 1)
 const pageTotal = computed(() => pageNumbers.value.length)
@@ -79,13 +121,60 @@ const progressPercent = computed(() => {
     return `${Math.min(100, Math.round((done / total) * 100))}%`
 })
 
-const playLine = async (): Promise<void> => {
+const saveProgress = async (): Promise<void> => {
+    if (phase.value !== 'playing') {
+        return
+    }
+    lastSavedAt = Date.now()
+    await progressStore.save({ pageIndex: pageIndex.value, lineIndex: lineIndex.value, positionMs: lastPosition })
+}
+
+const saveNextPage = async (): Promise<void> => {
+    lastSavedAt = Date.now()
+    await progressStore.save({ pageIndex: pageIndex.value + 1, lineIndex: 0, positionMs: 0 })
+}
+
+const playLine = async (startMs = 0): Promise<void> => {
     const line = currentLine.value
     if (!line?.audioFileId) {
         return
     }
     phase.value = 'playing'
-    await player.play(line.audioFileId)
+    lastPosition = startMs
+    await player.play(line.audioFileId, startMs)
+    await saveProgress()
+}
+
+const sleepNow = async (): Promise<void> => {
+    if (phase.value === 'playing') {
+        await saveProgress()
+    }
+    player.stop()
+    player.setVolume(1)
+    isSleepOpen.value = false
+    phase.value = 'sleep'
+}
+
+const chooseSleep = (id: SleepChoiceId): void => {
+    sleepTimer.start(id)
+    isSleepOpen.value = false
+}
+
+const cancelSleep = (): void => {
+    sleepTimer.cancel()
+    isSleepOpen.value = false
+}
+
+const resume = async (): Promise<void> => {
+    const progress = resumeProgress.value
+    if (!progress) {
+        return
+    }
+    unlock()
+    player.unlock()
+    pageIndex.value = progress.pageIndex
+    lineIndex.value = progress.lineIndex
+    await playLine(progress.positionMs)
 }
 
 const start = async (): Promise<void> => {
@@ -93,6 +182,7 @@ const start = async (): Promise<void> => {
     player.unlock()
     pageIndex.value = 0
     lineIndex.value = 0
+    resumeProgress.value = null
     await playLine()
 }
 
@@ -107,9 +197,39 @@ const replay = (): Promise<void> => start()
 const togglePause = async (): Promise<void> => {
     if (isPlaying.value) {
         player.pause()
+        await saveProgress()
         return
     }
     await player.resume()
+}
+
+sleepTimer.onFade(ratio => player.setVolume(ratio))
+sleepTimer.onExpire(sleepNow)
+
+watch(
+    () => player.positionMs.value,
+    position => {
+        if (phase.value !== 'playing') {
+            return
+        }
+        lastPosition = position
+        if (Date.now() - lastSavedAt >= PROGRESS_SAVE_INTERVAL_MS) {
+            void saveProgress()
+        }
+    },
+    { flush: 'sync' },
+)
+
+const leave = (): void => {
+    if (phase.value === 'playing') {
+        void saveProgress()
+    }
+}
+
+const onVisibility = (): void => {
+    if (document.visibilityState === 'hidden') {
+        leave()
+    }
 }
 
 player.onEnded(async () => {
@@ -124,21 +244,39 @@ player.onEnded(async () => {
         return
     }
     if (pageIndex.value < pageNumbers.value.length - 1) {
+        await saveNextPage()
+        if (sleepTimer.consumePageEnd()) {
+            player.setVolume(1)
+            phase.value = 'sleep'
+            return
+        }
         phase.value = 'page'
         ding()
         return
     }
     phase.value = 'end'
+    sleepTimer.cancel()
+    await progressStore.clear()
 })
 
 onMounted(async () => {
+    document.addEventListener('visibilitychange', onVisibility)
     try {
-        book.value = await get(String(route.params.id))
+        book.value = await get(bookId)
+        const saved = await progressStore.load()
+        const savedLines = (book.value.lines ?? []).filter(
+            line => line.audioFileId && line.pageIndex === pageNumbers.value[saved?.pageIndex ?? -1],
+        )
+        resumeProgress.value = saved && saved.lineIndex < savedLines.length ? saved : null
         phase.value = pageNumbers.value.length > 0 ? 'ready' : 'end'
     } catch (error) {
         console.error('L histoire n a pas pu être chargée', error)
         await navigateTo('/kid')
     }
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener('visibilitychange', onVisibility)
 })
 </script>
 
