@@ -66,7 +66,7 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 
 ## Roles and permissions
 
-Every route under `server/api` resolves the active profile of the session on the server and checks it against `ROLE_PERMISSIONS` (`shared/utils/permissions.ts`). A profile that is removed, left, deceased or blocked is refused everywhere.
+Every route under `server/api` resolves the active profile of the session on the server and checks it against `ROLE_PERMISSIONS` (`shared/utils/permissions.ts`). A profile that is removed, left, deceased or blocked is refused everywhere, and a session that has not entered a profile yet only has the rights of a child.
 
 | Capability | Parent | Relative | Child |
 | --- | --- | --- | --- |

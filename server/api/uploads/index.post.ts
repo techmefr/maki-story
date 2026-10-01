@@ -1,8 +1,8 @@
 import { getDb, one } from '../../utils/db'
-import { requireFamily } from '../../utils/family'
 import { toUploadState } from '../../utils/uploads'
 import type { IUploadSession } from '../../utils/uploads'
 import { badRequest } from '../../utils/validate'
+import { requirePermission } from '../../utils/permissions'
 import type { IUploadState } from '../../../shared/types/upload'
 import { UPLOAD_MAX_BYTES, UPLOAD_MIME_PREFIXES, UPLOAD_TTL_HOURS } from '../../../shared/utils/upload'
 
@@ -12,7 +12,8 @@ interface IBody {
 }
 
 export default defineEventHandler(async (event): Promise<IUploadState> => {
-    const familyId = requireFamily(event)
+    const actor = await requirePermission(event, 'files.upload')
+    const { familyId } = actor
     const body = (await readBody<IBody>(event)) ?? {}
     const size = body.size
     const mime = typeof body.mime === 'string' ? (body.mime.split(';')[0]?.trim() ?? '') : ''
@@ -24,6 +25,9 @@ export default defineEventHandler(async (event): Promise<IUploadState> => {
     }
     if (!UPLOAD_MIME_PREFIXES.some(prefix => mime.startsWith(prefix))) {
         return badRequest('Unsupported file type')
+    }
+    if (!mime.startsWith('audio/')) {
+        await requirePermission(event, 'files.upload.image')
     }
     const db = getDb()
     await db`delete from upload_sessions where expires_at < now()`

@@ -18,10 +18,10 @@ interface IFamilyFixture {
 }
 
 const createFamily = async (api: APIRequestContext): Promise<IFamilyFixture> => {
+    const parentId = await useProfile(api, 'Parent')
     const relative = await api.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral' } })
     expect(relative.ok()).toBeTruthy()
     const relativeId = ((await relative.json()) as IIdName).id
-    const parentId = await useProfile(api, 'Parent')
     const upload = await api.post('/api/files', { data: makeWav(300), headers: { 'content-type': 'audio/wav' } })
     const fileId = ((await upload.json()) as { id: string }).id
     const book = await api.post('/api/books', {

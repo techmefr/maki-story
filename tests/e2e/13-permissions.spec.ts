@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext } from '@playwright/test'
-import { fakeAudioBytes, makeWav, PNG_PIXEL, signIn, uniqueAccount, useProfile } from './helpers'
+import { fakeAudioBytes, makeWav, PNG_PIXEL, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
 
 interface IIdName {
     id: string
@@ -66,7 +66,7 @@ test.describe('roles and permissions', () => {
             ['tonton', 'Tonton', 'relative'],
             ['lova', 'Lova', 'child'],
         ] as const) {
-            const response = await parent.post('/api/members', { data: { name, role, color: 'coral' } })
+            const response = await parent.post('/api/members', { data: { name, role, color: 'coral', code: { kind: 'pin', value: PROFILE_PIN } } })
             expect(response.status(), await response.text()).toBe(200)
             ids[key] = ((await response.json()) as IIdName).id
         }
@@ -217,6 +217,7 @@ test.describe('roles and permissions', () => {
         expect(blocked.status()).toBe(200)
         expect(((await blocked.json()) as { status: string }).status).toBe('blocked')
         expect((await mamie.get('/api/books')).status()).toBe(403)
+        expect((await parent.post('/api/auth/profile', { data: { memberId: ids.mamie, code: PROFILE_PIN } })).status()).toBe(404)
         expect((await mamie.post('/api/messages', { data: { toMemberId: ids.lova, fileId: mamieFileId, mime: 'audio/wav' } })).status()).toBe(403)
         expect((await lova.post('/api/messages', { data: { toMemberId: ids.mamie, fileId: lovaFileId, mime: 'audio/wav' } })).status()).toBe(400)
         expect((await parent.patch(`/api/members/${ids.mamie}`, { data: { status: 'deceased' } })).status()).toBe(200)

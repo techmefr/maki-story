@@ -1,10 +1,11 @@
 import { getDb, one } from '../../../utils/db'
-import { requireFamily } from '../../../utils/family'
 import { logEvent } from '../../../utils/log'
 import { assertUploadLive, loadUploadSession } from '../../../utils/uploads'
+import { requirePermission } from '../../../utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ id: string }> => {
-    const familyId = requireFamily(event)
+    const actor = await requirePermission(event, 'files.upload')
+    const { familyId } = actor
     return getDb().begin(async tx => {
         const session = await loadUploadSession(tx, event, familyId, true)
         await assertUploadLive(tx, session)
@@ -16,8 +17,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
             })
         }
         const file = one(await tx<{ id: string }[]>`
-            insert into files (family_id, mime, data)
-            select ${familyId}, ${session.mime}, string_agg(data, ''::bytea order by chunk_offset)
+            insert into files (family_id, mime, data, created_by_member_id)
+            select ${familyId}, ${session.mime}, string_agg(data, ''::bytea order by chunk_offset), ${actor.memberId}
             from upload_chunks where upload_id = ${session.id}
             returning id
         `)

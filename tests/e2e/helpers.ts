@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, request, test } from '@playwright/test'
 import type { APIRequestContext, Locator, Page } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 
@@ -195,16 +195,25 @@ export const uploadWav = async (page: Page, ms = 700): Promise<string> => {
     return ((await response.json()) as { id: string }).id
 }
 
+export const ensureParentProfile = async (api: APIRequestContext): Promise<void> => {
+    const state = (await (await api.get('/api/auth/me')).json()) as { memberId: string | null }
+    if (state.memberId === null) {
+        await useProfile(api, PARENT_NAME)
+    }
+}
+
 export const createReadyBook = async (
     page: Page,
     title: string,
     kind: 'multi' | 'solo',
     lines: IReadyLine[],
 ): Promise<string> => {
-    const members = await apiJson<IApiMember[]>(page, '/members')
+    const api = await request.newContext({ baseURL: new URL(page.url()).origin, storageState: await page.context().storageState() })
+    await ensureParentProfile(api)
+    const members = (await (await api.get('/api/members')).json()) as IApiMember[]
     const find = (name: string): string => members.find(member => member.name === name)!.id
     const soloMemberId = kind === 'solo' ? find(lines[0]!.memberName) : null
-    const created = await page.request.post('/api/books', {
+    const created = await api.post('/api/books', {
         data: {
             title,
             kind,
@@ -215,15 +224,17 @@ export const createReadyBook = async (
         },
     })
     const { id } = (await created.json()) as { id: string }
-    const book = await apiJson<{ lines: { id: string }[] }>(page, `/books/${id}`)
-    await page.request.patch(`/api/books/${id}`, {
+    const book = (await (await api.get(`/api/books/${id}`)).json()) as { lines: { id: string }[] }
+    await api.patch(`/api/books/${id}`, {
         data: { lines: book.lines.map((line, index) => ({ id: line.id, memberId: find(lines[index]!.memberName) })) },
     })
     for (const line of book.lines) {
-        const fileId = await uploadWav(page)
-        const response = await page.request.put(`/api/books/${id}/lines/${line.id}/audio`, { data: { fileId, ms: 700 } })
-        expect(response.ok()).toBeTruthy()
+        const upload = await api.post('/api/files', { data: makeWav(700), headers: { 'content-type': 'audio/wav' } })
+        const fileId = ((await upload.json()) as { id: string }).id
+        const response = await api.put(`/api/books/${id}/lines/${line.id}/audio`, { data: { fileId, ms: 700 } })
+        expect(response.status(), await response.text()).toBe(200)
     }
-    await page.request.patch(`/api/books/${id}`, { data: { status: 'ready' } })
+    await api.patch(`/api/books/${id}`, { data: { status: 'ready' } })
+    await api.dispose()
     return id
 }

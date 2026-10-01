@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto'
 import postgres from 'postgres'
 import { UPLOAD_CHUNK_BYTES, UPLOAD_MAX_BYTES } from '../../shared/utils/upload'
 import type { IUploadState } from '../../shared/types/upload'
-import { signIn, uniqueAccount } from './helpers'
+import { PARENT_NAME, signIn, uniqueAccount, useProfile } from './helpers'
 
 const sha256 = (data: Buffer): string => createHash('sha256').update(data).digest('hex')
 
@@ -31,6 +31,7 @@ test.describe('resumable chunked uploads', () => {
     test.beforeAll(async ({ playwright }, testInfo) => {
         api = await playwright.request.newContext({ baseURL: testInfo.project.use.baseURL })
         await signIn(api, uniqueAccount(`upload-${testInfo.project.name}`))
+        await useProfile(api, PARENT_NAME)
     })
 
     test.afterAll(async () => {

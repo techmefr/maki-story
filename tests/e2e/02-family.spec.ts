@@ -79,6 +79,8 @@ test.describe('family', () => {
     })
 
     test('rejects invalid member payloads', async ({ page }) => {
+        await login(page)
+        await chooseProfile(page, PARENT_NAME)
         const response = await page.request.post('/api/members', { data: { name: '', role: 'wizard', color: 'black' } })
         expect(response.status()).toBe(400)
     })
