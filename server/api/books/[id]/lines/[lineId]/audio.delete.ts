@@ -1,3 +1,4 @@
+import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
 import { requireFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
@@ -7,14 +8,17 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const familyId = requireFamily(event)
     const bookId = requireParam(event, 'id')
     const lineId = requireParam(event, 'lineId')
+    const requested = getQuery(event).language
     const db = getDb()
-    const [previous] = await db<{ audioFileId: string | null }[]>`
-        select audio_file_id from lines where id = ${lineId} and book_id = ${bookId} and family_id = ${familyId}
+    const [line] = await db<{ language: string }[]>`
+        select b.language from lines l join books b on b.id = l.book_id
+        where l.id = ${lineId} and l.book_id = ${bookId} and l.family_id = ${familyId} and b.deleted_at is null
     `
-    if (!previous) {
+    if (!line) {
         return notFound('Line not found')
     }
-    await db`update lines set audio_file_id = null, audio_ms = 0 where id = ${lineId} and family_id = ${familyId}`
+    const language = requested === undefined ? line.language : checkLanguage(requested)
+    await db`delete from recordings where line_id = ${lineId} and family_id = ${familyId} and language = ${language}`
     logEvent('Enregistrement effacé (la phrase sera refaite)')
     return { ok: true }
 })
