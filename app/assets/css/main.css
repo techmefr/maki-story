@@ -703,3 +703,38 @@ a {
         transform: none;
     }
 }
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 4px solid var(--ink);
+    outline-offset: 3px;
+}
+
+.remote a:focus-visible,
+.remote button:focus-visible {
+    outline: 6px solid var(--ink);
+    outline-offset: 4px;
+    transform: scale(1.04);
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+    .app.app--full {
+        max-width: 1120px;
+    }
+
+    .app--full .grid--books {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1500px) and (orientation: landscape) {
+    .app.app--full {
+        max-width: 1400px;
+    }
+
+    .app--full .grid--books {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

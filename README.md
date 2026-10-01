@@ -40,7 +40,7 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 4. **Type or paste the lines**: one tap picks the character and a tone chip (whispered, laughing, scared, sleepy...) or a free tone, with an optional scene description. Pasting a whole text splits it into one line per row, and `Name : line` switches character.
 5. **Record** in the studio from any phone, line by line, with the picture description, tone and hint in view.
 6. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end, and a lighter, shorter cue plus a quick transition between two comic panels. The cue respects reduced motion and the sound on/off button of the player.
-7. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once).
+7. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once). A relative can leave at most three unlistened messages for a child (`MAX_STATUS_MESSAGES_PER_RELATIVE`): the fourth is refused with a clear message until the child listens. The child sees a counter bubble per relative, and must listen to each message to the end before the next one unlocks; the server serves the file only for the oldest unlistened message and never again once listened. Parents can replay.
 
 ## Features
 
@@ -235,7 +235,40 @@ Audio is sent in 256 KB chunks so a dropped connection never loses a take. `POST
 
 A ready book can be downloaded for offline listening (button on the library, the book player and the kid library). Only the line recordings are stored, since children never see page images: audio goes to Cache Storage (`tantara-offline-audio`), book metadata and the family and library lists go to IndexedDB (`tantara-offline`), with no dependency. A download is resumable (files already stored are skipped when it restarts), shows its progress and size, and `useFiles.fetchUrl` reads the local copy first and falls back to the network. While offline, `GET /auth/me`, `/members`, `/books` and the downloaded `/books/:id` are served from IndexedDB, a banner explains the state and actions that need a connection (new book, voice message) are disabled. The `/storage` screen (family tab) lists downloads with their size, shows used space against `navigator.storage.estimate()`, deletes one or all books and requests persistent storage. Signing out or signing in clears all offline data, so nothing leaks between families sharing a device. The service worker still only caches the app shell and `/_nuxt` assets; it never stores API responses.
 
-Targets: the PWA runs on phones, tablets and desktop browsers (Chrome, Edge, Safari, Firefox), and the same build runs in Capacitor on Android and iOS. Android TV and a leanback layout are planned separately (#31) and not implemented here.
+Targets: the PWA runs on phones, tablets and desktop browsers (Chrome, Edge, Safari, Firefox), and the same build runs in Capacitor on Android and iOS. Android TV is covered below.
+
+## Library
+
+- `GET /api/books` accepts `q` (title, subtitle, author), `language`, `age` (one of `0-3`, `4-6`, `7-9`, `10+`, matched on overlap with the book age range), `limit` (200 max) and `offset`; the total is returned in the `X-Total-Count` header. Everything is family scoped and filtered by role: a child only gets validated books with at least one non stale recording, a relative only the books with a line cast to them.
+- Parent home: horizontal rows (proposals to review, books being recorded, books waiting for a recording, all our books) with search, language and age chips. Each book has a sheet (title, subtitle, author, age tag, language) with a "Lu par" list of every relative who recorded a voice.
+- Child library: the same search and sheet on validated books only. On tablets (768 px and wider) a status strip with one bubble per relative and the unread count stays pinned at the top.
+
+## Android TV and tablets
+
+The child space is usable with a remote (D-pad) or a keyboard:
+
+- Arrow keys move the focus to the nearest control in that direction (`shared/utils/spatial.ts`, wired in `app/plugins/remote-navigation.client.ts`), Enter activates, a thick focus ring is always visible, and the first control of a new screen takes the focus after a key press. It is only active on `/kid` and the message player, and never steals the arrows from text fields.
+- Back (`Escape`, `GoBack`, `BrowserBack`, `XF86Back`, Android key code 4) closes an open sheet first, then goes back in history, and ends on the kid home.
+- Landscape tablets and TVs use a wider grid (3 columns from 900 px, 4 from 1500 px).
+
+Capacitor Android setup (done once after `pnpm exec cap add android`, in `android/app/src/main/AndroidManifest.xml`):
+
+```xml
+<uses-feature android:name="android.software.leanback" android:required="false" />
+<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+<uses-feature android:name="android.hardware.microphone" android:required="false" />
+<application android:banner="@drawable/tv_banner" ...>
+    <activity ...>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+```
+
+Provide a 320x180 `tv_banner` drawable. To make the hardware Back button follow the in-app behaviour, install `@capacitor/app` and listen to `backButton`, dispatching a `keydown` with `key: "GoBack"` on `window`. The microphone is optional so the app installs on TVs without one: recording stays on phones and tablets, the TV only plays stories and messages. Not verified on a physical device: the remote handling is covered by keyboard end to end tests only.
 
 ## Sleep timer and resume
 
