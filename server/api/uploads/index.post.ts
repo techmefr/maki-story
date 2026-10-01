@@ -32,8 +32,8 @@ export default defineEventHandler(async (event): Promise<IUploadState> => {
     const db = getDb()
     await db`delete from upload_sessions where expires_at < now()`
     const session = one(await db<IUploadSession[]>`
-        insert into upload_sessions (family_id, mime, size, expires_at)
-        values (${familyId}, ${mime}, ${size}, now() + make_interval(hours => ${UPLOAD_TTL_HOURS}))
+        insert into upload_sessions (family_id, member_id, mime, size, expires_at)
+        values (${familyId}, ${actor.memberId}, ${mime}, ${size}, now() + make_interval(hours => ${UPLOAD_TTL_HOURS}))
         returning id, family_id, mime, size, received
     `)
     return toUploadState(session)

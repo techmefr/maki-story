@@ -7,7 +7,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const actor = await requirePermission(event, 'files.upload')
     const { familyId } = actor
     return getDb().begin(async tx => {
-        const session = await loadUploadSession(tx, event, familyId, true)
+        const session = await loadUploadSession(tx, event, actor, true)
         await assertUploadLive(tx, session)
         if (session.received !== session.size) {
             throw createError({

@@ -16,7 +16,8 @@
             <p v-if="!hasFilter" class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
         </div>
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
-        <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" />
+        <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
+        <ShareDialog v-if="shareTarget" :book="shareTarget" @close="shareTarget = null" />
     </div>
 </template>
 
@@ -29,7 +30,13 @@ const { unreadCountFor, load: loadMessages } = useMessages()
 
 const isLoaded = ref(false)
 const sheetBook = ref<IBookSummary | null>(null)
+const shareTarget = ref<IBookSummary | null>(null)
 const activeQuery = ref<IBookQuery>({})
+
+const startShare = (book: IBookSummary): void => {
+    sheetBook.value = null
+    shareTarget.value = book
+}
 
 const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
 const rows = computed(() =>

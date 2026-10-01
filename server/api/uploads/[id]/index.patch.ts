@@ -6,7 +6,7 @@ import type { IUploadState } from '../../../../shared/types/upload'
 import { UPLOAD_CHUNK_BYTES, UPLOAD_OFFSET_HEADER } from '../../../../shared/utils/upload'
 
 export default defineEventHandler(async (event): Promise<IUploadState> => {
-    const { familyId } = await requirePermission(event, 'files.upload')
+    const actor = await requirePermission(event, 'files.upload')
     const offset = Number(getHeader(event, UPLOAD_OFFSET_HEADER))
     if (!Number.isInteger(offset) || offset < 0) {
         return badRequest('Invalid offset')
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event): Promise<IUploadState> => {
         return badRequest('Chunk is too large')
     }
     return getDb().begin(async tx => {
-        const session = await loadUploadSession(tx, event, familyId, true)
+        const session = await loadUploadSession(tx, event, actor, true)
         await assertUploadLive(tx, session)
         if (offset + raw.length <= session.received) {
             return toUploadState(session)

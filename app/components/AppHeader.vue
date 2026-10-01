@@ -14,6 +14,7 @@
         <div v-else class="grow" />
         <div class="row">
             <FeedbackButton />
+            <NotificationBell />
             <button class="header__me" type="button" aria-label="Mon profil" @click="openMenu">
                 <AppAvatar :member="current" :size="44" />
             </button>

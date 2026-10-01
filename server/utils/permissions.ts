@@ -20,7 +20,7 @@ export const loadActor = async (event: H3Event): Promise<IActor> => {
     }
     const [member] = await getDb()<{ role: MemberRole }[]>`
         select role from members
-        where id = ${session.memberId} and family_id = ${session.familyId} and deleted_at is null and status = 'active'
+        where id = ${session.memberId} and family_id = ${session.familyId} and deleted_at is null and status = 'active' and source_member_id is null
     `
     if (!member) {
         return forbidden('This profile is no longer available')
@@ -40,7 +40,15 @@ export const requirePermission = async (event: H3Event, permission: Permission):
     return requireRole(event, ...ROLE_PERMISSIONS[permission])
 }
 
-export const requireActorMember = (actor: IActor): string => {
+export const requireAnyPermission = async (event: H3Event, ...permissions: Permission[]): Promise<IActor> => {
+    const actor = await loadActor(event)
+    if (!permissions.some(permission => can(actor.role, permission))) {
+        return forbidden('Your profile cannot do this')
+    }
+    return actor
+}
+
+export const requireActorMember =(actor: IActor): string => {
     return actor.memberId ?? forbidden('Choose a profile first')
 }
 

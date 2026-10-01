@@ -2,6 +2,13 @@ import { getDb, one } from './db'
 import type { IActor } from './permissions'
 import { notFound } from './validate'
 
+export const BLOCKED_VOICE = `(bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord')))`
+
+const BLOCKED_FROM = `from lines bl
+    join recordings br on br.line_id = bl.id and br.status <> 'stale'
+    join members bm on bm.id = br.member_id
+    where bl.book_id = b.id and ${BLOCKED_VOICE}`
+
 const SUMMARY_SELECT = `
     b.id, b.title, b.subtitle, b.author, b.age_min, b.age_max, b.language, b.type, b.tts_fallback,
     b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
@@ -11,10 +18,13 @@ const SUMMARY_SELECT = `
         where l.book_id = b.id) as recorded_count,
     (select count(*)::int from lines l join recordings r on r.line_id = l.id and r.status = 'submitted' where l.book_id = b.id) as submitted_count,
     coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids,
-    coalesce((select array_agg(distinct r.member_id) from lines l join recordings r on r.line_id = l.id and r.status <> 'stale' where l.book_id = b.id), '{}') as reader_ids
+    coalesce((select array_agg(distinct r.member_id) from lines l join recordings r on r.line_id = l.id and r.status <> 'stale' where l.book_id = b.id), '{}') as reader_ids,
+    exists (select 1 ${BLOCKED_FROM}) as is_voice_blocked,
+    (select count(distinct bl.id)::int ${BLOCKED_FROM}) as blocked_line_count
 `
 
-const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id and sr.status <> 'stale' where sl.book_id = b.id)`
+const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id and sr.status <> 'stale' where sl.book_id = b.id)
+    and not exists (select 1 ${BLOCKED_FROM})`
 
 const MAX_PAGE_SIZE = 200
 const LIKE_SPECIALS = /[\\%_]/g
@@ -111,10 +121,12 @@ export const loadBook = async (id: string, familyId: string): Promise<IBook> => 
     const lines = await db<ILine[]>`
         select l.id, l.position, l.page_index, coalesce(c.name, l.character) as character, l.character_id, l.panel_id,
             l.text, l.note, l.tone, l.scene_description, l.member_id,
-            r.file_id as audio_file_id, coalesce(r.duration_ms, 0) as audio_ms, r.status as recording_status
+            r.file_id as audio_file_id, coalesce(r.duration_ms, 0) as audio_ms, r.status as recording_status,
+            coalesce(r.status <> 'stale' and (bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord'))), false) as is_voice_blocked
         from lines l
         left join characters c on c.id = l.character_id
         left join recordings r on r.line_id = l.id and r.language = ${summary.language}
+        left join members bm on bm.id = r.member_id
         where l.book_id = ${id} and l.family_id = ${familyId} order by l.position
     `
     const recordings = await db<ILineRecording[]>`

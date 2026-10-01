@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 const isOpen = useState<boolean>('switcher-open', () => false)
-const { members } = useMembers()
+const { people: members } = useMembers()
 const { currentId, select } = useCurrentMember()
 const { logout } = useSession()
 

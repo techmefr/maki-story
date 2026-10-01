@@ -19,7 +19,7 @@
 defineProps<{ modelValue: string | null }>()
 const emit = defineEmits<{ 'update:modelValue': [id: string] }>()
 
-const { members } = useMembers()
+const { people: members } = useMembers()
 
 const hexOf = (member: IMember): string => memberHexLight(member)
 </script>

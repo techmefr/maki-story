@@ -13,6 +13,8 @@ export interface IMember {
     codeKind: MemberCodeKind | null
     spokenLanguages: string[]
     appLocale: string | null
+    voicePolicy: VoicePolicy
+    isGuest: boolean
 }
 
 export interface IMemberCodeInput {

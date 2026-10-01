@@ -18,6 +18,13 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'feedback.send': EVERYONE,
     'feedback.manage': ['parent'],
     'ai.use': ['parent'],
+    'family.invite': ['parent'],
+    'shares.list': ['parent', 'relative'],
+    'shares.create': ['parent'],
+    'shares.propose': ['relative'],
+    'shares.review': ['parent'],
+    'shares.record': ['parent', 'relative'],
+    'notifications.list': ['parent', 'relative'],
 }
 
 export const can = (role: MemberRole, permission: Permission): boolean => ROLE_PERMISSIONS[permission].includes(role)

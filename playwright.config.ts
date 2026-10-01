@@ -44,6 +44,8 @@ export default defineConfig({
                   AI_PROVIDER: 'fake',
                   AI_MONTHLY_BUDGET_USD: '0.12',
                   OIDC_FAKE: '1',
+                  REGISTER_IP_LIMIT: '1000',
+                  OAUTH_IP_LIMIT: '1000',
                   GOOGLE_CLIENT_ID: 'fake-google-client',
                   APPLE_CLIENT_ID: 'fake-apple-client',
                   NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE: '1',

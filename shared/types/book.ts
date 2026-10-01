@@ -24,6 +24,8 @@ export interface IBookSummary {
     memberIds: string[]
     readerIds: string[]
     submittedCount: number
+    isVoiceBlocked: boolean
+    blockedLineCount: number
     createdAt: string
 }
 
@@ -58,6 +60,7 @@ export interface ILine {
     audioFileId: string | null
     audioMs: number
     recordingStatus: RecordingStatus | null
+    isVoiceBlocked: boolean
 }
 
 export interface ILineRecording {

@@ -6,9 +6,11 @@ import { OAuthError, verifyIdToken } from './jwt'
 import { getProviderConfig, redirectUriFor, requestOrigin } from './providers'
 import type { IProviderConfig } from './providers'
 import { logEvent } from '../log'
+import { assertIpBudget, recordIpHit } from '../throttle'
 import { normalizeEmail } from '../validate'
 
 const FETCH_TIMEOUT_MS = 10_000
+const DEFAULT_CALLBACKS_PER_WINDOW = 30
 
 interface ICallbackParams {
     code?: string
@@ -85,6 +87,8 @@ export const handleOAuthCallback = async (event: H3Event, params: ICallbackParam
         if (provider !== 'google' && provider !== 'apple') {
             throw new OAuthError('oauth_failed')
         }
+        await assertIpBudget(event, 'oauth-callback', Number(process.env.OAUTH_IP_LIMIT) || DEFAULT_CALLBACKS_PER_WINDOW)
+        await recordIpHit(event, 'oauth-callback')
         await finish(event, provider, params)
         await sendRedirect(event, '/profiles', 303)
     } catch (error) {

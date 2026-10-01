@@ -59,8 +59,10 @@ export const useMembers = () => {
         members.value = members.value.filter(member => member.id !== id)
     }
 
+    const people = computed(() => members.value.filter(member => !member.isGuest))
+    const guests = computed(() => members.value.filter(member => member.isGuest))
     const children = computed(() => members.value.filter(member => member.role === 'child'))
-    const grownUps = computed(() => members.value.filter(member => member.role !== 'child'))
+    const grownUps = computed(() => people.value.filter(member => member.role !== 'child'))
 
-    return { members, children, grownUps, load, ensureLoaded, getById, add, update, updateSettings, changePhoto, setCode, remove }
+    return { members, people, guests, children, grownUps, load, ensureLoaded, getById, add, update, updateSettings, changePhoto, setCode, remove }
 }
