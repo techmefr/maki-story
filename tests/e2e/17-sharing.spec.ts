@@ -177,7 +177,7 @@ test.describe('sharing between families', () => {
         const accepted = (await (await c.parent.post(`/api/shares/${created.id}/accept`, {})).json()) as { copiedBookId: string }
         copiedBookId = accepted.copiedBookId
         const copy = (await (await c.parent.get(`/api/books/${copiedBookId}`)).json()) as IBook
-        expect(copy).toMatchObject({ title: 'Livre partagé', status: 'draft' })
+        expect(copy).toMatchObject({ title: 'Livre partagé', status: 'to_record' })
         expect(copy.lines.map(line => line.text)).toEqual(['Un', 'Deux', 'Trois'])
         expect(copy.lines.every(line => line.memberId === null && line.audioFileId === null)).toBe(true)
         expect(copy.recordings).toHaveLength(0)

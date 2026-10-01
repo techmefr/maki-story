@@ -6,9 +6,9 @@ export type TAuthResult =
     | { status: 'error' }
 
 const toAuthFailure = (error: unknown): TAuthResult => {
-    const failure = error as { statusCode?: number; status?: number; data?: { data?: { retryAfterSeconds?: number } } }
+    const failure = error as { statusCode?: number; status?: number; data?: { message?: string; data?: { retryAfterSeconds?: number } } }
     const code = failure.statusCode ?? failure.status
-    if (code === undefined) {
+    if (code === undefined || failure.data?.message === UNREACHABLE_MESSAGE) {
         return { status: 'unreachable' }
     }
     if (code === 429) {

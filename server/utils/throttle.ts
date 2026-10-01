@@ -55,7 +55,7 @@ export const clearFailures = async (email: string): Promise<void> => {
 const ipBucket = (event: H3Event, scope: string): string => `ip:${scope}:${getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'}`
 
 export const assertIpBudget = async (event: H3Event, scope: string, max: number): Promise<void> => {
-    if ((await countFailures(ipBucket(event, scope))) >= max) {
+    if ((await countFailures(ipBucket(event, scope))).count >= max) {
         throw createError({ statusCode: 429, statusMessage: 'Too many attempts, try again later' })
     }
 }
