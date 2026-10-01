@@ -5,6 +5,7 @@ interface IApiOptions {
 }
 
 const AUTH_PATHS = ['/auth/login', '/auth/register']
+export const UNREACHABLE_MESSAGE = 'Impossible de joindre le serveur, réessaie'
 const BOOK_PATH = /^\/books\/([^/]+)$/
 
 const readSaved = async <T>(path: string): Promise<T | null> => {
@@ -33,6 +34,7 @@ const saveForOffline = async (path: string, result: unknown): Promise<void> => {
 export const useApi = () => {
     const config = useRuntimeConfig()
     const isSignedIn = useState<boolean | null>('session-state', () => null)
+    const { isOnline, check } = useConnectivity()
 
     const request = async <T>(path: string, options: IApiOptions = {}): Promise<T> => {
         const isRead = (options.method ?? 'GET') === 'GET'
@@ -43,16 +45,22 @@ export const useApi = () => {
                 headers: options.headers,
                 credentials: 'include',
             })
+            isOnline.value = true
             if (isRead) {
                 await saveForOffline(path, result)
             }
             return result as T
         } catch (error) {
             const status = (error as { statusCode?: number }).statusCode
-            if (status === undefined && isRead) {
-                const saved = await readSaved<T>(path)
-                if (saved !== null) {
-                    return saved
+            if (status === undefined) {
+                void check()
+                if (isRead) {
+                    const saved = await readSaved<T>(path)
+                    if (saved !== null) {
+                        return saved
+                    }
+                } else {
+                    throw createError({ statusMessage: UNREACHABLE_MESSAGE, data: { message: UNREACHABLE_MESSAGE }, cause: error })
                 }
             }
             if (status === 401 && !AUTH_PATHS.includes(path)) {

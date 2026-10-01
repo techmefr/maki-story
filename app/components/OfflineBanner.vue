@@ -2,11 +2,19 @@
     <div v-if="!isOnline" class="offline-banner" role="status">
         <AppIcon name="cloud-off" :size="18" />
         <span>Pas de connexion : seuls les livres téléchargés sont disponibles.</span>
+        <button type="button" class="offline-banner__retry" :disabled="isChecking" @click="retry">Réessayer</button>
     </div>
 </template>
 
 <script setup lang="ts">
-const isOnline = useState<boolean>('is-online', () => true)
+const { isOnline, check } = useConnectivity()
+const isChecking = ref(false)
+
+const retry = async () => {
+    isChecking.value = true
+    await check()
+    isChecking.value = false
+}
 </script>
 
 <style scoped>
@@ -24,5 +32,13 @@ const isOnline = useState<boolean>('is-online', () => true)
     background: #ffc940;
     border-top: 2.5px solid var(--ink);
     font: 700 14px/1.3 var(--font-title);
+}
+
+.offline-banner__retry {
+    padding: 4px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: #fff;
+    font: inherit;
 }
 </style>

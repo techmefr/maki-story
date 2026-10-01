@@ -100,7 +100,7 @@ const save = async (): Promise<void> => {
         await navigateTo(`/books/${created.id}/studio`)
     } catch (error) {
         console.error('Le livre n a pas pu être enregistré', error)
-        errorMessage.value = 'Impossible d’enregistrer le livre pour le moment.'
+        errorMessage.value = apiErrorMessage(error, 'Impossible d’enregistrer le livre pour le moment.')
     } finally {
         isBusy.value = false
     }

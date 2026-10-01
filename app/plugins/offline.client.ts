@@ -1,10 +1,13 @@
 export default defineNuxtPlugin(() => {
-    const isOnline = useState<boolean>('is-online', () => true)
-    isOnline.value = navigator.onLine
-    window.addEventListener('online', () => {
-        isOnline.value = true
+    const { check } = useConnectivity()
+    window.addEventListener('online', () => void check())
+    window.addEventListener('offline', () => void check())
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            void check()
+        }
     })
-    window.addEventListener('offline', () => {
-        isOnline.value = false
-    })
+    if (!navigator.onLine) {
+        void check()
+    }
 })

@@ -112,3 +112,53 @@ test.describe('offline books', () => {
         expect(await cachedFileCount(page)).toBe(0)
     })
 })
+
+test.describe('connectivity detection', () => {
+    const banner = (page: Page) => page.getByText('Pas de connexion', { exact: false })
+    const newBook = (page: Page) => page.getByRole('link', { name: /Nouveau livre/ })
+
+    test.beforeEach(async ({ page }) => {
+        await login(page)
+        await chooseProfile(page, PARENT_NAME)
+        await page.goto('/home')
+        await expect(newBook(page)).toBeVisible()
+    })
+
+    test('going offline then online recovers by itself', async ({ page, context }) => {
+        await context.setOffline(true)
+        await expect(banner(page)).toBeVisible()
+        await expect(page.getByRole('button', { name: /Nouveau livre/ })).toBeDisabled()
+        await context.setOffline(false)
+        await expect(banner(page)).toBeHidden({ timeout: 15000 })
+        await expect(newBook(page)).toBeVisible()
+    })
+
+    test('a wrong navigator.onLine never blocks the app while the server answers', async ({ page }) => {
+        await page.addInitScript(() => Object.defineProperty(Navigator.prototype, 'onLine', { get: () => false, configurable: true }))
+        await page.goto('/home')
+        await page.evaluate(() => window.dispatchEvent(new Event('offline')))
+        await expect(newBook(page)).toBeVisible()
+        await expect(banner(page)).toBeHidden()
+        await newBook(page).click()
+        await expect(page).toHaveURL(/\/books\/new/)
+    })
+
+    test('an unreachable API shows the banner and the retry button recovers', async ({ page }) => {
+        await page.route('**/api/**', route => route.abort())
+        await page.evaluate(() => window.dispatchEvent(new Event('offline')))
+        await expect(banner(page)).toBeVisible()
+        await expect(page.getByRole('button', { name: /Nouveau livre/ })).toBeDisabled()
+        await page.unroute('**/api/**')
+        await page.getByRole('button', { name: 'Réessayer' }).click()
+        await expect(banner(page)).toBeHidden()
+        await expect(newBook(page)).toBeVisible()
+    })
+
+    test('a server error is not reported as offline', async ({ page }) => {
+        await page.route('**/api/auth/me', route => route.fulfill({ status: 500, body: '{}' }))
+        await page.evaluate(() => window.dispatchEvent(new Event('offline')))
+        await page.waitForTimeout(1000)
+        await expect(banner(page)).toBeHidden()
+        await expect(newBook(page)).toBeVisible()
+    })
+})

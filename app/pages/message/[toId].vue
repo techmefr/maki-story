@@ -101,7 +101,7 @@ const send = async (): Promise<void> => {
         errorMessage.value =
             failure.statusCode === 409 && failure.statusMessage
                 ? failure.statusMessage
-                : 'Le message n’a pas pu être envoyé. Réessaie.'
+                : apiErrorMessage(error, 'Le message n’a pas pu être envoyé. Réessaie.')
     } finally {
         isBusy.value = false
     }
