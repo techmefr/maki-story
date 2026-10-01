@@ -1,6 +1,7 @@
 import postgres from 'postgres'
 import type { Sql } from 'postgres'
-import { SCHEMA_STATEMENTS } from './schema'
+import { loadMigrations } from './migrations'
+import { migrateUp } from './migrator'
 
 const LOCAL_HOSTS = ['localhost', '127.0.0.1']
 const MAX_CONNECTIONS = 1
@@ -45,9 +46,7 @@ export const ensureSchema = (): Promise<void> => {
     }
     const db = getDb()
     schemaReady = (async () => {
-        for (const statement of SCHEMA_STATEMENTS) {
-            await db.unsafe(statement)
-        }
+        await migrateUp(db, await loadMigrations())
         const { count } = one(await db<{ count: number }[]>`select count(*)::int as count from members where deleted_at is null`)
         if (count === 0) {
             await db`insert into members (name, role, color) values ('Parent', 'parent', 'sun')`

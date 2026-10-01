@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare",
     "cap:sync": "nuxt generate && cap sync",
     "typecheck": "nuxt typecheck",
+    "migrate:up": "node --experimental-strip-types scripts/migrate.ts up",
+    "migrate:down": "node --experimental-strip-types scripts/migrate.ts down",
     "test:e2e": "playwright test"
   },
   "dependencies": {

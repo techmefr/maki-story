@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
@@ -9,6 +11,7 @@ export default defineNuxtConfig({
     nitro: {
         noExternals: true,
         inlineDynamicImports: true,
+        serverAssets: [{ baseName: 'migrations', dir: fileURLToPath(new URL('./server/migrations', import.meta.url)) }],
     },
     runtimeConfig: {
         public: {
