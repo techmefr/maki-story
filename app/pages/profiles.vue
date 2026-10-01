@@ -1,7 +1,7 @@
 <template>
     <div class="stack narrow">
         <div class="row" style="justify-content: space-between">
-            <AppMaki :size="48" />
+            <AppLogo :size="48" />
             <button type="button" class="btn btn--small btn--white" @click="leave">Se déconnecter</button>
         </div>
         <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />

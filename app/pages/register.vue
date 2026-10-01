@@ -1,6 +1,6 @@
 <template>
     <div class="stack center narrow" style="margin-top: 6vh">
-        <AppMaki :size="110" class="anim-float" />
+        <AppLogo :size="110" class="anim-float" />
         <h1 class="title">Créer ma famille</h1>
         <p class="muted">Un compte, une famille, votre premier profil de parent.</p>
         <form class="card stack" style="width: 100%; text-align: left" @submit.prevent="submit">
