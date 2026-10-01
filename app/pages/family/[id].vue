@@ -20,6 +20,12 @@ const isParentViewing = computed(() => current.value?.role === 'parent')
 const member = ref(getById(String(route.params.id)))
 const liveMember = computed(() => getById(String(route.params.id)))
 
+watch(liveMember, fresh => {
+    if (fresh) {
+        member.value = fresh
+    }
+})
+
 const done = async (): Promise<void> => {
     await navigateTo('/family')
 }
