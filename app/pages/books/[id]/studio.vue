@@ -481,7 +481,9 @@ onBeforeUnmount(discardPending)
 onMounted(async () => {
     try {
         book.value = await get(bookId)
-        language.value = book.value.language || DEFAULT_LANGUAGE
+        const bookLanguage = book.value.language || DEFAULT_LANGUAGE
+        const spoken = (current.value?.spokenLanguages ?? []).filter(code => LANGUAGES.some(item => item.code === code))
+        language.value = spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!
         const mine = castIds.value.includes(currentId.value ?? '') ? currentId.value : castIds.value[0]
         if (mine) {
             selectMember(mine)
