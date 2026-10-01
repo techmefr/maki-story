@@ -4,7 +4,12 @@ export const useFiles = () => {
     const config = useRuntimeConfig()
     const { request } = useApi()
 
+    const chunked = useChunkedUpload()
+
     const upload = async (blob: Blob, mime: string): Promise<string> => {
+        if (mime.startsWith('audio/')) {
+            return chunked.upload(blob, mime)
+        }
         const result = await request<{ id: string }>('/files', {
             method: 'POST',
             body: blob,
@@ -37,5 +42,5 @@ export const useFiles = () => {
         }
     }
 
-    return { upload, fetchUrl, forget }
+    return { upload, uploadProgress: chunked.progress, fetchUrl, forget }
 }
