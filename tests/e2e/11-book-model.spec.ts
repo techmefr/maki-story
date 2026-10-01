@@ -184,6 +184,7 @@ test.describe('book model v2', () => {
             title: 'Métadonnées',
             subtitle: 'Un conte',
             author: 'A. Auteur',
+            illustrator: 'I. Dessin',
             ageMin: 3,
             ageMax: 6,
             language: 'mg',
@@ -194,9 +195,9 @@ test.describe('book model v2', () => {
             lines: [{ pageIndex: 0, character: '', text: 'Texte' }],
         })
         const book = await loadBook(api, id)
-        expect(book).toMatchObject({ subtitle: 'Un conte', author: 'A. Auteur', ageMin: 3, ageMax: 6, language: 'mg', type: 'child-written' })
+        expect(book).toMatchObject({ subtitle: 'Un conte', author: 'A. Auteur', illustrator: 'I. Dessin', ageMin: 3, ageMax: 6, language: 'mg', type: 'child-written' })
         const patched = await api.patch(`/api/books/${id}`, { data: { subtitle: 'Autre', ageMax: 8, type: 'standard' } })
-        expect(await patched.json()).toMatchObject({ subtitle: 'Autre', author: 'A. Auteur', ageMin: 3, ageMax: 8, type: 'standard' })
+        expect(await patched.json()).toMatchObject({ subtitle: 'Autre', author: 'A. Auteur', illustrator: 'I. Dessin', ageMin: 3, ageMax: 8, type: 'standard' })
         const list = (await (await api.get('/api/books')).json()) as IBookSummary[]
         expect(list.find(item => item.id === id)).toMatchObject({ ageMin: 3, ageMax: 8, language: 'mg' })
         expect((await api.patch(`/api/books/${id}`, { data: { ageMin: 9 } })).status()).toBe(400)
@@ -206,7 +207,7 @@ test.describe('book model v2', () => {
             api,
             await createBook(api, { title: 'Défauts', kind: 'multi', imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: '', text: 'x' }] }),
         )
-        expect(defaults).toMatchObject({ subtitle: '', author: '', ageMin: null, ageMax: null, language: 'fr', type: 'standard' })
+        expect(defaults).toMatchObject({ subtitle: '', author: '', illustrator: '', ageMin: null, ageMax: null, language: 'fr', type: 'standard' })
     })
 
     test('characters and panels of another family are not reachable', async ({ playwright, baseURL }) => {

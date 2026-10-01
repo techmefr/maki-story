@@ -24,6 +24,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
     const language = body.language === undefined ? current.language : checkLanguage(body.language)
     const subtitle = body.subtitle === undefined ? current.subtitle : checkText(body.subtitle, 'subtitle')
     const author = body.author === undefined ? current.author : checkText(body.author, 'author')
+    const illustrator = body.illustrator === undefined ? current.illustrator : checkText(body.illustrator, 'illustrator')
     const db = getDb()
     const patchedMemberIds = [
         ...Object.keys(body.tones ?? {}),
@@ -43,7 +44,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
             await tx`update books set title = ${body.title.trim()} where id = ${id} and family_id = ${familyId}`
         }
         await tx`
-            update books set subtitle = ${subtitle}, author = ${author}, age_min = ${ageMin}, age_max = ${ageMax},
+            update books set subtitle = ${subtitle}, author = ${author}, illustrator = ${illustrator || null}, age_min = ${ageMin}, age_max = ${ageMax},
                 language = ${language}, type = ${type}, tts_fallback = ${body.ttsFallback ?? current.ttsFallback}
             where id = ${id} and family_id = ${familyId}
         `

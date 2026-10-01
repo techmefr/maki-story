@@ -56,6 +56,7 @@ export const useBookDraft = () => {
     const title = useState<string>('draft-title', () => '')
     const subtitle = useState<string>('draft-subtitle', () => '')
     const author = useState<string>('draft-author', () => '')
+    const illustrator = useState<string>('draft-illustrator', () => '')
     const ageMin = useState<number | null>('draft-age-min', () => null)
     const ageMax = useState<number | null>('draft-age-max', () => null)
     const language = useState<string>('draft-language', () => DEFAULT_LANGUAGE)
@@ -166,6 +167,7 @@ export const useBookDraft = () => {
         title.value = ''
         subtitle.value = ''
         author.value = ''
+        illustrator.value = ''
         ageMin.value = null
         ageMax.value = null
         language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
@@ -275,6 +277,7 @@ export const useBookDraft = () => {
             title: title.value.trim(),
             subtitle: subtitle.value,
             author: author.value,
+            illustrator: illustrator.value,
             ageMin: asAge(ageMin.value),
             ageMax: asAge(ageMax.value),
             language: language.value,
@@ -319,6 +322,7 @@ export const useBookDraft = () => {
         title,
         subtitle,
         author,
+        illustrator,
         ageMin,
         ageMax,
         language,

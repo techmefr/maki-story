@@ -8,6 +8,10 @@
                     <dt>Auteur</dt>
                     <dd>{{ book.author }}</dd>
                 </div>
+                <div v-if="book.illustrator">
+                    <dt>Dessinateur</dt>
+                    <dd>{{ book.illustrator }}</dd>
+                </div>
                 <div v-if="ageLabel">
                     <dt>Âge</dt>
                     <dd><span class="badge">{{ ageLabel }}</span></dd>
