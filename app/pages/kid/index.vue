@@ -74,13 +74,13 @@ onBeforeUnmount(stopPolling)
 
 .faces {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px 12px;
 }
 
 @media (min-width: 720px) {
     .faces {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
@@ -97,6 +97,9 @@ onBeforeUnmount(stopPolling)
     gap: 6px;
     color: inherit;
     text-decoration: none;
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .face__bubble {

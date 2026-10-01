@@ -6,7 +6,8 @@ const MAX_SIZE_PX = 40
 
 const expectNoHorizontalOverflow = async (page: Page, where: string): Promise<void> => {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
-    expect(overflow, `horizontal overflow on ${where}`).toBeLessThanOrEqual(1)
+    const wide = overflow > 1 ? await page.evaluate(() => { const w = document.documentElement.clientWidth; return Array.from(document.querySelectorAll('body *')).filter(e => e.getBoundingClientRect().right > w + 1).slice(0, 6).map(e => e.tagName + '.' + e.className + ' ' + Math.round(e.getBoundingClientRect().right) + '/' + w).join(' | ') }) : ''
+    expect(overflow, `horizontal overflow on ${where} ${wide}`).toBeLessThanOrEqual(1)
 }
 
 const useMaxTextSize = async (page: Page): Promise<void> => {
@@ -79,7 +80,7 @@ test.describe('accessibility', () => {
         const project = info.project.name
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        const child = uniqueName('Kiki', project)
+        const child = uniqueName('Kikiprenomtreslongpourtester', project)
         await addMember(page, child, 'Enfant')
         const bookTitle = `Texte géant ${project}`
         await createReadyBook(page, bookTitle, 'multi', [
