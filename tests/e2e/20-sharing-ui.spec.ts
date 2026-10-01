@@ -17,6 +17,7 @@ test.describe('sharing, notifications and voice status screens', () => {
         const code = ((await page.locator('.code').textContent()) ?? '').trim()
         expect(code).toHaveLength(10)
 
+        expect((await page.request.post('/api/notifications/read', { data: {} })).ok()).toBeTruthy()
         const sender = await openFamily(playwright, baseURL, 'ui-sender')
         const book = await createBookApi(sender.parent, title, ['Un', 'Deux'])
         const response = await sender.parent.post('/api/shares', { data: { bookId: book.id, code, mode: 'copy', message: 'Pour vous' } })
