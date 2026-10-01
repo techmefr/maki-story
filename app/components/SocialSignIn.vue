@@ -1,0 +1,70 @@
+
+<template>
+    <section class="stack social" aria-label="Autres façons de se connecter">
+        <a v-for="provider in visibleProviders" :key="provider" class="btn btn--white btn--block" :href="startUrl(provider)">
+            Continuer avec {{ PROVIDER_LABELS[provider] }}
+        </a>
+        <button
+            type="button"
+            class="btn btn--white btn--block"
+            :aria-expanded="isOtherOpen"
+            aria-controls="other-accounts"
+            @click="isOtherOpen = !isOtherOpen"
+        >
+            Autre compte
+        </button>
+        <ul v-if="isOtherOpen" id="other-accounts" class="stack social__list">
+            <li v-for="name in upcoming" :key="name">
+                <button type="button" class="btn btn--white btn--block social__disabled" disabled aria-disabled="true">
+                    {{ PROVIDER_LABELS[name] ?? name }} · bientôt disponible
+                </button>
+            </li>
+        </ul>
+    </section>
+</template>
+
+<script setup lang="ts">
+const PROVIDER_LABELS: Record<string, string> = {
+    google: 'Google',
+    apple: 'Apple',
+    microsoft: 'Microsoft',
+    facebook: 'Facebook',
+}
+
+const config = useRuntimeConfig()
+const { request } = useApi()
+
+const providers = ref<OAuthProviderId[]>([])
+const upcoming = ref<string[]>([])
+const isOtherOpen = ref(false)
+const isAppleContext = ref(false)
+
+const visibleProviders = computed(() => providers.value.filter(provider => provider !== 'apple' || isAppleContext.value))
+
+const startUrl = (provider: string): string => `${config.public.apiBase}/api/auth/oauth/${provider}/start`
+
+onMounted(async () => {
+    isAppleContext.value = detectAppleContext()
+    try {
+        const result = await request<IOAuthProviders>('/auth/oauth/providers')
+        providers.value = result.providers
+        upcoming.value = result.upcoming
+    } catch (_error) {
+        providers.value = []
+    }
+})
+</script>
+
+<style scoped>
+.social__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.social__disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+</style>

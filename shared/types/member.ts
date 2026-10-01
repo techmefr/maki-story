@@ -28,6 +28,7 @@ export interface IMemberInput {
 export interface IProfileProof {
     code?: string
     newCode?: IMemberCodeInput
+    device?: IDeviceProof
 }
 
 export interface IMemberCodeUpdate extends IMemberCodeInput {

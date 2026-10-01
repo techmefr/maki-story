@@ -1,4 +1,5 @@
 import { getDb } from '../../utils/db'
+import { verifyDeviceSecret } from '../../utils/device'
 import { requireSession } from '../../utils/family'
 import { hashCode, loadCodeRow, readCodeInput, verifyMemberCode } from '../../utils/profile-code'
 import { startSession } from '../../utils/session'
@@ -21,7 +22,9 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     if (!row) {
         return notFound('Member not found')
     }
-    if (row.pinHash) {
+    if (body.device !== undefined) {
+        await verifyDeviceSecret(event, db, session.familyId, row.id, body.device)
+    } else if (row.pinHash) {
         await verifyMemberCode(db, session.familyId, row, body.code)
     } else {
         if (row.role === 'child' || session.memberId !== null) {

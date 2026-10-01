@@ -62,7 +62,52 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 - The session only changes profile after a verified code. A child session can never open a parent or relative profile, nor change anyone else code.
 - Five wrong codes lock the profile for five minutes (persisted in `members`), whatever the session.
 - The client clears the active profile on a cold start and after `PROFILE_IDLE_LOCK_MS` in the background (`app/utils/profile-lock.ts`).
-- Biometrics plug in through `useProfileUnlockers` (see `IProfileUnlocker`), not implemented yet.
+- Biometrics plug in through `useProfileUnlockers` (see `IProfileUnlocker`), see Biometric unlock below.
+
+## Social sign-in
+
+Google and Apple use the OAuth 2.0 authorization code flow with PKCE (S256), a `state` and a `nonce` bound to a short lived signed cookie, and the ID token is verified server side (RS256, issuer, audience, expiry, nonce) against the provider JWKS, cached for one hour. There is no dependency beyond `node:crypto` and `fetch`.
+
+- A button only appears when its provider is fully configured (`GET /api/auth/oauth/providers`). The Apple button is shown on iOS, on Safari for macOS and in the native app only. The "Autre compte" entry lists the providers that are not available yet, disabled.
+- A known identity (provider and subject) signs straight in. Otherwise the provider must assert a verified e-mail: it is linked to the account with that e-mail when one exists, or a new account, family and parent profile are created (like `/register`). An unverified e-mail is always refused and never merged.
+- Social accounts get an unusable random password hash; the password sign-in keeps working for accounts that registered with one.
+
+Google setup:
+
+1. In the Google Cloud console, create a project, configure the OAuth consent screen and create an OAuth client of type "Web application".
+2. Add the authorized redirect URI `https://YOUR_HOST/api/auth/oauth/google/callback` (and `http://localhost:3000/api/auth/oauth/google/callback` for development).
+3. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+
+Apple setup:
+
+1. In the Apple Developer portal, register an App ID with the "Sign in with Apple" capability, then a Services ID: its identifier is `APPLE_CLIENT_ID`.
+2. Configure the Services ID: add your domain and the return URL `https://YOUR_HOST/api/auth/oauth/apple/callback` (Apple requires HTTPS and a public domain, `localhost` is not accepted).
+3. Create a key with "Sign in with Apple" enabled and download the `.p8` file once: its Key ID is `APPLE_KEY_ID`, its content is `APPLE_PRIVATE_KEY`, and your Team ID is `APPLE_TEAM_ID`.
+4. Apple answers with a form post and only sends the name on the first authorization; the server reads both.
+
+Native apps: Google refuses embedded web views. Until a native sign-in plugin is added, social sign-in on the Capacitor apps is expected to open the system browser; email and password and the profile codes work everywhere.
+
+## Biometric unlock
+
+Biometrics prove presence only. The server still issues the profile token after checking a device bound secret.
+
+- Web: not available, the profile code is the only option and no biometric UI is shown.
+- Native: `app/composables/useBiometric.ts` implements `IProfileUnlocker` with `@capgo/capacitor-native-biometric`, an optional dependency imported dynamically on native platforms only (a separate chunk, never loaded on the web).
+- Enrolment: after a successful code entry the profile screen offers to enable biometrics (opt-in). The server creates a device (`POST /api/devices`) and returns a random 256 bit secret once; only its SHA-256 hash is stored in `member_devices`. The secret is kept in the Keychain or Android Keystore through the plugin.
+- Unlock: the user passes the system biometric prompt, the app reads the secret and calls `POST /api/auth/profile` with `device: { id, secret }`. Wrong secrets are throttled per device and per IP (five failures lock for fifteen minutes, HTTP 429). A revoked or unknown device gets 403 and the app drops its local secret and falls back to the code.
+- Revocation: a parent can remove any device of the family, anyone can remove their own, from the family screen (`/family/devices`) or `DELETE /api/devices/:id`.
+
+Native setup:
+
+```bash
+pnpm install
+pnpm cap:sync
+```
+
+- iOS: add `NSFaceIDUsageDescription` to `ios/App/App/Info.plist` (for example "Open your profile with Face ID").
+- Android: add `<uses-permission android:name="android.permission.USE_BIOMETRIC" />` to `AndroidManifest.xml` and make sure the activity extends `FragmentActivity` (the Capacitor default does).
+- Manual test on a real device: enable the offer after a code entry, lock the app (background it for 30 seconds), reopen the profile and unlock with the fingerprint or face; refuse the prompt and check the code pad stays available; remove the device from `/family/devices` and check the next biometric attempt falls back to the code.
+- CI cannot run the native prompt: the e2e suite injects a mocked bridge (`window.__TANTARA_BIOMETRIC__`, honoured only when `NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE` is set) and covers the server endpoints directly.
 
 ## Tech stack
 
@@ -103,6 +148,12 @@ pnpm dev
 | --- | --- |
 | `DATABASE_URL` | PostgreSQL connection string |
 | `SESSION_SECRET` | Mandatory. Signs the session cookies; sessions are refused (HTTP 500) when it is missing |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Optional. Enable Sign in with Google (see Social sign-in) |
+| `APPLE_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` | Optional. Enable Sign in with Apple (the key is the content of the `.p8` file, newlines may be written as `
+`) |
+| `OAUTH_REDIRECT_BASE` | Optional. Public origin used to build the OAuth redirect URI (default: the request origin, honouring `X-Forwarded-*`) |
+| `OIDC_FAKE` | `1` swaps Google and Apple for an in-app fake OpenID provider (tests only, never in production) |
+| `NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE` | `1` lets the e2e suite inject a mocked native biometric bridge (tests only, never in production) |
 | `LEGACY_OWNER_EMAIL` | Optional. The account registered with this e-mail adopts the family created from pre-accounts data |
 | `MAIL_MODE` | `capture` keeps mails in memory for tests (never in production) |
 | `BREVO_API_KEY` and `MAIL_FROM` | Optional transactional mail provider used for code recovery |
