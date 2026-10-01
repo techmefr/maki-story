@@ -49,6 +49,7 @@ export const NARRATOR_NAME = 'Narrateur'
 let nextKey = 1
 
 export const useBookDraft = () => {
+    const { current } = useCurrentMember()
     const step = useState<DraftStep>('draft-step', () => 'book')
     const mode = useState<DraftMode>('draft-mode', () => 'casting')
     const readerId = useState<string | null>('draft-reader', () => null)
@@ -167,7 +168,7 @@ export const useBookDraft = () => {
         author.value = ''
         ageMin.value = null
         ageMax.value = null
-        language.value = DEFAULT_LANGUAGE
+        language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
         type.value = 'standard'
         ttsFallback.value = false
         pages.value = []

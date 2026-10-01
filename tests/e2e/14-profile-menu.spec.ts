@@ -171,6 +171,14 @@ test.describe('profile menu', () => {
         await stranger.dispose()
     })
 
+    test('defaults the book language to the first spoken language', async ({ page }) => {
+        await startParent(page, 'menu-book-language')
+        const parent = await memberNamed(page.request, PARENT_NAME)
+        expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
+        await page.goto('/books/new')
+        await expect(page.getByLabel('Langue du livre')).toHaveValue('mg')
+    })
+
     test('lets a parent set a child spoken languages from the family form', async ({ page }, info) => {
         const child = uniqueName('Rado', info.project.name)
         await startParent(page, 'menu-form')
