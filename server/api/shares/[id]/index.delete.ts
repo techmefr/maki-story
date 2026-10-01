@@ -1,0 +1,18 @@
+import { getDb } from '../../../utils/db'
+import { logEvent } from '../../../utils/log'
+import { requirePermission } from '../../../utils/permissions'
+import { loadShareRow } from '../../../utils/shares'
+import { notFound, requireParam } from '../../../utils/validate'
+
+export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
+    const actor = await requirePermission(event, 'shares.review')
+    const db = getDb()
+    const share = await loadShareRow(db, requireParam(event, 'id'))
+    const isParty = share.ownerFamilyId === actor.familyId || share.targetFamilyId === actor.familyId
+    if (!isParty || ['declined', 'revoked'].includes(share.status)) {
+        return notFound('Share not found')
+    }
+    await db`update book_shares set status = ${'revoked'}, updated_at = now() where id = ${share.id}`
+    logEvent('Partage arrêté')
+    return { ok: true }
+})

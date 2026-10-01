@@ -3,6 +3,7 @@
         <div ref="panel" class="sheet stack" role="dialog" aria-modal="true" :aria-label="`Fiche de ${book.title}`" @keydown.esc.prevent="emit('close')">
             <h2 class="title">{{ book.title }}</h2>
             <p v-if="book.subtitle" class="subtitle">{{ book.subtitle }}</p>
+            <p v-if="book.isVoiceBlocked && !isChild"><span class="badge" style="background: #ff7a6b">Voix bloquée : les enfants ne peuvent pas l’écouter</span></p>
             <dl class="sheet__facts">
                 <div v-if="book.author">
                     <dt>Auteur</dt>
@@ -30,6 +31,7 @@
             <NuxtLink v-if="target" :to="target.path" class="btn btn--block" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
             </NuxtLink>
+            <button v-if="canShare" type="button" class="btn btn--white btn--block" @click="emit('share', book)">Partager</button>
             <button type="button" class="btn btn--white btn--block" @click="emit('close')">Fermer</button>
         </div>
     </div>
@@ -37,13 +39,23 @@
 
 <script setup lang="ts">
 const { book } = defineProps<{ book: IBookSummary }>()
-const emit = defineEmits<{ close: [] }>()
+const emit = defineEmits<{ close: []; share: [book: IBookSummary] }>()
 
 const { getById } = useMembers()
-const { isChild } = useCurrentMember()
+const { isChild, current } = useCurrentMember()
+const isOnline = useState<boolean>('is-online', () => true)
 const panel = ref<HTMLElement | null>(null)
 
 const readers = computed(() => book.readerIds.map(id => getById(id)).filter((member): member is IMember => member !== null))
+const canShare = computed(() => {
+    if (!isOnline.value || !current.value) {
+        return false
+    }
+    if (current.value.role === 'parent') {
+        return true
+    }
+    return current.value.role === 'relative' && book.kind === 'solo' && book.soloMemberId === current.value.id
+})
 const ageLabel = computed(() => ageLabelOf(book.ageMin, book.ageMax))
 const target = computed((): { path: string; label: string; icon: IconName } => {
     if (isChild.value) {

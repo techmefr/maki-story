@@ -1,0 +1,11 @@
+drop table if exists notifications;
+drop table if exists share_lines;
+drop table if exists book_shares;
+alter table upload_sessions drop column if exists member_id;
+drop index if exists members_guest_key;
+alter table members drop column if exists source_member_id;
+alter table members drop column if exists source_family_id;
+alter table members drop column if exists voice_policy;
+alter table books drop column if exists origin_family_id;
+alter table books drop column if exists origin_book_id;
+alter table families drop column if exists invite_revoked_at;
