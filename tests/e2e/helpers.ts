@@ -91,8 +91,13 @@ export const chooseProfile = async (page: Page, name: string, pin = PROFILE_PIN)
     await expect(page).not.toHaveURL(/\/profiles/)
 }
 
-export const switchProfile = async (page: Page, name: string): Promise<void> => {
+export const openSwitcher = async (page: Page): Promise<void> => {
+    await page.getByRole('button', { name: 'Mon profil' }).click()
     await page.getByRole('button', { name: 'Changer de profil' }).click()
+}
+
+export const switchProfile = async (page: Page, name: string): Promise<void> => {
+    await openSwitcher(page)
     await page.locator('.sheet button.card', { hasText: name }).first().click()
     await unlockProfile(page)
     await expect(page.locator('.sheet')).toHaveCount(0)

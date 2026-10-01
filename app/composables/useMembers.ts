@@ -36,7 +36,20 @@ export const useMembers = () => {
         await preload(members.value)
     }
 
-    const setCode = async (id: string, input: IMemberCodeUpdate): Promise<void> => {
+    const replace = async (member: IMember): Promise<void> => {
+        members.value = members.value.map(item => (item.id === member.id ? member : item))
+        await preload(members.value)
+    }
+
+    const updateSettings = async (id: string, input: IMemberSettingsInput): Promise<void> => {
+        await replace(await request<IMember>(`/members/${id}/settings`, { method: 'PATCH', body: input }))
+    }
+
+    const changePhoto = async (id: string, blob: Blob): Promise<void> => {
+        await replace(await request<IMember>(`/members/${id}/photo`, { method: 'PUT', body: blob, headers: { 'content-type': 'image/jpeg' } }))
+    }
+
+    const setCode =async (id: string, input: IMemberCodeUpdate): Promise<void> => {
         await request(`/members/${id}/code`, { method: 'PUT', body: input })
         await load()
     }
@@ -49,5 +62,5 @@ export const useMembers = () => {
     const children = computed(() => members.value.filter(member => member.role === 'child'))
     const grownUps = computed(() => members.value.filter(member => member.role !== 'child'))
 
-    return { members, children, grownUps, load, ensureLoaded, getById, add, update, setCode, remove }
+    return { members, children, grownUps, load, ensureLoaded, getById, add, update, updateSettings, changePhoto, setCode, remove }
 }

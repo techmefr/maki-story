@@ -14,7 +14,7 @@
         <div v-else class="grow" />
         <div class="row">
             <FeedbackButton />
-            <button class="header__me" type="button" aria-label="Changer de profil" @click="openSwitcher">
+            <button class="header__me" type="button" aria-label="Mon profil" @click="openMenu">
                 <AppAvatar :member="current" :size="44" />
             </button>
         </div>
@@ -24,10 +24,10 @@
 <script setup lang="ts">
 const { current, homePath, isChild } = useCurrentMember()
 const { tabs } = useNavTabs()
-const isSwitcherOpen = useState<boolean>('switcher-open', () => false)
+const isMenuOpen = useState<boolean>('profile-menu-open', () => false)
 
-const openSwitcher = (): void => {
-    isSwitcherOpen.value = true
+const openMenu = (): void => {
+    isMenuOpen.value = true
 }
 </script>
 

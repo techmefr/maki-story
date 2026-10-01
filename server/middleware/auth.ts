@@ -1,5 +1,5 @@
 import { ensureSchema } from '../utils/db'
-import { readSession } from '../utils/session'
+import { isSessionCurrent, readSession } from '../utils/session'
 
 const PUBLIC_API_PATHS = ['/api/auth/login', '/api/auth/register', '/api/auth/me', '/api/auth/logout']
 const PUBLIC_OAUTH_PREFIX = '/api/auth/oauth/'
@@ -16,7 +16,8 @@ export default defineEventHandler(async event => {
     if (PUBLIC_API_PATHS.includes(path) || path.startsWith(PUBLIC_OAUTH_PREFIX)) {
         return
     }
-    if (!readSession(event)) {
+    const session = readSession(event)
+    if (!session || !(await isSessionCurrent(session))) {
         throw createError({ statusCode: 401, statusMessage: 'Not signed in' })
     }
 })

@@ -14,3 +14,8 @@ export interface IRegisterInput {
     familyName: string
     parentName: string
 }
+
+export interface IPasswordChangeInput {
+    currentPassword: string
+    newPassword: string
+}
