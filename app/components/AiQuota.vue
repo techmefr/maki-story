@@ -1,5 +1,5 @@
 <template>
-    <p v-if="aiStatus" class="muted" role="status" data-testid="ai-quota">{{ label }}</p>
+    <p v-if="aiStatus" class="muted" data-testid="ai-quota">{{ label }}</p>
 </template>
 
 <script setup lang="ts">
