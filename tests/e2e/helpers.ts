@@ -126,17 +126,26 @@ export const apiJson = async <T>(page: Page, path: string): Promise<T> => {
     return (await response.json()) as T
 }
 
+export const linesCard = (page: Page, pageNumber: number): Locator => page.getByRole('group', { name: `Page ${pageNumber}`, exact: true })
+
 export const addLine = async (page: Page, pageNumber: number, character: string | null, text: string): Promise<void> => {
-    const card = page.locator('.card', { has: page.getByText(`Page ${pageNumber}`, { exact: true }) })
-    if ((await card.locator('textarea.input').count()) === 0) {
-        await card.getByRole('button', { name: 'Ajouter une réplique' }).click()
-    }
+    const card = linesCard(page, pageNumber)
     if (character !== null) {
-        await card.getByPlaceholder('Qui parle ? (Narrateur, Petit Zébu…)').fill(character)
+        await card.getByRole('button', { name: character, exact: true }).click()
     }
-    await card.locator('textarea.input').fill(text)
+    await card.getByLabel('Texte', { exact: true }).fill(text)
     await card.getByRole('button', { name: 'Ajouter', exact: true }).click()
     await expect(card.getByText(text, { exact: true })).toBeVisible()
+}
+
+export const startBook = async (page: Page, title: string): Promise<void> => {
+    await page.goto('/books/new')
+    await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
+    await page.getByLabel('Titre du livre').fill(title)
+}
+
+export const nextStep = async (page: Page): Promise<void> => {
+    await page.getByRole('button', { name: 'Suivant', exact: true }).click()
 }
 
 export const uniqueName = (base: string, projectName: string): string => `${base}-${projectName}`

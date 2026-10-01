@@ -25,6 +25,9 @@
             <div v-if="book.imageDesc" class="hint">Image : {{ book.imageDesc }}</div>
             <div v-if="activeTone" class="hint">Ton de la voix : {{ activeTone }}</div>
             <div v-if="currentLine.note" class="hint">Indication : {{ currentLine.note }}</div>
+            <div v-if="currentLine.tone" class="hint">Ton : {{ currentLine.tone }}</div>
+            <div v-if="currentLine.sceneDescription" class="hint">Scène : {{ currentLine.sceneDescription }}</div>
+            <div v-if="currentPageDescription" class="hint">Page : {{ currentPageDescription }}</div>
         </div>
         <div v-if="currentLine" class="stack center">
             <WaveBars :is-active="isRecording" :color="activeHex" />
@@ -108,6 +111,7 @@ const tabs = computed(() =>
 const activeMember = computed(() => getById(activeMemberId.value))
 const activeHex = computed(() => memberHex(activeMember.value))
 const activeTone = computed(() => (activeMemberId.value ? (book.value?.tones[activeMemberId.value] ?? '') : ''))
+const currentPageDescription = computed(() => book.value?.pages[currentLine.value?.pageIndex ?? -1]?.description ?? '')
 const memberLines = computed(() => (book.value?.lines ?? []).filter(line => line.memberId === activeMemberId.value))
 const currentLine = computed(() => memberLines.value.find(line => line.id === currentLineId.value) ?? null)
 const recordedCount = computed(() => (book.value?.lines ?? []).filter(isDone).length)

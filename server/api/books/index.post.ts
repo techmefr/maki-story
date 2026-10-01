@@ -53,6 +53,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
             fileId: page.fileId,
             kind: pageKind,
             ttsFallback: page.ttsFallback === true,
+            description: checkText(page.description, 'page description'),
             panels: (page.panels ?? []).map(panel => checkText(panel.description, 'panel')),
         }
     })
@@ -93,8 +94,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         const panelIds = new Map<string, string>()
         for (const [position, page] of plannedPages.entries()) {
             const row = one(await tx<{ id: string }[]>`
-                insert into book_pages (book_id, family_id, position, file_id, kind, tts_fallback)
-                values (${book.id}, ${familyId}, ${position}, ${page.fileId}, ${page.kind}, ${page.ttsFallback})
+                insert into book_pages (book_id, family_id, position, file_id, kind, tts_fallback, description)
+                values (${book.id}, ${familyId}, ${position}, ${page.fileId}, ${page.kind}, ${page.ttsFallback}, ${page.description})
                 returning id
             `)
             for (const [panelPosition, description] of page.panels.entries()) {

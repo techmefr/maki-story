@@ -42,6 +42,7 @@ import {
     UserPlus,
     Users,
     Volume2,
+    VolumeX,
     X,
 } from 'lucide-vue-next'
 import type { Component } from 'vue'
@@ -78,6 +79,7 @@ const ICONS: Record<IconName, Component> = {
     'user-plus': UserPlus,
     users: Users,
     volume: Volume2,
+    mute: VolumeX,
     close: X,
 }
 
