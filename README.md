@@ -104,6 +104,12 @@ pnpm dev
 | `LEGACY_OWNER_EMAIL` | Optional. The account registered with this e-mail adopts the family created from pre-accounts data |
 | `MAIL_MODE` | `capture` keeps mails in memory for tests (never in production) |
 | `BREVO_API_KEY` and `MAIL_FROM` | Optional transactional mail provider used for code recovery |
+| `OPENROUTER_API_KEY` | Optional, server only. Without it the AI endpoints answer 503 and `/api/ai/status` reports `enabled: false` |
+| `AI_MONTHLY_BUDGET_USD` | Per family monthly AI budget in USD (default `1`). Checked before each call, the real cost reported by OpenRouter is recorded in `ai_jobs`; an exhausted budget answers 429 |
+| `AI_MODEL_VISION`, `AI_MODEL_TEXT`, `AI_MODEL_IMAGE` | Optional OpenRouter model ids (defaults `google/gemini-2.5-flash` for vision and text, `google/gemini-2.5-flash-image` for pages) |
+| `AI_PROVIDER` | `fake` swaps OpenRouter for a deterministic offline provider (tests only, never in production) |
+
+AI features (parent profiles only): `POST /api/ai/photo-prefill` turns page photos into an unsaved draft, `POST /api/ai/book-generation` writes a book from an idea (a fixed character sheet is repeated in every image prompt) and stores it as a hidden draft (`status = draft`, `ai_generated = true`), `POST /api/ai/translation` suggests translations, `POST /api/books/:id/validate` is the parental validation that releases a draft. Model output is validated against a strict schema and size limits; text read from photos is treated as data, never as instructions.
 
 The database schema is created and migrated on the first request. Accounts are created on `/register` (e-mail, password hashed with scrypt, one family and its first parent profile); every row belongs to a family and is only served to the accounts of that family.
 

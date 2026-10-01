@@ -3,7 +3,7 @@ import { notFound } from './validate'
 
 const SUMMARY_SELECT = `
     b.id, b.title, b.subtitle, b.author, b.age_min, b.age_max, b.language, b.type, b.tts_fallback,
-    b.kind, b.solo_member_id, b.status, b.created_at,
+    b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
     (select count(*)::int from lines l join recordings r on r.line_id = l.id and r.language = b.language and r.status <> 'stale'
