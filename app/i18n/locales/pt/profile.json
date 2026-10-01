@@ -34,7 +34,10 @@
             "xlarge": "Muito grande",
             "huge": "Enorme",
             "max": "Máximo"
-        }
+        },
+        "sounds": "Sons dos botões",
+        "soundsOn": "Ativar os sons",
+        "soundsVolume": "Volume dos sons"
     },
     "unlock": {
         "offerTitle": "Ativar a impressão digital ou o rosto?",

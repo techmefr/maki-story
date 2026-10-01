@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Codice del profilo",
+        "locked": "Profilo bloccato dopo troppi tentativi.",
+        "none": "Nessun codice impostato.",
+        "shapes": "Codice a forme impostato.",
+        "digits": "Codice a cifre impostato.",
+        "unlock": "Sblocca il profilo",
+        "remove": "Rimuovi il codice",
+        "failed": "Impossibile modificare il codice per ora.",
+        "removeConfirm": "Rimuovere il codice di {name}?"
+    },
+    "schedule": {
+        "title": "Tempo di ascolto",
+        "free": "Ascolto libero.",
+        "limited": "Ascolto limitato agli orari.",
+        "blockedManual": "Ascolto interrotto finché non lo ripristini.",
+        "blockedUntil": "Ascolto interrotto fino alle {time}.",
+        "blockNow": "Interrompi ora",
+        "restore": "Ripristina",
+        "until": "Interrompi fino a",
+        "untilButton": "Interrompi fino a quest’ora",
+        "enabled": "Limita l’ascolto agli orari qui sotto",
+        "daysLabel": "Orari per giorno",
+        "from": "Dalle",
+        "to": "Alle",
+        "dayOff": "Giorno senza ascolto",
+        "save": "Applica gli orari",
+        "saveFailed": "Impossibile salvare per ora. Controlla che ogni ora di inizio preceda quella di fine."
+    },
+    "gate": {
+        "title": "Codice di un genitore",
+        "noParent": "Nessun genitore ha ancora un codice.",
+        "which": "Quale genitore?",
+        "wrong": "Questo codice non va bene."
+    },
+    "locked": {
+        "clock": "Ora in cui riprende l’ascolto",
+        "toParent": "Passa a un genitore"
+    }
+}

@@ -30,7 +30,8 @@
         "codeBlocked": "O código atual está incorreto ou bloqueado.",
         "saveError": "Não foi possível guardar neste momento.",
         "removeConfirm": "Remover {name}? As suas gravações serão perdidas.",
-        "removeError": "Não é possível remover: é preciso manter pelo menos um adulto."
+        "removeError": "Não é possível remover: é preciso manter pelo menos um adulto.",
+        "setCode": "Definir o código"
     },
     "voice": {
         "title": "Situação desta voz",

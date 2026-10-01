@@ -30,7 +30,8 @@
         "codeBlocked": "Le code actuel est incorrect ou bloqué.",
         "saveError": "Impossible d’enregistrer pour le moment.",
         "removeConfirm": "Supprimer {name} ? Ses enregistrements seront perdus.",
-        "removeError": "Impossible de supprimer : il faut garder au moins un parent."
+        "removeError": "Impossible de supprimer : il faut garder au moins un parent.",
+        "setCode": "Définir le code"
     },
     "voice": {
         "title": "Situation de cette voix",

@@ -16,8 +16,8 @@
         </div>
         <div v-else-if="phase === 'languages'" class="reader__center stack center">
             <AppIcon name="languages" :size="64" motion="float" />
-            <h1 class="sr-only">Choisis la langue de l’histoire</h1>
-            <div class="choices" role="group" aria-label="Langues de l’histoire">
+            <h1 class="sr-only">{{ t('playback.chooseTitle') }}</h1>
+            <div class="choices" role="group" :aria-label="t('playback.choices')">
                 <button
                     v-for="choice in choices"
                     :key="choice.join('-')"
@@ -38,7 +38,7 @@
                     v-if="!isLocked"
                     type="button"
                     class="choice choice--small"
-                    aria-label="Changer de langue"
+                    :aria-label="t('playback.change')"
                     data-testid="change-language"
                     @click="phase = 'languages'"
                 >
@@ -50,7 +50,7 @@
                 <button
                     type="button"
                     class="btn btn--white btn--round"
-                    :aria-label="isLocked ? 'Déverrouiller la langue avec le code d’un parent' : 'Verrouiller la langue'"
+                    :aria-label="isLocked ? t('playback.unlock') : t('playback.lock')"
                     :aria-pressed="isLocked"
                     data-testid="language-lock"
                     @click="onLockClick"
@@ -232,7 +232,8 @@ const cancelSleep = (): void => {
 }
 
 const choiceLabel = (codes: string[]): string => {
-    return codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code).join(' puis ')
+    const labels = codes.map(code => LANGUAGES.find(item => item.code === code)?.label ?? code)
+    return labels.length === 2 ? t('playback.pair', { first: labels[0]!, second: labels[1]! }) : labels.join(', ')
 }
 
 const restoreProgress = async (): Promise<void> => {
@@ -296,7 +297,7 @@ const unlockWithParent = async (parentId: string, code: string): Promise<void> =
         isGateOpen.value = false
     } catch (error) {
         console.error('Le code du parent a été refusé', error)
-        gateError.value = 'Ce code ne convient pas.'
+        gateError.value = t('parental.gate.wrong')
         gateAttempt.value += 1
     } finally {
         isGateBusy.value = false

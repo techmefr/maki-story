@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Código do perfil",
+        "locked": "Perfil bloqueado após demasiadas tentativas.",
+        "none": "Nenhum código definido.",
+        "shapes": "Código de formas definido.",
+        "digits": "Código de números definido.",
+        "unlock": "Desbloquear o perfil",
+        "remove": "Remover o código",
+        "failed": "Não é possível alterar o código neste momento.",
+        "removeConfirm": "Remover o código de {name}?"
+    },
+    "schedule": {
+        "title": "Tempo de escuta",
+        "free": "Escuta livre.",
+        "limited": "Escuta limitada aos horários.",
+        "blockedManual": "Escuta cortada até a restabelecerem.",
+        "blockedUntil": "Escuta cortada até às {time}.",
+        "blockNow": "Cortar agora",
+        "restore": "Restabelecer",
+        "until": "Cortar até",
+        "untilButton": "Cortar até esta hora",
+        "enabled": "Limitar a escuta aos horários abaixo",
+        "daysLabel": "Horários por dia",
+        "from": "Das",
+        "to": "Às",
+        "dayOff": "Dia sem escuta",
+        "save": "Aplicar os horários",
+        "saveFailed": "Não foi possível guardar agora. Verifica se cada hora de início é anterior à de fim."
+    },
+    "gate": {
+        "title": "Código de um pai ou mãe",
+        "noParent": "Nenhum pai ou mãe tem código ainda.",
+        "which": "Qual deles?",
+        "wrong": "Este código não serve."
+    },
+    "locked": {
+        "clock": "Hora em que a escuta volta",
+        "toParent": "Passar a um pai ou mãe"
+    }
+}

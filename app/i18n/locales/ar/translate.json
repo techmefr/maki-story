@@ -1,0 +1,24 @@
+{
+    "back": "العودة إلى الاستوديو",
+    "title": "ترجمة «{title}»",
+    "language": "لغة الترجمة",
+    "count": "تمت ترجمة {done}/{total} من الأسطر",
+    "suggest": "اقتراح ترجمة",
+    "suggestionsHint": "اقتراحات للمراجعة: يمكنك تعديلها قبل الحفظ.",
+    "line": "السطر {n} · {name}",
+    "narrator": "الراوي",
+    "translationIn": "الترجمة إلى {language}",
+    "tone": "النبرة (اختياري)",
+    "tonePlaceholder": "لطيفة، مرحة…",
+    "save": "حفظ الترجمة",
+    "suggestFailed": "تعذر تقديم اقتراح. يمكنك الترجمة يدويًا.",
+    "saved": {
+        "zero": "لم يتم حفظ أي سطر.",
+        "one": "تم حفظ سطر واحد بـ{language}.",
+        "two": "تم حفظ سطرين بـ{language}.",
+        "few": "تم حفظ {count} أسطر بـ{language}.",
+        "many": "تم حفظ {count} سطرًا بـ{language}.",
+        "other": "تم حفظ {count} سطر بـ{language}."
+    },
+    "saveFailed": "فشل الحفظ. حاول مرة أخرى."
+}

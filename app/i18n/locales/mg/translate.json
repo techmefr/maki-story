@@ -1,0 +1,20 @@
+{
+    "back": "Hiverina any amin’ny studio",
+    "title": "Adikao ny “{title}”",
+    "language": "Fiteny fandikana",
+    "count": "{done}/{total} ny andalana voadika",
+    "suggest": "Atolory fandikana",
+    "suggestionsHint": "Soso-kevitra hodinihina: azonao ovaina alohan’ny hitahiry.",
+    "line": "Andalana {n} · {name}",
+    "narrator": "Mpitantara",
+    "translationIn": "Fandikana amin’ny {language}",
+    "tone": "Feo (tsy voatery)",
+    "tonePlaceholder": "Malefaka, faly…",
+    "save": "Tahirizo ny fandikana",
+    "suggestFailed": "Tsy nahomby ny soso-kevitra. Azonao adika amin’ny tanana.",
+    "saved": {
+        "one": "Voatahiry amin’ny {language} ny andalana {count}.",
+        "other": "Voatahiry amin’ny {language} ny andalana {count}."
+    },
+    "saveFailed": "Tsy nahomby ny fitahirizana. Andramo indray."
+}

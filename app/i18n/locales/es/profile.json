@@ -34,7 +34,10 @@
             "xlarge": "Muy grande",
             "huge": "Enorme",
             "max": "Máximo"
-        }
+        },
+        "sounds": "Sonidos de los botones",
+        "soundsOn": "Activar los sonidos",
+        "soundsVolume": "Volumen de los sonidos"
     },
     "unlock": {
         "offerTitle": "¿Activar la huella o la cara?",

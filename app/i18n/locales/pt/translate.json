@@ -1,0 +1,20 @@
+{
+    "back": "Voltar ao estúdio",
+    "title": "Traduzir «{title}»",
+    "language": "Idioma da tradução",
+    "count": "{done}/{total} falas traduzidas",
+    "suggest": "Sugerir uma tradução",
+    "suggestionsHint": "Sugestões a rever: podes alterá-las antes de guardar.",
+    "line": "Fala {n} · {name}",
+    "narrator": "Narrador",
+    "translationIn": "Tradução para {language}",
+    "tone": "Tom (opcional)",
+    "tonePlaceholder": "Suave, alegre…",
+    "save": "Guardar a tradução",
+    "suggestFailed": "Não foi possível fazer a sugestão. Podes traduzir à mão.",
+    "saved": {
+        "one": "{count} fala guardada em {language}.",
+        "other": "{count} falas guardadas em {language}."
+    },
+    "saveFailed": "Falha ao guardar. Tenta de novo."
+}

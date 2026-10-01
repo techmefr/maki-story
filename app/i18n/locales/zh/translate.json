@@ -1,0 +1,19 @@
+{
+    "back": "返回录音室",
+    "title": "翻译《{title}》",
+    "language": "翻译语言",
+    "count": "已翻译 {done}/{total} 句台词",
+    "suggest": "建议翻译",
+    "suggestionsHint": "请检查建议：保存前可以修改。",
+    "line": "第 {n} 句 · {name}",
+    "narrator": "旁白",
+    "translationIn": "{language}译文",
+    "tone": "语气（可选）",
+    "tonePlaceholder": "温柔、开心……",
+    "save": "保存翻译",
+    "suggestFailed": "无法给出建议，你可以手动翻译。",
+    "saved": {
+        "other": "已用{language}保存 {count} 句台词。"
+    },
+    "saveFailed": "保存失败，请重试。"
+}

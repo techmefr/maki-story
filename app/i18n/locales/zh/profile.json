@@ -34,7 +34,10 @@
             "xlarge": "特大",
             "huge": "超大",
             "max": "最大"
-        }
+        },
+        "sounds": "按钮音效",
+        "soundsOn": "开启音效",
+        "soundsVolume": "音效音量"
     },
     "unlock": {
         "offerTitle": "启用指纹或面容解锁？",

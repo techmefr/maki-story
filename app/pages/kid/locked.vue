@@ -1,11 +1,11 @@
 <template>
     <main class="locked" data-testid="locked-screen">
         <AppMaki :size="180" class="locked__maki" />
-        <PictureClock :time="resumeTime" label="Retour de l’heure d’écoute" />
+        <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
         <div class="locked__moon" aria-hidden="true">
             <AppIcon name="moon" :size="64" motion="float" />
         </div>
-        <button type="button" class="btn btn--round locked__parent" aria-label="Passer à un parent" data-testid="locked-parent" @click="goToParent">
+        <button type="button" class="btn btn--round locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="goToParent">
             <AppIcon name="lock" :size="28" />
         </button>
     </main>
@@ -14,6 +14,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'blank' })
 
+const { t } = useI18n()
 const { status } = useAccess()
 const { lock } = useCurrentMember()
 

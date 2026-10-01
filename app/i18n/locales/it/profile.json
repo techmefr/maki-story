@@ -34,7 +34,10 @@
             "xlarge": "Molto grande",
             "huge": "Enorme",
             "max": "Massimo"
-        }
+        },
+        "sounds": "Suoni dei pulsanti",
+        "soundsOn": "Attiva i suoni",
+        "soundsVolume": "Volume dei suoni"
     },
     "unlock": {
         "offerTitle": "Attivare l’impronta o il volto?",

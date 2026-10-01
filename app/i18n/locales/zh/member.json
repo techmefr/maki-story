@@ -30,7 +30,8 @@
         "codeBlocked": "当前密码不正确或已被锁定。",
         "saveError": "暂时无法保存。",
         "removeConfirm": "删除 {name}？ta 的录音将会丢失。",
-        "removeError": "无法删除：至少要保留一位家长。"
+        "removeError": "无法删除：至少要保留一位家长。",
+        "setCode": "设置密码"
     },
     "voice": {
         "title": "这个声音的状态",

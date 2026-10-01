@@ -34,7 +34,10 @@
             "xlarge": "Very large",
             "huge": "Huge",
             "max": "Maximum"
-        }
+        },
+        "sounds": "Button sounds",
+        "soundsOn": "Turn sounds on",
+        "soundsVolume": "Sound volume"
     },
     "unlock": {
         "offerTitle": "Turn on fingerprint or face unlock?",

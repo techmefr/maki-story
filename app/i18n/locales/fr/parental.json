@@ -1,0 +1,41 @@
+{
+    "codeAdmin": {
+        "title": "Code du profil",
+        "locked": "Profil bloqué après trop d’essais.",
+        "none": "Aucun code défini.",
+        "shapes": "Code en formes défini.",
+        "digits": "Code en chiffres défini.",
+        "unlock": "Débloquer le profil",
+        "remove": "Retirer le code",
+        "failed": "Impossible de modifier le code pour le moment.",
+        "removeConfirm": "Retirer le code de {name} ?"
+    },
+    "schedule": {
+        "title": "Temps d’écoute",
+        "free": "Écoute libre.",
+        "limited": "Écoute limitée aux horaires.",
+        "blockedManual": "Écoute coupée jusqu’à ce que tu la rétablisses.",
+        "blockedUntil": "Écoute coupée jusqu’à {time}.",
+        "blockNow": "Couper maintenant",
+        "restore": "Rétablir",
+        "until": "Couper jusqu’à",
+        "untilButton": "Couper jusqu’à cette heure",
+        "enabled": "Limiter l’écoute aux horaires ci-dessous",
+        "daysLabel": "Horaires par jour",
+        "from": "De",
+        "to": "À",
+        "dayOff": "Jour sans écoute",
+        "save": "Appliquer les horaires",
+        "saveFailed": "Impossible d’enregistrer pour le moment. Vérifie que chaque heure de début précède l’heure de fin."
+    },
+    "gate": {
+        "title": "Code d’un parent",
+        "noParent": "Aucun parent n’a de code pour l’instant.",
+        "which": "Quel parent ?",
+        "wrong": "Ce code ne convient pas."
+    },
+    "locked": {
+        "clock": "Retour de l’heure d’écoute",
+        "toParent": "Passer à un parent"
+    }
+}

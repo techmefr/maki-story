@@ -30,7 +30,8 @@
         "codeBlocked": "The current code is incorrect or locked.",
         "saveError": "Couldn’t save right now.",
         "removeConfirm": "Remove {name}? Their recordings will be lost.",
-        "removeError": "Can’t remove: at least one parent must stay."
+        "removeError": "Can’t remove: at least one parent must stay.",
+        "setCode": "Set the code"
     },
     "voice": {
         "title": "This voice’s status",

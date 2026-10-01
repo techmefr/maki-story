@@ -30,7 +30,8 @@
         "codeBlocked": "Der aktuelle Code ist falsch oder gesperrt.",
         "saveError": "Speichern ist gerade nicht möglich.",
         "removeConfirm": "{name} entfernen? Die Aufnahmen gehen verloren.",
-        "removeError": "Entfernen nicht möglich: Mindestens ein Elternteil muss bleiben."
+        "removeError": "Entfernen nicht möglich: Mindestens ein Elternteil muss bleiben.",
+        "setCode": "Code festlegen"
     },
     "voice": {
         "title": "Status dieser Stimme",

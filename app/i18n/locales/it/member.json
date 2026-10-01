@@ -30,7 +30,8 @@
         "codeBlocked": "Il codice attuale è errato o bloccato.",
         "saveError": "Impossibile salvare per il momento.",
         "removeConfirm": "Eliminare {name}? Le sue registrazioni andranno perse.",
-        "removeError": "Impossibile eliminare: bisogna tenere almeno un genitore."
+        "removeError": "Impossibile eliminare: bisogna tenere almeno un genitore.",
+        "setCode": "Imposta il codice"
     },
     "voice": {
         "title": "Situazione di questa voce",

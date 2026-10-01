@@ -34,7 +34,10 @@
             "xlarge": "Très grand",
             "huge": "Énorme",
             "max": "Maximum"
-        }
+        },
+        "sounds": "Sons des boutons",
+        "soundsOn": "Activer les sons",
+        "soundsVolume": "Volume des sons"
     },
     "unlock": {
         "offerTitle": "Activer l’empreinte ou le visage ?",

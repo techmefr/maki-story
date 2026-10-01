@@ -1,29 +1,29 @@
 <template>
     <section class="stack parental" aria-labelledby="parental-title" data-testid="parental">
-        <h2 id="parental-title" class="subtitle">Temps d’écoute</h2>
+        <h2 id="parental-title" class="subtitle">{{ t('parental.schedule.title') }}</h2>
         <p class="muted" role="status" data-testid="parental-status">{{ statusLabel }}</p>
         <div class="row row--wrap">
             <button type="button" class="btn btn--white btn--small" :disabled="isBusy" data-testid="block-now" @click="blockNow">
-                Couper maintenant
+                {{ t('parental.schedule.blockNow') }}
             </button>
             <button v-if="schedule?.isManualBlock" type="button" class="btn btn--small" :disabled="isBusy" data-testid="block-clear" @click="clearBlock">
-                Rétablir
+                {{ t('parental.schedule.restore') }}
             </button>
         </div>
         <div class="row row--wrap parental__until">
             <label class="stack" style="gap: 6px">
-                <span class="label">Couper jusqu’à</span>
+                <span class="label">{{ t('parental.schedule.until') }}</span>
                 <input v-model="untilTime" class="input" type="time" data-testid="block-until-time" />
             </label>
             <button type="button" class="btn btn--white btn--small" :disabled="isBusy || untilTime === ''" data-testid="block-until" @click="blockUntil">
-                Couper jusqu’à cette heure
+                {{ t('parental.schedule.untilButton') }}
             </button>
         </div>
         <label class="row parental__toggle">
             <input v-model="isEnabled" type="checkbox" data-testid="schedule-enabled" />
-            <span class="label">Limiter l’écoute aux horaires ci-dessous</span>
+            <span class="label">{{ t('parental.schedule.enabled') }}</span>
         </label>
-        <ul class="parental__days" aria-label="Horaires par jour">
+        <ul class="parental__days" :aria-label="t('parental.schedule.daysLabel')">
             <li v-for="day in orderedDays" :key="day.index" class="parental__day card">
                 <label class="row parental__toggle">
                     <input v-model="weekly[day.index]!.isOpen" type="checkbox" :data-testid="`day-open-${day.index}`" />
@@ -31,28 +31,28 @@
                 </label>
                 <div v-if="weekly[day.index]!.isOpen" class="row row--wrap">
                     <label class="stack" style="gap: 4px">
-                        <span class="muted">De</span>
+                        <span class="muted">{{ t('parental.schedule.from') }}</span>
                         <input v-model="weekly[day.index]!.from" class="input" type="time" :data-testid="`day-from-${day.index}`" />
                     </label>
                     <label class="stack" style="gap: 4px">
-                        <span class="muted">À</span>
+                        <span class="muted">{{ t('parental.schedule.to') }}</span>
                         <input v-model="weekly[day.index]!.to" class="input" type="time" :data-testid="`day-to-${day.index}`" />
                     </label>
                 </div>
-                <p v-else class="muted">Jour sans écoute</p>
+                <p v-else class="muted">{{ t('parental.schedule.dayOff') }}</p>
             </li>
         </ul>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" :disabled="isBusy" data-testid="schedule-save" @click="save">Appliquer les horaires</button>
+        <button type="button" class="btn btn--block" :disabled="isBusy" data-testid="schedule-save" @click="save">{{ t('parental.schedule.save') }}</button>
     </section>
 </template>
 
 <script setup lang="ts">
-const DAY_LABELS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
 const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0]
 
 const { memberId } = defineProps<{ memberId: string }>()
 
+const { t, formatDate } = useI18n()
 const { load, save: saveSchedule, block } = useParental()
 
 const schedule = ref<IChildSchedule | null>(null)
@@ -62,18 +62,21 @@ const untilTime = ref('')
 const isBusy = ref(false)
 const errorMessage = ref('')
 
-const orderedDays = WEEK_ORDER.map(index => ({ index, label: DAY_LABELS[index]! }))
+const SUNDAY_REFERENCE = Date.UTC(2023, 0, 1, 12)
+const MS_PER_DAY = 86_400_000
+const dayName = (index: number): string => formatDate(SUNDAY_REFERENCE + index * MS_PER_DAY, { weekday: 'long', timeZone: 'UTC' })
+const orderedDays = computed(() => WEEK_ORDER.map(index => ({ index, label: dayName(index) })))
 const deviceTimezone = (): string => Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const statusLabel = computed(() => {
     if (!schedule.value?.isManualBlock) {
-        return isEnabled.value ? 'Écoute limitée aux horaires.' : 'Écoute libre.'
+        return isEnabled.value ? t('parental.schedule.limited') : t('parental.schedule.free')
     }
     if (schedule.value.manualUntil === null) {
-        return 'Écoute coupée jusqu’à ce que tu la rétablisses.'
+        return t('parental.schedule.blockedManual')
     }
-    const time = new Date(schedule.value.manualUntil).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
-    return `Écoute coupée jusqu’à ${time}.`
+    const time = formatDate(schedule.value.manualUntil, { timeStyle: 'short' })
+    return t('parental.schedule.blockedUntil', { time })
 })
 
 const refresh = async (): Promise<void> => {
@@ -90,7 +93,7 @@ const run = async (action: () => Promise<void>): Promise<void> => {
         await refresh()
     } catch (error) {
         console.error('Les horaires n ont pas pu être enregistrés', error)
-        errorMessage.value = 'Impossible d’enregistrer pour le moment. Vérifie que chaque heure de début précède l’heure de fin.'
+        errorMessage.value = t('parental.schedule.saveFailed')
     } finally {
         isBusy.value = false
     }

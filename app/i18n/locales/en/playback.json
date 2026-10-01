@@ -1,0 +1,8 @@
+{
+    "chooseTitle": "Choose the language of the story",
+    "choices": "Story languages",
+    "change": "Change language",
+    "lock": "Lock the language",
+    "unlock": "Unlock the language with a parent’s code",
+    "pair": "{first} then {second}"
+}

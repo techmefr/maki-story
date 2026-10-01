@@ -30,7 +30,8 @@
         "codeBlocked": "Diso na voahidy ny kaody ankehitriny.",
         "saveError": "Tsy afaka mitahiry amin’izao fotoana izao.",
         "removeConfirm": "Hofafana ve i {name}? Ho very ny rakitsarany.",
-        "removeError": "Tsy afaka mamafa: tsy maintsy mijanona ray aman-dreny iray farafaharatsiny."
+        "removeError": "Tsy afaka mamafa: tsy maintsy mijanona ray aman-dreny iray farafaharatsiny.",
+        "setCode": "Faritana ny kaody"
     },
     "voice": {
         "title": "Toetry ny feo",

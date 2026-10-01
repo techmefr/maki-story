@@ -34,7 +34,10 @@
             "xlarge": "Lehibe be",
             "huge": "Goavana",
             "max": "Faratampony"
-        }
+        },
+        "sounds": "Feon’ny bokotra",
+        "soundsOn": "Alefaso ny feo",
+        "soundsVolume": "Haavon’ny feo"
     },
     "unlock": {
         "offerTitle": "Hampiasa ny rantsan-tanana na ny tarehy?",

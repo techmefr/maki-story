@@ -1,0 +1,20 @@
+{
+    "back": "Zurück zum Studio",
+    "title": "„{title}“ übersetzen",
+    "language": "Sprache der Übersetzung",
+    "count": "{done}/{total} Zeilen übersetzt",
+    "suggest": "Übersetzung vorschlagen",
+    "suggestionsHint": "Vorschläge zum Prüfen: Du kannst sie vor dem Speichern ändern.",
+    "line": "Zeile {n} · {name}",
+    "narrator": "Erzähler",
+    "translationIn": "Übersetzung auf {language}",
+    "tone": "Ton (optional)",
+    "tonePlaceholder": "Sanft, fröhlich…",
+    "save": "Übersetzung speichern",
+    "suggestFailed": "Der Vorschlag war nicht möglich. Du kannst von Hand übersetzen.",
+    "saved": {
+        "one": "{count} Zeile auf {language} gespeichert.",
+        "other": "{count} Zeilen auf {language} gespeichert."
+    },
+    "saveFailed": "Speichern fehlgeschlagen. Versuche es erneut."
+}

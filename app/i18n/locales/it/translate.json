@@ -1,0 +1,20 @@
+{
+    "back": "Torna allo studio",
+    "title": "Traduci «{title}»",
+    "language": "Lingua della traduzione",
+    "count": "{done}/{total} battute tradotte",
+    "suggest": "Suggerisci una traduzione",
+    "suggestionsHint": "Suggerimenti da rivedere: puoi modificarli prima di salvare.",
+    "line": "Battuta {n} · {name}",
+    "narrator": "Narratore",
+    "translationIn": "Traduzione in {language}",
+    "tone": "Tono (facoltativo)",
+    "tonePlaceholder": "Dolce, allegro…",
+    "save": "Salva la traduzione",
+    "suggestFailed": "Non è stato possibile fare il suggerimento. Puoi tradurre a mano.",
+    "saved": {
+        "one": "{count} battuta salvata in {language}.",
+        "other": "{count} battute salvate in {language}."
+    },
+    "saveFailed": "Salvataggio non riuscito. Riprova."
+}
