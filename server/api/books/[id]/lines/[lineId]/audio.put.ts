@@ -1,7 +1,8 @@
 import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
-import { assertFilesInFamily, requireFamily } from '../../../../../utils/family'
+import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
+import { assertCanRecordLine, requirePermission } from '../../../../../utils/permissions'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../utils/validate'
 
 interface IAudioBody {
@@ -11,7 +12,8 @@ interface IAudioBody {
 }
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
-    const familyId = requireFamily(event)
+    const actor = await requirePermission(event, 'lines.record')
+    const { familyId } = actor
     const bookId = requireParam(event, 'id')
     const lineId = requireParam(event, 'lineId')
     const body = await readBody<IAudioBody>(event)
@@ -26,6 +28,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     if (!line) {
         return notFound('Line not found')
     }
+    assertCanRecordLine(actor, line.memberId)
     await assertFilesInFamily(db, familyId, [body.fileId])
     if (line.memberId === null) {
         return badRequest('Cast this line before recording it')

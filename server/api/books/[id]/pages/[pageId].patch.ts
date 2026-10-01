@@ -1,10 +1,10 @@
 import { assertBookOwned, checkPageKind, checkText } from '../../../../utils/bookModel'
 import { getDb, one } from '../../../../utils/db'
-import { requireFamily } from '../../../../utils/family'
+import { requireBookEditor } from '../../../../utils/permissions'
 import { badRequest, notFound, requireParam } from '../../../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ id: string; kind: PageKind; ttsFallback: boolean; description: string }> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requireBookEditor(event)
     const bookId = requireParam(event, 'id')
     const pageId = requireParam(event, 'pageId')
     const body = await readBody<IPagePatch>(event)

@@ -1,15 +1,16 @@
 import { checkAge, checkAgeRange, checkBookType, checkLanguage, checkText } from '../../utils/bookModel'
 import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
-import { assertMembersInFamily, requireFamily } from '../../utils/family'
+import { assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
+import { requireBookEditor } from '../../utils/permissions'
 import { markLineRecordingsStale } from '../../utils/recordings'
 import { badRequest, isNonEmptyString, requireParam } from '../../utils/validate'
 
 const STATUSES: BookStatus[] = ['draft', 'to_record', 'ready']
 
 export default defineEventHandler(async (event): Promise<IBook> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requireBookEditor(event)
     const id = requireParam(event, 'id')
     const body = await readBody<IBookPatch>(event)
     if (body.status !== undefined && !STATUSES.includes(body.status)) {

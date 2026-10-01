@@ -1,12 +1,12 @@
 import { getDb } from '../../../utils/db'
-import { requireFamily } from '../../../utils/family'
 import { assertUploadLive, loadUploadSession, toUploadState } from '../../../utils/uploads'
 import { badRequest } from '../../../utils/validate'
+import { requirePermission } from '../../../utils/permissions'
 import type { IUploadState } from '../../../../shared/types/upload'
 import { UPLOAD_CHUNK_BYTES, UPLOAD_OFFSET_HEADER } from '../../../../shared/utils/upload'
 
 export default defineEventHandler(async (event): Promise<IUploadState> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requirePermission(event, 'files.upload')
     const offset = Number(getHeader(event, UPLOAD_OFFSET_HEADER))
     if (!Number.isInteger(offset) || offset < 0) {
         return badRequest('Invalid offset')

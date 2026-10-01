@@ -19,7 +19,7 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     }
     const db = getDb()
     const row = await loadCodeRow(db, session.familyId, memberId)
-    if (!row) {
+    if (!row || row.status !== 'active') {
         return notFound('Member not found')
     }
     if (body.device !== undefined) {

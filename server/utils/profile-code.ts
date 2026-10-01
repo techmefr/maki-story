@@ -15,6 +15,7 @@ interface ICodeRow {
     pinHash: string | null
     codeKind: MemberCodeKind | null
     isLocked: boolean
+    status: MemberStatus
 }
 
 const material = (kind: MemberCodeKind, value: string): string => `${kind}:${value}`
@@ -31,7 +32,7 @@ export const hashCode = (input: IMemberCodeInput): Promise<string> => hashPasswo
 
 export const loadCodeRow = async (db: Sql, familyId: string, memberId: string): Promise<ICodeRow | null> => {
     const [row] = await db<ICodeRow[]>`
-        select id, role, pin_hash, code_kind, coalesce(code_locked_until > now(), false) as is_locked
+        select id, role, status, pin_hash, code_kind, coalesce(code_locked_until > now(), false) as is_locked
         from members where id = ${memberId} and family_id = ${familyId} and deleted_at is null
     `
     return row ?? null

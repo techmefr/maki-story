@@ -1,10 +1,10 @@
 import { checkLanguage } from '../../../../../../utils/bookModel'
 import { getDb } from '../../../../../../utils/db'
-import { requireFamily } from '../../../../../../utils/family'
+import { requireBookEditor } from '../../../../../../utils/permissions'
 import { notFound, requireParam } from '../../../../../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requireBookEditor(event)
     const bookId = requireParam(event, 'id')
     const lineId = requireParam(event, 'lineId')
     const language = checkLanguage(requireParam(event, 'language'))

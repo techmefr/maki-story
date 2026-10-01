@@ -109,6 +109,23 @@ pnpm cap:sync
 - Manual test on a real device: enable the offer after a code entry, lock the app (background it for 30 seconds), reopen the profile and unlock with the fingerprint or face; refuse the prompt and check the code pad stays available; remove the device from `/family/devices` and check the next biometric attempt falls back to the code.
 - CI cannot run the native prompt: the e2e suite injects a mocked bridge (`window.__TANTARA_BIOMETRIC__`, honoured only when `NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE` is set) and covers the server endpoints directly.
 
+## Roles and permissions
+
+Every route under `server/api` resolves the active profile of the session on the server and checks it against `ROLE_PERMISSIONS` (`shared/utils/permissions.ts`). A profile that is removed, left, deceased or blocked is refused everywhere, and a session that has not entered a profile yet only has the rights of a child.
+
+| Capability | Parent | Relative | Child |
+| --- | --- | --- | --- |
+| List and read books | All books of the family | Only books with lines assigned to them | Only ready books that have recordings |
+| Create and edit books, characters, pages, panels, translations | Yes | Only their own single voice books | No |
+| Delete a book | Yes | No | No |
+| Record or erase a line | Any line | Lines assigned to them | No |
+| Upload files | Everything | Audio and images | Audio only |
+| Read a file | Every file of the family | Own uploads, own messages, files of books they can read | Own messages, files of books they can read, a received message until it is listened |
+| Messages | See and replay every message | See own, send, mark received as listened | See own, send, mark received as listened (no replay) |
+| Members | Add, edit, remove, mark a relative left, deceased or blocked | List only | List only |
+| Feedback | Send, read, delete | Send | Send |
+| AI helpers and draft validation | Yes | No | No |
+
 ## Tech stack
 
 | Area | Choice |

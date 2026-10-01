@@ -1,11 +1,11 @@
 import { getDb, one } from '../../utils/db'
-import { requireFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
-import { hashCode, readCodeInput, requireActor } from '../../utils/profile-code'
+import { requirePermission } from '../../utils/permissions'
+import { hashCode, readCodeInput } from '../../utils/profile-code'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMember> => {
-    const familyId = requireFamily(event)
+    const { familyId } = await requirePermission(event, 'members.manage')
     const body = await readBody<Partial<IMemberInput>>(event)
     if (!isNonEmptyString(body.name) || !isMemberRole(body.role) || !isVoiceColor(body.color)) {
         return badRequest('Invalid member')
@@ -13,10 +13,6 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     let code: IMemberCodeInput | null = null
     let hash: string | null = null
     if (body.code !== undefined) {
-        const actor = await requireActor(event)
-        if (actor.role !== 'parent') {
-            throw createError({ statusCode: 403, statusMessage: 'Only a parent can set a code' })
-        }
         code = readCodeInput(body.code)
         hash = await hashCode(code)
     }
