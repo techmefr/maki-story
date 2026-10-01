@@ -43,8 +43,8 @@ const startShare = (book: IBookSummary): void => {
 }
 
 const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
-const drafts = computed(() => books.value.filter(book => book.status === 'draft'))
-const listed = computed(() => books.value.filter(book => book.status !== 'draft'))
+const drafts = computed(() => books.value.filter(book => book.status === 'draft' && book.aiGenerated))
+const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated)))
 const rows = computed(() =>
     [
         { title: 'Propositions à relire', books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
