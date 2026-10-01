@@ -2,6 +2,7 @@ export type BookKind = 'multi' | 'solo'
 export type BookStatus = 'draft' | 'to_record' | 'ready'
 export type BookType = 'standard' | 'comic' | 'wordless' | 'child-written'
 export type PageKind = 'cover' | 'content' | 'empty'
+export type RecordingStatus = 'draft' | 'submitted' | 'approved' | 'changes_requested' | 'stale'
 
 export interface IBookSummary {
     id: string
@@ -53,6 +54,31 @@ export interface ILine {
     memberId: string | null
     audioFileId: string | null
     audioMs: number
+    recordingStatus: RecordingStatus | null
+}
+
+export interface ILineRecording {
+    id: string
+    lineId: string
+    memberId: string
+    language: string
+    fileId: string
+    durationMs: number
+    mime: string
+    status: RecordingStatus
+    createdAt: string
+}
+
+export interface ILineTranslation {
+    lineId: string
+    language: string
+    text: string
+    tone: string
+}
+
+export interface ITranslationBody {
+    text?: string
+    tone?: string
 }
 
 export interface IBookPage {
@@ -69,6 +95,8 @@ export interface IBook extends IBookSummary {
     pages: IBookPage[]
     characters: ICharacter[]
     lines: ILine[]
+    recordings: ILineRecording[]
+    translations: ILineTranslation[]
     tones: Record<string, string>
 }
 
@@ -121,6 +149,7 @@ export interface ILinePatch {
     id: string
     memberId?: string | null
     note?: string
+    text?: string
     tone?: string
     sceneDescription?: string
     characterId?: string | null

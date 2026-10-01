@@ -48,6 +48,7 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 - Responsive design system (hard outlines, offset shadows, Fredoka and Nunito), animated Lucide icons, page transitions, reduced motion support
 - Installable PWA (manifest, icons, service worker), Capacitor ready for iOS and Android
 - Book model: subtitle, author, age range, language and type (standard, comic, wordless, child-written), characters defined once per book (one narrator at most), pages of kind cover, content or empty, comic panels, tone and scene description per line
+- Recordings per line and language (draft, submitted, approved, changes requested, stale), line translations, and a recording turns stale when the text or tone of its line is edited
 - Soft delete everywhere: nothing is ever hard deleted
 - Simple server logs written in plain sentences, easy to read in Vercel logs
 - End to end tests that run the whole product on a phone and a desktop viewport

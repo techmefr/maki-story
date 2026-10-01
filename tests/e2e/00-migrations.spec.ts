@@ -128,6 +128,38 @@ test.describe('migrations', () => {
         expect(restored.map(line => line.character)).toEqual(['Narrateur', 'Zébu', 'zébu', ''])
     })
 
+    test('the recordings migration back-fills existing audio as french, enforces the language and reverts', async () => {
+        const upTo = migrations.findIndex(item => item.name.startsWith('0006'))
+        expect(upTo).toBeGreaterThan(0)
+        await migrateUp(db, migrations.slice(0, upTo))
+        await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`
+        await db`insert into members (id, family_id, name, role, color) values ('m1', 'fam', 'Maman', 'parent', 'sun')`
+        await db`insert into files (id, family_id, mime, data) values ('f1', 'fam', 'audio/webm', '\\x00')`
+        await db`insert into books (id, family_id, title) values ('b1', 'fam', 'Livre')`
+        await db`insert into lines (id, family_id, book_id, position, text, member_id, audio_file_id, audio_ms) values
+            ('l1', 'fam', 'b1', 0, 'Un', 'm1', 'f1', 1200),
+            ('l2', 'fam', 'b1', 1, 'Deux', 'm1', null, 0)`
+        await migrateUp(db, migrations)
+        const recordings = await db<{ lineId: string; language: string; mime: string; durationMs: number; status: string }[]>`
+            select line_id as "lineId", language, mime, duration_ms as "durationMs", status from recordings`
+        expect(recordings).toEqual([{ lineId: 'l1', language: 'fr', mime: 'audio/webm', durationMs: 1200, status: 'approved' }])
+        await expect(
+            db`insert into recordings (family_id, line_id, member_id, language, file_id, mime) values ('fam', 'l2', 'm1', null, 'f1', 'audio/webm')`,
+        ).rejects.toThrow()
+        await expect(
+            db`insert into recordings (family_id, line_id, member_id, file_id, mime) values ('fam', 'l2', 'm1', 'f1', 'audio/webm')`,
+        ).rejects.toThrow()
+        await expect(
+            db`insert into recordings (family_id, line_id, member_id, language, file_id, mime, status) values ('fam', 'l2', 'm1', 'fr', 'f1', 'audio/webm', 'bogus')`,
+        ).rejects.toThrow()
+        await db`update lines set audio_file_id = null, audio_ms = 0 where id = 'l1'`
+        while ((await migrateDown(db, migrations)) !== migrations[upTo]!.name) {
+            continue
+        }
+        const [line] = await db<{ audioFileId: string | null; audioMs: number }[]>`select audio_file_id as "audioFileId", audio_ms as "audioMs" from lines where id = 'l1'`
+        expect(line).toEqual({ audioFileId: 'f1', audioMs: 1200 })
+    })
+
     test('a fresh database gets no family', async () => {
         await migrateUp(db, migrations)
         const [row] = await db<{ count: number }[]>`select count(*)::int as count from families`

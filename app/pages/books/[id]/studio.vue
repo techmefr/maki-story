@@ -61,7 +61,7 @@
                 :style="{ background: line.id === currentLineId ? '#FFF4D9' : '#fff' }"
                 @click="currentLineId = line.id"
             >
-                <span class="dot" :style="{ background: line.audioFileId ? activeHex : '#fff' }" />
+                <span class="dot" :style="{ background: isDone(line) ? activeHex : '#fff' }" />
                 <span class="grow">{{ line.text }}</span>
             </button>
         </div>
@@ -92,6 +92,8 @@ const isPlaying = computed(() => player.isPlaying.value)
 
 const bookId = String(route.params.id)
 
+const isDone = (line: ILine): boolean => line.audioFileId !== null && line.recordingStatus !== 'stale'
+
 const castIds = computed(() => [...new Set((book.value?.lines ?? []).map(line => line.memberId).filter((id): id is string => id !== null))])
 const tabs = computed(() =>
     castIds.value
@@ -99,7 +101,7 @@ const tabs = computed(() =>
         .filter((member): member is IMember => member !== null)
         .map(member => {
             const own = (book.value?.lines ?? []).filter(line => line.memberId === member.id)
-            const done = own.filter(line => line.audioFileId).length
+            const done = own.filter(isDone).length
             return { member, hex: memberHex(member), progress: `${done}/${own.length}` }
         }),
 )
@@ -108,7 +110,7 @@ const activeHex = computed(() => memberHex(activeMember.value))
 const activeTone = computed(() => (activeMemberId.value ? (book.value?.tones[activeMemberId.value] ?? '') : ''))
 const memberLines = computed(() => (book.value?.lines ?? []).filter(line => line.memberId === activeMemberId.value))
 const currentLine = computed(() => memberLines.value.find(line => line.id === currentLineId.value) ?? null)
-const recordedCount = computed(() => (book.value?.lines ?? []).filter(line => line.audioFileId).length)
+const recordedCount = computed(() => (book.value?.lines ?? []).filter(isDone).length)
 const isComplete = computed(() => book.value !== null && recordedCount.value === book.value.lines.length)
 const progressPercent = computed(() => `${book.value ? Math.round((recordedCount.value / Math.max(1, book.value.lines.length)) * 100) : 0}%`)
 const timeLabel = computed(() => formatDuration(isRecording.value ? elapsedMs.value : (currentLine.value?.audioMs ?? 0)))
@@ -116,7 +118,7 @@ const hint = computed(() => {
     if (isRecording.value) {
         return 'Touche pour finir'
     }
-    return currentLine.value?.audioFileId ? 'Enregistré' : 'Touche le micro'
+    return currentLine.value?.recordingStatus === 'stale' ? 'À refaire (texte modifié)' : currentLine.value?.audioFileId ? 'Enregistré' : 'Touche le micro'
 })
 
 const selectMember = (memberId: string): void => {
@@ -126,7 +128,7 @@ const selectMember = (memberId: string): void => {
     player.stop()
     activeMemberId.value = memberId
     const own = (book.value?.lines ?? []).filter(line => line.memberId === memberId)
-    currentLineId.value = (own.find(line => !line.audioFileId) ?? own[0])?.id ?? null
+    currentLineId.value = (own.find(line => !isDone(line)) ?? own[0])?.id ?? null
 }
 
 const replaceLine = (updated: ILine): void => {
@@ -137,7 +139,7 @@ const replaceLine = (updated: ILine): void => {
 }
 
 const goToNextLine = (): void => {
-    const next = memberLines.value.find(line => !line.audioFileId)
+    const next = memberLines.value.find(line => !isDone(line))
     if (next) {
         currentLineId.value = next.id
     }
@@ -162,7 +164,7 @@ const toggleRecord = async (): Promise<void> => {
         }
         const fileId = await upload(recording.blob, recording.mime)
         await setLineAudio(bookId, line.id, fileId, recording.ms)
-        replaceLine({ ...line, audioFileId: fileId, audioMs: recording.ms })
+        replaceLine({ ...line, audioFileId: fileId, audioMs: recording.ms, recordingStatus: 'draft' })
         goToNextLine()
     } catch (error) {
         console.error('L enregistrement n a pas pu être sauvegardé', error)
@@ -192,7 +194,7 @@ const redo = async (): Promise<void> => {
     player.stop()
     try {
         await clearLineAudio(bookId, line.id)
-        replaceLine({ ...line, audioFileId: null, audioMs: 0 })
+        replaceLine({ ...line, audioFileId: null, audioMs: 0, recordingStatus: null })
     } catch (error) {
         console.error('L enregistrement n a pas pu être effacé', error)
     }

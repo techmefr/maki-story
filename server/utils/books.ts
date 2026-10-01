@@ -6,7 +6,8 @@ const SUMMARY_SELECT = `
     b.kind, b.solo_member_id, b.status, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
-    (select count(*)::int from lines l where l.book_id = b.id and l.audio_file_id is not null) as recorded_count,
+    (select count(*)::int from lines l join recordings r on r.line_id = l.id and r.language = b.language and r.status <> 'stale'
+        where l.book_id = b.id) as recorded_count,
     coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids
 `
 
@@ -40,9 +41,22 @@ export const loadBook = async (id: string, familyId: string): Promise<IBook> => 
     `
     const lines = await db<ILine[]>`
         select l.id, l.position, l.page_index, coalesce(c.name, l.character) as character, l.character_id, l.panel_id,
-            l.text, l.note, l.tone, l.scene_description, l.member_id, l.audio_file_id, l.audio_ms
-        from lines l left join characters c on c.id = l.character_id
+            l.text, l.note, l.tone, l.scene_description, l.member_id,
+            r.file_id as audio_file_id, coalesce(r.duration_ms, 0) as audio_ms, r.status as recording_status
+        from lines l
+        left join characters c on c.id = l.character_id
+        left join recordings r on r.line_id = l.id and r.language = ${summary.language}
         where l.book_id = ${id} and l.family_id = ${familyId} order by l.position
+    `
+    const recordings = await db<ILineRecording[]>`
+        select r.id, r.line_id, r.member_id, r.language, r.file_id, r.duration_ms, r.mime, r.status, r.created_at
+        from recordings r join lines l on l.id = r.line_id
+        where l.book_id = ${id} and r.family_id = ${familyId} order by r.created_at
+    `
+    const translations = await db<ILineTranslation[]>`
+        select t.line_id, t.language, t.text, t.tone
+        from line_translations t join lines l on l.id = t.line_id
+        where l.book_id = ${id} and t.family_id = ${familyId} order by t.language
     `
     const voices = await db<{ memberId: string; tone: string }[]>`
         select member_id, tone from book_voices where book_id = ${id} and family_id = ${familyId}
@@ -51,5 +65,5 @@ export const loadBook = async (id: string, familyId: string): Promise<IBook> => 
     voices.forEach(voice => {
         tones[voice.memberId] = voice.tone
     })
-    return { ...summary, imageDesc, pages, characters, lines, tones }
+    return { ...summary, imageDesc, pages, characters, lines, recordings, translations, tones }
 }

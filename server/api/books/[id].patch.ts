@@ -3,7 +3,8 @@ import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
 import { assertMembersInFamily, requireFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
-import { badRequest, requireParam } from '../../utils/validate'
+import { markLineRecordingsStale } from '../../utils/recordings'
+import { badRequest, isNonEmptyString, requireParam } from '../../utils/validate'
 
 const STATUSES: BookStatus[] = ['draft', 'to_record', 'ready']
 
@@ -60,17 +61,38 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         for (const patch of body.lines ?? []) {
             if (patch.memberId !== undefined) {
                 await tx`
-                    update lines set member_id = ${patch.memberId},
-                        audio_file_id = case when member_id is distinct from ${patch.memberId} then null else audio_file_id end,
-                        audio_ms = case when member_id is distinct from ${patch.memberId} then 0 else audio_ms end
-                    where id = ${patch.id} and book_id = ${id} and family_id = ${familyId}
+                    delete from recordings
+                    where line_id = ${patch.id} and family_id = ${familyId} and member_id is distinct from ${patch.memberId}
+                      and line_id in (select id from lines where book_id = ${id})
                 `
+                await tx`update lines set member_id = ${patch.memberId} where id = ${patch.id} and book_id = ${id} and family_id = ${familyId}`
+            }
+            let isEdited = false
+            if (patch.text !== undefined) {
+                if (!isNonEmptyString(patch.text)) {
+                    return badRequest('A line needs text')
+                }
+                const changed = await tx`
+                    update lines set text = ${patch.text.trim()}
+                    where id = ${patch.id} and book_id = ${id} and family_id = ${familyId} and text is distinct from ${patch.text.trim()}
+                    returning id
+                `
+                isEdited = isEdited || changed.length > 0
             }
             if (patch.note !== undefined) {
                 await tx`update lines set note = ${patch.note} where id = ${patch.id} and book_id = ${id} and family_id = ${familyId}`
             }
             if (patch.tone !== undefined) {
-                await tx`update lines set tone = ${checkText(patch.tone, 'tone')} where id = ${patch.id} and book_id = ${id} and family_id = ${familyId}`
+                const tone = checkText(patch.tone, 'tone')
+                const changed = await tx`
+                    update lines set tone = ${tone}
+                    where id = ${patch.id} and book_id = ${id} and family_id = ${familyId} and tone is distinct from ${tone}
+                    returning id
+                `
+                isEdited = isEdited || changed.length > 0
+            }
+            if (isEdited) {
+                await markLineRecordingsStale(tx, patch.id, familyId, current.language)
             }
             if (patch.sceneDescription !== undefined) {
                 await tx`
