@@ -34,11 +34,13 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 
 ## How it works
 
-1. **Scan** the pages of a paper book (photos, private to the family) and type the lines by hand.
-2. **Color the voices**: every character goes to a relative, per character or per line, with a tone per voice and a hint per sentence.
-3. **Record** in the studio from any phone, line by line, with the picture description, tone and hint in view.
-4. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end.
-5. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once).
+1. **Describe the book**: title, type (book, comic, wordless, written by the child), language (French, Malagasy, English, Spanish, Italian, German, Portuguese, Chinese, Arabic) and, optionally, subtitle, author and age range.
+2. **Scan** the pages (photos, private to the family): mark the cover, add empty pages (skipped when listening, optional synthetic voice), describe the image, add comic panels.
+3. **Define the characters once** (name, color, description, narrator) and pick who reads each voice, or keep the **one voice** mode where a single relative reads everything. Switching between the two modes never loses a line.
+4. **Type or paste the lines**: one tap picks the character and a tone chip (whispered, laughing, scared, sleepy...) or a free tone, with an optional scene description. Pasting a whole text splits it into one line per row, and `Name : line` switches character.
+5. **Record** in the studio from any phone, line by line, with the picture description, tone and hint in view.
+6. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end, and a lighter, shorter cue plus a quick transition between two comic panels. The cue respects reduced motion and the sound on/off button of the player.
+7. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once).
 
 ## Features
 

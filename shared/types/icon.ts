@@ -30,6 +30,7 @@ export type IconName =
     | 'user-plus'
     | 'users'
     | 'volume'
+    | 'mute'
     | 'close'
 
 export type IconMotion = 'none' | 'bounce' | 'wiggle' | 'pulse' | 'nudge' | 'spin' | 'float'

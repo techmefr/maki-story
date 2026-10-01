@@ -18,7 +18,7 @@
             <AppMaki :size="160" />
             <button type="button" class="btn btn--big" aria-label="Lire" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
         </div>
-        <div v-else class="reader__center stack center">
+        <div v-else class="reader__center stack center" :class="{ reader__flash: isCueFlashing }">
             <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
                 <AppAvatar :member="reader" :size="200" />
             </AppBlob>
@@ -31,6 +31,9 @@
             <div class="progress"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
             <div class="row" style="justify-content: space-between">
                 <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />Quitter</NuxtLink>
+                <button type="button" class="btn btn--small btn--white" :aria-pressed="isSoundOn" @click="toggleSound">
+                    <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? 'Son' : 'Sans son' }}
+                </button>
                 <span class="badge">Page {{ pageNumber }}/{{ pageTotal }}</span>
             </div>
         </div>
@@ -45,7 +48,8 @@ definePageMeta({ layout: 'blank' })
 const route = useRoute()
 const { get } = useBooks()
 const { getById } = useMembers()
-const { ding, unlock } = useDing()
+const { ding, unlock, panelCue, isCueFlashing } = useDing()
+const { isSoundOn, toggleSound } = useSoundSetting()
 const player = useAudioPlayer()
 
 const book = ref<IBook | null>(null)
@@ -110,7 +114,12 @@ const togglePause = async (): Promise<void> => {
 
 player.onEnded(async () => {
     if (lineIndex.value < pageLines.value.length - 1) {
+        const nextPanelId = pageLines.value[lineIndex.value + 1]?.panelId ?? null
+        const isNewPanel = nextPanelId !== null && nextPanelId !== (currentLine.value?.panelId ?? null)
         lineIndex.value += 1
+        if (isNewPanel) {
+            panelCue()
+        }
         await playLine()
         return
     }
@@ -154,6 +163,28 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.reader__flash {
+    animation: panel-flash 0.24s ease-out;
+}
+
+@keyframes panel-flash {
+    from {
+        opacity: 0.35;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reader__flash {
+        animation: none;
+    }
 }
 
 .btn--big {

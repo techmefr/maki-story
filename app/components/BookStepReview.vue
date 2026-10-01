@@ -1,68 +1,102 @@
 <template>
     <div class="stack">
-        <label class="stack" style="gap: 6px">
-            <span class="label">Titre du livre</span>
-            <input v-model="title" class="input" placeholder="Le Zébu qui voulait voler" />
-        </label>
         <div class="card stack" style="gap: 6px">
+            <div class="subtitle">{{ title }}</div>
+            <div class="muted">{{ typeLabel }} · {{ languageLabel(language) }}</div>
             <div class="row" style="justify-content: space-between">
                 <span class="subtitle">{{ pages.length }} {{ pages.length > 1 ? 'pages' : 'page' }}</span>
-                <span class="subtitle">{{ lines.length }} répliques</span>
+                <span class="subtitle">{{ isWordless ? 'Sans texte' : `${lines.length} répliques` }}</span>
             </div>
-            <div v-for="member in cast" :key="member.id" class="row">
-                <AppAvatar :member="member" :size="36" />
-                <div class="grow">
-                    <div class="label">{{ member.name }}</div>
-                    <div class="muted">{{ charactersOf(member.id) }}</div>
+            <template v-if="isSimple">
+                <div v-if="reader && !isWordless" class="row">
+                    <AppAvatar :member="reader" :size="36" />
+                    <div class="grow label">{{ reader.name }} lit tout le livre</div>
                 </div>
-                <span class="badge">{{ countOf(member.id) }}</span>
-            </div>
+            </template>
+            <template v-else-if="!isWordless">
+                <div v-for="character in usedCharacters" :key="character.key" class="row">
+                    <AppAvatar :member="getById(character.memberId)" :size="36" />
+                    <div class="grow">
+                        <div class="label">{{ character.name }}{{ character.isNarrator ? ' (narrateur)' : '' }}</div>
+                        <div class="muted">{{ getById(character.memberId)?.name ?? 'Voix à choisir' }}</div>
+                    </div>
+                    <span class="badge">{{ countOf(character.key) }}</span>
+                </div>
+            </template>
         </div>
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" :disabled="title.trim() === '' || isBusy" @click="save">
+        <div v-if="problem" class="error" role="alert">{{ problem }}</div>
+        <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
+        <button type="button" class="btn btn--block" :disabled="problem !== '' || isBusy" @click="save">
             {{ isBusy ? 'Enregistrement…' : 'Passer au studio' }}
         </button>
     </div>
 </template>
 
 <script setup lang="ts">
-const { title, pages, lines, kind, soloMemberId, imageDesc, tones, castMemberIds, reset } = useBookDraft()
+const TYPE_LABELS: Record<BookType, string> = {
+    standard: 'Livre',
+    comic: 'Bande dessinée',
+    wordless: 'Sans texte',
+    'child-written': 'Écrit par l’enfant',
+}
+
+const {
+    title,
+    language,
+    type,
+    pages,
+    lines,
+    isSimple,
+    isWordless,
+    readerId,
+    characters,
+    usedCharacters,
+    voicelessCharacters,
+    effectiveCharacterKey,
+    toNewBook,
+    memberIdsForSave,
+    reset,
+} = useBookDraft()
 const { getById } = useMembers()
 const { create, get, patch } = useBooks()
 
 const isBusy = ref(false)
 const errorMessage = ref('')
 
-const cast = computed(() =>
-    castMemberIds.value.map(id => getById(id)).filter((member): member is IMember => member !== null),
-)
+const reader = computed(() => getById(readerId.value))
+const typeLabel = computed(() => TYPE_LABELS[type.value])
+const countOf = (key: number): number => lines.value.filter(line => effectiveCharacterKey(line) === key).length
 
-const countOf = (memberId: string): number => lines.value.filter(line => line.memberId === memberId).length
-const charactersOf = (memberId: string): string => {
-    const names = lines.value.filter(line => line.memberId === memberId && line.character !== '').map(line => line.character)
-    return [...new Set(names)].join(', ')
-}
+const problem = computed(() => {
+    if (title.value.trim() === '') {
+        return 'Donne un titre au livre.'
+    }
+    if (!isWordless.value && lines.value.length === 0) {
+        return 'Ajoute au moins une réplique.'
+    }
+    if (!isSimple.value && !isWordless.value) {
+        const names = characters.value.map(character => character.name.trim().toLowerCase())
+        if (names.some(name => name === '') || new Set(names).size !== names.length) {
+            return 'Chaque personnage a besoin d’un nom différent.'
+        }
+        if (voicelessCharacters.value.length > 0) {
+            return `Choisis une voix pour : ${voicelessCharacters.value.map(character => character.name).join(', ')}.`
+        }
+    }
+    return ''
+})
 
 const save = async (): Promise<void> => {
     isBusy.value = true
     errorMessage.value = ''
     try {
-        const created = await create({
-            title: title.value,
-            kind: kind.value,
-            soloMemberId: soloMemberId.value,
-            imageDesc: imageDesc.value,
-            pageFileIds: pages.value.map(page => page.fileId),
-            lines: lines.value.map(line => ({ pageIndex: line.pageIndex, character: line.character, text: line.text })),
-        })
-        const book = await get(created.id)
-        const linePatches = book.lines.map((saved, index) => ({
-            id: saved.id,
-            memberId: lines.value[index]?.memberId ?? null,
-            note: lines.value[index]?.note ?? '',
-        }))
-        await patch(created.id, { lines: linePatches, tones: tones.value })
-        reset(kind.value, soloMemberId.value)
+        const created = await create(toNewBook())
+        if (!isSimple.value && !isWordless.value) {
+            const book = await get(created.id)
+            const memberIds = memberIdsForSave()
+            await patch(created.id, { lines: book.lines.map((saved, index) => ({ id: saved.id, memberId: memberIds[index] ?? null })) })
+        }
+        reset(isSimple.value ? 'simple' : 'casting', readerId.value)
         await navigateTo(`/books/${created.id}/studio`)
     } catch (error) {
         console.error('Le livre n a pas pu être enregistré', error)
