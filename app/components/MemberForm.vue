@@ -91,6 +91,7 @@ const preview = computed<IMember>(() => ({
     role: role.value,
     color: color.value,
     photoFileId: photoFileId.value,
+    status: member?.status ?? 'active',
 }))
 
 const onCaptured = async (blob: Blob): Promise<void> => {

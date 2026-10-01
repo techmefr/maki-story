@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { apiJson, chooseProfile, login, recordOnce, uniqueName, uploadWav } from './helpers'
+import { apiJson, chooseProfile, login, recordOnce, uniqueName, uploadWav, useProfile } from './helpers'
 import type { IApiMember } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
@@ -89,12 +89,12 @@ test.describe('voice messages', () => {
     test('keeps only the five latest messages per conversation', async ({ page }, info) => {
         const project = info.project.name
         await login(page)
-        const lova = await idOf(page, uniqueName('Lova', project))
+        const lova = await useProfile(page.request, uniqueName('Lova', project))
         const mamie = await idOf(page, uniqueName('Mamie', project))
         for (let i = 0; i < 7; i++) {
             const fileId = await uploadWav(page, 300)
             const response = await page.request.post('/api/messages', {
-                data: { fromMemberId: lova, toMemberId: mamie, fileId, mime: 'audio/wav', durationMs: 300 },
+                data: { toMemberId: mamie, fileId, mime: 'audio/wav', durationMs: 300 },
             })
             expect(response.ok()).toBeTruthy()
         }
@@ -107,9 +107,10 @@ test.describe('voice messages', () => {
         expect(pair).toHaveLength(5)
     })
 
-    test('rejects invalid messages', async ({ page }) => {
+    test('rejects invalid messages', async ({ page }, info) => {
         await login(page)
-        const response = await page.request.post('/api/messages', { data: { fromMemberId: 'a', toMemberId: 'a', fileId: 'f', mime: 'audio/wav' } })
+        await useProfile(page.request, uniqueName('Lova', info.project.name))
+        const response = await page.request.post('/api/messages', { data: { toMemberId: 'a', fileId: 'f', mime: 'audio/wav' } })
         expect(response.status()).toBe(400)
     })
 })

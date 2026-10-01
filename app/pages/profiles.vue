@@ -31,12 +31,12 @@ const { select } = useCurrentMember()
 const { logout } = useSession()
 
 const choose = async (member: IMember): Promise<void> => {
-    select(member.id)
+    await select(member.id)
     await navigateTo(member.role === 'child' ? '/kid' : '/home')
 }
 
 const leave = async (): Promise<void> => {
-    select(null)
+    await select(null)
     await logout()
 }
 </script>

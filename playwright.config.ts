@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
+process.env.E2E_RUN_ID ??= String(Date.now())
+
 const PORT = Number(process.env.E2E_PORT ?? 3200)
 const REMOTE_URL = process.env.E2E_BASE_URL
 const E2E_DATABASE_URL = process.env.E2E_DATABASE_URL ?? 'postgresql://tantara@localhost:5544/tantara_e2e'
@@ -37,8 +39,6 @@ export default defineConfig({
               timeout: 120_000,
               env: {
                   DATABASE_URL: E2E_DATABASE_URL,
-                  TEST_ACCESS_EMAIL: 'e2e@tantara.app',
-                  TEST_ACCESS_PASSWORD: 'e2e-password',
                   SESSION_SECRET: 'e2e-secret',
                   NUXT_IGNORE_LOCK: '1',
               },

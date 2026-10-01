@@ -22,6 +22,10 @@ export const isNonEmptyString = (value: unknown): value is string => {
     return typeof value === 'string' && value.trim().length > 0
 }
 
+export const normalizeEmail = (value: unknown): string => {
+    return typeof value === 'string' ? value.trim().toLowerCase() : ''
+}
+
 export const requireParam = (event: Parameters<typeof getRouterParam>[0], name: string): string => {
     const value = getRouterParam(event, name)
     return value ?? badRequest(`Missing ${name}`)

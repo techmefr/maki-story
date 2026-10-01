@@ -1,4 +1,5 @@
 import { getDb, one } from '../../utils/db'
+import { assertFilesInFamily, requireFamily } from '../../utils/family'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
 interface IMemberPatch {
@@ -9,6 +10,7 @@ interface IMemberPatch {
 }
 
 export default defineEventHandler(async (event): Promise<IMember> => {
+    const familyId = requireFamily(event)
     const id = requireParam(event, 'id')
     const body = await readBody<IMemberPatch>(event)
     if (body.name !== undefined && !isNonEmptyString(body.name)) {
@@ -22,10 +24,14 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     }
     const db = getDb()
     const [current] = await db<IMember[]>`
-        select id, name, role, color, photo_file_id from members where id = ${id} and deleted_at is null
+        select id, name, role, color, photo_file_id, status from members
+        where id = ${id} and family_id = ${familyId} and deleted_at is null
     `
     if (!current) {
         return notFound('Member not found')
+    }
+    if (typeof body.photoFileId === 'string') {
+        await assertFilesInFamily(db, familyId, [body.photoFileId])
     }
     const next = {
         name: body.name?.trim() ?? current.name,
@@ -36,7 +42,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     return one(await db<IMember[]>`
         update members
         set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}
-        where id = ${id}
-        returning id, name, role, color, photo_file_id
+        where id = ${id} and family_id = ${familyId}
+        returning id, name, role, color, photo_file_id, status
     `)
 })

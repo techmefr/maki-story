@@ -45,7 +45,7 @@ Working name **Tantara** (earlier names: Kalli, Lio). Mobile app and SaaS: paper
 - Purge of messages beyond 5: cron (Vercel Cron or Supabase pg_cron).
 
 ## Env vars (Vercel)
-`SUPABASE_URL`, `SUPABASE_KEY` (anon), `SUPABASE_SERVICE_KEY` (server only), `TEST_ACCESS_PASSWORD`.
+`SUPABASE_URL`, `SUPABASE_KEY` (anon), `SUPABASE_SERVICE_KEY` (server only), `SESSION_SECRET` (mandatory).
 Supabase: private buckets `recordings`, `photos`, `pages`; signed URLs for reads.
 Access protection for the test: shared password (Nuxt middleware).
 Later: Brevo (Supabase SMTP + SPF/DKIM), Auth, per-family RLS.
