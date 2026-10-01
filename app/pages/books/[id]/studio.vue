@@ -157,7 +157,7 @@
             :get-member-name="memberName"
             @select="jumpTo"
         />
-        <template v-if="!isRestricted">
+        <template v-if="canManage">
             <button type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
                 {{ isComplete ? 'Publier le livre' : 'Enregistre toutes les répliques pour publier' }}
@@ -208,6 +208,7 @@ const isPlaying = computed(() => player.isPlaying.value)
 const bookId = String(route.params.id)
 
 const isRestricted = computed(() => current.value?.role === 'relative')
+const canManage = computed(() => !isRestricted.value || book.value?.kind === 'solo')
 const isLanguageChosen = computed(() => language.value !== '')
 const isLocked = computed(() => isRecording.value || pending.value !== null || isBusy.value)
 
