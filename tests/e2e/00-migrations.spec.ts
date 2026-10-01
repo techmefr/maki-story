@@ -97,6 +97,37 @@ test.describe('migrations', () => {
         expect(member).toEqual({ status: 'active', pinHash: null })
     })
 
+    test('the book model migration derives characters from existing lines and reverts losslessly', async () => {
+        const upTo = migrations.findIndex(item => item.name.startsWith('0005'))
+        expect(upTo).toBeGreaterThan(0)
+        await migrateUp(db, migrations.slice(0, upTo))
+        await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`
+        await db`insert into members (id, family_id, name, role, color) values ('m1', 'fam', 'Maman', 'parent', 'sun')`
+        await db`insert into books (id, family_id, title) values ('b1', 'fam', 'Livre')`
+        await db`insert into lines (id, family_id, book_id, position, character, text, member_id) values
+            ('l1', 'fam', 'b1', 0, 'Narrateur', 'Un', 'm1'),
+            ('l2', 'fam', 'b1', 1, 'Zébu', 'Deux', null),
+            ('l3', 'fam', 'b1', 2, 'zébu', 'Trois', null),
+            ('l4', 'fam', 'b1', 3, '', 'Quatre', null)`
+        await migrateUp(db, migrations)
+        const characters = await db<{ name: string; isNarrator: boolean; color: string | null }[]>`
+            select name, is_narrator as "isNarrator", color from characters where book_id = 'b1' order by position`
+        expect(characters).toEqual([
+            { name: 'Narrateur', isNarrator: true, color: 'sun' },
+            { name: 'Zébu', isNarrator: false, color: null },
+        ])
+        const lines = await db<{ id: string; name: string | null }[]>`
+            select l.id, c.name from lines l left join characters c on c.id = l.character_id order by l.position`
+        expect(lines.map(line => line.name)).toEqual(['Narrateur', 'Zébu', 'Zébu', null])
+        const [book] = await db<{ type: string; language: string; subtitle: string }[]>`select type, language, subtitle from books where id = 'b1'`
+        expect(book).toEqual({ type: 'standard', language: 'fr', subtitle: '' })
+        while ((await migrateDown(db, migrations)) !== migrations[upTo]!.name) {
+            continue
+        }
+        const restored = await db<{ character: string; text: string }[]>`select character, text from lines order by position`
+        expect(restored.map(line => line.character)).toEqual(['Narrateur', 'Zébu', 'zébu', ''])
+    })
+
     test('a fresh database gets no family', async () => {
         await migrateUp(db, migrations)
         const [row] = await db<{ count: number }[]>`select count(*)::int as count from families`
