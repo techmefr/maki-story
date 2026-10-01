@@ -153,6 +153,12 @@ pnpm cap:sync
 
 Audio is sent in 256 KB chunks so a dropped connection never loses a take. `POST /api/uploads` (size, mime) opens a session, `PATCH /api/uploads/:id` with an `Upload-Offset` header appends a chunk (a replayed chunk is accepted, a wrong offset answers 409 with the current offset), `GET /api/uploads/:id` returns the offset to resume from, `POST /api/uploads/:id/finish` assembles a `files` row (audio mime allowlist, 16 MB cap, family scoped) and `DELETE` aborts. Unfinished sessions expire after 24 hours. On the client, `useChunkedUpload` retries with backoff and resumes from the server offset; `useFiles.upload` uses it for audio and keeps the single request for images.
 
+## Offline books
+
+A ready book can be downloaded for offline listening (button on the library, the book player and the kid library). Only the line recordings are stored, since children never see page images: audio goes to Cache Storage (`tantara-offline-audio`), book metadata and the family and library lists go to IndexedDB (`tantara-offline`), with no dependency. A download is resumable (files already stored are skipped when it restarts), shows its progress and size, and `useFiles.fetchUrl` reads the local copy first and falls back to the network. While offline, `GET /auth/me`, `/members`, `/books` and the downloaded `/books/:id` are served from IndexedDB, a banner explains the state and actions that need a connection (new book, voice message) are disabled. The `/storage` screen (family tab) lists downloads with their size, shows used space against `navigator.storage.estimate()`, deletes one or all books and requests persistent storage. Signing out or signing in clears all offline data, so nothing leaks between families sharing a device. The service worker still only caches the app shell and `/_nuxt` assets; it never stores API responses.
+
+Targets: the PWA runs on phones, tablets and desktop browsers (Chrome, Edge, Safari, Firefox), and the same build runs in Capacitor on Android and iOS. Android TV and a leanback layout are planned separately (#31) and not implemented here.
+
 ## Deployment
 
 The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push.

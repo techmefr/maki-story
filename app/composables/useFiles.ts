@@ -23,6 +23,12 @@ export const useFiles = () => {
         if (cached) {
             return cached
         }
+        const saved = await readOfflineFile(fileId).catch(() => null)
+        if (saved) {
+            const savedUrl = URL.createObjectURL(saved)
+            urlCache.set(fileId, savedUrl)
+            return savedUrl
+        }
         const response = await fetch(`${config.public.apiBase}/api/files/${fileId}`, {
             credentials: 'include',
         })

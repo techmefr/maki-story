@@ -19,6 +19,7 @@
         </NuxtLink>
         </div>
         <NuxtLink to="/family/add" class="btn btn--block"><AppIcon name="user-plus" :size="22" />Ajouter un proche</NuxtLink>
+        <NuxtLink to="/storage" class="btn btn--white btn--block"><AppIcon name="download" :size="22" />Stockage hors ligne</NuxtLink>
         <NuxtLink to="/feedback" class="btn btn--white btn--block">Avis des testeurs</NuxtLink>
     </div>
 </template>

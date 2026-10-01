@@ -7,19 +7,24 @@
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">Écouter</span>
         </NuxtLink>
-        <NuxtLink to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />Nouveau livre</NuxtLink>
+        <NuxtLink v-if="isOnline" to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />Nouveau livre</NuxtLink>
+        <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />Nouveau livre (connexion nécessaire)</button>
         <div v-if="books.length === 0 && isLoaded" class="card center stack">
             <AppMaki :size="80" />
             <p class="subtitle">Aucun livre pour l’instant</p>
             <p class="muted">Photographie les pages d’un livre papier, découpe les répliques et colorie les voix.</p>
         </div>
         <div class="grid grid--books">
-            <BookCard v-for="(book, index) in books" :key="book.id" :book="book" class="pop-in" :style="{ '--i': index }" />
+            <div v-for="(book, index) in books" :key="book.id" class="stack pop-in" :style="{ '--i': index }">
+                <BookCard :book="book" />
+                <OfflineToggle v-if="book.status === 'ready'" :book-id="book.id" />
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+const isOnline = useState<boolean>('is-online', () => true)
 const { books, load } = useBooks()
 const { currentId } = useCurrentMember()
 const { unreadCountFor, load: loadMessages } = useMessages()

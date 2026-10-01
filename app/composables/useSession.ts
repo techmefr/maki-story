@@ -12,12 +12,17 @@ export const useSession = () => {
             const result = await request<IAuthState>('/auth/me')
             isSignedIn.value = result.isSignedIn
             currentId.value = result.memberId
-            if (result.isSignedIn && result.memberId && !isProfileUnlockedInSession()) {
-                await request('/auth/profile', { method: 'POST', body: { memberId: null } })
-                currentId.value = null
-            }
         } catch (_error) {
             isSignedIn.value = false
+            return false
+        }
+        if (isSignedIn.value && currentId.value && !isProfileUnlockedInSession()) {
+            try {
+                await request('/auth/profile', { method: 'POST', body: { memberId: null } })
+                currentId.value = null
+            } catch (_error) {
+                console.warn('Le profil n a pas pu être verrouillé hors ligne')
+            }
         }
         return isSignedIn.value === true
     }
@@ -25,6 +30,7 @@ export const useSession = () => {
     const start = async (path: string, body: object): Promise<boolean> => {
         try {
             const result = await request<IAuthState>(path, { method: 'POST', body })
+            await clearOfflineData()
             nuxtApp.runWithContext(() => {
                 clearNuxtState()
                 useState<boolean | null>('session-state', () => null).value = result.isSignedIn
@@ -50,6 +56,7 @@ export const useSession = () => {
         } catch (_error) {
             console.warn('La deconnexion n a pas pu etre confirmee par le serveur')
         }
+        await clearOfflineData()
         reloadNuxtApp({ path: '/login', persistState: false, force: true })
     }
 

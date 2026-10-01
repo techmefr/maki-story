@@ -32,5 +32,7 @@ export type IconName =
     | 'volume'
     | 'mute'
     | 'close'
+    | 'download'
+    | 'cloud-off'
 
 export type IconMotion = 'none' | 'bounce' | 'wiggle' | 'pulse' | 'nudge' | 'spin' | 'float'

@@ -2,6 +2,7 @@
     <div v-if="book" class="stack narrow">
         <NuxtLink to="/home" class="muted">Retour</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
+        <OfflineToggle :book-id="book.id" />
         <div class="segs">
             <button
                 v-for="(line, index) in lines"
