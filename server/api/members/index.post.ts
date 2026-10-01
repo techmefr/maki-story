@@ -23,7 +23,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     const member = one(await getDb()<IMember[]>`
         insert into members (family_id, name, role, color, pin_hash, code_kind)
         values (${familyId}, ${body.name.trim()}, ${body.role}, ${body.color}, ${hash}, ${code?.kind ?? null})
-        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind
+        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
     `)
     logEvent(`Profil ajouté : ${member.name} (${member.role})`)
     return member

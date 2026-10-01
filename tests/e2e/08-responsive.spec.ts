@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { chooseProfile, login, uniqueName, PARENT_NAME } from './helpers'
+import { chooseProfile, openSwitcher, login, uniqueName, PARENT_NAME } from './helpers'
 
 const hasNoHorizontalScroll = async (page: Page): Promise<boolean> => {
     return page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)
@@ -47,7 +47,7 @@ test.describe('responsive layout', () => {
     test('the profile switcher opens as a sheet and closes', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.getByRole('button', { name: 'Changer de profil' }).click()
+        await openSwitcher(page)
         await expect(page.locator('.sheet')).toBeVisible()
         await page.locator('.sheet-backdrop').click({ position: { x: 5, y: 5 } })
         await expect(page.locator('.sheet')).toHaveCount(0)

@@ -5,6 +5,7 @@
             <slot />
         </div>
         <TabBar v-if="!isChild" />
+        <ProfileMenu />
         <ProfileSwitcher />
     </div>
 </template>

@@ -53,6 +53,10 @@
                 />
             </div>
         </div>
+        <div v-if="canSetLanguages" class="stack" style="gap: 6px">
+            <span class="label">Langues parlées</span>
+            <LanguagePicker v-model="spokenLanguages" label="Langues parlées" :is-disabled="isBusy" />
+        </div>
         <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
         <button type="submit" class="btn btn--block" :disabled="!canSave || isBusy">Enregistrer</button>
         <button v-if="member" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="askRemove">
@@ -79,7 +83,7 @@ const ROLE_HINTS: Record<MemberRole, string> = {
 const { member = null } = defineProps<{ member?: IMember | null }>()
 const emit = defineEmits<{ saved: [] }>()
 
-const { add, update, remove, setCode } = useMembers()
+const { add, update, updateSettings, remove, setCode } = useMembers()
 const { current } = useCurrentMember()
 const { upload } = useFiles()
 const { register } = useMemberPhotos()
@@ -97,6 +101,7 @@ const isCapturing = ref(false)
 const activeHex = computed(() => getVoiceColor(color.value).hex)
 const errorMessage = ref('')
 
+const spokenLanguages = ref<string[]>([...(member?.spokenLanguages ?? [])])
 const code = ref<IMemberCodeInput | null>(null)
 const currentCode = ref('')
 const isChangingCode = ref(false)
@@ -107,6 +112,16 @@ const canChangeCode = computed(() => {
         return false
     }
     return isSelf.value ? current.value.role !== 'child' : current.value.role === 'parent' && member.role !== 'parent'
+})
+const canSetLanguages = computed(() => {
+    if (current.value?.role !== 'parent') {
+        return false
+    }
+    return role.value === 'child' || isSelf.value
+})
+const hasLanguageChange = computed(() => {
+    const before = member?.spokenLanguages ?? []
+    return canSetLanguages.value && (spokenLanguages.value.length !== before.length || spokenLanguages.value.some(item => !before.includes(item)))
 })
 const needsCurrentCode = computed(() => isSelf.value && member?.hasCode === true)
 const isCodeReady = computed(() => {
@@ -135,6 +150,8 @@ const preview = computed<IMember>(() => ({
     status: member?.status ?? 'active',
     hasCode: member?.hasCode ?? false,
     codeKind: member?.codeKind ?? null,
+    spokenLanguages: member?.spokenLanguages ?? [],
+    appLocale: member?.appLocale ?? null,
 }))
 
 const onCaptured = async (blob: Blob): Promise<void> => {
@@ -158,6 +175,9 @@ const save = async (): Promise<void> => {
     try {
         if (member) {
             await update(member.id, { name: name.value, role: role.value, color: color.value, photoFileId: photoFileId.value })
+            if (hasLanguageChange.value) {
+                await updateSettings(member.id, { spokenLanguages: spokenLanguages.value })
+            }
             if (isChangingCode.value && code.value) {
                 await setCode(member.id, { ...code.value, currentCode: needsCurrentCode.value ? currentCode.value : undefined })
             }
@@ -165,6 +185,9 @@ const save = async (): Promise<void> => {
             const created = await add({ name: name.value, role: role.value, color: color.value, code: code.value ?? undefined })
             if (photoFileId.value) {
                 await update(created.id, { photoFileId: photoFileId.value })
+            }
+            if (hasLanguageChange.value) {
+                await updateSettings(created.id, { spokenLanguages: spokenLanguages.value })
             }
         }
         emit('saved')

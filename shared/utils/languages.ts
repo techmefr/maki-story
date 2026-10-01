@@ -1,4 +1,6 @@
 export const DEFAULT_LANGUAGE = 'fr'
+export const DEFAULT_LOCALE = DEFAULT_LANGUAGE
+export const TRANSLATED_LOCALES = ['fr']
 
 export const LANGUAGES: ILanguage[] = [
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -15,4 +17,18 @@ export const LANGUAGES: ILanguage[] = [
 export const languageLabel = (code: string): string => {
     const language = LANGUAGES.find(item => item.code === code)
     return language ? `${language.flag} ${language.label}` : code
+}
+
+export const isLanguageCode = (value: unknown): value is string => {
+    return typeof value === 'string' && LANGUAGES.some(language => language.code === value)
+}
+
+export const pickLocale = (candidates: readonly string[]): string => {
+    for (const candidate of candidates) {
+        const base = candidate.toLowerCase().split('-')[0]
+        if (isLanguageCode(base)) {
+            return base
+        }
+    }
+    return DEFAULT_LOCALE
 }

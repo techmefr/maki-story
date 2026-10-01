@@ -11,6 +11,8 @@ export interface IMember {
     status: MemberStatus
     hasCode: boolean
     codeKind: MemberCodeKind | null
+    spokenLanguages: string[]
+    appLocale: string | null
 }
 
 export interface IMemberCodeInput {
@@ -32,4 +34,10 @@ export interface IProfileProof {
 
 export interface IMemberCodeUpdate extends IMemberCodeInput {
     currentCode?: string
+}
+
+export interface IMemberSettingsInput {
+    photoFileId?: string | null
+    spokenLanguages?: string[]
+    appLocale?: string | null
 }

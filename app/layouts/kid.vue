@@ -4,6 +4,7 @@
             <AppHeader />
             <slot />
         </div>
+        <ProfileMenu />
         <ProfileSwitcher />
     </div>
 </template>

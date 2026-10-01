@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext } from '@playwright/test'
-import { addMember, chooseProfile, enterPin, enterShapes, login, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, uniqueName, useProfile } from './helpers'
+import { addMember, openSwitcher, chooseProfile, enterPin, enterShapes, login, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, uniqueName, useProfile } from './helpers'
 import type { IApiMember } from './helpers'
 
 const listMembers = async (api: APIRequestContext): Promise<IApiMember[]> => {
@@ -146,7 +146,7 @@ test.describe('profile codes', () => {
         await addMember(page, child, 'Enfant')
         await chooseProfile(page, child)
         await expect(page).toHaveURL(/\/kid/)
-        await page.getByRole('button', { name: 'Changer de profil' }).click()
+        await openSwitcher(page)
         await page.locator('.sheet button.card', { hasText: PARENT_NAME }).first().click()
         await enterPin(page, '0000')
         await expect(page.getByRole('alert')).toHaveText('Code incorrect. Essaie encore.')

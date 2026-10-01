@@ -24,7 +24,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     }
     const db = getDb()
     const [current] = await db<IMember[]>`
-        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind from members
+        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale from members
         where id = ${id} and family_id = ${familyId} and deleted_at is null
     `
     if (!current) {
@@ -43,6 +43,6 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         update members
         set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}
         where id = ${id} and family_id = ${familyId}
-        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind
+        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
     `)
 })
