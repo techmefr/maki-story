@@ -118,7 +118,7 @@ pnpm exec playwright test
 Run it against a deployed site (the suite registers its own accounts and soft deletes its test data afterwards):
 
 ```bash
-E2E_BASE_URL=https://your-app.vercel.app E2E_EMAIL=... E2E_PASSWORD=... E2E_PARENT_NAME=... \
+E2E_BASE_URL=https://your-app.vercel.app \
     pnpm exec playwright test
 ```
 
