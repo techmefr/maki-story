@@ -5,5 +5,6 @@
             <NuxtPage />
         </NuxtLayout>
         <PageCurtain />
+        <OfflineBanner />
     </div>
 </template>

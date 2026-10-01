@@ -17,6 +17,8 @@ import {
     BookPlus,
     Camera,
     Check,
+    CloudOff,
+    Download,
     Ear,
     Headphones,
     Heart,
@@ -79,6 +81,8 @@ const ICONS: Record<IconName, Component> = {
     users: Users,
     volume: Volume2,
     close: X,
+    download: Download,
+    'cloud-off': CloudOff,
 }
 
 const {

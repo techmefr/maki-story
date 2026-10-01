@@ -19,13 +19,15 @@
                 <AppIcon name="volume" :size="22" motion="pulse" />
                 Écouter son message
             </NuxtLink>
-            <NuxtLink :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />Lui envoyer un message</NuxtLink>
+            <NuxtLink v-if="isOnline" :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />Lui envoyer un message</NuxtLink>
+            <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />Connexion nécessaire pour envoyer</button>
         </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+const isOnline = useState<boolean>('is-online', () => true)
 const { children } = useMembers()
 const { currentId } = useCurrentMember()
 const { load, startPolling, stopPolling, playableFrom, lastSentTo } = useMessages()

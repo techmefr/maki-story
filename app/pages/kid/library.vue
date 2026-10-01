@@ -3,17 +3,18 @@
         <NuxtLink to="/kid" class="btn btn--round btn--white" aria-label="Retour"><AppIcon name="back" :size="26" /></NuxtLink>
         <h1 class="title">Histoires à plusieurs voix</h1>
         <div class="grid grid--books">
-        <NuxtLink
-            v-for="book in multiBooks"
-            :key="book.id"
-            :to="`/kid/listen/${book.id}`"
-            class="card card--tap stack"
-            style="color: inherit; text-decoration: none; min-height: 88px; gap: 8px"
-            :style="{ background: hexOfBook(book) }"
-        >
-            <span class="subtitle">{{ book.title }}</span>
-            <VoiceDots :member-ids="book.memberIds" />
-        </NuxtLink>
+        <div v-for="book in multiBooks" :key="book.id" class="stack" style="gap: 8px" :data-offline-card="book.title">
+            <NuxtLink
+                :to="`/kid/listen/${book.id}`"
+                class="card card--tap stack"
+                style="color: inherit; text-decoration: none; min-height: 88px; gap: 8px"
+                :style="{ background: hexOfBook(book) }"
+            >
+                <span class="subtitle">{{ book.title }}</span>
+                <VoiceDots :member-ids="book.memberIds" />
+            </NuxtLink>
+            <OfflineToggle :book-id="book.id" />
+        </div>
         </div>
         <p v-if="multiBooks.length === 0" class="muted center">Aucune histoire pour l’instant.</p>
     </div>
