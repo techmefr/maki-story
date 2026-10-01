@@ -23,7 +23,7 @@ export const isNonEmptyString = (value: unknown): value is string => {
 }
 
 export const normalizeEmail = (value: unknown): string => {
-    return typeof value === 'string' ? value.trim().toLowerCase() : ''
+    return typeof value === 'string' ? value.normalize('NFC').trim().toLowerCase() : ''
 }
 
 export const requireParam = (event: Parameters<typeof getRouterParam>[0], name: string): string => {

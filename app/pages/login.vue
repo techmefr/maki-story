@@ -6,7 +6,17 @@
         <form class="card stack" style="width: 100%; text-align: left" @submit.prevent="submit">
             <label class="stack" style="gap: 6px">
                 <span class="label">E-mail</span>
-                <input v-model="email" class="input" type="email" autocomplete="email" required />
+                <input
+                    v-model="email"
+                    class="input"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="username"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                    required
+                />
             </label>
             <label class="stack" style="gap: 6px">
                 <span class="label">Mot de passe</span>
@@ -16,6 +26,9 @@
                         class="input grow"
                         :type="isVisible ? 'text' : 'password'"
                         autocomplete="current-password"
+                        autocapitalize="off"
+                        autocorrect="off"
+                        spellcheck="false"
                         required
                     />
                     <button type="button" class="btn btn--small btn--white" @click="isVisible = !isVisible">
@@ -55,13 +68,27 @@ const SOCIAL_ERRORS: Record<string, string> = {
 }
 const errorMessage = ref(SOCIAL_ERRORS[String(route.query.error ?? '')] ?? '')
 
+const loginMessage = (result: TAuthResult): string => {
+    if (result.status === 'throttled') {
+        const unit = result.retryAfterMinutes > 1 ? 'minutes' : 'minute'
+        return `Trop d’essais, réessaie dans ${result.retryAfterMinutes} ${unit}.`
+    }
+    if (result.status === 'unreachable') {
+        return 'Impossible de joindre le serveur. Vérifie ta connexion et réessaie.'
+    }
+    if (result.status === 'error') {
+        return 'Le serveur a rencontré un problème. Réessaie dans un instant.'
+    }
+    return 'E-mail ou mot de passe incorrect.'
+}
+
 const submit = async (): Promise<void> => {
     errorMessage.value = ''
     isBusy.value = true
-    const isOk = await login(email.value, password.value)
+    const result = await login(email.value.trim(), password.value)
     isBusy.value = false
-    if (!isOk) {
-        errorMessage.value = 'E-mail ou mot de passe incorrect.'
+    if (result.status !== 'ok') {
+        errorMessage.value = loginMessage(result)
         return
     }
     await navigateTo('/profiles')

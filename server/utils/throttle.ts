@@ -10,19 +10,34 @@ const buckets = (event: H3Event, email: string): { account: string; ip: string }
     return { account: `account:${email}`, ip: `ip:${ip}` }
 }
 
-const countFailures = async (bucket: string): Promise<number> => {
-    const [row] = await getDb()<{ count: number }[]>`
-        select count(*)::int as count from login_failures
+const countFailures = async (bucket: string): Promise<{ count: number; retryAfterSeconds: number }> => {
+    const [row] = await getDb()<{ count: number; retryAfterSeconds: number | null }[]>`
+        select count(*)::int as count,
+            ceil(extract(epoch from (min(created_at) + make_interval(mins => ${WINDOW_MINUTES}) - now())))::int as retry_after_seconds
+        from login_failures
         where bucket = ${bucket} and created_at > now() - make_interval(mins => ${WINDOW_MINUTES})
     `
-    return row?.count ?? 0
+    return { count: row?.count ?? 0, retryAfterSeconds: Math.max(row?.retryAfterSeconds ?? 0, 1) }
 }
 
 export const assertNotThrottled = async (event: H3Event, email: string): Promise<void> => {
     const { account, ip } = buckets(event, email)
     const [accountCount, ipCount] = await Promise.all([countFailures(account), countFailures(ip)])
-    if (accountCount >= MAX_FAILURES_PER_ACCOUNT || ipCount >= MAX_FAILURES_PER_IP) {
-        throw createError({ statusCode: 429, statusMessage: 'Too many attempts, try again later' })
+    const waits: number[] = []
+    if (accountCount.count >= MAX_FAILURES_PER_ACCOUNT) {
+        waits.push(accountCount.retryAfterSeconds)
+    }
+    if (ipCount.count >= MAX_FAILURES_PER_IP) {
+        waits.push(ipCount.retryAfterSeconds)
+    }
+    if (waits.length > 0) {
+        const retryAfterSeconds = Math.max(...waits)
+        setResponseHeader(event, 'Retry-After', retryAfterSeconds)
+        throw createError({
+            statusCode: 429,
+            statusMessage: 'Too many attempts, try again later',
+            data: { retryAfterSeconds },
+        })
     }
 }
 
