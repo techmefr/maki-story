@@ -54,6 +54,16 @@ export const useMembers = () => {
         await load()
     }
 
+    const removeCode = async (id: string): Promise<void> => {
+        await request(`/members/${id}/code`, { method: 'DELETE' })
+        await load()
+    }
+
+    const unlockCode = async (id: string): Promise<void> => {
+        await request(`/members/${id}/code-unlock`, { method: 'POST' })
+        await load()
+    }
+
     const remove = async (id: string): Promise<void> => {
         await request(`/members/${id}`, { method: 'DELETE' })
         members.value = members.value.filter(member => member.id !== id)
@@ -64,5 +74,5 @@ export const useMembers = () => {
     const children = computed(() => members.value.filter(member => member.role === 'child'))
     const grownUps = computed(() => people.value.filter(member => member.role !== 'child'))
 
-    return { members, people, guests, children, grownUps, load, ensureLoaded, getById, add, update, updateSettings, changePhoto, setCode, remove }
+    return { members, people, guests, children, grownUps, load, ensureLoaded, getById, add, update, updateSettings, changePhoto, setCode, removeCode, unlockCode, remove }
 }

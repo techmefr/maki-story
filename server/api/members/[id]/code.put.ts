@@ -1,4 +1,6 @@
+import { writeAudit } from '../../../utils/audit'
 import { getDb } from '../../../utils/db'
+import { requirePermission } from '../../../utils/permissions'
 import { loadCodeRow, readCodeInput, requireActor, storeMemberCode, verifyMemberCode } from '../../../utils/profile-code'
 import { notFound, requireParam } from '../../../utils/validate'
 
@@ -13,13 +15,19 @@ export default defineEventHandler(async event => {
         return notFound('Member not found')
     }
     const isSelf = actor.id === target.id
-    const isParentManagingOther = actor.role === 'parent' && target.role !== 'parent'
-    if (actor.role === 'child' || !(isSelf || isParentManagingOther)) {
-        throw createError({ statusCode: 403, statusMessage: 'Not allowed to change this code' })
-    }
-    if (isSelf && target.pinHash) {
-        await verifyMemberCode(db, actor.familyId, target, body.currentCode)
+    if (isSelf) {
+        if (actor.role === 'child') {
+            throw createError({ statusCode: 403, statusMessage: 'Not allowed to change this code' })
+        }
+        if (target.pinHash) {
+            await verifyMemberCode(db, actor.familyId, target, body.currentCode)
+        }
+    } else {
+        await requirePermission(event, 'members.code.manage')
     }
     await storeMemberCode(db, actor.familyId, target.id, input)
+    if (!isSelf) {
+        await writeAudit(db, { familyId: actor.familyId, actorId: actor.id, targetId: target.id, action: 'member.code.set', details: { kind: input.kind } })
+    }
     return { ok: true }
 })

@@ -58,11 +58,19 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 
 ## Profile codes
 
-- A parent without a code creates one the first time the profile is selected. A child code (digits or shapes) is set by a parent, in the family screen.
+- A parent without a code creates one the first time the profile is selected. A parent sets, changes or removes the code (digits or shapes) of any other member, children included, and clears a lockout, from the member page in the family screen (permission `members.code.manage`). A parent cannot remove their own code. Each of these actions is written to `audit_log`.
 - The session only changes profile after a verified code. A child session can never open a parent or relative profile, nor change anyone else code.
 - Five wrong codes lock the profile for five minutes (persisted in `members`), whatever the session.
-- The client clears the active profile on a cold start and after `PROFILE_IDLE_LOCK_MS` in the background (`app/utils/profile-lock.ts`).
+- The app always opens on the profile selection screen on a cold start: the active profile is never restored from the previous run. The client also locks the profile after `PROFILE_IDLE_LOCK_MS` in the background (`app/utils/profile-lock.ts`).
 - Biometrics plug in through `useProfileUnlockers` (see `IProfileUnlocker`), see Biometric unlock below.
+
+## Parental mode
+
+- On the member page of a child, a parent defines the allowed hours per weekday (a day can be off) and a quick manual switch: disable now, or until a given time, then restore (permission `members.schedule.manage`). Changes are written to `audit_log`.
+- Outside the window the child profile shows a locked screen with no text: the maki, a picture clock showing when listening comes back, and an icon button that sends the child to the profile selection so a parent can step in with their own profile. Playback fades out and stops before the screen changes. The app checks every `NUXT_PUBLIC_ACCESS_POLL_MS` (15 s by default).
+- It is enforced on the server too: `server/middleware/auth.ts` answers `403` with `data.code = outside-hours` to every request of a child session outside the window, except `/api/auth/*`, `/api/access` and the member list. The rule lives in `shared/utils/schedule.ts` (`evaluateAccess`).
+- The timezone is the one of the parent device when the schedule is saved (`Intl`, no extra dependency). It is stored with the schedule so the server evaluates it without trusting the child device.
+- Tables `child_schedules` and `audit_log` come from migration `0013_parental_controls` (up and down, existing tables untouched).
 
 ## Social sign-in
 

@@ -29,7 +29,7 @@
         <CodeField v-if="!member" v-model="code" :can-use-shapes="role === 'child'" label="Code secret du profil" />
         <div v-else-if="canChangeCode" class="stack" style="gap: 6px">
             <button type="button" class="btn btn--white btn--small" :aria-expanded="isChangingCode" @click="toggleCodeChange">
-                {{ isChangingCode ? 'Garder le code actuel' : 'Changer le code' }}
+                {{ isChangingCode ? 'Garder le code actuel' : member?.hasCode ? 'Changer le code' : 'Définir le code' }}
             </button>
             <template v-if="isChangingCode">
                 <label v-if="needsCurrentCode" class="stack" style="gap: 6px">
@@ -111,7 +111,7 @@ const canChangeCode = computed(() => {
     if (!member || !current.value) {
         return false
     }
-    return isSelf.value ? current.value.role !== 'child' : current.value.role === 'parent' && member.role !== 'parent'
+    return isSelf.value ? current.value.role !== 'child' : current.value.role === 'parent' && !member.isGuest
 })
 const canSetLanguages = computed(() => {
     if (current.value?.role !== 'parent') {

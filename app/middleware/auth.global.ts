@@ -29,6 +29,15 @@ export default defineNuxtRouteMiddleware(async to => {
     if (isChild.value && !isAllowedForChild) {
         return navigateTo('/kid')
     }
+    if (isChild.value) {
+        const { isAllowed } = await useAccess().refresh()
+        if (!isAllowed && to.path !== '/kid/locked') {
+            return navigateTo('/kid/locked')
+        }
+        if (isAllowed && to.path === '/kid/locked') {
+            return navigateTo('/kid')
+        }
+    }
     if (to.path === '/') {
         return navigateTo(isChild.value ? '/kid' : '/home')
     }
