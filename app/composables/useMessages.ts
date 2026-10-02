@@ -43,22 +43,33 @@ export const useMessages = () => {
     }
 
     const markListened = async (id: string): Promise<void> => {
-        await request(`/messages/${id}/listen`, { method: 'POST' })
+        const result = await request<{ ok: boolean; expiresAt: string | null }>(`/messages/${id}/listen`, { method: 'POST' })
         const now = new Date().toISOString()
-        messages.value = messages.value.map(message => (message.id === id ? { ...message, listenedAt: now } : message))
+        messages.value = messages.value.map(message =>
+            message.id === id && !message.firstListenedAt
+                ? { ...message, listenedAt: now, firstListenedAt: now, expiresAt: result.expiresAt }
+                : message,
+        )
     }
+
+    const remove = async (id: string): Promise<void> => {
+        await request(`/messages/${id}`, { method: 'DELETE' })
+        messages.value = messages.value.filter(message => message.id !== id)
+    }
+
+    const isLive = (message: IMessage): boolean => message.expiresAt === null || new Date(message.expiresAt).getTime() > Date.now()
 
     const between = (a: string, b: string): IMessage[] => {
         return messages.value.filter(
             message =>
-                (message.fromMemberId === a && message.toMemberId === b) ||
-                (message.fromMemberId === b && message.toMemberId === a),
+                isLive(message) &&
+                ((message.fromMemberId === a && message.toMemberId === b) || (message.fromMemberId === b && message.toMemberId === a)),
         )
     }
 
     const queueFrom = (senderId: string, receiverId: string): IMessage[] => {
         return messages.value
-            .filter(message => message.fromMemberId === senderId && message.toMemberId === receiverId && !message.listenedAt)
+            .filter(message => message.fromMemberId === senderId && message.toMemberId === receiverId && isLive(message))
             .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
     }
 
@@ -66,14 +77,18 @@ export const useMessages = () => {
         return queueFrom(senderId, receiverId)[0] ?? null
     }
 
-    const unreadFrom = (senderId: string, receiverId: string): number => queueFrom(senderId, receiverId).length
-
-    const lastSentTo = (senderId: string, receiverId: string): IMessage | null => {
-        return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId) ?? null
+    const unreadFrom = (senderId: string, receiverId: string): number => {
+        return queueFrom(senderId, receiverId).filter(message => !message.firstListenedAt).length
     }
 
+    const lastSentTo = (senderId: string, receiverId: string): IMessage | null => {
+        return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId && isLive(message)) ?? null
+    }
+
+    const hasActiveTo = (senderId: string, receiverId: string): boolean => lastSentTo(senderId, receiverId) !== null
+
     const unreadCountFor = (receiverId: string): number => {
-        return messages.value.filter(message => message.toMemberId === receiverId && !message.listenedAt).length
+        return messages.value.filter(message => message.toMemberId === receiverId && !message.firstListenedAt && isLive(message)).length
     }
 
     return {
@@ -88,6 +103,8 @@ export const useMessages = () => {
         playableFrom,
         unreadFrom,
         lastSentTo,
+        hasActiveTo,
+        remove,
         unreadCountFor,
     }
 }

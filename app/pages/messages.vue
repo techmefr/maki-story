@@ -13,15 +13,11 @@
                     <div class="muted">{{ child.statusLabel }}</div>
                 </div>
             </div>
-            <NuxtLink
-                v-if="child.incoming"
-                :to="`/message/listen/${child.incoming.id}`"
-                class="btn btn--mint btn--block"
-            >
-                <AppIcon name="volume" :size="22" motion="pulse" />
-                {{ t('kid.listenHer') }}
-            </NuxtLink>
-            <NuxtLink v-if="isOnline" :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</NuxtLink>
+            <template v-if="isOnline && child.isBlocked">
+                <button type="button" class="btn btn--block" disabled aria-describedby="blocked-reason"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</button>
+                <p id="blocked-reason" class="muted" role="status">{{ t('messages.activeBlocked', { name: child.member.name }) }}</p>
+            </template>
+            <NuxtLink v-else-if="isOnline" :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</NuxtLink>
             <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</button>
         </div>
         </div>
@@ -33,20 +29,13 @@ const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { children } = useMembers()
 const { currentId } = useCurrentMember()
-const { load, startPolling, stopPolling, playableFrom, lastSentTo } = useMessages()
+const { load, startPolling, stopPolling, lastSentTo } = useMessages()
 
 const threads = computed(() =>
     children.value.map(member => {
         const sent = currentId.value ? lastSentTo(currentId.value, member.id) : null
-        const incoming = currentId.value ? playableFrom(member.id, currentId.value) : null
-        const statusLabel = incoming
-            ? t('messages.status.waiting')
-            : sent
-              ? sent.listenedAt
-                  ? t('messages.status.heard')
-                  : t('messages.status.sent')
-              : t('messages.status.none')
-        return { member, incoming, statusLabel }
+        const statusLabel = sent ? (sent.firstListenedAt ? t('messages.status.heard') : t('messages.status.sent')) : t('messages.status.none')
+        return { member, isBlocked: sent !== null, statusLabel }
     }),
 )
 

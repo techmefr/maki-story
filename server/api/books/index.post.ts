@@ -1,4 +1,4 @@
-import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkName, checkPageKind, checkText, isNarratorName } from '../../utils/bookModel'
+import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages, isNarratorName } from '../../utils/bookModel'
 import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
@@ -43,7 +43,10 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const ageMin = checkAge(body.ageMin)
     const ageMax = checkAge(body.ageMax)
     checkAgeRange(ageMin, ageMax)
-    const language = body.language === undefined ? 'fr' : checkLanguage(body.language)
+    const language = checkLanguage(body.writtenLanguage ?? body.language ?? 'fr')
+    const voiceLanguages = body.voiceLanguages === undefined ? [language] : checkVoiceLanguages(body.voiceLanguages)
+    const moods = body.moods === undefined ? [] : checkMoods(body.moods)
+    const themes = body.themes === undefined ? [] : checkThemes(body.themes)
     const subtitle = checkText(body.subtitle, 'subtitle')
     const author = checkText(body.author, 'author')
     const illustrator = checkText(body.illustrator, 'illustrator')
@@ -92,8 +95,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     await assertMembersInFamily(db, familyId, soloMemberId ? [soloMemberId] : [])
     const created = await db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
-            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, type, tts_fallback, kind, solo_member_id, status, image_desc)
-            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${type},
+            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc)
+            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${language}, ${voiceLanguages}, ${moods}, ${themes}, ${type},
                 ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, 'to_record', ${body.imageDesc ?? ''})
             returning id
         `)

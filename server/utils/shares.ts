@@ -71,8 +71,8 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
         return notFound('Book not found')
     }
     const created = one(await tx<{ id: string }[]>`
-        insert into books (family_id, title, subtitle, author, age_min, age_max, language, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
-        select ${targetFamilyId}, title, subtitle, author, age_min, age_max, language, type, tts_fallback, image_desc, 'multi', 'to_record',
+        insert into books (family_id, title, subtitle, author, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
+        select ${targetFamilyId}, title, subtitle, author, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, 'multi', 'to_record',
             coalesce(origin_book_id, id), coalesce(origin_family_id, family_id)
         from books where id = ${bookId} and family_id = ${ownerFamilyId}
         returning id

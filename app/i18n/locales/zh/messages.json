@@ -27,7 +27,8 @@
         "play": "收听",
         "alreadyHeard": "这条消息已经听过了",
         "next": "下一条消息",
-        "nextWaiting": "下一条消息（{count} 条等待中）"
+        "nextWaiting": "下一条消息（{count} 条等待中）",
+        "again": "再听一次"
     },
     "strip": {
         "label": "家人的消息",
@@ -35,5 +36,6 @@
             "other": "{name}：{count} 条消息待收听"
         }
     },
-    "noOneTitle": "没有可以发消息的人"
+    "noOneTitle": "没有可以发消息的人",
+    "activeBlocked": "{name} 已经有一条待听的留言。等它被听过并过期后，你才能再发一条。"
 }

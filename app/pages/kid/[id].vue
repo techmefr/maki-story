@@ -7,11 +7,6 @@
             <AppIcon name="volume" :size="32" motion="pulse" />
             {{ t('kid.listenHer') }}
         </NuxtLink>
-        <NuxtLink :to="`/message/${member.id}`" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem">
-            <AppIcon name="mic" :size="32" motion="wiggle" />
-            {{ t('kid.sendMessage') }}
-        </NuxtLink>
-        <span v-if="sentLabel" class="badge">{{ sentLabel }}</span>
         <div class="stack" style="width: 100%; text-align: start">
             <NuxtLink
                 v-for="book in soloBooks"
@@ -37,18 +32,11 @@ const route = useRoute()
 const { getById } = useMembers()
 const { currentId } = useCurrentMember()
 const { readyBooks, load: loadBooks } = useBooks()
-const { load, startPolling, stopPolling, playableFrom, lastSentTo } = useMessages()
+const { load, startPolling, stopPolling, playableFrom } = useMessages()
 
 const member = computed(() => getById(String(route.params.id)))
 const soloBooks = computed(() => readyBooks.value.filter(book => book.kind === 'solo' && book.soloMemberId === member.value?.id))
 const incoming = computed(() => (currentId.value && member.value ? playableFrom(member.value.id, currentId.value) : null))
-const sentLabel = computed(() => {
-    const sent = currentId.value && member.value ? lastSentTo(currentId.value, member.value.id) : null
-    if (!sent) {
-        return ''
-    }
-    return sent.listenedAt ? t('messages.status.heard') : t('messages.status.sent')
-})
 
 const hexOfBook = (book: IBookSummary): string => pickVoiceByText(book.id).hex
 

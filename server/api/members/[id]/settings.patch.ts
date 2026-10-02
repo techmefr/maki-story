@@ -1,6 +1,7 @@
 import { isLanguageCode } from '../../../../shared/utils/languages'
 import { getDb, one } from '../../../utils/db'
 import { assertFilesInFamily } from '../../../utils/family'
+import { memberExtras } from '../../../utils/members'
 import { requireSettingsScope } from '../../../utils/settings'
 import { badRequest, requireParam } from '../../../utils/validate'
 
@@ -27,7 +28,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         await assertFilesInFamily(db, scope.actor.familyId, [body.photoFileId])
     }
     const current = one(await db<IMember[]>`
-        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
+        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, ${memberExtras(db, scope.actor.role, scope.actor.id)}
         from members where id = ${scope.targetId} and family_id = ${scope.actor.familyId}
     `)
     const spokenLanguages = body.spokenLanguages ? [...new Set(body.spokenLanguages)] : current.spokenLanguages
@@ -37,6 +38,6 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         update members
         set photo_file_id = ${photoFileId}, spoken_languages = ${spokenLanguages}, app_locale = ${appLocale}
         where id = ${scope.targetId} and family_id = ${scope.actor.familyId}
-        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
+        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, ${memberExtras(db, scope.actor.role, scope.actor.id)}
     `)
 })
