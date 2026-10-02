@@ -1,7 +1,9 @@
 <template>
     <div class="stack">
+        <StatusStrip />
         <h1 class="title">{{ t('home.title') }}</h1>
         <GrimaceNudge />
+        <BirthDateNudge />
         <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
             <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
@@ -11,17 +13,19 @@
             <AppIcon name="party" :size="28" motion="wiggle" />
             <span class="grow">{{ t('home.birthdayMissing', { name: child.name }) }}</span>
         </NuxtLink>
-        <NuxtLink v-if="isOnline" to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</NuxtLink>
-        <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</button>
-        <NuxtLink v-if="isOnline && isParent" to="/books/ai" class="btn btn--white btn--block" data-testid="ai-create">
+        <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
+        <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
+        <AppButton variant="secondary" is-block v-if="isOnline && isParent" to="/books/ai" data-testid="ai-create">
             <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
-        </NuxtLink>
+        </AppButton>
         <BookFilters @change="reload" />
         <AppEmpty
-            v-if="listed.length === 0 && drafts.length === 0 && isLoaded"
+            kind="library"
+            v-if="listed.length === 0 && drafts.length === 0 && proposals.length === 0 && isLoaded"
             :title="hasFilter ? t('home.noMatch') : t('home.empty')"
             :hint="hasFilter ? t('home.noMatchHint') : t('home.emptyHint')"
         />
+        <ProposalRow v-if="isParent && proposals.length > 0" :books="proposals" @open="sheetBook = $event" @changed="reload(activeQuery)" />
         <AiDraftRow v-if="isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
@@ -50,9 +54,11 @@ const startShare = (book: IBookSummary): void => {
 
 const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
 const drafts = computed(() => books.value.filter(book => book.status === 'draft' && book.aiGenerated))
-const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated)))
+const proposals = computed(() => books.value.filter(book => book.status === 'proposed'))
+const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated) && book.status !== 'proposed'))
 const rows = computed(() =>
     [
+        { title: t('library.rows.myProposals'), books: isParent.value ? [] : proposals.value, hasDownload: false },
         { title: t('home.rows.review'), books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
         {
             title: t('home.rows.recording'),

@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Family activity",
+        "trash": "Trash",
+        "data": "Family data"
+    },
+    "trash": {
+        "title": "Trash",
+        "intro": "Deleted items can be restored for {days} days, then they are gone for good.",
+        "empty": "The trash is empty",
+        "emptyHint": "Deleted books, voices, profiles and memories will appear here.",
+        "until": "Can be restored until {date}",
+        "restore": "Restore",
+        "restoreLabel": "Restore {label}",
+        "conflict": "Cannot restore: the item conflicts with another one (full box or message already active).",
+        "error": "The trash is not available right now.",
+        "messageLabel": "Message from {from} to {to}",
+        "recordingsCount": "{count} voice recordings",
+        "types": {
+            "book": "Book",
+            "member": "Profile",
+            "message": "Voice message",
+            "treasure": "Treasure box memory",
+            "recordings": "A relative’s voice"
+        }
+    },
+    "activity": {
+        "title": "Family activity",
+        "intro": "The log of important actions, kept for {months} months.",
+        "empty": "No activity yet",
+        "emptyHint": "The family’s actions will show up here.",
+        "by": "by {name}",
+        "system": "automatic",
+        "more": "Show more",
+        "error": "The activity is not available right now.",
+        "outcome": {
+            "denied": "Denied",
+            "failure": "Failed"
+        },
+        "actions": {
+            "book": {
+                "created": "Book created",
+                "proposed": "Book proposed",
+                "updated": "Book updated",
+                "deleted": "Book deleted",
+                "purged": "Book permanently erased",
+                "restored": "Book restored",
+                "proposal": {
+                    "approve": "Proposal accepted",
+                    "decline": "Proposal declined"
+                }
+            },
+            "recording": {
+                "saved": "Voice recorded",
+                "deleted": "Voice erased"
+            },
+            "recordings": {
+                "restored": "Voices restored"
+            },
+            "review": {
+                "line": {
+                    "approve": "Line approved",
+                    "request_changes": "Line sent back"
+                }
+            },
+            "share": {
+                "created": "Share created",
+                "accepted": "Share accepted",
+                "declined": "Share declined",
+                "approved": "Share approved",
+                "stopped": "Share stopped",
+                "voice": {
+                    "recorded": "Voice received from another family"
+                }
+            },
+            "message": {
+                "sent": "Message sent",
+                "listened": "Message listened to",
+                "deleted": "Message deleted",
+                "purged": "Message expired and erased",
+                "restored": "Message restored"
+            },
+            "treasure": {
+                "restored": "Memory restored"
+            },
+            "member": {
+                "created": "Profile added",
+                "updated": "Profile updated",
+                "purged": "Profile permanently erased",
+                "restored": "Profile restored",
+                "voice": {
+                    "deleted": "A relative’s voice deleted",
+                    "exported": "A relative’s voice exported"
+                },
+                "access": {
+                    "block": "A child’s access changed"
+                },
+                "schedule": {
+                    "updated": "A child’s schedule changed"
+                }
+            },
+            "family": {
+                "exported": "Family data exported"
+            },
+            "ai": {
+                "job": {
+                    "started": "AI request"
+                },
+                "moderation": {
+                    "blocked": "AI content blocked by the child filter"
+                },
+                "budget": {
+                    "updated": "AI budget changed"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Family data",
+        "intro": "You decide what happens to your family’s data: export it or erase everything.",
+        "export": {
+            "title": "Export all data",
+            "hint": "A ZIP file with the books, voices, messages and treasure box, without any code.",
+            "button": "Download the export"
+        },
+        "delete": {
+            "title": "Delete the whole family",
+            "warning": "Irreversible: books, voices, messages, shares and profiles are erased for good, with no way back.",
+            "start": "I want to delete everything",
+            "nameLabel": "Type the family name to confirm",
+            "codeLabel": "Enter your parent code",
+            "wrongCode": "Wrong code or too many attempts. Try again later.",
+            "wrongName": "The family name does not match.",
+            "failed": "The deletion failed, nothing was erased. Try again later."
+        }
+    },
+    "voice": {
+        "title": "This relative’s voice",
+        "hint": "You can export their recordings then delete them. They stay recoverable in the trash for a while.",
+        "export": "Export their voice",
+        "delete": "Delete their voice",
+        "confirm": "Their recordings will disappear from the books. Confirm?",
+        "confirmAction": "Yes, delete",
+        "deleted": "{count} recordings deleted (recoverable from the trash).",
+        "error": "This voice cannot be deleted right now."
+    }
+}

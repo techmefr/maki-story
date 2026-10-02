@@ -20,6 +20,9 @@ export const assertFileReadable = async (actor: IActor, fileId: string): Promise
                     and (m.from_member_id = $3 or m.to_member_id = $3)
             )
             or exists (
+                select 1 from treasures t where t.file_id = $1 and t.family_id = $2 and t.deleted_at is null and t.child_id = $3
+            )
+            or exists (
                 select 1 from ${isChild ? 'child_recordings' : 'recordings'} r join lines l on l.id = r.line_id join books b on b.id = l.book_id
                 where r.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
             )

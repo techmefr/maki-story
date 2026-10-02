@@ -110,5 +110,6 @@ export const useMessages = () => {
         hasActiveTo,
         remove,
         unreadCountFor,
+        isLive,
     }
 }

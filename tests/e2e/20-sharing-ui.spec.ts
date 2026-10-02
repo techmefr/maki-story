@@ -66,7 +66,7 @@ test.describe('sharing, notifications and voice status screens', () => {
         const dialog = page.getByRole('dialog')
         await dialog.getByLabel('Code de la famille').fill(await inviteCode(target.parent))
         await dialog.getByLabel('Enregistrer ma voix pour ce livre').check()
-        await expect(dialog.getByLabel(/Bonjour/)).toBeChecked()
+        await expect(dialog.getByRole('checkbox', { name: /Bonjour/ })).toBeChecked()
         await dialog.getByRole('button', { name: 'Envoyer' }).click()
         await expect(dialog.getByText(/Envoyé à la famille/)).toBeVisible()
         const incoming = (await (await target.parent.get('/api/shares')).json()) as { incoming: { bookTitle: string; lineCount: number }[] }

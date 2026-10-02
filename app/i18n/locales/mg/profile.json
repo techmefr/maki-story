@@ -37,7 +37,8 @@
         },
         "sounds": "Feon’ny bokotra",
         "soundsOn": "Alefaso ny feo",
-        "soundsVolume": "Haavon’ny feo"
+        "soundsVolume": "Haavon’ny feo",
+        "learningFont": "Endri-tsoratra mora vakiana"
     },
     "unlock": {
         "offerTitle": "Hampiasa ny rantsan-tanana na ny tarehy?",

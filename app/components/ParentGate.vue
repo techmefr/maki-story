@@ -22,7 +22,7 @@
                 <PinPad :key="attempt" :is-disabled="isBusy" :min-length="PIN_LEGACY_MIN_LENGTH" @submit="onCode" />
             </template>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <button type="button" class="btn btn--white btn--small" @click="emit('cancel')">{{ t('common.cancel') }}</button>
+            <AppButton variant="secondary" size="sm" @click="emit('cancel')">{{ t('common.cancel') }}</AppButton>
         </div>
     </div>
 </template>

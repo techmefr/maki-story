@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Proposte dei parenti",
+        "myProposals": "Le mie proposte in attesa"
+    },
+    "proposals": {
+        "proposedBy": "Proposto da {name}",
+        "approve": "Accetta",
+        "decline": "Rifiuta",
+        "approveLabel": "Accetta {title}",
+        "declineLabel": "Rifiuta {title}",
+        "error": "Impossibile elaborare questa proposta al momento."
+    },
+    "proposal": {
+        "toggle": "Proponi questo libro alla famiglia",
+        "hint": "Un genitore lo accetta o lo rifiuta prima di registrare."
+    },
+    "filters": {
+        "more": "Altri filtri",
+        "type": "Tipo di libro",
+        "mood": "Atmosfera",
+        "theme": "Tema",
+        "types": {
+            "standard": "Libro",
+            "comic": "Fumetto",
+            "wordless": "Senza testo",
+            "child-written": "Scritto dal bambino"
+        },
+        "moods": {
+            "calm": "Calmo",
+            "funny": "Divertente",
+            "adventure": "Avventura",
+            "tender": "Tenero",
+            "bedtime": "Della buonanotte",
+            "curious": "Curioso",
+            "musical": "Musicale",
+            "brave": "Coraggioso"
+        },
+        "themes": {
+            "animals": "Animali",
+            "family": "Famiglia",
+            "friendship": "Amicizia",
+            "nature": "Natura",
+            "school": "Scuola",
+            "feelings": "Emozioni",
+            "travel": "Viaggi",
+            "food": "Cibo",
+            "seasons": "Stagioni",
+            "legends": "Leggende",
+            "numbers-letters": "Numeri e lettere",
+            "daily-life": "Vita quotidiana"
+        }
+    },
+    "childVisible": {
+        "title": "Visibilità per il bambino",
+        "auto": "In base all’età",
+        "show": "Sempre visibile",
+        "hide": "Nascosto",
+        "hint": "Di default, il bambino vede solo i libri della sua età.",
+        "error": "Impossibile cambiare la visibilità al momento."
+    },
+    "ageShift": {
+        "title": "Scarto della fascia d’età",
+        "hint": "Mostra a questo bambino libri più piccoli (−) o più grandi (+) della sua età, in anni.",
+        "error": "Impossibile modificare lo scarto al momento."
+    },
+    "birthNudge": {
+        "title": "Aggiungi la data di nascita",
+        "hint": "Senza data di nascita ({names}), al bambino vengono mostrati tutti i libri.",
+        "action": "Completa"
+    },
+    "shareLanguage": {
+        "label": "Lingua della tua registrazione",
+        "choose": "Scegli una lingua",
+        "required": "Scegli la lingua prima di registrare."
+    },
+    "notify": {
+        "recordingRequest": "Ti chiedono di registrare la tua voce per «{title}» ({count})",
+        "bookProposed": "{name} propone il libro «{title}»",
+        "proposalApproved": "La tua proposta «{title}» è stata accettata",
+        "proposalDeclined": "La tua proposta «{title}» è stata rifiutata"
+    }
+}

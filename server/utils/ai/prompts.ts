@@ -55,3 +55,13 @@ export const pageImagePrompt = (draft: IAiBookDraft, pageIndex: number): string 
     const lines = draft.lines.filter(line => line.pageIndex === pageIndex).map(line => `${line.character}: ${line.text}`).join(' ')
     return `${characterSheet(draft)} Scene for page ${pageIndex + 1}: ${page?.imageDescription ?? ''} Story text of the page (for context, do not write any text in the image): ${lines} No text, no letters in the image. Child-friendly, square format.`
 }
+
+export const moderationSystem = (): string => `You are a strict child-safety moderator for a read-aloud app used by children aged 0 to 8 and their parents.
+TASK:moderation
+Block anything with violence, gore, scary or frightening scenes, sexual or suggestive content, nudity, drugs, alcohol, weapons, hate, self-harm, cruelty, or any theme unsuitable for a child aged 0 to 8. Gentle conflict that resolves kindly is allowed.
+${SAFETY}
+JSON shape: { "verdict": "PASS" or "BLOCK", "categories": [string] } where categories lists short labels such as violence, fear, sexual, inappropriate, hate, self_harm, other (empty when PASS).`
+
+export const moderationTextUser = (text: string): string => `<data>\n${text}\n</data>`
+
+export const moderationImageUser = (prompt: string): string => `Check the attached illustration. Its generation prompt, for context only:\n<data>${prompt}</data>`

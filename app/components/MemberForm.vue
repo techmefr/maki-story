@@ -40,9 +40,9 @@
         </div>
         <CodeField v-if="!member && needsCode" v-model="code" :role="role" :label="t('member.form.codeLabel')" />
         <div v-else-if="member && canChangeCode && needsCode" class="stack" style="gap: 6px">
-            <button type="button" class="btn btn--white btn--small" :aria-expanded="isChangingCode" @click="toggleCodeChange">
+            <AppButton variant="secondary" size="sm" :aria-expanded="isChangingCode" @click="toggleCodeChange">
                 {{ isChangingCode ? t('member.form.keepCode') : member?.hasCode ? t('member.form.changeCode') : t('member.form.setCode') }}
-            </button>
+            </AppButton>
             <template v-if="isChangingCode">
                 <label v-if="needsCurrentCode" class="stack" style="gap: 6px">
                     <span class="label">{{ t('member.form.currentCode') }}</span>
@@ -71,16 +71,16 @@
             <LanguagePicker v-model="spokenLanguages" :label="t('member.form.spokenLanguages')" :is-disabled="isBusy" />
         </div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="submit" class="btn btn--block" :disabled="!canSave || isBusy">{{ t('common.save') }}</button>
-        <button v-if="member" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="askRemove">
+        <AppButton is-block type="submit" :disabled="!canSave || isBusy">{{ t('common.save') }}</AppButton>
+        <AppButton variant="secondary" is-block v-if="member" :disabled="isBusy" @click="askRemove">
             {{ t('member.form.remove') }}
-        </button>
+        </AppButton>
         <div v-if="isCapturing" class="sheet-backdrop" @click.self="isCapturing = false">
             <div v-sheet="() => (isCapturing = false)" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="capture-title">
                 <h2 id="capture-title" class="subtitle">{{ t('member.form.captureTitle') }}</h2>
                 <p class="muted">{{ t('member.form.captureHint') }}</p>
                 <PhotoCapture :frame-color="activeHex" @captured="onCaptured" />
-                <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">{{ t('common.cancel') }}</button>
+                <AppButton variant="secondary" size="sm" @click="isCapturing = false">{{ t('common.cancel') }}</AppButton>
             </div>
         </div>
     </form>

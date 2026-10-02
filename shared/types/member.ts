@@ -28,6 +28,7 @@ export interface IMember {
     ageYears?: number | null
     birthdayInDays?: number | null
     birthdayCelebratedYear?: number | null
+    ageShift?: number
 }
 
 export interface IMemberCodeInput {

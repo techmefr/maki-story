@@ -4,6 +4,14 @@
         <template v-if="book">
             <h1 class="title">{{ book.title }}</h1>
             <p class="muted">{{ t('sharing.detail.help') }}</p>
+            <label class="stack" style="gap: 6px">
+                <span class="label">{{ t('library.shareLanguage.label') }}</span>
+                <select v-model="recordingLanguage" class="input" data-testid="share-language" :disabled="isRecording" @change="load">
+                    <option value="">{{ t('library.shareLanguage.choose') }}</option>
+                    <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
+                </select>
+                <span v-if="!recordingLanguage" class="muted">{{ t('library.shareLanguage.required') }}</span>
+            </label>
             <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="t('sharing.detail.lineAria', { name: line.character || t('sharing.detail.narratorLower') })">
                 <div class="row">
                     <span class="badge">{{ line.character || t('sharing.detail.narrator') }}</span>
@@ -13,17 +21,17 @@
                 <p v-if="line.tone || line.note || line.sceneDescription" class="muted">{{ hint(line) }}</p>
                 <template v-if="activeId === line.id">
                     <div class="row row--wrap">
-                        <button v-if="isRecording" type="button" class="btn btn--coral btn--small" @click="stopRecording">{{ t('messages.compose.stop') }}</button>
+                        <AppButton variant="destructive" size="sm" v-if="isRecording" @click="stopRecording">{{ t('messages.compose.stop') }}</AppButton>
                         <template v-else-if="take">
-                            <button type="button" class="btn btn--white btn--small" @click="listen">{{ t('sharing.detail.listenAgain') }}</button>
-                            <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="send(line)">{{ t('common.send') }}</button>
-                            <button type="button" class="btn btn--white btn--small" @click="discard">{{ t('common.cancel') }}</button>
+                            <AppButton variant="secondary" size="sm" @click="listen">{{ t('sharing.detail.listenAgain') }}</AppButton>
+                            <AppButton variant="secondary" tone="mint" size="sm" :disabled="isBusy" @click="send(line)">{{ t('common.send') }}</AppButton>
+                            <AppButton variant="secondary" size="sm" @click="discard">{{ t('common.cancel') }}</AppButton>
                         </template>
                     </div>
                 </template>
-                <button v-else type="button" class="btn btn--small" :disabled="isRecording" @click="startRecording(line)">
+                <AppButton size="sm" v-else :disabled="isRecording || !recordingLanguage" @click="startRecording(line)">
                     {{ line.hasRecording ? t('sharing.detail.redo') : t('sharing.detail.record') }}
-                </button>
+                </AppButton>
             </article>
         </template>
         <p v-else-if="!errorMessage" class="muted">{{ t('common.loading') }}</p>
@@ -45,12 +53,13 @@ const activeId = ref<string | null>(null)
 const take = ref<IRecording | null>(null)
 const isBusy = ref(false)
 const errorMessage = ref('')
+const recordingLanguage = ref('')
 
 const hint = (line: IShareLine): string => [line.tone, line.note, line.sceneDescription].filter(part => part !== '').join(' · ')
 
 const load = async (): Promise<void> => {
     try {
-        book.value = await getBook(shareId)
+        book.value = await getBook(shareId, recordingLanguage.value || undefined)
     } catch (_error) {
         errorMessage.value = t('sharing.detail.unavailable')
     }
@@ -89,7 +98,7 @@ const send = async (line: IShareLine): Promise<void> => {
     errorMessage.value = ''
     try {
         const fileId = await upload(take.value.blob, take.value.mime)
-        await putLine(shareId, line.id, fileId, take.value.ms)
+        await putLine(shareId, line.id, fileId, take.value.ms, recordingLanguage.value)
         discard()
         await load()
     } catch (_error) {

@@ -37,7 +37,8 @@
         },
         "sounds": "Sons dos botões",
         "soundsOn": "Ativar os sons",
-        "soundsVolume": "Volume dos sons"
+        "soundsVolume": "Volume dos sons",
+        "learningFont": "Letra fácil de ler"
     },
     "unlock": {
         "offerTitle": "Ativar a impressão digital ou o rosto?",

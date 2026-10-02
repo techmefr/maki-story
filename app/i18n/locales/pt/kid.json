@@ -29,7 +29,9 @@
         "soundOff": "Sem som",
         "sleepTimer": "Temporizador de sono",
         "page": "Página {current}/{total}",
-        "progress": "Progresso da página"
+        "progress": "Progresso da página",
+        "previousPage": "Página anterior",
+        "nextPageShort": "Página seguinte"
     },
     "sleep": {
         "title": "Soneca em…",
@@ -48,5 +50,23 @@
         "age": "{age} anos",
         "thanks": "Obrigado!",
         "bubble": "Mensagem de aniversário"
+    },
+    "treasure": {
+        "title": "O meu tesouro",
+        "titleOf": "Tesouro de {name}",
+        "count": "{count}/{limit} memórias",
+        "open": "Abrir o tesouro",
+        "save": "Guardar esta mensagem",
+        "saved": "Mensagem guardada",
+        "empty": "O teu tesouro está vazio",
+        "emptyHint": "Toca no coração de uma mensagem para a guardar para sempre.",
+        "emptyParent": "O tesouro está vazio",
+        "emptyParentHint": "Um coração numa mensagem guarda-a aqui.",
+        "from": "De {name}",
+        "play": "Ouvir a memória de {name}",
+        "remove": "Remover esta memória",
+        "removeTitle": "Remover esta memória?",
+        "removeBody": "Será apagada para sempre.",
+        "removeConfirm": "Remover"
     }
 }

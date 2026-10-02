@@ -261,3 +261,8 @@ export const createReadyBook = async (
     await api.dispose()
     return id
 }
+
+export const pickOption = async (page: Page, label: string, option: string | RegExp): Promise<void> => {
+    await page.getByLabel(label, { exact: true }).click()
+    await page.getByRole('option', { name: option }).click()
+}

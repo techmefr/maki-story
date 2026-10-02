@@ -29,7 +29,8 @@
         "alreadyHeard": "这条消息已经听过了",
         "next": "下一条消息",
         "nextWaiting": "下一条消息（{count} 条等待中）",
-        "again": "再听一次"
+        "again": "再听一次",
+        "previous": "上一条消息"
     },
     "strip": {
         "label": "家人的消息",

@@ -29,7 +29,9 @@
         "soundOff": "Senza suono",
         "sleepTimer": "Timer del sonno",
         "page": "Pagina {current}/{total}",
-        "progress": "Avanzamento della pagina"
+        "progress": "Avanzamento della pagina",
+        "previousPage": "Pagina precedente",
+        "nextPageShort": "Pagina successiva"
     },
     "sleep": {
         "title": "Nanna tra…",
@@ -48,5 +50,23 @@
         "age": "{age} anni",
         "thanks": "Grazie!",
         "bubble": "Messaggio di compleanno"
+    },
+    "treasure": {
+        "title": "Il mio tesoro",
+        "titleOf": "Tesoro di {name}",
+        "count": "{count}/{limit} ricordi",
+        "open": "Apri il tesoro",
+        "save": "Tieni questo messaggio",
+        "saved": "Messaggio tenuto",
+        "empty": "Il tuo tesoro è vuoto",
+        "emptyHint": "Tocca il cuore di un messaggio per tenerlo per sempre.",
+        "emptyParent": "Il tesoro è vuoto",
+        "emptyParentHint": "Un cuore su un messaggio lo tiene qui.",
+        "from": "Da {name}",
+        "play": "Ascolta il ricordo di {name}",
+        "remove": "Togli questo ricordo",
+        "removeTitle": "Togliere questo ricordo?",
+        "removeBody": "Sarà cancellato per sempre.",
+        "removeConfirm": "Togli"
     }
 }

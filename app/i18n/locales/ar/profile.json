@@ -37,7 +37,8 @@
         },
         "sounds": "أصوات الأزرار",
         "soundsOn": "تفعيل الأصوات",
-        "soundsVolume": "مستوى صوت الأصوات"
+        "soundsVolume": "مستوى صوت الأصوات",
+        "learningFont": "خط سهل القراءة"
     },
     "unlock": {
         "offerTitle": "تفعيل البصمة أو الوجه؟",

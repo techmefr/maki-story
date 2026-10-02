@@ -9,8 +9,8 @@
             <p v-if="invite && !invite.isRevoked" class="code" :aria-label="t('sharing.invite.codeLabel')">{{ invite.code }}</p>
             <p v-else class="muted">{{ t('sharing.invite.revoked') }}</p>
             <div class="row row--wrap">
-                <button type="button" class="btn btn--small" @click="rotateInvite">{{ t('sharing.invite.renew') }}</button>
-                <button v-if="invite && !invite.isRevoked" type="button" class="btn btn--white btn--small" @click="revokeInvite">{{ t('sharing.invite.disable') }}</button>
+                <AppButton size="sm" @click="rotateInvite">{{ t('sharing.invite.renew') }}</AppButton>
+                <AppButton variant="secondary" size="sm" v-if="invite && !invite.isRevoked" @click="revokeInvite">{{ t('sharing.invite.disable') }}</AppButton>
             </div>
         </section>
 
@@ -20,8 +20,8 @@
                 <div class="subtitle">{{ share.bookTitle }}</div>
                 <p class="muted">{{ approvalLabel(share) }}</p>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--mint btn--small" @click="run(() => act(share.id, 'approve'))">{{ t('sharing.approve') }}</button>
-                    <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</button>
+                    <AppButton variant="secondary" tone="mint" size="sm" @click="run(() => act(share.id, 'approve'))">{{ t('sharing.approve') }}</AppButton>
+                    <AppButton variant="secondary" size="sm" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</AppButton>
                 </div>
             </article>
         </section>
@@ -32,24 +32,21 @@
                 <div class="subtitle">{{ share.bookTitle }}</div>
                 <p class="muted">{{ incomingLabel(share) }}</p>
                 <template v-if="share.status === 'pending' && isParent">
-                    <label v-if="share.mode === 'record'" class="stack" style="gap: 6px">
-                        <span class="label">{{ t('sharing.whoRecords') }}</span>
-                        <select v-model="recorders[share.id]" class="input">
-                            <option value="">{{ t('sharing.allAdults') }}</option>
-                            <option v-for="member in adults" :key="member.id" :value="member.id">{{ member.name }}</option>
-                        </select>
-                    </label>
+                    <div v-if="share.mode === 'record'" class="stack" style="gap: 6px">
+                        <span :id="`who-records-${share.id}`" class="label">{{ t('sharing.whoRecords') }}</span>
+                        <AppSelect :model-value="recorders[share.id] ?? ''" @update:model-value="recorders[share.id] = String($event ?? '')" :aria-labelledby="`who-records-${share.id}`" :options="recorderOptions" />
+                    </div>
                     <div class="row row--wrap">
-                        <button type="button" class="btn btn--mint btn--small" @click="accept(share)">{{ t('sharing.accept') }}</button>
-                        <button type="button" class="btn btn--white btn--small" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</button>
+                        <AppButton variant="secondary" tone="mint" size="sm" @click="accept(share)">{{ t('sharing.accept') }}</AppButton>
+                        <AppButton variant="secondary" size="sm" @click="run(() => act(share.id, 'decline'))">{{ t('sharing.decline') }}</AppButton>
                     </div>
                 </template>
-                <NuxtLink v-if="share.status === 'accepted' && share.mode === 'record'" :to="`/sharing/${share.id}`" class="btn btn--small">
+                <AppButton size="sm" v-if="share.status === 'accepted' && share.mode === 'record'" :to="`/sharing/${share.id}`">
                     {{ t('sharing.recordMyVoice') }}
-                </NuxtLink>
-                <button v-if="share.status === 'accepted' && isParent" type="button" class="btn btn--white btn--small" @click="run(() => stop(share.id))">
+                </AppButton>
+                <AppButton variant="secondary" size="sm" v-if="share.status === 'accepted' && isParent" @click="run(() => stop(share.id))">
                     {{ t('sharing.stopShare') }}
-                </button>
+                </AppButton>
             </article>
         </section>
 
@@ -61,14 +58,11 @@
                     <div class="subtitle">{{ share.bookTitle }}</div>
                     <div class="muted">{{ outgoingLabel(share) }}</div>
                 </div>
-                <button
+                <AppButton variant="secondary" size="sm"
                     v-if="isParent && !['declined', 'revoked'].includes(share.status)"
-                    type="button"
-                    class="btn btn--white btn--small"
-                    @click="run(() => stop(share.id))"
-                >
+                    @click="run(() => stop(share.id))">
                     {{ t('sharing.stop') }}
-                </button>
+                </AppButton>
             </article>
         </section>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
@@ -77,6 +71,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
+const recorderOptions = computed(() => [{ value: '', label: t('sharing.allAdults') }, ...adults.value.map(member => ({ value: member.id, label: member.name }))])
 const { current } = useCurrentMember()
 const { members } = useMembers()
 const { lists, invite, load, act, stop, loadInvite, rotateInvite, revokeInvite } = useShares()

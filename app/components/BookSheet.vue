@@ -44,11 +44,12 @@
                 </ul>
                 <p v-else class="muted">{{ t('books.sheet.nobody') }}</p>
             </section>
-            <NuxtLink v-if="target" :to="target.path" class="btn btn--block" data-focus-default @click="emit('close')">
+            <BookChildVisibility v-if="isParent" :book="book" />
+            <AppButton is-block v-if="target" :to="target.path" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
-            </NuxtLink>
-            <button v-if="canShare" type="button" class="btn btn--white btn--block" @click="emit('share', book)">{{ t('books.sheet.share') }}</button>
-            <button type="button" class="btn btn--white btn--block" @click="emit('close')">{{ t('common.close') }}</button>
+            </AppButton>
+            <AppButton variant="secondary" is-block v-if="canShare" @click="emit('share', book)">{{ t('books.sheet.share') }}</AppButton>
+            <AppButton variant="secondary" is-block @click="emit('close')">{{ t('common.close') }}</AppButton>
         </div>
     </div>
 </template>

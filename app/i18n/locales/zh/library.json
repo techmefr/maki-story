@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "亲人的提议",
+        "myProposals": "我待处理的提议"
+    },
+    "proposals": {
+        "proposedBy": "由 {name} 提议",
+        "approve": "接受",
+        "decline": "拒绝",
+        "approveLabel": "接受 {title}",
+        "declineLabel": "拒绝 {title}",
+        "error": "暂时无法处理此提议。"
+    },
+    "proposal": {
+        "toggle": "向家人提议这本书",
+        "hint": "家长会在录音前接受或拒绝。"
+    },
+    "filters": {
+        "more": "更多筛选",
+        "type": "书籍类型",
+        "mood": "氛围",
+        "theme": "主题",
+        "types": {
+            "standard": "图书",
+            "comic": "漫画",
+            "wordless": "无文字",
+            "child-written": "孩子自己写的"
+        },
+        "moods": {
+            "calm": "平静",
+            "funny": "有趣",
+            "adventure": "冒险",
+            "tender": "温柔",
+            "bedtime": "睡前",
+            "curious": "好奇",
+            "musical": "音乐",
+            "brave": "勇敢"
+        },
+        "themes": {
+            "animals": "动物",
+            "family": "家庭",
+            "friendship": "友谊",
+            "nature": "自然",
+            "school": "学校",
+            "feelings": "情绪",
+            "travel": "旅行",
+            "food": "美食",
+            "seasons": "四季",
+            "legends": "传说",
+            "numbers-letters": "数字与字母",
+            "daily-life": "日常生活"
+        }
+    },
+    "childVisible": {
+        "title": "孩子可见性",
+        "auto": "按年龄",
+        "show": "始终可见",
+        "hide": "隐藏",
+        "hint": "默认情况下，孩子只能看到适合其年龄的书。",
+        "error": "暂时无法更改可见性。"
+    },
+    "ageShift": {
+        "title": "年龄区间偏移",
+        "hint": "让这个孩子看到比其年龄更低（−）或更高（+）的书，单位为年。",
+        "error": "暂时无法修改偏移。"
+    },
+    "birthNudge": {
+        "title": "添加出生日期",
+        "hint": "没有出生日期（{names}）时，会向孩子显示所有书。",
+        "action": "补充"
+    },
+    "shareLanguage": {
+        "label": "录音语言",
+        "choose": "选择语言",
+        "required": "录音前请先选择语言。"
+    },
+    "notify": {
+        "recordingRequest": "请为《{title}》录下你的声音（{count}）",
+        "bookProposed": "{name} 提议了《{title}》",
+        "proposalApproved": "你的提议《{title}》已被接受",
+        "proposalDeclined": "你的提议《{title}》被拒绝了"
+    }
+}

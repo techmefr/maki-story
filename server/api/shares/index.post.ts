@@ -1,5 +1,6 @@
 import { getDb, one } from '../../utils/db'
 import { normalizeInviteCode } from '../../utils/inviteCode'
+import { actorEntry, record } from '../../utils/journal'
 import { logEvent } from '../../utils/log'
 import { requireActorMember, requireAnyPermission } from '../../utils/permissions'
 import { assertRoomForFamily, bookTitle, familyName, memberName, notifyParents } from '../../utils/shares'
@@ -83,6 +84,7 @@ export default defineEventHandler(async (event): Promise<{ id: string; status: S
     } else if (approverFamilyId !== null) {
         await notifyParents(db, approverFamilyId, 'share_to_approve', { fromName: senderName, familyName: ownName, bookTitle: title, mode })
     }
+    await record(event, { ...actorEntry(actor), action: 'share.created', entityType: 'share', entityId: share.id })
     logEvent('Partage de livre créé')
     return { id: share.id, status, targetFamilyName: target.name }
 })

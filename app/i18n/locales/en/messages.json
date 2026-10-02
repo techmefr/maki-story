@@ -29,7 +29,8 @@
         "alreadyHeard": "This message has already been listened to",
         "next": "Next message",
         "nextWaiting": "Next message ({count} waiting)",
-        "again": "Listen again"
+        "again": "Listen again",
+        "previous": "Previous message"
     },
     "strip": {
         "label": "Family messages",

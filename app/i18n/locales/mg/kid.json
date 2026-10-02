@@ -29,7 +29,9 @@
         "soundOff": "Tsy misy feo",
         "sleepTimer": "Mpanisa fotoana fatoriana",
         "page": "Pejy {current}/{total}",
-        "progress": "Fandrosoan’ny pejy"
+        "progress": "Fandrosoan’ny pejy",
+        "previousPage": "Pejy teo aloha",
+        "nextPageShort": "Pejy manaraka"
     },
     "sleep": {
         "title": "Matory afaka…",
@@ -48,5 +50,23 @@
         "age": "{age} taona",
         "thanks": "Misaotra!",
         "bubble": "Hafatra fetin’ny andro nahaterahana"
+    },
+    "treasure": {
+        "title": "Ny rakitro",
+        "titleOf": "Ny rakitr’i {name}",
+        "count": "{count}/{limit} fahatsiarovana",
+        "open": "Sokafy ny rakitra",
+        "save": "Tazomy ity hafatra ity",
+        "saved": "Voatahiry ny hafatra",
+        "empty": "Foana ny rakitrao",
+        "emptyHint": "Tsindrio ny fon’ny hafatra iray mba hitahiry azy mandrakizay.",
+        "emptyParent": "Foana ny rakitra",
+        "emptyParentHint": "Ny fo amin’ny hafatra dia mitahiry azy eto.",
+        "from": "Avy amin’i {name}",
+        "play": "Henoy ny fahatsiarovan’i {name}",
+        "remove": "Esory ity fahatsiarovana ity",
+        "removeTitle": "Esorina ve ity fahatsiarovana ity?",
+        "removeBody": "Ho voafafa mandrakizay izy.",
+        "removeConfirm": "Esory"
     }
 }

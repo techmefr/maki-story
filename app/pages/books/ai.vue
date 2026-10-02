@@ -6,6 +6,7 @@
         <template v-else>
             <AiNotice :text="t('ai.page.notice')" />
             <AiQuota />
+            <AiBudgetEditor />
             <p v-if="isUnavailable" class="error" role="alert">{{ t(AI_UNAVAILABLE_KEY) }}</p>
             <div v-if="result" class="card stack" role="status" data-testid="ai-result">
                 <h2 class="subtitle">{{ t('ai.page.draftCreated') }}</h2>
@@ -13,35 +14,30 @@
                 <p v-if="result.imagesSkipped > 0" class="error" data-testid="ai-images-skipped">
                     {{ skippedLabel }}
                 </p>
-                <NuxtLink to="/home" class="btn btn--block">{{ t('ai.page.seeLibrary') }}</NuxtLink>
-                <button type="button" class="btn btn--white btn--block" @click="restart">{{ t('ai.page.another') }}</button>
+                <p v-if="result.imagesBlocked > 0" class="error" data-testid="ai-images-blocked">
+                    {{ t('aiSafety.blocked.images', { count: result.imagesBlocked }) }}
+                </p>
+                <AppButton is-block to="/home">{{ t('ai.page.seeLibrary') }}</AppButton>
+                <AppButton variant="secondary" is-block @click="restart">{{ t('ai.page.another') }}</AppButton>
             </div>
             <form v-else-if="step === 'idea'" class="stack" @submit.prevent="toSheet">
                 <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('ai.page.idea') }}</span>
                     <textarea v-model="idea" class="input" maxlength="600" required :placeholder="t('ai.page.ideaPlaceholder')" />
                 </label>
-                <label class="stack" style="gap: 6px">
-                    <span class="label">{{ t('ai.page.storyLanguage') }}</span>
-                    <select v-model="language" class="input">
-                        <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
-                    </select>
-                </label>
+                <div class="stack" style="gap: 6px">
+                    <span id="ai-language-label" class="label">{{ t('ai.page.storyLanguage') }}</span>
+                    <AppSelect v-model="language" aria-labelledby="ai-language-label" :options="languageOptions" />
+                </div>
                 <div class="row">
-                    <label class="stack grow" style="gap: 6px">
-                        <span class="label">{{ t('ai.page.ageMin') }}</span>
-                        <select v-model="ageMin" class="input">
-                            <option :value="null">{{ t('ai.page.allAges') }}</option>
-                            <option v-for="age in AGES" :key="age" :value="age">{{ t('books.age.years', { count: age }) }}</option>
-                        </select>
-                    </label>
-                    <label class="stack grow" style="gap: 6px">
-                        <span class="label">{{ t('ai.page.ageMax') }}</span>
-                        <select v-model="ageMax" class="input">
-                            <option :value="null">{{ t('ai.page.allAges') }}</option>
-                            <option v-for="age in AGES" :key="age" :value="age">{{ t('books.age.years', { count: age }) }}</option>
-                        </select>
-                    </label>
+                    <div class="stack grow" style="gap: 6px">
+                        <span id="ai-age-min-label" class="label">{{ t('ai.page.ageMin') }}</span>
+                        <AppSelect v-model="ageMin" aria-labelledby="ai-age-min-label" :options="ageOptions" />
+                    </div>
+                    <div class="stack grow" style="gap: 6px">
+                        <span id="ai-age-max-label" class="label">{{ t('ai.page.ageMax') }}</span>
+                        <AppSelect v-model="ageMax" aria-labelledby="ai-age-max-label" :options="ageOptions" />
+                    </div>
                 </div>
                 <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('ai.page.pageCount') }}</span>
@@ -52,7 +48,7 @@
                     <input v-model="hero" class="input" :placeholder="t('ai.page.heroPlaceholder')" />
                 </label>
                 <p v-if="ageProblem" class="error" role="alert">{{ ageProblem }}</p>
-                <button type="submit" class="btn btn--block" :disabled="isUnavailable || isExhausted || ageProblem !== '' || idea.trim() === ''">{{ t('common.next') }}</button>
+                <AppButton is-block type="submit" :disabled="isUnavailable || isExhausted || ageProblem !== '' || idea.trim() === ''">{{ t('common.next') }}</AppButton>
             </form>
             <div v-else class="stack">
                 <h2 class="subtitle">{{ t('ai.page.sheetTitle') }}</h2>
@@ -68,17 +64,17 @@
                         <span class="label">{{ t('ai.page.description') }}</span>
                         <input v-model="character.description" class="input" :placeholder="t('ai.page.descriptionPlaceholder')" />
                     </label>
-                    <button type="button" class="btn btn--white btn--small" :aria-label="t('ai.page.removeLabel', { n: index + 1 })" @click="sheet.splice(index, 1)">
+                    <AppButton variant="secondary" size="sm" :aria-label="t('ai.page.removeLabel', { n: index + 1 })" @click="sheet.splice(index, 1)">
                         {{ t('ai.page.remove') }}
-                    </button>
+                    </AppButton>
                 </div>
-                <button type="button" class="btn btn--white btn--small" @click="sheet.push({ name: '', description: '' })">{{ t('ai.page.add') }}</button>
+                <AppButton variant="secondary" size="sm" @click="sheet.push({ name: '', description: '' })">{{ t('ai.page.add') }}</AppButton>
                 <p v-if="isBusy" class="muted" role="status">{{ t('ai.page.busyNote') }}</p>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-                <button type="button" class="btn btn--block" :disabled="isBusy" @click="generate">
+                <AppButton is-block :disabled="isBusy" @click="generate">
                     {{ isBusy ? t('ai.page.generating') : t('ai.page.generate') }}
-                </button>
-                <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="step = 'idea'">{{ t('common.back') }}</button>
+                </AppButton>
+                <AppButton variant="secondary" size="sm" :disabled="isBusy" @click="step = 'idea'">{{ t('common.back') }}</AppButton>
             </div>
         </template>
     </div>
@@ -95,6 +91,8 @@ interface ISheetEntry {
 }
 
 const { t } = useI18n()
+const languageOptions = languageSelectOptions(LANGUAGES)
+const ageOptions = computed(() => [{ value: null, label: t('ai.page.allAges') }, ...AGES.map(age => ({ value: age, label: t('books.age.years', { count: age }) }))])
 const { isParent } = useCurrentMember()
 const { generateBook, refreshStatus, isExhausted, isUnavailable } = useAi()
 const { load } = useBooks()

@@ -37,7 +37,8 @@
         },
         "sounds": "按钮音效",
         "soundsOn": "开启音效",
-        "soundsVolume": "音效音量"
+        "soundsVolume": "音效音量",
+        "learningFont": "易读字体"
     },
     "unlock": {
         "offerTitle": "启用指纹或面容解锁？",

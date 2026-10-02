@@ -3,15 +3,15 @@
         <h2 id="code-admin-title" class="subtitle">{{ t('parental.codeAdmin.title') }}</h2>
         <p class="muted" role="status" data-testid="code-state">{{ stateLabel }}</p>
         <div class="row row--wrap">
-            <button v-if="member.isCodeLocked" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="unlock">
+            <AppButton variant="secondary" size="sm" v-if="member.isCodeLocked" :disabled="isBusy" @click="unlock">
                 {{ t('parental.codeAdmin.unlock') }}
-            </button>
-            <button v-if="member.role === 'child'" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="toggleEnabled">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" v-if="member.role === 'child'" :disabled="isBusy" @click="toggleEnabled">
                 {{ member.codeEnabled === false ? t('parental.codeAdmin.enable') : t('parental.codeAdmin.disable') }}
-            </button>
-            <button v-if="member.hasCode" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="removeCurrent">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" v-if="member.hasCode" :disabled="isBusy" @click="removeCurrent">
                 {{ t('parental.codeAdmin.remove') }}
-            </button>
+            </AppButton>
         </div>
         <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
     </section>

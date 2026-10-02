@@ -1,28 +1,26 @@
 <template>
     <section class="scan" :class="{ 'scan--full': isFull }" :aria-label="t('pageView.scan.label')" data-testid="scan-viewer" @keydown="onKey">
         <div class="scan__bar row row--wrap">
-            <button type="button" class="btn btn--white btn--small scan__btn" :disabled="scale <= 1" :aria-label="t('pageView.scan.zoomOut')" @click="zoomBy(1 / ZOOM_STEP)">
+            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="scale <= 1" :aria-label="t('pageView.scan.zoomOut')" @click="zoomBy(1 / ZOOM_STEP)">
                 <AppIcon name="zoom-out" :size="22" />
-            </button>
-            <button type="button" class="btn btn--white btn--small scan__btn" :aria-label="t('pageView.scan.zoomIn')" data-testid="scan-zoom-in" @click="zoomBy(ZOOM_STEP)">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('pageView.scan.zoomIn')" data-testid="scan-zoom-in" @click="zoomBy(ZOOM_STEP)">
                 <AppIcon name="zoom-in" :size="22" />
-            </button>
-            <button type="button" class="btn btn--white btn--small scan__btn" :aria-label="t('pageView.scan.rotate')" data-testid="scan-rotate" @click="rotate">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('pageView.scan.rotate')" data-testid="scan-rotate" @click="rotate">
                 <AppIcon name="rotate" :size="22" />
-            </button>
-            <button type="button" class="btn btn--white btn--small scan__btn" :disabled="isIdentity" :aria-label="t('pageView.scan.reset')" @click="reset">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="isIdentity" :aria-label="t('pageView.scan.reset')" @click="reset">
                 <AppIcon name="redo" :size="22" />
-            </button>
-            <button
-                type="button"
-                class="btn btn--white btn--small scan__btn"
+            </AppButton>
+            <AppButton variant="secondary" size="sm"
+                class="scan__btn"
                 :aria-pressed="isFull"
                 :aria-label="isFull ? t('pageView.scan.exitFull') : t('pageView.scan.full')"
                 data-testid="scan-full"
-                @click="toggleFull"
-            >
+                @click="toggleFull">
                 <AppIcon :name="isFull ? 'close' : 'maximize'" :size="22" />
-            </button>
+            </AppButton>
         </div>
         <div
             class="scan__viewport"
