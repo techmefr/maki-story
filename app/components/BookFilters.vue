@@ -18,9 +18,9 @@
             </button>
         </div>
         <details class="stack filters__more" :open="hasExtra">
-            <summary class="btn btn--white btn--small">
+            <AppButton variant="secondary" size="sm" as="summary">
                 <AppIcon name="chevron-down" :size="16" />{{ t('library.filters.more') }}
-            </summary>
+            </AppButton>
             <div class="row row--wrap" role="group" :aria-label="t('library.filters.type')">
                 <button
                     v-for="item in BOOK_TYPES"

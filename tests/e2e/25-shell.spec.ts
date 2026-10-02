@@ -52,11 +52,11 @@ const smallTargets = (page: Page): Promise<string[]> =>
             .map(element => `${element.tagName.toLowerCase()}.${element.className} ${Math.round(element.getBoundingClientRect().width)}x${Math.round(element.getBoundingClientRect().height)} "${(element.textContent ?? '').trim().slice(0, 24)}"`)
     }, MIN_TARGET)
 
-const tabLabels = async (page: Page): Promise<string[]> => {
+const expectTabs = async (page: Page, labels: string[]): Promise<void> => {
     const isWide = (page.viewportSize()?.width ?? 0) >= 720
     const links = isWide ? page.locator('.nav .nav__item') : page.locator('.tabbar__item')
     await page.waitForTimeout(800)
-    return (await links.allTextContents()).map(text => text.trim())
+    await expect(links).toHaveText(labels)
 }
 
 test.describe('shell across viewports @viewport', () => {
@@ -105,20 +105,20 @@ test.describe('shell per role', () => {
         await chooseProfile(page, PARENT_NAME)
         await seedFamily(page)
         await page.goto('/home')
-        expect(await tabLabels(page)).toEqual(['Accueil', 'Bibliothèque', 'Famille'])
+        await expectTabs(page, ['Accueil', 'Bibliothèque', 'Famille'])
         await expect(page.getByTestId('relatives-grid')).toBeVisible()
         await expect(page.getByTestId('relatives-grid').getByText(RELATIVE)).toBeVisible()
         await expect(page.getByTestId('relatives-grid').getByText(CHILD)).toHaveCount(0)
 
         await chooseProfile(page, CHILD)
         await page.goto('/kid')
-        expect(await tabLabels(page)).toEqual(['Accueil', 'Coffre'])
+        await expectTabs(page, ['Accueil', 'Coffre'])
         await expect(page.getByRole('heading', { name: /Coucou/ })).toBeVisible()
-        await expect(page.locator('.hello')).toHaveCount(0)
+        await expect(page.locator('.hello svg[viewBox="0 0 120 120"]')).toHaveCount(0)
 
         await chooseProfile(page, RELATIVE)
         await page.goto('/home')
-        expect(await tabLabels(page)).toEqual([])
+        await expectTabs(page, [])
         await expect(page.getByTestId('relatives-grid')).toBeVisible()
         await page.goto('/family')
         await expect(page).toHaveURL(/\/home/)

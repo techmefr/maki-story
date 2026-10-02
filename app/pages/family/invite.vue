@@ -14,15 +14,16 @@
                         <div class="muted">{{ t(`invite.channels.${item.channel}`) }}{{ item.contact ? ` · ${item.contact}` : '' }}</div>
                     </div>
                     <span class="badge" :data-state="invitationState(item)">{{ t(`invite.state.${invitationState(item)}`) }}</span>
-                    <button
+                    <AppButton
+                        variant="secondary"
+                        size="sm"
+                        class="invite__revoke"
                         v-if="invitationState(item) === 'pending'"
-                        type="button"
-                        class="btn btn--white btn--small invite__revoke"
                         :aria-label="t('invite.revokeAria', { name: item.name || t(`invite.channels.${item.channel}`) })"
                         @click="revokeOne(item.id)"
                     >
                         <AppIcon name="close" :size="18" />{{ t('invite.revoke') }}
-                    </button>
+                    </AppButton>
                 </li>
             </ul>
         </section>

@@ -12,23 +12,23 @@
                     <input v-model="code" class="input" type="text" autocomplete="off" autocapitalize="off" maxlength="20" required data-testid="join-code" />
                 </label>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-                <button type="submit" class="btn btn--block join__action" :disabled="isBusy || code.trim() === ''" data-testid="join-check">
+                <AppButton is-block class="join__action" type="submit" :disabled="isBusy || code.trim() === ''" data-testid="join-check">
                     <AppIcon name="check" :size="22" />{{ t('join.check') }}
-                </button>
+                </AppButton>
             </form>
         </template>
         <template v-else-if="phase === 'invalid'">
             <AppEmpty :title="t('join.invalidTitle')" :hint="t('join.invalidHint')" />
-            <button type="button" class="btn btn--white btn--block join__action" @click="phase = 'code'">
+            <AppButton variant="secondary" is-block class="join__action" @click="phase = 'code'">
                 <AppIcon name="back" :size="22" class="mirror-rtl" />{{ t('join.tryAgain') }}
-            </button>
+            </AppButton>
         </template>
         <template v-else>
             <h1 class="title" data-testid="join-family">{{ t('join.welcome', { family: preview.familyName }) }}</h1>
             <p v-if="preview.inviterName" class="muted">{{ t('join.invitedBy', { name: preview.inviterName }) }}</p>
-            <button v-if="isSignedIn" type="button" class="btn btn--block join__action" :disabled="isBusy" data-testid="join-one-tap" @click="join">
+            <AppButton is-block class="join__action" v-if="isSignedIn" :disabled="isBusy" data-testid="join-one-tap" @click="join">
                 <AppIcon name="user-plus" :size="22" motion="bounce" />{{ t('join.oneTap', { family: preview.familyName }) }}
-            </button>
+            </AppButton>
             <form v-else class="stack" @submit.prevent="join">
                 <p class="muted">{{ t('join.accountHint') }}</p>
                 <label class="stack" style="gap: 6px">
@@ -44,9 +44,9 @@
                     <input v-model="password" class="input" type="password" autocomplete="current-password" minlength="8" required data-testid="join-password" />
                 </label>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-                <button type="submit" class="btn btn--block join__action" :disabled="isBusy" data-testid="join-submit">
+                <AppButton is-block class="join__action" type="submit" :disabled="isBusy" data-testid="join-submit">
                     <AppIcon name="user-plus" :size="22" motion="bounce" />{{ t('join.submit') }}
-                </button>
+                </AppButton>
             </form>
             <p v-if="isSignedIn && errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>

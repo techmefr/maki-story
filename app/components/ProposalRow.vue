@@ -11,15 +11,15 @@
                     </div>
                 </div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--mint btn--small" :disabled="busyId === book.id" :aria-label="t('library.proposals.approveLabel', { title: book.title })" @click="answer(book, 'approve')">
+                    <AppButton variant="secondary" tone="mint" size="sm" :disabled="busyId === book.id" :aria-label="t('library.proposals.approveLabel', { title: book.title })" @click="answer(book, 'approve')">
                         <AppIcon name="check" :size="18" />{{ t('library.proposals.approve') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="busyId === book.id" :aria-label="t('library.proposals.declineLabel', { title: book.title })" @click="answer(book, 'decline')">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="busyId === book.id" :aria-label="t('library.proposals.declineLabel', { title: book.title })" @click="answer(book, 'decline')">
                         <AppIcon name="close" :size="18" />{{ t('library.proposals.decline') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :aria-label="t('books.sheet.title', { title: book.title })" @click="emit('open', book)">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :aria-label="t('books.sheet.title', { title: book.title })" @click="emit('open', book)">
                         <AppIcon name="book" :size="18" />{{ t('books.row.sheet') }}
-                    </button>
+                    </AppButton>
                 </div>
             </li>
         </ul>

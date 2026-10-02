@@ -31,9 +31,9 @@
                         <div class="subtitle">{{ request.bookTitle }}</div>
                         <div class="muted">{{ t('relative.requestMeta', { count: request.lineCount, family: family.familyName }) }}</div>
                     </div>
-                    <button type="button" class="btn btn--small relative__action" :disabled="isBusy" @click="open(family.familyId, requestPath(request))">
+                    <AppButton size="sm" class="relative__action" :disabled="isBusy" @click="open(family.familyId, requestPath(request))">
                         <AppIcon name="mic" :size="18" />{{ t('relative.record') }}
-                    </button>
+                    </AppButton>
                 </li>
             </ul>
             <h3 v-if="family.proposals.length > 0" class="label">{{ t('relative.proposals') }}</h3>
@@ -48,9 +48,9 @@
                 </li>
             </ul>
         </section>
-        <NuxtLink to="/join" class="btn btn--white btn--block relative__action" data-testid="relative-join-another">
+        <AppButton variant="secondary" is-block class="relative__action" to="/join" data-testid="relative-join-another">
             <AppIcon name="user-plus" :size="22" />{{ t('relative.joinAnother') }}
-        </NuxtLink>
+        </AppButton>
     </div>
 </template>
 

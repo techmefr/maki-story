@@ -31,15 +31,15 @@
         </div>
         <CodeField v-model="code" :can-use-shapes="true" :label="t('welcome.child.code')" />
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-        <button type="submit" class="btn btn--block welcome-child__action" :disabled="isBusy || !canSave" data-testid="welcome-child-save">
+        <AppButton is-block class="welcome-child__action" type="submit" :disabled="isBusy || !canSave" data-testid="welcome-child-save">
             <AppIcon name="user-plus" :size="22" motion="bounce" />{{ t('welcome.child.add') }}
-        </button>
+        </AppButton>
         <div v-if="isCapturing" class="sheet-backdrop" @click.self="isCapturing = false">
             <div v-sheet="() => (isCapturing = false)" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="welcome-capture-title">
                 <h2 id="welcome-capture-title" class="subtitle">{{ t('member.form.captureTitle') }}</h2>
                 <p class="muted">{{ t('member.form.captureHint') }}</p>
                 <PhotoCapture :frame-color="getVoiceColor(color).hex" @captured="onCaptured" />
-                <button type="button" class="btn btn--white btn--small" @click="isCapturing = false">{{ t('common.cancel') }}</button>
+                <AppButton variant="secondary" size="sm" @click="isCapturing = false">{{ t('common.cancel') }}</AppButton>
             </div>
         </div>
     </form>

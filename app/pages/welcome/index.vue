@@ -24,26 +24,26 @@
                 </li>
             </ul>
             <WelcomeChildStep @saved="addedChildren = [...addedChildren, $event]" />
-            <button type="button" class="btn btn--block welcome__action" :disabled="addedChildren.length === 0" data-testid="welcome-children-next" @click="step = 'invite'">
+            <AppButton is-block class="welcome__action" :disabled="addedChildren.length === 0" data-testid="welcome-children-next" @click="step = 'invite'">
                 <AppIcon name="next" :size="22" class="mirror-rtl" />{{ t('welcome.next') }}
-            </button>
-            <button type="button" class="btn btn--white btn--block welcome__action" data-testid="welcome-children-skip" @click="step = 'invite'">
+            </AppButton>
+            <AppButton variant="secondary" is-block class="welcome__action" data-testid="welcome-children-skip" @click="step = 'invite'">
                 {{ t('welcome.skip') }}
-            </button>
+            </AppButton>
         </template>
         <template v-else-if="step === 'invite'">
             <h1 class="title" tabindex="-1">{{ t('welcome.invite.title') }}</h1>
             <p class="muted">{{ t('welcome.invite.hint') }}</p>
             <InviteForm @created="isInvited = true" />
-            <button type="button" class="btn btn--block welcome__action" data-testid="welcome-invite-next" @click="step = 'done'">
+            <AppButton is-block class="welcome__action" data-testid="welcome-invite-next" @click="step = 'done'">
                 <AppIcon name="next" :size="22" class="mirror-rtl" />{{ isInvited ? t('welcome.next') : t('welcome.invite.later') }}
-            </button>
+            </AppButton>
         </template>
         <template v-else>
             <AppEmpty :title="t('welcome.done.title')" :hint="t('welcome.done.hint')" :size="120" />
-            <button type="button" class="btn btn--block welcome__action" data-testid="welcome-finish" @click="finish">
+            <AppButton is-block class="welcome__action" data-testid="welcome-finish" @click="finish">
                 <AppIcon name="rocket" :size="22" motion="bounce" />{{ t('welcome.done.cta') }}
-            </button>
+            </AppButton>
         </template>
     </div>
 </template>
