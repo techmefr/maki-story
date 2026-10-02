@@ -27,3 +27,6 @@ export type Permission =
     | 'notifications.list'
     | 'members.code.manage'
     | 'members.schedule.manage'
+    | 'treasure.list'
+    | 'treasure.save'
+    | 'treasure.remove'

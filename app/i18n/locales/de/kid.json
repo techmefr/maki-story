@@ -29,7 +29,9 @@
         "soundOff": "Ohne Ton",
         "sleepTimer": "Schlaf-Timer",
         "page": "Seite {current}/{total}",
-        "progress": "Fortschritt der Seite"
+        "progress": "Fortschritt der Seite",
+        "previousPage": "Vorherige Seite",
+        "nextPageShort": "Nächste Seite"
     },
     "sleep": {
         "title": "Schlafen in…",
@@ -42,5 +44,23 @@
     },
     "noFaces": "Noch niemand da",
     "noFacesHint": "Bitte einen Erwachsenen, die Familie hinzuzufügen.",
-    "noSoloHint": "Sie kommt bald!"
+    "noSoloHint": "Sie kommt bald!",
+    "treasure": {
+        "title": "Mein Schatz",
+        "titleOf": "Schatz von {name}",
+        "count": "{count}/{limit} Erinnerungen",
+        "open": "Schatz öffnen",
+        "save": "Diese Nachricht behalten",
+        "saved": "Nachricht behalten",
+        "empty": "Dein Schatz ist leer",
+        "emptyHint": "Tippe auf das Herz einer Nachricht, um sie für immer zu behalten.",
+        "emptyParent": "Der Schatz ist leer",
+        "emptyParentHint": "Ein Herz bei einer Nachricht bewahrt sie hier auf.",
+        "from": "Von {name}",
+        "play": "Erinnerung von {name} anhören",
+        "remove": "Diese Erinnerung entfernen",
+        "removeTitle": "Diese Erinnerung entfernen?",
+        "removeBody": "Sie wird für immer gelöscht.",
+        "removeConfirm": "Entfernen"
+    }
 }

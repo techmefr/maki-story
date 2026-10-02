@@ -34,6 +34,7 @@
         "voiceBlocked": "这个声音已被屏蔽。",
         "recordingTooLong": "这段录音太长了（最长 10 分钟）。",
         "recordingType": "不支持这种音频格式。",
-        "spokenLanguage": "这种语言不在你会说的语言之中。"
+        "spokenLanguage": "这种语言不在你会说的语言之中。",
+        "treasureFull": "添加新的爱心前，请先移除一个。"
     }
 }
