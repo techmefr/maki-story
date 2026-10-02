@@ -6,17 +6,17 @@
         <section class="card stack" aria-labelledby="export-title">
             <h2 id="export-title" class="subtitle">{{ t('recovery.data.export.title') }}</h2>
             <p class="muted">{{ t('recovery.data.export.hint') }}</p>
-            <a :href="`${apiBase}/api/family/export`" class="btn btn--block" download data-testid="family-export">
+            <AppButton is-block as="a" :href="`${apiBase}/api/family/export`" download data-testid="family-export">
                 <AppIcon name="download" :size="22" />{{ t('recovery.data.export.button') }}
-            </a>
+            </AppButton>
         </section>
         <section class="card stack" aria-labelledby="delete-title">
             <h2 id="delete-title" class="subtitle">{{ t('recovery.data.delete.title') }}</h2>
             <p class="error">{{ t('recovery.data.delete.warning') }}</p>
             <template v-if="!isArmed">
-                <button type="button" class="btn btn--coral btn--block" data-testid="family-delete-start" @click="isArmed = true">
+                <AppButton variant="destructive" is-block data-testid="family-delete-start" @click="isArmed = true">
                     <AppIcon name="trash" :size="22" />{{ t('recovery.data.delete.start') }}
-                </button>
+                </AppButton>
             </template>
             <template v-else>
                 <label class="stack" style="gap: 6px">
@@ -25,7 +25,7 @@
                 </label>
                 <p class="label">{{ t('recovery.data.delete.codeLabel') }}</p>
                 <PinPad :key="attempt" :is-disabled="isBusy || confirmName.trim() === ''" @submit="removeFamily" />
-                <button type="button" class="btn btn--white btn--small" @click="isArmed = false">{{ t('common.cancel') }}</button>
+                <AppButton variant="secondary" size="sm" @click="isArmed = false">{{ t('common.cancel') }}</AppButton>
             </template>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </section>

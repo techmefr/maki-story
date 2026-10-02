@@ -2,21 +2,21 @@
     <section v-if="isDeparted" class="card stack" aria-labelledby="departed-voice-title" data-testid="departed-voice">
         <h2 id="departed-voice-title" class="subtitle">{{ t('recovery.voice.title') }}</h2>
         <p class="muted">{{ t('recovery.voice.hint') }}</p>
-        <a :href="`${apiBase}/api/members/${memberId}/voice-export`" class="btn btn--white btn--small" download>
+        <AppButton variant="secondary" size="sm" as="a" :href="`${apiBase}/api/members/${memberId}/voice-export`" download>
             <AppIcon name="download" :size="18" />{{ t('recovery.voice.export') }}
-        </a>
+        </AppButton>
         <template v-if="isConfirming">
             <p class="error" role="alert">{{ t('recovery.voice.confirm') }}</p>
             <div class="row row--wrap">
-                <button type="button" class="btn btn--coral btn--small" :disabled="isBusy" @click="removeVoice">
+                <AppButton variant="destructive" size="sm" :disabled="isBusy" @click="removeVoice">
                     <AppIcon name="trash" :size="18" />{{ t('recovery.voice.confirmAction') }}
-                </button>
-                <button type="button" class="btn btn--white btn--small" @click="isConfirming = false">{{ t('common.cancel') }}</button>
+                </AppButton>
+                <AppButton variant="secondary" size="sm" @click="isConfirming = false">{{ t('common.cancel') }}</AppButton>
             </div>
         </template>
-        <button v-else type="button" class="btn btn--white btn--small" @click="isConfirming = true">
+        <AppButton variant="secondary" size="sm" v-else @click="isConfirming = true">
             <AppIcon name="trash" :size="18" />{{ t('recovery.voice.delete') }}
-        </button>
+        </AppButton>
         <p v-if="message" class="muted" role="status">{{ message }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </section>

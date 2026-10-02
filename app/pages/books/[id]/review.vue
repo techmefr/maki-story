@@ -32,16 +32,17 @@
                 {{ languageLabel(code) }}
             </button>
         </div>
-        <button
+        <AppButton
+            variant="secondary"
+            size="sm"
+            class="review__action"
             v-if="language !== book.language"
-            type="button"
-            class="btn btn--white btn--small review__action"
             :aria-pressed="isOriginalShown"
             data-testid="review-original-toggle"
             @click="isOriginalShown = !isOriginalShown"
         >
             <AppIcon name="book" :size="18" />{{ isOriginalShown ? t('reviewLanguage.hide') : t('reviewLanguage.show') }}
-        </button>
+        </AppButton>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <AppButton variant="secondary" tone="mint" is-block class="review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
             <AppIcon name="rocket" :size="22" />{{ t('review.validateAll') }}

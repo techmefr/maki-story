@@ -38,7 +38,7 @@ const props = withDefaults(
         disabledReason?: string
         wiggle?: boolean
         to?: string
-        as?: 'button' | 'a' | 'label'
+        as?: 'button' | 'a' | 'label' | 'summary'
         type?: 'button' | 'submit'
     }>(),
     { variant: 'primary', as: 'button', size: 'md', tone: 'sky', iconSize: 22, type: 'button' },

@@ -11,9 +11,9 @@
                     <div class="muted">{{ detailOf(item) }}</div>
                     <div class="muted">{{ t('recovery.trash.until', { date: formatDate(item.restoreUntil) }) }}</div>
                 </div>
-                <button type="button" class="btn btn--mint btn--small" :disabled="busyKey === keyOf(item)" :aria-label="t('recovery.trash.restoreLabel', { label: labelOf(item) })" @click="restore(item)">
+                <AppButton variant="secondary" tone="mint" size="sm" :disabled="busyKey === keyOf(item)" :aria-label="t('recovery.trash.restoreLabel', { label: labelOf(item) })" @click="restore(item)">
                     <AppIcon name="redo" :size="18" />{{ t('recovery.trash.restore') }}
-                </button>
+                </AppButton>
             </li>
         </ul>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>

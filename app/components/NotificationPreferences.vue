@@ -3,12 +3,12 @@
         <h2 id="alerts-title" class="subtitle">{{ t('alerts.title') }}</h2>
         <p class="muted">{{ t('alerts.hint') }}</p>
         <div v-if="state !== 'unsupported'" class="stack" style="gap: 8px">
-            <button v-if="state !== 'on'" type="button" class="btn btn--block prefs__action" :disabled="isBusy || state === 'denied'" data-testid="push-enable" @click="enable">
+            <AppButton is-block class="prefs__action" v-if="state !== 'on'" :disabled="isBusy || state === 'denied'" data-testid="push-enable" @click="enable">
                 <AppIcon name="ear" :size="22" motion="wiggle" />{{ t('alerts.enable') }}
-            </button>
-            <button v-else type="button" class="btn btn--white btn--block prefs__action" :disabled="isBusy" data-testid="push-disable" @click="disable">
+            </AppButton>
+            <AppButton variant="secondary" is-block class="prefs__action" v-else :disabled="isBusy" data-testid="push-disable" @click="disable">
                 <AppIcon name="mute" :size="22" />{{ t('alerts.disable') }}
-            </button>
+            </AppButton>
             <p v-if="state === 'denied'" class="muted" role="status">{{ t('alerts.denied') }}</p>
             <p v-else-if="state === 'on'" class="muted" role="status">{{ t('alerts.enabled') }}</p>
         </div>

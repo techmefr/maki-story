@@ -7,12 +7,12 @@
             <input v-model.number="amount" class="input" type="number" min="0" max="1000" step="0.5" inputmode="decimal" data-testid="ai-budget-input" />
         </label>
         <div class="row row--wrap">
-            <button type="button" class="btn btn--small" :disabled="isBusy || !isAmountValid" @click="save(amount)">
+            <AppButton size="sm" :disabled="isBusy || !isAmountValid" @click="save(amount)">
                 <AppIcon name="check" :size="18" />{{ t('aiSafety.budget.save') }}
-            </button>
-            <button v-if="aiStatus.isCustomBudget" type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="save(null)">
+            </AppButton>
+            <AppButton variant="secondary" size="sm" v-if="aiStatus.isCustomBudget" :disabled="isBusy" @click="save(null)">
                 <AppIcon name="redo" :size="18" />{{ t('aiSafety.budget.reset') }}
-            </button>
+            </AppButton>
         </div>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </section>

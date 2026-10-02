@@ -51,9 +51,9 @@
                 </div>
             </div>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <button type="submit" class="btn btn--block invite__action" :disabled="isBusy" data-testid="invite-create">
+            <AppButton is-block class="invite__action" type="submit" :disabled="isBusy" data-testid="invite-create">
                 <AppIcon name="send" :size="22" motion="nudge" />{{ t('invite.create') }}
-            </button>
+            </AppButton>
         </form>
         <div v-else class="stack" data-testid="invite-result">
             <h2 class="subtitle">{{ t('invite.ready') }}</h2>
@@ -62,21 +62,21 @@
             <p v-if="created.channel === 'EMAIL'" class="muted" role="status">
                 {{ created.isEmailSent ? t('invite.emailSent', { contact: created.contact }) : t('invite.emailNotSent') }}
             </p>
-            <button v-if="canShare" type="button" class="btn btn--block invite__action" data-testid="invite-share" @click="share">
+            <AppButton is-block class="invite__action" v-if="canShare" data-testid="invite-share" @click="share">
                 <AppIcon name="send" :size="22" />{{ t('invite.share') }}
-            </button>
-            <a v-if="created.channel === 'WHATSAPP'" class="btn btn--block invite__action" :href="whatsappUrl" target="_blank" rel="noopener" data-testid="invite-whatsapp">
+            </AppButton>
+            <AppButton is-block as="a" class="invite__action" v-if="created.channel === 'WHATSAPP'" :href="whatsappUrl" target="_blank" rel="noopener" data-testid="invite-whatsapp">
                 <AppIcon name="message" :size="22" />{{ t('invite.openWhatsapp') }}
-            </a>
-            <a v-if="created.channel === 'SMS'" class="btn btn--block invite__action" :href="smsUrl" data-testid="invite-sms">
+            </AppButton>
+            <AppButton is-block as="a" class="invite__action" v-if="created.channel === 'SMS'" :href="smsUrl" data-testid="invite-sms">
                 <AppIcon name="message" :size="22" />{{ t('invite.openSms') }}
-            </a>
-            <button type="button" class="btn btn--white btn--block invite__action" data-testid="invite-copy" @click="copy">
+            </AppButton>
+            <AppButton variant="secondary" is-block class="invite__action" data-testid="invite-copy" @click="copy">
                 <AppIcon :name="isCopied ? 'check' : 'download'" :size="22" />{{ isCopied ? t('invite.copied') : t('invite.copy') }}
-            </button>
-            <button type="button" class="btn btn--white btn--block invite__action" @click="reset">
+            </AppButton>
+            <AppButton variant="secondary" is-block class="invite__action" @click="reset">
                 <AppIcon name="user-plus" :size="22" />{{ t('invite.another') }}
-            </button>
+            </AppButton>
         </div>
     </div>
 </template>

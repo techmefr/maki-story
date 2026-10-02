@@ -4,14 +4,18 @@
         <template v-if="book">
             <h1 class="title">{{ book.title }}</h1>
             <p class="muted">{{ t('sharing.detail.help') }}</p>
-            <label class="stack" style="gap: 6px">
-                <span class="label">{{ t('library.shareLanguage.label') }}</span>
-                <select v-model="recordingLanguage" class="input" data-testid="share-language" :disabled="isRecording" @change="load">
-                    <option value="">{{ t('library.shareLanguage.choose') }}</option>
-                    <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
-                </select>
+            <div class="stack" style="gap: 6px">
+                <span :id="languageLabelId" class="label">{{ t('library.shareLanguage.label') }}</span>
+                <AppSelect
+                    :model-value="recordingLanguage"
+                    :options="languageOptions"
+                    :aria-labelledby="languageLabelId"
+                    data-testid="share-language"
+                    :disabled="isRecording"
+                    @update:model-value="changeLanguage"
+                />
                 <span v-if="!recordingLanguage" class="muted">{{ t('library.shareLanguage.required') }}</span>
-            </label>
+            </div>
             <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="t('sharing.detail.lineAria', { name: line.character || t('sharing.detail.narratorLower') })">
                 <div class="row">
                     <span class="badge">{{ line.character || t('sharing.detail.narrator') }}</span>
@@ -54,6 +58,15 @@ const take = ref<IRecording | null>(null)
 const isBusy = ref(false)
 const errorMessage = ref('')
 const recordingLanguage = ref('')
+const languageLabelId = useId()
+const languageOptions = computed(() => [
+    { value: '', label: t('library.shareLanguage.choose') },
+    ...LANGUAGES.map(item => ({ value: item.code, label: `${item.flag} ${item.label}` })),
+])
+const changeLanguage = (value: string): void => {
+    recordingLanguage.value = value
+    void load()
+}
 
 const hint = (line: IShareLine): string => [line.tone, line.note, line.sceneDescription].filter(part => part !== '').join(' · ')
 

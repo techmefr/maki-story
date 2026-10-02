@@ -13,9 +13,9 @@
                 <span v-if="item.outcome !== 'SUCCESS'" class="badge">{{ t(`recovery.activity.outcome.${item.outcome.toLowerCase()}`) }}</span>
             </li>
         </ul>
-        <button v-if="items.length < total" type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="more">
+        <AppButton variant="secondary" is-block v-if="items.length < total" :disabled="isBusy" @click="more">
             <AppIcon name="chevron-down" :size="18" />{{ t('recovery.activity.more') }}
-        </button>
+        </AppButton>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </div>
 </template>
