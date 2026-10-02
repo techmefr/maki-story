@@ -73,6 +73,7 @@ export const useBookDraft = () => {
     const characters = useState<IDraftCharacter[]>('draft-characters', () => [])
     const lines = useState<IDraftLine[]>('draft-lines', () => [])
     const isAiPrefilled = useState<boolean>('draft-ai-prefilled', () => false)
+    const isProposal = useState<boolean>('draft-proposal', () => false)
 
     const isSimple = computed(() => mode.value === 'simple')
     const isComic = computed(() => type.value === 'comic')
@@ -193,6 +194,7 @@ export const useBookDraft = () => {
         characters.value = []
         lines.value = []
         isAiPrefilled.value = false
+        isProposal.value = false
         ensureNarrator(reader)
     }
 
@@ -374,6 +376,7 @@ export const useBookDraft = () => {
             ttsFallback: ttsFallback.value,
             kind: isSimple.value ? 'solo' : 'multi',
             soloMemberId: isSimple.value ? readerId.value : null,
+            isProposal: isProposal.value ? true : undefined,
             imageDesc: '',
             pageFileIds: [],
             pages: pages.value.map(page => ({
@@ -407,6 +410,7 @@ export const useBookDraft = () => {
     const translationsForSave = (): (IDraftTranslation[])[] => orderedLines().map(line => line.translations)
 
     return {
+        isProposal,
         step,
         mode,
         readerId,

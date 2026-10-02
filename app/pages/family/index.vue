@@ -34,6 +34,9 @@
         <NuxtLink to="/storage" class="btn btn--white btn--block"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</NuxtLink>
         <NuxtLink to="/sharing" class="btn btn--white btn--block"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</NuxtLink>
         <NuxtLink to="/family/devices" class="btn btn--white btn--block">{{ t('family.index.devices') }}</NuxtLink>
+        <NuxtLink to="/family/activity" class="btn btn--white btn--block"><AppIcon name="eye" :size="22" />{{ t('recovery.links.activity') }}</NuxtLink>
+        <NuxtLink to="/family/trash" class="btn btn--white btn--block"><AppIcon name="trash" :size="22" />{{ t('recovery.links.trash') }}</NuxtLink>
+        <NuxtLink to="/family/data" class="btn btn--white btn--block"><AppIcon name="download" :size="22" />{{ t('recovery.links.data') }}</NuxtLink>
         <NuxtLink to="/feedback" class="btn btn--white btn--block">{{ t('family.index.feedback') }}</NuxtLink>
     </div>
 </template>

@@ -6,12 +6,16 @@
         <template v-else>
             <AiNotice :text="t('ai.page.notice')" />
             <AiQuota />
+            <AiBudgetEditor />
             <p v-if="isUnavailable" class="error" role="alert">{{ t(AI_UNAVAILABLE_KEY) }}</p>
             <div v-if="result" class="card stack" role="status" data-testid="ai-result">
                 <h2 class="subtitle">{{ t('ai.page.draftCreated') }}</h2>
                 <p>{{ t('ai.page.draftBody') }}</p>
                 <p v-if="result.imagesSkipped > 0" class="error" data-testid="ai-images-skipped">
                     {{ skippedLabel }}
+                </p>
+                <p v-if="result.imagesBlocked > 0" class="error" data-testid="ai-images-blocked">
+                    {{ t('aiSafety.blocked.images', { count: result.imagesBlocked }) }}
                 </p>
                 <NuxtLink to="/home" class="btn btn--block">{{ t('ai.page.seeLibrary') }}</NuxtLink>
                 <button type="button" class="btn btn--white btn--block" @click="restart">{{ t('ai.page.another') }}</button>

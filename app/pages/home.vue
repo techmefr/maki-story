@@ -1,7 +1,9 @@
 <template>
     <div class="stack">
+        <StatusStrip />
         <h1 class="title">{{ t('home.title') }}</h1>
         <GrimaceNudge />
+        <BirthDateNudge />
         <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
             <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
@@ -14,10 +16,11 @@
         </NuxtLink>
         <BookFilters @change="reload" />
         <AppEmpty
-            v-if="listed.length === 0 && drafts.length === 0 && isLoaded"
+            v-if="listed.length === 0 && drafts.length === 0 && proposals.length === 0 && isLoaded"
             :title="hasFilter ? t('home.noMatch') : t('home.empty')"
             :hint="hasFilter ? t('home.noMatchHint') : t('home.emptyHint')"
         />
+        <ProposalRow v-if="isParent && proposals.length > 0" :books="proposals" @open="sheetBook = $event" @changed="reload(activeQuery)" />
         <AiDraftRow v-if="isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
@@ -45,9 +48,11 @@ const startShare = (book: IBookSummary): void => {
 
 const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
 const drafts = computed(() => books.value.filter(book => book.status === 'draft' && book.aiGenerated))
-const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated)))
+const proposals = computed(() => books.value.filter(book => book.status === 'proposed'))
+const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated) && book.status !== 'proposed'))
 const rows = computed(() =>
     [
+        { title: t('library.rows.myProposals'), books: isParent.value ? [] : proposals.value, hasDownload: false },
         { title: t('home.rows.review'), books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
         {
             title: t('home.rows.recording'),

@@ -1,0 +1,15 @@
+{
+    "blocked": {
+        "refused": "Dieser Inhalt wurde vom Kinderschutzfilter blockiert. Versuche eine andere Idee.",
+        "images": "{count} Bild(er) vom Sicherheitsfilter blockiert: Die Seite bleibt leer."
+    },
+    "budget": {
+        "title": "KI-Budget der Familie",
+        "default": "Standardbudget: {amount} pro Monat.",
+        "custom": "Individuelles Budget für deine Familie.",
+        "label": "Monatsbudget (USD)",
+        "save": "Speichern",
+        "reset": "Zurück zum Standardbudget",
+        "error": "Das Budget kann gerade nicht gespeichert werden."
+    }
+}

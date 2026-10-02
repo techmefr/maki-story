@@ -4,6 +4,14 @@
         <template v-if="book">
             <h1 class="title">{{ book.title }}</h1>
             <p class="muted">{{ t('sharing.detail.help') }}</p>
+            <label class="stack" style="gap: 6px">
+                <span class="label">{{ t('library.shareLanguage.label') }}</span>
+                <select v-model="recordingLanguage" class="input" data-testid="share-language" :disabled="isRecording" @change="load">
+                    <option value="">{{ t('library.shareLanguage.choose') }}</option>
+                    <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
+                </select>
+                <span v-if="!recordingLanguage" class="muted">{{ t('library.shareLanguage.required') }}</span>
+            </label>
             <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="t('sharing.detail.lineAria', { name: line.character || t('sharing.detail.narratorLower') })">
                 <div class="row">
                     <span class="badge">{{ line.character || t('sharing.detail.narrator') }}</span>
@@ -21,7 +29,7 @@
                         </template>
                     </div>
                 </template>
-                <button v-else type="button" class="btn btn--small" :disabled="isRecording" @click="startRecording(line)">
+                <button v-else type="button" class="btn btn--small" :disabled="isRecording || !recordingLanguage" @click="startRecording(line)">
                     {{ line.hasRecording ? t('sharing.detail.redo') : t('sharing.detail.record') }}
                 </button>
             </article>
@@ -45,12 +53,13 @@ const activeId = ref<string | null>(null)
 const take = ref<IRecording | null>(null)
 const isBusy = ref(false)
 const errorMessage = ref('')
+const recordingLanguage = ref('')
 
 const hint = (line: IShareLine): string => [line.tone, line.note, line.sceneDescription].filter(part => part !== '').join(' · ')
 
 const load = async (): Promise<void> => {
     try {
-        book.value = await getBook(shareId)
+        book.value = await getBook(shareId, recordingLanguage.value || undefined)
     } catch (_error) {
         errorMessage.value = t('sharing.detail.unavailable')
     }
@@ -89,7 +98,7 @@ const send = async (line: IShareLine): Promise<void> => {
     errorMessage.value = ''
     try {
         const fileId = await upload(take.value.blob, take.value.mime)
-        await putLine(shareId, line.id, fileId, take.value.ms)
+        await putLine(shareId, line.id, fileId, take.value.ms, recordingLanguage.value)
         discard()
         await load()
     } catch (_error) {

@@ -11,13 +11,14 @@ export default defineNuxtConfig({
     nitro: {
         noExternals: true,
         experimental: { tasks: true },
-        scheduledTasks: { '0 3 * * *': ['messages:purge'] },
+        scheduledTasks: { '0 3 * * *': ['messages:purge', 'trash:purge'] },
         inlineDynamicImports: true,
         serverAssets: [{ baseName: 'migrations', dir: fileURLToPath(new URL('./server/migrations', import.meta.url)) }],
     },
     runtimeConfig: {
         public: {
             apiBase: '',
+            appVersion: process.env.npm_package_version ?? '',
             biometricTestBridge: false,
             sleepMinuteMs: 60000,
             sleepFadeMs: 8000,

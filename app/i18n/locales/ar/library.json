@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "اقتراحات الأقارب",
+        "myProposals": "اقتراحاتي قيد الانتظار"
+    },
+    "proposals": {
+        "proposedBy": "اقتراح من {name}",
+        "approve": "قبول",
+        "decline": "رفض",
+        "approveLabel": "قبول {title}",
+        "declineLabel": "رفض {title}",
+        "error": "تعذّرت معالجة هذا الاقتراح حاليًا."
+    },
+    "proposal": {
+        "toggle": "اقتراح هذا الكتاب على العائلة",
+        "hint": "يقبله أحد الوالدين أو يرفضه قبل أي تسجيل."
+    },
+    "filters": {
+        "more": "المزيد من عوامل التصفية",
+        "type": "نوع الكتاب",
+        "mood": "الأجواء",
+        "theme": "الموضوع",
+        "types": {
+            "standard": "كتاب",
+            "comic": "قصة مصورة",
+            "wordless": "بلا نص",
+            "child-written": "كتبه الطفل"
+        },
+        "moods": {
+            "calm": "هادئ",
+            "funny": "مضحك",
+            "adventure": "مغامرة",
+            "tender": "حنون",
+            "bedtime": "قبل النوم",
+            "curious": "فضولي",
+            "musical": "موسيقي",
+            "brave": "شجاع"
+        },
+        "themes": {
+            "animals": "حيوانات",
+            "family": "عائلة",
+            "friendship": "صداقة",
+            "nature": "طبيعة",
+            "school": "مدرسة",
+            "feelings": "مشاعر",
+            "travel": "سفر",
+            "food": "طعام",
+            "seasons": "فصول",
+            "legends": "أساطير",
+            "numbers-letters": "أرقام وحروف",
+            "daily-life": "الحياة اليومية"
+        }
+    },
+    "childVisible": {
+        "title": "ظهوره للطفل",
+        "auto": "حسب العمر",
+        "show": "ظاهر دائمًا",
+        "hide": "مخفي",
+        "hint": "افتراضيًا يرى الطفل الكتب المناسبة لعمره فقط.",
+        "error": "تعذّر تغيير الظهور حاليًا."
+    },
+    "ageShift": {
+        "title": "إزاحة الفئة العمرية",
+        "hint": "يعرض لهذا الطفل كتبًا أصغر (−) أو أكبر (+) من عمره بالسنوات.",
+        "error": "تعذّر تغيير الإزاحة حاليًا."
+    },
+    "birthNudge": {
+        "title": "أضف تاريخ الميلاد",
+        "hint": "بدون تاريخ الميلاد ({names}) تُعرض كل الكتب للطفل.",
+        "action": "إكمال"
+    },
+    "shareLanguage": {
+        "label": "لغة تسجيلك",
+        "choose": "اختر لغة",
+        "required": "اختر اللغة قبل التسجيل."
+    },
+    "notify": {
+        "recordingRequest": "طُلب منك تسجيل صوتك لـ «{title}» ({count})",
+        "bookProposed": "{name} يقترح الكتاب «{title}»",
+        "proposalApproved": "تم قبول اقتراحك «{title}»",
+        "proposalDeclined": "تم رفض اقتراحك «{title}»"
+    }
+}

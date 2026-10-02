@@ -1,4 +1,5 @@
 import { getDb } from '../../../utils/db'
+import { actorEntry, record } from '../../../utils/journal'
 import { logEvent } from '../../../utils/log'
 import { requirePermission } from '../../../utils/permissions'
 import { loadShareRow } from '../../../utils/shares'
@@ -13,6 +14,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         return notFound('Share not found')
     }
     await db`update book_shares set status = ${'revoked'}, updated_at = now() where id = ${share.id}`
+    await record(event, { ...actorEntry(actor), action: 'share.stopped', entityType: 'share', entityId: share.id })
     logEvent('Partage arrêté')
     return { ok: true }
 })

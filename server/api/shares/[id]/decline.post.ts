@@ -1,4 +1,5 @@
 import { getDb } from '../../../utils/db'
+import { actorEntry, record } from '../../../utils/journal'
 import { logEvent } from '../../../utils/log'
 import { requirePermission } from '../../../utils/permissions'
 import { bookTitle, familyName, loadShareRow, notifyParents } from '../../../utils/shares'
@@ -21,6 +22,7 @@ export default defineEventHandler(async (event): Promise<{ status: ShareStatus }
             mode: share.mode,
         })
     }
+    await record(event, { ...actorEntry(actor), action: 'share.declined', entityType: 'share', entityId: share.id })
     logEvent('Partage refusé')
     return { status: 'declined' }
 })
