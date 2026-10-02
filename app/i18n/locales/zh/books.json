@@ -30,7 +30,10 @@
         "listen": "收听",
         "open": "打开图书",
         "studio": "前往录音室",
-        "share": "分享"
+        "share": "分享",
+        "voiceLanguages": "配音语言",
+        "moods": "氛围",
+        "themes": "主题"
     },
     "row": {
         "sheet": "详情"

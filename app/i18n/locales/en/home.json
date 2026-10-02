@@ -41,5 +41,6 @@
         "title": "Make your funny face!",
         "text": "A funny photo so the child recognises you."
     },
-    "noMatchHint": "Try other words or remove a filter."
+    "noMatchHint": "Try other words or remove a filter.",
+    "birthdayMissing": "Add {name}’s birth date"
 }

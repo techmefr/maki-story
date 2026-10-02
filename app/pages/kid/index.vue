@@ -20,15 +20,17 @@
                     v-if="face.message && face.count > 0"
                     :to="`/message/listen/${face.message.id}`"
                     class="face__bubble anim-bounce"
+                    :class="{ 'face__bubble--birthday': face.message.kind === 'BIRTHDAY' }"
                     :style="{ background: face.hex }"
                     :aria-label="face.bubbleLabel"
                 >
-                    <AppIcon name="message-heart" :size="22" motion="wiggle" />
-                    {{ t('kid.bubble') }}
+                    <AppIcon :name="face.message.kind === 'BIRTHDAY' ? 'party' : 'message-heart'" :size="22" motion="wiggle" />
+                    {{ face.message.kind === 'BIRTHDAY' ? t('kid.birthday.bubble') : t('kid.bubble') }}
                     <span class="face__count" data-bubble-count>{{ formatNumber(face.count) }}</span>
                 </NuxtLink>
             </div>
         </div>
+        <LazyBirthdayParty v-if="isPartyOpen && current" :name="current.name" :age="partyAge" @close="closeParty" />
         <AppEmpty kind="people" v-if="faces.length === 0" :title="t('kid.noFaces')" :hint="t('kid.noFacesHint')" />
         <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
             <AppIcon name="book" :size="44" motion="float" />
@@ -43,7 +45,8 @@ definePageMeta({ layout: 'kid' })
 
 const { t, formatNumber } = useI18n()
 const { current, currentId } = useCurrentMember()
-const { grownUps } = useMembers()
+const { grownUps, load: loadMembers } = useMembers()
+const { request } = useApi()
 const { load, startPolling, stopPolling, playableFrom, unreadFrom } = useMessages()
 
 const faces = computed(() =>
@@ -62,17 +65,45 @@ const faces = computed(() =>
         }
     }),
 )
+const deviceTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+const isPartyOpen = ref(false)
+const partyAge = computed(() => (current.value?.birthDate ? computeAge(current.value.birthDate, deviceTimeZone) : 0))
+
+const closeParty = async (): Promise<void> => {
+    isPartyOpen.value = false
+    if (!current.value) {
+        return
+    }
+    try {
+        await request(`/members/${current.value.id}/birthday-celebrated`, { method: 'POST', body: { year: new Date().getFullYear() } })
+        await loadMembers()
+    } catch (error) {
+        console.error('Impossible d’enregistrer l’anniversaire pour le moment', error)
+    }
+}
+
 const faceIds = computed(() => grownUps.value.map(member => member.id))
 
 onMounted(async () => {
     await load()
     startPolling()
+    const birthDate = current.value?.birthDate
+    isPartyOpen.value =
+        current.value?.role === 'child' &&
+        !!birthDate &&
+        isBirthdayToday(birthDate, deviceTimeZone) &&
+        current.value.birthdayCelebratedYear !== new Date().getFullYear()
 })
 
 onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
+.face__bubble--birthday {
+    outline: 3px dashed var(--ink);
+    outline-offset: 2px;
+}
+
 .face__ring {
     display: inline-flex;
     padding: 6px;

@@ -45,6 +45,12 @@
     "noFaces": "Personne n’est encore là",
     "noFacesHint": "Demande à un grand d’ajouter la famille.",
     "noSoloHint": "Elle arrive bientôt !",
+    "birthday": {
+        "title": "Joyeux anniversaire {name} !",
+        "age": "{age} ans",
+        "thanks": "Merci !",
+        "bubble": "Message d’anniversaire"
+    },
     "treasure": {
         "title": "Mon trésor",
         "titleOf": "Trésor de {name}",

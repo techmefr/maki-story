@@ -30,7 +30,10 @@
         "listen": "Ascolta",
         "open": "Apri il libro",
         "studio": "Vai allo studio",
-        "share": "Condividi"
+        "share": "Condividi",
+        "voiceLanguages": "Lingue delle voci",
+        "moods": "Atmosfera",
+        "themes": "Temi"
     },
     "row": {
         "sheet": "Scheda"

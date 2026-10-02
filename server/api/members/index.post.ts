@@ -17,13 +17,13 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     let code: IMemberCodeInput | null = null
     let hash: string | null = null
     if (body.code !== undefined) {
-        code = readCodeInput(body.code)
+        code = readCodeInput(body.code, body.role)
         hash = await hashCode(code)
     }
     const db = getDb()
     const member = one(await db<IMember[]>`
-        insert into members (family_id, name, role, color, pin_hash, code_kind, birth_date)
-        values (${familyId}, ${body.name.trim()}, ${body.role}, ${body.color}, ${hash}, ${code?.kind ?? null}, ${birthDate})
+        insert into members (family_id, name, role, color, pin_hash, code_kind, birth_date, code_enabled)
+        values (${familyId}, ${body.name.trim()}, ${body.role}, ${body.color}, ${hash}, ${code?.kind ?? null}, ${birthDate}, ${body.codeEnabled !== false || body.role !== 'child'})
         returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)}
     `)
     await record(event, { ...actorEntry(actor), action: 'member.created', entityType: 'member', entityId: member.id, after: { role: member.role, hasBirthDate: birthDate !== null } })

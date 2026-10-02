@@ -125,7 +125,7 @@ test.describe('sharing between families', () => {
         expect(batch).toMatchObject({ count: 3, isRead: false })
         expect(batch!.payload).toMatchObject({ fromName: 'Tata', bookTitle: 'Livre partagé' })
         expect((await tata.get('/api/members')).status()).toBe(200)
-        const profile = await a.parent.post('/api/auth/profile', { data: { memberId: guest!.id, code: '1234' } })
+        const profile = await a.parent.post('/api/auth/profile', { data: { memberId: guest!.id, code: '123456' } })
         expect(profile.status()).toBe(404)
     })
 

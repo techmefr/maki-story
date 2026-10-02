@@ -50,9 +50,8 @@
         "enterTitle": "Enter your code",
         "createTitle": "Create your code",
         "confirmTitle": "Confirm your code",
-        "hintShapes": "Tap the 3 shapes in the right order.",
         "hintPin": "Type your secret code.",
-        "hintCreate": "Choose 4 to 6 digits. You’ll be asked for it every time.",
+        "hintCreate": "Choose 6 to 8 digits. You’ll be asked for it every time.",
         "hintConfirm": "Type the same code a second time.",
         "wrong": "Wrong code. Try again.",
         "throttled": "Too many attempts. Try again in a few minutes.",
@@ -61,7 +60,8 @@
         "cancelled": "Verification cancelled. Type your code.",
         "enrolCancelled": "Verification cancelled. You can try again later.",
         "enrolFailed": "Couldn’t turn it on right now.",
-        "mismatch": "The two codes don’t match. Start again."
+        "mismatch": "The two codes don’t match. Start again.",
+        "hintSymbols": "Tap your 4 symbols."
     },
     "pad": {
         "progress": "{count} of {max} digits entered",
@@ -72,10 +72,19 @@
     "code": {
         "kind": "Code type",
         "digits": "Digits",
-        "shapes": "Shapes",
         "defaultLabel": "Code",
         "placeholder": "{min} to {max} digits",
-        "shapesHint": "Pick 3 shapes out of 4, in order.",
-        "shapesSaved": "Shapes saved."
+        "symbolsHint": "Pick 4 symbols, in order.",
+        "symbolsSaved": "Symbol code ready."
+    },
+    "symbols": {
+        "s0": "Red star",
+        "s1": "Blue moon",
+        "s2": "Green heart",
+        "s3": "Yellow sun",
+        "s4": "Purple cloud",
+        "s5": "Pink flower",
+        "chosen": "{count} of {total} symbols",
+        "clear": "Clear"
     }
 }

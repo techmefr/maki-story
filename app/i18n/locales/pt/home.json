@@ -41,5 +41,6 @@
         "title": "Faça sua careta!",
         "text": "Uma foto engraçada para a criança reconhecer você."
     },
-    "noMatchHint": "Experimenta outras palavras ou retira um filtro."
+    "noMatchHint": "Experimenta outras palavras ou retira um filtro.",
+    "birthdayMissing": "Adiciona a data de nascimento de {name}"
 }

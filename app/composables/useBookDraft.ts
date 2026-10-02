@@ -67,6 +67,9 @@ export const useBookDraft = () => {
     const ageMin = useState<number | null>('draft-age-min', () => null)
     const ageMax = useState<number | null>('draft-age-max', () => null)
     const language = useState<string>('draft-language', () => DEFAULT_LANGUAGE)
+    const voiceLanguages = useState<string[]>('draft-voice-languages', () => [])
+    const moods = useState<string[]>('draft-moods', () => [])
+    const themes = useState<string[]>('draft-themes', () => [])
     const type = useState<BookType>('draft-type', () => 'standard')
     const ttsFallback = useState<boolean>('draft-tts', () => false)
     const pages = useState<IDraftPage[]>('draft-pages', () => [])
@@ -188,6 +191,9 @@ export const useBookDraft = () => {
         ageMin.value = null
         ageMax.value = null
         language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
+        voiceLanguages.value = []
+        moods.value = []
+        themes.value = []
         type.value = 'standard'
         ttsFallback.value = false
         pages.value = []
@@ -202,6 +208,7 @@ export const useBookDraft = () => {
         title.value = draft.title
         subtitle.value = draft.subtitle
         language.value = draft.language
+        voiceLanguages.value = voiceLanguages.value.length > 0 ? voiceLanguages.value : [draft.language]
         const reader = readerId.value
         const loaded: IDraftCharacter[] = draft.characters.map(character => ({
             key: nextKey++,
@@ -372,6 +379,10 @@ export const useBookDraft = () => {
             ageMin: asAge(ageMin.value),
             ageMax: asAge(ageMax.value),
             language: language.value,
+            writtenLanguage: language.value,
+            voiceLanguages: voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value],
+            moods: moods.value,
+            themes: themes.value,
             type: type.value,
             ttsFallback: ttsFallback.value,
             kind: isSimple.value ? 'solo' : 'multi',
@@ -421,6 +432,9 @@ export const useBookDraft = () => {
         ageMin,
         ageMax,
         language,
+        voiceLanguages,
+        moods,
+        themes,
         type,
         ttsFallback,
         pages,

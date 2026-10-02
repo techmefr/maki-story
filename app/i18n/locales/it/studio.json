@@ -76,14 +76,6 @@
         "angry": "Arrabbiato",
         "gentle": "Dolcissimo"
     },
-    "shapes": {
-        "s0": "Cerchio",
-        "s1": "Quadrato",
-        "s2": "Triangolo",
-        "s3": "Stella",
-        "chosen": "{count} forme su {total} scelte",
-        "clear": "Cancella"
-    },
     "composer": {
         "whoSpeaks": "Chi parla?",
         "character": "Personaggio",

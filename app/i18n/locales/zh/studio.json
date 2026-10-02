@@ -76,14 +76,6 @@
         "angry": "生气",
         "gentle": "轻轻柔柔"
     },
-    "shapes": {
-        "s0": "圆形",
-        "s1": "正方形",
-        "s2": "三角形",
-        "s3": "星星",
-        "chosen": "已选 {count}/{total} 个图形",
-        "clear": "清除"
-    },
     "composer": {
         "whoSpeaks": "谁在说话？",
         "character": "角色",

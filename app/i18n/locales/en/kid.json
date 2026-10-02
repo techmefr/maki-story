@@ -45,6 +45,12 @@
     "noFaces": "Nobody is here yet",
     "noFacesHint": "Ask a grown-up to add the family.",
     "noSoloHint": "It is coming soon!",
+    "birthday": {
+        "title": "Happy birthday {name}!",
+        "age": "{age} years old",
+        "thanks": "Thank you!",
+        "bubble": "Birthday message"
+    },
     "treasure": {
         "title": "My treasure",
         "titleOf": "{name}’s treasure",

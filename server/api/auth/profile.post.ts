@@ -33,13 +33,16 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     }
     if (body.device !== undefined) {
         await verifyDeviceSecret(event, db, session.familyId, row.id, body.device)
+    } else if (row.role === 'child' && !row.codeEnabled) {
+        startSession(event, { ...session, memberId })
+        return { isSignedIn: true, memberId }
     } else if (row.pinHash) {
         await verifyMemberCode(db, session.familyId, row, body.code)
     } else {
         if (row.role === 'child' || session.memberId !== null) {
             throw createError({ statusCode: 403, statusMessage: 'A parent must set this code' })
         }
-        const newCode = readCodeInput(body.newCode)
+        const newCode = readCodeInput(body.newCode, row.role)
         const hash = await hashCode(newCode)
         const updated = await db<{ id: string }[]>`
             update members set pin_hash = ${hash}, code_kind = ${newCode.kind}

@@ -19,7 +19,8 @@
         "tapToFinish": "Tendreo hamaranana",
         "tapMic": "Tendreo ny mikrofaona",
         "tooShort": "Fohy loatra, atombohy indray.",
-        "sendFailed": "Tsy afaka nalefa ny hafatra. Andramo indray."
+        "sendFailed": "Tsy afaka nalefa ny hafatra. Andramo indray.",
+        "birthdayFor": "Hafatra fetin’ny andro nahaterahana ho an’i {name}"
     },
     "listen": {
         "finished": "Vita",
@@ -39,5 +40,6 @@
         }
     },
     "noOneTitle": "Tsy misy olona hosoratana",
-    "activeBlocked": "Misy hafatra miandry an’i {name} efa. Afaka mandefa iray hafa ianao rehefa voatsara sy lany daty izy."
+    "activeBlocked": "Misy hafatra miandry an’i {name} efa. Afaka mandefa iray hafa ianao rehefa voatsara sy lany daty izy.",
+    "birthdayWish": "Mandefa firariana"
 }

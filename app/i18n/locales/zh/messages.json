@@ -19,7 +19,8 @@
         "tapToFinish": "点一下结束",
         "tapMic": "点一下麦克风",
         "tooShort": "太短了，再来一次。",
-        "sendFailed": "消息没能发出去，再试一次。"
+        "sendFailed": "消息没能发出去，再试一次。",
+        "birthdayFor": "给 {name} 的生日留言"
     },
     "listen": {
         "finished": "播完啦",
@@ -38,5 +39,6 @@
         }
     },
     "noOneTitle": "没有可以发消息的人",
-    "activeBlocked": "{name} 已经有一条待听的留言。等它被听过并过期后，你才能再发一条。"
+    "activeBlocked": "{name} 已经有一条待听的留言。等它被听过并过期后，你才能再发一条。",
+    "birthdayWish": "送上生日祝福"
 }

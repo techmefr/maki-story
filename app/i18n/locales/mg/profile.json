@@ -50,9 +50,8 @@
         "enterTitle": "Ampidiro ny kaodinao",
         "createTitle": "Mamorona ny kaodinao",
         "confirmTitle": "Hamafiso ny kaodinao",
-        "hintShapes": "Kitiho araka ny filaharana marina ny endrika 3.",
         "hintPin": "Soraty ny kaody miafinao.",
-        "hintCreate": "Misafidiya tarehimarika 4 ka hatramin’ny 6. Hangatahina isaky ny miditra izany.",
+        "hintCreate": "Misafidià tarehimarika 6 ka hatramin’ny 8. Hangatahina isaky ny miditra izany.",
         "hintConfirm": "Soraty indray ny kaody mitovy.",
         "wrong": "Diso ny kaody. Andramo indray.",
         "throttled": "Be loatra ny fanandramana. Andramo indray afaka minitra vitsy.",
@@ -61,7 +60,8 @@
         "cancelled": "Foanana ny fanamarinana. Soraty ny kaodinao.",
         "enrolCancelled": "Foanana ny fanamarinana. Afaka manandrana indray ianao rehefa afaka kelikely.",
         "enrolFailed": "Tsy afaka mampihetsika amin’izao fotoana izao.",
-        "mismatch": "Tsy mitovy ny kaody roa. Atombohy indray."
+        "mismatch": "Tsy mitovy ny kaody roa. Atombohy indray.",
+        "hintSymbols": "Tendreo ny soritra 4 nofidinao."
     },
     "pad": {
         "progress": "Tarehimarika {count} amin’ny {max} no voasoratra",
@@ -72,10 +72,19 @@
     "code": {
         "kind": "Karazan’ny kaody",
         "digits": "Tarehimarika",
-        "shapes": "Endrika",
         "defaultLabel": "Kaody",
         "placeholder": "Tarehimarika {min} ka hatramin’ny {max}",
-        "shapesHint": "Misafidiya endrika 3 amin’ny 4, araka ny filaharana.",
-        "shapesSaved": "Voatahiry ny endrika."
+        "symbolsHint": "Misafidià soritra 4, araka ny filaharana.",
+        "symbolsSaved": "Vonona ny kaody soritra."
+    },
+    "symbols": {
+        "s0": "Kintana mena",
+        "s1": "Volana manga",
+        "s2": "Fo maitso",
+        "s3": "Masoandro mavo",
+        "s4": "Rahona volomparasy",
+        "s5": "Voninkazo roso",
+        "chosen": "Soritra {count} amin’ny {total}",
+        "clear": "Fafao"
     }
 }

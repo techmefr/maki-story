@@ -45,6 +45,12 @@
     "noFaces": "Noch niemand da",
     "noFacesHint": "Bitte einen Erwachsenen, die Familie hinzuzufügen.",
     "noSoloHint": "Sie kommt bald!",
+    "birthday": {
+        "title": "Alles Gute zum Geburtstag, {name}!",
+        "age": "{age} Jahre",
+        "thanks": "Danke!",
+        "bubble": "Geburtstagsnachricht"
+    },
     "treasure": {
         "title": "Mein Schatz",
         "titleOf": "Schatz von {name}",

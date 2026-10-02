@@ -134,3 +134,74 @@ test.describe('child birth date api', () => {
         }
     })
 })
+
+test.describe('symbol codes, disabled child code, birthday and book metadata', () => {
+    let account: IE2eAccount
+    let parent: APIRequestContext
+
+    test.beforeAll(async ({ playwright, baseURL }) => {
+        account = uniqueAccount('sym')
+        parent = await playwright.request.newContext({ baseURL })
+        await signIn(parent, account)
+        await useProfile(parent, 'Parent')
+    })
+
+    test.afterAll(async () => {
+        await parent.dispose()
+    })
+
+    test('a symbol code is 4 symbols of 6, repeats allowed, children only', async () => {
+        const child = await parent.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'symbols', value: '0000' } } })
+        expect(child.ok(), await child.text()).toBeTruthy()
+        const childId = ((await child.json()) as { id: string }).id
+        for (const value of ['012', '01234', '0126', 'abcd']) {
+            expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value } })).status()).toBe(400)
+        }
+        expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value: '5120' } })).ok()).toBeTruthy()
+        const adult = await parent.post('/api/members', { data: { name: 'Tonton', role: 'relative', color: 'coral', code: { kind: 'symbols', value: '0123' } } })
+        expect(adult.status()).toBe(400)
+        const short = await parent.post('/api/members', { data: { name: 'Tati', role: 'relative', color: 'coral', code: { kind: 'pin', value: '1234' } } })
+        expect(short.status()).toBe(400)
+    })
+
+    test('a child with the code disabled enters without one', async ({ playwright, baseURL }) => {
+        const child = await parent.post('/api/members', { data: { name: 'Nono', role: 'child', color: 'mint', codeEnabled: false } })
+        expect(child.ok(), await child.text()).toBeTruthy()
+        const childId = ((await child.json()) as { id: string }).id
+        const other = await playwright.request.newContext({ baseURL })
+        try {
+            await signIn(other, account)
+            expect((await other.post('/api/auth/profile', { data: { memberId: childId } })).ok()).toBeTruthy()
+        } finally {
+            await other.dispose()
+        }
+        const off = await parent.patch(`/api/members/${childId}`, { data: { codeEnabled: true } })
+        expect(((await off.json()) as { codeEnabled: boolean }).codeEnabled).toBe(true)
+    })
+
+    test('the birthday party is recorded once per year', async () => {
+        const child = await parent.post('/api/members', { data: { name: 'Fete', role: 'child', color: 'pink', birthDate: '2020-03-10', codeEnabled: false } })
+        const childId = ((await child.json()) as { id: string }).id
+        const year = new Date().getUTCFullYear()
+        expect((await parent.post(`/api/members/${childId}/birthday-celebrated`, { data: { year } })).ok()).toBeTruthy()
+        expect((await parent.post(`/api/members/${childId}/birthday-celebrated`, { data: { year: 1900 } })).status()).toBe(400)
+        const members = (await (await parent.get('/api/members')).json()) as { id: string; birthdayCelebratedYear: number | null; birthdayInDays: number | null }[]
+        const seen = members.find(member => member.id === childId)!
+        expect(seen.birthdayCelebratedYear).toBe(year)
+        expect(seen.birthdayInDays).toBeGreaterThanOrEqual(0)
+    })
+
+    test('a book carries its voice languages, moods and themes', async () => {
+        const base = { title: 'Meta', kind: 'multi', imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: 'Narrateur', text: 'Salut' }] }
+        const created = await parent.post('/api/books', { data: { ...base, writtenLanguage: 'fr', voiceLanguages: ['fr', 'en'], moods: ['calm'], themes: ['animals', 'nature'] } })
+        expect(created.ok(), await created.text()).toBeTruthy()
+        const { id } = (await created.json()) as { id: string }
+        const book = (await (await parent.get(`/api/books/${id}`)).json()) as { id: string; writtenLanguage: string; voiceLanguages: string[]; moods: string[]; themes: string[] }
+        expect(book).toMatchObject({ writtenLanguage: 'fr', voiceLanguages: ['fr', 'en'], moods: ['calm'], themes: ['animals', 'nature'] })
+        expect((await parent.post('/api/books', { data: { ...base, moods: ['nope'] } })).status()).toBe(400)
+        expect((await parent.post('/api/books', { data: { ...base, voiceLanguages: ['not a language'] } })).status()).toBe(400)
+        const patched = await parent.patch(`/api/books/${book.id}`, { data: { themes: ['school'] } })
+        expect(patched.ok()).toBeTruthy()
+        expect(((await (await parent.get(`/api/books/${id}`)).json()) as { themes: string[] }).themes).toEqual(['school'])
+    })
+})

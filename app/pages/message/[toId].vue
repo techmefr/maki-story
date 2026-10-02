@@ -51,7 +51,10 @@ const recording = ref<IRecording | null>(null)
 
 const target = computed(() => getById(String(route.params.toId)))
 const backPath = computed(() => (isChild.value ? `/kid/${target.value?.id}` : '/messages'))
-const heading = computed(() => t('messages.compose.messageFor', { name: target.value?.name ?? '' }))
+const kind = computed<MessageKind>(() => (route.query.kind === 'birthday' ? 'BIRTHDAY' : 'NORMAL'))
+const heading = computed(() =>
+    kind.value === 'BIRTHDAY' ? t('messages.compose.birthdayFor', { name: target.value?.name ?? '' }) : t('messages.compose.messageFor', { name: target.value?.name ?? '' }),
+)
 const timeLabel = computed(() => formatDuration((phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value) / 1000))
 
 const toggle = async (): Promise<void> => {
@@ -92,6 +95,7 @@ const send = async (): Promise<void> => {
             fileId,
             mime: recording.value.mime,
             durationMs: recording.value.ms,
+            kind: kind.value,
         })
         phase.value = 'sent'
         setTimeout(() => navigateTo(isChild.value ? '/kid' : '/messages'), BACK_DELAY_MS)

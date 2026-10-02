@@ -76,14 +76,6 @@
         "angry": "Wütend",
         "gentle": "Ganz sanft"
     },
-    "shapes": {
-        "s0": "Kreis",
-        "s1": "Quadrat",
-        "s2": "Dreieck",
-        "s3": "Stern",
-        "chosen": "{count} von {total} Formen gewählt",
-        "clear": "Löschen"
-    },
     "composer": {
         "whoSpeaks": "Wer spricht?",
         "character": "Figur",

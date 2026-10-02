@@ -40,5 +40,6 @@
         "title": "来做你的鬼脸吧！",
         "text": "拍一张有趣的照片，让孩子认出你。"
     },
-    "noMatchHint": "试试其他词，或去掉一个筛选条件。"
+    "noMatchHint": "试试其他词，或去掉一个筛选条件。",
+    "birthdayMissing": "添加 {name} 的出生日期"
 }

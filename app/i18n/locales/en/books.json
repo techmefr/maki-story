@@ -30,7 +30,10 @@
         "listen": "Listen",
         "open": "Open the book",
         "studio": "Go to the studio",
-        "share": "Share"
+        "share": "Share",
+        "voiceLanguages": "Voice languages",
+        "moods": "Mood",
+        "themes": "Themes"
     },
     "row": {
         "sheet": "Details"

@@ -76,14 +76,6 @@
         "angry": "Angry",
         "gentle": "Very gentle"
     },
-    "shapes": {
-        "s0": "Circle",
-        "s1": "Square",
-        "s2": "Triangle",
-        "s3": "Star",
-        "chosen": "{count} of {total} shapes chosen",
-        "clear": "Clear"
-    },
     "composer": {
         "whoSpeaks": "Who is speaking?",
         "character": "Character",

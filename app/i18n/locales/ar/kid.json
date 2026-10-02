@@ -49,6 +49,12 @@
     "noFaces": "لا أحد هنا بعد",
     "noFacesHint": "اطلب من أحد الكبار إضافة العائلة.",
     "noSoloHint": "ستصل قريبًا!",
+    "birthday": {
+        "title": "عيد ميلاد سعيد يا {name}!",
+        "age": "{age} سنوات",
+        "thanks": "شكرًا!",
+        "bubble": "رسالة عيد ميلاد"
+    },
     "treasure": {
         "title": "كنزي",
         "titleOf": "كنز {name}",

@@ -9,6 +9,10 @@ The relatives page: a card per person with a ring, a chest icon to the treasure 
 - Parent: can preview the page from the profile selector.
 - Relative: no access.
 
+### Birthday
+- On the child birthday (device timezone) a light CSS/SVG party opens once per year; closing it records the year server side; reduced motion shows a static version.
+- A birthday message has a dashed outline on its bubble.
+
 ### Enforced server side
 - `messages.list` returns only messages to or from the profile; expired messages are purged before listing; the schedule lock sends the child to the lock screen.
 

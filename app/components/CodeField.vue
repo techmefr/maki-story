@@ -1,14 +1,12 @@
 <template>
     <div class="stack" style="gap: 8px">
-        <div v-if="canUseShapes" class="row row--wrap" role="group" :aria-label="t('profile.code.kind')">
-            <button type="button" class="chip" :class="{ 'chip--on': kind === 'pin' }" :aria-pressed="kind === 'pin'" @click="setKind('pin')">
-                {{ t('profile.code.digits') }}
-            </button>
-            <button type="button" class="chip" :class="{ 'chip--on': kind === 'shapes' }" :aria-pressed="kind === 'shapes'" @click="setKind('shapes')">
-                {{ t('profile.code.shapes') }}
-            </button>
+        <div v-if="role === 'child'" class="stack" style="gap: 6px">
+            <span class="label">{{ label ?? t('profile.code.defaultLabel') }}</span>
+            <p class="muted">{{ t('profile.code.symbolsHint') }}</p>
+            <SymbolPad :key="padKey" @submit="onSymbols" @clear="emit('update:modelValue', null)" />
+            <p v-if="modelValue" class="muted" role="status">{{ t('profile.code.symbolsSaved') }}</p>
         </div>
-        <label v-if="kind === 'pin'" class="stack" style="gap: 6px">
+        <label v-else class="stack" style="gap: 6px">
             <span class="label">{{ label ?? t('profile.code.defaultLabel') }}</span>
             <input
                 class="input"
@@ -21,38 +19,24 @@
                 @input="onPin"
             />
         </label>
-        <div v-else class="stack" style="gap: 6px">
-            <span class="label">{{ label ?? t('profile.code.defaultLabel') }}</span>
-            <p class="muted">{{ t('profile.code.shapesHint') }}</p>
-            <ShapePad :key="shapeKey" @submit="onShapes" @clear="emit('update:modelValue', null)" />
-            <p v-if="modelValue" class="muted" role="status">{{ t('profile.code.shapesSaved') }}</p>
-        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const { canUseShapes = false, label } = defineProps<{ modelValue: IMemberCodeInput | null; canUseShapes?: boolean; label?: string }>()
+const { role = 'relative', label } = defineProps<{ modelValue: IMemberCodeInput | null; role?: MemberRole; label?: string }>()
 const emit = defineEmits<{ 'update:modelValue': [value: IMemberCodeInput | null] }>()
 
 const { t } = useI18n()
 
-const kind = ref<MemberCodeKind>('pin')
 const pinValue = ref('')
-const shapeKey = ref(0)
-
-const setKind = (next: MemberCodeKind): void => {
-    kind.value = next
-    pinValue.value = ''
-    shapeKey.value += 1
-    emit('update:modelValue', null)
-}
+const padKey = ref(0)
 
 watch(
-    () => canUseShapes,
-    isAllowed => {
-        if (!isAllowed && kind.value === 'shapes') {
-            setKind('pin')
-        }
+    () => role,
+    () => {
+        pinValue.value = ''
+        padKey.value += 1
+        emit('update:modelValue', null)
     },
 )
 
@@ -61,7 +45,7 @@ const onPin = (event: Event): void => {
     emit('update:modelValue', isValidCodeValue('pin', pinValue.value) ? { kind: 'pin', value: pinValue.value } : null)
 }
 
-const onShapes = (value: string): void => {
-    emit('update:modelValue', isValidCodeValue('shapes', value) ? { kind: 'shapes', value } : null)
+const onSymbols = (value: string): void => {
+    emit('update:modelValue', isValidCodeValue('symbols', value) ? { kind: 'symbols', value } : null)
 }
 </script>

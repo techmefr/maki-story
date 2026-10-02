@@ -33,12 +33,6 @@ export const describeNotification = (notification: INotification, t: (key: strin
             ]
             return t('review.notice.result', { title, parts: parts.filter(part => part !== '').join(', ') })
         }
-        case 'recording_request':
-            return t('library.notify.recordingRequest', { title, count })
-        case 'book_proposed':
-            return t('library.notify.bookProposed', { name: text(payload.memberName), title })
-        case 'proposal_result':
-            return t(text(payload.decision) === 'approve' ? 'library.notify.proposalApproved' : 'library.notify.proposalDeclined', { title })
         default:
             return t('notifications.describe.default')
     }
