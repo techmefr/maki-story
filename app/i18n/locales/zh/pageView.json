@@ -1,0 +1,38 @@
+{
+    "title": "第 {n} 页",
+    "previous": "上一页",
+    "next": "下一页",
+    "noScan": "这一页没有扫描图。",
+    "description": "页面描述",
+    "noDescription": "没有描述。",
+    "characters": {
+        "one": "{count} 个角色",
+        "other": "{count} 个角色"
+    },
+    "onlyMine": "我的台词",
+    "largeText": "放大文字",
+    "noLines": "这一页没有台词。",
+    "narrator": "旁白",
+    "noReader": "待选择的声音",
+    "original": "原文",
+    "tone": "语气：{tone}",
+    "studioSection": "书页",
+    "showPage": "显示这一页",
+    "hidePage": "隐藏这一页",
+    "recordLine": "录制这句台词",
+    "viewMode": "审阅模式",
+    "byLine": "逐句",
+    "byPage": "逐页",
+    "scan": {
+        "label": "扫描页",
+        "alt": "第 {n} 页的扫描图",
+        "zoomIn": "放大",
+        "zoomOut": "缩小",
+        "rotate": "旋转",
+        "reset": "重置",
+        "full": "全屏",
+        "exitFull": "退出全屏",
+        "failed": "无法加载这一页。",
+        "panelHint": "点按漫画格即可放大。"
+    }
+}

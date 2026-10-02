@@ -31,6 +31,9 @@
         "parentRequired": "Se necesita al menos un padre o madre.",
         "narratorExists": "Este libro ya tiene un narrador.",
         "characterExists": "Este personaje ya existe.",
-        "voiceBlocked": "Esta voz está bloqueada."
+        "voiceBlocked": "Esta voz está bloqueada.",
+        "recordingTooLong": "Esta grabación es demasiado larga (10 minutos como máximo).",
+        "recordingType": "Este formato de audio no se acepta.",
+        "spokenLanguage": "Este idioma no es uno de los que hablas."
     }
 }

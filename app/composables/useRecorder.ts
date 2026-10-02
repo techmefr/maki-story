@@ -1,5 +1,6 @@
 import {
     MIN_RECORDING_MS,
+    RECORDING_AUDIO_BITRATE_MODE,
     RECORDING_BITS_PER_SECOND,
     RECORDING_LIMIT_OVERRIDE_KEY,
     RECORDING_MIMES,
@@ -82,7 +83,10 @@ export const useRecorder = (onLimit?: (recording: IRecording | null) => void) =>
             limitMs.value = resolveRecordingLimitMs((globalThis as Record<string, unknown>)[RECORDING_LIMIT_OVERRIDE_KEY])
             stream = await openMicrophone()
             const mime = pickMime()
-            const options: MediaRecorderOptions = { audioBitsPerSecond: RECORDING_BITS_PER_SECOND }
+            const options: MediaRecorderOptions & { audioBitrateMode?: string } = {
+                audioBitsPerSecond: RECORDING_BITS_PER_SECOND,
+                audioBitrateMode: RECORDING_AUDIO_BITRATE_MODE,
+            }
             if (mime) {
                 options.mimeType = mime
             }

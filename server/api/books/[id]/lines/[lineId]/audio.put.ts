@@ -3,6 +3,7 @@ import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
 import { assertCanRecordLine, requireActorMember, requirePermission } from '../../../../../utils/permissions'
+import { assertRecordingAcceptable, assertSpokenLanguage } from '../../../../../utils/recordings'
 import { findReviewBook, recordSubmission } from '../../../../../utils/review'
 import { isVoiceBlocked } from '../../../../../../shared/utils/blocking'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../utils/validate'
@@ -45,7 +46,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const language = body.language === undefined ? line.language : checkLanguage(body.language)
     const [file] = await db<{ mime: string }[]>`select mime from files where id = ${body.fileId} and family_id = ${familyId}`
     const fileId = body.fileId
-    const durationMs = Math.max(0, Math.round(body.ms ?? 0))
+    const durationMs = assertRecordingAcceptable(file!.mime, body.ms)
+    await assertSpokenLanguage(db, recorderId, language)
     await db.begin(async tx => {
         const [previous] = await tx<{ status: RecordingStatus }[]>`
             select status from recordings where line_id = ${lineId} and family_id = ${familyId} and language = ${language} for update

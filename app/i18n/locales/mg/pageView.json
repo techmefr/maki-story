@@ -1,0 +1,38 @@
+{
+    "title": "Pejy {n}",
+    "previous": "Pejy teo aloha",
+    "next": "Pejy manaraka",
+    "noScan": "Tsy misy sary scan ho an’ity pejy ity.",
+    "description": "Famaritana ny pejy",
+    "noDescription": "Tsy misy famaritana.",
+    "characters": {
+        "one": "{count} mpilalao",
+        "other": "{count} mpilalao"
+    },
+    "onlyMine": "Ny fehezanteny ahy",
+    "largeText": "Soratra lehibe kokoa",
+    "noLines": "Tsy misy fehezanteny amin’ity pejy ity.",
+    "narrator": "Mpitantara",
+    "noReader": "Feo hofidina",
+    "original": "Lahatsoratra tany am-boalohany",
+    "tone": "Feo: {tone}",
+    "studioSection": "Pejy boky",
+    "showPage": "Asehoy ny pejy",
+    "hidePage": "Afeno ny pejy",
+    "recordLine": "Alefaso ity fehezanteny ity",
+    "viewMode": "Fomba fandinihana",
+    "byLine": "Fehezanteny tsirairay",
+    "byPage": "Pejy tsirairay",
+    "scan": {
+        "label": "Pejy voaskana",
+        "alt": "Scan ny pejy {n}",
+        "zoomIn": "Hanalehibe",
+        "zoomOut": "Hanamaivana",
+        "rotate": "Hamadika",
+        "reset": "Hamerina",
+        "full": "Efijery feno",
+        "exitFull": "Hiala amin’ny efijery feno",
+        "failed": "Tsy nahomby ny famoahana ny pejy.",
+        "panelHint": "Tsindrio ny efajoro BD mba hanalehibe azy."
+    }
+}
