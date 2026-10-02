@@ -24,7 +24,7 @@ const SUMMARY_SELECT = `
     (select count(distinct bl.id)::int ${BLOCKED_FROM}) as blocked_line_count
 `
 
-const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id and sr.status = 'approved' where sl.book_id = b.id)
+const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join child_recordings sr on sr.line_id = sl.id where sl.book_id = b.id)
     and not exists (select 1 ${BLOCKED_FROM})`
 
 const MAX_PAGE_SIZE = 200
@@ -98,7 +98,7 @@ export const assertBookReadable = async (actor: IActor, bookId: string): Promise
     }
 }
 
-export const loadBook = async (id: string, familyId: string, approvedOnly = false): Promise<IBook> => {
+export const loadBook = async (id: string, familyId: string, approvedOnly = false, hideScans = approvedOnly): Promise<IBook> => {
     const db = getDb()
     const [summary] = await db.unsafe<IBookSummary[]>(
         `select ${SUMMARY_SELECT} from books b where b.id = $1 and b.family_id = $2 and b.deleted_at is null`,
@@ -114,7 +114,7 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     const panels = await db<IPanel[]>`
         select id, page_id, position, description from panels where book_id = ${id} and family_id = ${familyId} order by position
     `
-    const pages: IBookPage[] = pageRows.map(page => ({ ...page, panels: panels.filter(panel => panel.pageId === page.id) }))
+    const pages: IBookPage[] = pageRows.map(page => ({ ...page, fileId: hideScans ? null : page.fileId, panels: panels.filter(panel => panel.pageId === page.id) }))
     const characters = await db<ICharacter[]>`
         select id, name, color, description, is_narrator, position from characters
         where book_id = ${id} and family_id = ${familyId} order by position, created_at
@@ -126,14 +126,14 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
             coalesce(r.status <> 'stale' and (bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord'))), false) as is_voice_blocked
         from lines l
         left join characters c on c.id = l.character_id
-        left join recordings r on r.line_id = l.id and r.language = ${summary.language} and (not ${approvedOnly}::boolean or r.status = 'approved')
+        left join ${approvedOnly ? db`child_recordings` : db`recordings`} r on r.line_id = l.id and r.language = ${summary.language}
         left join members bm on bm.id = r.member_id
         where l.book_id = ${id} and l.family_id = ${familyId} order by l.position
     `
     const recordings = await db<ILineRecording[]>`
         select r.id, r.line_id, r.member_id, r.language, r.file_id, r.duration_ms, r.mime, r.status, r.created_at
-        from recordings r join lines l on l.id = r.line_id
-        where l.book_id = ${id} and r.family_id = ${familyId} and (not ${approvedOnly}::boolean or r.status = 'approved') order by r.created_at
+        from ${approvedOnly ? db`child_recordings` : db`recordings`} r join lines l on l.id = r.line_id
+        where l.book_id = ${id} and r.family_id = ${familyId} order by r.created_at
     `
     const translations = await db<ILineTranslation[]>`
         select t.line_id, t.language, t.text, t.tone

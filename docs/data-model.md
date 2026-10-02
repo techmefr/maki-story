@@ -1,6 +1,6 @@
 # Data model v3
 
-Source of truth: `server/migrations`. Migration `0015_data_model_v3` adds everything the spec v3 section P needs. Every table is scoped by `family_id` (except account-level tables noted below) and every route must filter on it.
+Source of truth: `server/migrations`. Migration `0016_data_model_v3` adds everything the spec v3 section P needs. Every table is scoped by `family_id` (except account-level tables noted below) and every route must filter on it.
 
 Naming: the spec says Profile, the database says `members`. `members.role` is the profile role, `members.pin_hash` + `members.code_kind` hold the code hash (adult PIN or child symbol code), so no separate `symbol_code_hash` column exists.
 
@@ -53,4 +53,4 @@ New columns: `kind NORMAL|BIRTHDAY`, `first_listened_at`, `expires_at`, `status 
 
 ## Reverting
 
-Every migration has a down. `0015` down drops the new tables, trigger and columns. Data written into those columns is lost on down (expected).
+Every migration has a down. `0016` down drops the new tables, trigger and columns. Data written into those columns is lost on down (expected).

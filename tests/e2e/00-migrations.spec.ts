@@ -178,7 +178,7 @@ test.describe('migrations', () => {
     })
 
     test('the data model v3 migration keeps one active message per pair, back-fills books and resets legacy shape codes', async () => {
-        const upTo = migrations.findIndex(item => item.name.startsWith('0015'))
+        const upTo = migrations.findIndex(item => item.name.startsWith('0016'))
         expect(upTo).toBeGreaterThan(0)
         await migrateUp(db, migrations.slice(0, upTo))
         await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`

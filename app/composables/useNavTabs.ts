@@ -1,10 +1,12 @@
 export const useNavTabs = () => {
     const route = useRoute()
-    const { currentId } = useCurrentMember()
+    const { currentId, isParent } = useCurrentMember()
     const { unreadCountFor } = useMessages()
     const { t } = useI18n()
 
-    const tabs = computed(() => [
+    const tabs = computed(() => allTabs.value.filter(tab => tab.path !== '/family' || isParent.value))
+
+    const allTabs = computed(() => [
         {
             path: '/home',
             icon: 'book' as IconName,

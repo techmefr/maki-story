@@ -7,7 +7,8 @@ export const assertFileReadable = async (actor: IActor, fileId: string): Promise
         return
     }
     const { memberId } = actor
-    const scope = bookScope(actor, 4)
+    const isChild = actor.role === 'child'
+    const scope = bookScope(actor, 5)
     const rows = await getDb().unsafe(
         `select 1 where
             exists (select 1 from files where id = $1 and family_id = $2 and created_by_member_id = $3)
@@ -19,14 +20,14 @@ export const assertFileReadable = async (actor: IActor, fileId: string): Promise
                     and (m.from_member_id = $3 or m.to_member_id = $3)
             )
             or exists (
-                select 1 from recordings r join lines l on l.id = r.line_id join books b on b.id = l.book_id
+                select 1 from ${isChild ? 'child_recordings' : 'recordings'} r join lines l on l.id = r.line_id join books b on b.id = l.book_id
                 where r.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
             )
             or exists (
                 select 1 from book_pages p join books b on b.id = p.book_id
-                where p.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
+                where not $4::boolean and p.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
             )`,
-        [fileId, actor.familyId, memberId, ...bookScopeParams(actor)],
+        [fileId, actor.familyId, memberId, isChild, ...bookScopeParams(actor)],
     )
     if (rows.length === 0) {
         throw createError({ statusCode: 403, statusMessage: 'This file is not available to your profile' })
