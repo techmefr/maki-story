@@ -2,6 +2,7 @@ import { isVoiceBlocked } from '../../../../../../shared/utils/blocking'
 import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
+import { preserveApprovedTake } from '../../../../../utils/recordings'
 import { requireActorMember, requirePermission } from '../../../../../utils/permissions'
 import { assertRecordingAcceptable } from '../../../../../utils/recordings'
 import { bookTitle, familyName, findOrCreateGuestVoice, memberName, notifyParents, requireRecordShare } from '../../../../../utils/shares'
@@ -50,6 +51,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
             select ${share.ownerFamilyId}, mime, data from files where id = ${body.fileId!} and family_id = ${actor.familyId}
             returning id, mime
         `
+        await preserveApprovedTake(tx, lineId, share.ownerFamilyId, line.language)
         await tx`
             insert into recordings (family_id, line_id, member_id, language, file_id, duration_ms, mime, status)
             values (${share.ownerFamilyId}, ${lineId}, ${guest.id}, ${line.language}, ${copy!.id}, ${sharedDurationMs}, ${copy!.mime}, 'submitted')

@@ -40,6 +40,7 @@ export const login = async (page: Page): Promise<void> => {
 }
 
 export const useProfile = async (api: APIRequestContext, name: string): Promise<string> => {
+    await api.post('/api/auth/profile', { data: { memberId: null } })
     const members = (await (await api.get('/api/members')).json()) as IApiMember[]
     const member = members.find(item => item.name === name)
     expect(member).toBeTruthy()

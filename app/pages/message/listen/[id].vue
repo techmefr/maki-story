@@ -17,7 +17,6 @@
                     <AppIcon name="volume" :size="32" motion="pulse" />
                     {{ nextLabel }}
                 </NuxtLink>
-                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />{{ t('messages.listen.reply') }}</NuxtLink>
             </template>
             <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
                 <AppIcon name="play" :size="32" motion="pulse" />
@@ -52,7 +51,6 @@ const sender = computed(() => getById(message.value?.fromMemberId ?? null))
 const isPlaying = computed(() => player.isPlaying.value)
 const canReplay = computed(() => current.value?.role === 'parent')
 const backPath = computed(() => (isChild.value ? '/kid' : '/messages'))
-const replyPath = computed(() => `/message/${message.value?.fromMemberId}?reply=1`)
 const waiting = computed(() => {
     const heard = message.value
     return heard && currentId.value ? queueFrom(heard.fromMemberId, currentId.value).filter(item => item.id !== heard.id) : []

@@ -4,7 +4,7 @@ import { getDb } from '../../utils/db'
 import { assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
 import { requireActorMember, requireBookEditor } from '../../utils/permissions'
-import { markLineRecordingsStale } from '../../utils/recordings'
+import { dropApprovedTake, markLineRecordingsStale } from '../../utils/recordings'
 import { approveBook, findReviewBook } from '../../utils/review'
 import { badRequest, isNonEmptyString, requireParam } from '../../utils/validate'
 
@@ -69,6 +69,11 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         }
         for (const patch of body.lines ?? []) {
             if (patch.memberId !== undefined) {
+                await tx`
+                    delete from approved_takes
+                    where line_id = ${patch.id} and family_id = ${familyId} and member_id is distinct from ${patch.memberId}
+                      and line_id in (select id from lines where book_id = ${id})
+                `
                 await tx`
                     delete from recordings
                     where line_id = ${patch.id} and family_id = ${familyId} and member_id is distinct from ${patch.memberId}

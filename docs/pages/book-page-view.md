@@ -36,3 +36,6 @@ Components: `BookPageView.vue` (page card), `PageScanViewer.vue` (zoomable scan)
 - [x] Keyboard: viewport focusable with visible 4 px focus ring, all controls reachable, keyboard shortcuts documented above. Remote (D-pad): buttons are native and focusable.
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka for titles and buttons, Nunito for text, hard shadow `3px 3px 0 #1F1B3A` on the viewport and cards.
+
+## Security (scans)
+- Scans are visible to parents and to relatives with lines in the book only; never to the child (page fileId is null in the child payload, files endpoint returns 403) nor to other families.

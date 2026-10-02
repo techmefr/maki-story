@@ -30,21 +30,19 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     const [recipient] = await db<{ id: string; role: MemberRole; name: string }[]>`
         select id, role, name from members where id = ${body.toMemberId} and family_id = ${familyId} and deleted_at is null and status = 'active' and source_member_id is null
     `
-    if (!recipient) {
-        return badRequest('This person cannot receive messages')
+    if (!recipient || recipient.role !== 'child') {
+        return badRequest('Messages can only be sent to a child profile')
     }
-    if (recipient.role === 'child' && actor.role !== 'child') {
-        const [pending] = await db<{ total: number }[]>`
-            select count(*)::int as total from messages
-            where family_id = ${familyId} and from_member_id = ${fromMemberId} and to_member_id = ${recipient.id}
-                and deleted_at is null and listened_at is null
-        `
-        if ((pending?.total ?? 0) >= MAX_STATUS_MESSAGES_PER_RELATIVE) {
-            throw createError({
-                statusCode: 409,
-                statusMessage: `Il y a déjà ${MAX_STATUS_MESSAGES_PER_RELATIVE} messages en attente pour ${recipient.name}. Attends qu’ils soient écoutés.`,
-            })
-        }
+    const [pending] = await db<{ total: number }[]>`
+        select count(*)::int as total from messages
+        where family_id = ${familyId} and from_member_id = ${fromMemberId} and to_member_id = ${recipient.id}
+            and deleted_at is null and listened_at is null
+    `
+    if ((pending?.total ?? 0) >= MAX_STATUS_MESSAGES_PER_RELATIVE) {
+        throw createError({
+            statusCode: 409,
+            statusMessage: `Il y a déjà ${MAX_STATUS_MESSAGES_PER_RELATIVE} messages en attente pour ${recipient.name}. Attends qu’ils soient écoutés.`,
+        })
     }
     if (actor.role !== 'parent') {
         const [owned] = await db<{ id: string }[]>`

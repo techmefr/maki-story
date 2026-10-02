@@ -16,3 +16,6 @@ Only the parts changed by the page view lot are described here. The page card it
 - [x] Keyboard and remote focus on every control, visible focus ring.
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
+
+## Security (takes)
+- Recording again an approved line creates a pending take; the child keeps hearing the approved take until the parent validates the new one (approved_takes table, child_recordings view). Same for the shared record flow and new languages.
