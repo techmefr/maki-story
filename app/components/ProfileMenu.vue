@@ -5,7 +5,7 @@
                 <h2 id="profile-menu-title" class="subtitle">{{ t('profile.menu.photoTitle') }}</h2>
                 <PhotoCapture :frame-color="memberHex(current)" @captured="onCaptured" />
                 <p v-if="photoError" class="error" role="alert">{{ photoError }}</p>
-                <button type="button" class="btn btn--white btn--small" @click="view = 'menu'">{{ t('common.cancel') }}</button>
+                <AppButton variant="secondary" size="sm" @click="view = 'menu'">{{ t('common.cancel') }}</AppButton>
             </template>
             <template v-else>
                 <div class="row">
@@ -14,12 +14,12 @@
                         <h2 id="profile-menu-title" class="subtitle">{{ current.name }}</h2>
                         <div class="muted">{{ roleLabel(current.role) }}</div>
                     </div>
-                    <button type="button" class="btn btn--white btn--small" @click="close">{{ t('common.close') }}</button>
+                    <AppButton variant="secondary" size="sm" @click="close">{{ t('common.close') }}</AppButton>
                 </div>
-                <button type="button" class="btn btn--block" @click="view = 'photo'">
+                <AppButton is-block @click="view = 'photo'">
                     <AppIcon name="camera" :size="22" motion="wiggle" />
                     {{ t('profile.menu.changePhoto') }}
-                </button>
+                </AppButton>
                 <p v-if="statusMessage" class="muted" role="status">{{ statusMessage }}</p>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
                 <section v-if="isChild ? spoken.length > 0 : true" class="stack menu__section" aria-labelledby="menu-spoken">
@@ -102,7 +102,7 @@
                         </label>
                         <p v-if="passwordError" class="error" role="alert">{{ passwordError }}</p>
                         <p v-if="passwordDone" class="muted" role="status">{{ t('profile.menu.passwordDone') }}</p>
-                        <button type="submit" class="btn btn--white btn--block" :disabled="isBusy">{{ t('profile.menu.changePassword') }}</button>
+                        <AppButton variant="secondary" is-block type="submit" :disabled="isBusy">{{ t('profile.menu.changePassword') }}</AppButton>
                     </form>
                 </section>
                 <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-ai">
@@ -111,24 +111,21 @@
                 </section>
                 <section class="stack menu__section" aria-labelledby="menu-sounds">
                     <h3 id="menu-sounds" class="label">{{ t('profile.menu.sounds') }}</h3>
-                    <label class="row">
-                        <input type="checkbox" :checked="isCueOn" @change="setCueOn(($event.target as HTMLInputElement).checked)" />
-                        <span>{{ t('profile.menu.soundsOn') }}</span>
-                    </label>
-                    <label class="stack menu__field">
-                        <span class="label">{{ t('profile.menu.soundsVolume') }}</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            :value="cueVolume"
+                    <AppToggle :model-value="isCueOn" @update:model-value="setCueOn">{{ t('profile.menu.soundsOn') }}</AppToggle>
+                    <div class="stack menu__field">
+                        <span id="sound-volume-label" class="label">{{ t('profile.menu.soundsVolume') }}</span>
+                        <AppSlider
+                            :model-value="cueVolume"
+                            aria-labelledby="sound-volume-label"
+                            start-icon="mute"
+                            end-icon="volume"
                             :disabled="!isCueOn"
-                            @input="setCueVolume(Number(($event.target as HTMLInputElement).value))"
+                            @update:model-value="setCueVolume"
                         />
-                    </label>
+                    </div>
+                    <AppToggle :model-value="isLearningFont" data-testid="learning-font" @update:model-value="setLearningFont">{{ t('profile.menu.learningFont') }}</AppToggle>
                 </section>
-                <button type="button" class="btn btn--white btn--block" @click="openSwitcher">{{ t('profile.switchProfile') }}</button>
+                <AppButton variant="secondary" is-block @click="openSwitcher">{{ t('profile.switchProfile') }}</AppButton>
             </template>
         </div>
     </div>
@@ -145,6 +142,7 @@ const { updateSettings, changePhoto } = useMembers()
 const { request } = useApi()
 const { isCueOn, cueVolume, setCueOn, setCueVolume, play } = useSoundCues()
 const { languages, preference, setLocale, syncLocale } = useLocale()
+const { isLearningFont, setLearningFont } = useLearningFont()
 const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
 
 const view = ref<'menu' | 'photo'>('menu')

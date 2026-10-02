@@ -2,7 +2,7 @@
     <div class="stack narrow">
         <div class="row" style="justify-content: space-between">
             <AppLogo :size="48" />
-            <button type="button" class="btn btn--small btn--white" @click="leave">{{ t('profile.logout') }}</button>
+            <AppButton variant="secondary" size="sm" @click="leave">{{ t('profile.logout') }}</AppButton>
         </div>
         <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
         <template v-else>
@@ -24,7 +24,7 @@
                     <div class="muted">{{ roleLabel(member.role) }}</div>
                 </div>
             </button>
-            <NuxtLink to="/family/add" class="btn btn--white btn--block">{{ t('family.index.add') }}</NuxtLink>
+            <AppButton variant="secondary" is-block to="/family/add">{{ t('family.index.add') }}</AppButton>
         </template>
     </div>
 </template>

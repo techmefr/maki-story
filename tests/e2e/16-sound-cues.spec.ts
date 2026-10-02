@@ -14,7 +14,7 @@ test.describe('sound cues', () => {
         await signIn(page.request, uniqueAccount('cues-parent'))
         await chooseProfile(page, PARENT_NAME)
         await openMenu(page)
-        const toggle = page.getByRole('checkbox', { name: 'Activer les sons' })
+        const toggle = page.getByRole('switch', { name: 'Activer les sons' })
         await expect(toggle).not.toBeChecked()
         await page.getByRole('button', { name: 'Fermer' }).click()
         expect(await requestedCues(page)).toEqual([])
@@ -24,7 +24,7 @@ test.describe('sound cues', () => {
         await expect.poll(() => requestedCues(page)).toContain('button')
         await page.reload()
         await openMenu(page)
-        await expect(page.getByRole('checkbox', { name: 'Activer les sons' })).toBeChecked()
+        await expect(page.getByRole('switch', { name: 'Activer les sons' })).toBeChecked()
     })
 
     test('are on by default for a child and tell button from navigation', async ({ page }) => {
@@ -33,7 +33,7 @@ test.describe('sound cues', () => {
         await addMember(page, 'Lova', 'Enfant')
         await chooseProfile(page, 'Lova')
         await openMenu(page)
-        await expect(page.getByRole('checkbox', { name: 'Activer les sons' })).toBeChecked()
+        await expect(page.getByRole('switch', { name: 'Activer les sons' })).toBeChecked()
         await page.getByRole('button', { name: 'Fermer' }).click()
         const cues = await requestedCues(page)
         expect(cues).toContain('button')

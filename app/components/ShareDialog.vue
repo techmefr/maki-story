@@ -20,10 +20,7 @@
             <fieldset v-if="mode === 'record'" class="stack fieldset">
                 <legend class="label">{{ t('sharing.dialog.linesToRecord') }}</legend>
                 <p v-if="lines.length === 0" class="muted">{{ t('common.loading') }}</p>
-                <label v-for="line in lines" :key="line.id" class="row">
-                    <input v-model="selected" type="checkbox" :value="line.id" />
-                    <span>{{ line.character ? t('sharing.dialog.line', { character: line.character, text: line.text }) : line.text }}</span>
-                </label>
+                <AppCheckbox v-for="line in lines" :key="line.id" v-model="selected" :value="line.id">{{ line.character ? t('sharing.dialog.line', { character: line.character, text: line.text }) : line.text }}</AppCheckbox>
             </fieldset>
             <label class="stack" style="gap: 6px">
                 <span class="label">{{ t('sharing.dialog.note') }}</span>
@@ -31,8 +28,8 @@
             </label>
             <p v-if="statusMessage" class="muted" role="status">{{ statusMessage }}</p>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <button type="submit" class="btn btn--block" :disabled="!canSubmit || isBusy">{{ t('common.send') }}</button>
-            <button type="button" class="btn btn--white btn--block" @click="emit('close')">{{ t('common.close') }}</button>
+            <AppButton is-block type="submit" :disabled="!canSubmit || isBusy">{{ t('common.send') }}</AppButton>
+            <AppButton variant="secondary" is-block @click="emit('close')">{{ t('common.close') }}</AppButton>
         </form>
     </div>
 </template>

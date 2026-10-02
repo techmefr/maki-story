@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, startBook, uploadWav, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, startBook, uploadWav, PARENT_NAME, pickOption } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 const openEditor = async (page: Page, title: string): Promise<void> => {
@@ -168,7 +168,7 @@ test.describe('book editor', () => {
         await page.getByRole('button', { name: 'Ajouter une page vide' }).click()
         const empty = page.getByRole('group', { name: 'Page 2' })
         await expect(empty.getByText('Page vide', { exact: true })).toBeVisible()
-        await expect(empty.getByLabel('Voix de synthèse si personne ne la lit')).toBeChecked()
+        await expect(empty.getByRole('checkbox', { name: 'Voix de synthèse si personne ne la lit' })).toBeChecked()
         await page.getByRole('group', { name: 'Page 1' }).getByRole('button', { name: 'Couverture', exact: true }).click()
         await nextStep(page)
         await nextStep(page)
@@ -204,10 +204,11 @@ test.describe('book editor', () => {
 
     test('a pasted text is split into lines and the language can be Malagasy', async ({ page }, info) => {
         await openEditor(page, `Malagasy ${info.project.name}`)
-        const languages = await page.getByLabel('Langue du livre').locator('option').allTextContents()
+        await page.getByLabel('Langue du livre', { exact: true }).click()
+        const languages = await page.getByRole('option').allTextContents()
         expect(languages).toHaveLength(9)
         expect(languages.join(' ')).toContain('🇲🇬 Malagasy')
-        await page.getByLabel('Langue du livre').selectOption('mg')
+        await page.getByRole('option', { name: /Malagasy/ }).click()
         await page.getByText('Plus de détails (facultatif)').click()
         await page.getByLabel('Sous-titre').fill('Tantara kely')
         await page.getByLabel('Auteur', { exact: true }).fill('Rakoto')

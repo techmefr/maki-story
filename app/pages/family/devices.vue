@@ -3,20 +3,17 @@
         <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ t('family.devices.title') }}</h1>
         <p class="muted">{{ t('family.devices.intro') }}</p>
-        <AppEmpty v-if="devices.length === 0" :title="t('family.devices.empty')" :hint="t('family.devices.emptyHint')" />
+        <AppEmpty kind="people" v-if="devices.length === 0" :title="t('family.devices.empty')" :hint="t('family.devices.emptyHint')" />
         <div v-for="device in devices" :key="device.id" class="card row">
             <div class="grow">
                 <div class="subtitle">{{ device.memberName }}</div>
                 <div class="muted">{{ device.label }}</div>
             </div>
-            <button
-                type="button"
-                class="btn btn--small btn--white"
+            <AppButton variant="secondary" size="sm"
                 :aria-label="t('family.devices.revokeLabel', { device: device.label, member: device.memberName })"
-                @click="revoke(device)"
-            >
+                @click="revoke(device)">
                 {{ t('family.devices.revoke') }}
-            </button>
+            </AppButton>
         </div>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </div>

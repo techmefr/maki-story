@@ -37,7 +37,8 @@
         },
         "sounds": "Suoni dei pulsanti",
         "soundsOn": "Attiva i suoni",
-        "soundsVolume": "Volume dei suoni"
+        "soundsVolume": "Volume dei suoni",
+        "learningFont": "Carattere facile da leggere"
     },
     "unlock": {
         "offerTitle": "Attivare l’impronta o il volto?",

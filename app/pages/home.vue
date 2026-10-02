@@ -7,13 +7,14 @@
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">{{ t('home.listen') }}</span>
         </NuxtLink>
-        <NuxtLink v-if="isOnline" to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</NuxtLink>
-        <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</button>
-        <NuxtLink v-if="isOnline && isParent" to="/books/ai" class="btn btn--white btn--block" data-testid="ai-create">
+        <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
+        <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
+        <AppButton variant="secondary" is-block v-if="isOnline && isParent" to="/books/ai" data-testid="ai-create">
             <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
-        </NuxtLink>
+        </AppButton>
         <BookFilters @change="reload" />
         <AppEmpty
+            kind="library"
             v-if="listed.length === 0 && drafts.length === 0 && isLoaded"
             :title="hasFilter ? t('home.noMatch') : t('home.empty')"
             :hint="hasFilter ? t('home.noMatchHint') : t('home.emptyHint')"

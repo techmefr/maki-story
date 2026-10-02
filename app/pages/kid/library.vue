@@ -1,7 +1,7 @@
 <template>
     <div class="stack">
         <StatusStrip />
-        <NuxtLink to="/kid" class="btn btn--round btn--white" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></NuxtLink>
+        <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <h1 class="title">{{ t('kid.library.title') }}</h1>
         <BookFilters @change="reload" />
         <div class="grid grid--books">
@@ -20,22 +20,20 @@
                     </span>
                 </NuxtLink>
                 <OfflineToggle :book-id="book.id" />
-                <button type="button" class="btn btn--small btn--white" :aria-label="t('kid.library.sheetOf', { title: book.title })" @click="sheetBook = book">
+                <AppButton variant="secondary" size="sm" :aria-label="t('kid.library.sheetOf', { title: book.title })" @click="sheetBook = book">
                     <AppIcon name="book" :size="16" />{{ t('kid.library.sheet') }}
-                </button>
-                <NuxtLink
+                </AppButton>
+                <AppButton variant="secondary" size="sm" tone="mint"
                     v-if="newVoicesOf(book.id).length > 0"
                     :to="`/kid/activity/${book.id}`"
-                    class="btn btn--small btn--mint"
                     data-testid="new-voice-link"
-                    :aria-label="t('review.kid.newVoicesFor', { title: book.title })"
-                >
+                    :aria-label="t('review.kid.newVoicesFor', { title: book.title })">
                     <AppIcon name="sparkles" :size="18" motion="wiggle" />
                     <AppAvatar v-for="member in newVoicesOf(book.id)" :key="member.id" :member="member" :size="28" />
-                </NuxtLink>
+                </AppButton>
             </div>
         </div>
-        <AppEmpty v-if="books.length === 0 && isLoaded" :title="t('kid.library.empty')" :hint="t('kid.library.emptyHint')" />
+        <AppEmpty kind="library" v-if="books.length === 0 && isLoaded" :title="t('kid.library.empty')" :hint="t('kid.library.emptyHint')" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" />
     </div>
 </template>

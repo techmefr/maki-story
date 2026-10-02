@@ -20,7 +20,7 @@
         <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
         <BookStepLines v-else-if="step === 'lines'" @next="goNext" />
         <BookStepReview v-else />
-        <button v-if="step !== 'book'" type="button" class="btn btn--white btn--small" @click="back">{{ t('common.back') }}</button>
+        <AppButton variant="secondary" size="sm" v-if="step !== 'book'" @click="back">{{ t('common.back') }}</AppButton>
     </div>
 </template>
 

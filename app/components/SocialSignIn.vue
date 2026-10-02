@@ -1,23 +1,20 @@
 
 <template>
     <section class="stack social" :aria-label="t('auth.social.ariaLabel')">
-        <a v-for="provider in visibleProviders" :key="provider" class="btn btn--white btn--block" :href="startUrl(provider)">
+        <AppButton v-for="provider in visibleProviders" :key="provider" as="a" variant="secondary" is-block :href="startUrl(provider)">
             {{ t('auth.social.continueWith', { provider: PROVIDER_LABELS[provider] ?? provider }) }}
-        </a>
-        <button
-            type="button"
-            class="btn btn--white btn--block"
+        </AppButton>
+        <AppButton variant="secondary" is-block
             :aria-expanded="isOtherOpen"
             aria-controls="other-accounts"
-            @click="isOtherOpen = !isOtherOpen"
-        >
+            @click="isOtherOpen = !isOtherOpen">
             {{ t('auth.social.other') }}
-        </button>
+        </AppButton>
         <ul v-if="isOtherOpen" id="other-accounts" class="stack social__list">
             <li v-for="name in upcoming" :key="name">
-                <button type="button" class="btn btn--white btn--block social__disabled" disabled aria-disabled="true">
+                <AppButton variant="secondary" is-block class="social__disabled" disabled aria-disabled="true">
                     {{ t('auth.social.soon', { provider: PROVIDER_LABELS[name] ?? name }) }}
-                </button>
+                </AppButton>
             </li>
         </ul>
     </section>

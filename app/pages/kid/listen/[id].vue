@@ -3,13 +3,13 @@
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
             <h1 class="title">{{ t('kid.listen.nextPage') }}</h1>
-            <button type="button" class="btn btn--big" :aria-label="t('kid.listen.turnPage')" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></button>
+            <AppButton class="btn--big" :aria-label="t('kid.listen.turnPage')" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></AppButton>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />
             <h1 class="title">{{ t('kid.listen.finished') }}</h1>
-            <button type="button" class="btn btn--big btn--white" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />{{ t('kid.listen.restart') }}</button>
-            <NuxtLink to="/kid" class="btn btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</NuxtLink>
+            <AppButton variant="secondary" class="btn--big" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />{{ t('kid.listen.restart') }}</AppButton>
+            <AppButton to="/kid" class="btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</AppButton>
         </div>
         <div v-else-if="phase === 'loading'" class="reader__center stack center">
             <AppMaki :size="120" class="anim-pulse" />
@@ -47,54 +47,48 @@
                 <span v-else class="choice choice--small choice--static" data-testid="current-language">
                     <FlagIcon :codes="languages ?? []" :size="72" />
                 </span>
-                <button
-                    type="button"
-                    class="btn btn--white btn--round"
+                <AppButton variant="secondary" is-round
                     :aria-label="isLocked ? t('playback.unlock') : t('playback.lock')"
                     :aria-pressed="isLocked"
                     data-testid="language-lock"
-                    @click="onLockClick"
-                >
+                    @click="onLockClick">
                     <AppIcon :name="isLocked ? 'lock' : 'unlock'" :size="30" />
-                </button>
+                </AppButton>
             </div>
             <div v-if="resumeProgress" class="row">
-                <button type="button" class="btn btn--big" :aria-label="t('common.continue')" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></button>
-                <button type="button" class="btn btn--big btn--white" :aria-label="t('kid.listen.fromStart')" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></button>
+                <AppButton class="btn--big" :aria-label="t('common.continue')" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></AppButton>
+                <AppButton variant="secondary" class="btn--big" :aria-label="t('kid.listen.fromStart')" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></AppButton>
             </div>
-            <button v-else type="button" class="btn btn--big" :aria-label="t('kid.listen.read')" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></button>
+            <AppButton v-else class="btn--big" :aria-label="t('kid.listen.read')" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></AppButton>
         </div>
         <div v-else-if="phase === 'sleep'" class="reader__center stack center">
             <AppIcon name="moon" :size="140" motion="float" />
             <h1 class="title">{{ t('kid.listen.goodNight') }}</h1>
-            <NuxtLink to="/kid" class="btn btn--big btn--white"><AppIcon name="home" :size="40" />{{ t('common.back') }}</NuxtLink>
+            <AppButton variant="secondary" to="/kid" class="btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</AppButton>
         </div>
         <div v-else class="reader__center stack center" :class="{ reader__flash: isCueFlashing }">
             <AppBlob :active="isPlaying" :color="readerAccent" :size="200">
                 <AppAvatar :member="reader" :size="200" />
             </AppBlob>
             <h1 class="title">{{ t('kid.listen.reads', { name: reader?.name ?? '' }) }}</h1>
-            <button type="button" class="btn btn--big btn--white" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
+            <AppButton variant="secondary" class="btn--big" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
-            </button>
+            </AppButton>
         </div>
         <div class="reader__bottom">
             <div class="progress" role="progressbar" :aria-label="t('kid.listen.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
             <div class="row row--wrap" style="justify-content: space-between">
-                <NuxtLink to="/kid" class="btn btn--small btn--white"><AppIcon name="close" :size="18" />{{ t('kid.listen.quit') }}</NuxtLink>
-                <button type="button" class="btn btn--small btn--white" :aria-pressed="isSoundOn" @click="toggleSound">
+                <AppButton variant="secondary" size="sm" to="/kid"><AppIcon name="close" :size="18" />{{ t('kid.listen.quit') }}</AppButton>
+                <AppButton variant="secondary" size="sm" :aria-pressed="isSoundOn" @click="toggleSound">
                     <AppIcon :name="isSoundOn ? 'volume' : 'mute'" :size="18" />{{ isSoundOn ? t('kid.listen.soundOn') : t('kid.listen.soundOff') }}
-                </button>
-                <button
+                </AppButton>
+                <AppButton variant="secondary" size="sm"
                     v-if="canSleep"
-                    type="button"
-                    class="btn btn--small btn--white"
                     :aria-pressed="sleepTimer.choice.value !== null"
                     :aria-label="t('kid.listen.sleepTimer')"
-                    @click="isSleepOpen = true"
-                >
+                    @click="isSleepOpen = true">
                     <AppIcon name="moon" :size="22" :is-active="sleepTimer.choice.value !== null" />
-                </button>
+                </AppButton>
                 <span class="badge">{{ t('kid.listen.page', { current: formatNumber(pageNumber), total: formatNumber(pageTotal) }) }}</span>
             </div>
         </div>
@@ -511,12 +505,5 @@ onBeforeUnmount(() => {
 
 .choice--static {
     cursor: default;
-}
-
-.btn--big {
-    min-width: 96px;
-    min-height: 84px;
-    font-size: min(2.125rem, 8vw);
-    border-radius: 28px;
 }
 </style>

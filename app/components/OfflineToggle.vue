@@ -8,13 +8,13 @@
         </div>
         <div v-else-if="isDownloaded(bookId)" class="row row--wrap">
             <span class="badge" style="background: #4cd4a8">{{ t('shell.offline.available', { size: sizeLabel }) }}</span>
-            <button type="button" class="btn btn--small btn--white" @click="remove(bookId)">
+            <AppButton variant="secondary" size="sm" @click="remove(bookId)">
                 <AppIcon name="trash" :size="16" />{{ t('shell.offline.remove') }}
-            </button>
+            </AppButton>
         </div>
-        <button v-else type="button" class="btn btn--small btn--white" :disabled="!isOnline" @click="download(bookId)">
+        <AppButton variant="secondary" size="sm" v-else :disabled="!isOnline" @click="download(bookId)">
             <AppIcon name="download" :size="16" />{{ isPartial(bookId) ? t('shell.offline.resume') : t('shell.offline.download') }}
-        </button>
+        </AppButton>
         <p v-if="errors[bookId]" class="error" role="alert">{{ errors[bookId] }}</p>
     </div>
 </template>

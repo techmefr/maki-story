@@ -4,9 +4,9 @@
         <div class="book-row">
             <div v-for="book in books" :key="book.id" class="book-row__item stack" style="gap: 8px">
                 <BookCard :book="book" />
-                <button type="button" class="btn btn--small btn--white" :aria-label="t('books.sheet.title', { title: book.title })" @click="emit('open', book)">
+                <AppButton variant="secondary" size="sm" :aria-label="t('books.sheet.title', { title: book.title })" @click="emit('open', book)">
                     <AppIcon name="book" :size="16" />{{ t('books.row.sheet') }}
-                </button>
+                </AppButton>
                 <OfflineToggle v-if="hasDownload && book.status === 'ready'" :book-id="book.id" />
             </div>
         </div>

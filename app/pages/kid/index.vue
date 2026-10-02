@@ -24,7 +24,7 @@
                 </NuxtLink>
             </div>
         </div>
-        <AppEmpty v-if="faces.length === 0" :title="t('kid.noFaces')" :hint="t('kid.noFacesHint')" />
+        <AppEmpty kind="people" v-if="faces.length === 0" :title="t('kid.noFaces')" :hint="t('kid.noFacesHint')" />
         <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
             <AppIcon name="book" :size="44" motion="float" />
             <span class="subtitle">{{ t('kid.multiVoice') }}</span>

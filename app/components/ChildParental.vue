@@ -3,32 +3,26 @@
         <h2 id="parental-title" class="subtitle">{{ t('parental.schedule.title') }}</h2>
         <p class="muted" role="status" data-testid="parental-status">{{ statusLabel }}</p>
         <div class="row row--wrap">
-            <button type="button" class="btn btn--white btn--small" :disabled="isBusy" data-testid="block-now" @click="blockNow">
+            <AppButton variant="secondary" size="sm" :disabled="isBusy" data-testid="block-now" @click="blockNow">
                 {{ t('parental.schedule.blockNow') }}
-            </button>
-            <button v-if="schedule?.isManualBlock" type="button" class="btn btn--small" :disabled="isBusy" data-testid="block-clear" @click="clearBlock">
+            </AppButton>
+            <AppButton size="sm" v-if="schedule?.isManualBlock" :disabled="isBusy" data-testid="block-clear" @click="clearBlock">
                 {{ t('parental.schedule.restore') }}
-            </button>
+            </AppButton>
         </div>
         <div class="row row--wrap parental__until">
             <label class="stack" style="gap: 6px">
                 <span class="label">{{ t('parental.schedule.until') }}</span>
                 <input v-model="untilTime" class="input" type="time" data-testid="block-until-time" />
             </label>
-            <button type="button" class="btn btn--white btn--small" :disabled="isBusy || untilTime === ''" data-testid="block-until" @click="blockUntil">
+            <AppButton variant="secondary" size="sm" :disabled="isBusy || untilTime === ''" data-testid="block-until" @click="blockUntil">
                 {{ t('parental.schedule.untilButton') }}
-            </button>
+            </AppButton>
         </div>
-        <label class="row parental__toggle">
-            <input v-model="isEnabled" type="checkbox" data-testid="schedule-enabled" />
-            <span class="label">{{ t('parental.schedule.enabled') }}</span>
-        </label>
+        <AppToggle v-model="isEnabled" class="parental__toggle" data-testid="schedule-enabled">{{ t('parental.schedule.enabled') }}</AppToggle>
         <ul class="parental__days" :aria-label="t('parental.schedule.daysLabel')">
             <li v-for="day in orderedDays" :key="day.index" class="parental__day card">
-                <label class="row parental__toggle">
-                    <input v-model="weekly[day.index]!.isOpen" type="checkbox" :data-testid="`day-open-${day.index}`" />
-                    <span class="label">{{ day.label }}</span>
-                </label>
+                <AppCheckbox v-model="weekly[day.index]!.isOpen" class="parental__toggle" :data-testid="`day-open-${day.index}`">{{ day.label }}</AppCheckbox>
                 <div v-if="weekly[day.index]!.isOpen" class="row row--wrap">
                     <label class="stack" style="gap: 4px">
                         <span class="muted">{{ t('parental.schedule.from') }}</span>
@@ -43,7 +37,7 @@
             </li>
         </ul>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" :disabled="isBusy" data-testid="schedule-save" @click="save">{{ t('parental.schedule.save') }}</button>
+        <AppButton is-block :disabled="isBusy" data-testid="schedule-save" @click="save">{{ t('parental.schedule.save') }}</AppButton>
     </section>
 </template>
 
