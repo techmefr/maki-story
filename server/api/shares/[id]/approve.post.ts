@@ -1,4 +1,5 @@
 import { getDb } from '../../../utils/db'
+import { actorEntry, record } from '../../../utils/journal'
 import { logEvent } from '../../../utils/log'
 import { notify } from '../../../utils/notifications'
 import { requirePermission } from '../../../utils/permissions'
@@ -27,6 +28,7 @@ export default defineEventHandler(async (event): Promise<{ status: ShareStatus }
     } else {
         await notifyParents(db, approverFamilyId!, 'share_to_approve', payload)
     }
+    await record(event, { ...actorEntry(actor), action: 'share.approved', entityType: 'share', entityId: share.id })
     logEvent('Partage approuvé')
     return { status }
 })

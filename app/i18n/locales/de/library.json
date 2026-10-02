@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Vorschläge der Verwandten",
+        "myProposals": "Meine offenen Vorschläge"
+    },
+    "proposals": {
+        "proposedBy": "Vorgeschlagen von {name}",
+        "approve": "Annehmen",
+        "decline": "Ablehnen",
+        "approveLabel": "{title} annehmen",
+        "declineLabel": "{title} ablehnen",
+        "error": "Dieser Vorschlag kann gerade nicht bearbeitet werden."
+    },
+    "proposal": {
+        "toggle": "Dieses Buch der Familie vorschlagen",
+        "hint": "Ein Elternteil nimmt es an oder lehnt es ab, bevor etwas aufgenommen wird."
+    },
+    "filters": {
+        "more": "Weitere Filter",
+        "type": "Buchtyp",
+        "mood": "Stimmung",
+        "theme": "Thema",
+        "types": {
+            "standard": "Buch",
+            "comic": "Comic",
+            "wordless": "Ohne Text",
+            "child-written": "Vom Kind geschrieben"
+        },
+        "moods": {
+            "calm": "Ruhig",
+            "funny": "Lustig",
+            "adventure": "Abenteuer",
+            "tender": "Zärtlich",
+            "bedtime": "Schlafenszeit",
+            "curious": "Neugierig",
+            "musical": "Musikalisch",
+            "brave": "Mutig"
+        },
+        "themes": {
+            "animals": "Tiere",
+            "family": "Familie",
+            "friendship": "Freundschaft",
+            "nature": "Natur",
+            "school": "Schule",
+            "feelings": "Gefühle",
+            "travel": "Reisen",
+            "food": "Essen",
+            "seasons": "Jahreszeiten",
+            "legends": "Legenden",
+            "numbers-letters": "Zahlen und Buchstaben",
+            "daily-life": "Alltag"
+        }
+    },
+    "childVisible": {
+        "title": "Sichtbarkeit für das Kind",
+        "auto": "Nach Alter",
+        "show": "Immer sichtbar",
+        "hide": "Versteckt",
+        "hint": "Standardmäßig sieht das Kind nur Bücher für sein Alter.",
+        "error": "Die Sichtbarkeit kann gerade nicht geändert werden."
+    },
+    "ageShift": {
+        "title": "Altersbereich verschieben",
+        "hint": "Zeigt diesem Kind jüngere (−) oder ältere (+) Bücher als sein Alter, in Jahren.",
+        "error": "Die Verschiebung kann gerade nicht geändert werden."
+    },
+    "birthNudge": {
+        "title": "Geburtsdatum hinzufügen",
+        "hint": "Ohne Geburtsdatum ({names}) werden dem Kind alle Bücher gezeigt.",
+        "action": "Ausfüllen"
+    },
+    "shareLanguage": {
+        "label": "Sprache deiner Aufnahme",
+        "choose": "Sprache wählen",
+        "required": "Wähle die Sprache vor der Aufnahme."
+    },
+    "notify": {
+        "recordingRequest": "Du sollst deine Stimme für „{title}“ aufnehmen ({count})",
+        "bookProposed": "{name} schlägt das Buch „{title}“ vor",
+        "proposalApproved": "Dein Vorschlag „{title}“ wurde angenommen",
+        "proposalDeclined": "Dein Vorschlag „{title}“ wurde abgelehnt"
+    }
+}

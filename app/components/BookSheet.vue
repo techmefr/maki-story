@@ -32,6 +32,7 @@
                 </ul>
                 <p v-else class="muted">{{ t('books.sheet.nobody') }}</p>
             </section>
+            <BookChildVisibility v-if="isParent" :book="book" />
             <AppButton is-block v-if="target" :to="target.path" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
             </AppButton>

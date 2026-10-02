@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "家庭动态",
+        "trash": "回收站",
+        "data": "家庭数据"
+    },
+    "trash": {
+        "title": "回收站",
+        "intro": "已删除的内容可在 {days} 天内恢复，之后将被永久删除。",
+        "empty": "回收站是空的",
+        "emptyHint": "已删除的书、声音、档案和回忆会显示在这里。",
+        "until": "可恢复至 {date}",
+        "restore": "恢复",
+        "restoreLabel": "恢复 {label}",
+        "conflict": "无法恢复：该项目与另一项冲突（盒子已满或消息已在使用）。",
+        "error": "回收站暂时不可用。",
+        "messageLabel": "{from} 发给 {to} 的消息",
+        "recordingsCount": "{count} 条录音",
+        "types": {
+            "book": "图书",
+            "member": "档案",
+            "message": "语音消息",
+            "treasure": "宝箱回忆",
+            "recordings": "亲人的声音"
+        }
+    },
+    "activity": {
+        "title": "家庭动态",
+        "intro": "重要操作的记录，保留 {months} 个月。",
+        "empty": "暂无动态",
+        "emptyHint": "家庭的操作会显示在这里。",
+        "by": "由 {name}",
+        "system": "自动",
+        "more": "查看更多",
+        "error": "动态暂时不可用。",
+        "outcome": {
+            "denied": "已拒绝",
+            "failure": "失败"
+        },
+        "actions": {
+            "book": {
+                "created": "已创建图书",
+                "proposed": "已提议图书",
+                "updated": "已修改图书",
+                "deleted": "已删除图书",
+                "purged": "图书已永久删除",
+                "restored": "已恢复图书",
+                "proposal": {
+                    "approve": "已接受提议",
+                    "decline": "已拒绝提议"
+                }
+            },
+            "recording": {
+                "saved": "已录音",
+                "deleted": "已删除录音"
+            },
+            "recordings": {
+                "restored": "已恢复录音"
+            },
+            "review": {
+                "line": {
+                    "approve": "已通过台词",
+                    "request_changes": "台词需重录"
+                }
+            },
+            "share": {
+                "created": "已创建分享",
+                "accepted": "已接受分享",
+                "declined": "已拒绝分享",
+                "approved": "已批准分享",
+                "stopped": "已停止分享",
+                "voice": {
+                    "recorded": "收到其他家庭的录音"
+                }
+            },
+            "message": {
+                "sent": "已发送消息",
+                "listened": "消息已听",
+                "deleted": "已删除消息",
+                "purged": "消息已过期并删除",
+                "restored": "已恢复消息"
+            },
+            "treasure": {
+                "restored": "已恢复回忆"
+            },
+            "member": {
+                "created": "已添加档案",
+                "updated": "已修改档案",
+                "purged": "档案已永久删除",
+                "restored": "已恢复档案",
+                "voice": {
+                    "deleted": "已删除亲人的声音",
+                    "exported": "已导出亲人的声音"
+                },
+                "access": {
+                    "block": "已更改孩子的使用权限"
+                },
+                "schedule": {
+                    "updated": "已修改孩子的时间安排"
+                }
+            },
+            "family": {
+                "exported": "已导出家庭数据"
+            },
+            "ai": {
+                "job": {
+                    "started": "AI 请求"
+                },
+                "moderation": {
+                    "blocked": "AI 内容被儿童过滤器拦截"
+                },
+                "budget": {
+                    "updated": "已修改 AI 预算"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "家庭数据",
+        "intro": "由你决定家庭数据的去向：导出或全部删除。",
+        "export": {
+            "title": "导出所有数据",
+            "hint": "包含图书、声音、消息和宝箱的 ZIP 文件，不含任何密码。",
+            "button": "下载导出文件"
+        },
+        "delete": {
+            "title": "删除整个家庭",
+            "warning": "不可撤销：图书、声音、消息、分享和档案将被永久删除，无法找回。",
+            "start": "我要全部删除",
+            "nameLabel": "输入家庭名称以确认",
+            "codeLabel": "输入你的家长密码",
+            "wrongCode": "密码错误或尝试次数过多，请稍后再试。",
+            "wrongName": "家庭名称不匹配。",
+            "failed": "删除失败，没有任何内容被删除，请稍后再试。"
+        }
+    },
+    "voice": {
+        "title": "这位亲人的声音",
+        "hint": "你可以先导出他们的录音再删除。录音会在回收站中保留一段时间。",
+        "export": "导出其声音",
+        "delete": "删除其声音",
+        "confirm": "其录音将从书中消失。确认吗？",
+        "confirmAction": "是，删除",
+        "deleted": "已删除 {count} 条录音（可从回收站恢复）。",
+        "error": "暂时无法删除此声音。"
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Soso-kevitra avy amin’ny havana",
+        "myProposals": "Ny soso-keviko miandry"
+    },
+    "proposals": {
+        "proposedBy": "Natolotry {name}",
+        "approve": "Ekena",
+        "decline": "Lavina",
+        "approveLabel": "Ekena {title}",
+        "declineLabel": "Lavina {title}",
+        "error": "Tsy afaka tontosaina izao ity soso-kevitra ity."
+    },
+    "proposal": {
+        "toggle": "Atolotra ho an’ny fianakaviana ity boky ity",
+        "hint": "Ny ray aman-dreny no manaiky na mandà alohan’ny fandraisana feo rehetra."
+    },
+    "filters": {
+        "more": "Sivana maro hafa",
+        "type": "Karazana boky",
+        "mood": "Toe-javatra",
+        "theme": "Lohahevitra",
+        "types": {
+            "standard": "Boky",
+            "comic": "Tantara an-tsary",
+            "wordless": "Tsy misy lahatsoratra",
+            "child-written": "Nosoratan’ny zaza"
+        },
+        "moods": {
+            "calm": "Milamina",
+            "funny": "Mahatsikaiky",
+            "adventure": "Fahaleovan-tena",
+            "tender": "Malefaka",
+            "bedtime": "Fotoana torimaso",
+            "curious": "Mazoto mikaroka",
+            "musical": "Mozika",
+            "brave": "Sahy"
+        },
+        "themes": {
+            "animals": "Biby",
+            "family": "Fianakaviana",
+            "friendship": "Namana",
+            "nature": "Natiora",
+            "school": "Sekoly",
+            "feelings": "Fihetseham-po",
+            "travel": "Dia",
+            "food": "Sakafo",
+            "seasons": "Vanim-potoana",
+            "legends": "Angano",
+            "numbers-letters": "Isa sy litera",
+            "daily-life": "Fiainana andavan’andro"
+        }
+    },
+    "childVisible": {
+        "title": "Fahitana ho an’ny zaza",
+        "auto": "Araka ny taona",
+        "show": "Hita foana",
+        "hide": "Miafina",
+        "hint": "Raha tsy misy fanovana, ny boky mifanaraka amin’ny taonany ihany no hitan’ny zaza.",
+        "error": "Tsy afaka ovaina izao ny fahitana."
+    },
+    "ageShift": {
+        "title": "Fanovana ny sokajin-taona",
+        "hint": "Asehoy an’ity zaza ity ny boky zandriny (−) na zokiny (+) noho ny taonany, amin’ny taona.",
+        "error": "Tsy afaka ovaina izao ny fanovana."
+    },
+    "birthNudge": {
+        "title": "Ampio ny daty nahaterahana",
+        "hint": "Raha tsy misy daty nahaterahana ({names}), aseho ny boky rehetra ho an’ny zaza.",
+        "action": "Fenoy"
+    },
+    "shareLanguage": {
+        "label": "Fiteny amin’ny fandraisanao feo",
+        "choose": "Misafidiana fiteny",
+        "required": "Safidio ny fiteny alohan’ny handraisana feo."
+    },
+    "notify": {
+        "recordingRequest": "Angatahina handrakitra ny feonao ho an’i “{title}” ianao ({count})",
+        "bookProposed": "{name} dia manolotra ny boky “{title}”",
+        "proposalApproved": "Voaray ny soso-kevitrao “{title}”",
+        "proposalDeclined": "Nolavina ny soso-kevitrao “{title}”"
+    }
+}

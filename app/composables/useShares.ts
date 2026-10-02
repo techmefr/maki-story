@@ -34,10 +34,12 @@ export const useShares = () => {
         await loadInvite()
     }
 
-    const getBook = (id: string): Promise<IShareBook> => request<IShareBook>(`/shares/${id}/book`)
+    const getBook = (id: string, language?: string): Promise<IShareBook> => {
+        return request<IShareBook>(`/shares/${id}/book${language ? `?language=${encodeURIComponent(language)}` : ''}`)
+    }
 
-    const putLine = async (shareId: string, lineId: string, fileId: string, ms: number): Promise<void> => {
-        await request(`/shares/${shareId}/lines/${lineId}/audio`, { method: 'PUT', body: { fileId, ms } })
+    const putLine = async (shareId: string, lineId: string, fileId: string, ms: number, language: string): Promise<void> => {
+        await request(`/shares/${shareId}/lines/${lineId}/audio`, { method: 'PUT', body: { fileId, ms, language } })
     }
 
     return { lists, invite, load, create, act, stop, loadInvite, rotateInvite, revokeInvite, getBook, putLine }

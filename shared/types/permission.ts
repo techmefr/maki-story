@@ -30,3 +30,7 @@ export type Permission =
     | 'treasure.list'
     | 'treasure.save'
     | 'treasure.remove'
+    | 'family.export'
+    | 'family.delete'
+    | 'family.activity'
+    | 'family.trash'

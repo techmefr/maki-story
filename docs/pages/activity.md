@@ -1,31 +1,18 @@
-# Book activity (`/books/[id]/activity`)
+# Activity journal (/family/activity)
 
-GitHub-home style activity of a book: new voices, comments, validations; a simplified view for the child is not exposed.
+Parent only (permission family.activity). Shows the family event journal, most recent first, 50 per page with a Show more button.
 
-## 1. What the page must do
+## Behaviour per role
+- Parent: reads the journal of their own family only (family_id scoped query). Entries show the action label, the actor name (or automatic for the system), the outcome (denied or failed) and the date.
+- Others: 403.
 
-### Per role
-- Child: no access.
-- Parent: sees the whole activity and what is new since the last visit.
-- Relative: sees the activity of books they take part in.
+## States
+Loading, empty, error, end of list. Unknown actions fall back to the raw action name. Secrets are never stored in the journal (scrubbed payloads).
 
-### Enforced server side
-- `books.read` plus family scope on the activity query.
-
-### States
-- Empty: sentence saying nothing happened yet.
-- Loading: skeleton or the shared loading text, never a blank screen.
-- Error: a short sentence from the server message map with a retry action.
-- Offline: cached data stays readable; actions that need the network are disabled with the reason shown.
-
-### Interactions and animations
-- New items are highlighted until read.
-
-## 2. Design audit checklist
-- [ ] One main action per screen, highlighted (main color, relief, gentle wiggle that stops after a few seconds).
-- [ ] Secondary buttons visible, with an icon.
-- [ ] Big childlike icons from the single icon set; a micro-animation on every interaction.
-- [ ] No overflow at any text size (up to Maximum), in Arabic right-to-left and with long words, at 320, 390, 1180 and 1600 px.
-- [ ] Keyboard, TV remote (D-pad) and touch: logical focus order, visible focus, targets of 48 px or more (child 66 px).
-- [ ] `prefers-reduced-motion` respected.
-- [ ] Fredoka (titles, buttons) and Nunito (text), hard shadow `3px 3px 0 #1F1B3A`.
+## Design audit checklist
+- [x] One main action per screen.
+- [x] Secondary buttons visible with an icon.
+- [x] Targets of 44 px or more, rem sizes, wrapping text, no overflow at any text size.
+- [x] Keyboard reachable with visible focus ring, native buttons for remote use.
+- [x] prefers-reduced-motion respected.
+- [x] Every string goes through i18n (9 locales).
