@@ -185,6 +185,11 @@ export const approveBook = async (db: Db, familyId: string, book: IReviewBook, a
         where l.id = r.line_id and l.book_id = ${book.id} and r.family_id = ${familyId} and r.status in ('draft', 'submitted')
         returning r.member_id
     `
+    await db`
+        delete from approved_takes t using recordings r, lines l
+        where r.line_id = t.line_id and r.language = t.language and r.status = 'approved'
+            and l.id = t.line_id and l.book_id = ${book.id} and t.family_id = ${familyId}
+    `
     await db`update books set status = 'ready' where id = ${book.id} and family_id = ${familyId}`
     await db`
         update review_comments set resolved_at = now() where book_id = ${book.id} and family_id = ${familyId} and resolved_at is null

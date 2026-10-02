@@ -11,6 +11,7 @@ interface IFamilyFixture {
     api: APIRequestContext
     parentId: string
     relativeId: string
+    childId: string
     bookId: string
     lineId: string
     fileId: string
@@ -22,6 +23,9 @@ const createFamily = async (api: APIRequestContext): Promise<IFamilyFixture> => 
     const relative = await api.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral' } })
     expect(relative.ok()).toBeTruthy()
     const relativeId = ((await relative.json()) as IIdName).id
+    const child = await api.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky' } })
+    expect(child.ok()).toBeTruthy()
+    const childId = ((await child.json()) as IIdName).id
     const upload = await api.post('/api/files', { data: makeWav(300), headers: { 'content-type': 'audio/wav' } })
     const fileId = ((await upload.json()) as { id: string }).id
     const book = await api.post('/api/books', {
@@ -30,11 +34,11 @@ const createFamily = async (api: APIRequestContext): Promise<IFamilyFixture> => 
     const bookId = ((await book.json()) as { id: string }).id
     const detail = (await (await api.get(`/api/books/${bookId}`)).json()) as { lines: { id: string }[] }
     const message = await api.post('/api/messages', {
-        data: { toMemberId: relativeId, fileId, mime: 'audio/wav', durationMs: 300 },
+        data: { toMemberId: childId, fileId, mime: 'audio/wav', durationMs: 300 },
     })
     expect(message.ok()).toBeTruthy()
     const messageId = ((await message.json()) as { id: string }).id
-    return { api, parentId, relativeId, bookId, lineId: detail.lines[0]!.id, fileId, messageId }
+    return { api, parentId, relativeId, childId, bookId, lineId: detail.lines[0]!.id, fileId, messageId }
 }
 
 test.describe('family isolation', () => {
@@ -61,7 +65,7 @@ test.describe('family isolation', () => {
         const members = (await (await second.api.get('/api/members')).json()) as IIdName[]
         expect(members.map(member => member.id)).not.toContain(first.parentId)
         expect(members.map(member => member.id)).not.toContain(first.relativeId)
-        expect(members).toHaveLength(2)
+        expect(members).toHaveLength(3)
         expect((await second.api.get(`/api/books/${first.bookId}`)).status()).toBe(404)
         expect((await second.api.patch(`/api/books/${first.bookId}`, { data: { title: 'Piraté' } })).status()).toBe(404)
         expect((await second.api.delete(`/api/books/${first.bookId}`)).status()).toBe(404)
@@ -104,7 +108,7 @@ test.describe('family isolation', () => {
         })
         expect(spoof.status()).toBe(403)
         const honest = await first.api.post('/api/messages', {
-            data: { fromMemberId: first.parentId, toMemberId: first.relativeId, fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
+            data: { fromMemberId: first.parentId, toMemberId: first.childId, fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
         })
         expect(honest.ok()).toBeTruthy()
         const message = (await honest.json()) as { fromMemberId: string }

@@ -2,6 +2,7 @@ import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
+import { preserveApprovedTake } from '../../../../../utils/recordings'
 import { assertCanRecordLine, requireActorMember, requirePermission } from '../../../../../utils/permissions'
 import { findReviewBook, recordSubmission } from '../../../../../utils/review'
 import { isVoiceBlocked } from '../../../../../../shared/utils/blocking'
@@ -53,6 +54,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         const [open] = await tx<{ id: string }[]>`select id from review_comments where line_id = ${lineId} and resolved_at is null limit 1`
         const isRedo = actor.role === 'relative' && (previous?.status === 'changes_requested' || open !== undefined)
         const status: RecordingStatus = isRedo ? 'submitted' : 'draft'
+        await preserveApprovedTake(tx, lineId, familyId, language)
         await tx`
             insert into recordings (family_id, line_id, member_id, language, file_id, duration_ms, mime, status)
             values (${familyId}, ${lineId}, ${recorderId}, ${language}, ${fileId}, ${durationMs}, ${file!.mime}, ${status})

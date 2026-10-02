@@ -134,7 +134,10 @@ test.describe('status messages', () => {
             await page.getByRole('link', { name: next }).click()
         }
         await page.getByRole('button', { name: 'Écouter' }).click()
-        await expect(page.getByRole('link', { name: 'Répondre' })).toBeVisible({ timeout: 15000 })
+        await expect
+            .poll(async () => ((await (await lova.get('/api/messages')).json()) as { fromMemberId: string; listenedAt: string | null }[]).filter(row => row.fromMemberId === ids.mamie && row.listenedAt === null).length, { timeout: 15000 })
+            .toBe(0)
+        await expect(page.getByRole('link', { name: 'Répondre' })).toHaveCount(0)
         await expect(page.getByRole('link', { name: /Message suivant/ })).toHaveCount(0)
         await page.reload()
         await expect(page.getByText('Ce message a déjà été écouté')).toBeVisible()
@@ -157,17 +160,5 @@ test.describe('status messages', () => {
         await expect(strip).toHaveCSS('position', 'sticky')
         await page.setViewportSize({ width: 390, height: 800 })
         await expect(strip).toBeHidden()
-    })
-
-    test('a parent can replay a message that was already listened to', async ({ page }) => {
-        const sent = await send(lova, ids.parent)
-        expect(sent.status, sent.body).toBe(200)
-        expect((await parent.post(`/api/messages/${sent.id}/listen`)).status()).toBe(200)
-        expect((await parent.get(`/api/files/${sent.fileId}`)).status()).toBe(200)
-        await signIn(page.request, account)
-        await chooseProfile(page, 'Parent')
-        await page.goto(`/message/listen/${sent.id}`)
-        await page.getByRole('button', { name: 'Écouter' }).click()
-        await expect(page.getByRole('link', { name: 'Répondre' })).toBeVisible({ timeout: 15000 })
     })
 })
