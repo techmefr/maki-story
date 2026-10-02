@@ -41,5 +41,6 @@
         "title": "Fais ta grimace !",
         "text": "Une photo rigolote pour que l’enfant te reconnaisse."
     },
-    "noMatchHint": "Essaie avec d’autres mots ou retire un filtre."
+    "noMatchHint": "Essaie avec d’autres mots ou retire un filtre.",
+    "birthdayMissing": "Ajoute la date de naissance de {name}"
 }

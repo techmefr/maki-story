@@ -42,5 +42,11 @@
     },
     "noFaces": "Tsy mbola misy olona",
     "noFacesHint": "Angataho ny olon-dehibe hanampy ny fianakaviana.",
-    "noSoloHint": "Tonga tsy ho ela!"
+    "noSoloHint": "Tonga tsy ho ela!",
+    "birthday": {
+        "title": "Tratry ny taona {name}!",
+        "age": "{age} taona",
+        "thanks": "Misaotra!",
+        "bubble": "Hafatra fetin’ny andro nahaterahana"
+    }
 }

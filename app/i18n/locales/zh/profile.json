@@ -49,9 +49,8 @@
         "enterTitle": "输入你的密码",
         "createTitle": "创建你的密码",
         "confirmTitle": "确认你的密码",
-        "hintShapes": "按正确的顺序点 3 个图形。",
         "hintPin": "输入你的秘密密码。",
-        "hintCreate": "选择 4 到 6 位数字。每次都会要求输入。",
+        "hintCreate": "选择 6 到 8 位数字。每次都会要求输入。",
         "hintConfirm": "再输入一遍同样的密码。",
         "wrong": "密码不对，再试一次。",
         "throttled": "尝试次数太多，请几分钟后再试。",
@@ -60,7 +59,8 @@
         "cancelled": "验证已取消，请输入密码。",
         "enrolCancelled": "验证已取消，你可以稍后再试。",
         "enrolFailed": "暂时无法启用。",
-        "mismatch": "两次的密码不一样，请重新开始。"
+        "mismatch": "两次的密码不一样，请重新开始。",
+        "hintSymbols": "点按你的 4 个符号。"
     },
     "pad": {
         "progress": "已输入 {count}/{max} 位数字",
@@ -71,10 +71,19 @@
     "code": {
         "kind": "密码类型",
         "digits": "数字",
-        "shapes": "图形",
         "defaultLabel": "密码",
         "placeholder": "{min} 到 {max} 位数字",
-        "shapesHint": "从 4 个图形中按顺序选 3 个。",
-        "shapesSaved": "图形已保存。"
+        "symbolsHint": "按顺序选择 4 个符号。",
+        "symbolsSaved": "符号密码已就绪。"
+    },
+    "symbols": {
+        "s0": "红色星星",
+        "s1": "蓝色月亮",
+        "s2": "绿色爱心",
+        "s3": "黄色太阳",
+        "s4": "紫色云朵",
+        "s5": "粉色花朵",
+        "chosen": "已选 {count}/{total} 个符号",
+        "clear": "清除"
     }
 }

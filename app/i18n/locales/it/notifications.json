@@ -24,6 +24,8 @@
         "recordingBatch": {
             "one": "{name} ha finito di registrare {count} battuta di «{title}»",
             "other": "{name} ha finito di registrare {count} battute di «{title}»"
-        }
+        },
+        "birthdayReminder": "Il compleanno di {name} è tra {days} giorni",
+        "birthdayToday": "Oggi è il compleanno di {name}"
     }
 }

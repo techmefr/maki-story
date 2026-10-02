@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import type { Sql } from 'postgres'
-import { isMemberCodeKind, isValidCodeValue } from '../../shared/utils/code'
+import { isCodeKindAllowed, isMemberCodeKind, isValidCodeValue } from '../../shared/utils/code'
 import { getDb } from './db'
 import { requireSession } from './family'
 import { hashPassword, verifyPassword } from './password'
@@ -14,15 +14,16 @@ interface ICodeRow {
     role: MemberRole
     pinHash: string | null
     codeKind: MemberCodeKind | null
+    codeEnabled: boolean
     isLocked: boolean
     status: MemberStatus
 }
 
 const material = (kind: MemberCodeKind, value: string): string => `${kind}:${value}`
 
-export const readCodeInput = (input: unknown): IMemberCodeInput => {
+export const readCodeInput = (input: unknown, role: MemberRole): IMemberCodeInput => {
     const candidate = (input ?? {}) as Partial<IMemberCodeInput>
-    if (!isMemberCodeKind(candidate.kind) || !isValidCodeValue(candidate.kind, candidate.value)) {
+    if (!isMemberCodeKind(candidate.kind) || !isCodeKindAllowed(candidate.kind, role) || !isValidCodeValue(candidate.kind, candidate.value)) {
         return badRequest('Invalid code')
     }
     return { kind: candidate.kind, value: candidate.value }
@@ -32,7 +33,7 @@ export const hashCode = (input: IMemberCodeInput): Promise<string> => hashPasswo
 
 export const loadCodeRow = async (db: Sql, familyId: string, memberId: string): Promise<ICodeRow | null> => {
     const [row] = await db<ICodeRow[]>`
-        select id, role, status, pin_hash, code_kind, coalesce(code_locked_until > now(), false) as is_locked
+        select id, role, status, pin_hash, code_kind, code_enabled, coalesce(code_locked_until > now(), false) as is_locked
         from members where id = ${memberId} and family_id = ${familyId} and deleted_at is null and source_member_id is null
     `
     return row ?? null
@@ -72,7 +73,7 @@ export const storeMemberCode = async (db: Sql, familyId: string, memberId: strin
     const hash = await hashCode(input)
     await db`
         update members
-        set pin_hash = ${hash}, code_kind = ${input.kind}, code_failed_attempts = 0, code_locked_until = null
+        set pin_hash = ${hash}, code_kind = ${input.kind}, code_failed_attempts = 0, code_locked_until = null, code_enabled = true
         where id = ${memberId} and family_id = ${familyId}
     `
 }

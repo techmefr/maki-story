@@ -41,5 +41,6 @@
         "title": "Fai la tua smorfia!",
         "text": "Una foto buffa perché il bambino ti riconosca."
     },
-    "noMatchHint": "Prova con altre parole o togli un filtro."
+    "noMatchHint": "Prova con altre parole o togli un filtro.",
+    "birthdayMissing": "Aggiungi la data di nascita di {name}"
 }

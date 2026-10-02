@@ -19,7 +19,8 @@
         "tapToFinish": "Toca para terminar",
         "tapMic": "Toca el micrófono",
         "tooShort": "Demasiado corto, empieza de nuevo.",
-        "sendFailed": "No se pudo enviar el mensaje. Inténtalo de nuevo."
+        "sendFailed": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+        "birthdayFor": "Mensaje de cumpleaños para {name}"
     },
     "listen": {
         "finished": "Se acabó",
@@ -38,5 +39,6 @@
         }
     },
     "noOneTitle": "Nadie a quien escribir",
-    "activeBlocked": "Ya hay un mensaje esperando a {name}. Podrás enviar otro cuando se haya escuchado y haya caducado."
+    "activeBlocked": "Ya hay un mensaje esperando a {name}. Podrás enviar otro cuando se haya escuchado y haya caducado.",
+    "birthdayWish": "Desear feliz cumpleaños"
 }

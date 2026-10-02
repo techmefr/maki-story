@@ -41,5 +41,6 @@
         "title": "¡Haz tu mueca!",
         "text": "Una foto graciosa para que el niño te reconozca."
     },
-    "noMatchHint": "Prueba con otras palabras o quita un filtro."
+    "noMatchHint": "Prueba con otras palabras o quita un filtro.",
+    "birthdayMissing": "Añade la fecha de nacimiento de {name}"
 }

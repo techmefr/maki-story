@@ -13,6 +13,7 @@ interface IMemberPatch {
     status?: MemberStatus
     voicePolicy?: VoicePolicy
     birthDate?: string | null
+    codeEnabled?: boolean
 }
 
 const SETTABLE_STATUSES: MemberStatus[] = ['active', 'left', 'deceased', 'blocked']
@@ -75,12 +76,16 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     if (body.voicePolicy !== undefined && current.role !== 'relative') {
         return badRequest('Only a relative has a voice policy')
     }
+    if (body.codeEnabled !== undefined && (typeof body.codeEnabled !== 'boolean' || next.role !== 'child')) {
+        return badRequest('Only a child code can be switched on or off')
+    }
     const hasBirthDate = body.birthDate !== undefined
     const birthDate = hasBirthDate ? readBirthDate(body.birthDate, next.role) : null
     const updated = one(await db<IMember[]>`
         update members
         set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}, voice_policy = ${next.voicePolicy},
-            birth_date = case when ${hasBirthDate}::boolean then ${birthDate}::date else birth_date end
+            birth_date = case when ${hasBirthDate}::boolean then ${birthDate}::date else birth_date end,
+            code_enabled = coalesce(${body.codeEnabled ?? null}::boolean, code_enabled)
         where id = ${id} and family_id = ${familyId}
         returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)}
     `)
@@ -90,7 +95,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         entityType: 'member',
         entityId: id,
         before: { name: current.name, role: current.role, status: current.status },
-        after: { name: updated.name, role: updated.role, status: updated.status, birthDateChanged: hasBirthDate },
+        after: { name: updated.name, role: updated.role, status: updated.status, birthDateChanged: hasBirthDate, codeEnabled: body.codeEnabled ?? null },
     })
     return updated
 })

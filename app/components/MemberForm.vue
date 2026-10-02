@@ -27,8 +27,19 @@
             </div>
             <span class="muted">{{ roleHint }}</span>
         </div>
-        <CodeField v-if="!member" v-model="code" :can-use-shapes="role === 'child'" :label="t('member.form.codeLabel')" />
-        <div v-else-if="canChangeCode" class="stack" style="gap: 6px">
+        <div v-if="canSetChildOptions" class="stack" style="gap: 6px">
+            <label class="stack" style="gap: 6px">
+                <span class="label">{{ t('member.form.birthDate') }}</span>
+                <input v-model="birthDate" class="input" type="date" :max="today" />
+            </label>
+            <span class="muted">{{ t('member.form.birthDateHint') }}</span>
+            <button type="button" class="chip" :class="{ 'chip--on': isCodeEnabled }" :aria-pressed="isCodeEnabled" @click="isCodeEnabled = !isCodeEnabled">
+                {{ t('member.form.childCodeAsk') }}
+            </button>
+            <span v-if="!isCodeEnabled" class="muted">{{ t('member.form.childCodeOff') }}</span>
+        </div>
+        <CodeField v-if="!member && needsCode" v-model="code" :role="role" :label="t('member.form.codeLabel')" />
+        <div v-else-if="member && canChangeCode && needsCode" class="stack" style="gap: 6px">
             <button type="button" class="btn btn--white btn--small" :aria-expanded="isChangingCode" @click="toggleCodeChange">
                 {{ isChangingCode ? t('member.form.keepCode') : member?.hasCode ? t('member.form.changeCode') : t('member.form.setCode') }}
             </button>
@@ -37,7 +48,7 @@
                     <span class="label">{{ t('member.form.currentCode') }}</span>
                     <input v-model="currentCode" class="input" type="password" inputmode="numeric" autocomplete="off" :maxlength="PIN_MAX_LENGTH" />
                 </label>
-                <CodeField v-model="code" :can-use-shapes="role === 'child'" :label="t('member.form.newCode')" />
+                <CodeField v-model="code" :role="role" :label="t('member.form.newCode')" />
             </template>
         </div>
         <div class="stack" style="gap: 6px">
@@ -100,6 +111,9 @@ const errorMessage = ref('')
 
 const spokenLanguages = ref<string[]>([...(member?.spokenLanguages ?? [])])
 const code = ref<IMemberCodeInput | null>(null)
+const birthDate = ref(member?.birthDate ?? '')
+const isCodeEnabled = ref(member?.codeEnabled !== false)
+const today = new Date().toISOString().slice(0, 10)
 const currentCode = ref('')
 const isChangingCode = ref(false)
 
@@ -121,9 +135,11 @@ const hasLanguageChange = computed(() => {
     return canSetLanguages.value && (spokenLanguages.value.length !== before.length || spokenLanguages.value.some(item => !before.includes(item)))
 })
 const needsCurrentCode = computed(() => isSelf.value && member?.hasCode === true)
+const canSetChildOptions = computed(() => current.value?.role === 'parent' && role.value === 'child' && !(member?.isGuest ?? false))
+const needsCode = computed(() => !(role.value === 'child' && !isCodeEnabled.value))
 const isCodeReady = computed(() => {
     if (!member) {
-        return code.value !== null
+        return !needsCode.value || code.value !== null
     }
     if (!isChangingCode.value) {
         return true
@@ -165,6 +181,13 @@ const onCaptured = async (blob: Blob): Promise<void> => {
     }
 }
 
+const childPatch = (): { birthDate?: string | null; codeEnabled?: boolean } => {
+    if (!canSetChildOptions.value) {
+        return {}
+    }
+    return { birthDate: birthDate.value === '' ? null : birthDate.value, codeEnabled: isCodeEnabled.value }
+}
+
 const save = async (): Promise<void> => {
     if (!canSave.value) {
         return
@@ -173,7 +196,7 @@ const save = async (): Promise<void> => {
     errorMessage.value = ''
     try {
         if (member) {
-            await update(member.id, { name: name.value, role: role.value, color: color.value, photoFileId: photoFileId.value })
+            await update(member.id, { name: name.value, role: role.value, color: color.value, photoFileId: photoFileId.value, ...childPatch() })
             if (hasLanguageChange.value) {
                 await updateSettings(member.id, { spokenLanguages: spokenLanguages.value })
             }
@@ -181,7 +204,7 @@ const save = async (): Promise<void> => {
                 await setCode(member.id, { ...code.value, currentCode: needsCurrentCode.value ? currentCode.value : undefined })
             }
         } else {
-            const created = await add({ name: name.value, role: role.value, color: color.value, code: code.value ?? undefined })
+            const created = await add({ name: name.value, role: role.value, color: color.value, code: needsCode.value ? (code.value ?? undefined) : undefined, ...childPatch() })
             if (photoFileId.value) {
                 await update(created.id, { photoFileId: photoFileId.value })
             }

@@ -27,6 +27,10 @@ export const describeNotification = (notification: INotification, t: (key: strin
             ]
             return t('review.notice.result', { title, parts: parts.filter(part => part !== '').join(', ') })
         }
+        case 'birthday_reminder':
+            return Number(payload.days) === 0
+                ? t('notifications.describe.birthdayToday', { name: text(payload.childName) })
+                : t('notifications.describe.birthdayReminder', { name: text(payload.childName), days: Number(payload.days) })
         default:
             return t('notifications.describe.default')
     }

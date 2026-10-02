@@ -42,5 +42,11 @@
     },
     "noFaces": "Ainda não está cá ninguém",
     "noFacesHint": "Pede a um adulto para adicionar a família.",
-    "noSoloHint": "Vai chegar em breve!"
+    "noSoloHint": "Vai chegar em breve!",
+    "birthday": {
+        "title": "Feliz aniversário, {name}!",
+        "age": "{age} anos",
+        "thanks": "Obrigado!",
+        "bubble": "Mensagem de aniversário"
+    }
 }

@@ -7,6 +7,10 @@
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">{{ t('home.listen') }}</span>
         </NuxtLink>
+        <NuxtLink v-for="child in missingBirthDates" :key="child.id" :to="`/family/${child.id}`" class="card card--tap row" style="color: inherit">
+            <AppIcon name="party" :size="28" motion="wiggle" />
+            <span class="grow">{{ t('home.birthdayMissing', { name: child.name }) }}</span>
+        </NuxtLink>
         <NuxtLink v-if="isOnline" to="/books/new" class="btn btn--block"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</NuxtLink>
         <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</button>
         <NuxtLink v-if="isOnline && isParent" to="/books/ai" class="btn btn--white btn--block" data-testid="ai-create">
@@ -30,10 +34,11 @@ const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { books, load } = useBooks()
 const { currentId, isParent } = useCurrentMember()
-const { ensureLoaded } = useMembers()
+const { ensureLoaded, children } = useMembers()
 const { unreadCountFor, load: loadMessages } = useMessages()
 
 const isLoaded = ref(false)
+const missingBirthDates = computed(() => (isParent.value ? children.value.filter(child => !child.isGuest && !child.birthDate) : []))
 const sheetBook = ref<IBookSummary | null>(null)
 const shareTarget = ref<IBookSummary | null>(null)
 const activeQuery = ref<IBookQuery>({})

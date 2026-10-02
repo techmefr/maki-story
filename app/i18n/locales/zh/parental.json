@@ -3,12 +3,15 @@
         "title": "个人资料密码",
         "locked": "尝试次数过多，个人资料已锁定。",
         "none": "尚未设置密码。",
-        "shapes": "已设置图形密码。",
         "digits": "已设置数字密码。",
         "unlock": "解锁个人资料",
         "remove": "移除密码",
         "failed": "暂时无法修改密码。",
-        "removeConfirm": "要移除 {name} 的密码吗？"
+        "removeConfirm": "要移除 {name} 的密码吗？",
+        "symbols": "符号",
+        "disabled": "已关闭",
+        "disable": "关闭",
+        "enable": "开启"
     },
     "schedule": {
         "title": "收听时间",

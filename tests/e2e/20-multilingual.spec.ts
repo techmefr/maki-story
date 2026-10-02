@@ -215,7 +215,7 @@ test.describe('multilingual playback', () => {
         await page.goto(`/kid/listen/${malagasy.bookId}`)
         await page.getByTestId('language-lock').click()
         await expect(page.getByRole('dialog', { name: 'Code d’un parent' })).toBeVisible()
-        await enterPin(page, '9999')
+        await enterPin(page, '999999')
         await expect(page.getByText('Ce code ne convient pas.')).toBeVisible()
         await enterPin(page, PROFILE_PIN)
         await expect(page.getByTestId('change-language')).toHaveCount(0)

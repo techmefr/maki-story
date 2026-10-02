@@ -31,7 +31,11 @@
         "saveError": "Speichern ist gerade nicht möglich.",
         "removeConfirm": "{name} entfernen? Die Aufnahmen gehen verloren.",
         "removeError": "Entfernen nicht möglich: Mindestens ein Elternteil muss bleiben.",
-        "setCode": "Code festlegen"
+        "setCode": "Code festlegen",
+        "birthDate": "Geburtsdatum",
+        "birthDateHint": "Um den Geburtstag zu feiern und das Alter anzuzeigen.",
+        "childCodeAsk": "Code vom Kind verlangen",
+        "childCodeOff": "Ohne Code kommt das Kind direkt hinein."
     },
     "voice": {
         "title": "Status dieser Stimme",

@@ -31,7 +31,11 @@
         "saveError": "Impossible d’enregistrer pour le moment.",
         "removeConfirm": "Supprimer {name} ? Ses enregistrements seront perdus.",
         "removeError": "Impossible de supprimer : il faut garder au moins un parent.",
-        "setCode": "Définir le code"
+        "setCode": "Définir le code",
+        "birthDate": "Date de naissance",
+        "birthDateHint": "Pour fêter son anniversaire et afficher son âge.",
+        "childCodeAsk": "Demander un code à l’enfant",
+        "childCodeOff": "Sans code, l’enfant entre directement."
     },
     "voice": {
         "title": "Situation de cette voix",

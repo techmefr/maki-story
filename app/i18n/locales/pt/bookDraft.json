@@ -40,7 +40,35 @@
         "tts": "Ler o título com uma voz sintética enquanto não estiver gravado",
         "errTitle": "Dá um título ao livro.",
         "errReader": "Escolhe quem lê o livro.",
-        "errAge": "A idade mínima tem de ser inferior à idade máxima."
+        "errAge": "A idade mínima tem de ser inferior à idade máxima.",
+        "voiceLanguages": "Idiomas das vozes",
+        "voiceLanguagesHint": "Os idiomas em que este livro será lido.",
+        "moods": "Ambiente",
+        "themes": "Temas",
+        "mood": {
+            "calm": "Calmo",
+            "funny": "Divertido",
+            "adventure": "Aventura",
+            "tender": "Terno",
+            "bedtime": "Para dormir",
+            "curious": "Curioso",
+            "musical": "Musical",
+            "brave": "Corajoso"
+        },
+        "theme": {
+            "animals": "Animais",
+            "family": "Família",
+            "friendship": "Amizade",
+            "nature": "Natureza",
+            "school": "Escola",
+            "feelings": "Emoções",
+            "travel": "Viagens",
+            "food": "Comida",
+            "seasons": "Estações",
+            "legends": "Lendas",
+            "numbers-letters": "Números e letras",
+            "daily-life": "Dia a dia"
+        }
     },
     "pages": {
         "intro": "Fotografa cada página do livro. Estas fotos ficam privadas para a família e nunca são mostradas à criança.",

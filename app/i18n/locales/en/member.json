@@ -31,7 +31,11 @@
         "saveError": "Couldn’t save right now.",
         "removeConfirm": "Remove {name}? Their recordings will be lost.",
         "removeError": "Can’t remove: at least one parent must stay.",
-        "setCode": "Set the code"
+        "setCode": "Set the code",
+        "birthDate": "Birth date",
+        "birthDateHint": "To celebrate their birthday and show their age.",
+        "childCodeAsk": "Ask the child for a code",
+        "childCodeOff": "Without a code, the child goes straight in."
     },
     "voice": {
         "title": "This voice’s status",

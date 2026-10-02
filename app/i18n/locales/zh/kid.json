@@ -41,5 +41,11 @@
     },
     "noFaces": "这里还没有人",
     "noFacesHint": "请大人添加家人。",
-    "noSoloHint": "马上就来！"
+    "noSoloHint": "马上就来！",
+    "birthday": {
+        "title": "{name}，生日快乐！",
+        "age": "{age} 岁",
+        "thanks": "谢谢！",
+        "bubble": "生日留言"
+    }
 }

@@ -4,6 +4,7 @@ import { badRequest } from './validate'
 
 export const memberExtras = (db: Sql | TransactionSql, actorRole: MemberRole, actorMemberId: string | null) => db`
     code_enabled,
+    case when (${actorRole === 'parent'}::boolean or id = ${actorMemberId}::text) then birthday_celebrated_year end as birthday_celebrated_year,
     case when (${actorRole === 'parent'}::boolean or id = ${actorMemberId}::text) then birth_date::text end as birth_date,
     case when birth_date is null then null else date_part('year', age(current_date, birth_date))::int end as age_years
 `

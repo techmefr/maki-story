@@ -11,3 +11,7 @@
 - No overflow at any text size, keyboard and remote focus
 - prefers-reduced-motion respected
 - Fredoka and Nunito, hard shadow 3px 3px 0 #1F1B3A
+
+## Update v3
+- One active message per relative, per child and per kind (normal, birthday). A new one is refused with a reason until the previous one expires or is deleted.
+- Birthday wish: available from 7 days before the birthday, opens the compose screen with the birthday kind. Max 120 s.

@@ -19,7 +19,8 @@
         "tapToFinish": "Tap to finish",
         "tapMic": "Tap the microphone",
         "tooShort": "Too short, try again.",
-        "sendFailed": "The message could not be sent. Try again."
+        "sendFailed": "The message could not be sent. Try again.",
+        "birthdayFor": "Birthday message for {name}"
     },
     "listen": {
         "finished": "All done",
@@ -38,5 +39,6 @@
         }
     },
     "noOneTitle": "Nobody to write to",
-    "activeBlocked": "A message is already waiting for {name}. You can send another one once it has been listened to and has expired."
+    "activeBlocked": "A message is already waiting for {name}. You can send another one once it has been listened to and has expired.",
+    "birthdayWish": "Send a birthday wish"
 }

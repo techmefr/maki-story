@@ -19,3 +19,6 @@ Only the parts changed by the page view lot are described here. The page card it
 
 ## Security (takes)
 - Recording again an approved line creates a pending take; the child keeps hearing the approved take until the parent validates the new one (approved_takes table, child_recordings view). Same for the shared record flow and new languages.
+
+## Book metadata
+- New book and sheet: voice languages (multi), moods and themes chips (max 5 each); the studio proposes the planned voice languages first.

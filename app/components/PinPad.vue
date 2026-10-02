@@ -22,7 +22,7 @@
             <button type="button" class="pad__key" :aria-label="t('profile.pad.digit', { digit: '0' })" :disabled="isDisabled || value.length >= PIN_MAX_LENGTH" @click="push('0')">
                 0
             </button>
-            <button type="button" class="pad__key pad__key--ok" :disabled="isDisabled || value.length < PIN_MIN_LENGTH" @click="submit">
+            <button type="button" class="pad__key pad__key--ok" :disabled="isDisabled || value.length < minLength" @click="submit">
                 <AppIcon name="check" :size="26" />
                 <span class="sr-only">{{ t('profile.pad.submit') }}</span>
             </button>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-const { isDisabled = false } = defineProps<{ isDisabled?: boolean }>()
+const { isDisabled = false, minLength = PIN_MIN_LENGTH } = defineProps<{ isDisabled?: boolean; minLength?: number }>()
 const emit = defineEmits<{ submit: [value: string] }>()
 const { t } = useI18n()
 
@@ -49,7 +49,7 @@ const pop = (): void => {
 }
 
 const submit = (): void => {
-    if (value.value.length >= PIN_MIN_LENGTH && !isDisabled) {
+    if (value.value.length >= minLength && !isDisabled) {
         emit('submit', value.value)
     }
 }
@@ -66,7 +66,7 @@ const onKeydown = (event: KeyboardEvent): void => {
         push(event.key)
     } else if (event.key === 'Backspace') {
         pop()
-    } else if (event.key === 'Enter' && value.value.length >= PIN_MIN_LENGTH) {
+    } else if (event.key === 'Enter' && value.value.length >= minLength) {
         event.preventDefault()
         submit()
     }

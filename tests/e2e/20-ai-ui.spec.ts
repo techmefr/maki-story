@@ -71,7 +71,7 @@ test.describe('ai interface', () => {
 
     test('an idea creates a hidden draft that children only see after validation', async ({ page, baseURL }) => {
         await openAsParent(page)
-        await page.request.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '1234' } } })
+        await page.request.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '123456' } } })
         await generateFromIdea(page, 'Un zébu et un maki')
         await page.getByRole('button', { name: 'Générer l’histoire' }).click()
         await expect(page.getByTestId('ai-result')).toBeVisible()
@@ -190,7 +190,7 @@ test.describe('ai interface', () => {
         await openAsParent(page)
         await page.goto('/home')
         await expect(page.getByTestId('ai-create')).toBeVisible()
-        await page.request.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '1234' } } })
+        await page.request.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '123456' } } })
         await chooseProfile(page, 'Lova')
         await expect(page).toHaveURL(/\/kid/)
         await page.getByRole('button', { name: 'Mon profil' }).click()

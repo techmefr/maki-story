@@ -24,6 +24,8 @@
         "recordingBatch": {
             "one": "{name} finished recording {count} line of “{title}”",
             "other": "{name} finished recording {count} lines of “{title}”"
-        }
+        },
+        "birthdayReminder": "{name}’s birthday is in {days} days",
+        "birthdayToday": "It’s {name}’s birthday today"
     }
 }

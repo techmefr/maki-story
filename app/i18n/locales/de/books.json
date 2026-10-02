@@ -30,7 +30,10 @@
         "listen": "Anhören",
         "open": "Buch öffnen",
         "studio": "Zum Studio",
-        "share": "Teilen"
+        "share": "Teilen",
+        "voiceLanguages": "Sprachen der Stimmen",
+        "moods": "Stimmung",
+        "themes": "Themen"
     },
     "row": {
         "sheet": "Steckbrief"

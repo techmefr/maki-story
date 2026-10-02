@@ -30,7 +30,10 @@
         "listen": "Henoy",
         "open": "Sokafy ny boky",
         "studio": "Mankanesa any amin’ny studio",
-        "share": "Zarao"
+        "share": "Zarao",
+        "voiceLanguages": "Fiteny ho an’ny feo",
+        "moods": "Toe-javatra",
+        "themes": "Lohahevitra"
     },
     "row": {
         "sheet": "Fanazavana"

@@ -36,6 +36,8 @@
             "few": "{name} أنهى تسجيل {count} جمل من «{title}»",
             "many": "{name} أنهى تسجيل {count} جملة من «{title}»",
             "other": "{name} أنهى تسجيل {count} جملة من «{title}»"
-        }
+        },
+        "birthdayReminder": "عيد ميلاد {name} بعد {days} أيام",
+        "birthdayToday": "اليوم عيد ميلاد {name}"
     }
 }

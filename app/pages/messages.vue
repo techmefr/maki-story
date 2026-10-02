@@ -13,6 +13,13 @@
                     <div class="muted">{{ child.statusLabel }}</div>
                 </div>
             </div>
+            <NuxtLink
+                v-if="isOnline && child.isBirthdaySoon && !child.isWishBlocked"
+                :to="`/message/${child.member.id}?kind=birthday`"
+                class="btn btn--white btn--block"
+            >
+                <AppIcon name="party" :size="22" />{{ t('messages.birthdayWish') }}
+            </NuxtLink>
             <template v-if="isOnline && child.isBlocked">
                 <button type="button" class="btn btn--block" disabled aria-describedby="blocked-reason"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</button>
                 <p id="blocked-reason" class="muted" role="status">{{ t('messages.activeBlocked', { name: child.member.name }) }}</p>
@@ -29,13 +36,21 @@ const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { children } = useMembers()
 const { currentId } = useCurrentMember()
-const { load, startPolling, stopPolling, lastSentTo } = useMessages()
+const { load, startPolling, stopPolling, lastSentTo, hasActiveTo } = useMessages()
 
 const threads = computed(() =>
     children.value.map(member => {
         const sent = currentId.value ? lastSentTo(currentId.value, member.id) : null
         const statusLabel = sent ? (sent.firstListenedAt ? t('messages.status.heard') : t('messages.status.sent')) : t('messages.status.none')
-        return { member, isBlocked: sent !== null, statusLabel }
+        const senderId = currentId.value ?? ''
+        const days = member.birthdayInDays ?? null
+        return {
+            member,
+            isBlocked: hasActiveTo(senderId, member.id, 'NORMAL'),
+            isWishBlocked: hasActiveTo(senderId, member.id, 'BIRTHDAY'),
+            isBirthdaySoon: days !== null && days <= BIRTHDAY_WISH_WINDOW_DAYS,
+            statusLabel,
+        }
     }),
 )
 

@@ -49,9 +49,8 @@
         "enterTitle": "Entre ton code",
         "createTitle": "Crée ton code",
         "confirmTitle": "Confirme ton code",
-        "hintShapes": "Touche les 3 formes dans le bon ordre.",
         "hintPin": "Tape ton code secret.",
-        "hintCreate": "Choisis 4 à 6 chiffres. Il te sera demandé à chaque fois.",
+        "hintCreate": "Choisis 6 à 8 chiffres. Il te sera demandé à chaque fois.",
         "hintConfirm": "Tape le même code une seconde fois.",
         "wrong": "Code incorrect. Essaie encore.",
         "throttled": "Trop d’essais. Réessaie dans quelques minutes.",
@@ -60,7 +59,8 @@
         "cancelled": "Vérification annulée. Tape ton code.",
         "enrolCancelled": "Vérification annulée. Tu pourras réessayer plus tard.",
         "enrolFailed": "Impossible d’activer pour le moment.",
-        "mismatch": "Les deux codes sont différents. Recommence."
+        "mismatch": "Les deux codes sont différents. Recommence.",
+        "hintSymbols": "Touche tes 4 symboles."
     },
     "pad": {
         "progress": "{count} sur {max} chiffres saisis",
@@ -71,10 +71,19 @@
     "code": {
         "kind": "Type de code",
         "digits": "Chiffres",
-        "shapes": "Formes",
         "defaultLabel": "Code",
         "placeholder": "{min} à {max} chiffres",
-        "shapesHint": "Choisis 3 formes parmi 4, dans l’ordre.",
-        "shapesSaved": "Formes enregistrées."
+        "symbolsHint": "Choisis 4 symboles, dans l’ordre.",
+        "symbolsSaved": "Code en symboles prêt."
+    },
+    "symbols": {
+        "s0": "Étoile rouge",
+        "s1": "Lune bleue",
+        "s2": "Cœur vert",
+        "s3": "Soleil jaune",
+        "s4": "Nuage violet",
+        "s5": "Fleur rose",
+        "chosen": "{count} symboles sur {total}",
+        "clear": "Effacer"
     }
 }

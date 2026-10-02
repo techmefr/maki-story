@@ -352,7 +352,7 @@ const progressPercent = computed(() => `${Math.round((recordedCount.value / Math
 const progressValue = computed(() => Number.parseInt(progressPercent.value, 10))
 const timeLabel = computed(() => formatDuration(isRecording.value ? elapsedMs.value : (currentRecording.value?.durationMs ?? 0)))
 const coverageLanguages = computed(() => {
-    const codes = [book.value?.language ?? DEFAULT_LANGUAGE, language.value, ...(book.value?.recordings ?? []).map(item => item.language), ...(book.value?.translations ?? []).map(item => item.language)]
+    const codes = [book.value?.writtenLanguage ?? book.value?.language ?? DEFAULT_LANGUAGE, ...(book.value?.voiceLanguages ?? []), language.value, ...(book.value?.recordings ?? []).map(item => item.language), ...(book.value?.translations ?? []).map(item => item.language)]
     return [...new Set(codes.filter(code => code !== ''))]
 })
 const hint = computed(() => {
@@ -628,7 +628,9 @@ onMounted(async () => {
         comments.value = await loadComments(bookId).catch(() => [])
         const bookLanguage = book.value.language || DEFAULT_LANGUAGE
         const spoken = (current.value?.spokenLanguages ?? []).filter(code => LANGUAGES.some(item => item.code === code))
-        language.value = spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!
+        const planned = book.value.voiceLanguages ?? []
+        const preferred = spoken.find(code => planned.includes(code))
+        language.value = preferred ?? (spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!)
         const mine = castIds.value.includes(currentId.value ?? '') ? currentId.value : castIds.value[0]
         if (mine) {
             selectMember(mine)

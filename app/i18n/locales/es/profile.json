@@ -49,9 +49,8 @@
         "enterTitle": "Escribe tu código",
         "createTitle": "Crea tu código",
         "confirmTitle": "Confirma tu código",
-        "hintShapes": "Toca las 3 formas en el orden correcto.",
         "hintPin": "Escribe tu código secreto.",
-        "hintCreate": "Elige de 4 a 6 cifras. Te lo pediremos cada vez.",
+        "hintCreate": "Elige de 6 a 8 cifras. Te lo pediremos cada vez.",
         "hintConfirm": "Escribe el mismo código otra vez.",
         "wrong": "Código incorrecto. Inténtalo de nuevo.",
         "throttled": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
@@ -60,7 +59,8 @@
         "cancelled": "Verificación cancelada. Escribe tu código.",
         "enrolCancelled": "Verificación cancelada. Podrás intentarlo más tarde.",
         "enrolFailed": "No se puede activar por ahora.",
-        "mismatch": "Los dos códigos son distintos. Empieza de nuevo."
+        "mismatch": "Los dos códigos son distintos. Empieza de nuevo.",
+        "hintSymbols": "Toca tus 4 símbolos."
     },
     "pad": {
         "progress": "{count} de {max} cifras escritas",
@@ -71,10 +71,19 @@
     "code": {
         "kind": "Tipo de código",
         "digits": "Cifras",
-        "shapes": "Formas",
         "defaultLabel": "Código",
         "placeholder": "De {min} a {max} cifras",
-        "shapesHint": "Elige 3 formas entre 4, en orden.",
-        "shapesSaved": "Formas guardadas."
+        "symbolsHint": "Elige 4 símbolos, en orden.",
+        "symbolsSaved": "Código de símbolos listo."
+    },
+    "symbols": {
+        "s0": "Estrella roja",
+        "s1": "Luna azul",
+        "s2": "Corazón verde",
+        "s3": "Sol amarillo",
+        "s4": "Nube morada",
+        "s5": "Flor rosa",
+        "chosen": "{count} de {total} símbolos",
+        "clear": "Borrar"
     }
 }
