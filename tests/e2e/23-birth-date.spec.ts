@@ -160,7 +160,7 @@ test.describe('symbol codes, disabled child code, birthday and book metadata', (
         expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value: '5120' } })).ok()).toBeTruthy()
         const adult = await parent.post('/api/members', { data: { name: 'Tonton', role: 'relative', color: 'coral', code: { kind: 'symbols', value: '0123' } } })
         expect(adult.status()).toBe(400)
-        const short = await parent.post('/api/members', { data: { name: 'Tati', role: 'relative', color: 'coral', code: { kind: 'pin', value: '1234' } } })
+        const short = await parent.post('/api/members', { data: { name: 'Tati', role: 'relative', color: 'coral', code: { kind: 'pin', value: '123' } } })
         expect(short.status()).toBe(400)
     })
 

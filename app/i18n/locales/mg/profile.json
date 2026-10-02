@@ -1,5 +1,5 @@
 {
-    "who": "Iza no mihaino?",
+    "who": "Iza io?",
     "logout": "Hivoaka",
     "switchProfile": "Hanova mombamomba",
     "manageFamily": "Hitantana ny ankohonana",
@@ -38,7 +38,17 @@
         "sounds": "Feon’ny bokotra",
         "soundsOn": "Alefaso ny feo",
         "soundsVolume": "Haavon’ny feo",
-        "learningFont": "Endri-tsoratra mora vakiana"
+        "learningFont": "Endri-tsoratra mora vakiana",
+        "theme": "Endrika",
+        "themes": {
+            "light": "Mazava",
+            "dark": "Maizina",
+            "auto": "Ho azy"
+        },
+        "parentTitle": "Faritry ny ray aman-dreny",
+        "notifications": "Fampandrenesana",
+        "schedule": "Ora fihainoana isaky ny zaza",
+        "feedback": "Hanome hevitra"
     },
     "unlock": {
         "offerTitle": "Hampiasa ny rantsan-tanana na ny tarehy?",
@@ -51,7 +61,7 @@
         "createTitle": "Mamorona ny kaodinao",
         "confirmTitle": "Hamafiso ny kaodinao",
         "hintPin": "Soraty ny kaody miafinao.",
-        "hintCreate": "Misafidià tarehimarika 6 ka hatramin’ny 8. Hangatahina isaky ny miditra izany.",
+        "hintCreate": "Misafidià tarehimarika 4 ka hatramin’ny 8. Hangatahina isaky ny miditra izany.",
         "hintConfirm": "Soraty indray ny kaody mitovy.",
         "wrong": "Diso ny kaody. Andramo indray.",
         "throttled": "Be loatra ny fanandramana. Andramo indray afaka minitra vitsy.",

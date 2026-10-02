@@ -1,13 +1,13 @@
 <template>
     <div class="stack">
         <div class="row hello">
-            <AppMaki :size="64" class="anim-float" />
             <h1 class="title grow">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
             <AppButton variant="secondary" is-round to="/kid/treasure" :aria-label="t('kid.treasure.open')" data-testid="treasure-chest">
                 <AppIcon name="chest" :size="34" motion="float" />
             </AppButton>
         </div>
         <GrimaceNudge />
+        <BookSearchEntry />
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">

@@ -1,0 +1,16 @@
+{
+    "title": "Invii",
+    "pending": "in attesa di invio: {value}",
+    "status": {
+        "pending": "In attesa di invio",
+        "sending": "Invio in corso…",
+        "sent": "Inviato",
+        "failed": "Invio non riuscito"
+    },
+    "failedHint": "Questo invio è stato rifiutato. Riprova o annullalo.",
+    "cancel": "Annulla l’invio",
+    "clearSent": "Cancella gli invii completati",
+    "queuedNotice": "Salvato su questo dispositivo: partirà appena torna la connessione.",
+    "messageLabel": "Messaggio per {name}",
+    "recordingLabel": "Registrazione: {title}"
+}

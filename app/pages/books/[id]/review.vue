@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/home" class="muted">{{ t('review.back') }}</NuxtLink>
+        <NuxtLink to="/library" class="muted">{{ t('review.back') }}</NuxtLink>
         <h1 class="title">{{ t('review.title', { title: book.title }) }}</h1>
         <div class="row row--wrap">
             <span class="badge" data-testid="book-status">{{ t(`review.bookStatus.${book.status}`) }}</span>
@@ -336,13 +336,13 @@ onMounted(async () => {
     try {
         await ensureLoaded()
         if (current.value?.role !== 'parent') {
-            await navigateTo('/home')
+            await navigateTo('/library')
             return
         }
         await refresh()
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

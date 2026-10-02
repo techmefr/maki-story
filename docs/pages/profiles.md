@@ -1,7 +1,7 @@
 # Profiles
 
 ## Behavior
-- Unlock by role: symbol pad for a child, PIN pad for adults (legacy 4 digit PINs still unlock, new ones are 6 to 8 digits).
+- Unlock by role: symbol pad for a child, PIN pad for adults (4 to 8 digits chosen by the adult).
 - A wrong symbol code shakes the pad with the mascot, no error text. A child with the code disabled enters directly.
 - Parents see a banner on home inviting them to add missing child birth dates.
 

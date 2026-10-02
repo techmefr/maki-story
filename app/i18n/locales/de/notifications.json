@@ -25,5 +25,6 @@
             "one": "{name} hat {count} Sprechtext aus „{title}“ fertig aufgenommen",
             "other": "{name} hat {count} Sprechtexte aus „{title}“ fertig aufgenommen"
         }
-    }
+    },
+    "bellNone": "Benachrichtigungen, keine neuen"
 }

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addMember, chooseProfile, createReadyBook, login, openSwitcher, uniqueName, PARENT_NAME } from './helpers'
+import { addMember, chooseProfile, createReadyBook, enterPin, login, PROFILE_PIN, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -45,7 +45,7 @@ test.describe('offline books', () => {
     test('a parent downloads a book then plays it without a connection', async ({ page, context }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('link', { name: new RegExp(title) }).click()
         await expect(page.getByRole('heading', { name: title })).toBeVisible()
         await page.getByRole('button', { name: 'Télécharger' }).click()
@@ -79,7 +79,7 @@ test.describe('offline books', () => {
     test('the storage screen lists the book and deleting it frees the space', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('link', { name: new RegExp(title) }).click()
         await expect(page.getByRole('heading', { name: title })).toBeVisible()
         await page.getByRole('button', { name: 'Télécharger' }).click()
@@ -99,14 +99,15 @@ test.describe('offline books', () => {
     test('signing out clears the offline data', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('link', { name: new RegExp(title) }).click()
         await expect(page.getByRole('heading', { name: title })).toBeVisible()
         await page.getByRole('button', { name: 'Télécharger' }).click()
         await expect(page.getByText(/Disponible hors ligne · /)).toBeVisible()
         expect(await offlineBookCount(page)).toBe(1)
-        await openSwitcher(page)
+        await page.goto('/profiles')
         await page.getByRole('button', { name: 'Se déconnecter' }).click()
+        await enterPin(page, PROFILE_PIN)
         await expect(page).toHaveURL(/\/login/)
         expect(await offlineBookCount(page)).toBe(0)
         expect(await cachedFileCount(page)).toBe(0)
@@ -120,7 +121,7 @@ test.describe('connectivity detection', () => {
     test.beforeEach(async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(newBook(page)).toBeVisible()
     })
 
@@ -135,7 +136,7 @@ test.describe('connectivity detection', () => {
 
     test('a wrong navigator.onLine never blocks the app while the server answers', async ({ page }) => {
         await page.addInitScript(() => Object.defineProperty(Navigator.prototype, 'onLine', { get: () => false, configurable: true }))
-        await page.goto('/home')
+        await page.goto('/library')
         await page.evaluate(() => window.dispatchEvent(new Event('offline')))
         await expect(newBook(page)).toBeVisible()
         await expect(banner(page)).toBeHidden()

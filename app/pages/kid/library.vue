@@ -3,7 +3,7 @@
         <StatusStrip />
         <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <h1 class="title">{{ t('kid.library.title') }}</h1>
-        <BookFilters @change="reload" />
+        <BookFilters :initial="initialQuery" @change="reload" />
         <div class="grid grid--books">
             <div v-for="book in books" :key="book.id" class="stack" style="gap: 8px" :data-offline-card="book.title">
                 <NuxtLink
@@ -68,10 +68,17 @@ const ageLabel = (book: IBookSummary): string => {
     return t('books.age.range', { count: book.ageMax, min: book.ageMin, max: book.ageMax })
 }
 
+const route = useRoute()
+const initialQuery: IBookQuery = {
+    type: typeof route.query.type === 'string' ? route.query.type : undefined,
+    mood: typeof route.query.mood === 'string' ? route.query.mood : undefined,
+    theme: typeof route.query.theme === 'string' ? route.query.theme : undefined,
+}
+
 const reload = (query: IBookQuery): Promise<void> => load(query)
 
 onMounted(async () => {
-    await Promise.all([load(), loadMessages(), ensureLoaded()])
+    await Promise.all([load(initialQuery), loadMessages(), ensureLoaded()])
     isLoaded.value = true
     try {
         newVoices.value = await loadNewVoices()

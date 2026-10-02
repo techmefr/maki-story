@@ -1,5 +1,7 @@
 # Recording studio (`/books/[id]/studio`)
 
+Routes: /books/[id]/studio
+
 Only the parts changed by the page view lot are described here. The page card itself is documented in `book-page-view.md`.
 
 ## 1. What the page must do

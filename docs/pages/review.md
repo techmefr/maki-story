@@ -1,5 +1,7 @@
 # Book review (`/books/[id]/review`)
 
+Routes: /books/[id]/review
+
 Only the parts changed by the page view lot are described here. The page card itself is documented in `book-page-view.md`.
 
 ## 1. What the page must do

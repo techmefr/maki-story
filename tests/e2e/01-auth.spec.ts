@@ -46,7 +46,7 @@ test.describe('authentication', () => {
         await expect(page.getByTestId('welcome-progress')).toBeVisible()
         await page.goto('/profiles')
         await expect(page).toHaveURL(/\/profiles/)
-        await expect(page.getByRole('heading', { name: 'Qui écoute ?' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
         await expect(page.locator('button.card', { hasText: PARENT_NAME })).toHaveCount(1)
         await page.reload()
         await expect(page).toHaveURL(/\/profiles/)

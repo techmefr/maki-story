@@ -80,14 +80,15 @@ const BOOK_TYPES: BookType[] = ['standard', 'comic', 'wordless', 'child-written'
 const { t } = useI18n()
 const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('books.filters.allLanguages')))
 
+const { initial = {} } = defineProps<{ initial?: Partial<IBookQuery> }>()
 const emit = defineEmits<{ change: [query: IBookQuery] }>()
 
 const text = ref('')
 const language = ref('')
 const age = ref('')
-const type = ref('')
-const mood = ref('')
-const theme = ref('')
+const type = ref(initial.type ?? '')
+const mood = ref(initial.mood ?? '')
+const theme = ref(initial.theme ?? '')
 
 const hasExtra = computed(() => type.value !== '' || mood.value !== '' || theme.value !== '')
 

@@ -58,6 +58,14 @@ import {
     Maximize,
     RotateCw,
     ChevronDown,
+    Bell,
+    Settings,
+    Sun,
+    SunMoon,
+    LogOut,
+    Search,
+    ChevronRight,
+    ChevronLeft,
 } from 'lucide-vue-next'
 import type { Component } from 'vue'
 
@@ -107,6 +115,14 @@ const ICONS: Record<IconName, Component> = {
     maximize: Maximize,
     rotate: RotateCw,
     'chevron-down': ChevronDown,
+    bell: Bell,
+    settings: Settings,
+    sun: Sun,
+    auto: SunMoon,
+    logout: LogOut,
+    search: Search,
+    'chevron-right': ChevronRight,
+    'chevron-left': ChevronLeft,
     download: Download,
     'cloud-off': CloudOff,
 }

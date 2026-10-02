@@ -1,5 +1,7 @@
 # Library, proposals, filters (kid library, parent home, book sheet, AI page)
 
+Routes: /library, /kid/library
+
 ## Behaviour per role
 - Child: only books of their age (age computed from birth date in their timezone, plus the parent age shift, between age_min and age_max). A book with childVisible true is always shown, false never. No birth date means no filter. Hidden books are unreachable by id and by files.
 - Parent: filters by type, mood and theme in the library; sets childVisible (auto, show, hide) in the book sheet; age shift (-5 to +5) on a child profile; sees a Proposals row with accept and decline; sees a birth date nudge when a child has none; sets a per-family AI budget on the AI page.

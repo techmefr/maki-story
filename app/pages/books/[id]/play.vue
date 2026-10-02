@@ -1,6 +1,6 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <OfflineToggle :book-id="book.id" />
         <div class="segs" role="group" :aria-label="t('play.lines')">
@@ -130,7 +130,7 @@ onMounted(async () => {
         book.value = await get(String(route.params.id))
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

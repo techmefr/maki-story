@@ -2,7 +2,9 @@
     "nav": {
         "library": "书库",
         "messages": "消息",
-        "family": "家人"
+        "family": "家人",
+        "home": "首页",
+        "treasure": "宝箱"
     },
     "profile": {
         "open": "我的资料"
@@ -23,5 +25,8 @@
     },
     "skip": "跳到内容",
     "mainNav": "主导航",
-    "newBadge": "新"
+    "newBadge": "新",
+    "settings": {
+        "open": "设置"
+    }
 }

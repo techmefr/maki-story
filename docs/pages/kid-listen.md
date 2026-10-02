@@ -1,5 +1,7 @@
 # Child reader (`/kid/listen/[id]`)
 
+Routes: /kid/listen/[id]
+
 The child listens to a book with no text or scan on screen: who reads, previous, pause, next, page turn with the ding, sleep timer and resume.
 
 ## 1. What the page must do

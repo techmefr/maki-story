@@ -38,6 +38,13 @@ export default defineNuxtConfig({
                 { name: 'mobile-web-app-capable', content: 'yes' },
                 { name: 'apple-mobile-web-app-title', content: 'Tantara' },
             ],
+            script: [
+                {
+                    innerHTML:
+                        "try{var c=localStorage.getItem('tantara-theme')||'auto';var d=c==='dark'||(c==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'}catch(e){}",
+                    tagPosition: 'head',
+                },
+            ],
             link: [
                 { rel: 'manifest', href: '/manifest.webmanifest' },
                 { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },

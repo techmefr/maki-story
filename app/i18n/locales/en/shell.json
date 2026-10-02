@@ -2,7 +2,9 @@
     "nav": {
         "library": "Library",
         "messages": "Messages",
-        "family": "Family"
+        "family": "Family",
+        "home": "Home",
+        "treasure": "Treasure box"
     },
     "profile": {
         "open": "My profile"
@@ -23,5 +25,8 @@
     },
     "skip": "Skip to content",
     "mainNav": "Main navigation",
-    "newBadge": "new"
+    "newBadge": "new",
+    "settings": {
+        "open": "Settings"
+    }
 }

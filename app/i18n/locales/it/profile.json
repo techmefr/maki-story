@@ -1,5 +1,5 @@
 {
-    "who": "Chi ascolta?",
+    "who": "Chi è?",
     "logout": "Esci",
     "switchProfile": "Cambia profilo",
     "manageFamily": "Gestisci la famiglia",
@@ -38,7 +38,17 @@
         "sounds": "Suoni dei pulsanti",
         "soundsOn": "Attiva i suoni",
         "soundsVolume": "Volume dei suoni",
-        "learningFont": "Carattere facile da leggere"
+        "learningFont": "Carattere facile da leggere",
+        "theme": "Tema",
+        "themes": {
+            "light": "Chiaro",
+            "dark": "Scuro",
+            "auto": "Auto"
+        },
+        "parentTitle": "Area genitori",
+        "notifications": "Notifiche",
+        "schedule": "Orari di ascolto per bambino",
+        "feedback": "Dai la tua opinione"
     },
     "unlock": {
         "offerTitle": "Attivare l’impronta o il volto?",
@@ -51,7 +61,7 @@
         "createTitle": "Crea il tuo codice",
         "confirmTitle": "Conferma il tuo codice",
         "hintPin": "Digita il tuo codice segreto.",
-        "hintCreate": "Scegli da 6 a 8 cifre. Ti verrà chiesto ogni volta.",
+        "hintCreate": "Scegli da 4 a 8 cifre. Ti verrà chiesto ogni volta.",
         "hintConfirm": "Digita lo stesso codice una seconda volta.",
         "wrong": "Codice errato. Riprova.",
         "throttled": "Troppi tentativi. Riprova tra qualche minuto.",

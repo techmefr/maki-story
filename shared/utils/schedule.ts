@@ -120,3 +120,5 @@ export const evaluateAccess = (schedule: IChildSchedule | null, now: number): IA
     return { isAllowed: false, reason: 'schedule', resumeAt: opening === null ? null : new Date(opening).toISOString() }
 }
 
+
+export const OVERRIDE_MINUTES = 30

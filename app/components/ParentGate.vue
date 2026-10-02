@@ -19,7 +19,7 @@
                         {{ parent.name }}
                     </button>
                 </div>
-                <PinPad :key="attempt" :is-disabled="isBusy" :min-length="PIN_LEGACY_MIN_LENGTH" @submit="onCode" />
+                <PinPad :key="attempt" :is-disabled="isBusy" :min-length="PIN_MIN_LENGTH" @submit="onCode" />
             </template>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
             <AppButton variant="secondary" size="sm" @click="emit('cancel')">{{ t('common.cancel') }}</AppButton>

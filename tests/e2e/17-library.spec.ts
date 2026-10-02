@@ -170,7 +170,7 @@ test.describe('library', () => {
 
     test('the parent home groups books in rows and filters them', async ({ page }) => {
         await openAs(page, 'Parent')
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByRole('heading', { name: /À enregistrer/ })).toBeVisible()
         await expect(page.getByRole('heading', { name: /En cours d’enregistrement/ })).toBeVisible()
         await expect(page.getByRole('heading', { name: /Tous nos livres/ })).toBeVisible()
@@ -191,7 +191,7 @@ test.describe('library', () => {
 
     test('the book sheet lists every relative who recorded a voice', async ({ page }) => {
         await openAs(page, 'Parent')
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('region', { name: /Tous nos livres/ }).getByRole('button', { name: 'Fiche de Le zébu voyageur' }).click()
         const sheet = page.getByRole('dialog', { name: /Fiche de Le zébu voyageur/ })
         await expect(sheet.getByRole('heading', { name: 'Le zébu voyageur' })).toBeVisible()

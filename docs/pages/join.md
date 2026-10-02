@@ -1,5 +1,7 @@
 # Join a family (`/join/[code]`)
 
+Routes: /join/[[code]]
+
 ## 1. What the page must do
 - Public route (signed in or not). With a code in the link the invitation is checked at once; without it the page asks for the code.
 - Invalid, used, expired or revoked code: explanation and a button to try another code. The preview never reveals more than the family name and the inviter name, and is rate limited.

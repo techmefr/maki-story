@@ -3,14 +3,15 @@ interface IErrorShape {
     data?: { statusMessage?: string; message?: string }
 }
 
-const serverMessageOf = (error: unknown): string | null => {
+export const serverMessageOf = (error: unknown): string | null => {
     const shape = (error ?? {}) as IErrorShape
     return shape.statusMessage ?? shape.data?.statusMessage ?? shape.data?.message ?? null
 }
 
-export const errorText = (error: unknown, fallbackKey: string): string => {
+export const errorText = (error: unknown, fallbackKey: string): string => errorTextFromMessage(serverMessageOf(error), fallbackKey)
+
+export const errorTextFromMessage = (message: string | null, fallbackKey: string): string => {
     const { t } = useI18n()
-    const message = serverMessageOf(error)
     if (message === UNREACHABLE_MESSAGE) {
         return t('errors.unreachable')
     }

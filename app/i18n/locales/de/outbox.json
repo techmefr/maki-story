@@ -1,0 +1,16 @@
+{
+    "title": "Sendungen",
+    "pending": "wartet auf Versand: {value}",
+    "status": {
+        "pending": "Wartet auf Versand",
+        "sending": "Wird gesendet…",
+        "sent": "Gesendet",
+        "failed": "Senden fehlgeschlagen"
+    },
+    "failedHint": "Dieser Versand wurde abgelehnt. Versuche es erneut oder brich ihn ab.",
+    "cancel": "Versand abbrechen",
+    "clearSent": "Abgeschlossene Sendungen löschen",
+    "queuedNotice": "Auf diesem Gerät gespeichert: wird gesendet, sobald die Verbindung zurück ist.",
+    "messageLabel": "Nachricht für {name}",
+    "recordingLabel": "Aufnahme: {title}"
+}

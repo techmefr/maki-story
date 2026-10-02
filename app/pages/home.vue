@@ -1,90 +1,130 @@
 <template>
     <div class="stack">
-        <StatusStrip />
-        <h1 class="title">{{ t('home.title') }}</h1>
+        <StatusStrip v-if="isParent" />
+        <h1 class="title">{{ t('home.relatives.title') }}</h1>
         <GrimaceNudge />
         <BirthDateNudge />
-        <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
-            <AppIcon name="message-heart" :size="30" motion="wiggle" />
-            <span class="subtitle grow">{{ unreadLabel }}</span>
-            <span class="badge">{{ t('home.listen') }}</span>
-        </NuxtLink>
-        <NuxtLink v-for="child in missingBirthDates" :key="child.id" :to="`/family/${child.id}`" class="card card--tap row" style="color: inherit">
-            <AppIcon name="party" :size="28" motion="wiggle" />
-            <span class="grow">{{ t('home.birthdayMissing', { name: child.name }) }}</span>
-        </NuxtLink>
-        <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
-        <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
-        <AppButton variant="secondary" is-block v-if="isAiCreationEnabled && isOnline && isParent" to="/books/ai" data-testid="ai-create">
-            <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
-        </AppButton>
-        <BookFilters @change="reload" />
+        <BookSearchEntry />
+        <ul v-if="cards.length > 0" class="people" role="list" data-testid="relatives-grid">
+            <li v-for="(card, index) in cards" :key="card.member.id" class="pop-in" :style="{ '--i': index }">
+                <NuxtLink
+                    :to="card.to"
+                    class="card card--tap people__card"
+                    :class="`people__card--${card.ring}`"
+                    :style="{ '--ring': memberHex(card.member) }"
+                    :data-ring="card.ring"
+                    :aria-label="card.label"
+                >
+                    <span class="people__ring">
+                        <AppAvatar :member="card.member" :size="88" />
+                    </span>
+                    <span class="subtitle people__name">{{ card.member.name }}</span>
+                    <span class="muted">{{ card.hint }}</span>
+                </NuxtLink>
+            </li>
+        </ul>
         <AppEmpty
-            kind="library"
-            v-if="listed.length === 0 && drafts.length === 0 && proposals.length === 0 && isLoaded"
-            :title="hasFilter ? t('home.noMatch') : t('home.empty')"
-            :hint="hasFilter ? t('home.noMatchHint') : t('home.emptyHint')"
-        />
-        <ProposalRow v-if="isParent && proposals.length > 0" :books="proposals" @open="sheetBook = $event" @changed="reload(activeQuery)" />
-        <AiDraftRow v-if="isAiCreationEnabled && isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
-        <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
-        <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
-        <ShareDialog v-if="shareTarget" :book="shareTarget" @close="shareTarget = null" />
+            v-else-if="isLoaded"
+            kind="people"
+            :title="t('home.relatives.empty')"
+            :hint="isParent ? t('home.relatives.emptyHintParent') : t('home.relatives.emptyHint')"
+        >
+            <AppButton v-if="isParent" variant="secondary" to="/family/add"><AppIcon name="user-plus" :size="22" />{{ t('family.add.title') }}</AppButton>
+        </AppEmpty>
+        <AppButton variant="secondary" is-block to="/messages" data-testid="send-message">
+            <AppIcon name="mic" :size="22" />{{ t('home.relatives.sendMessage') }}
+        </AppButton>
+        <LibraryKiosk v-if="!isParent" :has-title="false" />
     </div>
 </template>
 
 <script setup lang="ts">
-const isAiCreationEnabled = useAiCreationEnabled()
 const { t } = useI18n()
-const isOnline = useState<boolean>('is-online', () => true)
-const { books, load } = useBooks()
 const { currentId, isParent } = useCurrentMember()
-const { ensureLoaded, children } = useMembers()
-const { unreadCountFor, load: loadMessages } = useMessages()
+const { people, ensureLoaded } = useMembers()
+const { messages, load: loadMessages, startPolling, stopPolling } = useMessages()
 
 const isLoaded = ref(false)
-const missingBirthDates = computed(() => (isParent.value ? children.value.filter(child => !child.isGuest && !child.birthDate) : []))
-const sheetBook = ref<IBookSummary | null>(null)
-const shareTarget = ref<IBookSummary | null>(null)
-const activeQuery = ref<IBookQuery>({})
 
-const startShare = (book: IBookSummary): void => {
-    sheetBook.value = null
-    shareTarget.value = book
-}
+const isLive = (expiresAt: string | null): boolean => expiresAt === null || new Date(expiresAt).getTime() > Date.now()
 
-const hasFilter = computed(() => Object.values(activeQuery.value).some(value => value !== undefined && value !== ''))
-const drafts = computed(() => books.value.filter(book => book.status === 'draft' && book.aiGenerated))
-const proposals = computed(() => books.value.filter(book => book.status === 'proposed'))
-const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated) && book.status !== 'proposed'))
-const rows = computed(() =>
-    [
-        { title: t('library.rows.myProposals'), books: isParent.value ? [] : proposals.value, hasDownload: false },
-        { title: t('home.rows.review'), books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
-        {
-            title: t('home.rows.recording'),
-            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount > 0),
-            hasDownload: false,
-        },
-        {
-            title: t('home.rows.toRecord'),
-            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount === 0),
-            hasDownload: false,
-        },
-        { title: t('home.rows.all'), books: listed.value, hasDownload: true },
-    ].filter(row => row.books.length > 0),
+const cards = computed(() =>
+    people.value
+        .filter(member => member.role !== 'child' && member.id !== currentId.value)
+        .map(member => {
+            const live = messages.value.filter(message => message.fromMemberId === member.id && isLive(message.expiresAt))
+            const unheard = live.filter(message => !message.firstListenedAt)
+            const playable = unheard[0] ?? live[0] ?? null
+            const ring = unheard.length > 0 ? 'unheard' : live.length > 0 ? 'heard' : 'none'
+            return {
+                member,
+                ring,
+                to: playable ? `/message/listen/${playable.id}` : `/kid/${member.id}`,
+                hint: playable ? t('home.relatives.hasMessage') : t('home.relatives.books'),
+                label: playable ? t('home.relatives.playLabel', { name: member.name }) : t('home.relatives.booksLabel', { name: member.name }),
+            }
+        }),
 )
 
-const reload = async (query: IBookQuery): Promise<void> => {
-    activeQuery.value = query
-    await load(query)
+onMounted(async () => {
+    await Promise.all([ensureLoaded(), loadMessages()])
+    isLoaded.value = true
+    startPolling()
+})
+
+onBeforeUnmount(stopPolling)
+</script>
+
+<style scoped>
+.people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
 }
 
-const unreadCount = computed(() => (currentId.value ? unreadCountFor(currentId.value) : 0))
-const unreadLabel = computed(() => t('home.messagesWaiting', { count: unreadCount.value }))
+@media (min-width: 720px) {
+    .people {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
 
-onMounted(async () => {
-    await Promise.all([load(), loadMessages(), ensureLoaded()])
-    isLoaded.value = true
-})
-</script>
+@media (min-width: 1100px) {
+    .people {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+.people__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 168px;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.people__ring {
+    display: inline-flex;
+    padding: 5px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+}
+
+.people__card--unheard .people__ring {
+    border-color: var(--ring);
+}
+
+.people__card--heard .people__ring {
+    border-color: var(--grey-ui);
+}
+
+.people__name {
+    max-width: 100%;
+}
+</style>

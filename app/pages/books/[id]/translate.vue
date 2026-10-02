@@ -135,7 +135,7 @@ const save = async (): Promise<void> => {
 onMounted(async () => {
     try {
         if (current.value && current.value.role !== 'parent') {
-            await navigateTo('/home')
+            await navigateTo('/library')
             return
         }
         book.value = await get(bookId)
@@ -146,7 +146,7 @@ onMounted(async () => {
         isAiEnabled.value = useAiCreationEnabled() && (await status().catch(() => null))?.enabled === true
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

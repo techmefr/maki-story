@@ -1,6 +1,5 @@
-export const PIN_MIN_LENGTH = 6
+export const PIN_MIN_LENGTH = 4
 export const PIN_MAX_LENGTH = 8
-export const PIN_LEGACY_MIN_LENGTH = 4
 export const SYMBOL_CODE_LENGTH = 4
 
 export const SYMBOLS: ISymbol[] = [

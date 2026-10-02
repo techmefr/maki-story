@@ -1,0 +1,16 @@
+{
+    "title": "Envios",
+    "pending": "aguardando envio: {value}",
+    "status": {
+        "pending": "Aguardando envio",
+        "sending": "Enviando…",
+        "sent": "Enviado",
+        "failed": "Falha no envio"
+    },
+    "failedHint": "Este envio foi recusado. Tente de novo ou cancele.",
+    "cancel": "Cancelar o envio",
+    "clearSent": "Limpar os envios concluídos",
+    "queuedNotice": "Guardado neste dispositivo: será enviado assim que a conexão voltar.",
+    "messageLabel": "Mensagem para {name}",
+    "recordingLabel": "Gravação: {title}"
+}

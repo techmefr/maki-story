@@ -1,5 +1,5 @@
 {
-    "who": "¿Quién escucha?",
+    "who": "¿Quién es?",
     "logout": "Cerrar sesión",
     "switchProfile": "Cambiar de perfil",
     "manageFamily": "Gestionar la familia",
@@ -38,7 +38,17 @@
         "sounds": "Sonidos de los botones",
         "soundsOn": "Activar los sonidos",
         "soundsVolume": "Volumen de los sonidos",
-        "learningFont": "Letra fácil de leer"
+        "learningFont": "Letra fácil de leer",
+        "theme": "Tema",
+        "themes": {
+            "light": "Claro",
+            "dark": "Oscuro",
+            "auto": "Auto"
+        },
+        "parentTitle": "Espacio de los padres",
+        "notifications": "Notificaciones",
+        "schedule": "Horarios de escucha por niño",
+        "feedback": "Dar mi opinión"
     },
     "unlock": {
         "offerTitle": "¿Activar la huella o la cara?",
@@ -51,7 +61,7 @@
         "createTitle": "Crea tu código",
         "confirmTitle": "Confirma tu código",
         "hintPin": "Escribe tu código secreto.",
-        "hintCreate": "Elige de 6 a 8 cifras. Te lo pediremos cada vez.",
+        "hintCreate": "Elige de 4 a 8 cifras. Te lo pediremos cada vez.",
         "hintConfirm": "Escribe el mismo código otra vez.",
         "wrong": "Código incorrecto. Inténtalo de nuevo.",
         "throttled": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",

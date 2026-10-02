@@ -1,5 +1,5 @@
 {
-    "who": "Quem está a ouvir?",
+    "who": "Quem é?",
     "logout": "Terminar sessão",
     "switchProfile": "Mudar de perfil",
     "manageFamily": "Gerir a família",
@@ -38,7 +38,17 @@
         "sounds": "Sons dos botões",
         "soundsOn": "Ativar os sons",
         "soundsVolume": "Volume dos sons",
-        "learningFont": "Letra fácil de ler"
+        "learningFont": "Letra fácil de ler",
+        "theme": "Tema",
+        "themes": {
+            "light": "Claro",
+            "dark": "Escuro",
+            "auto": "Auto"
+        },
+        "parentTitle": "Área dos pais",
+        "notifications": "Notificações",
+        "schedule": "Horários de escuta por criança",
+        "feedback": "Dar minha opinião"
     },
     "unlock": {
         "offerTitle": "Ativar a impressão digital ou o rosto?",
@@ -51,7 +61,7 @@
         "createTitle": "Cria o teu código",
         "confirmTitle": "Confirma o teu código",
         "hintPin": "Escreve o teu código secreto.",
-        "hintCreate": "Escolhe 6 a 8 algarismos. Vai ser pedido sempre.",
+        "hintCreate": "Escolhe 4 a 8 algarismos. Vai ser pedido sempre.",
         "hintConfirm": "Escreve o mesmo código uma segunda vez.",
         "wrong": "Código incorreto. Tenta de novo.",
         "throttled": "Demasiadas tentativas. Tenta de novo dentro de alguns minutos.",

@@ -42,5 +42,16 @@
         "text": "Una foto graciosa para que el niño te reconozca."
     },
     "noMatchHint": "Prueba con otras palabras o quita un filtro.",
+    "relatives": {
+        "title": "Los allegados",
+        "empty": "Todavía no hay nadie",
+        "emptyHint": "Pide a un padre que invite a la familia.",
+        "emptyHintParent": "Añade un allegado para que grabe su voz.",
+        "sendMessage": "Enviar un mensaje a un niño",
+        "hasMessage": "Un mensaje para escuchar",
+        "books": "Sus historias",
+        "playLabel": "Escuchar el mensaje de {name}",
+        "booksLabel": "Historias leídas por {name}"
+    },
     "birthdayMissing": "Añade la fecha de nacimiento de {name}"
 }

@@ -4,11 +4,14 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
+    env:
+      MIGRATION_ADMIN_URL: postgresql://tantara@localhost:5544/postgres
     services:
       postgres:
         image: postgres:16-alpine
@@ -31,8 +34,14 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm i18n:check
+      - run: pnpm check:docs
+      - run: pnpm audit:design
+      - run: pnpm test:unit
+      - run: pnpm check:migrations
+      - run: pnpm cap:sync
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v4

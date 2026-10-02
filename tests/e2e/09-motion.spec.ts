@@ -8,7 +8,7 @@ test.describe('motion', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         const nav = page.viewportSize()!.width >= 720 ? page.locator('.nav .nav__item') : page.locator('.tabbar__item')
-        for (const label of ['Messages', 'Famille', 'Bibliothèque', 'Famille']) {
+        for (const label of ['Accueil', 'Famille', 'Bibliothèque', 'Famille']) {
             await nav.filter({ hasText: label }).click()
             await expect(page.locator('.curtain')).toHaveCSS('visibility', 'hidden', { timeout: 5000 })
         }
@@ -36,7 +36,7 @@ test.describe('motion', () => {
         const lines = [0, 1, 2, 3, 4, 5].map(index => ({ pageIndex: 0, character: '', text: `Ligne ${index}`, memberName: PARENT_NAME }))
         const title = uniqueName('Blob', info.project.name)
         await createReadyBook(page, title, 'solo', lines)
-        await page.goto('/home')
+        await page.goto('/library')
         const curtain = page.locator('.curtain')
         await page.getByRole('link', { name: new RegExp(title) }).click()
         await expect(curtain).toHaveClass(/curtain--book-open/)

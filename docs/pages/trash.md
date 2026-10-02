@@ -1,5 +1,7 @@
 # Trash (/family/trash)
 
+Routes: /family/trash
+
 Parent only (permission family.trash, enforced server side). Lists deleted books, relative profiles, voice messages, treasure box memories and a departed relative recordings, each with the last restore date (30 days after deletion).
 
 ## Behaviour per role

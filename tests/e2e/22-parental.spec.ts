@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Playwright } from '@playwright/test'
-import { chooseProfile, createReadyBook, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { chooseProfile, createReadyBook, enterPin, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 const DAYS = 7
@@ -169,9 +169,10 @@ test.describe('parental schedule in the app', () => {
         expect((await parent.put(`/api/members/${childId}/access-block`, { data: { mode: 'now' } })).ok()).toBeTruthy()
         await expect(page).toHaveURL(/\/kid\/locked/, { timeout: 15_000 })
         await page.getByTestId('locked-parent').click()
-        await expect(page).toHaveURL(/\/profiles/)
-        await page.locator('button.card', { hasText: PARENT_NAME }).first().click()
-        await expect(page.getByRole('heading', { name: 'Entre ton code' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Code d’un parent' })).toBeVisible()
+        await enterPin(page, PROFILE_PIN)
+        await expect(page).toHaveURL(/\/kid$/)
+        await expect(page.getByRole('heading', { name: /Coucou/ })).toBeVisible()
         await parent.dispose()
     })
 

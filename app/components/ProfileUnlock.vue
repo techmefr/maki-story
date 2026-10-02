@@ -26,7 +26,7 @@
                 <AppMaki :size="72" />
                 <SymbolPad :key="padKey" :is-disabled="isBusy" @submit="onCode" />
             </div>
-            <PinPad v-else :key="padKey" :is-disabled="isBusy" :min-length="mode === 'enter' ? PIN_LEGACY_MIN_LENGTH : PIN_MIN_LENGTH" @submit="onCode" />
+            <PinPad v-else :key="padKey" :is-disabled="isBusy" :min-length="PIN_MIN_LENGTH" @submit="onCode" />
             <AppButton variant="secondary" is-block
                 v-for="unlocker in availableUnlockers"
                 :key="unlocker.id"

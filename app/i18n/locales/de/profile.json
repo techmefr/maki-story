@@ -1,5 +1,5 @@
 {
-    "who": "Wer hört zu?",
+    "who": "Wer ist das?",
     "logout": "Abmelden",
     "switchProfile": "Profil wechseln",
     "manageFamily": "Familie verwalten",
@@ -38,7 +38,17 @@
         "sounds": "Tastentöne",
         "soundsOn": "Töne einschalten",
         "soundsVolume": "Lautstärke der Töne",
-        "learningFont": "Leicht lesbare Schrift"
+        "learningFont": "Leicht lesbare Schrift",
+        "theme": "Design",
+        "themes": {
+            "light": "Hell",
+            "dark": "Dunkel",
+            "auto": "Auto"
+        },
+        "parentTitle": "Elternbereich",
+        "notifications": "Benachrichtigungen",
+        "schedule": "Hörzeiten pro Kind",
+        "feedback": "Feedback geben"
     },
     "unlock": {
         "offerTitle": "Fingerabdruck oder Gesicht aktivieren?",
@@ -51,7 +61,7 @@
         "createTitle": "Erstelle deinen Code",
         "confirmTitle": "Bestätige deinen Code",
         "hintPin": "Gib deinen Geheimcode ein.",
-        "hintCreate": "Wähle 6 bis 8 Ziffern. Du wirst jedes Mal danach gefragt.",
+        "hintCreate": "Wähle 4 bis 8 Ziffern. Du wirst jedes Mal danach gefragt.",
         "hintConfirm": "Gib denselben Code noch einmal ein.",
         "wrong": "Falscher Code. Versuche es noch einmal.",
         "throttled": "Zu viele Versuche. Versuche es in ein paar Minuten noch einmal.",

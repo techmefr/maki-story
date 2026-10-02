@@ -13,7 +13,12 @@
     "migrate:up": "node --experimental-strip-types scripts/migrate.ts up",
     "migrate:down": "node --experimental-strip-types scripts/migrate.ts down",
     "test:e2e": "playwright test",
-    "i18n:check": "node --experimental-strip-types scripts/check-i18n.ts"
+    "i18n:check": "node --experimental-strip-types scripts/check-i18n.ts",
+    "lint": "node --experimental-strip-types scripts/lint.ts",
+    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts",
+    "check:docs": "node --experimental-strip-types scripts/check-docs-pages.ts",
+    "audit:design": "node --experimental-strip-types scripts/design-audit.ts",
+    "check:migrations": "node --experimental-strip-types scripts/check-migrations.ts"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.2",

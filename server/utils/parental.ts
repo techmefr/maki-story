@@ -32,7 +32,28 @@ export const loadSchedule = async (db: Sql, familyId: string, memberId: string):
     return row ? toSchedule(row) : null
 }
 
+export const loadActiveOverride = async (db: Sql, familyId: string, memberId: string): Promise<string | null> => {
+    const [row] = await db<{ endsAt: Date }[]>`
+        select ends_at from parental_overrides
+        where family_id = ${familyId} and child_id = ${memberId} and kind = 'UNLOCK' and starts_at <= now() and ends_at > now()
+        order by ends_at desc limit 1
+    `
+    return row ? row.endsAt.toISOString() : null
+}
+
+export const saveOverride = async (db: Sql, familyId: string, childId: string, parentId: string, minutes: number): Promise<string> => {
+    const [row] = await db<{ endsAt: Date }[]>`
+        insert into parental_overrides (family_id, child_id, kind, starts_at, ends_at, created_by_member_id)
+        values (${familyId}, ${childId}, 'UNLOCK', now(), now() + make_interval(mins => ${minutes}), ${parentId})
+        returning ends_at
+    `
+    return row!.endsAt.toISOString()
+}
+
 export const accessForMember = async (db: Sql, familyId: string, memberId: string): Promise<IAccessStatus> => {
+    if (await loadActiveOverride(db, familyId, memberId)) {
+        return { isAllowed: true, reason: null, resumeAt: null }
+    }
     const [row] = await db<IScheduleRow[]>`
         select m.role, s.is_enabled, s.weekly, s.timezone, s.is_manual_block, s.manual_until
         from members m left join child_schedules s on s.member_id = m.id

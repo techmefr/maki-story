@@ -1,6 +1,6 @@
 <template>
-    <NuxtLink v-if="isVisible" to="/notifications" class="bell" :aria-label="label">
-        <AppIcon name="sparkles" :size="26" />
+    <NuxtLink v-if="isVisible" to="/notifications" class="bell" :class="{ 'bell--idle': unreadCount === 0 }" :aria-label="label" data-testid="bell">
+        <AppIcon name="bell" :size="26" :motion="unreadCount > 0 ? 'wiggle' : 'none'" />
         <span v-if="unreadCount > 0" class="bell__count" aria-hidden="true">{{ unreadCount > 9 ? `${formatNumber(9)}+` : formatNumber(unreadCount) }}</span>
     </NuxtLink>
 </template>
@@ -12,7 +12,7 @@ const { current } = useCurrentMember()
 const { unreadCount, load } = useNotifications()
 
 const isVisible = computed(() => current.value !== null && current.value.role !== 'child')
-const label = computed(() => (unreadCount.value > 0 ? t('notifications.bellUnread', { count: unreadCount.value }) : t('notifications.title')))
+const label = computed(() => (unreadCount.value > 0 ? t('notifications.bellUnread', { count: unreadCount.value }) : t('notifications.bellNone')))
 
 const refresh = async (): Promise<void> => {
     if (isVisible.value) {
@@ -30,13 +30,18 @@ watch(() => [route.path, current.value?.id], refresh)
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: var(--tap);
+    height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 50%;
-    background: var(--paper);
-    color: var(--ink);
-    box-shadow: 3px 3px 0 var(--ink);
+    background: var(--sun);
+    color: var(--on-accent);
+    box-shadow: var(--shadow);
+}
+
+.bell--idle {
+    background: var(--grey-ui);
+    color: var(--grey-ui-ink);
 }
 
 .bell__count {
@@ -49,6 +54,7 @@ watch(() => [route.path, current.value?.id], refresh)
     border: 2px solid var(--ink);
     border-radius: 999px;
     background: var(--coral);
+    color: var(--on-accent);
     font: 700 12px/18px var(--font-title);
     text-align: center;
 }

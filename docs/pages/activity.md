@@ -1,5 +1,7 @@
 # Activity journal (/family/activity)
 
+Routes: /family/activity, /books/[id]/activity
+
 Parent only (permission family.activity). Shows the family event journal, most recent first, 50 per page with a Show more button.
 
 ## Behaviour per role

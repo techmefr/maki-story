@@ -25,5 +25,6 @@
             "one": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »",
             "other": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »"
         }
-    }
+    },
+    "bellNone": "Fampandrenesana, tsy misy vaovao"
 }

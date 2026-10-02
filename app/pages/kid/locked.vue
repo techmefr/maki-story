@@ -1,13 +1,22 @@
 <template>
     <main class="locked" data-testid="locked-screen">
-        <AppMaki :size="180" class="locked__maki" />
+        <MakiSleeping :size="180" class="locked__maki" />
         <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
         <div class="locked__moon" aria-hidden="true">
             <AppIcon name="moon" :size="64" motion="float" />
         </div>
-        <AppButton is-round class="locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="goToParent">
+        <AppButton is-round class="locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="isGateOpen = true">
             <AppIcon name="lock" :size="28" />
         </AppButton>
+        <ParentGate
+            v-if="isGateOpen"
+            :members="members"
+            :is-busy="isGateBusy"
+            :error-message="gateError"
+            :attempt="gateAttempt"
+            @submit="unlock"
+            @cancel="isGateOpen = false"
+        />
     </main>
 </template>
 
@@ -15,14 +24,30 @@
 definePageMeta({ layout: 'blank' })
 
 const { t } = useI18n()
-const { status } = useAccess()
-const { lock } = useCurrentMember()
+const { status, unlockWithParent } = useAccess()
+const { members } = useMembers()
+
+const isGateOpen = ref(false)
+const isGateBusy = ref(false)
+const gateError = ref('')
+const gateAttempt = ref(0)
 
 const resumeTime = computed(() => (status.value.resumeAt ? new Date(status.value.resumeAt) : null))
 
-const goToParent = async (): Promise<void> => {
-    await lock()
-    await navigateTo('/profiles')
+const unlock = async (parentId: string, code: string): Promise<void> => {
+    isGateBusy.value = true
+    gateError.value = ''
+    try {
+        await unlockWithParent(parentId, code)
+        isGateOpen.value = false
+        await navigateTo('/kid')
+    } catch (error) {
+        const code = (error as { statusCode?: number }).statusCode
+        gateError.value = code === 429 ? t('profile.unlock.throttled') : t('parental.gate.wrong')
+        gateAttempt.value += 1
+    } finally {
+        isGateBusy.value = false
+    }
 }
 </script>
 

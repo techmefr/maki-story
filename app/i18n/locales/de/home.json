@@ -42,5 +42,16 @@
         "text": "Ein lustiges Foto, damit das Kind dich erkennt."
     },
     "noMatchHint": "Versuche andere Wörter oder entferne einen Filter.",
+    "relatives": {
+        "title": "Die Nächsten",
+        "empty": "Noch ist niemand da",
+        "emptyHint": "Bitte einen Elternteil, die Familie einzuladen.",
+        "emptyHintParent": "Füge einen Angehörigen hinzu, der seine Stimme aufnimmt.",
+        "sendMessage": "Nachricht an ein Kind senden",
+        "hasMessage": "Eine Nachricht zum Anhören",
+        "books": "Seine Geschichten",
+        "playLabel": "Nachricht von {name} anhören",
+        "booksLabel": "Von {name} gelesene Geschichten"
+    },
     "birthdayMissing": "Geburtsdatum von {name} hinzufügen"
 }
