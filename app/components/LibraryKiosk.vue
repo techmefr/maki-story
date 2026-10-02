@@ -11,7 +11,7 @@
         </NuxtLink>
         <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
         <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
-        <AppButton variant="secondary" is-block v-if="isOnline && isParent" to="/books/ai" data-testid="ai-create">
+        <AppButton variant="secondary" is-block v-if="isAiCreationEnabled && isOnline && isParent" to="/books/ai" data-testid="ai-create">
             <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
         </AppButton>
         <BookFilters :initial="initialQuery" @change="reload" />
@@ -22,7 +22,7 @@
             :hint="hasFilter ? t('home.noMatchHint') : t('home.emptyHint')"
         />
         <ProposalRow v-if="isParent && proposals.length > 0" :books="proposals" @open="sheetBook = $event" @changed="reload(activeQuery)" />
-        <AiDraftRow v-if="isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
+        <AiDraftRow v-if="isAiCreationEnabled && isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
         <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
         <ShareDialog v-if="shareTarget" :book="shareTarget" @close="shareTarget = null" />
@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 const { hasTitle = true } = defineProps<{ hasTitle?: boolean }>()
+const isAiCreationEnabled = useAiCreationEnabled()
 const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { books, load } = useBooks()

@@ -81,6 +81,9 @@
 </template>
 
 <script setup lang="ts">
+if (!useAiCreationEnabled()) {
+    await navigateTo('/home', { replace: true })
+}
 const AGES = Array.from({ length: 13 }, (_unused, index) => index)
 const MAX_AI_PAGES = 12
 const MAX_IDEA_CHARS = 1000

@@ -23,6 +23,7 @@ export default defineNuxtConfig({
             sleepMinuteMs: 60000,
             sleepFadeMs: 8000,
             accessPollMs: 15000,
+            aiCreationEnabled: process.env.NODE_ENV !== 'production',
         },
     },
     app: {
