@@ -35,7 +35,7 @@ test.describe('accessibility', () => {
     test('keeps the profile menu usable from the keyboard', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        const trigger = page.getByRole('button', { name: 'Mon profil' })
+        const trigger = page.getByRole('button', { name: 'Réglages' })
         await trigger.click()
         const dialog = page.getByRole('dialog')
         await expect(dialog).toBeVisible()
@@ -48,7 +48,7 @@ test.describe('accessibility', () => {
     test('gives every touch target at least 44px on the parent library', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByRole('heading', { name: 'Bibliothèque' })).toBeVisible()
         const heights = await page.evaluate(() =>
             Array.from(document.querySelectorAll<HTMLElement>('.btn, .chip, .picker, .tabbar__item, .nav__item'))
@@ -62,7 +62,7 @@ test.describe('accessibility', () => {
     test('changes the text size from the profile menu and remembers it', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
         const group = page.getByRole('dialog').getByRole('group', { name: 'Taille du texte' })
         await expect(group.getByRole('button', { name: 'Normal' })).toHaveAttribute('aria-pressed', 'true')
         await group.getByRole('button', { name: 'Maximum' }).click()
@@ -71,7 +71,7 @@ test.describe('accessibility', () => {
         await expectNoHorizontalOverflow(page, 'profile menu')
         await page.reload()
         await expect(page.locator('html')).toHaveCSS('font-size', `${MAX_SIZE_PX}px`)
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await page.getByRole('dialog').getByRole('group', { name: 'Taille du texte' }).getByRole('button', { name: 'Normal' }).click()
         await expect(page.locator('html')).toHaveCSS('font-size', '16px')
     })
@@ -95,10 +95,10 @@ test.describe('accessibility', () => {
             await expectNoHorizontalOverflow(page, path)
         }
         await page.goto('/home')
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await expect(page.getByRole('dialog')).toBeVisible()
         await expectNoHorizontalOverflow(page, 'profile menu')
-        await page.keyboard.press('Escape')
+        await page.goto('/library')
         await page.getByRole('button', { name: `Fiche de ${bookTitle}` }).first().click()
         await expect(page.getByRole('dialog')).toBeVisible()
         await expectNoHorizontalOverflow(page, 'book sheet')

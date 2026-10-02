@@ -76,14 +76,6 @@
         "angry": "En colère",
         "gentle": "Tout doux"
     },
-    "shapes": {
-        "s0": "Cercle",
-        "s1": "Carré",
-        "s2": "Triangle",
-        "s3": "Étoile",
-        "chosen": "{count} sur {total} formes choisies",
-        "clear": "Effacer"
-    },
     "composer": {
         "whoSpeaks": "Qui parle ?",
         "character": "Personnage",

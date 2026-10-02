@@ -8,12 +8,12 @@ export default defineEventHandler(async event => {
     const actor = await requireActor(event)
     const id = requireParam(event, 'id')
     const body = await readBody<Partial<IMemberCodeUpdate>>(event)
-    const input = readCodeInput(body)
     const db = getDb()
     const target = await loadCodeRow(db, actor.familyId, id)
     if (!target) {
         return notFound('Member not found')
     }
+    const input = readCodeInput(body, target.role)
     const isSelf = actor.id === target.id
     if (isSelf) {
         if (actor.role === 'child') {

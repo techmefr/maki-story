@@ -4,14 +4,11 @@
             <li v-for="item in line.translations" :key="item.language" class="row" :lang="item.language">
                 <span class="badge">{{ languageLabel(item.language) }}</span>
                 <span class="grow">{{ item.text }}</span>
-                <button
-                    type="button"
-                    class="btn btn--small btn--white"
+                <AppButton variant="secondary" size="sm"
                     :aria-label="t('ai.translate.removeLabel', { language: languageLabel(item.language) })"
-                    @click="removeTranslation(line.key, item.language)"
-                >
+                    @click="removeTranslation(line.key, item.language)">
                     ×
-                </button>
+                </AppButton>
             </li>
         </ul>
         <button v-if="!isOpen" type="button" class="chip" :aria-expanded="false" @click="open">
@@ -19,12 +16,10 @@
         </button>
         <div v-else class="card stack" role="group" :aria-label="t('ai.translate.groupLabel')">
             <AiNotice :text="t('ai.translate.notice')" />
-            <label class="stack" style="gap: 6px">
-                <span class="label">{{ t('ai.translate.translateTo') }}</span>
-                <select v-model="target" class="input" :disabled="isBusy" @change="suggestion = null">
-                    <option v-for="item in targets" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
-                </select>
-            </label>
+            <div class="stack" style="gap: 6px">
+                <span id="translate-to-label" class="label">{{ t('ai.translate.translateTo') }}</span>
+                <AppSelect v-model="target" aria-labelledby="translate-to-label" :disabled="isBusy" :options="targetOptions" @update:model-value="suggestion = null" />
+            </div>
             <p v-if="isUnavailable" class="error" role="alert">{{ t(AI_UNAVAILABLE_KEY) }}</p>
             <p v-else-if="isExhausted" class="error" role="alert">{{ t(AI_QUOTA_KEY) }}</p>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
@@ -35,11 +30,11 @@
             </label>
             <div class="row row--wrap">
                 <template v-if="suggestion !== null">
-                    <button type="button" class="btn btn--mint btn--small" :disabled="suggestion.trim() === ''" @click="accept">{{ t('ai.translate.accept') }}</button>
-                    <button type="button" class="btn btn--white btn--small" @click="reject">{{ t('ai.translate.reject') }}</button>
+                    <AppButton variant="secondary" tone="mint" size="sm" :disabled="suggestion.trim() === ''" @click="accept">{{ t('ai.translate.accept') }}</AppButton>
+                    <AppButton variant="secondary" size="sm" @click="reject">{{ t('ai.translate.reject') }}</AppButton>
                 </template>
-                <button v-else type="button" class="btn btn--small" :disabled="isBusy || isUnavailable || isExhausted" @click="suggest">{{ t('ai.translate.suggest') }}</button>
-                <button type="button" class="btn btn--white btn--small" @click="close">{{ t('common.close') }}</button>
+                <AppButton size="sm" v-else :disabled="isBusy || isUnavailable || isExhausted" @click="suggest">{{ t('ai.translate.suggest') }}</AppButton>
+                <AppButton variant="secondary" size="sm" @click="close">{{ t('common.close') }}</AppButton>
             </div>
         </div>
     </div>
@@ -49,6 +44,7 @@
 const { line } = defineProps<{ line: IDraftLine }>()
 
 const { t } = useI18n()
+const targetOptions = computed(() => languageSelectOptions(targets.value))
 const { language, setTranslation, removeTranslation } = useBookDraft()
 const { suggestTranslation, refreshStatus, isExhausted, isUnavailable } = useAi()
 

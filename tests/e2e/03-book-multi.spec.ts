@@ -27,6 +27,7 @@ test.describe('multi voice book', () => {
         const lova = uniqueName('Lova', project)
         await login(page)
         await chooseProfile(page, PARENT_NAME)
+        await page.goto('/library')
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
         await expect(page.getByText('1/5')).toBeVisible()
@@ -91,6 +92,7 @@ test.describe('multi voice book', () => {
     test('shows the book as to record in the library', async ({ page }, info) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
+        await page.goto('/library')
         await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('À enregistrer')
     })
 
@@ -136,6 +138,7 @@ test.describe('multi voice book', () => {
     test('shows the published book as ready and deletes another one', async ({ page }, info) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
+        await page.goto('/library')
         await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('Prêt')
         const response = await page.request.post('/api/books', {
             data: { title: 'A supprimer', kind: 'multi', soloMemberId: null, imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: '', text: 'x' }] },
@@ -144,7 +147,7 @@ test.describe('multi voice book', () => {
         await page.goto(`/books/${created.id}/studio`)
         page.once('dialog', dialog => dialog.accept())
         await page.getByRole('button', { name: 'Supprimer ce livre' }).click()
-        await expect(page).toHaveURL(/\/home/)
+        await expect(page).toHaveURL(/\/library/)
         const list = await apiJson<{ id: string }[]>(page, '/books')
         expect(list.some(book => book.id === created.id)).toBeFalsy()
     })

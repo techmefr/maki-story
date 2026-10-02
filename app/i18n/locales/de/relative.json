@@ -1,0 +1,26 @@
+{
+    "nav": "Meine Familien",
+    "title": "Meine Familien",
+    "emptyTitle": "Noch keine Familie",
+    "emptyHint": "Bitte ein Elternteil um eine Einladung, seiner Familie beizutreten.",
+    "family": "Familie {name}",
+    "messageFor": "Nachricht für {name}",
+    "cardMeta": "{child} · Familie {family}",
+    "cardFamily": "Familie {family}",
+    "noChild": "Noch kein Kind in deinem Kreis.",
+    "requests": "Aufzunehmen",
+    "requestMeta": "Zeilen aufzunehmen: {count} · Familie {family}",
+    "record": "Aufnehmen",
+    "proposals": "Meine Vorschläge",
+    "proposalStatus": {
+        "proposed": "Ausstehend",
+        "awaiting_owner": "Wartet auf den Besitzer",
+        "pending": "Wartet auf Antwort",
+        "accepted": "Angenommen",
+        "declined": "Abgelehnt",
+        "revoked": "Zurückgezogen"
+    },
+    "joinAnother": "Einer weiteren Familie beitreten",
+    "openFailed": "Diese Familie konnte nicht geöffnet werden.",
+    "loadFailed": "Deine Familien konnten nicht geladen werden."
+}

@@ -1,6 +1,6 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <OfflineToggle :book-id="book.id" />
         <div class="segs" role="group" :aria-label="t('play.lines')">
@@ -28,11 +28,11 @@
             </div>
         </div>
         <div class="row" style="justify-content: center">
-            <button type="button" class="btn btn--round btn--white" :aria-label="t('common.previous')" @click="previous"><AppIcon name="skip-back" :size="22" class="mirror-rtl" /></button>
-            <button type="button" class="btn btn--round" style="width: 72px; min-height: 72px" :aria-label="isPlaying ? t('play.pause') : t('play.play')" @click="toggle">
+            <AppButton variant="secondary" is-round :aria-label="t('common.previous')" @click="previous"><AppIcon name="skip-back" :size="22" class="mirror-rtl" /></AppButton>
+            <AppButton is-round style="width: 72px; min-height: 72px" :aria-label="isPlaying ? t('play.pause') : t('play.play')" @click="toggle">
                 <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="34" />
-            </button>
-            <button type="button" class="btn btn--round btn--white" :aria-label="t('common.next')" @click="next"><AppIcon name="skip-forward" :size="22" class="mirror-rtl" /></button>
+            </AppButton>
+            <AppButton variant="secondary" is-round :aria-label="t('common.next')" @click="next"><AppIcon name="skip-forward" :size="22" class="mirror-rtl" /></AppButton>
         </div>
         <div class="stack">
             <button
@@ -49,7 +49,7 @@
                 {{ line.text }}
             </button>
         </div>
-        <NuxtLink :to="`/books/${book.id}/studio`" class="btn btn--white btn--small">{{ t('play.editRecordings') }}</NuxtLink>
+        <AppButton variant="secondary" size="sm" :to="`/books/${book.id}/studio`">{{ t('play.editRecordings') }}</AppButton>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
@@ -130,7 +130,7 @@ onMounted(async () => {
         book.value = await get(String(route.params.id))
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

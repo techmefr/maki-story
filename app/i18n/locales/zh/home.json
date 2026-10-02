@@ -40,5 +40,17 @@
         "title": "来做你的鬼脸吧！",
         "text": "拍一张有趣的照片，让孩子认出你。"
     },
-    "noMatchHint": "试试其他词，或去掉一个筛选条件。"
+    "noMatchHint": "试试其他词，或去掉一个筛选条件。",
+    "relatives": {
+        "title": "亲人",
+        "empty": "还没有人",
+        "emptyHint": "请家长邀请家人。",
+        "emptyHintParent": "添加一位亲人来录制声音。",
+        "sendMessage": "给孩子发消息",
+        "hasMessage": "有一条消息可听",
+        "books": "他们的故事",
+        "playLabel": "播放{name}的消息",
+        "booksLabel": "{name}朗读的故事"
+    },
+    "birthdayMissing": "添加 {name} 的出生日期"
 }

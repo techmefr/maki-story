@@ -46,9 +46,9 @@ const parseCharacter = (value: unknown): IAiDraftCharacter => {
     const name = asText(record.name, 'character name', 80, true)
     return {
         name,
-        color: isVoiceColor(record.color) ? record.color : null,
+        color: record.isNarrator !== true && isVoiceColor(record.color) ? record.color : null,
         description: asText(record.description, 'character description'),
-        isNarrator: record.isNarrator === true || name.toLowerCase() === 'narrateur',
+        isNarrator: record.isNarrator === true,
     }
 }
 

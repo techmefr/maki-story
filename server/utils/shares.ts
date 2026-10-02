@@ -71,26 +71,39 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
         return notFound('Book not found')
     }
     const created = one(await tx<{ id: string }[]>`
-        insert into books (family_id, title, subtitle, author, age_min, age_max, language, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
-        select ${targetFamilyId}, title, subtitle, author, age_min, age_max, language, type, tts_fallback, image_desc, 'multi', 'to_record',
+        insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
+        select ${targetFamilyId}, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, 'multi', 'to_record',
             coalesce(origin_book_id, id), coalesce(origin_family_id, family_id)
         from books where id = ${bookId} and family_id = ${ownerFamilyId}
         returning id
     `)
     await tx`
         insert into book_pages (family_id, book_id, position, file_id, kind, tts_fallback, description)
-        select ${targetFamilyId}, ${created.id}, position, null, 'empty', tts_fallback, description from book_pages where book_id = ${bookId}
+        select ${targetFamilyId}, ${created.id}, position, null, case when kind = 'cover' then 'cover' else 'empty' end, tts_fallback, description
+        from book_pages where book_id = ${bookId}
+    `
+    await tx`
+        insert into panels (family_id, book_id, page_id, position, description)
+        select ${targetFamilyId}, ${created.id}, np.id, p.position, p.description
+        from panels p
+        join book_pages op on op.id = p.page_id
+        join book_pages np on np.book_id = ${created.id} and np.position = op.position
+        where p.book_id = ${bookId}
     `
     await tx`
         insert into characters (family_id, book_id, name, color, description, is_narrator, position)
         select ${targetFamilyId}, ${created.id}, name, color, description, is_narrator, position from characters where book_id = ${bookId}
     `
     await tx`
-        insert into lines (family_id, book_id, position, page_index, character, text, note, tone, scene_description, character_id)
-        select ${targetFamilyId}, ${created.id}, l.position, l.page_index, l.character, l.text, l.note, l.tone, l.scene_description, nc.id
+        insert into lines (family_id, book_id, position, page_index, character, text, note, tone, scene_description, character_id, panel_id)
+        select ${targetFamilyId}, ${created.id}, l.position, l.page_index, l.character, l.text, l.note, l.tone, l.scene_description, nc.id, np.id
         from lines l
         left join characters oc on oc.id = l.character_id
         left join characters nc on nc.book_id = ${created.id} and lower(nc.name) = lower(oc.name)
+        left join panels op on op.id = l.panel_id
+        left join book_pages opage on opage.id = op.page_id
+        left join book_pages npage on npage.book_id = ${created.id} and npage.position = opage.position
+        left join panels np on np.page_id = npage.id and np.position = op.position
         where l.book_id = ${bookId} order by l.position
     `
     await tx`

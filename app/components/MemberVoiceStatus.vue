@@ -33,7 +33,7 @@
         <ul v-if="books.length > 0" class="list stack">
             <li v-for="book in books" :key="book.id" class="row">
                 <span class="grow">{{ book.title }} · {{ t('member.voice.lines', { count: book.lineCount }) }}</span>
-                <NuxtLink v-if="isBlocked" :to="`/books/${book.id}/studio`" class="btn btn--white btn--small">{{ t('member.voice.rerecordAction') }}</NuxtLink>
+                <AppButton variant="secondary" size="sm" v-if="isBlocked" :to="`/books/${book.id}/studio`">{{ t('member.voice.rerecordAction') }}</AppButton>
             </li>
         </ul>
         <p v-else class="muted">{{ t('member.voice.empty') }}</p>

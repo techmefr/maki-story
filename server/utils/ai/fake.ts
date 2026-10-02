@@ -11,8 +11,29 @@ const PNG_PIXEL = Buffer.from(
 
 const usage = () => ({ promptTokens: FAKE_PROMPT_TOKENS, completionTokens: FAKE_COMPLETION_TOKENS, costUsd: FAKE_COST_USD })
 
-const draft = (language: string, lineCount: number) => ({
-    title: 'Le petit zébu',
+const UNSAFE_TEXT = 'FAKE_UNSAFE_CONTENT'
+const COSTLY_MODERATION_COST_USD = 0.005
+const seenOnce = new Set<string>()
+
+const draftMarker = (user: string): string => {
+    const tags: string[] = []
+    if (user.includes('FAKE_COSTLY_MODERATION')) {
+        tags.push('FAKE_COSTLY_MODERATION')
+    }
+    if (user.includes('FAKE_MODERATION_DOWN')) {
+        tags.push('FAKE_MODERATION_DOWN')
+    }
+    if (user.includes('FAKE_UNSAFE_ONCE') && !seenOnce.has(user)) {
+        seenOnce.add(user)
+        tags.push(UNSAFE_TEXT)
+    } else if (user.includes('FAKE_UNSAFE_TEXT')) {
+        tags.push(UNSAFE_TEXT)
+    }
+    return tags.length > 0 ? ` ${tags.join(' ')}` : ''
+}
+
+const draft = (language: string, lineCount: number, marker = '', imageMarker = '') => ({
+    title: `Le petit zébu${marker}`,
     subtitle: 'Une histoire du soir',
     language,
     style: 'soft watercolor',
@@ -21,7 +42,7 @@ const draft = (language: string, lineCount: number) => ({
         { name: 'Zébu', color: 'coral', description: 'small brown zebu with a red scarf', isNarrator: false },
     ],
     pages: [
-        { imageDescription: 'A zebu in a green field', panels: [] },
+        { imageDescription: `A zebu in a green field${imageMarker}`, panels: [] },
         { imageDescription: 'The zebu meets a lemur', panels: ['Close-up of the lemur'] },
     ],
     lines: Array.from({ length: lineCount }, (_, index) => ({
@@ -32,6 +53,17 @@ const draft = (language: string, lineCount: number) => ({
         sceneDescription: '',
     })),
 })
+
+const moderationAnswer = (request: IAiTextRequest): { content: string; costUsd: number } => {
+    const user = request.user
+    if (user.includes('FAKE_MODERATION_DOWN')) {
+        throw new Error('fake moderation outage')
+    }
+    const isImage = request.images.length > 0
+    const isUnsafe = isImage ? user.includes('FAKE_UNSAFE_IMAGE') : user.includes(UNSAFE_TEXT)
+    const costUsd = user.includes('FAKE_COSTLY_MODERATION') ? COSTLY_MODERATION_COST_USD : 0
+    return { content: JSON.stringify(isUnsafe ? { verdict: 'BLOCK', categories: ['violence'] } : { verdict: 'PASS', categories: [] }), costUsd }
+}
 
 const answer = (request: IAiTextRequest): string => {
     const marker = request.user
@@ -47,14 +79,21 @@ const answer = (request: IAiTextRequest): string => {
     if (request.system.includes('TASK:translation')) {
         const count = (marker.match(/^\d+\. /gm) ?? []).length
         const target = /TARGET:([a-z-]+)/.exec(request.system)?.[1] ?? 'xx'
-        return JSON.stringify({ suggestions: Array.from({ length: count }, (_, index) => ({ text: `[${target}] ${index + 1}`, tone: 'doux' })) })
+        const unsafe = marker.includes('FAKE_UNSAFE_TEXT') ? ` ${UNSAFE_TEXT}` : ''
+        return JSON.stringify({ suggestions: Array.from({ length: count }, (_, index) => ({ text: `[${target}] ${index + 1}${unsafe}`, tone: 'doux' })) })
     }
     const language = /LANGUAGE:([a-z-]+)/.exec(request.system)?.[1] ?? 'fr'
-    return JSON.stringify(draft(language, 4))
+    return JSON.stringify(draft(language, 4, draftMarker(marker), marker.includes('FAKE_UNSAFE_IMAGE') ? ' FAKE_UNSAFE_IMAGE' : ''))
 }
 
 export const createFakeProvider = (): IAiProvider => ({
-    completeJson: async (request): Promise<IAiTextResponse> => ({ content: answer(request), ...usage() }),
+    completeJson: async (request): Promise<IAiTextResponse> => {
+        if (request.system.includes('TASK:moderation')) {
+            const verdict = moderationAnswer(request)
+            return { content: verdict.content, ...usage(), costUsd: verdict.costUsd }
+        }
+        return { content: answer(request), ...usage() }
+    },
     generateImage: async (request): Promise<IAiImageResponse> => {
         if (request.prompt.includes('FAKE_IMAGE_FAIL')) {
             throw new Error('fake image failure')

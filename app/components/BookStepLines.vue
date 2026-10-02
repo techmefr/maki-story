@@ -10,7 +10,17 @@
             </div>
             <p v-if="page.kind === 'empty'" class="muted">{{ t('bookDraft.lines.emptyNote') }}</p>
             <template v-else>
-                <div v-if="page.description" class="muted">{{ t('bookDraft.lines.image', { description: page.description }) }}</div>
+                <BookPageView
+                    :view="viewOf(page, index)"
+                    mode="create"
+                    :page-number="index + 1"
+                    :page-count="Math.max(1, pages.length)"
+                    :language="language"
+                    :show-lines="false"
+                    :show-nav="false"
+                    @update-description="updatePage(index, { description: $event })"
+                    @update-character="(id, value) => updateCharacter(Number(id), { description: value })"
+                />
                 <div v-for="(panel, panelIndex) in page.panels" :key="panel.key" class="stack panel">
                     <div class="label">{{ panel.description ? t('bookDraft.lines.panelWithDescription', { n: panelIndex + 1, description: panel.description }) : t('bookDraft.shared.panel', { n: panelIndex + 1 }) }}</div>
                     <BookLineRow v-for="line in linesOfPanel(index, panelIndex)" :key="line.key" :line="line" />
@@ -20,7 +30,7 @@
             </template>
         </div>
         <div v-if="!hasLines" class="muted">{{ t('bookDraft.lines.needOne') }}</div>
-        <button type="button" class="btn btn--block" :disabled="!hasLines" @click="emit('next')">{{ t('common.next') }}</button>
+        <AppButton is-block :disabled="!hasLines" @click="emit('next')">{{ t('common.next') }}</AppButton>
     </div>
 </template>
 
@@ -28,7 +38,34 @@
 const emit = defineEmits<{ next: [] }>()
 
 const { t } = useI18n()
-const { pages, hasLines, isSimple, linesOfPage, linesOfPanel } = useBookDraft()
+const { pages, hasLines, isSimple, language, readerId, linesOfPage, linesOfPanel, updatePage, updateCharacter, characterByKey, effectiveCharacterKey } = useBookDraft()
+
+const viewOf = (page: IDraftPage, index: number): IPageView => {
+    const keys = [...new Set(linesOfPage(index).map(line => effectiveCharacterKey(line)).filter((key): key is number => key !== null))]
+    return {
+        fileId: page.fileId,
+        previewUrl: page.previewUrl,
+        description: page.description,
+        panelCount: page.panels.length,
+        characters: keys.flatMap(key => {
+            const character = characterByKey(key)
+            if (!character) {
+                return []
+            }
+            return [
+                {
+                    id: String(character.key),
+                    name: character.name,
+                    color: character.isNarrator ? null : character.color,
+                    isNarrator: character.isNarrator,
+                    description: character.description,
+                    readerId: isSimple.value ? readerId.value : character.memberId,
+                    lines: [],
+                },
+            ]
+        }),
+    }
+}
 
 const displayPages = computed<IDraftPage[]>(() =>
     pages.value.length > 0

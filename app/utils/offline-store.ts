@@ -1,15 +1,24 @@
 const DB_NAME = 'tantara-offline'
 const BOOKS = 'books'
 const KV = 'kv'
+const OUTBOX = 'outbox'
 const AUDIO_CACHE = 'tantara-offline-audio'
 const CACHED_PATHS = ['/auth/me', '/members', '/books']
 
 const openDb = (): Promise<IDBDatabase> =>
     new Promise((resolve, reject) => {
-        const opening = indexedDB.open(DB_NAME, 1)
+        const opening = indexedDB.open(DB_NAME, 2)
         opening.onupgradeneeded = () => {
-            opening.result.createObjectStore(BOOKS, { keyPath: 'id' })
-            opening.result.createObjectStore(KV)
+            const db = opening.result
+            if (!db.objectStoreNames.contains(BOOKS)) {
+                db.createObjectStore(BOOKS, { keyPath: 'id' })
+            }
+            if (!db.objectStoreNames.contains(KV)) {
+                db.createObjectStore(KV)
+            }
+            if (!db.objectStoreNames.contains(OUTBOX)) {
+                db.createObjectStore(OUTBOX, { keyPath: 'id' })
+            }
         }
         opening.onsuccess = () => resolve(opening.result)
         opening.onerror = () => reject(opening.error)
@@ -55,6 +64,16 @@ export const writeOfflineBook = async (book: IOfflineBook): Promise<void> => {
     await run(BOOKS, 'readwrite', target => target.put(book))
 }
 
+export const listOutboxItems = (): Promise<IOutboxItem[]> => run<IOutboxItem[]>(OUTBOX, 'readonly', target => target.getAll())
+
+export const writeOutboxItem = async (item: IOutboxItem): Promise<void> => {
+    await run(OUTBOX, 'readwrite', target => target.put(item))
+}
+
+export const deleteOutboxItem = async (id: string): Promise<void> => {
+    await run(OUTBOX, 'readwrite', target => target.delete(id))
+}
+
 export const hasOfflineFile = async (fileId: string): Promise<boolean> => {
     if (!('caches' in window)) {
         return false
@@ -90,6 +109,7 @@ export const clearOfflineData = async (): Promise<void> => {
     try {
         await run(BOOKS, 'readwrite', target => target.clear())
         await run(KV, 'readwrite', target => target.clear())
+        await run(OUTBOX, 'readwrite', target => target.clear())
         if ('caches' in window) {
             await caches.delete(AUDIO_CACHE)
         }

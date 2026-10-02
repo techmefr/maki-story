@@ -19,7 +19,19 @@
                 </div>
                 <div>
                     <dt>{{ t('books.sheet.language') }}</dt>
-                    <dd>{{ languageLabel(book.language) }}</dd>
+                    <dd>{{ languageLabel(book.writtenLanguage ?? book.language) }}</dd>
+                </div>
+                <div v-if="(book.voiceLanguages ?? []).some(code => code !== (book.writtenLanguage ?? book.language))">
+                    <dt>{{ t('books.sheet.voiceLanguages') }}</dt>
+                    <dd>{{ book.voiceLanguages.map(languageLabel).join(', ') }}</dd>
+                </div>
+                <div v-if="(book.moods ?? []).length > 0">
+                    <dt>{{ t('books.sheet.moods') }}</dt>
+                    <dd>{{ book.moods.map(mood => t(`bookDraft.book.mood.${mood}`)).join(', ') }}</dd>
+                </div>
+                <div v-if="(book.themes ?? []).length > 0">
+                    <dt>{{ t('books.sheet.themes') }}</dt>
+                    <dd>{{ book.themes.map(theme => t(`bookDraft.book.theme.${theme}`)).join(', ') }}</dd>
                 </div>
             </dl>
             <section class="stack" style="gap: 8px" aria-labelledby="book-readers">
@@ -32,11 +44,12 @@
                 </ul>
                 <p v-else class="muted">{{ t('books.sheet.nobody') }}</p>
             </section>
-            <NuxtLink v-if="target" :to="target.path" class="btn btn--block" data-focus-default @click="emit('close')">
+            <BookChildVisibility v-if="isParent" :book="book" />
+            <AppButton is-block v-if="target" :to="target.path" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
-            </NuxtLink>
-            <button v-if="canShare" type="button" class="btn btn--white btn--block" @click="emit('share', book)">{{ t('books.sheet.share') }}</button>
-            <button type="button" class="btn btn--white btn--block" @click="emit('close')">{{ t('common.close') }}</button>
+            </AppButton>
+            <AppButton variant="secondary" is-block v-if="canShare" @click="emit('share', book)">{{ t('books.sheet.share') }}</AppButton>
+            <AppButton variant="secondary" is-block @click="emit('close')">{{ t('common.close') }}</AppButton>
         </div>
     </div>
 </template>

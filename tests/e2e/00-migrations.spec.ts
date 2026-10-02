@@ -177,6 +177,63 @@ test.describe('migrations', () => {
         expect(line).toEqual({ audioFileId: 'f1', audioMs: 1200 })
     })
 
+    test('the data model v3 migration keeps one active message per pair, back-fills books and resets legacy shape codes', async () => {
+        const upTo = migrations.findIndex(item => item.name.startsWith('0016'))
+        expect(upTo).toBeGreaterThan(0)
+        await migrateUp(db, migrations.slice(0, upTo))
+        await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`
+        await db`insert into accounts (id, email, password_hash) values ('acc', 'a@b.c', 'x')`
+        await db`insert into account_families (account_id, family_id) values ('acc', 'fam')`
+        await db`insert into members (id, family_id, name, role, color, code_kind, pin_hash) values
+            ('mom', 'fam', 'Maman', 'parent', 'sun', 'pin', 'h1'),
+            ('kid', 'fam', 'Enfant', 'child', 'sky', 'shapes', 'h2'),
+            ('aunt', 'fam', 'Tata', 'relative', 'mint', null, null)`
+        await db`insert into files (id, family_id, mime, data) values ('f1', 'fam', 'audio/webm', '\\x00')`
+        await db`insert into messages (id, family_id, from_member_id, to_member_id, file_id, mime, listened_at, created_at) values
+            ('m1', 'fam', 'aunt', 'kid', 'f1', 'audio/webm', now(), now() - interval '3 hours'),
+            ('m2', 'fam', 'aunt', 'kid', 'f1', 'audio/webm', null, now() - interval '2 hours'),
+            ('m3', 'fam', 'aunt', 'kid', 'f1', 'audio/webm', null, now() - interval '1 hours')`
+        await db`insert into books (id, family_id, title, language) values ('b1', 'fam', 'Livre', 'mg')`
+        await db`insert into lines (id, family_id, book_id, position, text) values ('l1', 'fam', 'b1', 0, 'Un')`
+        await db`insert into recordings (family_id, line_id, member_id, language, file_id, mime) values ('fam', 'l1', 'aunt', 'fr', 'f1', 'audio/webm')`
+        await migrateUp(db, migrations)
+        const messages = await db<{ id: string; status: string }[]>`select id, status from messages order by created_at`
+        expect(messages).toEqual([
+            { id: 'm1', status: 'EXPIRED' },
+            { id: 'm2', status: 'EXPIRED' },
+            { id: 'm3', status: 'ACTIVE' },
+        ])
+        await expect(
+            db`insert into messages (family_id, from_member_id, to_member_id, file_id, mime) values ('fam', 'aunt', 'kid', 'f1', 'audio/webm')`,
+        ).rejects.toThrow()
+        await db`insert into messages (family_id, from_member_id, to_member_id, file_id, mime, kind) values ('fam', 'aunt', 'kid', 'f1', 'audio/webm', 'BIRTHDAY')`
+        const [book] = await db<{ writtenLanguage: string; voiceLanguages: string[] }[]>`
+            select written_language as "writtenLanguage", voice_languages as "voiceLanguages" from books where id = 'b1'`
+        expect(book).toEqual({ writtenLanguage: 'mg', voiceLanguages: ['fr'] })
+        const members = await db<{ id: string; codeKind: string | null; codeEnabled: boolean }[]>`
+            select id, code_kind as "codeKind", code_enabled as "codeEnabled" from members order by id`
+        expect(members).toEqual([
+            { id: 'aunt', codeKind: null, codeEnabled: true },
+            { id: 'kid', codeKind: null, codeEnabled: false },
+            { id: 'mom', codeKind: 'pin', codeEnabled: true },
+        ])
+        const memberships = await db<{ role: string; status: string }[]>`select role, status from memberships where account_id = 'acc'`
+        expect(memberships).toEqual([{ role: 'parent', status: 'ACTIVE' }])
+    })
+
+    test('the treasure box refuses an eleventh memory per child', async () => {
+        await migrateUp(db, migrations)
+        await db`insert into families (id, name, invite_code) values ('fam', 'Famille', 'code')`
+        await db`insert into members (id, family_id, name, role, color) values ('kid', 'fam', 'Enfant', 'child', 'sky')`
+        await db`insert into files (id, family_id, mime, data) values ('f1', 'fam', 'audio/webm', '\\x00')`
+        for (let index = 0; index < 10; index++) {
+            await db`insert into treasures (family_id, child_id, file_id, mime) values ('fam', 'kid', 'f1', 'audio/webm')`
+        }
+        await expect(db`insert into treasures (family_id, child_id, file_id, mime) values ('fam', 'kid', 'f1', 'audio/webm')`).rejects.toThrow()
+        await db`update treasures set deleted_at = now() where id = (select id from treasures limit 1)`
+        await db`insert into treasures (family_id, child_id, file_id, mime) values ('fam', 'kid', 'f1', 'audio/webm')`
+    })
+
     test('a fresh database gets no family', async () => {
         await migrateUp(db, migrations)
         const [row] = await db<{ count: number }[]>`select count(*)::int as count from families`

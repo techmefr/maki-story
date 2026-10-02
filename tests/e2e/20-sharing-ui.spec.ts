@@ -29,7 +29,7 @@ test.describe('sharing, notifications and voice status screens', () => {
         await bell.click()
         await expect(page.getByText(`vous a envoyé le livre « ${title} »`)).toBeVisible()
         await page.getByRole('button', { name: 'Tout marquer comme lu' }).click()
-        await expect(page.getByRole('link', { name: 'Notifications', exact: true })).toBeVisible()
+        await expect(page.getByRole('link', { name: /Notifications, aucune nouvelle/ })).toBeVisible()
 
         await page.goto('/sharing')
         const card = page.locator('article', { hasText: title })
@@ -37,7 +37,7 @@ test.describe('sharing, notifications and voice status screens', () => {
         await card.getByRole('button', { name: 'Accepter' }).click()
         await expect(card.getByText('Accepté')).toBeVisible()
 
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByText(title, { exact: true }).first()).toBeVisible()
         await page.getByRole('button', { name: `Fiche de ${title}` }).first().click()
         await page.getByRole('dialog', { name: `Fiche de ${title}` }).getByRole('button', { name: 'Partager' }).click()
@@ -60,13 +60,13 @@ test.describe('sharing, notifications and voice status screens', () => {
             data: { title, kind: 'multi', imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: 'Lola', text: 'Bonjour' }, { pageIndex: 0, character: 'Lola', text: 'Au revoir' }] },
         })
         expect(created.ok()).toBeTruthy()
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('button', { name: `Fiche de ${title}` }).first().click()
         await page.getByRole('dialog', { name: `Fiche de ${title}` }).getByRole('button', { name: 'Partager' }).click()
         const dialog = page.getByRole('dialog')
         await dialog.getByLabel('Code de la famille').fill(await inviteCode(target.parent))
         await dialog.getByLabel('Enregistrer ma voix pour ce livre').check()
-        await expect(dialog.getByLabel(/Bonjour/)).toBeChecked()
+        await expect(dialog.getByRole('checkbox', { name: /Bonjour/ })).toBeChecked()
         await dialog.getByRole('button', { name: 'Envoyer' }).click()
         await expect(dialog.getByText(/Envoyé à la famille/)).toBeVisible()
         const incoming = (await (await target.parent.get('/api/shares')).json()) as { incoming: { bookTitle: string; lineCount: number }[] }

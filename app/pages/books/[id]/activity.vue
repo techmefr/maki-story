@@ -86,7 +86,7 @@ const sentence = (item: IActivityItem): string => {
 
 onMounted(async () => {
     if (current.value?.role === 'relative') {
-        await navigateTo('/home')
+        await navigateTo('/library')
         return
     }
     try {
@@ -96,7 +96,7 @@ onMounted(async () => {
         await markSeen(bookId)
     } catch (error) {
         console.error('L activité n a pas pu être chargée', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

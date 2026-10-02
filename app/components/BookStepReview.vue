@@ -24,11 +24,17 @@
                 </div>
             </template>
         </div>
+        <AppCheckbox v-if="isRelative" v-model="isProposal" class="card row" data-testid="proposal-toggle">
+            <span class="grow">
+                <span class="subtitle">{{ t('library.proposal.toggle') }}</span>
+                <span class="muted">{{ t('library.proposal.hint') }}</span>
+            </span>
+        </AppCheckbox>
         <div v-if="problem" class="error" role="alert">{{ problem }}</div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" :disabled="problem !== '' || isBusy" @click="save">
+        <AppButton is-block :disabled="problem !== '' || isBusy" @click="save">
             {{ isBusy ? t('bookDraft.review.saving') : t('bookDraft.review.toStudio') }}
-        </button>
+        </AppButton>
     </div>
 </template>
 
@@ -42,6 +48,7 @@ const TYPE_KEYS: Record<BookType, string> = {
 
 const { t } = useI18n()
 const {
+    isProposal,
     title,
     language,
     type,
@@ -61,6 +68,8 @@ const {
 } = useBookDraft()
 const { saveTranslation } = useAi()
 const { getById } = useMembers()
+const { current } = useCurrentMember()
+const isRelative = computed(() => current.value?.role === 'relative')
 const { create, get, patch } = useBooks()
 
 const isBusy = ref(false)

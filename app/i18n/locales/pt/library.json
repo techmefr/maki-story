@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Propostas dos familiares",
+        "myProposals": "Minhas propostas pendentes"
+    },
+    "proposals": {
+        "proposedBy": "Proposto por {name}",
+        "approve": "Aceitar",
+        "decline": "Recusar",
+        "approveLabel": "Aceitar {title}",
+        "declineLabel": "Recusar {title}",
+        "error": "Não foi possível processar esta proposta agora."
+    },
+    "proposal": {
+        "toggle": "Propor este livro à família",
+        "hint": "Um dos pais aceita ou recusa antes de qualquer gravação."
+    },
+    "filters": {
+        "more": "Mais filtros",
+        "type": "Tipo de livro",
+        "mood": "Clima",
+        "theme": "Tema",
+        "types": {
+            "standard": "Livro",
+            "comic": "Quadrinhos",
+            "wordless": "Sem texto",
+            "child-written": "Escrito pela criança"
+        },
+        "moods": {
+            "calm": "Calmo",
+            "funny": "Divertido",
+            "adventure": "Aventura",
+            "tender": "Carinhoso",
+            "bedtime": "Hora de dormir",
+            "curious": "Curioso",
+            "musical": "Musical",
+            "brave": "Corajoso"
+        },
+        "themes": {
+            "animals": "Animais",
+            "family": "Família",
+            "friendship": "Amizade",
+            "nature": "Natureza",
+            "school": "Escola",
+            "feelings": "Emoções",
+            "travel": "Viagem",
+            "food": "Comida",
+            "seasons": "Estações",
+            "legends": "Lendas",
+            "numbers-letters": "Números e letras",
+            "daily-life": "Vida cotidiana"
+        }
+    },
+    "childVisible": {
+        "title": "Visibilidade para a criança",
+        "auto": "Pela idade",
+        "show": "Sempre visível",
+        "hide": "Oculto",
+        "hint": "Por padrão, a criança só vê os livros da sua idade.",
+        "error": "Não foi possível alterar a visibilidade agora."
+    },
+    "ageShift": {
+        "title": "Deslocamento da faixa etária",
+        "hint": "Mostra a esta criança livros mais novos (−) ou mais velhos (+) do que a sua idade, em anos.",
+        "error": "Não foi possível alterar o deslocamento agora."
+    },
+    "birthNudge": {
+        "title": "Adicione a data de nascimento",
+        "hint": "Sem data de nascimento ({names}), todos os livros são mostrados à criança.",
+        "action": "Preencher"
+    },
+    "shareLanguage": {
+        "label": "Idioma da sua gravação",
+        "choose": "Escolher um idioma",
+        "required": "Escolha o idioma antes de gravar."
+    },
+    "notify": {
+        "recordingRequest": "Pedem que grave a sua voz para «{title}» ({count})",
+        "bookProposed": "{name} propõe o livro «{title}»",
+        "proposalApproved": "A sua proposta «{title}» foi aceita",
+        "proposalDeclined": "A sua proposta «{title}» foi recusada"
+    }
+}

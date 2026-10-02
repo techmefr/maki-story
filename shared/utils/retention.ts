@@ -1,0 +1,6 @@
+export const RESTORE_WINDOW_DAYS = 30
+export const JOURNAL_RETENTION_MONTHS = 12
+export const ERROR_LOG_RETENTION_DAYS = 90
+export const TRASH_PAGE_LIMIT = 100
+export const ACTIVITY_PAGE_LIMIT = 50
+export const MAX_ACTIVITY_PAGE_LIMIT = 200

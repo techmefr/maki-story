@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import type { IBook } from '../../shared/types/book'
-import { apiJson, chooseProfile, login, nextStep, PARENT_NAME, recordAndSend, recordOnce, useProfile } from './helpers'
+import { apiJson, chooseProfile, login, nextStep, PARENT_NAME, recordAndSend, recordOnce, useProfile, pickOption } from './helpers'
 
 interface IFixture {
     bookId: string
@@ -174,11 +174,11 @@ test.describe('recording studio', () => {
         const fixture = await prepare(page)
         await openStudio(page, fixture)
         const select = page.getByLabel('Langue de l’enregistrement')
-        await expect(select).toHaveValue('fr')
-        await select.selectOption('')
+        await expect(select).toContainText('Français')
+        await pickOption(page, 'Langue de l’enregistrement', 'Choisis une langue')
         await expect(page.getByRole('button', { name: 'Enregistrer' })).toBeDisabled()
         await expect(page.getByRole('alert')).toContainText('Choisis la langue')
-        await select.selectOption('mg')
+        await pickOption(page, 'Langue de l’enregistrement', /Malagasy/)
         await expect(page.getByRole('button', { name: 'Enregistrer' })).toBeEnabled()
         await recordAndSend(page)
         await expect(page.locator('.picker', { hasText: PARENT_NAME }).first()).toContainText('1/2')
@@ -216,10 +216,10 @@ test.describe('recording studio', () => {
         await expect(coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ })).toBeVisible()
         await expect(coverage.getByText(/Français 1\/2/)).toBeVisible()
         await expect(coverage.getByText(fixture.relativeName)).toBeVisible()
-        await page.getByLabel('Langue de l’enregistrement').selectOption('mg')
+        await pickOption(page, 'Langue de l’enregistrement', /Malagasy/)
         await expect(coverage.getByRole('button', { name: /Page 1, Zébu, .*Malagasy : manquant/ })).toBeVisible()
         await coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ }).click()
-        await expect(page.getByLabel('Langue de l’enregistrement')).toHaveValue('fr')
+        await expect(page.getByLabel('Langue de l’enregistrement')).toContainText('Français')
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
         await page.locator('.picker', { hasText: fixture.relativeName }).click()
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
@@ -269,6 +269,7 @@ test.describe('recording studio', () => {
             return btoa(binary)
         })
         const jpeg = Buffer.from(original, 'base64')
+        await page.goto('/library')
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await page.getByLabel('Titre du livre').fill('Scan lourd')
         await nextStep(page)

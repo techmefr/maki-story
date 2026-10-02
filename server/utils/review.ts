@@ -1,4 +1,5 @@
 import type { Sql, TransactionSql } from 'postgres'
+import { deliverOutOfApp } from './delivery'
 import { badRequest, notFound } from './validate'
 
 type Db = Sql | TransactionSql
@@ -81,6 +82,7 @@ export const notifyReview = async (db: Db, input: IReviewNoticeInput): Promise<v
         insert into notifications (family_id, recipient_member_id, kind, payload, group_key, count)
         values (${input.familyId}, ${input.recipientMemberId}, ${input.kind}, ${db.json({ ...base, approved, returned })}, ${input.groupKey}, ${input.count})
     `
+    await deliverOutOfApp(db, { familyId: input.familyId, recipientMemberId: input.recipientMemberId, kind: input.kind, payload: { ...base, approved, returned }, count: input.count })
 }
 
 export interface ISubmission {
@@ -184,6 +186,11 @@ export const approveBook = async (db: Db, familyId: string, book: IReviewBook, a
         from lines l
         where l.id = r.line_id and l.book_id = ${book.id} and r.family_id = ${familyId} and r.status in ('draft', 'submitted')
         returning r.member_id
+    `
+    await db`
+        delete from approved_takes t using recordings r, lines l
+        where r.line_id = t.line_id and r.language = t.language and r.status = 'approved'
+            and l.id = t.line_id and l.book_id = ${book.id} and t.family_id = ${familyId}
     `
     await db`update books set status = 'ready' where id = ${book.id} and family_id = ${familyId}`
     await db`

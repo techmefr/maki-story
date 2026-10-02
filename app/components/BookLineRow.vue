@@ -23,16 +23,13 @@
             : t("studio.lineRow.toneWith", { tone: line.tone })
         }}
       </button>
-      <button
-        type="button"
-        class="btn btn--small btn--white"
+      <AppButton variant="secondary" size="sm"
         :aria-label="t('studio.lineRow.remove')"
-        @click="removeLine(line.key)"
-      >
+        @click="removeLine(line.key)">
         ×
-      </button>
+      </AppButton>
     </div>
-    <AiTranslationSuggest v-if="isParent && !isWordless" :line="line" />
+    <AiTranslationSuggest v-if="isAiCreationEnabled && isParent && !isWordless" :line="line" />
     <ToneChips
       v-if="isEditing"
       :model-value="line.tone"
@@ -42,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+const isAiCreationEnabled = useAiCreationEnabled()
 const props = defineProps<{ line: IDraftLine }>();
 
 const { t } = useI18n();

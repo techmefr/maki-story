@@ -1,0 +1,20 @@
+{
+    "title": "Unirse a una familia",
+    "codeHint": "Introduce el código que recibiste de un padre.",
+    "codeLabel": "Código de invitación",
+    "check": "Comprobar",
+    "invalidTitle": "Invitación no válida",
+    "invalidHint": "Este código ya se usó, caducó o no existe. Pide uno nuevo.",
+    "tryAgain": "Probar otro código",
+    "welcome": "Unirse a la familia {family}",
+    "invitedBy": "{name} te invita.",
+    "oneTap": "Unirme a la familia {family}",
+    "accountHint": "Crea tu cuenta o inicia sesión si ya tienes una.",
+    "nameLabel": "Tu nombre",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "submit": "Unirme",
+    "failed": "No es posible unirse por ahora.",
+    "invalidCredentials": "Revisa tu correo, tu contraseña o la invitación.",
+    "tooMany": "Demasiados intentos, inténtalo más tarde."
+}

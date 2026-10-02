@@ -4,15 +4,13 @@
         <h1 class="title">{{ t('translate.title', { title: book.title }) }}</h1>
         <div class="stack">
             <label class="label" for="translate-language">{{ t('translate.language') }}</label>
-            <select id="translate-language" v-model="target" class="input" @change="loadDrafts">
-                <option v-for="option in targets" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
-            </select>
+            <AppSelect id="translate-language" v-model="target" :options="targetOptions" @update:model-value="loadDrafts" />
             <span class="badge" role="status">{{ t('translate.count', { done: translatedCount, total: book.lines.length }) }}</span>
         </div>
         <div v-if="isAiEnabled" class="stack">
-            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="suggest">
+            <AppButton variant="secondary" is-block :disabled="isBusy" @click="suggest">
                 <AppIcon name="sparkles" :size="22" />{{ t('translate.suggest') }}
-            </button>
+            </AppButton>
             <p v-if="hasSuggestions" class="muted" role="status">{{ t('translate.suggestionsHint') }}</p>
         </div>
         <ul class="stack translate__list">
@@ -34,9 +32,9 @@
         </ul>
         <p v-if="message" class="muted" role="status">{{ message }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-        <button type="button" class="btn btn--mint btn--block" :disabled="isBusy" @click="save">
+        <AppButton variant="secondary" tone="mint" is-block :disabled="isBusy" @click="save">
             <AppIcon name="check" :size="22" />{{ t('translate.save') }}
-        </button>
+        </AppButton>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
@@ -48,6 +46,7 @@ interface IDraft {
 }
 
 const { t } = useI18n()
+const targetOptions = computed(() => languageSelectOptions(targets.value))
 const route = useRoute()
 const bookId = String(route.params.id)
 const { get, setTranslation } = useBooks()
@@ -136,7 +135,7 @@ const save = async (): Promise<void> => {
 onMounted(async () => {
     try {
         if (current.value && current.value.role !== 'parent') {
-            await navigateTo('/home')
+            await navigateTo('/library')
             return
         }
         book.value = await get(bookId)
@@ -144,10 +143,10 @@ onMounted(async () => {
         const spoken = (current.value?.spokenLanguages ?? []).find(code => code !== book.value?.language)
         target.value = known ?? spoken ?? targets.value[0]?.code ?? ''
         loadDrafts()
-        isAiEnabled.value = (await status().catch(() => null))?.enabled === true
+        isAiEnabled.value = useAiCreationEnabled() && (await status().catch(() => null))?.enabled === true
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

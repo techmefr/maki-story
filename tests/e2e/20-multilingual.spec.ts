@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
 import type { IBook } from '../../shared/types/book'
 import type { IPlaybackPlan } from '../../shared/types/playback'
-import { chooseProfile, enterPin, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { chooseProfile, enterPin, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile, pickOption } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -100,7 +100,7 @@ test.describe('multilingual playback', () => {
     test('a parent translates each line into Malagasy with text and tone', async ({ page }) => {
         await enterAs(page, 'Parent')
         await page.goto(`/books/${rotation.bookId}/translate`)
-        await page.getByLabel('Langue de la traduction').selectOption('mg')
+        await pickOption(page, 'Langue de la traduction', /Malagasy/)
         await page.getByTestId('translate-text-0').fill('Fahiny teo, nisy ilay tantara.')
         await page.getByLabel('Ton (facultatif)').first().fill('doux')
         await page.getByTestId('translate-text-1').fill('Salama !')
@@ -112,14 +112,14 @@ test.describe('multilingual playback', () => {
         expect(mg.find(item => item.text === 'Salama !')!.tone).toBe('')
         expect(mg.find(item => item.text.startsWith('Fahiny'))!.tone).toBe('doux')
         await page.reload()
-        await page.getByLabel('Langue de la traduction').selectOption('mg')
+        await pickOption(page, 'Langue de la traduction', /Malagasy/)
         await expect(page.getByTestId('translate-text-1')).toHaveValue('Salama !')
     })
 
     test('an AI suggestion fills editable fields', async ({ page }) => {
         await enterAs(page, 'Parent')
         await page.goto(`/books/${rotation.bookId}/translate`)
-        await page.getByLabel('Langue de la traduction').selectOption('en')
+        await pickOption(page, 'Langue de la traduction', /English/)
         await page.getByRole('button', { name: 'Suggérer une traduction' }).click()
         await expect(page.getByText(/Suggestions à relire/)).toBeVisible()
         await expect(page.getByTestId('translate-text-0')).not.toHaveValue('')
@@ -215,7 +215,7 @@ test.describe('multilingual playback', () => {
         await page.goto(`/kid/listen/${malagasy.bookId}`)
         await page.getByTestId('language-lock').click()
         await expect(page.getByRole('dialog', { name: 'Code d’un parent' })).toBeVisible()
-        await enterPin(page, '9999')
+        await enterPin(page, '999999')
         await expect(page.getByText('Ce code ne convient pas.')).toBeVisible()
         await enterPin(page, PROFILE_PIN)
         await expect(page.getByTestId('change-language')).toHaveCount(0)

@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Aktivität der Familie",
+        "trash": "Papierkorb",
+        "data": "Daten der Familie"
+    },
+    "trash": {
+        "title": "Papierkorb",
+        "intro": "Gelöschtes lässt sich {days} Tage lang wiederherstellen und verschwindet dann endgültig.",
+        "empty": "Der Papierkorb ist leer",
+        "emptyHint": "Gelöschte Bücher, Stimmen, Profile und Erinnerungen erscheinen hier.",
+        "until": "Wiederherstellbar bis {date}",
+        "restore": "Wiederherstellen",
+        "restoreLabel": "{label} wiederherstellen",
+        "conflict": "Wiederherstellung nicht möglich: Der Eintrag steht im Konflikt mit einem anderen (volle Kiste oder Nachricht bereits aktiv).",
+        "error": "Der Papierkorb ist gerade nicht verfügbar.",
+        "messageLabel": "Nachricht von {from} an {to}",
+        "recordingsCount": "{count} Sprachaufnahmen",
+        "types": {
+            "book": "Buch",
+            "member": "Profil",
+            "message": "Sprachnachricht",
+            "treasure": "Erinnerung aus der Schatzkiste",
+            "recordings": "Stimme eines Verwandten"
+        }
+    },
+    "activity": {
+        "title": "Aktivität der Familie",
+        "intro": "Das Protokoll wichtiger Aktionen, {months} Monate aufbewahrt.",
+        "empty": "Noch keine Aktivität",
+        "emptyHint": "Die Aktionen der Familie erscheinen hier.",
+        "by": "von {name}",
+        "system": "automatisch",
+        "more": "Mehr anzeigen",
+        "error": "Die Aktivität ist gerade nicht verfügbar.",
+        "outcome": {
+            "denied": "Abgelehnt",
+            "failure": "Fehlgeschlagen"
+        },
+        "actions": {
+            "book": {
+                "created": "Buch erstellt",
+                "proposed": "Buch vorgeschlagen",
+                "updated": "Buch geändert",
+                "deleted": "Buch gelöscht",
+                "purged": "Buch endgültig gelöscht",
+                "restored": "Buch wiederhergestellt",
+                "proposal": {
+                    "approve": "Vorschlag angenommen",
+                    "decline": "Vorschlag abgelehnt"
+                }
+            },
+            "recording": {
+                "saved": "Stimme aufgenommen",
+                "deleted": "Stimme gelöscht"
+            },
+            "recordings": {
+                "restored": "Stimmen wiederhergestellt"
+            },
+            "review": {
+                "line": {
+                    "approve": "Zeile freigegeben",
+                    "request_changes": "Zeile zurückgegeben"
+                }
+            },
+            "share": {
+                "created": "Freigabe erstellt",
+                "accepted": "Freigabe angenommen",
+                "declined": "Freigabe abgelehnt",
+                "approved": "Freigabe genehmigt",
+                "stopped": "Freigabe beendet",
+                "voice": {
+                    "recorded": "Stimme von einer anderen Familie erhalten"
+                }
+            },
+            "message": {
+                "sent": "Nachricht gesendet",
+                "listened": "Nachricht angehört",
+                "deleted": "Nachricht gelöscht",
+                "purged": "Nachricht abgelaufen und gelöscht",
+                "restored": "Nachricht wiederhergestellt"
+            },
+            "treasure": {
+                "restored": "Erinnerung wiederhergestellt"
+            },
+            "member": {
+                "created": "Profil hinzugefügt",
+                "updated": "Profil geändert",
+                "purged": "Profil endgültig gelöscht",
+                "restored": "Profil wiederhergestellt",
+                "voice": {
+                    "deleted": "Stimme eines Verwandten gelöscht",
+                    "exported": "Stimme eines Verwandten exportiert"
+                },
+                "access": {
+                    "block": "Zugang eines Kindes geändert"
+                },
+                "schedule": {
+                    "updated": "Zeiten eines Kindes geändert"
+                }
+            },
+            "family": {
+                "exported": "Familiendaten exportiert"
+            },
+            "ai": {
+                "job": {
+                    "started": "KI-Anfrage"
+                },
+                "moderation": {
+                    "blocked": "KI-Inhalt vom Kinderfilter blockiert"
+                },
+                "budget": {
+                    "updated": "KI-Budget geändert"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Daten der Familie",
+        "intro": "Du entscheidest, was mit den Daten deiner Familie passiert: exportieren oder alles löschen.",
+        "export": {
+            "title": "Alle Daten exportieren",
+            "hint": "Eine ZIP-Datei mit Büchern, Stimmen, Nachrichten und Schatzkiste, ohne Codes.",
+            "button": "Export herunterladen"
+        },
+        "delete": {
+            "title": "Die ganze Familie löschen",
+            "warning": "Unwiderruflich: Bücher, Stimmen, Nachrichten, Freigaben und Profile werden endgültig gelöscht, ohne Rückweg.",
+            "start": "Ich möchte alles löschen",
+            "nameLabel": "Gib zur Bestätigung den Familiennamen ein",
+            "codeLabel": "Gib deinen Elterncode ein",
+            "wrongCode": "Falscher Code oder zu viele Versuche. Versuche es später erneut.",
+            "wrongName": "Der Familienname stimmt nicht überein.",
+            "failed": "Das Löschen ist fehlgeschlagen, nichts wurde gelöscht. Versuche es später erneut."
+        }
+    },
+    "voice": {
+        "title": "Stimme dieses Verwandten",
+        "hint": "Du kannst die Aufnahmen exportieren und dann löschen. Sie bleiben eine Zeit lang im Papierkorb wiederherstellbar.",
+        "export": "Stimme exportieren",
+        "delete": "Stimme löschen",
+        "confirm": "Seine Aufnahmen verschwinden aus den Büchern. Bestätigen?",
+        "confirmAction": "Ja, löschen",
+        "deleted": "{count} Aufnahmen gelöscht (aus dem Papierkorb wiederherstellbar).",
+        "error": "Diese Stimme kann gerade nicht gelöscht werden."
+    }
+}

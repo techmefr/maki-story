@@ -76,14 +76,6 @@
         "angry": "Tezitra",
         "gentle": "Malefaka be"
     },
-    "shapes": {
-        "s0": "Boribory",
-        "s1": "Efamira",
-        "s2": "Telozoro",
-        "s3": "Kintana",
-        "chosen": "{count} amin’ny endrika {total} no voafidy",
-        "clear": "Fafao"
-    },
     "composer": {
         "whoSpeaks": "Iza no miteny?",
         "character": "Mpilalao",

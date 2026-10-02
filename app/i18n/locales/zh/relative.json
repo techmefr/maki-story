@@ -1,0 +1,26 @@
+{
+    "nav": "我的家庭",
+    "title": "我的家庭",
+    "emptyTitle": "暂时没有家庭",
+    "emptyHint": "向家长要一个邀请，加入他们的家庭。",
+    "family": "{name} 家",
+    "messageFor": "给 {name} 的留言",
+    "cardMeta": "{child} · {family} 家",
+    "cardFamily": "{family} 家",
+    "noChild": "你的圈子里暂时没有孩子。",
+    "requests": "待录制",
+    "requestMeta": "待录台词：{count} · {family} 家",
+    "record": "录制",
+    "proposals": "我的提议",
+    "proposalStatus": {
+        "proposed": "待处理",
+        "awaiting_owner": "等待所有者",
+        "pending": "等待回复",
+        "accepted": "已接受",
+        "declined": "已拒绝",
+        "revoked": "已取消"
+    },
+    "joinAnother": "加入另一个家庭",
+    "openFailed": "无法打开这个家庭。",
+    "loadFailed": "无法加载你的家庭。"
+}

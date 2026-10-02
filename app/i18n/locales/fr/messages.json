@@ -19,7 +19,8 @@
         "tapToFinish": "Touche pour finir",
         "tapMic": "Touche le micro",
         "tooShort": "Trop court, recommence.",
-        "sendFailed": "Le message n’a pas pu être envoyé. Réessaie."
+        "sendFailed": "Le message n’a pas pu être envoyé. Réessaie.",
+        "birthdayFor": "Message d’anniversaire pour {name}"
     },
     "listen": {
         "finished": "C’est fini",
@@ -27,7 +28,9 @@
         "play": "Écouter",
         "alreadyHeard": "Ce message a déjà été écouté",
         "next": "Message suivant",
-        "nextWaiting": "Message suivant ({count} en attente)"
+        "nextWaiting": "Message suivant ({count} en attente)",
+        "again": "Réécouter",
+        "previous": "Message précédent"
     },
     "strip": {
         "label": "Messages de la famille",
@@ -36,5 +39,7 @@
             "other": "{name} : {count} messages à écouter"
         }
     },
-    "noOneTitle": "Personne à qui écrire"
+    "noOneTitle": "Personne à qui écrire",
+    "activeBlocked": "Un message attend déjà {name}. Tu pourras en envoyer un autre quand il aura été écouté puis aura expiré.",
+    "birthdayWish": "Souhaiter un joyeux anniversaire"
 }

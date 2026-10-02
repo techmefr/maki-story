@@ -1,0 +1,16 @@
+{
+    "title": "Fandefasana",
+    "pending": "miandry ny fandefasana: {value}",
+    "status": {
+        "pending": "Miandry ny fandefasana",
+        "sending": "Eo am-pandefasana…",
+        "sent": "Voalefa",
+        "failed": "Tsy tafita ny fandefasana"
+    },
+    "failedHint": "Nolavina ity fandefasana ity. Andramo indray na foano.",
+    "cancel": "Foano ny fandefasana",
+    "clearSent": "Fafao ny fandefasana vita",
+    "queuedNotice": "Voatahiry ato amin’ity fitaovana ity: halefa raha miverina ny tambajotra.",
+    "messageLabel": "Hafatra ho an’i {name}",
+    "recordingLabel": "Rakitra feo: {title}"
+}

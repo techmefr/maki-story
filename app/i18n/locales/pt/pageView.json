@@ -1,0 +1,38 @@
+{
+    "title": "Página {n}",
+    "previous": "Página anterior",
+    "next": "Página seguinte",
+    "noScan": "Sem digitalização para esta página.",
+    "description": "Descrição da página",
+    "noDescription": "Sem descrição.",
+    "characters": {
+        "one": "{count} personagem",
+        "other": "{count} personagens"
+    },
+    "onlyMine": "As minhas falas",
+    "largeText": "Texto maior",
+    "noLines": "Sem falas nesta página.",
+    "narrator": "Narrador",
+    "noReader": "Voz a escolher",
+    "original": "Texto original",
+    "tone": "Tom: {tone}",
+    "studioSection": "Página do livro",
+    "showPage": "Mostrar a página",
+    "hidePage": "Ocultar a página",
+    "recordLine": "Gravar esta fala",
+    "viewMode": "Modo de revisão",
+    "byLine": "Fala a fala",
+    "byPage": "Página a página",
+    "scan": {
+        "label": "Página digitalizada",
+        "alt": "Digitalização da página {n}",
+        "zoomIn": "Aumentar",
+        "zoomOut": "Diminuir",
+        "rotate": "Rodar",
+        "reset": "Repor",
+        "full": "Ecrã inteiro",
+        "exitFull": "Sair do ecrã inteiro",
+        "failed": "Não foi possível carregar a página.",
+        "panelHint": "Toca numa vinheta para a ampliar."
+    }
+}

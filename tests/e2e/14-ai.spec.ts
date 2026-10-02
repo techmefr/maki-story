@@ -102,8 +102,8 @@ test.describe('ai', () => {
 
     test('children, relatives and signed out visitors are refused', async ({ playwright, baseURL }) => {
         const fileId = await uploadPhoto(api)
-        await api.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '1234' } } })
-        await api.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '1234' } } })
+        await api.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '123456' } } })
+        await api.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '123456' } } })
         for (const name of ['Mamie', 'Lova']) {
             await useProfile(api, name)
             expect((await api.post('/api/ai/photo-prefill', { data: { fileIds: [fileId] } })).status()).toBe(403)

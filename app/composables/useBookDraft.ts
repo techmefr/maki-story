@@ -67,12 +67,16 @@ export const useBookDraft = () => {
     const ageMin = useState<number | null>('draft-age-min', () => null)
     const ageMax = useState<number | null>('draft-age-max', () => null)
     const language = useState<string>('draft-language', () => DEFAULT_LANGUAGE)
+    const voiceLanguages = useState<string[]>('draft-voice-languages', () => [])
+    const moods = useState<string[]>('draft-moods', () => [])
+    const themes = useState<string[]>('draft-themes', () => [])
     const type = useState<BookType>('draft-type', () => 'standard')
     const ttsFallback = useState<boolean>('draft-tts', () => false)
     const pages = useState<IDraftPage[]>('draft-pages', () => [])
     const characters = useState<IDraftCharacter[]>('draft-characters', () => [])
     const lines = useState<IDraftLine[]>('draft-lines', () => [])
     const isAiPrefilled = useState<boolean>('draft-ai-prefilled', () => false)
+    const isProposal = useState<boolean>('draft-proposal', () => false)
 
     const isSimple = computed(() => mode.value === 'simple')
     const isComic = computed(() => type.value === 'comic')
@@ -103,7 +107,7 @@ export const useBookDraft = () => {
     }
 
     const nextColor = (): VoiceColorId => {
-        const used = characters.value.map(character => character.color)
+        const used = characters.value.filter(character => !character.isNarrator).map(character => character.color)
         return (VOICE_COLORS.find(color => !used.includes(color.id)) ?? VOICE_COLORS[characters.value.length % VOICE_COLORS.length]!).id
     }
 
@@ -118,7 +122,7 @@ export const useBookDraft = () => {
             name: trimmed,
             color: nextColor(),
             description: '',
-            isNarrator: trimmed.toLowerCase() === NARRATOR_NAME.toLowerCase() && narrator.value === null,
+            isNarrator: false,
             memberId,
         }
         characters.value = [...characters.value, created]
@@ -130,7 +134,12 @@ export const useBookDraft = () => {
     }
 
     const setNarrator = (key: number): void => {
-        characters.value = characters.value.map(character => ({ ...character, isNarrator: character.key === key }))
+        characters.value = characters.value.map(character => {
+            if (character.key === key) {
+                return { ...character, isNarrator: true, color: null }
+            }
+            return character.isNarrator ? { ...character, isNarrator: false, color: nextColor() } : character
+        })
     }
 
     const removeCharacter = (key: number): void => {
@@ -144,13 +153,16 @@ export const useBookDraft = () => {
         if (narrator.value !== null) {
             return
         }
-        const existing = characters.value.find(character => character.name.toLowerCase() === NARRATOR_NAME.toLowerCase())
-        if (existing) {
-            setNarrator(existing.key)
-            return
+        const taken = characters.value.some(character => character.name.toLowerCase() === NARRATOR_NAME.toLowerCase())
+        const created: IDraftCharacter = {
+            key: nextKey++,
+            name: taken ? `${NARRATOR_NAME} 1` : NARRATOR_NAME,
+            color: null,
+            description: '',
+            isNarrator: true,
+            memberId,
         }
-        const created = addCharacter(NARRATOR_NAME, memberId)
-        setNarrator(created.key)
+        characters.value = [created, ...characters.value]
     }
 
     const setMode = (next: DraftMode): void => {
@@ -179,12 +191,16 @@ export const useBookDraft = () => {
         ageMin.value = null
         ageMax.value = null
         language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
+        voiceLanguages.value = []
+        moods.value = []
+        themes.value = []
         type.value = 'standard'
         ttsFallback.value = false
         pages.value = []
         characters.value = []
         lines.value = []
         isAiPrefilled.value = false
+        isProposal.value = false
         ensureNarrator(reader)
     }
 
@@ -192,6 +208,7 @@ export const useBookDraft = () => {
         title.value = draft.title
         subtitle.value = draft.subtitle
         language.value = draft.language
+        voiceLanguages.value = voiceLanguages.value.length > 0 ? voiceLanguages.value : [draft.language]
         const reader = readerId.value
         const loaded: IDraftCharacter[] = draft.characters.map(character => ({
             key: nextKey++,
@@ -203,6 +220,9 @@ export const useBookDraft = () => {
         }))
         const used = new Set<string>()
         characters.value = loaded.map(character => {
+            if (character.isNarrator) {
+                return { ...character, color: null }
+            }
             if (character.color !== null && !used.has(character.color)) {
                 used.add(character.color)
                 return character
@@ -359,10 +379,15 @@ export const useBookDraft = () => {
             ageMin: asAge(ageMin.value),
             ageMax: asAge(ageMax.value),
             language: language.value,
+            writtenLanguage: language.value,
+            voiceLanguages: voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value],
+            moods: moods.value,
+            themes: themes.value,
             type: type.value,
             ttsFallback: ttsFallback.value,
             kind: isSimple.value ? 'solo' : 'multi',
             soloMemberId: isSimple.value ? readerId.value : null,
+            isProposal: isProposal.value ? true : undefined,
             imageDesc: '',
             pageFileIds: [],
             pages: pages.value.map(page => ({
@@ -396,6 +421,7 @@ export const useBookDraft = () => {
     const translationsForSave = (): (IDraftTranslation[])[] => orderedLines().map(line => line.translations)
 
     return {
+        isProposal,
         step,
         mode,
         readerId,
@@ -406,6 +432,9 @@ export const useBookDraft = () => {
         ageMin,
         ageMax,
         language,
+        voiceLanguages,
+        moods,
+        themes,
         type,
         ttsFallback,
         pages,

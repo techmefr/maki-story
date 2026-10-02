@@ -42,6 +42,18 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 6. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end, and a lighter, shorter cue plus a quick transition between two comic panels. The cue respects reduced motion and the sound on/off button of the player.
 7. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once). A relative can leave at most three unlistened messages for a child (`MAX_STATUS_MESSAGES_PER_RELATIVE`): the fourth is refused with a clear message until the child listens. The child sees a counter bubble per relative, and must listen to each message to the end before the next one unlocks; the server serves the file only for the oldest unlistened message and never again once listened. Parents can replay.
 
+## Status and roadmap
+
+Tantara is a prototype. The current priority is a solid, working and simple foundation: every feature works, is covered by tests and respects the rules (family isolation, server-side permissions, i18n, accessibility, child safety).
+
+Planned for later, with no date:
+
+- UI polish and visual identity.
+- Architecture: migration to the OSDD layers (`technical/` and `functional/`), tracked in issue #116.
+- SaaS: plans, billing and onboarding for many families.
+- A real native app on the stores.
+- A final product name. "Tantara" is a working name, centralized in a single config constant.
+
 ## Features
 
 - Multi-voice casting with six voice colors and a mascot (a lemur with headphones)
@@ -234,6 +246,7 @@ pnpm dev
 | `AI_MONTHLY_BUDGET_USD` | Per family monthly AI budget in USD (default `1`). Checked before each call, the real cost reported by OpenRouter is recorded in `ai_jobs`; an exhausted budget answers 429 |
 | `AI_MODEL_VISION`, `AI_MODEL_TEXT`, `AI_MODEL_IMAGE` | Optional OpenRouter model ids (defaults `google/gemini-2.5-flash` for vision and text, `google/gemini-2.5-flash-image` for pages) |
 | `AI_PROVIDER` | `fake` swaps OpenRouter for a deterministic offline provider (tests only, never in production) |
+| `NUXT_PUBLIC_AI_CREATION_ENABLED` | `true` or `false`. Feature flag for every AI creation entry point (create with AI, photo prefill, translation suggestions, quota, draft validation). Default: off in production, on otherwise. When off the buttons are hidden and the `/api/ai/*` routes and `POST /api/books/:id/validate` answer 404; the code and tests stay. The e2e servers run both values |
 
 AI features (parent profiles only): `POST /api/ai/photo-prefill` turns page photos into an unsaved draft, `POST /api/ai/book-generation` writes a book from an idea (a fixed character sheet is repeated in every image prompt) and stores it as a hidden draft (`status = draft`, `ai_generated = true`), `POST /api/ai/translation` suggests translations, `POST /api/books/:id/validate` is the parental validation that releases a draft. Model output is validated against a strict schema and size limits; text read from photos is treated as data, never as instructions.
 
@@ -373,7 +386,7 @@ Progress is stored per profile and per book in `playback_progress` (family scope
 
 ## Deployment
 
-The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push.
+The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push. `vercel.json` disables deployments of the `dev` branch, which is the integration branch; CI runs on pull requests and pushes to `main` only.
 
 ## Landing page
 

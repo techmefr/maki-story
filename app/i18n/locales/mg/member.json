@@ -31,7 +31,11 @@
         "saveError": "Tsy afaka mitahiry amin’izao fotoana izao.",
         "removeConfirm": "Hofafana ve i {name}? Ho very ny rakitsarany.",
         "removeError": "Tsy afaka mamafa: tsy maintsy mijanona ray aman-dreny iray farafaharatsiny.",
-        "setCode": "Faritana ny kaody"
+        "setCode": "Faritana ny kaody",
+        "birthDate": "Daty nahaterahana",
+        "birthDateHint": "Hankalazana ny fetin’ny andro nahaterahana sy hampisehoana ny taona.",
+        "childCodeAsk": "Mangataha kaody amin’ny ankizy",
+        "childCodeOff": "Raha tsy misy kaody dia miditra mivantana ny ankizy."
     },
     "voice": {
         "title": "Toetry ny feo",

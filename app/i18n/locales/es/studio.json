@@ -76,14 +76,6 @@
         "angry": "Enfadado",
         "gentle": "Muy suave"
     },
-    "shapes": {
-        "s0": "Círculo",
-        "s1": "Cuadrado",
-        "s2": "Triángulo",
-        "s3": "Estrella",
-        "chosen": "{count} de {total} formas elegidas",
-        "clear": "Borrar"
-    },
     "composer": {
         "whoSpeaks": "¿Quién habla?",
         "character": "Personaje",

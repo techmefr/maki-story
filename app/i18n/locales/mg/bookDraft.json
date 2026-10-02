@@ -40,7 +40,35 @@
         "tts": "Vakio amin’ny feo famolavolana ny lohateny mandra-pahaterany",
         "errTitle": "Omeo lohateny ny boky.",
         "errReader": "Fidio izay hamaky ny boky.",
-        "errAge": "Tsy maintsy ambany noho ny taona faran’ny be indrindra ny taona farafahakeliny."
+        "errAge": "Tsy maintsy ambany noho ny taona faran’ny be indrindra ny taona farafahakeliny.",
+        "voiceLanguages": "Fiteny ho an’ny feo",
+        "voiceLanguagesHint": "Ny fiteny hamakiana ity boky ity.",
+        "moods": "Toe-javatra",
+        "themes": "Lohahevitra",
+        "mood": {
+            "calm": "Milamina",
+            "funny": "Mahatsikaiky",
+            "adventure": "Fanatontoloana",
+            "tender": "Malemy fanahy",
+            "bedtime": "Alohan’ny torimaso",
+            "curious": "Te hahalala",
+            "musical": "Mozika",
+            "brave": "Mahery fo"
+        },
+        "theme": {
+            "animals": "Biby",
+            "family": "Fianakaviana",
+            "friendship": "Namana",
+            "nature": "Natiora",
+            "school": "Sekoly",
+            "feelings": "Fihetseham-po",
+            "travel": "Dia",
+            "food": "Sakafo",
+            "seasons": "Vanim-potoana",
+            "legends": "Angano",
+            "numbers-letters": "Isa sy litera",
+            "daily-life": "Fiainana andavanandro"
+        }
     },
     "pages": {
         "intro": "Alao sary ny pejy rehetra amin’ny boky. Mijanona ho an’ny fianakaviana ireo sary ireo ary tsy aseho ny ankizy mihitsy.",

@@ -29,7 +29,9 @@
         "soundOff": "بدون صوت",
         "sleepTimer": "مؤقت النوم",
         "page": "الصفحة {current}/{total}",
-        "progress": "تقدم الصفحة"
+        "progress": "تقدم الصفحة",
+        "previousPage": "الصفحة السابقة",
+        "nextPageShort": "الصفحة التالية"
     },
     "sleep": {
         "title": "النوم بعد…",
@@ -46,5 +48,29 @@
     },
     "noFaces": "لا أحد هنا بعد",
     "noFacesHint": "اطلب من أحد الكبار إضافة العائلة.",
-    "noSoloHint": "ستصل قريبًا!"
+    "noSoloHint": "ستصل قريبًا!",
+    "birthday": {
+        "title": "عيد ميلاد سعيد يا {name}!",
+        "age": "{age} سنوات",
+        "thanks": "شكرًا!",
+        "bubble": "رسالة عيد ميلاد"
+    },
+    "treasure": {
+        "title": "كنزي",
+        "titleOf": "كنز {name}",
+        "count": "{count}/{limit} ذكريات",
+        "open": "افتح الكنز",
+        "save": "احتفظ بهذه الرسالة",
+        "saved": "تم حفظ الرسالة",
+        "empty": "كنزك فارغ",
+        "emptyHint": "المس القلب على الرسالة لتحتفظ بها للأبد.",
+        "emptyParent": "الكنز فارغ",
+        "emptyParentHint": "قلب على الرسالة يحفظها هنا.",
+        "from": "من {name}",
+        "play": "استمع إلى ذكرى {name}",
+        "remove": "أزل هذه الذكرى",
+        "removeTitle": "هل تريد إزالة هذه الذكرى؟",
+        "removeBody": "ستُحذف للأبد.",
+        "removeConfirm": "إزالة"
+    }
 }

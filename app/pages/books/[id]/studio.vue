@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <div class="row">
             <div class="progress grow" role="progressbar" :aria-label="t('studio.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
@@ -8,10 +8,7 @@
         </div>
         <div class="stack">
             <label class="label" for="studio-language">{{ t('studio.recordingLanguage') }}</label>
-            <select id="studio-language" v-model="language" class="input" required :disabled="isLocked">
-                <option value="">{{ t('studio.chooseLanguage') }}</option>
-                <option v-for="option in LANGUAGES" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
-            </select>
+            <AppSelect id="studio-language" v-model="language" :disabled="isLocked" :options="languageSelect" />
             <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
         </div>
         <div class="row row--wrap">
@@ -37,6 +34,34 @@
                 {{ t('review.studio.redoCount', { count: redoCount }) }}
             </button>
         </div>
+        <section v-if="currentLine" class="stack" :aria-label="t('pageView.studioSection')">
+            <AppButton variant="secondary" size="sm" :aria-expanded="isPageViewOpen" data-testid="page-view-toggle" @click="isPageViewOpen = !isPageViewOpen">
+                <AppIcon name="book" :size="18" />{{ isPageViewOpen ? t('pageView.hidePage') : t('pageView.showPage') }}
+            </AppButton>
+            <BookPageView
+                v-if="isPageViewOpen && pageView"
+                :view="pageView"
+                mode="record"
+                :page-number="viewPageIndex + 1"
+                :page-count="Math.max(1, book.pages.length)"
+                :language="language || DEFAULT_LANGUAGE"
+                :my-member-id="activeMemberId"
+                :active-line-id="currentLineId"
+                :can-see-scan="current?.role !== 'child'"
+                @go="goPage"
+            >
+                <template #line-actions="{ line, isMine }">
+                    <div v-if="isMine" class="row row--wrap">
+                        <AppButton size="sm" :disabled="isLocked || line.id === currentLineId" :data-testid="`page-record-${line.id}`" @click="currentLineId = line.id">
+                            <AppIcon name="mic" :size="18" />{{ t('pageView.recordLine') }}
+                        </AppButton>
+                        <AppButton variant="secondary" size="sm" :disabled="isLocked || !lineHasVoice(line.id)" @click="listenLine(line.id)">
+                            <AppIcon name="volume" :size="18" />{{ t('studio.listen') }}
+                        </AppButton>
+                    </div>
+                </template>
+            </BookPageView>
+        </section>
         <section
             v-if="currentLine"
             class="stage"
@@ -45,21 +70,18 @@
             :aria-label="t('studio.prompter')"
         >
             <div class="stage__bar row row--wrap">
-                <button type="button" class="btn btn--white btn--small" :aria-pressed="isPrompter" @click="togglePrompter">
+                <AppButton variant="secondary" size="sm" :aria-pressed="isPrompter" @click="togglePrompter">
                     <AppIcon :name="isPrompter ? 'close' : 'eye'" :size="18" />
                     {{ isPrompter ? t('studio.prompterExit') : t('studio.prompter') }}
-                </button>
-                <button
+                </AppButton>
+                <AppButton variant="secondary" size="sm"
                     v-if="speech.isAvailable.value"
-                    type="button"
-                    class="btn btn--white btn--small"
                     :aria-pressed="speech.isEnabled.value"
                     :aria-label="t('studio.assist')"
-                    @click="toggleAssist"
-                >
+                    @click="toggleAssist">
                     <AppIcon :name="speech.isEnabled.value ? 'volume' : 'mute'" :size="18" />
                     {{ speech.isEnabled.value ? t('studio.assistOn') : t('studio.assistOff') }}
-                </button>
+                </AppButton>
             </div>
             <div v-if="speech.isAvailable.value && speech.isEnabled.value" class="stage__bar row row--wrap">
                 <button
@@ -73,10 +95,10 @@
                 >
                     {{ t(`studio.categories.${category.id}`) }}
                 </button>
-                <button type="button" class="btn btn--white btn--small" :disabled="isRecording" @click="assistCurrentLine">
+                <AppButton variant="secondary" size="sm" :disabled="isRecording" @click="assistCurrentLine">
                     <AppIcon name="ear" :size="18" />
                     {{ t('studio.replayAssist') }}
-                </button>
+                </AppButton>
             </div>
             <div class="stage__script stack">
                 <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
@@ -102,14 +124,14 @@
                     <p class="label">{{ t('studio.listenBeforeSend') }}</p>
                     <audio class="stage__audio" :src="pending.url" controls :aria-label="t('studio.takeAudio')" />
                     <div class="row row--wrap">
-                        <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="sendTake">
+                        <AppButton variant="secondary" tone="mint" size="sm" :disabled="isBusy" @click="sendTake">
                             <AppIcon name="send" :size="18" />
                             {{ isBusy ? t('studio.sending') : t('common.send') }}
-                        </button>
-                        <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="cancelTake">
+                        </AppButton>
+                        <AppButton variant="secondary" size="sm" :disabled="isBusy" @click="cancelTake">
                             <AppIcon name="close" :size="18" />
                             {{ t('common.cancel') }}
-                        </button>
+                        </AppButton>
                     </div>
                 </template>
                 <button
@@ -126,24 +148,24 @@
                 <div class="muted">{{ hint }}</div>
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
+                    <AppButton variant="secondary" size="sm" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
                         <AppIcon name="skip-back" :size="18" class="mirror-rtl" />
                         {{ t('studio.previousLine') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasNext" @click="goRelative(1)">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="isLocked || !hasNext" @click="goRelative(1)">
                         {{ t('studio.nextLine') }}
                         <AppIcon name="skip-forward" :size="18" class="mirror-rtl" />
-                    </button>
+                    </AppButton>
                 </div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="listen">
+                    <AppButton variant="secondary" size="sm" :disabled="!currentRecording || isLocked" @click="listen">
                         <AppIcon :name="isPlaying ? 'stop' : 'volume'" :size="18" />
                         {{ isPlaying ? t('studio.stopPlayback') : t('studio.listen') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="redo">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="!currentRecording || isLocked" @click="redo">
                         <AppIcon name="redo" :size="18" />
                         {{ t('studio.redo') }}
-                    </button>
+                    </AppButton>
                 </div>
             </div>
         </section>
@@ -171,19 +193,19 @@
             :get-member-name="memberName"
             @select="jumpTo"
         />
-        <button v-if="isRestricted" type="button" class="btn btn--mint btn--block" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
+        <AppButton variant="secondary" tone="mint" is-block v-if="isRestricted" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
             <AppIcon name="send" :size="22" />
             {{ draftCount > 0 ? t('review.studio.send', { count: draftCount }) : t('review.studio.nothingToSend') }}
-        </button>
+        </AppButton>
         <template v-if="canManage">
-            <NuxtLink v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`" class="btn btn--white btn--block">
+            <AppButton variant="secondary" is-block v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`">
                 <AppIcon name="languages" :size="22" />{{ t('studio.translateBook') }}
-            </NuxtLink>
-            <button v-if="!isRestricted" type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
+            </AppButton>
+            <AppButton variant="secondary" tone="mint" is-block v-if="!isRestricted" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
                 {{ isComplete ? t('studio.publish') : t('studio.recordAll') }}
-            </button>
-            <button type="button" class="btn btn--white btn--small" @click="askDelete">{{ t('studio.deleteBook') }}</button>
+            </AppButton>
+            <AppButton variant="secondary" size="sm" @click="askDelete">{{ t('studio.deleteBook') }}</AppButton>
         </template>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
@@ -206,12 +228,13 @@ interface IPendingTake {
 }
 
 const { t, formatDuration } = useI18n()
+const languageSelect = computed(() => languageSelectOptions(languageOptions.value, t('studio.chooseLanguage')))
 const route = useRoute()
-const { get, patch, remove, setLineAudio, clearLineAudio } = useBooks()
+const { get, patch, remove, clearLineAudio } = useBooks()
 const { submit, validateAll, loadComments } = useReview()
 const { getById } = useMembers()
 const { currentId, current } = useCurrentMember()
-const { upload } = useFiles()
+const { sendNow, cancel } = useOutbox()
 const recorder = useRecorder(recording => takeRecording(recording, true))
 const { isRecording, elapsedMs, remainingMs, errorMessage, start, stop } = recorder
 const player = useAudioPlayer()
@@ -231,6 +254,15 @@ const limitNotice = ref('')
 const isPlaying = computed(() => player.isPlaying.value)
 
 const bookId = String(route.params.id)
+
+const languageOptions = computed(() => {
+    const spoken = current.value?.spokenLanguages ?? []
+    const options = LANGUAGES.filter(item => spoken.includes(item.code))
+    return options.length > 0 ? options : LANGUAGES
+})
+
+const isPageViewOpen = ref(false)
+const viewPageIndex = ref(0)
 
 const isRestricted = computed(() => current.value?.role === 'relative')
 const canManage = computed(() => !isRestricted.value || book.value?.kind === 'solo')
@@ -315,7 +347,7 @@ const progressPercent = computed(() => `${Math.round((recordedCount.value / Math
 const progressValue = computed(() => Number.parseInt(progressPercent.value, 10))
 const timeLabel = computed(() => formatDuration(isRecording.value ? elapsedMs.value : (currentRecording.value?.durationMs ?? 0)))
 const coverageLanguages = computed(() => {
-    const codes = [book.value?.language ?? DEFAULT_LANGUAGE, language.value, ...(book.value?.recordings ?? []).map(item => item.language), ...(book.value?.translations ?? []).map(item => item.language)]
+    const codes = [book.value?.writtenLanguage ?? book.value?.language ?? DEFAULT_LANGUAGE, ...(book.value?.voiceLanguages ?? []), language.value, ...(book.value?.recordings ?? []).map(item => item.language), ...(book.value?.translations ?? []).map(item => item.language)]
     return [...new Set(codes.filter(code => code !== ''))]
 })
 const hint = computed(() => {
@@ -336,6 +368,23 @@ const hint = computed(() => {
     }
     return currentRecording.value ? t('studio.hints.recorded') : t('studio.hints.tapMic')
 })
+
+const pageView = computed(() => (book.value ? buildBookPageView(book.value, viewPageIndex.value, language.value || DEFAULT_LANGUAGE) : null))
+
+const lineHasVoice = (lineId: string): boolean => recordingOf(lineId, language.value) !== null && hasVoice(book.value!.lines.find(line => line.id === lineId)!, language.value)
+
+const goPage = (step: number): void => {
+    const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
+    viewPageIndex.value = Math.min(last, Math.max(0, viewPageIndex.value + step))
+}
+
+const listenLine = async (lineId: string): Promise<void> => {
+    const recording = recordingOf(lineId, language.value)
+    if (recording) {
+        player.stop()
+        await player.play(recording.fileId)
+    }
+}
 
 const memberName = (memberId: string): string => getById(memberId)?.name ?? t('studio.voice')
 
@@ -382,7 +431,7 @@ const goRelative = (step: number): void => {
 
 const jumpTo = (lineId: string, code: string): void => {
     const line = visibleLines.value.find(item => item.id === lineId)
-    if (!line || line.memberId === null || isLocked.value) {
+    if (!line || line.memberId === null || isLocked.value || !languageOptions.value.some(option => option.code === code)) {
         return
     }
     player.stop()
@@ -444,8 +493,24 @@ const sendTake = async (): Promise<void> => {
     isBusy.value = true
     errorMessage.value = ''
     try {
-        const fileId = await upload(take.blob, take.mime)
-        await setLineAudio(bookId, take.lineId, fileId, take.ms, take.language)
+        const item = await sendNow({
+            kind: 'recording',
+            label: t('outbox.recordingLabel', { title: book.value?.title ?? '' }),
+            blob: take.blob,
+            mime: take.mime,
+            durationMs: take.ms,
+            payload: { bookId, lineId: take.lineId, language: take.language },
+        })
+        if (item.status === 'failed') {
+            await cancel(item.id)
+            throw new Error('The recording was refused by the server')
+        }
+        if (item.status !== 'sent') {
+            discardPending()
+            limitNotice.value = t('outbox.queuedNotice')
+            goToNextLine(take.lineId)
+            return
+        }
         book.value = await get(bookId)
         discardPending()
         limitNotice.value = ''
@@ -527,7 +592,7 @@ const askDelete = async (): Promise<void> => {
     }
     try {
         await remove(bookId)
-        await navigateTo('/home')
+        await navigateTo('/library')
     } catch (error) {
         console.error('Le livre n a pas pu être supprimé', error)
     }
@@ -539,6 +604,12 @@ watch(
         void (isWanted ? wakeLock.request() : wakeLock.release())
     },
 )
+
+watch(currentLine, line => {
+    if (line) {
+        viewPageIndex.value = line.pageIndex
+    }
+})
 
 watch(currentLineId, () => {
     if (speech.isEnabled.value && !isRecording.value && pending.value === null) {
@@ -568,14 +639,16 @@ onMounted(async () => {
         comments.value = await loadComments(bookId).catch(() => [])
         const bookLanguage = book.value.language || DEFAULT_LANGUAGE
         const spoken = (current.value?.spokenLanguages ?? []).filter(code => LANGUAGES.some(item => item.code === code))
-        language.value = spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!
+        const planned = book.value.voiceLanguages ?? []
+        const preferred = spoken.find(code => planned.includes(code))
+        language.value = preferred ?? (spoken.length === 0 || spoken.includes(bookLanguage) ? bookLanguage : spoken[0]!)
         const mine = castIds.value.includes(currentId.value ?? '') ? currentId.value : castIds.value[0]
         if (mine) {
             selectMember(mine)
         }
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

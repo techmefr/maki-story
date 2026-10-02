@@ -1,5 +1,6 @@
 import { getDb, one } from '../../utils/db'
 import { logEvent } from '../../utils/log'
+import { syncMembershipStatus } from '../../utils/memberships'
 import { requirePermission } from '../../utils/permissions'
 import { badRequest, notFound, requireParam } from '../../utils/validate'
 
@@ -21,6 +22,7 @@ export default defineEventHandler(async event => {
         return badRequest('At least one parent is required')
     }
     await db`update members set deleted_at = now() where id = ${id} and family_id = ${familyId} and deleted_at is null`
+    await syncMembershipStatus(db, id, 'left')
     await db`
         update messages set deleted_at = now()
         where family_id = ${familyId} and (from_member_id = ${id} or to_member_id = ${id}) and deleted_at is null

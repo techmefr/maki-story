@@ -1,0 +1,28 @@
+{
+    "title": "Fampandrenesana ivelan’ny rindrambaiko",
+    "hint": "Fidio izay horesenao sy amin’ny lalana inona.",
+    "enable": "Ampiasao ny fampandrenesana",
+    "disable": "Atsaharo amin’ity fitaovana ity",
+    "enabled": "Misokatra ny fampandrenesana amin’ity fitaovana ity.",
+    "denied": "Voasakana ny fampandrenesana: avelao ao amin’ny fanamafisana ny fitaovana.",
+    "unsupported": "Tsy mahazaka fampandrenesana ity fitaovana ity. Mbola azo ampiasaina ny mailaka.",
+    "channels": {
+        "PUSH": "Fampandrenesana",
+        "EMAIL": "Mailaka"
+    },
+    "kinds": {
+        "message_received": "Hafatra feo voaray",
+        "share_to_approve": "Boky natolotra",
+        "share_received": "Fangatahana horakofana",
+        "voice_batch": "Feo nampiana",
+        "recording_batch": "Vita ny fakana feo",
+        "review_result": "Fankatoavana na fanehoan-kevitra",
+        "stale_takes": "Fakana feo averina",
+        "birthday_reminder": "Fampahatsiahivana ny tsingerintaona"
+    },
+    "describe": {
+        "messageReceived": "Namela hafatra feo ho an’i {child} i {from}",
+        "birthdayReminder": "Antomotra ny tsingerintaonan’i {child} (afaka {days} andro)",
+        "staleTakes": "« {title} » : fakana feo averina ({count})"
+    }
+}

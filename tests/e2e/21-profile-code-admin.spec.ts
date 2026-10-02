@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Playwright } from '@playwright/test'
 import postgres from 'postgres'
-import { chooseProfile, enterPin, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { CHILD_SYMBOLS, chooseProfile, enterPin, enterSymbols, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 const DATABASE_URL = process.env.E2E_DATABASE_URL ?? 'postgresql://tantara@localhost:5544/tantara_e2e'
@@ -35,27 +35,27 @@ test.describe('member code administration', () => {
         const account = uniqueAccount('code-admin')
         const parent = await openSession(playwright, baseURL, account)
         const parentId = await useProfile(parent, PARENT_NAME)
-        const childId = await createMember(parent, 'Lova', 'child', pin('1357'))
-        const otherParentId = await createMember(parent, 'Papa', 'parent', pin('2468'))
+        const childId = await createMember(parent, 'Lova', 'child', pin('135790'))
+        const otherParentId = await createMember(parent, 'Papa', 'parent', pin('246801'))
 
         const child = await openSession(playwright, baseURL, account)
         for (let tries = 0; tries < 4; tries++) {
             expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '0000' } })).status()).toBe(403)
         }
         expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '0000' } })).status()).toBe(429)
-        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '1357' } })).status()).toBe(429)
+        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '135790' } })).status()).toBe(429)
         const lockedMembers = (await (await parent.get('/api/members')).json()) as { id: string; isCodeLocked?: boolean }[]
         expect(lockedMembers.find(member => member.id === childId)?.isCodeLocked).toBe(true)
 
         expect((await parent.post(`/api/members/${childId}/code-unlock`)).ok()).toBeTruthy()
-        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '1357' } })).ok()).toBeTruthy()
+        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '135790' } })).ok()).toBeTruthy()
 
-        expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'shapes', value: '021' } })).ok()).toBeTruthy()
-        expect((await parent.put(`/api/members/${otherParentId}/code`, { data: pin('9999') })).ok()).toBeTruthy()
+        expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value: '0213' } })).ok()).toBeTruthy()
+        expect((await parent.put(`/api/members/${otherParentId}/code`, { data: pin('999999') })).ok()).toBeTruthy()
         expect((await parent.delete(`/api/members/${childId}/code`)).ok()).toBeTruthy()
         const members = (await (await parent.get('/api/members')).json()) as { id: string; hasCode: boolean }[]
         expect(members.find(member => member.id === childId)?.hasCode).toBe(false)
-        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '1357' } })).status()).toBe(403)
+        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '135790' } })).status()).toBe(403)
 
         expect((await parent.delete(`/api/members/${parentId}/code`)).status()).toBe(403)
         expect(await auditActions(childId)).toEqual(['member.code.unlocked', 'member.code.set', 'member.code.removed'])
@@ -67,19 +67,19 @@ test.describe('member code administration', () => {
         const account = uniqueAccount('code-admin-denied')
         const parent = await openSession(playwright, baseURL, account)
         await useProfile(parent, PARENT_NAME)
-        const childId = await createMember(parent, 'Lova', 'child', pin('1357'))
-        const relativeId = await createMember(parent, 'Mamie', 'relative', pin('2468'))
+        const childId = await createMember(parent, 'Lova', 'child', pin('135790'))
+        const relativeId = await createMember(parent, 'Mamie', 'relative', pin('246801'))
 
         const child = await openSession(playwright, baseURL, account)
-        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '1357' } })).ok()).toBeTruthy()
+        expect((await child.post('/api/auth/profile', { data: { memberId: childId, code: '135790' } })).ok()).toBeTruthy()
         expect((await child.delete(`/api/members/${relativeId}/code`)).status()).toBe(403)
         expect((await child.post(`/api/members/${relativeId}/code-unlock`)).status()).toBe(403)
 
         const relative = await openSession(playwright, baseURL, account)
-        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '2468' } })).ok()).toBeTruthy()
+        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '246801' } })).ok()).toBeTruthy()
         expect((await relative.delete(`/api/members/${childId}/code`)).status()).toBe(403)
         expect((await relative.post(`/api/members/${childId}/code-unlock`)).status()).toBe(403)
-        expect((await relative.put(`/api/members/${childId}/code`, { data: pin('7777') })).status()).toBe(403)
+        expect((await relative.put(`/api/members/${childId}/code`, { data: pin('777888') })).status()).toBe(403)
         await parent.dispose()
         await child.dispose()
         await relative.dispose()
@@ -88,7 +88,7 @@ test.describe('member code administration', () => {
     test('the family screen lets a parent unlock, remove and set a child code', async ({ page }) => {
         await signIn(page.request, uniqueAccount('code-admin-ui'))
         await chooseProfile(page, PARENT_NAME)
-        const childId = await createMember(page.request, 'Lova', 'child', pin('1357'))
+        const childId = await createMember(page.request, 'Lova', 'child', pin('135790'))
         for (let tries = 0; tries < 5; tries++) {
             const attempt = await page.request.post('/api/auth/profile', { data: { memberId: childId, code: '0000' } })
             expect([403, 429]).toContain(attempt.status())
@@ -101,11 +101,11 @@ test.describe('member code administration', () => {
         await page.getByRole('button', { name: 'Retirer le code' }).click()
         await expect(page.getByTestId('code-state')).toHaveText('Aucun code défini.')
         await page.getByRole('button', { name: 'Définir le code' }).click()
-        await page.getByLabel('Nouveau code').fill('2468')
+        await enterSymbols(page, CHILD_SYMBOLS)
         await page.getByRole('button', { name: 'Enregistrer', exact: true }).click()
         await expect(page).toHaveURL(/\/family$/)
         await page.goto(`/family/${childId}`)
-        await expect(page.getByTestId('code-state')).toHaveText('Code en chiffres défini.')
+        await expect(page.getByTestId('code-state')).toHaveText('Code en symboles défini.')
     })
 })
 
@@ -115,7 +115,7 @@ test.describe('cold start', () => {
         await useProfile(page.request, PARENT_NAME)
         await page.goto('/home')
         await expect(page).toHaveURL(/\/profiles/)
-        await expect(page.getByRole('heading', { name: 'Qui écoute ?' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
         const state = (await (await page.request.get('/api/auth/me')).json()) as { memberId: string | null }
         expect(state.memberId).toBeNull()
         await page.locator('button.card', { hasText: PARENT_NAME }).first().click()

@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
         <div class="row" style="justify-content: space-between">
             <h1 class="title">{{ stepTitle }}</h1>
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
@@ -14,17 +14,18 @@
             </button>
         </div>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
-        <AiPrefillCard v-if="step === 'book' && isParent && !isAiPrefilled" />
+        <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
         <BookStepBook v-if="step === 'book'" @next="goNext" />
         <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
         <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
         <BookStepLines v-else-if="step === 'lines'" @next="goNext" />
         <BookStepReview v-else />
-        <button v-if="step !== 'book'" type="button" class="btn btn--white btn--small" @click="back">{{ t('common.back') }}</button>
+        <AppButton variant="secondary" size="sm" v-if="step !== 'book'" @click="back">{{ t('common.back') }}</AppButton>
     </div>
 </template>
 
 <script setup lang="ts">
+const isAiCreationEnabled = useAiCreationEnabled()
 const STEP_TITLE_KEYS: Record<DraftStep, string> = {
     book: 'bookDraft.wizard.stepBook',
     pages: 'bookDraft.wizard.stepPages',

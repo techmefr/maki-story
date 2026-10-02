@@ -1,7 +1,9 @@
 import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
+import { actorEntry, record } from '../../../../../utils/journal'
 import { logEvent } from '../../../../../utils/log'
 import { requireActorMember, requirePermission } from '../../../../../utils/permissions'
+import { preserveApprovedTake } from '../../../../../utils/recordings'
 import { checkComment, completeIfAllApproved, findReviewBook, logActivity, logNewVoices, notifyVoiceResult } from '../../../../../utils/review'
 import { badRequest, notFound, requireParam } from '../../../../../utils/validate'
 
@@ -45,6 +47,7 @@ export default defineEventHandler(async (event): Promise<IReviewOutcome> => {
                 await logNewVoices(tx, familyId, book, reviewerId, [recording.memberId])
             }
             await tx`update recordings set status = 'approved' where id = ${recording.id}`
+            await tx`delete from approved_takes where line_id = ${lineId} and family_id = ${familyId} and language = ${language}`
             await tx`update review_comments set resolved_at = now() where line_id = ${lineId} and resolved_at is null`
             if (recording.status !== 'approved') {
                 await logActivity(tx, { familyId, bookId, kind: 'approved', lineId, actorMemberId: reviewerId, subjectMemberId: recording.memberId })
@@ -54,17 +57,21 @@ export default defineEventHandler(async (event): Promise<IReviewOutcome> => {
             return { status: 'approved', isBookReady: isCompleted || book.status === 'ready' }
         }
         const comment = checkComment(body.comment)
+        if (recording.status === 'approved') {
+            await preserveApprovedTake(tx, lineId, familyId, language)
+        }
         await tx`update recordings set status = 'changes_requested' where id = ${recording.id}`
         await tx`update review_comments set resolved_at = now() where line_id = ${lineId} and resolved_at is null`
         await tx`
             insert into review_comments (family_id, book_id, line_id, recording_id, author_member_id, body)
             values (${familyId}, ${bookId}, ${lineId}, ${recording.id}, ${reviewerId}, ${comment})
         `
-        await tx`update books set status = 'in_review' where id = ${bookId} and family_id = ${familyId} and status in ('ready', 'draft', 'to_record')`
+        await tx`update books set status = 'in_review' where id = ${bookId} and family_id = ${familyId} and status in ('draft', 'to_record')`
         await logActivity(tx, { familyId, bookId, kind: 'changes_requested', lineId, actorMemberId: reviewerId, subjectMemberId: recording.memberId, body: comment })
         await notifyVoiceResult(tx, familyId, book, reviewerId, recording.memberId, { approved: 0, returned: 1 })
         return { status: 'changes_requested', isBookReady: false }
     })
+    await record(event, { ...actorEntry(actor), action: `review.line.${body.action}`, entityType: 'line', entityId: lineId })
     logEvent(`Relecture : ${body.action}`)
     return outcome
 })

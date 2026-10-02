@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 export const RUN_ID = process.env.E2E_RUN_ID ?? String(Date.now())
 export const E2E_PASSWORD = 'e2e-password-123'
 export const PARENT_NAME = 'Parent'
-export const PROFILE_PIN = '1234'
+export const PROFILE_PIN = '123456'
 
 export interface IE2eAccount {
     email: string
@@ -40,10 +40,11 @@ export const login = async (page: Page): Promise<void> => {
 }
 
 export const useProfile = async (api: APIRequestContext, name: string): Promise<string> => {
+    await api.post('/api/auth/profile', { data: { memberId: null } })
     const members = (await (await api.get('/api/members')).json()) as IApiMember[]
     const member = members.find(item => item.name === name)
     expect(member).toBeTruthy()
-    const proof = member!.hasCode ? { code: PROFILE_PIN } : { newCode: { kind: 'pin', value: PROFILE_PIN } }
+    const proof = member!.hasCode ? { code: member!.codeKind === 'symbols' ? '0000' : PROFILE_PIN } : { newCode: { kind: 'pin', value: PROFILE_PIN } }
     const response = await api.post('/api/auth/profile', { data: { memberId: member!.id, ...proof } })
     expect(response.ok()).toBeTruthy()
     return member!.id
@@ -67,7 +68,9 @@ export const enterPin = async (page: Page, pin: string): Promise<void> => {
     await page.getByRole('button', { name: 'Valider' }).click()
 }
 
-export const enterShapes = async (page: Page, labels: string[]): Promise<void> => {
+export const CHILD_SYMBOLS = ['Étoile rouge', 'Étoile rouge', 'Étoile rouge', 'Étoile rouge']
+
+export const enterSymbols = async (page: Page, labels: string[]): Promise<void> => {
     for (const label of labels) {
         await page.getByRole('button', { name: label, exact: true }).click()
     }
@@ -77,6 +80,10 @@ export const unlockProfile = async (page: Page, pin = PROFILE_PIN): Promise<void
     const heading = page.getByRole('heading', { name: /Crée ton code|Entre ton code/ })
     await expect(heading).toBeVisible()
     const isCreating = ((await heading.textContent()) ?? '').includes('Crée')
+    if ((await page.getByRole('button', { name: 'Étoile rouge', exact: true }).count()) > 0) {
+        await enterSymbols(page, CHILD_SYMBOLS)
+        return
+    }
     await enterPin(page, pin)
     if (isCreating) {
         await expect(page.getByRole('heading', { name: 'Confirme ton code' })).toBeVisible()
@@ -93,7 +100,7 @@ export const chooseProfile = async (page: Page, name: string, pin = PROFILE_PIN)
 }
 
 export const openSwitcher = async (page: Page): Promise<void> => {
-    await page.getByRole('button', { name: 'Mon profil' }).click()
+    await page.getByRole('button', { name: 'Réglages' }).click()
     await page.getByRole('button', { name: 'Changer de profil' }).click()
 }
 
@@ -113,7 +120,11 @@ export const addMember = async (
     await page.goto('/family/add')
     await page.getByPlaceholder('Maman, Mamie, Lova…').fill(name)
     await page.getByRole('button', { name: role, exact: true }).click()
-    await page.getByLabel('Code secret du profil').fill(pin)
+    if (role === 'Enfant') {
+        await enterSymbols(page, CHILD_SYMBOLS)
+    } else {
+        await page.getByLabel('Code secret du profil').fill(pin)
+    }
     await page.getByRole('button', { name: 'Enregistrer' }).click()
     await expect(page).toHaveURL(/\/family$/)
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
@@ -191,6 +202,7 @@ export interface IApiMember {
     name: string
     role: string
     hasCode: boolean
+    codeKind?: string | null
 }
 
 export interface IReadyLine {
@@ -248,4 +260,9 @@ export const createReadyBook = async (
     await api.patch(`/api/books/${id}`, { data: { status: 'ready' } })
     await api.dispose()
     return id
+}
+
+export const pickOption = async (page: Page, label: string, option: string | RegExp): Promise<void> => {
+    await page.getByLabel(label, { exact: true }).click()
+    await page.getByRole('option', { name: option }).click()
 }

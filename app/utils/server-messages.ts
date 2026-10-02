@@ -48,12 +48,17 @@ export const SERVER_MESSAGE_KEYS: Record<string, string> = {
     'Wrong offset': 'errors.server.uploadExpired',
     'Listen to the previous message first': 'errors.server.listenFirst',
     'This line already has a recording': 'errors.server.alreadyRecorded',
+    'The treasure box is full': 'errors.server.treasureFull',
+    'This message is already in the treasure box': 'errors.server.invalid',
     'Too many devices': 'errors.server.tooManyDevices',
     'This book is already shared this way with this family': 'errors.server.alreadyShared',
     'This book is already shared with the maximum number of families': 'errors.server.shareLimit',
     'At least one parent is required': 'errors.server.parentRequired',
     'This book already has a narrator': 'errors.server.narratorExists',
     'This character already exists': 'errors.server.characterExists',
+    'Recording is too long': 'errors.server.recordingTooLong',
+    'Unsupported recording type': 'errors.server.recordingType',
+    'This language is not one of your spoken languages': 'errors.server.spokenLanguage',
 }
 
 const MESSAGE_PATTERNS: { pattern: RegExp; key: string }[] = [

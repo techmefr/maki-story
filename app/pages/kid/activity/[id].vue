@@ -1,6 +1,6 @@
 <template>
     <div class="stack">
-        <NuxtLink to="/kid/library" class="btn btn--round btn--white" :aria-label="t('review.back')"><AppIcon name="back" :size="26" /></NuxtLink>
+        <AppButton variant="secondary" is-round to="/kid/library" :aria-label="t('review.back')"><AppIcon name="back" :size="26" /></AppButton>
         <h1 class="title">{{ t('review.kid.title') }}</h1>
         <p v-if="isLoaded && voices.length === 0" class="muted center">{{ t('review.kid.none') }}</p>
         <ul class="voices" data-testid="kid-new-voices">
@@ -10,9 +10,9 @@
                 <span class="sr-only">{{ t('review.kid.joined', { name: voice.member?.name ?? t('review.kid.aVoice') }) }}</span>
             </li>
         </ul>
-        <NuxtLink :to="`/kid/listen/${bookId}`" class="btn btn--block" :aria-label="t('review.kid.listen')">
+        <AppButton is-block :to="`/kid/listen/${bookId}`" :aria-label="t('review.kid.listen')">
             <AppIcon name="play" :size="26" />
-        </NuxtLink>
+        </AppButton>
     </div>
 </template>
 

@@ -101,13 +101,13 @@ test.describe('sharing between families', () => {
         const view = (await (await tata.get(`/api/shares/${recordShareId}/book`)).json()) as IShareBook
         expect(view.lines.map(line => line.id)).toEqual([first, second])
         expect(JSON.stringify(view)).not.toContain('Trois')
-        expect((await tata.put(`/api/shares/${recordShareId}/lines/${third}/audio`, { data: { fileId: await uploadAudio(tata) } })).status()).toBe(404)
+        expect((await tata.put(`/api/shares/${recordShareId}/lines/${third}/audio`, { data: { fileId: await uploadAudio(tata), language: 'fr' } })).status()).toBe(404)
         expect((await tata.put(`/api/shares/${recordShareId}/lines/${first}/audio`, { data: { fileId: 'unknown' } })).status()).toBe(400)
         for (const lineId of [first, second]) {
-            const put = await tata.put(`/api/shares/${recordShareId}/lines/${lineId}/audio`, { data: { fileId: await uploadAudio(tata), ms: 300 } })
+            const put = await tata.put(`/api/shares/${recordShareId}/lines/${lineId}/audio`, { data: { fileId: await uploadAudio(tata), ms: 300, language: 'fr' } })
             expect(put.status(), await put.text()).toBe(200)
         }
-        expect((await tata.put(`/api/shares/${recordShareId}/lines/${first}/audio`, { data: { fileId: await uploadAudio(tata), ms: 300 } })).status()).toBe(200)
+        expect((await tata.put(`/api/shares/${recordShareId}/lines/${first}/audio`, { data: { fileId: await uploadAudio(tata), ms: 300, language: 'fr' } })).status()).toBe(200)
         const after = (await (await tata.get(`/api/shares/${recordShareId}/book`)).json()) as IShareBook
         expect(after.lines.every(line => line.hasRecording)).toBe(true)
     })
@@ -125,7 +125,7 @@ test.describe('sharing between families', () => {
         expect(batch).toMatchObject({ count: 3, isRead: false })
         expect(batch!.payload).toMatchObject({ fromName: 'Tata', bookTitle: 'Livre partagé' })
         expect((await tata.get('/api/members')).status()).toBe(200)
-        const profile = await a.parent.post('/api/auth/profile', { data: { memberId: guest!.id, code: '1234' } })
+        const profile = await a.parent.post('/api/auth/profile', { data: { memberId: guest!.id, code: '123456' } })
         expect(profile.status()).toBe(404)
     })
 
@@ -156,8 +156,8 @@ test.describe('sharing between families', () => {
         const [, second, third] = book.lineIds
         const share = (await (await shareBook(a.parent, { bookId: book.id, code: codeC, mode: 'record', lineIds: [second, third] })).json()) as IShareResult
         expect((await c.parent.post(`/api/shares/${share.id}/accept`, {})).status()).toBe(200)
-        expect((await c.parent.put(`/api/shares/${share.id}/lines/${second}/audio`, { data: { fileId: await uploadAudio(c.parent) } })).status()).toBe(409)
-        expect((await c.parent.put(`/api/shares/${share.id}/lines/${third}/audio`, { data: { fileId: await uploadAudio(c.parent) } })).status()).toBe(200)
+        expect((await c.parent.put(`/api/shares/${share.id}/lines/${second}/audio`, { data: { fileId: await uploadAudio(c.parent), language: 'fr' } })).status()).toBe(409)
+        expect((await c.parent.put(`/api/shares/${share.id}/lines/${third}/audio`, { data: { fileId: await uploadAudio(c.parent), language: 'fr' } })).status()).toBe(200)
         const members = (await (await a.parent.get('/api/members')).json()) as IMember[]
         expect(members.filter(member => member.isGuest)).toHaveLength(2)
     })
@@ -167,7 +167,7 @@ test.describe('sharing between families', () => {
         expect((await a.parent.delete(`/api/shares/${recordShareId}`)).status()).toBe(200)
         expect((await a.parent.delete(`/api/shares/${recordShareId}`)).status()).toBe(404)
         expect((await tata.get(`/api/shares/${recordShareId}/book`)).status()).toBe(404)
-        expect((await tata.put(`/api/shares/${recordShareId}/lines/${first}/audio`, { data: { fileId: await uploadAudio(tata) } })).status()).toBe(404)
+        expect((await tata.put(`/api/shares/${recordShareId}/lines/${first}/audio`, { data: { fileId: await uploadAudio(tata), language: 'fr' } })).status()).toBe(404)
         expect((await lists(b.parent)).incoming[0]).toMatchObject({ status: 'revoked' })
     })
 

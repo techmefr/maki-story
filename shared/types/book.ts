@@ -1,5 +1,5 @@
 export type BookKind = 'multi' | 'solo'
-export type BookStatus = 'draft' | 'to_record' | 'in_review' | 'ready'
+export type BookStatus = 'proposed' | 'draft' | 'to_record' | 'in_review' | 'ready'
 export type BookType = 'standard' | 'comic' | 'wordless' | 'child-written'
 export type PageKind = 'cover' | 'content' | 'empty'
 export type RecordingStatus = 'draft' | 'submitted' | 'approved' | 'changes_requested' | 'stale'
@@ -12,7 +12,12 @@ export interface IBookSummary {
     illustrator: string
     ageMin: number | null
     ageMax: number | null
+    childVisible: boolean | null
     language: string
+    writtenLanguage: string
+    voiceLanguages: string[]
+    moods: string[]
+    themes: string[]
     type: BookType
     ttsFallback: boolean
     kind: BookKind
@@ -145,10 +150,15 @@ export interface INewBook {
     ageMin?: number | null
     ageMax?: number | null
     language?: string
+    writtenLanguage?: string
+    voiceLanguages?: string[]
+    moods?: string[]
+    themes?: string[]
     type?: BookType
     ttsFallback?: boolean
     kind: BookKind
     soloMemberId: string | null
+    isProposal?: boolean
     imageDesc: string
     pageFileIds: string[]
     pages?: INewPage[]
@@ -174,7 +184,12 @@ export interface IBookPatch {
     illustrator?: string
     ageMin?: number | null
     ageMax?: number | null
+    childVisible?: boolean | null
     language?: string
+    writtenLanguage?: string
+    voiceLanguages?: string[]
+    moods?: string[]
+    themes?: string[]
     type?: BookType
     ttsFallback?: boolean
     imageDesc?: string
@@ -211,6 +226,9 @@ export interface IBookQuery {
     q?: string
     language?: string
     age?: string
+    type?: string
+    mood?: string
+    theme?: string
     limit?: number
     offset?: number
 }
@@ -218,4 +236,10 @@ export interface IBookQuery {
 export interface IBookList {
     items: IBookSummary[]
     total: number
+}
+
+export type ProposalDecision = 'approve' | 'decline'
+
+export interface IProposalBody {
+    decision: ProposalDecision
 }

@@ -1,7 +1,7 @@
 import { getDb } from '../../utils/db'
 import { assertFileReadable } from '../../utils/files'
 import { requirePermission } from '../../utils/permissions'
-import { notFound, requireParam } from '../../utils/validate'
+import { badRequest, notFound, requireParam } from '../../utils/validate'
 
 interface IFileRow {
     mime: string
@@ -11,6 +11,10 @@ interface IFileRow {
 export default defineEventHandler(async event => {
     const actor = await requirePermission(event, 'files.read')
     const id = requireParam(event, 'id')
+    const { size } = getQuery(event)
+    if (size !== undefined && size !== 'full') {
+        return badRequest('Invalid size')
+    }
     const [file] = await getDb()<IFileRow[]>`select mime, data from files where id = ${id} and family_id = ${actor.familyId}`
     if (!file) {
         return notFound('File not found')

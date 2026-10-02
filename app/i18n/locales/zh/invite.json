@@ -1,0 +1,43 @@
+{
+    "menu": "邀请亲友",
+    "title": "邀请亲友",
+    "hint": "创建一次性邀请码，通过 WhatsApp、短信、邮件或链接发送。",
+    "channelLabel": "怎么发送？",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "短信",
+        "EMAIL": "邮件",
+        "LINK": "链接"
+    },
+    "nameLabel": "亲友名字（可选）",
+    "namePlaceholder": "外婆小苏",
+    "emailLabel": "邮箱地址",
+    "phoneLabel": "电话号码（可选）",
+    "childrenLabel": "哪些孩子？",
+    "childrenHint": "不选择则包含家里所有孩子。",
+    "create": "创建邀请",
+    "createFailed": "无法创建邀请。",
+    "tooMany": "短时间内邀请太多，请稍后再试。",
+    "ready": "邀请已就绪",
+    "validFor": "约 {hours} 小时内有效，仅限使用一次。",
+    "linkLabel": "邀请链接",
+    "emailSent": "邮件已发送至 {contact}。",
+    "emailNotSent": "邮件未能发送：请手动分享链接。",
+    "share": "分享",
+    "openWhatsapp": "打开 WhatsApp",
+    "openSms": "通过短信发送",
+    "copy": "复制链接",
+    "copied": "链接已复制",
+    "another": "邀请其他人",
+    "historyTitle": "已发送的邀请",
+    "emptyTitle": "暂无邀请",
+    "emptyHint": "创建的邀请会显示在这里。",
+    "state": {
+        "pending": "待使用",
+        "used": "已使用",
+        "expired": "已过期",
+        "revoked": "已撤销"
+    },
+    "revoke": "撤销",
+    "revokeAria": "撤销给 {name} 的邀请"
+}

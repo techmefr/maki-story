@@ -31,7 +31,11 @@
         "saveError": "Impossibile salvare per il momento.",
         "removeConfirm": "Eliminare {name}? Le sue registrazioni andranno perse.",
         "removeError": "Impossibile eliminare: bisogna tenere almeno un genitore.",
-        "setCode": "Imposta il codice"
+        "setCode": "Imposta il codice",
+        "birthDate": "Data di nascita",
+        "birthDateHint": "Per festeggiare il compleanno e mostrare l’età.",
+        "childCodeAsk": "Chiedere un codice al bambino",
+        "childCodeOff": "Senza codice, il bambino entra direttamente."
     },
     "voice": {
         "title": "Situazione di questa voce",

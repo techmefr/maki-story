@@ -25,5 +25,6 @@
             "one": "{name} ha terminado de grabar {count} frase de «{title}»",
             "other": "{name} ha terminado de grabar {count} frases de «{title}»"
         }
-    }
+    },
+    "bellNone": "Notificaciones, ninguna nueva"
 }

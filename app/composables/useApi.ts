@@ -4,7 +4,7 @@ interface IApiOptions {
     headers?: Record<string, string>
 }
 
-const AUTH_PATHS = ['/auth/login', '/auth/register']
+const AUTH_PATHS = ['/auth/login', '/auth/register', '/invitations/redeem']
 export const UNREACHABLE_MESSAGE = 'api-unreachable'
 const BOOK_PATH = /^\/books\/([^/]+)$/
 

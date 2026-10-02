@@ -93,9 +93,9 @@ test.describe('security hardening', () => {
 
     test('device and code routes follow the permission map', async () => {
         const parentId = ((await (await family.parent.get('/api/auth/me')).json()) as { memberId: string }).memberId
-        expect((await lova.put(`/api/members/${parentId}/code`, { data: { kind: 'pin', value: '9999' } })).status()).toBe(403)
-        expect((await tonton.put(`/api/members/${parentId}/code`, { data: { kind: 'pin', value: '9999' } })).status()).toBe(403)
-        expect((await tonton.put(`/api/members/${ids.lova}/code`, { data: { kind: 'pin', value: '9999' } })).status()).toBe(403)
+        expect((await lova.put(`/api/members/${parentId}/code`, { data: { kind: 'pin', value: '999999' } })).status()).toBe(403)
+        expect((await tonton.put(`/api/members/${parentId}/code`, { data: { kind: 'pin', value: '999999' } })).status()).toBe(403)
+        expect((await tonton.put(`/api/members/${ids.lova}/code`, { data: { kind: 'pin', value: '999999' } })).status()).toBe(403)
         const enrolled = await tonton.post('/api/devices', { data: { label: 'Téléphone' } })
         expect(enrolled.status()).toBe(200)
         const { id } = (await enrolled.json()) as { id: string }

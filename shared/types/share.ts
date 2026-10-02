@@ -10,6 +10,12 @@ export type NotificationKind =
     | 'voice_batch'
     | 'recording_batch'
     | 'review_result'
+    | 'recording_request'
+    | 'book_proposed'
+    | 'proposal_result'
+    | 'message_received'
+    | 'birthday_reminder'
+    | 'stale_takes'
 
 export interface IFamilyInvite {
     code: string
@@ -61,6 +67,7 @@ export interface IShareBook {
     shareId: string
     title: string
     language: string
+    recordingLanguage: string
     lines: IShareLine[]
 }
 

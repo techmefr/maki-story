@@ -2,7 +2,9 @@
     "nav": {
         "library": "Trano boky",
         "messages": "Hafatra",
-        "family": "Fianakaviana"
+        "family": "Fianakaviana",
+        "home": "Fandraisana",
+        "treasure": "Vata soa"
     },
     "profile": {
         "open": "Ny mombamomba ahy"
@@ -23,5 +25,8 @@
     },
     "skip": "Mankany amin’ny votoaty",
     "mainNav": "Fitetezana lehibe",
-    "newBadge": "vaovao"
+    "newBadge": "vaovao",
+    "settings": {
+        "open": "Fanovana"
+    }
 }

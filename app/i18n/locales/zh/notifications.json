@@ -22,5 +22,6 @@
         "recordingBatch": {
             "other": "{name} 录完了《{title}》的 {count} 句台词"
         }
-    }
+    },
+    "bellNone": "通知，没有新通知"
 }

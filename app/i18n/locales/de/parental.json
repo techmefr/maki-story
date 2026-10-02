@@ -3,12 +3,15 @@
         "title": "Profilcode",
         "locked": "Profil nach zu vielen Versuchen gesperrt.",
         "none": "Kein Code festgelegt.",
-        "shapes": "Formen-Code festgelegt.",
         "digits": "Zahlen-Code festgelegt.",
         "unlock": "Profil entsperren",
         "remove": "Code entfernen",
         "failed": "Der Code kann gerade nicht geändert werden.",
-        "removeConfirm": "Code von {name} entfernen?"
+        "removeConfirm": "Code von {name} entfernen?",
+        "symbols": "Symbole",
+        "disabled": "Aus",
+        "disable": "Ausschalten",
+        "enable": "Einschalten"
     },
     "schedule": {
         "title": "Hörzeit",

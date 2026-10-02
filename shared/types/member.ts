@@ -1,6 +1,13 @@
 export type MemberRole = 'parent' | 'relative' | 'child'
 export type MemberStatus = 'active' | 'invited' | 'left' | 'deceased' | 'blocked'
-export type MemberCodeKind = 'pin' | 'shapes'
+export type MemberCodeKind = 'pin' | 'symbols'
+export type SymbolShape = 'star' | 'moon' | 'heart' | 'sun' | 'cloud' | 'flower'
+
+export interface ISymbol {
+    id: number
+    shape: SymbolShape
+    color: VoiceColorId
+}
 
 export interface IMember {
     id: string
@@ -16,6 +23,12 @@ export interface IMember {
     voicePolicy: VoicePolicy
     isGuest: boolean
     isCodeLocked?: boolean
+    codeEnabled?: boolean
+    birthDate?: string | null
+    ageYears?: number | null
+    birthdayInDays?: number | null
+    birthdayCelebratedYear?: number | null
+    ageShift?: number
 }
 
 export interface IMemberCodeInput {
@@ -28,6 +41,8 @@ export interface IMemberInput {
     role: MemberRole
     color: VoiceColorId
     code?: IMemberCodeInput
+    birthDate?: string | null
+    codeEnabled?: boolean
 }
 
 export interface IProfileProof {

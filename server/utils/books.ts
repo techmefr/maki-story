@@ -10,7 +10,7 @@ const BLOCKED_FROM = `from lines bl
     where bl.book_id = b.id and ${BLOCKED_VOICE}`
 
 const SUMMARY_SELECT = `
-    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.language, b.type, b.tts_fallback,
+    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.child_visible, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
     b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
@@ -24,7 +24,16 @@ const SUMMARY_SELECT = `
     (select count(distinct bl.id)::int ${BLOCKED_FROM}) as blocked_line_count
 `
 
-const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join recordings sr on sr.line_id = sl.id and sr.status = 'approved' where sl.book_id = b.id)
+const CHILD_AGE_YEARS = `(date_part('year', age((now() at time zone coalesce((select cs.timezone from child_schedules cs where cs.member_id = cm.id), 'UTC'))::date, cm.birth_date))::int + cm.age_shift)`
+
+const childAgeScope = (memberParam: number): string => `(b.child_visible is true or (b.child_visible is null and not exists (
+    select 1 from members cm
+    where cm.id = $${memberParam} and cm.family_id = b.family_id and cm.birth_date is not null
+        and (b.age_min is not null or b.age_max is not null)
+        and not (${CHILD_AGE_YEARS} between coalesce(b.age_min, 0) and coalesce(b.age_max, 999))
+)))`
+
+const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join child_recordings sr on sr.line_id = sl.id where sl.book_id = b.id)
     and not exists (select 1 ${BLOCKED_FROM})`
 
 const MAX_PAGE_SIZE = 200
@@ -41,6 +50,9 @@ export const parseBookQuery = (raw: Record<string, unknown>): IBookQuery => ({
     q: readText(raw.q),
     language: readText(raw.language),
     age: readText(raw.age),
+    type: readText(raw.type),
+    mood: readText(raw.mood),
+    theme: readText(raw.theme),
     limit: Math.max(1, readCount(raw.limit, MAX_PAGE_SIZE, MAX_PAGE_SIZE)),
     offset: readCount(raw.offset, 0, 100000),
 })
@@ -50,12 +62,12 @@ export const bookScope = (actor: IActor, memberParam: number): string => {
         return 'true'
     }
     if (actor.role === 'child') {
-        return CHILD_SCOPE
+        return actor.memberId ? `${CHILD_SCOPE} and ${childAgeScope(memberParam)}` : CHILD_SCOPE
     }
-    return `exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam})`
+    return `(exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam}) or b.solo_member_id = $${memberParam})`
 }
 
-export const bookScopeParams = (actor: IActor): string[] => (actor.role === 'relative' && actor.memberId ? [actor.memberId] : [])
+export const bookScopeParams = (actor: IActor): string[] => (actor.role !== 'parent' && actor.memberId ? [actor.memberId] : [])
 
 export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): Promise<IBookList> => {
     const params: string[] = [actor.familyId, ...bookScopeParams(actor)]
@@ -74,6 +86,15 @@ export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): 
     const tag = AGE_TAGS.find(item => item.id === query.age)
     if (tag) {
         filters.push(`b.age_min is not null and b.age_min <= ${bind(tag.max)}::int and coalesce(b.age_max, b.age_min) >= ${bind(tag.min)}::int`)
+    }
+    if (query.type) {
+        filters.push(`b.type = ${bind(query.type)}`)
+    }
+    if (query.mood) {
+        filters.push(`${bind(query.mood)} = any(b.moods)`)
+    }
+    if (query.theme) {
+        filters.push(`${bind(query.theme)} = any(b.themes)`)
     }
     const where = `b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)}${filters.map(item => ` and ${item}`).join('')}`
     const filterParams = [...params]
@@ -98,7 +119,7 @@ export const assertBookReadable = async (actor: IActor, bookId: string): Promise
     }
 }
 
-export const loadBook = async (id: string, familyId: string, approvedOnly = false): Promise<IBook> => {
+export const loadBook = async (id: string, familyId: string, approvedOnly = false, hideScans = approvedOnly): Promise<IBook> => {
     const db = getDb()
     const [summary] = await db.unsafe<IBookSummary[]>(
         `select ${SUMMARY_SELECT} from books b where b.id = $1 and b.family_id = $2 and b.deleted_at is null`,
@@ -114,7 +135,7 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     const panels = await db<IPanel[]>`
         select id, page_id, position, description from panels where book_id = ${id} and family_id = ${familyId} order by position
     `
-    const pages: IBookPage[] = pageRows.map(page => ({ ...page, panels: panels.filter(panel => panel.pageId === page.id) }))
+    const pages: IBookPage[] = pageRows.map(page => ({ ...page, fileId: hideScans ? null : page.fileId, panels: panels.filter(panel => panel.pageId === page.id) }))
     const characters = await db<ICharacter[]>`
         select id, name, color, description, is_narrator, position from characters
         where book_id = ${id} and family_id = ${familyId} order by position, created_at
@@ -126,14 +147,14 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
             coalesce(r.status <> 'stale' and (bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord'))), false) as is_voice_blocked
         from lines l
         left join characters c on c.id = l.character_id
-        left join recordings r on r.line_id = l.id and r.language = ${summary.language} and (not ${approvedOnly}::boolean or r.status = 'approved')
+        left join ${approvedOnly ? db`child_recordings` : db`recordings`} r on r.line_id = l.id and r.language = ${summary.language}
         left join members bm on bm.id = r.member_id
         where l.book_id = ${id} and l.family_id = ${familyId} order by l.position
     `
     const recordings = await db<ILineRecording[]>`
         select r.id, r.line_id, r.member_id, r.language, r.file_id, r.duration_ms, r.mime, r.status, r.created_at
-        from recordings r join lines l on l.id = r.line_id
-        where l.book_id = ${id} and r.family_id = ${familyId} and (not ${approvedOnly}::boolean or r.status = 'approved') order by r.created_at
+        from ${approvedOnly ? db`child_recordings` : db`recordings`} r join lines l on l.id = r.line_id
+        where l.book_id = ${id} and r.family_id = ${familyId} order by r.created_at
     `
     const translations = await db<ILineTranslation[]>`
         select t.line_id, t.language, t.text, t.tone

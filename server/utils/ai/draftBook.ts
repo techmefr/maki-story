@@ -11,8 +11,8 @@ export const insertAiDraftBook = async (
 ): Promise<string> => {
     return db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
-            insert into books (family_id, title, subtitle, age_min, age_max, language, kind, status, ai_generated, image_desc)
-            values (${familyId}, ${draft.title}, ${draft.subtitle}, ${ageMin}, ${ageMax}, ${draft.language}, 'multi', 'draft', true, '')
+            insert into books (family_id, title, subtitle, age_min, age_max, language, written_language, voice_languages, kind, status, ai_generated, image_desc)
+            values (${familyId}, ${draft.title}, ${draft.subtitle}, ${ageMin}, ${ageMax}, ${draft.language}, ${draft.language}, ${[draft.language]}, 'multi', 'draft', true, '')
             returning id
         `)
         const panelIds = new Map<string, string>()

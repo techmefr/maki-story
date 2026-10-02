@@ -1,6 +1,7 @@
 export interface IAuthState {
     isSignedIn: boolean
     memberId: string | null
+    isRelativeAccount?: boolean
 }
 
 export interface ILoginInput {

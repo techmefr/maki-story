@@ -40,7 +40,35 @@
         "tts": "在标题录音之前，用合成语音朗读标题",
         "errTitle": "请给图书起个标题。",
         "errReader": "请选择谁来读这本书。",
-        "errAge": "最小年龄必须小于最大年龄。"
+        "errAge": "最小年龄必须小于最大年龄。",
+        "voiceLanguages": "配音语言",
+        "voiceLanguagesHint": "这本书将被朗读的语言。",
+        "moods": "氛围",
+        "themes": "主题",
+        "mood": {
+            "calm": "平静",
+            "funny": "有趣",
+            "adventure": "冒险",
+            "tender": "温柔",
+            "bedtime": "睡前",
+            "curious": "好奇",
+            "musical": "音乐",
+            "brave": "勇敢"
+        },
+        "theme": {
+            "animals": "动物",
+            "family": "家庭",
+            "friendship": "友谊",
+            "nature": "自然",
+            "school": "学校",
+            "feelings": "情绪",
+            "travel": "旅行",
+            "food": "美食",
+            "seasons": "季节",
+            "legends": "传说",
+            "numbers-letters": "数字与字母",
+            "daily-life": "日常生活"
+        }
     },
     "pages": {
         "intro": "给书的每一页拍照。这些照片只有家人能看到，不会展示给孩子。",

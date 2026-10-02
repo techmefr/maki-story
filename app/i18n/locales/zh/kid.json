@@ -29,7 +29,9 @@
         "soundOff": "静音",
         "sleepTimer": "睡眠定时器",
         "page": "第 {current}/{total} 页",
-        "progress": "页面进度"
+        "progress": "页面进度",
+        "previousPage": "上一页",
+        "nextPageShort": "下一页"
     },
     "sleep": {
         "title": "多久后睡觉…",
@@ -41,5 +43,29 @@
     },
     "noFaces": "这里还没有人",
     "noFacesHint": "请大人添加家人。",
-    "noSoloHint": "马上就来！"
+    "noSoloHint": "马上就来！",
+    "birthday": {
+        "title": "{name}，生日快乐！",
+        "age": "{age} 岁",
+        "thanks": "谢谢！",
+        "bubble": "生日留言"
+    },
+    "treasure": {
+        "title": "我的宝藏",
+        "titleOf": "{name}的宝藏",
+        "count": "{count}/{limit} 个回忆",
+        "open": "打开宝藏",
+        "save": "保存这条消息",
+        "saved": "消息已保存",
+        "empty": "你的宝藏是空的",
+        "emptyHint": "点一下消息上的爱心，就能永远保存它。",
+        "emptyParent": "宝藏是空的",
+        "emptyParentHint": "给消息点一个爱心，它就会保存在这里。",
+        "from": "来自{name}",
+        "play": "听听{name}的回忆",
+        "remove": "移除这个回忆",
+        "removeTitle": "要移除这个回忆吗？",
+        "removeBody": "它将被永久删除。",
+        "removeConfirm": "移除"
+    }
 }

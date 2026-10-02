@@ -1,7 +1,7 @@
 import { getDb } from '../../utils/db'
 import { checkAge, checkAgeRange, checkLanguage } from '../../utils/bookModel'
 import { insertAiDraftBook } from '../../utils/ai/draftBook'
-import { assertQuota, requireAiParent, runImageJob, runJsonJob, succeedJob } from '../../utils/ai/jobs'
+import { assertQuota, isModerationBlock, requireAiParent, runImageJob, runJsonJob, succeedJob } from '../../utils/ai/jobs'
 import { resolveModels } from '../../utils/ai/provider'
 import { bookGenerationSystem, bookGenerationUser, pageImagePrompt } from '../../utils/ai/prompts'
 import { MAX_AI_PAGES, parseBookDraft } from '../../utils/ai/schemas'
@@ -37,16 +37,22 @@ export default defineEventHandler(async (event): Promise<IAiBookGenerationResult
     const db = getDb()
     const fileIds: (string | null)[] = []
     let imagesSkipped = 0
+    let imagesBlocked = 0
     for (let index = 0; index < draft.pages.length; index++) {
         try {
             await assertQuota(db, ctx.familyId)
             fileIds.push((await runImageJob(ctx, models.image, pageImagePrompt(draft, index), { page: index })).fileId)
-        } catch (_error) {
+        } catch (error) {
             fileIds.push(null)
-            imagesSkipped++
+            if (isModerationBlock(error)) {
+                imagesBlocked++
+            } else {
+                imagesSkipped++
+            }
         }
     }
     const bookId = await insertAiDraftBook(db, ctx.familyId, draft, fileIds, ageMin, ageMax)
-    await succeedJob(jobId, { bookId, imagesGenerated: fileIds.length - imagesSkipped, imagesSkipped })
-    return { jobId, bookId, imagesGenerated: fileIds.length - imagesSkipped, imagesSkipped }
+    const imagesGenerated = fileIds.length - imagesSkipped - imagesBlocked
+    await succeedJob(jobId, { bookId, imagesGenerated, imagesSkipped, imagesBlocked })
+    return { jobId, bookId, imagesGenerated, imagesSkipped, imagesBlocked }
 })

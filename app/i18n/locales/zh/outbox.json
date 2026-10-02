@@ -1,0 +1,16 @@
+{
+    "title": "发送",
+    "pending": "等待发送：{value}",
+    "status": {
+        "pending": "等待发送",
+        "sending": "发送中…",
+        "sent": "已发送",
+        "failed": "发送失败"
+    },
+    "failedHint": "此次发送被拒绝。请重试或取消。",
+    "cancel": "取消发送",
+    "clearSent": "清除已完成的发送",
+    "queuedNotice": "已保存在此设备上：网络恢复后会立即发送。",
+    "messageLabel": "给{name}的消息",
+    "recordingLabel": "录音：{title}"
+}

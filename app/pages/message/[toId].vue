@@ -3,7 +3,12 @@
         <template v-if="target">
             <AppAvatar :member="target" :size="120" />
             <h1 class="title">{{ heading }}</h1>
-            <template v-if="phase === 'sent'">
+            <template v-if="phase === 'queued'">
+                <AppMaki :size="100" />
+                <div class="subtitle row" role="status"><AppIcon name="cloud-off" :size="28" />{{ t('outbox.status.pending') }}</div>
+                <p class="muted">{{ t('outbox.queuedNotice') }}</p>
+            </template>
+            <template v-else-if="phase === 'sent'">
                 <AppMaki :size="100" />
                 <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />{{ t('messages.compose.sent') }}</div>
             </template>
@@ -22,18 +27,17 @@
                 </button>
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div v-if="phase === 'done'" class="row">
-                    <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />{{ t('messages.compose.redo') }}</button>
-                    <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />{{ t('common.send') }}</button>
+                    <AppButton variant="secondary" @click="redo"><AppIcon name="redo" :size="22" />{{ t('messages.compose.redo') }}</AppButton>
+                    <AppButton variant="secondary" tone="mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />{{ t('common.send') }}</AppButton>
                 </div>
                 <div v-else class="muted">{{ isRecording ? t('messages.compose.tapToFinish') : t('messages.compose.tapMic') }}</div>
             </template>
-            <NuxtLink :to="backPath" class="btn btn--white btn--small">{{ t('common.back') }}</NuxtLink>
+            <AppButton variant="secondary" size="sm" :to="backPath">{{ t('common.back') }}</AppButton>
         </template>
     </div>
 </template>
 
 <script setup lang="ts">
-const MAX_MESSAGE_MS = 60000
 const BACK_DELAY_MS = 1600
 
 definePageMeta({ layout: 'blank' })
@@ -42,18 +46,18 @@ const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { getById } = useMembers()
 const { currentId, isChild } = useCurrentMember()
-const { send: sendMessage } = useMessages()
-const { upload } = useFiles()
+const { sendNow, cancel } = useOutbox()
 const { isRecording, elapsedMs, errorMessage, start, stop } = useRecorder()
 
-const phase = ref<'idle' | 'done' | 'sent'>('idle')
+const phase = ref<'idle' | 'done' | 'sent' | 'queued'>('idle')
 const isBusy = ref(false)
 const recording = ref<IRecording | null>(null)
 
 const target = computed(() => getById(String(route.params.toId)))
 const backPath = computed(() => (isChild.value ? `/kid/${target.value?.id}` : '/messages'))
+const kind = computed<MessageKind>(() => (route.query.kind === 'birthday' ? 'BIRTHDAY' : 'NORMAL'))
 const heading = computed(() =>
-    route.query.reply ? t('messages.compose.reply', { name: target.value?.name ?? '' }) : t('messages.compose.messageFor', { name: target.value?.name ?? '' }),
+    kind.value === 'BIRTHDAY' ? t('messages.compose.birthdayFor', { name: target.value?.name ?? '' }) : t('messages.compose.messageFor', { name: target.value?.name ?? '' }),
 )
 const timeLabel = computed(() => formatDuration((phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value) / 1000))
 
@@ -72,7 +76,7 @@ const toggle = async (): Promise<void> => {
 }
 
 watch(elapsedMs, async ms => {
-    if (isRecording.value && ms >= MAX_MESSAGE_MS) {
+    if (isRecording.value && ms >= MESSAGE_MAX_DURATION_MS) {
         await toggle()
     }
 })
@@ -88,15 +92,20 @@ const send = async (): Promise<void> => {
     }
     isBusy.value = true
     try {
-        const fileId = await upload(recording.value.blob, recording.value.mime)
-        await sendMessage({
-            fromMemberId: currentId.value,
-            toMemberId: target.value.id,
-            fileId,
+        const item = await sendNow({
+            kind: 'message',
+            label: t('outbox.messageLabel', { name: target.value.name }),
+            blob: recording.value.blob,
             mime: recording.value.mime,
             durationMs: recording.value.ms,
+            payload: { fromMemberId: currentId.value, toMemberId: target.value.id, kind: kind.value },
         })
-        phase.value = 'sent'
+        if (item.status === 'failed') {
+            await cancel(item.id)
+            errorMessage.value = errorTextFromMessage(item.errorMessage, 'messages.compose.sendFailed')
+            return
+        }
+        phase.value = item.status === 'sent' ? 'sent' : 'queued'
         setTimeout(() => navigateTo(isChild.value ? '/kid' : '/messages'), BACK_DELAY_MS)
     } catch (error) {
         console.error('Le message n a pas pu être envoyé', error)

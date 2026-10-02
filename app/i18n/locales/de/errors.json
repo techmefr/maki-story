@@ -31,6 +31,10 @@
         "parentRequired": "Mindestens ein Elternteil wird gebraucht.",
         "narratorExists": "Dieses Buch hat schon einen Erzähler.",
         "characterExists": "Diese Figur gibt es schon.",
-        "voiceBlocked": "Diese Stimme ist gesperrt."
+        "voiceBlocked": "Diese Stimme ist gesperrt.",
+        "recordingTooLong": "Diese Aufnahme ist zu lang (höchstens 10 Minuten).",
+        "recordingType": "Dieses Audioformat wird nicht akzeptiert.",
+        "spokenLanguage": "Diese Sprache gehört nicht zu deinen Sprachen.",
+        "treasureFull": "Entferne ein Herz, bevor du ein neues hinzufügst."
     }
 }

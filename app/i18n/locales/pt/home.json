@@ -41,5 +41,17 @@
         "title": "Faça sua careta!",
         "text": "Uma foto engraçada para a criança reconhecer você."
     },
-    "noMatchHint": "Experimenta outras palavras ou retira um filtro."
+    "noMatchHint": "Experimenta outras palavras ou retira um filtro.",
+    "relatives": {
+        "title": "Os queridos",
+        "empty": "Ainda não há ninguém",
+        "emptyHint": "Peça a um dos pais para convidar a família.",
+        "emptyHintParent": "Adicione um familiar para gravar a voz.",
+        "sendMessage": "Enviar uma mensagem a uma criança",
+        "hasMessage": "Uma mensagem para ouvir",
+        "books": "Suas histórias",
+        "playLabel": "Ouvir a mensagem de {name}",
+        "booksLabel": "Histórias lidas por {name}"
+    },
+    "birthdayMissing": "Adiciona a data de nascimento de {name}"
 }

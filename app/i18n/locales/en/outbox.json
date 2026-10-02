@@ -1,0 +1,16 @@
+{
+    "title": "Uploads",
+    "pending": "waiting to send: {value}",
+    "status": {
+        "pending": "Waiting to send",
+        "sending": "Sending…",
+        "sent": "Sent",
+        "failed": "Sending failed"
+    },
+    "failedHint": "This upload was refused. Try again or cancel it.",
+    "cancel": "Cancel the upload",
+    "clearSent": "Clear finished uploads",
+    "queuedNotice": "Saved on this device: it will be sent as soon as you are back online.",
+    "messageLabel": "Message for {name}",
+    "recordingLabel": "Recording: {title}"
+}

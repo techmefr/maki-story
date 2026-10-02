@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Attività della famiglia",
+        "trash": "Cestino",
+        "data": "Dati della famiglia"
+    },
+    "trash": {
+        "title": "Cestino",
+        "intro": "Ciò che viene eliminato resta recuperabile per {days} giorni, poi sparisce per sempre.",
+        "empty": "Il cestino è vuoto",
+        "emptyHint": "I libri, le voci, i profili e i ricordi eliminati compariranno qui.",
+        "until": "Recuperabile fino al {date}",
+        "restore": "Ripristina",
+        "restoreLabel": "Ripristina {label}",
+        "conflict": "Impossibile ripristinare: l’elemento è in conflitto con un altro (scatola piena o messaggio già attivo).",
+        "error": "Il cestino non è disponibile al momento.",
+        "messageLabel": "Messaggio da {from} a {to}",
+        "recordingsCount": "{count} registrazioni vocali",
+        "types": {
+            "book": "Libro",
+            "member": "Profilo",
+            "message": "Messaggio vocale",
+            "treasure": "Ricordo del forziere",
+            "recordings": "Voce di un parente"
+        }
+    },
+    "activity": {
+        "title": "Attività della famiglia",
+        "intro": "Il registro delle azioni importanti, conservato per {months} mesi.",
+        "empty": "Nessuna attività per ora",
+        "emptyHint": "Le azioni della famiglia compariranno qui.",
+        "by": "da {name}",
+        "system": "automatico",
+        "more": "Mostra altro",
+        "error": "L’attività non è disponibile al momento.",
+        "outcome": {
+            "denied": "Negato",
+            "failure": "Non riuscito"
+        },
+        "actions": {
+            "book": {
+                "created": "Libro creato",
+                "proposed": "Libro proposto",
+                "updated": "Libro modificato",
+                "deleted": "Libro eliminato",
+                "purged": "Libro cancellato definitivamente",
+                "restored": "Libro ripristinato",
+                "proposal": {
+                    "approve": "Proposta accettata",
+                    "decline": "Proposta rifiutata"
+                }
+            },
+            "recording": {
+                "saved": "Voce registrata",
+                "deleted": "Voce cancellata"
+            },
+            "recordings": {
+                "restored": "Voci ripristinate"
+            },
+            "review": {
+                "line": {
+                    "approve": "Battuta approvata",
+                    "request_changes": "Battuta rimandata"
+                }
+            },
+            "share": {
+                "created": "Condivisione creata",
+                "accepted": "Condivisione accettata",
+                "declined": "Condivisione rifiutata",
+                "approved": "Condivisione approvata",
+                "stopped": "Condivisione interrotta",
+                "voice": {
+                    "recorded": "Voce ricevuta da un’altra famiglia"
+                }
+            },
+            "message": {
+                "sent": "Messaggio inviato",
+                "listened": "Messaggio ascoltato",
+                "deleted": "Messaggio eliminato",
+                "purged": "Messaggio scaduto e cancellato",
+                "restored": "Messaggio ripristinato"
+            },
+            "treasure": {
+                "restored": "Ricordo ripristinato"
+            },
+            "member": {
+                "created": "Profilo aggiunto",
+                "updated": "Profilo modificato",
+                "purged": "Profilo cancellato definitivamente",
+                "restored": "Profilo ripristinato",
+                "voice": {
+                    "deleted": "Voce di un parente eliminata",
+                    "exported": "Voce di un parente esportata"
+                },
+                "access": {
+                    "block": "Accesso di un bambino modificato"
+                },
+                "schedule": {
+                    "updated": "Orari di un bambino modificati"
+                }
+            },
+            "family": {
+                "exported": "Dati della famiglia esportati"
+            },
+            "ai": {
+                "job": {
+                    "started": "Richiesta all’IA"
+                },
+                "moderation": {
+                    "blocked": "Contenuto IA bloccato dal filtro per bambini"
+                },
+                "budget": {
+                    "updated": "Budget IA modificato"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Dati della famiglia",
+        "intro": "Sei tu a decidere cosa succede ai dati della tua famiglia: esportarli o cancellare tutto.",
+        "export": {
+            "title": "Esporta tutti i dati",
+            "hint": "Un file ZIP con i libri, le voci, i messaggi e il forziere, senza alcun codice.",
+            "button": "Scarica l’esportazione"
+        },
+        "delete": {
+            "title": "Elimina l’intera famiglia",
+            "warning": "Irreversibile: libri, voci, messaggi, condivisioni e profili vengono cancellati per sempre, senza ritorno.",
+            "start": "Voglio eliminare tutto",
+            "nameLabel": "Scrivi il nome della famiglia per confermare",
+            "codeLabel": "Inserisci il tuo codice genitore",
+            "wrongCode": "Codice errato o troppi tentativi. Riprova più tardi.",
+            "wrongName": "Il nome della famiglia non corrisponde.",
+            "failed": "L’eliminazione non è riuscita, nulla è stato cancellato. Riprova più tardi."
+        }
+    },
+    "voice": {
+        "title": "Voce di questo parente",
+        "hint": "Puoi esportare le sue registrazioni e poi eliminarle. Restano recuperabili nel cestino per un po’.",
+        "export": "Esporta la sua voce",
+        "delete": "Elimina la sua voce",
+        "confirm": "Le sue registrazioni scompariranno dai libri. Confermare?",
+        "confirmAction": "Sì, elimina",
+        "deleted": "{count} registrazioni eliminate (recuperabili dal cestino).",
+        "error": "Impossibile eliminare questa voce al momento."
+    }
+}

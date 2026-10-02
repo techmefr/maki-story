@@ -14,8 +14,9 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'members.list': EVERYONE,
     'members.manage': ['parent'],
     'messages.list': EVERYONE,
-    'messages.send': EVERYONE,
+    'messages.send': ['parent', 'relative'],
     'messages.listen': EVERYONE,
+    'messages.delete': ['parent'],
     'feedback.send': EVERYONE,
     'feedback.manage': ['parent'],
     'ai.use': ['parent'],
@@ -28,6 +29,13 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'notifications.list': ['parent', 'relative'],
     'members.code.manage': ['parent'],
     'members.schedule.manage': ['parent'],
+    'treasure.list': ['parent', 'child'],
+    'treasure.save': ['parent', 'child'],
+    'treasure.remove': ['parent'],
+    'family.export': ['parent'],
+    'family.delete': ['parent'],
+    'family.activity': ['parent'],
+    'family.trash': ['parent'],
 }
 
 export const can = (role: MemberRole, permission: Permission): boolean => ROLE_PERMISSIONS[permission].includes(role)

@@ -1,0 +1,16 @@
+{
+    "title": "Envois",
+    "pending": "en attente d’envoi : {value}",
+    "status": {
+        "pending": "En attente d’envoi",
+        "sending": "Envoi en cours…",
+        "sent": "Envoyé",
+        "failed": "Échec de l’envoi"
+    },
+    "failedHint": "Cet envoi a été refusé. Réessaie ou annule-le.",
+    "cancel": "Annuler l’envoi",
+    "clearSent": "Effacer les envois terminés",
+    "queuedNotice": "Enregistré sur cet appareil : il partira dès que la connexion revient.",
+    "messageLabel": "Message pour {name}",
+    "recordingLabel": "Enregistrement : {title}"
+}

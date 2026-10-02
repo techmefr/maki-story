@@ -1,9 +1,9 @@
 <template>
     <div class="stack unlock">
-        <button type="button" class="btn btn--white btn--small unlock__back" @click="emit('cancel')">
+        <AppButton v-if="hasBack" variant="secondary" size="sm" class="unlock__back" @click="emit('cancel')">
             <AppIcon name="back" :size="18" />
             {{ t('profile.switchProfile') }}
-        </button>
+        </AppButton>
         <div class="stack unlock__head">
             <AppAvatar :member="member" :size="84" />
             <div class="subtitle">{{ member.name }}</div>
@@ -11,8 +11,8 @@
         <template v-if="stage === 'offer'">
             <h2 class="subtitle" tabindex="-1">{{ t('profile.unlock.offerTitle') }}</h2>
             <p class="muted">{{ t('profile.unlock.offerBody') }}</p>
-            <button type="button" class="btn btn--block" :disabled="isBusy" @click="onEnrol">{{ t('profile.unlock.enable') }}</button>
-            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="onSkipOffer">{{ t('profile.unlock.notNow') }}</button>
+            <AppButton is-block :disabled="isBusy" @click="onEnrol">{{ t('profile.unlock.enable') }}</AppButton>
+            <AppButton variant="secondary" is-block :disabled="isBusy" @click="onSkipOffer">{{ t('profile.unlock.notNow') }}</AppButton>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
         <template v-else-if="mode === 'blocked'">
@@ -22,25 +22,25 @@
         <template v-else>
             <h2 class="subtitle" tabindex="-1">{{ heading }}</h2>
             <p class="muted">{{ hint }}</p>
-            <ShapePad v-if="padKind === 'shapes'" :key="padKey" :is-disabled="isBusy" @submit="onCode" />
-            <PinPad v-else :key="padKey" :is-disabled="isBusy" @submit="onCode" />
-            <button
+            <div v-if="padKind === 'symbols'" class="stack unlock__symbols" :class="{ 'unlock__symbols--shake': isShaking }">
+                <AppMaki :size="72" />
+                <SymbolPad :key="padKey" :is-disabled="isBusy" @submit="onCode" />
+            </div>
+            <PinPad v-else :key="padKey" :is-disabled="isBusy" :min-length="PIN_MIN_LENGTH" @submit="onCode" />
+            <AppButton variant="secondary" is-block
                 v-for="unlocker in availableUnlockers"
                 :key="unlocker.id"
-                type="button"
-                class="btn btn--white btn--block"
                 :disabled="isBusy"
-                @click="onUnlocker(unlocker)"
-            >
+                @click="onUnlocker(unlocker)">
                 {{ unlocker.label }}
-            </button>
+            </AppButton>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
     </div>
 </template>
 
 <script setup lang="ts">
-const { member } = defineProps<{ member: IMember }>()
+const { member, hasBack = true } = defineProps<{ member: IMember; hasBack?: boolean }>()
 const emit = defineEmits<{ unlocked: []; cancel: [] }>()
 
 const { t } = useI18n()
@@ -49,15 +49,18 @@ const { load } = useMembers()
 const { unlockers } = useProfileUnlockers()
 const biometric = useBiometric()
 
+const SHAKE_MS = 600
+
 const padKey = ref(0)
 const isBusy = ref(false)
 const errorMessage = ref('')
 const firstEntry = ref<string | null>(null)
 const stage = ref<'code' | 'offer'>('code')
 const availableUnlockers = ref<IProfileUnlocker[]>([])
+const isShaking = ref(false)
 
 const mode = computed<'enter' | 'create' | 'blocked'>(() => {
-    if (member.hasCode) {
+    if (member.hasCode && !(member.role === 'child' && member.codeEnabled === false)) {
         return 'enter'
     }
     return member.role === 'child' ? 'blocked' : 'create'
@@ -71,7 +74,7 @@ const heading = computed(() => {
 })
 const hint = computed(() => {
     if (mode.value === 'enter') {
-        return padKind.value === 'shapes' ? t('profile.unlock.hintShapes') : t('profile.unlock.hintPin')
+        return padKind.value === 'symbols' ? t('profile.unlock.hintSymbols') : t('profile.unlock.hintPin')
     }
     return firstEntry.value === null ? t('profile.unlock.hintCreate') : t('profile.unlock.hintConfirm')
 })
@@ -82,7 +85,11 @@ const resetPad = (): void => {
 
 const fail = (error: unknown): void => {
     const status = (error as { statusCode?: number }).statusCode
-    if (status === 403) {
+    if (status === 403 && padKind.value === 'symbols') {
+        errorMessage.value = ''
+        isShaking.value = true
+        setTimeout(() => (isShaking.value = false), SHAKE_MS)
+    } else if (status === 403) {
         errorMessage.value = t('profile.unlock.wrong')
     } else if (status === 429) {
         errorMessage.value = t('profile.unlock.throttled')
@@ -164,6 +171,15 @@ const onSkipOffer = (): void => {
 }
 
 onMounted(async () => {
+    if (member.role === 'child' && member.codeEnabled === false) {
+        try {
+            await select(member.id, {})
+            emit('unlocked')
+        } catch (error) {
+            fail(error)
+        }
+        return
+    }
     if (mode.value !== 'enter') {
         return
     }
@@ -206,6 +222,37 @@ const onCode = async (value: string): Promise<void> => {
 
 .unlock__head {
     align-items: center;
+}
+
+.unlock__symbols {
+    align-items: center;
+}
+
+.unlock__symbols--shake {
+    animation: unlock-shake 0.5s ease-in-out;
+}
+
+@keyframes unlock-shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-10px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(10px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .unlock__symbols--shake {
+        animation: none;
+    }
 }
 
 [dir='rtl'] .unlock__back :deep(svg) {

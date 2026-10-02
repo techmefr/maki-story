@@ -1,16 +1,17 @@
 <template>
     <div class="stack narrow">
         <h1 class="title">{{ t('notifications.title') }}</h1>
-        <button v-if="unreadCount > 0" type="button" class="btn btn--white btn--small" @click="markRead()">{{ t('notifications.markAllRead') }}</button>
-        <p v-if="items.length === 0" class="muted">{{ t('notifications.empty') }}</p>
+        <AppButton variant="secondary" size="sm" v-if="unreadCount > 0" @click="markRead()">{{ t('notifications.markAllRead') }}</AppButton>
+        <AppEmpty v-if="items.length === 0" kind="notifications" :title="t('notifications.empty')" />
         <ul class="stack list">
             <li v-for="item in items" :key="item.id" class="card row" :class="{ 'card--unread': !item.isRead }">
                 <p class="grow">{{ describeNotification(item, t) }}</p>
                 <span v-if="!item.isRead" class="badge">{{ t('notifications.new') }}</span>
-                <button v-if="!item.isRead" type="button" class="btn btn--white btn--small" @click="markRead([item.id])">{{ t('notifications.read') }}</button>
+                <AppButton variant="secondary" size="sm" v-if="!item.isRead" @click="markRead([item.id])">{{ t('notifications.read') }}</AppButton>
             </li>
         </ul>
-        <NuxtLink to="/sharing" class="btn btn--block">{{ t('notifications.sharing') }}</NuxtLink>
+        <AppButton is-block to="/sharing">{{ t('notifications.sharing') }}</AppButton>
+        <NotificationPreferences />
     </div>
 </template>
 

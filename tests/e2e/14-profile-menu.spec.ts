@@ -30,7 +30,7 @@ const startParent = async (page: Page, label: string): Promise<IE2eAccount> => {
 }
 
 const openMenu = async (page: Page): Promise<void> => {
-    await page.getByRole('button', { name: 'Mon profil' }).click()
+    await page.getByRole('button', { name: 'Réglages' }).click()
     await expect(page.getByRole('dialog')).toBeVisible()
 }
 
@@ -147,9 +147,12 @@ test.describe('profile menu', () => {
         await openMenu(page)
         const dialog = page.getByRole('dialog')
         await expect(dialog.getByRole('button', { name: 'Changer ma photo' })).toBeVisible()
-        await expect(dialog.getByText('Malagasy')).toBeVisible()
+        await expect(dialog.getByRole('list').getByText('Malagasy')).toBeVisible()
         await expect(dialog.getByText('Mot de passe du compte')).toHaveCount(0)
-        await expect(dialog.getByText('Langue de l’application')).toHaveCount(0)
+        await expect(dialog.getByText('Langue de l’application')).toBeVisible()
+        await expect(dialog.getByText('Thème')).toBeVisible()
+        await expect(dialog.getByText('Espace parent')).toHaveCount(0)
+        await expect(dialog.getByRole('button', { name: 'Donner mon avis' })).toHaveCount(0)
         await expect(dialog.getByRole('group', { name: 'Langues parlées' })).toHaveCount(0)
 
         const password = await page.request.put('/api/auth/password', { data: { currentPassword: 'x', newPassword: 'another-password-1' } })
@@ -157,7 +160,7 @@ test.describe('profile menu', () => {
         const ownLanguages = await page.request.patch(`/api/members/${childMember.id}/settings`, { data: { spokenLanguages: ['en'] } })
         expect(ownLanguages.status()).toBe(403)
         const ownLocale = await page.request.patch(`/api/members/${childMember.id}/settings`, { data: { appLocale: 'en' } })
-        expect(ownLocale.status()).toBe(403)
+        expect(ownLocale.ok()).toBeTruthy()
         const otherProfile = await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['en'] } })
         expect(otherProfile.status()).toBe(403)
         const ownPhoto = await page.request.put(`/api/members/${childMember.id}/photo`, { data: pngFile('c.png').buffer, headers: { 'content-type': 'image/png' } })
@@ -179,7 +182,7 @@ test.describe('profile menu', () => {
         const parent = await memberNamed(page.request, PARENT_NAME)
         expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
         await page.goto('/books/new')
-        await expect(page.getByLabel('Langue du livre')).toHaveValue('mg')
+        await expect(page.getByLabel('Langue du livre')).toContainText('Malagasy')
     })
 
     test('lets a parent set a child spoken languages from the family form', async ({ page }, info) => {

@@ -31,6 +31,10 @@
         "parentRequired": "At least one parent is required.",
         "narratorExists": "This book already has a narrator.",
         "characterExists": "This character already exists.",
-        "voiceBlocked": "This voice is blocked."
+        "voiceBlocked": "This voice is blocked.",
+        "recordingTooLong": "This recording is too long (10 minutes maximum).",
+        "recordingType": "This audio format is not accepted.",
+        "spokenLanguage": "This language is not one of the languages you speak.",
+        "treasureFull": "Remove a heart before adding a new one."
     }
 }

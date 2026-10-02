@@ -1,6 +1,8 @@
 import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
+import { actorEntry, record } from '../../../../../utils/journal'
 import { logEvent } from '../../../../../utils/log'
+import { dropApprovedTake } from '../../../../../utils/recordings'
 import { assertCanRecordLine, requirePermission } from '../../../../../utils/permissions'
 import { notFound, requireParam } from '../../../../../utils/validate'
 
@@ -21,6 +23,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     assertCanRecordLine(actor, line.memberId)
     const language = requested === undefined ? line.language : checkLanguage(requested)
     await db`delete from recordings where line_id = ${lineId} and family_id = ${familyId} and language = ${language}`
+    await dropApprovedTake(db, lineId, familyId, language)
+    await record(event, { ...actorEntry(actor), action: 'recording.deleted', entityType: 'line', entityId: lineId, after: { language } })
     logEvent('Enregistrement effacé (la phrase sera refaite)')
     return { ok: true }
 })

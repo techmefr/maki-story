@@ -21,12 +21,31 @@
             </div>
             <p class="muted">{{ typeHint }}</p>
         </fieldset>
-        <label class="stack" style="gap: 6px">
-            <span class="label">{{ t('bookDraft.book.language') }}</span>
-            <select v-model="language" class="input">
-                <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
-            </select>
-        </label>
+        <div class="stack" style="gap: 6px">
+            <span id="book-language-label" class="label">{{ t('bookDraft.book.language') }}</span>
+            <AppSelect v-model="language" aria-labelledby="book-language-label" :options="languageOptions" />
+        </div>
+        <div class="stack" style="gap: 6px">
+            <span class="label">{{ t('bookDraft.book.voiceLanguages') }}</span>
+            <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
+            <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
+        </div>
+        <fieldset class="stack fieldset">
+            <legend class="label">{{ t('bookDraft.book.moods') }}</legend>
+            <div class="row row--wrap">
+                <button v-for="mood in BOOK_MOODS" :key="mood" type="button" class="chip" :class="{ 'chip--on': moods.includes(mood) }" :aria-pressed="moods.includes(mood)" @click="toggleTag(moods, mood, MAX_BOOK_MOODS)">
+                    {{ t(`bookDraft.book.mood.${mood}`) }}
+                </button>
+            </div>
+        </fieldset>
+        <fieldset class="stack fieldset">
+            <legend class="label">{{ t('bookDraft.book.themes') }}</legend>
+            <div class="row row--wrap">
+                <button v-for="theme in BOOK_THEMES" :key="theme" type="button" class="chip" :class="{ 'chip--on': themes.includes(theme) }" :aria-pressed="themes.includes(theme)" @click="toggleTag(themes, theme, MAX_BOOK_THEMES)">
+                    {{ t(`bookDraft.book.theme.${theme}`) }}
+                </button>
+            </div>
+        </fieldset>
         <div v-if="isSimple && !isWordless" class="card stack">
             <span class="subtitle">{{ t('bookDraft.book.reader') }}</span>
             <MemberPicker :model-value="readerId" @update:model-value="setReader" />
@@ -56,14 +75,11 @@
                         <input v-model.number="ageMax" class="input" type="number" min="0" max="18" inputmode="numeric" />
                     </label>
                 </div>
-                <label class="row">
-                    <input v-model="ttsFallback" type="checkbox" class="check" />
-                    <span>{{ t('bookDraft.book.tts') }}</span>
-                </label>
+                <AppCheckbox v-model="ttsFallback">{{ t('bookDraft.book.tts') }}</AppCheckbox>
             </div>
         </details>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" @click="goNext">{{ t('common.next') }}</button>
+        <AppButton is-block @click="goNext">{{ t('common.next') }}</AppButton>
     </div>
 </template>
 
@@ -78,7 +94,8 @@ const TYPE_OPTIONS: { id: BookType; labelKey: string; hintKey: string }[] = [
 ]
 
 const { t } = useI18n()
-const { title, subtitle, author, illustrator, ageMin, ageMax, language, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
+const languageOptions = languageSelectOptions(LANGUAGES)
+const { title, subtitle, author, illustrator, ageMin, ageMax, language, voiceLanguages, moods, themes, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
 
 const errorMessage = ref('')
 const typeHint = computed(() => {
@@ -101,6 +118,15 @@ const goNext = (): void => {
         return
     }
     emit('next')
+}
+
+const toggleTag = (list: string[], tag: string, max: number): void => {
+    const index = list.indexOf(tag)
+    if (index >= 0) {
+        list.splice(index, 1)
+    } else if (list.length < max) {
+        list.push(tag)
+    }
 }
 </script>
 

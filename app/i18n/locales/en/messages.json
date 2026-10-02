@@ -19,7 +19,8 @@
         "tapToFinish": "Tap to finish",
         "tapMic": "Tap the microphone",
         "tooShort": "Too short, try again.",
-        "sendFailed": "The message could not be sent. Try again."
+        "sendFailed": "The message could not be sent. Try again.",
+        "birthdayFor": "Birthday message for {name}"
     },
     "listen": {
         "finished": "All done",
@@ -27,7 +28,9 @@
         "play": "Listen",
         "alreadyHeard": "This message has already been listened to",
         "next": "Next message",
-        "nextWaiting": "Next message ({count} waiting)"
+        "nextWaiting": "Next message ({count} waiting)",
+        "again": "Listen again",
+        "previous": "Previous message"
     },
     "strip": {
         "label": "Family messages",
@@ -36,5 +39,7 @@
             "other": "{name}: {count} messages to listen to"
         }
     },
-    "noOneTitle": "Nobody to write to"
+    "noOneTitle": "Nobody to write to",
+    "activeBlocked": "A message is already waiting for {name}. You can send another one once it has been listened to and has expired.",
+    "birthdayWish": "Send a birthday wish"
 }

@@ -1,0 +1,43 @@
+{
+    "menu": "Manasa havana",
+    "title": "Manasa havana",
+    "hint": "Mamoròna kaody mandeha indray mandeha ary alefaso amin’ny WhatsApp, SMS, mailaka na rohy.",
+    "channelLabel": "Ahoana no handefasana azy?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "Mailaka",
+        "LINK": "Rohy"
+    },
+    "nameLabel": "Anaran’ny havana (tsy voatery)",
+    "namePlaceholder": "Dadabe Soa",
+    "emailLabel": "Adiresy mailaka",
+    "phoneLabel": "Laharana finday (tsy voatery)",
+    "childrenLabel": "Ankizy iza?",
+    "childrenHint": "Raha tsy misafidy: ny ankizy rehetra ao amin’ny fianakaviana.",
+    "create": "Mamoròna ny fanasana",
+    "createFailed": "Tsy afaka namorona ny fanasana.",
+    "tooMany": "Be loatra ny fanasana indray mandeha, andramo afaka kelikely.",
+    "ready": "Vita ny fanasana",
+    "validFor": "Manan-kery ho {hours} ora eo ho eo, indray mandeha ihany.",
+    "linkLabel": "Rohin’ny fanasana",
+    "emailSent": "Nalefa tany amin’i {contact} ny mailaka.",
+    "emailNotSent": "Tsy lasa ny mailaka: zarao amin’ny tanana ny rohy.",
+    "share": "Zarao",
+    "openWhatsapp": "Sokafy ny WhatsApp",
+    "openSms": "Alefaso amin’ny SMS",
+    "copy": "Dikao ny rohy",
+    "copied": "Voadika ny rohy",
+    "another": "Manasa olon-kafa",
+    "historyTitle": "Fanasana nalefa",
+    "emptyTitle": "Tsy misy fanasana",
+    "emptyHint": "Hita eto ny fanasana noforonina.",
+    "state": {
+        "pending": "Miandry",
+        "used": "Efa nampiasaina",
+        "expired": "Lany daty",
+        "revoked": "Foana"
+    },
+    "revoke": "Foano",
+    "revokeAria": "Foano ny fanasana an’i {name}"
+}

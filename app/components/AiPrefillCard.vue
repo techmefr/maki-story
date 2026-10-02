@@ -4,10 +4,10 @@
         <p class="muted">
             {{ t('ai.prefill.intro') }}
         </p>
-        <label class="btn btn--block" :class="{ 'btn--disabled': isBlocked }" :aria-disabled="isBlocked">
+        <AppButton as="label" is-block :disabled="isBlocked">
             {{ isBusy ? t('ai.prefill.reading') : t('ai.prefill.choose') }}
             <input type="file" accept="image/*" capture="environment" multiple hidden :disabled="isBlocked" data-testid="ai-prefill-input" @change="prefill" />
-        </label>
+        </AppButton>
         <p v-if="isBusy" class="muted" role="status">{{ progressLabel }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <AiQuota />

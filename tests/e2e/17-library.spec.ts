@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { chooseProfile, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { chooseProfile, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile, pickOption } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
@@ -170,7 +170,7 @@ test.describe('library', () => {
 
     test('the parent home groups books in rows and filters them', async ({ page }) => {
         await openAs(page, 'Parent')
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByRole('heading', { name: /À enregistrer/ })).toBeVisible()
         await expect(page.getByRole('heading', { name: /En cours d’enregistrement/ })).toBeVisible()
         await expect(page.getByRole('heading', { name: /Tous nos livres/ })).toBeVisible()
@@ -183,15 +183,15 @@ test.describe('library', () => {
         await expect(everything.getByRole('link')).toHaveCount(1)
         await expect(page.getByRole('button', { name: '4-6 ans' })).toHaveAttribute('aria-pressed', 'true')
         await page.getByRole('button', { name: '4-6 ans' }).click()
-        await page.getByLabel('Langue').selectOption('mg')
+        await pickOption(page, 'Langue', /Malagasy/)
         await expect(everything.getByRole('link')).toHaveCount(1)
-        await page.getByLabel('Langue').selectOption('en')
+        await pickOption(page, 'Langue', /English/)
         await expect(page.getByText('Aucun livre ne correspond')).toBeVisible()
     })
 
     test('the book sheet lists every relative who recorded a voice', async ({ page }) => {
         await openAs(page, 'Parent')
-        await page.goto('/home')
+        await page.goto('/library')
         await page.getByRole('region', { name: /Tous nos livres/ }).getByRole('button', { name: 'Fiche de Le zébu voyageur' }).click()
         const sheet = page.getByRole('dialog', { name: /Fiche de Le zébu voyageur/ })
         await expect(sheet.getByRole('heading', { name: 'Le zébu voyageur' })).toBeVisible()

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Playwright } from '@playwright/test'
-import { chooseProfile, createReadyBook, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { chooseProfile, createReadyBook, enterPin, PARENT_NAME, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 const DAYS = 7
@@ -94,7 +94,7 @@ test.describe('parental schedule on the server', () => {
         const parent = await openSession(playwright, baseURL, account)
         const parentId = await useProfile(parent, PARENT_NAME)
         const childId = await createChild(parent)
-        const relativeResponse = await parent.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '2468' } } })
+        const relativeResponse = await parent.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '246801' } } })
         const relativeId = ((await relativeResponse.json()) as { id: string }).id
 
         expect((await putSchedule(parent, parentId, true, weekly(FULL_DAY))).status()).toBe(400)
@@ -110,7 +110,7 @@ test.describe('parental schedule on the server', () => {
         expect((await child.get(`/api/members/${childId}/schedule`)).status()).toBe(403)
 
         const relative = await openSession(playwright, baseURL, account)
-        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '2468' } })).ok()).toBeTruthy()
+        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '246801' } })).ok()).toBeTruthy()
         expect((await putSchedule(relative, childId, false, weekly(FULL_DAY))).status()).toBe(403)
         await parent.dispose()
         await child.dispose()
@@ -169,9 +169,10 @@ test.describe('parental schedule in the app', () => {
         expect((await parent.put(`/api/members/${childId}/access-block`, { data: { mode: 'now' } })).ok()).toBeTruthy()
         await expect(page).toHaveURL(/\/kid\/locked/, { timeout: 15_000 })
         await page.getByTestId('locked-parent').click()
-        await expect(page).toHaveURL(/\/profiles/)
-        await page.locator('button.card', { hasText: PARENT_NAME }).first().click()
-        await expect(page.getByRole('heading', { name: 'Entre ton code' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Code d’un parent' })).toBeVisible()
+        await enterPin(page, PROFILE_PIN)
+        await expect(page).toHaveURL(/\/kid$/)
+        await expect(page.getByRole('heading', { name: /Coucou/ })).toBeVisible()
         await parent.dispose()
     })
 

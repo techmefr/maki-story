@@ -31,7 +31,11 @@
         "saveError": "暂时无法保存。",
         "removeConfirm": "删除 {name}？ta 的录音将会丢失。",
         "removeError": "无法删除：至少要保留一位家长。",
-        "setCode": "设置密码"
+        "setCode": "设置密码",
+        "birthDate": "出生日期",
+        "birthDateHint": "用于庆祝生日并显示年龄。",
+        "childCodeAsk": "要求孩子输入密码",
+        "childCodeOff": "没有密码，孩子可直接进入。"
     },
     "voice": {
         "title": "这个声音的状态",

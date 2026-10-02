@@ -41,5 +41,17 @@
         "title": "Fai la tua smorfia!",
         "text": "Una foto buffa perché il bambino ti riconosca."
     },
-    "noMatchHint": "Prova con altre parole o togli un filtro."
+    "noMatchHint": "Prova con altre parole o togli un filtro.",
+    "relatives": {
+        "title": "I familiari",
+        "empty": "Non c’è ancora nessuno",
+        "emptyHint": "Chiedi a un genitore di invitare la famiglia.",
+        "emptyHintParent": "Aggiungi un familiare che registri la sua voce.",
+        "sendMessage": "Invia un messaggio a un bambino",
+        "hasMessage": "Un messaggio da ascoltare",
+        "books": "Le sue storie",
+        "playLabel": "Ascolta il messaggio di {name}",
+        "booksLabel": "Storie lette da {name}"
+    },
+    "birthdayMissing": "Aggiungi la data di nascita di {name}"
 }

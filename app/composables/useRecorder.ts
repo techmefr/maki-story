@@ -1,5 +1,6 @@
 import {
     MIN_RECORDING_MS,
+    RECORDING_AUDIO_BITRATE_MODE,
     RECORDING_BITS_PER_SECOND,
     RECORDING_LIMIT_OVERRIDE_KEY,
     RECORDING_MIMES,
@@ -15,8 +16,8 @@ export interface IRecording {
     ms: number
 }
 
-const pickMime = (): string => {
-    return RECORDING_MIMES.find(mime => MediaRecorder.isTypeSupported(mime)) ?? ''
+const pickMime = (): string | null => {
+    return RECORDING_MIMES.find(mime => MediaRecorder.isTypeSupported(mime)) ?? null
 }
 
 const openMicrophone = async (): Promise<MediaStream> => {
@@ -78,14 +79,19 @@ export const useRecorder = (onLimit?: (recording: IRecording | null) => void) =>
             errorMessage.value = t('recorder.unsupported')
             return false
         }
+        const mime = pickMime()
+        if (!mime) {
+            errorMessage.value = t('recorder.unsupported')
+            return false
+        }
         try {
             limitMs.value = resolveRecordingLimitMs((globalThis as Record<string, unknown>)[RECORDING_LIMIT_OVERRIDE_KEY])
             stream = await openMicrophone()
-            const mime = pickMime()
-            const options: MediaRecorderOptions = { audioBitsPerSecond: RECORDING_BITS_PER_SECOND }
-            if (mime) {
-                options.mimeType = mime
+            const options: MediaRecorderOptions & { audioBitrateMode?: string } = {
+                audioBitsPerSecond: RECORDING_BITS_PER_SECOND,
+                audioBitrateMode: RECORDING_AUDIO_BITRATE_MODE,
             }
+            options.mimeType = mime
             recorder = new MediaRecorder(stream, options)
             chunks = []
             recorder.ondataavailable = event => {
@@ -95,7 +101,7 @@ export const useRecorder = (onLimit?: (recording: IRecording | null) => void) =>
             }
             recorder.onstop = () => {
                 const ms = Math.min(Date.now() - startedAt, limitMs.value)
-                const type = recorder?.mimeType || mime || 'audio/webm'
+                const type = recorder?.mimeType || mime
                 releaseStream()
                 isRecording.value = false
                 const isTooShort = ms < MIN_RECORDING_MS || chunks.length === 0
