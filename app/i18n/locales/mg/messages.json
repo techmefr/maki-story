@@ -27,7 +27,8 @@
         "play": "Henoy",
         "alreadyHeard": "Efa henoina ity hafatra ity",
         "next": "Hafatra manaraka",
-        "nextWaiting": "Hafatra manaraka ({count} miandry)"
+        "nextWaiting": "Hafatra manaraka ({count} miandry)",
+        "again": "Henoy indray"
     },
     "strip": {
         "label": "Hafatra avy amin’ny fianakaviana",
@@ -36,5 +37,6 @@
             "other": "{name}: hafatra {count} henoina"
         }
     },
-    "noOneTitle": "Tsy misy olona hosoratana"
+    "noOneTitle": "Tsy misy olona hosoratana",
+    "activeBlocked": "Misy hafatra miandry an’i {name} efa. Afaka mandefa iray hafa ianao rehefa voatsara sy lany daty izy."
 }

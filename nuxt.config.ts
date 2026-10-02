@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     },
     nitro: {
         noExternals: true,
+        experimental: { tasks: true },
+        scheduledTasks: { '0 3 * * *': ['messages:purge'] },
         inlineDynamicImports: true,
         serverAssets: [{ baseName: 'migrations', dir: fileURLToPath(new URL('./server/migrations', import.meta.url)) }],
     },

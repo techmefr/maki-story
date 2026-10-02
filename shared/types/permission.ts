@@ -14,6 +14,7 @@ export type Permission =
     | 'messages.list'
     | 'messages.send'
     | 'messages.listen'
+    | 'messages.delete'
     | 'feedback.send'
     | 'feedback.manage'
     | 'ai.use'

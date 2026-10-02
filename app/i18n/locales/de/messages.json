@@ -27,7 +27,8 @@
         "play": "Anhören",
         "alreadyHeard": "Diese Nachricht wurde schon angehört",
         "next": "Nächste Nachricht",
-        "nextWaiting": "Nächste Nachricht ({count} wartend)"
+        "nextWaiting": "Nächste Nachricht ({count} wartend)",
+        "again": "Nochmal anhören"
     },
     "strip": {
         "label": "Nachrichten der Familie",
@@ -36,5 +37,6 @@
             "other": "{name}: {count} Nachrichten zum Anhören"
         }
     },
-    "noOneTitle": "Niemand zum Schreiben"
+    "noOneTitle": "Niemand zum Schreiben",
+    "activeBlocked": "Für {name} wartet bereits eine Nachricht. Du kannst eine neue senden, sobald sie gehört wurde und abgelaufen ist."
 }

@@ -1,5 +1,7 @@
 import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily } from '../../utils/family'
+import { actorEntry, record } from '../../utils/journal'
+import { memberExtras, readBirthDate } from '../../utils/members'
 import { requirePermission } from '../../utils/permissions'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
@@ -10,13 +12,15 @@ interface IMemberPatch {
     photoFileId?: string | null
     status?: MemberStatus
     voicePolicy?: VoicePolicy
+    birthDate?: string | null
 }
 
 const SETTABLE_STATUSES: MemberStatus[] = ['active', 'left', 'deceased', 'blocked']
 const VOICE_POLICIES: VoicePolicy[] = ['keep', 'block', 'rerecord']
 
 export default defineEventHandler(async (event): Promise<IMember> => {
-    const { familyId } = await requirePermission(event, 'members.manage')
+    const actor = await requirePermission(event, 'members.manage')
+    const { familyId } = actor
     const id = requireParam(event, 'id')
     const body = await readBody<IMemberPatch>(event)
     if (body.name !== undefined && !isNonEmptyString(body.name)) {
@@ -36,7 +40,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     }
     const db = getDb()
     const [current] = await db<IMember[]>`
-        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest from members
+        select id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)} from members
         where id = ${id} and family_id = ${familyId} and deleted_at is null
     `
     if (!current) {
@@ -71,10 +75,22 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     if (body.voicePolicy !== undefined && current.role !== 'relative') {
         return badRequest('Only a relative has a voice policy')
     }
-    return one(await db<IMember[]>`
+    const hasBirthDate = body.birthDate !== undefined
+    const birthDate = hasBirthDate ? readBirthDate(body.birthDate, next.role) : null
+    const updated = one(await db<IMember[]>`
         update members
-        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}, voice_policy = ${next.voicePolicy}
+        set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}, voice_policy = ${next.voicePolicy},
+            birth_date = case when ${hasBirthDate}::boolean then ${birthDate}::date else birth_date end
         where id = ${id} and family_id = ${familyId}
-        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest
+        returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)}
     `)
+    await record(event, {
+        ...actorEntry(actor),
+        action: 'member.updated',
+        entityType: 'member',
+        entityId: id,
+        before: { name: current.name, role: current.role, status: current.status },
+        after: { name: updated.name, role: updated.role, status: updated.status, birthDateChanged: hasBirthDate },
+    })
+    return updated
 })

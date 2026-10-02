@@ -1,5 +1,6 @@
 import { getDb, one } from '../../../utils/db'
 import { logEvent } from '../../../utils/log'
+import { memberExtras } from '../../../utils/members'
 import { requireSettingsScope } from '../../../utils/settings'
 import { badRequest, requireParam } from '../../../utils/validate'
 
@@ -25,7 +26,7 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         return one(await tx<IMember[]>`
             update members set photo_file_id = ${file.id}
             where id = ${scope.targetId} and family_id = ${scope.actor.familyId}
-            returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale
+            returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, ${memberExtras(tx, scope.actor.role, scope.actor.id)}
         `)
     })
     logEvent('Photo de profil changée')

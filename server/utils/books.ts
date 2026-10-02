@@ -10,7 +10,7 @@ const BLOCKED_FROM = `from lines bl
     where bl.book_id = b.id and ${BLOCKED_VOICE}`
 
 const SUMMARY_SELECT = `
-    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.language, b.type, b.tts_fallback,
+    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
     b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,

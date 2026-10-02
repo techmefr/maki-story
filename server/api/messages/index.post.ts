@@ -1,8 +1,14 @@
+import { MESSAGE_MAX_DURATION_MS } from '../../../shared/utils/voices'
 import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
+import { actorEntry, record } from '../../utils/journal'
 import { logEvent } from '../../utils/log'
+import { purgeExpiredMessages } from '../../utils/messages'
 import { requireActorMember, requirePermission } from '../../utils/permissions'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
+
+const KINDS: MessageKind[] = ['NORMAL', 'BIRTHDAY']
+const UNIQUE_VIOLATION = '23505'
 
 export default defineEventHandler(async (event): Promise<IMessage> => {
     const actor = await requirePermission(event, 'messages.send')
@@ -11,12 +17,13 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     if (!isNonEmptyString(body.toMemberId) || !isNonEmptyString(body.fileId) || !isNonEmptyString(body.mime)) {
         return badRequest('Invalid message')
     }
+    if (body.kind !== undefined && !KINDS.includes(body.kind)) {
+        return badRequest('Invalid message kind')
+    }
+    const kind: MessageKind = body.kind ?? 'NORMAL'
     const fromMemberId = requireActorMember(actor)
     if (body.fromMemberId !== undefined && body.fromMemberId !== fromMemberId) {
         throw createError({ statusCode: 403, statusMessage: 'You can only send messages as yourself' })
-    }
-    if (body.toMemberId === fromMemberId) {
-        return badRequest('Invalid message')
     }
     const db = getDb()
     await assertMembersInFamily(db, familyId, [fromMemberId, body.toMemberId])
@@ -24,25 +31,19 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     const [audio] = await db<{ id: string }[]>`
         select id from files where id = ${body.fileId} and family_id = ${familyId} and mime like 'audio/%' and octet_length(data) > 0
     `
-    if (!audio || !(Number(body.durationMs) > 0)) {
+    const durationMs = Math.round(Number(body.durationMs))
+    if (!audio || !(durationMs > 0)) {
         return badRequest('Only a recorded voice message can be sent')
     }
-    const [recipient] = await db<{ id: string; role: MemberRole; name: string }[]>`
-        select id, role, name from members where id = ${body.toMemberId} and family_id = ${familyId} and deleted_at is null and status = 'active' and source_member_id is null
-    `
-    if (!recipient || recipient.role !== 'child') {
-        return badRequest('Messages can only be sent to a child profile')
+    if (durationMs > MESSAGE_MAX_DURATION_MS) {
+        return badRequest('This message is too long')
     }
-    const [pending] = await db<{ total: number }[]>`
-        select count(*)::int as total from messages
-        where family_id = ${familyId} and from_member_id = ${fromMemberId} and to_member_id = ${recipient.id}
-            and deleted_at is null and listened_at is null
+    const [recipient] = await db<{ id: string; name: string }[]>`
+        select id, name from members
+        where id = ${body.toMemberId} and family_id = ${familyId} and role = 'child' and deleted_at is null and status = 'active' and source_member_id is null
     `
-    if ((pending?.total ?? 0) >= MAX_STATUS_MESSAGES_PER_RELATIVE) {
-        throw createError({
-            statusCode: 409,
-            statusMessage: `Il y a déjà ${MAX_STATUS_MESSAGES_PER_RELATIVE} messages en attente pour ${recipient.name}. Attends qu’ils soient écoutés.`,
-        })
+    if (!recipient) {
+        return badRequest('A message goes to exactly one child')
     }
     if (actor.role !== 'parent') {
         const [owned] = await db<{ id: string }[]>`
@@ -52,22 +53,33 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
             throw createError({ statusCode: 403, statusMessage: 'You can only send files you uploaded' })
         }
     }
-    const message = one(await db<IMessage[]>`
-        insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms)
-        values (${familyId}, ${fromMemberId}, ${body.toMemberId}, ${body.fileId}, ${body.mime}, ${Math.round(body.durationMs ?? 0)})
-        returning id, from_member_id, to_member_id, file_id, mime, duration_ms, listened_at, created_at
-    `)
-    const stale = await db<{ id: string; fileId: string }[]>`
-        select id, file_id from messages
-        where family_id = ${familyId} and deleted_at is null and (
-            (from_member_id = ${fromMemberId} and to_member_id = ${body.toMemberId})
-            or (from_member_id = ${body.toMemberId} and to_member_id = ${fromMemberId})
-        )
-        order by created_at desc offset ${MAX_MESSAGES_PER_CONVERSATION}
-    `
-    if (stale.length > 0) {
-        await db`update messages set deleted_at = now() where family_id = ${familyId} and id in ${db(stale.map(item => item.id))}`
+    await purgeExpiredMessages(db, familyId)
+    const refuseBusy = (): never => {
+        throw createError({
+            statusCode: 409,
+            statusMessage: `Un message est déjà en attente pour ${recipient.name}. Attends qu’il soit écouté puis expiré.`,
+        })
     }
+    const [active] = await db<{ id: string }[]>`
+        select id from messages where from_member_id = ${fromMemberId} and to_member_id = ${recipient.id} and kind = ${kind} and status = 'ACTIVE'
+    `
+    if (active) {
+        refuseBusy()
+    }
+    let message: IMessage
+    try {
+        message = one(await db<IMessage[]>`
+            insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms, kind)
+            values (${familyId}, ${fromMemberId}, ${recipient.id}, ${body.fileId}, ${body.mime}, ${durationMs}, ${kind})
+            returning id, from_member_id, to_member_id, file_id, mime, duration_ms, kind, status, listened_at, first_listened_at, expires_at, created_at
+        `)
+    } catch (error) {
+        if ((error as { code?: string }).code === UNIQUE_VIOLATION) {
+            return refuseBusy()
+        }
+        throw error
+    }
+    await record(event, { ...actorEntry(actor), action: 'message.sent', entityType: 'message', entityId: message.id, targetMemberId: recipient.id, after: { kind, durationMs } })
     logEvent(`Message vocal envoyé (${message.durationMs} ms)`)
     return message
 })

@@ -92,7 +92,7 @@ test.describe('family isolation', () => {
         expect(messages.map(message => message.id)).toEqual([second.messageId])
         expect((await second.api.post(`/api/messages/${first.messageId}/listen`)).status()).toBe(404)
         const toForeign = await second.api.post('/api/messages', {
-            data: { toMemberId: first.relativeId, fileId: second.fileId, mime: 'audio/wav', durationMs: 1 },
+            data: { toMemberId: first.childId, fileId: second.fileId, mime: 'audio/wav', durationMs: 1 },
         })
         expect(toForeign.status()).toBe(400)
     })
@@ -104,11 +104,11 @@ test.describe('family isolation', () => {
 
     test('the sender comes from the session, never from the body', async () => {
         const spoof = await first.api.post('/api/messages', {
-            data: { fromMemberId: first.relativeId, toMemberId: first.parentId, fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
+            data: { fromMemberId: first.relativeId, toMemberId: first.childId, fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
         })
         expect(spoof.status()).toBe(403)
         const honest = await first.api.post('/api/messages', {
-            data: { fromMemberId: first.parentId, toMemberId: first.childId, fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
+            data: { fromMemberId: first.parentId, toMemberId: first.childId, kind: 'BIRTHDAY', fileId: first.fileId, mime: 'audio/wav', durationMs: 1 },
         })
         expect(honest.ok()).toBeTruthy()
         const message = (await honest.json()) as { fromMemberId: string }

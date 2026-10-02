@@ -184,11 +184,13 @@ test.describe('roles and permissions', () => {
         const lovaMessages = (await (await lova.get('/api/messages')).json()) as IIdName[]
         expect(lovaMessages.map(message => message.id)).toEqual([messageId])
         expect((await lova.get(`/api/files/${messageFileId}`)).status()).toBe(200)
-        expect((await mamie.post(`/api/messages/${messageId}/listen`)).status()).toBe(404)
-        expect((await parent.post(`/api/messages/${messageId}/listen`)).status()).toBe(404)
         expect((await tonton.post(`/api/messages/${messageId}/listen`)).status()).toBe(404)
+        expect((await mamie.post(`/api/messages/${messageId}/listen`)).status()).toBe(200)
+        expect((await parent.post(`/api/messages/${messageId}/listen`)).status()).toBe(200)
+        const untouched = (await (await lova.get('/api/messages')).json()) as { id: string; expiresAt: string | null }[]
+        expect(untouched.find(message => message.id === messageId)!.expiresAt).toBeNull()
         expect((await lova.post(`/api/messages/${messageId}/listen`)).status()).toBe(200)
-        expect((await lova.get(`/api/files/${messageFileId}`)).status()).toBe(403)
+        expect((await lova.get(`/api/files/${messageFileId}`)).status()).toBe(200)
         expect((await parent.get(`/api/files/${messageFileId}`)).status()).toBe(200)
         expect((await mamie.get(`/api/files/${messageFileId}`)).status()).toBe(200)
         const parentMessages = (await (await parent.get('/api/messages')).json()) as IIdName[]

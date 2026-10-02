@@ -27,7 +27,8 @@
         "play": "Listen",
         "alreadyHeard": "This message has already been listened to",
         "next": "Next message",
-        "nextWaiting": "Next message ({count} waiting)"
+        "nextWaiting": "Next message ({count} waiting)",
+        "again": "Listen again"
     },
     "strip": {
         "label": "Family messages",
@@ -36,5 +37,6 @@
             "other": "{name}: {count} messages to listen to"
         }
     },
-    "noOneTitle": "Nobody to write to"
+    "noOneTitle": "Nobody to write to",
+    "activeBlocked": "A message is already waiting for {name}. You can send another one once it has been listened to and has expired."
 }
