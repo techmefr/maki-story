@@ -41,6 +41,7 @@ test.describe('book model v2', () => {
             kind: 'multi',
             imageDesc: '',
             pageFileIds: [],
+            characters: [{ name: 'Narrateur', isNarrator: true, color: 'sun' }],
             lines: [
                 { pageIndex: 0, character: 'Narrateur', text: 'Un matin.' },
                 { pageIndex: 0, character: 'Petit Zébu', text: 'Bonjour !' },
@@ -51,6 +52,7 @@ test.describe('book model v2', () => {
         const book = await loadBook(api, id)
         expect(book.characters.map(character => character.name)).toEqual(['Narrateur', 'Petit Zébu'])
         expect(book.characters[0]!.isNarrator).toBe(true)
+        expect(book.characters[0]!.color).toBeNull()
         expect(book.characters[1]!.isNarrator).toBe(false)
         const zebu = book.characters[1]!
         expect(book.lines.filter(line => line.characterId === zebu.id)).toHaveLength(2)
@@ -71,8 +73,8 @@ test.describe('book model v2', () => {
         })
         expect(created.ok()).toBeTruthy()
         const conteur = (await created.json()) as ICharacter
-        expect(conteur).toMatchObject({ name: 'Conteur', color: 'sky', description: 'Voix grave', isNarrator: true })
-        const second = await api.post(`/api/books/${id}/characters`, { data: { name: 'Narrateur' } })
+        expect(conteur).toMatchObject({ name: 'Conteur', color: null, description: 'Voix grave', isNarrator: true })
+        const second = await api.post(`/api/books/${id}/characters`, { data: { name: 'Autre conteur', isNarrator: true } })
         expect(second.status()).toBe(400)
         const duplicate = await api.post(`/api/books/${id}/characters`, { data: { name: 'maman' } })
         expect(duplicate.status()).toBe(400)

@@ -52,6 +52,11 @@ import {
     Volume2,
     VolumeX,
     X,
+    ZoomIn,
+    ZoomOut,
+    Maximize,
+    RotateCw,
+    ChevronDown,
 } from 'lucide-vue-next'
 import type { Component } from 'vue'
 
@@ -95,6 +100,11 @@ const ICONS: Record<IconName, Component> = {
     volume: Volume2,
     mute: VolumeX,
     close: X,
+    'zoom-in': ZoomIn,
+    'zoom-out': ZoomOut,
+    maximize: Maximize,
+    rotate: RotateCw,
+    'chevron-down': ChevronDown,
     download: Download,
     'cloud-off': CloudOff,
 }

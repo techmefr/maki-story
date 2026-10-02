@@ -1,4 +1,5 @@
 import type { Sql, TransactionSql } from 'postgres'
+import { isRecordingDurationValid, isRecordingMimeValid } from '../../shared/utils/recording'
 
 export const markLineRecordingsStale = async (
     db: Sql | TransactionSql,
@@ -20,4 +21,22 @@ export const markLineRecordingsStale = async (
         `
     }
     return rows.length
+}
+
+export const assertRecordingAcceptable = (mime: string, ms: unknown): number => {
+    if (!isRecordingMimeValid(mime)) {
+        throw createError({ statusCode: 400, statusMessage: 'Unsupported recording type' })
+    }
+    const duration = typeof ms === 'number' ? Math.round(ms) : 0
+    if (!isRecordingDurationValid(duration)) {
+        throw createError({ statusCode: 400, statusMessage: 'Recording is too long' })
+    }
+    return duration
+}
+
+export const assertSpokenLanguage = async (db: Sql | TransactionSql, memberId: string, language: string): Promise<void> => {
+    const [member] = await db<{ spokenLanguages: string[] }[]>`select spoken_languages from members where id = ${memberId}`
+    if (member && member.spokenLanguages.length > 0 && !member.spokenLanguages.includes(language)) {
+        throw createError({ statusCode: 400, statusMessage: 'This language is not one of your spoken languages' })
+    }
 }

@@ -1,0 +1,38 @@
+{
+    "title": "Page {n}",
+    "previous": "Previous page",
+    "next": "Next page",
+    "noScan": "No scan for this page.",
+    "description": "Page description",
+    "noDescription": "No description.",
+    "characters": {
+        "one": "{count} character",
+        "other": "{count} characters"
+    },
+    "onlyMine": "My lines",
+    "largeText": "Larger text",
+    "noLines": "No lines on this page.",
+    "narrator": "Narrator",
+    "noReader": "Voice to choose",
+    "original": "Original text",
+    "tone": "Tone: {tone}",
+    "studioSection": "Book page",
+    "showPage": "Show the page",
+    "hidePage": "Hide the page",
+    "recordLine": "Record this line",
+    "viewMode": "Review mode",
+    "byLine": "Line by line",
+    "byPage": "Page by page",
+    "scan": {
+        "label": "Scanned page",
+        "alt": "Scan of page {n}",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "rotate": "Rotate",
+        "reset": "Reset",
+        "full": "Full screen",
+        "exitFull": "Exit full screen",
+        "failed": "The page could not be loaded.",
+        "panelHint": "Tap a comic panel to zoom into it."
+    }
+}

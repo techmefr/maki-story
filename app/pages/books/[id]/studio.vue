@@ -10,7 +10,7 @@
             <label class="label" for="studio-language">{{ t('studio.recordingLanguage') }}</label>
             <select id="studio-language" v-model="language" class="input" required :disabled="isLocked">
                 <option value="">{{ t('studio.chooseLanguage') }}</option>
-                <option v-for="option in LANGUAGES" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
+                <option v-for="option in languageOptions" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
             </select>
             <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
         </div>
@@ -37,6 +37,34 @@
                 {{ t('review.studio.redoCount', { count: redoCount }) }}
             </button>
         </div>
+        <section v-if="currentLine" class="stack" :aria-label="t('pageView.studioSection')">
+            <button type="button" class="btn btn--white btn--small" :aria-expanded="isPageViewOpen" data-testid="page-view-toggle" @click="isPageViewOpen = !isPageViewOpen">
+                <AppIcon name="book" :size="18" />{{ isPageViewOpen ? t('pageView.hidePage') : t('pageView.showPage') }}
+            </button>
+            <BookPageView
+                v-if="isPageViewOpen && pageView"
+                :view="pageView"
+                mode="record"
+                :page-number="viewPageIndex + 1"
+                :page-count="Math.max(1, book.pages.length)"
+                :language="language || DEFAULT_LANGUAGE"
+                :my-member-id="activeMemberId"
+                :active-line-id="currentLineId"
+                :can-see-scan="current?.role !== 'child'"
+                @go="goPage"
+            >
+                <template #line-actions="{ line, isMine }">
+                    <div v-if="isMine" class="row row--wrap">
+                        <button type="button" class="btn btn--small" :disabled="isLocked || line.id === currentLineId" :data-testid="`page-record-${line.id}`" @click="currentLineId = line.id">
+                            <AppIcon name="mic" :size="18" />{{ t('pageView.recordLine') }}
+                        </button>
+                        <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !lineHasVoice(line.id)" @click="listenLine(line.id)">
+                            <AppIcon name="volume" :size="18" />{{ t('studio.listen') }}
+                        </button>
+                    </div>
+                </template>
+            </BookPageView>
+        </section>
         <section
             v-if="currentLine"
             class="stage"
@@ -232,6 +260,15 @@ const isPlaying = computed(() => player.isPlaying.value)
 
 const bookId = String(route.params.id)
 
+const languageOptions = computed(() => {
+    const spoken = current.value?.spokenLanguages ?? []
+    const options = LANGUAGES.filter(item => spoken.includes(item.code))
+    return options.length > 0 ? options : LANGUAGES
+})
+
+const isPageViewOpen = ref(false)
+const viewPageIndex = ref(0)
+
 const isRestricted = computed(() => current.value?.role === 'relative')
 const canManage = computed(() => !isRestricted.value || book.value?.kind === 'solo')
 const isLanguageChosen = computed(() => language.value !== '')
@@ -337,6 +374,23 @@ const hint = computed(() => {
     return currentRecording.value ? t('studio.hints.recorded') : t('studio.hints.tapMic')
 })
 
+const pageView = computed(() => (book.value ? buildBookPageView(book.value, viewPageIndex.value, language.value || DEFAULT_LANGUAGE) : null))
+
+const lineHasVoice = (lineId: string): boolean => recordingOf(lineId, language.value) !== null && hasVoice(book.value!.lines.find(line => line.id === lineId)!, language.value)
+
+const goPage = (step: number): void => {
+    const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
+    viewPageIndex.value = Math.min(last, Math.max(0, viewPageIndex.value + step))
+}
+
+const listenLine = async (lineId: string): Promise<void> => {
+    const recording = recordingOf(lineId, language.value)
+    if (recording) {
+        player.stop()
+        await player.play(recording.fileId)
+    }
+}
+
 const memberName = (memberId: string): string => getById(memberId)?.name ?? t('studio.voice')
 
 const speechParts = (line: ILine): ISpeechParts => ({
@@ -382,7 +436,7 @@ const goRelative = (step: number): void => {
 
 const jumpTo = (lineId: string, code: string): void => {
     const line = visibleLines.value.find(item => item.id === lineId)
-    if (!line || line.memberId === null || isLocked.value) {
+    if (!line || line.memberId === null || isLocked.value || !languageOptions.value.some(option => option.code === code)) {
         return
     }
     player.stop()
@@ -539,6 +593,12 @@ watch(
         void (isWanted ? wakeLock.request() : wakeLock.release())
     },
 )
+
+watch(currentLine, line => {
+    if (line) {
+        viewPageIndex.value = line.pageIndex
+    }
+})
 
 watch(currentLineId, () => {
     if (speech.isEnabled.value && !isRecording.value && pending.value === null) {
