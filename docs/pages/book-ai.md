@@ -29,3 +29,7 @@ Generate a full draft book from an idea, always passing moderation before the pa
 - [ ] Keyboard, TV remote (D-pad) and touch: logical focus order, visible focus, targets of 48 px or more (child 66 px).
 - [ ] `prefers-reduced-motion` respected.
 - [ ] Fredoka (titles, buttons) and Nunito (text), hard shadow `3px 3px 0 #1F1B3A`.
+
+## Feature flag
+
+The AI creation entry points on this page are shown only when NUXT_PUBLIC_AI_CREATION_ENABLED is true (off by default in production). When off, the page redirects to the library and the AI routes answer 404.

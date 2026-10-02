@@ -16,3 +16,7 @@
 - [x] No overflow at any text size, keyboard and remote focus.
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
+
+## AI flag
+
+The create with AI button and the AI draft row are hidden when NUXT_PUBLIC_AI_CREATION_ENABLED is false.

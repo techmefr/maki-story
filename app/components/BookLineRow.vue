@@ -29,7 +29,7 @@
         ×
       </AppButton>
     </div>
-    <AiTranslationSuggest v-if="isParent && !isWordless" :line="line" />
+    <AiTranslationSuggest v-if="isAiCreationEnabled && isParent && !isWordless" :line="line" />
     <ToneChips
       v-if="isEditing"
       :model-value="line.tone"
@@ -39,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+const isAiCreationEnabled = useAiCreationEnabled()
 const props = defineProps<{ line: IDraftLine }>();
 
 const { t } = useI18n();
