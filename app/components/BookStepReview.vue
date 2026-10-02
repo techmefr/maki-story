@@ -33,9 +33,9 @@
         </label>
         <div v-if="problem" class="error" role="alert">{{ problem }}</div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <button type="button" class="btn btn--block" :disabled="problem !== '' || isBusy" @click="save">
+        <AppButton is-block :disabled="problem !== '' || isBusy" @click="save">
             {{ isBusy ? t('bookDraft.review.saving') : t('bookDraft.review.toStudio') }}
-        </button>
+        </AppButton>
     </div>
 </template>
 

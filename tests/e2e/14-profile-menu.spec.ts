@@ -179,7 +179,7 @@ test.describe('profile menu', () => {
         const parent = await memberNamed(page.request, PARENT_NAME)
         expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
         await page.goto('/books/new')
-        await expect(page.getByLabel('Langue du livre')).toHaveValue('mg')
+        await expect(page.getByLabel('Langue du livre')).toContainText('Malagasy')
     })
 
     test('lets a parent set a child spoken languages from the family form', async ({ page }, info) => {

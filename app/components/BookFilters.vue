@@ -2,10 +2,7 @@
     <form class="stack filters" role="search" @submit.prevent>
         <div class="row row--wrap">
             <input v-model="text" type="search" class="input grow" :placeholder="t('books.filters.searchPlaceholder')" :aria-label="t('books.filters.searchLabel')" />
-            <select v-model="language" class="input filters__language" :aria-label="t('books.filters.language')">
-                <option value="">{{ t('books.filters.allLanguages') }}</option>
-                <option v-for="item in LANGUAGES" :key="item.code" :value="item.code">{{ item.flag }} {{ item.label }}</option>
-            </select>
+            <AppSelect v-model="language" class="filters__language" :aria-label="t('books.filters.language')" :options="languageOptions" />
         </div>
         <div class="row row--wrap" role="group" :aria-label="t('books.filters.age')">
             <button
@@ -81,6 +78,7 @@ const AGE_TAG_KEYS: Record<string, string> = {
 const BOOK_TYPES: BookType[] = ['standard', 'comic', 'wordless', 'child-written']
 
 const { t } = useI18n()
+const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('books.filters.allLanguages')))
 
 const emit = defineEmits<{ change: [query: IBookQuery] }>()
 

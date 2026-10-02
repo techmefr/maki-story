@@ -37,7 +37,8 @@
         },
         "sounds": "Tastentöne",
         "soundsOn": "Töne einschalten",
-        "soundsVolume": "Lautstärke der Töne"
+        "soundsVolume": "Lautstärke der Töne",
+        "learningFont": "Leicht lesbare Schrift"
     },
     "unlock": {
         "offerTitle": "Fingerabdruck oder Gesicht aktivieren?",

@@ -4,9 +4,9 @@
         <h1 class="title">{{ t('review.title', { title: book.title }) }}</h1>
         <div class="row row--wrap">
             <span class="badge" data-testid="book-status">{{ t(`review.bookStatus.${book.status}`) }}</span>
-            <NuxtLink :to="`/books/${bookId}/activity`" class="btn btn--small btn--white">
+            <AppButton variant="secondary" size="sm" :to="`/books/${bookId}/activity`">
                 <AppIcon name="sparkles" :size="16" />{{ t('review.activity') }}
-            </NuxtLink>
+            </AppButton>
         </div>
         <section class="stack" aria-labelledby="review-voices">
             <h2 id="review-voices" class="subtitle">{{ t('review.voicesTitle') }}</h2>
@@ -19,9 +19,9 @@
             </ul>
         </section>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-        <button type="button" class="btn btn--mint btn--block review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
+        <AppButton variant="secondary" tone="mint" is-block class="review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
             <AppIcon name="rocket" :size="22" />{{ t('review.validateAll') }}
-        </button>
+        </AppButton>
         <p v-if="!canValidate && book.status !== 'ready'" class="muted">{{ validateHint }}</p>
         <div class="row row--wrap" role="group" :aria-label="t('review.filtersLabel')">
             <button
@@ -56,29 +56,27 @@
             <template #line-actions="{ line }">
                 <div class="row row--wrap">
                     <span class="badge review__state" :class="`review__state--${stateOfId(line.id)}`">{{ t(`review.state.${stateOfId(line.id)}`) }}</span>
-                    <button type="button" class="btn btn--white btn--small review__action" :disabled="!hasTakeId(line.id)" @click="playId(line.id)">
+                    <AppButton variant="secondary" size="sm" class="review__action" :disabled="!hasTakeId(line.id)" @click="playId(line.id)">
                         <AppIcon name="play" :size="18" />{{ t('review.play') }}
-                    </button>
-                    <button
+                    </AppButton>
+                    <AppButton variant="secondary" tone="mint" size="sm"
                         v-if="canReviewId(line.id) && stateOfId(line.id) !== 'approved'"
-                        type="button"
-                        class="btn btn--mint btn--small review__action"
+                        class="review__action"
                         :disabled="isBusy"
                         :data-testid="`page-approve-${line.id}`"
-                        @click="approveId(line.id)"
-                    >
+                        @click="approveId(line.id)">
                         <AppIcon name="check" :size="18" />{{ t('review.approve') }}
-                    </button>
-                    <button v-if="canReviewId(line.id)" type="button" class="btn btn--coral btn--small review__action" :disabled="isBusy" :aria-expanded="openCommentId === line.id" @click="toggleCommentId(line.id)">
+                    </AppButton>
+                    <AppButton variant="destructive" size="sm" v-if="canReviewId(line.id)" class="review__action" :disabled="isBusy" :aria-expanded="openCommentId === line.id" @click="toggleCommentId(line.id)">
                         <AppIcon name="redo" :size="18" />{{ t('review.filters.redo') }}
-                    </button>
+                    </AppButton>
                 </div>
                 <form v-if="openCommentId === line.id" class="stack" @submit.prevent="requestChangesId(line.id)">
                     <label class="label" :for="`page-comment-${line.id}`">{{ t('review.commentLabel') }}</label>
                     <textarea :id="`page-comment-${line.id}`" v-model="draft" class="input" rows="3" maxlength="500" required />
-                    <button type="submit" class="btn review__action" :disabled="isBusy || draft.trim() === ''">
+                    <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === ''">
                         <AppIcon name="send" :size="18" />{{ t('review.sendRequest') }}
-                    </button>
+                    </AppButton>
                 </form>
             </template>
         </BookPageView>
@@ -98,45 +96,39 @@
                     </li>
                 </ul>
                 <div class="row row--wrap">
-                    <button
-                        type="button"
-                        class="btn btn--white review__action"
+                    <AppButton variant="secondary"
+                        class="review__action"
                         :disabled="!hasTake(line)"
                         :aria-label="t('review.playAria', { page: line.pageIndex + 1 })"
-                        @click="play(line)"
-                    >
+                        @click="play(line)">
                         <AppIcon :name="playingLineId === line.id && player.isPlaying.value ? 'stop' : 'play'" :size="20" />{{ t('review.play') }}
-                    </button>
-                    <button
+                    </AppButton>
+                    <AppButton variant="secondary" tone="mint"
                         v-if="canReview(line) && stateOf(line) !== 'approved'"
-                        type="button"
-                        class="btn btn--mint review__action"
+                        class="review__action"
                         :disabled="isBusy"
                         :aria-label="t('review.approveAria', { page: line.pageIndex + 1 })"
-                        @click="approve(line)"
-                    >
+                        @click="approve(line)">
                         <AppIcon name="check" :size="20" />{{ t('review.approve') }}
-                    </button>
-                    <button
+                    </AppButton>
+                    <AppButton variant="destructive"
                         v-if="canReview(line)"
-                        type="button"
-                        class="btn btn--coral review__action"
+                        class="review__action"
                         :disabled="isBusy"
                         :aria-expanded="openCommentId === line.id"
                         :aria-label="t('review.redoAria', { page: line.pageIndex + 1 })"
-                        @click="toggleComment(line)"
-                    >
+                        @click="toggleComment(line)">
                         <AppIcon name="redo" :size="20" />{{ t('review.filters.redo') }}
-                    </button>
+                    </AppButton>
                 </div>
                 <form v-if="openCommentId === line.id" class="stack" @submit.prevent="requestChanges(line)">
                     <label class="label" :for="`comment-${line.id}`">{{ t('review.commentLabel') }}</label>
                     <textarea :id="`comment-${line.id}`" v-model="draft" class="input" rows="3" maxlength="500" required />
                     <div class="row row--wrap">
-                        <button type="submit" class="btn review__action" :disabled="isBusy || draft.trim() === ''">
+                        <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === ''">
                             <AppIcon name="send" :size="20" />{{ t('review.sendRequest') }}
-                        </button>
-                        <button type="button" class="btn btn--white review__action" @click="openCommentId = null">{{ t('review.cancel') }}</button>
+                        </AppButton>
+                        <AppButton variant="secondary" class="review__action" @click="openCommentId = null">{{ t('review.cancel') }}</AppButton>
                     </div>
                 </form>
             </li>

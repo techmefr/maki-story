@@ -21,17 +21,17 @@
                 <p v-if="line.tone || line.note || line.sceneDescription" class="muted">{{ hint(line) }}</p>
                 <template v-if="activeId === line.id">
                     <div class="row row--wrap">
-                        <button v-if="isRecording" type="button" class="btn btn--coral btn--small" @click="stopRecording">{{ t('messages.compose.stop') }}</button>
+                        <AppButton variant="destructive" size="sm" v-if="isRecording" @click="stopRecording">{{ t('messages.compose.stop') }}</AppButton>
                         <template v-else-if="take">
-                            <button type="button" class="btn btn--white btn--small" @click="listen">{{ t('sharing.detail.listenAgain') }}</button>
-                            <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="send(line)">{{ t('common.send') }}</button>
-                            <button type="button" class="btn btn--white btn--small" @click="discard">{{ t('common.cancel') }}</button>
+                            <AppButton variant="secondary" size="sm" @click="listen">{{ t('sharing.detail.listenAgain') }}</AppButton>
+                            <AppButton variant="secondary" tone="mint" size="sm" :disabled="isBusy" @click="send(line)">{{ t('common.send') }}</AppButton>
+                            <AppButton variant="secondary" size="sm" @click="discard">{{ t('common.cancel') }}</AppButton>
                         </template>
                     </div>
                 </template>
-                <button v-else type="button" class="btn btn--small" :disabled="isRecording || !recordingLanguage" @click="startRecording(line)">
+                <AppButton size="sm" v-else :disabled="isRecording || !recordingLanguage" @click="startRecording(line)">
                     {{ line.hasRecording ? t('sharing.detail.redo') : t('sharing.detail.record') }}
-                </button>
+                </AppButton>
             </article>
         </template>
         <p v-else-if="!errorMessage" class="muted">{{ t('common.loading') }}</p>

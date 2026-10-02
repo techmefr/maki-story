@@ -11,12 +11,12 @@
                 </div>
                 <div class="muted">{{ t('ai.draft.meta', { pages: book.pageCount, lines: book.lineCount, language: languageLabel(book.language) }) }}</div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--mint btn--small" :disabled="busyId === book.id" :aria-label="t('ai.draft.validateLabel', { title: book.title })" @click="validate(book)">
+                    <AppButton variant="secondary" tone="mint" size="sm" :disabled="busyId === book.id" :aria-label="t('ai.draft.validateLabel', { title: book.title })" @click="validate(book)">
                         <AppIcon name="check" :size="18" />{{ t('ai.draft.validate') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="busyId === book.id" :aria-label="t('ai.draft.rejectLabel', { title: book.title })" @click="reject(book)">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="busyId === book.id" :aria-label="t('ai.draft.rejectLabel', { title: book.title })" @click="reject(book)">
                         <AppIcon name="trash" :size="18" />{{ t('ai.draft.reject') }}
-                    </button>
+                    </AppButton>
                 </div>
             </li>
         </ul>

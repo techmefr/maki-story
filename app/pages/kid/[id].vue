@@ -1,12 +1,12 @@
 <template>
     <div v-if="member" class="stack center narrow">
-        <NuxtLink to="/kid" class="btn btn--round btn--white" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></NuxtLink>
+        <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <AppAvatar :member="member" :size="150" />
         <h1 class="title">{{ member.name }}</h1>
-        <NuxtLink v-if="incoming" :to="`/message/listen/${incoming.id}`" class="btn btn--mint btn--block anim-pulse" style="min-height: 72px; font-size: 1.375rem">
+        <AppButton variant="secondary" tone="mint" is-block v-if="incoming" :to="`/message/listen/${incoming.id}`" class="anim-pulse" style="min-height: 72px; font-size: 1.375rem">
             <AppIcon name="volume" :size="32" motion="pulse" />
             {{ t('kid.listenHer') }}
-        </NuxtLink>
+        </AppButton>
         <div class="stack" style="width: 100%; text-align: start">
             <NuxtLink
                 v-for="book in soloBooks"
@@ -17,9 +17,9 @@
                 :style="{ background: hexOfBook(book) }"
             >
                 <span class="subtitle grow">{{ book.title }}</span>
-                <span class="btn btn--round btn--white"><AppIcon name="play" :size="26" motion="pulse" /></span>
+                <span class="play-chip"><AppIcon name="play" :size="26" motion="pulse" /></span>
             </NuxtLink>
-            <AppEmpty v-if="soloBooks.length === 0" :title="t('kid.noSoloStory')" :hint="t('kid.noSoloHint')" />
+            <AppEmpty kind="library" v-if="soloBooks.length === 0" :title="t('kid.noSoloStory')" :hint="t('kid.noSoloHint')" />
         </div>
     </div>
 </template>

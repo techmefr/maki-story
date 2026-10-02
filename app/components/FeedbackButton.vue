@@ -1,25 +1,23 @@
 <template>
     <div>
-        <button type="button" class="btn btn--small btn--white" @click="open"><AppIcon name="smile" :size="18" />{{ t('feedback.button') }}</button>
+        <AppButton variant="secondary" size="sm" @click="open"><AppIcon name="smile" :size="18" />{{ t('feedback.button') }}</AppButton>
         <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
             <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
                 <h2 id="feedback-title" class="subtitle">{{ t('feedback.sheetTitle') }}</h2>
                 <div class="row row--wrap" role="group" :aria-label="t('feedback.mood')">
-                    <button
+                    <AppButton size="sm"
                         v-for="option in moods"
                         :key="option.value"
-                        type="button"
-                        class="btn btn--small grow"
+                        class="grow"
                         :aria-pressed="mood === option.value"
                         :style="{ background: mood === option.value ? option.color : '#fff' }"
-                        @click="mood = option.value"
-                    >
+                        @click="mood = option.value">
                         {{ t(option.labelKey) }}
-                    </button>
+                    </AppButton>
                 </div>
                 <textarea v-model="text" class="input" :aria-label="t('feedback.label')" :placeholder="t('feedback.placeholder')" />
                 <div v-if="isSent" class="muted" role="status">{{ t('feedback.thanks') }}</div>
-                <button type="button" class="btn btn--block" :disabled="!canSend" @click="send">{{ t('common.send') }}</button>
+                <AppButton is-block :disabled="!canSend" @click="send">{{ t('common.send') }}</AppButton>
             </div>
         </div>
     </div>
