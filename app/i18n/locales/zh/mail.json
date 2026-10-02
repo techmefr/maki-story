@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "你有一条新通知。",
+        "share_received": "{fromName} 给你发来了《{bookTitle}》。",
+        "share_accepted": "{familyName} 接受了《{bookTitle}》。",
+        "share_declined": "{familyName} 拒绝了《{bookTitle}》。",
+        "share_to_approve": "{fromName} 提议《{bookTitle}》：待审批。",
+        "share_approved": "你提议的《{bookTitle}》已获批准。",
+        "voice_batch": "{fromName} 为《{bookTitle}》发来了声音。",
+        "recording_batch": "{memberName} 录了《{bookTitle}》的台词。",
+        "review_result": "《{bookTitle}》审核：{approved} 条通过，{returned} 条需重录。",
+        "message_received": "{fromName} 给 {childName} 留了一条语音留言。",
+        "birthday_reminder": "{childName} 的生日快到了：还有 {days} 天。",
+        "stale_takes": "《{bookTitle}》的文字已修改：需要重录（{count}）。"
+    },
+    "invite": {
+        "subject": "邀请你加入 {family} 家",
+        "shareText": "{inviter} 邀请你在 {app} 上加入 {family} 家：{link}"
+    }
+}

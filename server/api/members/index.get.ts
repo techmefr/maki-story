@@ -1,6 +1,7 @@
 import { getDb } from '../../utils/db'
 import { daysUntilBirthday } from '../../../shared/utils/age'
 import { memberExtras } from '../../utils/members'
+import { concernedChildIds } from '../../utils/memberships'
 import { loadActor } from '../../utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IMember[]> => {
@@ -20,5 +21,6 @@ export default defineEventHandler(async (event): Promise<IMember[]> => {
     if (actor.memberId === null || actor.role !== 'relative') {
         return withBirthdays
     }
-    return withBirthdays.map(member => ({ ...member, hasCode: false, codeKind: null, isCodeLocked: false, status: 'active' }))
+    const concerned = await concernedChildIds(db, actor.accountId, actor.familyId)
+    return withBirthdays.filter(member => member.role !== 'child' || concerned === null || concerned.includes(member.id)).map(member => ({ ...member, hasCode: false, codeKind: null, isCodeLocked: false, status: 'active' }))
 })

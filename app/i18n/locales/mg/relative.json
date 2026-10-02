@@ -1,0 +1,26 @@
+{
+    "nav": "Ny fianakaviako",
+    "title": "Ny fianakaviako",
+    "emptyTitle": "Tsy mbola misy fianakaviana",
+    "emptyHint": "Angatahy fanasana amin’ny ray aman-dreny mba hidirana amin’ny fianakaviany.",
+    "family": "Fianakaviana {name}",
+    "messageFor": "Hafatra ho an’i {name}",
+    "cardMeta": "{child} · fianakaviana {family}",
+    "cardFamily": "Fianakaviana {family}",
+    "noChild": "Tsy mbola misy ankizy ao amin’ny tontolonao.",
+    "requests": "Horakofana",
+    "requestMeta": "Andalana horakofana: {count} · fianakaviana {family}",
+    "record": "Horakoro",
+    "proposals": "Ny tolokevitro",
+    "proposalStatus": {
+        "proposed": "Miandry",
+        "awaiting_owner": "Miandry ny tompony",
+        "pending": "Miandry valiny",
+        "accepted": "Eken’ny",
+        "declined": "Nolavina",
+        "revoked": "Foana"
+    },
+    "joinAnother": "Hiditra amin’ny fianakaviana hafa",
+    "openFailed": "Tsy afaka nanokatra io fianakaviana io.",
+    "loadFailed": "Tsy azo ny fianakavianao."
+}

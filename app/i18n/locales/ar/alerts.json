@@ -1,0 +1,28 @@
+{
+    "title": "إشعارات خارج التطبيق",
+    "hint": "اختر ما تتلقاه وعبر أي قناة.",
+    "enable": "تفعيل الإشعارات",
+    "disable": "إيقاف على هذا الجهاز",
+    "enabled": "الإشعارات مفعّلة على هذا الجهاز.",
+    "denied": "الإشعارات محظورة: اسمح بها في إعدادات الجهاز.",
+    "unsupported": "هذا الجهاز لا يدعم الإشعارات. يبقى البريد الإلكتروني متاحاً.",
+    "channels": {
+        "PUSH": "إشعار",
+        "EMAIL": "بريد إلكتروني"
+    },
+    "kinds": {
+        "message_received": "استلام رسالة صوتية",
+        "share_to_approve": "كتاب مقترح",
+        "share_received": "طلب تسجيل",
+        "voice_batch": "إضافة صوت",
+        "recording_batch": "اكتمال التسجيل",
+        "review_result": "تحقق أو تعليق",
+        "stale_takes": "تسجيلات لإعادتها",
+        "birthday_reminder": "تذكير بعيد الميلاد"
+    },
+    "describe": {
+        "messageReceived": "ترك {from} رسالة صوتية إلى {child}",
+        "birthdayReminder": "يقترب عيد ميلاد {child} (بعد {days} يوم)",
+        "staleTakes": "«{title}»: تسجيلات لإعادتها ({count})"
+    }
+}

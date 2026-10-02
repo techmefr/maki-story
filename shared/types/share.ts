@@ -14,6 +14,9 @@ export type NotificationKind =
     | 'recording_request'
     | 'book_proposed'
     | 'proposal_result'
+    | 'message_received'
+    | 'birthday_reminder'
+    | 'stale_takes'
 
 export interface IFamilyInvite {
     code: string

@@ -1,0 +1,20 @@
+{
+    "title": "Entrar numa família",
+    "codeHint": "Introduz o código que recebeste de um dos pais.",
+    "codeLabel": "Código de convite",
+    "check": "Verificar",
+    "invalidTitle": "Convite inválido",
+    "invalidHint": "Este código já foi usado, expirou ou não existe. Pede um novo.",
+    "tryAgain": "Tentar outro código",
+    "welcome": "Entrar na família {family}",
+    "invitedBy": "{name} convidou-te.",
+    "oneTap": "Entrar na família {family}",
+    "accountHint": "Cria a tua conta ou inicia sessão se já tens uma.",
+    "nameLabel": "O teu nome",
+    "emailLabel": "Endereço de e-mail",
+    "passwordLabel": "Palavra-passe",
+    "submit": "Entrar",
+    "failed": "Não é possível entrar neste momento.",
+    "invalidCredentials": "Verifica o e-mail, a palavra-passe ou o convite.",
+    "tooMany": "Demasiadas tentativas, tenta mais tarde."
+}

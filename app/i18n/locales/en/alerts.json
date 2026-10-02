@@ -1,0 +1,28 @@
+{
+    "title": "Out-of-app notifications",
+    "hint": "Choose what you receive, and through which channel.",
+    "enable": "Turn on notifications",
+    "disable": "Turn off on this device",
+    "enabled": "Notifications are on for this device.",
+    "denied": "Notifications are blocked: allow them in the device settings.",
+    "unsupported": "This device does not support notifications. E-mail remains available.",
+    "channels": {
+        "PUSH": "Notification",
+        "EMAIL": "E-mail"
+    },
+    "kinds": {
+        "message_received": "Voice message received",
+        "share_to_approve": "Book proposed",
+        "share_received": "Recording request",
+        "voice_batch": "Voice added",
+        "recording_batch": "Recording finished",
+        "review_result": "Validation or comment",
+        "stale_takes": "Takes to redo",
+        "birthday_reminder": "Birthday reminder"
+    },
+    "describe": {
+        "messageReceived": "{from} left a voice message for {child}",
+        "birthdayReminder": "{child}’s birthday is coming up (in {days} d)",
+        "staleTakes": "“{title}”: takes to redo ({count})"
+    }
+}

@@ -43,6 +43,7 @@ export default defineConfig({
                   SESSION_SECRET: 'e2e-secret',
                   NUXT_IGNORE_LOCK: '1',
                   AI_PROVIDER: 'fake',
+                  NOTIFY_PROVIDER: 'fake',
                   AI_MONTHLY_BUDGET_USD: '0.12',
                   OIDC_FAKE: '1',
                   REGISTER_IP_LIMIT: '1000',

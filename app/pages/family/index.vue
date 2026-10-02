@@ -31,6 +31,7 @@
             </NuxtLink>
         </template>
         <AppButton is-block to="/family/add"><AppIcon name="user-plus" :size="22" />{{ t('family.index.add') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/family/invite" data-testid="family-invite"><AppIcon name="send" :size="22" />{{ t('invite.menu') }}</AppButton>
         <AppButton variant="secondary" is-block to="/storage"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</AppButton>
         <AppButton variant="secondary" is-block to="/sharing"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</AppButton>
         <AppButton variant="secondary" is-block to="/family/devices">{{ t('family.index.devices') }}</AppButton>

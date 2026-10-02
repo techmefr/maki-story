@@ -1,0 +1,28 @@
+{
+    "title": "应用外通知",
+    "hint": "选择接收哪些通知以及通过哪种渠道。",
+    "enable": "开启通知",
+    "disable": "在此设备上关闭",
+    "enabled": "此设备已开启通知。",
+    "denied": "通知已被阻止：请在设备设置中允许。",
+    "unsupported": "此设备不支持通知，仍可使用邮件。",
+    "channels": {
+        "PUSH": "通知",
+        "EMAIL": "邮件"
+    },
+    "kinds": {
+        "message_received": "收到语音留言",
+        "share_to_approve": "有人提议书籍",
+        "share_received": "录制请求",
+        "voice_batch": "新增声音",
+        "recording_batch": "录制完成",
+        "review_result": "审核通过或评论",
+        "stale_takes": "需要重录",
+        "birthday_reminder": "生日提醒"
+    },
+    "describe": {
+        "messageReceived": "{from} 给 {child} 留了一条语音留言",
+        "birthdayReminder": "{child} 的生日快到了（还有 {days} 天）",
+        "staleTakes": "《{title}》：需要重录（{count}）"
+    }
+}

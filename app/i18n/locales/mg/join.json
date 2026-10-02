@@ -1,0 +1,20 @@
+{
+    "title": "Hiditra amin’ny fianakaviana",
+    "codeHint": "Ampidiro ny kaody azo avy amin’ny ray aman-dreny.",
+    "codeLabel": "Kaodin’ny fanasana",
+    "check": "Hamarino",
+    "invalidTitle": "Tsy mety ny fanasana",
+    "invalidHint": "Efa nampiasaina, lany daty na tsy fantatra io kaody io. Angataho vaovao.",
+    "tryAgain": "Andramo kaody hafa",
+    "welcome": "Hiditra amin’ny fianakaviana {family}",
+    "invitedBy": "Nanasa anao i {name}.",
+    "oneTap": "Hiditra amin’ny fianakaviana {family}",
+    "accountHint": "Mamoròna kaonty, na midira raha efa manana.",
+    "nameLabel": "Ny anaranao",
+    "emailLabel": "Adiresy mailaka",
+    "passwordLabel": "Teny miafina",
+    "submit": "Hiditra",
+    "failed": "Tsy afaka miditra amin’izao fotoana izao.",
+    "invalidCredentials": "Hamarino ny mailaka, ny teny miafina na ny fanasana.",
+    "tooMany": "Be loatra ny andrana, andramo afaka kelikely."
+}

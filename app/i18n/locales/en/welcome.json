@@ -1,0 +1,31 @@
+{
+    "progress": "Step {current} of {total}",
+    "loadingTitle": "One moment…",
+    "next": "Continue",
+    "skip": "Skip",
+    "code": {
+        "title": "Protect parent mode",
+        "hint": "Choose a numeric code, or biometrics if your device allows it."
+    },
+    "children": {
+        "title": "Who listens to the stories?",
+        "hint": "Add a child: first name, birth date, photo and code."
+    },
+    "child": {
+        "name": "Child’s first name",
+        "birthDate": "Birth date",
+        "code": "Child’s code",
+        "add": "Add the child",
+        "failed": "The child could not be added."
+    },
+    "invite": {
+        "title": "Invite a first relative",
+        "hint": "A grandmother, an uncle, a friend: they will record their voice.",
+        "later": "Later"
+    },
+    "done": {
+        "title": "All set!",
+        "hint": "Your family is ready. Time for stories.",
+        "cta": "Go to home"
+    }
+}

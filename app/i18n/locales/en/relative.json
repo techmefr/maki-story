@@ -1,0 +1,26 @@
+{
+    "nav": "My families",
+    "title": "My families",
+    "emptyTitle": "No family yet",
+    "emptyHint": "Ask a parent for an invitation to join their family.",
+    "family": "Family {name}",
+    "messageFor": "Message for {name}",
+    "cardMeta": "{child} · {family} family",
+    "cardFamily": "{family} family",
+    "noChild": "No child in your circle yet.",
+    "requests": "To record",
+    "requestMeta": "Lines to record: {count} · {family} family",
+    "record": "Record",
+    "proposals": "My proposals",
+    "proposalStatus": {
+        "proposed": "Pending",
+        "awaiting_owner": "Waiting for the owner",
+        "pending": "Waiting for an answer",
+        "accepted": "Accepted",
+        "declined": "Declined",
+        "revoked": "Cancelled"
+    },
+    "joinAnother": "Join another family",
+    "openFailed": "This family could not be opened.",
+    "loadFailed": "Your families could not be loaded."
+}

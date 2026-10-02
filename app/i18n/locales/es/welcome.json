@@ -1,0 +1,31 @@
+{
+    "progress": "Paso {current} de {total}",
+    "loadingTitle": "Un momento…",
+    "next": "Continuar",
+    "skip": "Omitir",
+    "code": {
+        "title": "Protege el modo padre",
+        "hint": "Elige un código numérico o la biometría si tu dispositivo lo permite."
+    },
+    "children": {
+        "title": "¿Quién escucha los cuentos?",
+        "hint": "Añade un niño: nombre, fecha de nacimiento, foto y código."
+    },
+    "child": {
+        "name": "Nombre del niño",
+        "birthDate": "Fecha de nacimiento",
+        "code": "Código del niño",
+        "add": "Añadir al niño",
+        "failed": "No se pudo añadir al niño."
+    },
+    "invite": {
+        "title": "Invita a un primer familiar",
+        "hint": "Una abuela, un tío, un amigo: grabará su voz.",
+        "later": "Más tarde"
+    },
+    "done": {
+        "title": "¡Todo listo!",
+        "hint": "Tu familia está creada. Es hora de los cuentos.",
+        "cta": "Ir al inicio"
+    }
+}

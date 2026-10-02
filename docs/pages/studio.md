@@ -22,3 +22,7 @@ Only the parts changed by the page view lot are described here. The page card it
 
 ## Book metadata
 - New book and sheet: voice languages (multi), moods and themes chips (max 5 each); the studio proposes the planned voice languages first.
+
+## Stale takes (families lot)
+- Editing a line text or tone marks the takes of every language as stale; editing one translation marks only that language. Note and scene description never make takes stale.
+- Stale takes are announced to the parent in one grouped notification per book and voice.

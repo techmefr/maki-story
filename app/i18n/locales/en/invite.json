@@ -1,0 +1,43 @@
+{
+    "menu": "Invite a relative",
+    "title": "Invite a relative",
+    "hint": "Create a single-use code and send it by WhatsApp, SMS, e-mail or link.",
+    "channelLabel": "How to send it?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "E-mail",
+        "LINK": "Link"
+    },
+    "nameLabel": "Relative’s first name (optional)",
+    "namePlaceholder": "Grandma Soa",
+    "emailLabel": "E-mail address",
+    "phoneLabel": "Phone number (optional)",
+    "childrenLabel": "Which children?",
+    "childrenHint": "No choice: every child of the family.",
+    "create": "Create the invitation",
+    "createFailed": "The invitation could not be created.",
+    "tooMany": "Too many invitations at once, try again later.",
+    "ready": "Invitation ready",
+    "validFor": "Valid for about {hours} h, one use only.",
+    "linkLabel": "Invitation link",
+    "emailSent": "E-mail sent to {contact}.",
+    "emailNotSent": "The e-mail could not be sent: share the link yourself.",
+    "share": "Share",
+    "openWhatsapp": "Open WhatsApp",
+    "openSms": "Send by SMS",
+    "copy": "Copy the link",
+    "copied": "Link copied",
+    "another": "Invite someone else",
+    "historyTitle": "Sent invitations",
+    "emptyTitle": "No invitation",
+    "emptyHint": "Invitations you create show up here.",
+    "state": {
+        "pending": "Pending",
+        "used": "Used",
+        "expired": "Expired",
+        "revoked": "Revoked"
+    },
+    "revoke": "Revoke",
+    "revokeAria": "Revoke the invitation for {name}"
+}

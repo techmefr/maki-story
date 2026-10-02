@@ -1,4 +1,5 @@
 import type { Sql, TransactionSql } from 'postgres'
+import { deliverOutOfApp } from './delivery'
 import { badRequest, notFound } from './validate'
 
 type Db = Sql | TransactionSql
@@ -81,6 +82,7 @@ export const notifyReview = async (db: Db, input: IReviewNoticeInput): Promise<v
         insert into notifications (family_id, recipient_member_id, kind, payload, group_key, count)
         values (${input.familyId}, ${input.recipientMemberId}, ${input.kind}, ${db.json({ ...base, approved, returned })}, ${input.groupKey}, ${input.count})
     `
+    await deliverOutOfApp(db, { familyId: input.familyId, recipientMemberId: input.recipientMemberId, kind: input.kind, payload: { ...base, approved, returned }, count: input.count })
 }
 
 export interface ISubmission {

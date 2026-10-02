@@ -80,6 +80,6 @@ const submit = async (): Promise<void> => {
         errorMessage.value = t('auth.register.failed')
         return
     }
-    await navigateTo('/profiles')
+    await navigateTo('/welcome')
 }
 </script>

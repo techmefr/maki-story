@@ -1,0 +1,20 @@
+{
+    "title": "加入家庭",
+    "codeHint": "输入家长发给你的邀请码。",
+    "codeLabel": "邀请码",
+    "check": "验证",
+    "invalidTitle": "邀请无效",
+    "invalidHint": "这个邀请码已使用、已过期或不存在，请重新索取。",
+    "tryAgain": "试试其他邀请码",
+    "welcome": "加入 {family} 家",
+    "invitedBy": "{name} 邀请了你。",
+    "oneTap": "加入 {family} 家",
+    "accountHint": "创建账号；如果已有账号，请直接登录。",
+    "nameLabel": "你的名字",
+    "emailLabel": "邮箱地址",
+    "passwordLabel": "密码",
+    "submit": "加入",
+    "failed": "暂时无法加入。",
+    "invalidCredentials": "请检查邮箱、密码或邀请。",
+    "tooMany": "尝试次数过多，请稍后再试。"
+}
