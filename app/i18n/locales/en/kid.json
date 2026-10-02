@@ -29,7 +29,9 @@
         "soundOff": "No sound",
         "sleepTimer": "Sleep timer",
         "page": "Page {current}/{total}",
-        "progress": "Page progress"
+        "progress": "Page progress",
+        "previousPage": "Previous page",
+        "nextPageShort": "Next page"
     },
     "sleep": {
         "title": "Sleepy in…",
@@ -42,5 +44,23 @@
     },
     "noFaces": "Nobody is here yet",
     "noFacesHint": "Ask a grown-up to add the family.",
-    "noSoloHint": "It is coming soon!"
+    "noSoloHint": "It is coming soon!",
+    "treasure": {
+        "title": "My treasure",
+        "titleOf": "{name}’s treasure",
+        "count": "{count}/{limit} memories",
+        "open": "Open the treasure",
+        "save": "Keep this message",
+        "saved": "Message kept",
+        "empty": "Your treasure is empty",
+        "emptyHint": "Tap the heart on a message to keep it forever.",
+        "emptyParent": "The treasure is empty",
+        "emptyParentHint": "A heart on a message keeps it here.",
+        "from": "From {name}",
+        "play": "Listen to the memory from {name}",
+        "remove": "Remove this memory",
+        "removeTitle": "Remove this memory?",
+        "removeBody": "It will be deleted forever.",
+        "removeConfirm": "Remove"
+    }
 }

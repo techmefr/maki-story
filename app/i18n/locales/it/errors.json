@@ -34,6 +34,7 @@
         "voiceBlocked": "Questa voce è bloccata.",
         "recordingTooLong": "Questa registrazione è troppo lunga (massimo 10 minuti).",
         "recordingType": "Questo formato audio non è accettato.",
-        "spokenLanguage": "Questa lingua non è tra quelle che parli."
+        "spokenLanguage": "Questa lingua non è tra quelle che parli.",
+        "treasureFull": "Togli un cuore prima di aggiungerne uno nuovo."
     }
 }

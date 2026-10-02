@@ -28,7 +28,8 @@
         "alreadyHeard": "Diese Nachricht wurde schon angehört",
         "next": "Nächste Nachricht",
         "nextWaiting": "Nächste Nachricht ({count} wartend)",
-        "again": "Nochmal anhören"
+        "again": "Nochmal anhören",
+        "previous": "Vorherige Nachricht"
     },
     "strip": {
         "label": "Nachrichten der Familie",

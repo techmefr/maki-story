@@ -9,6 +9,7 @@ export type IconName =
     | 'eye'
     | 'headphones'
     | 'heart'
+    | 'chest'
     | 'languages'
     | 'lock'
     | 'unlock'

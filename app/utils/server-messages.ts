@@ -48,6 +48,8 @@ export const SERVER_MESSAGE_KEYS: Record<string, string> = {
     'Wrong offset': 'errors.server.uploadExpired',
     'Listen to the previous message first': 'errors.server.listenFirst',
     'This line already has a recording': 'errors.server.alreadyRecorded',
+    'The treasure box is full': 'errors.server.treasureFull',
+    'This message is already in the treasure box': 'errors.server.invalid',
     'Too many devices': 'errors.server.tooManyDevices',
     'This book is already shared this way with this family': 'errors.server.alreadyShared',
     'This book is already shared with the maximum number of families': 'errors.server.shareLimit',
