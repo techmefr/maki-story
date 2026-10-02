@@ -24,8 +24,6 @@
         "recordingBatch": {
             "one": "{name} ha terminado de grabar {count} frase de «{title}»",
             "other": "{name} ha terminado de grabar {count} frases de «{title}»"
-        },
-        "birthdayReminder": "El cumpleaños de {name} es dentro de {days} días",
-        "birthdayToday": "Hoy es el cumpleaños de {name}"
+        }
     }
 }

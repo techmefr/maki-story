@@ -24,8 +24,6 @@
         "recordingBatch": {
             "one": "{name} hat {count} Sprechtext aus „{title}“ fertig aufgenommen",
             "other": "{name} hat {count} Sprechtexte aus „{title}“ fertig aufgenommen"
-        },
-        "birthdayReminder": "{name} hat in {days} Tagen Geburtstag",
-        "birthdayToday": "{name} hat heute Geburtstag"
+        }
     }
 }

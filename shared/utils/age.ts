@@ -13,7 +13,6 @@ export const ageTagOf = (ageMin: number | null, ageMax: number | null): IAgeTag 
     return AGE_TAGS.find(tag => ageMin <= tag.max && high >= tag.min) ?? null
 }
 
-export const BIRTHDAY_REMINDER_DAYS = 3
 export const BIRTHDAY_WISH_WINDOW_DAYS = 7
 
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/

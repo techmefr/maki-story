@@ -24,8 +24,6 @@
         "recordingBatch": {
             "one": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »",
             "other": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »"
-        },
-        "birthdayReminder": "{name}: {days} andro sisa ny andro nahaterahana",
-        "birthdayToday": "Anio ny andro nahaterahan’i {name}"
+        }
     }
 }

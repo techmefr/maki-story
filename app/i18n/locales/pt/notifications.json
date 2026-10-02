@@ -24,8 +24,6 @@
         "recordingBatch": {
             "one": "{name} terminou de gravar {count} fala de “{title}”",
             "other": "{name} terminou de gravar {count} falas de “{title}”"
-        },
-        "birthdayReminder": "O aniversário de {name} é daqui a {days} dias",
-        "birthdayToday": "Hoje é o aniversário de {name}"
+        }
     }
 }

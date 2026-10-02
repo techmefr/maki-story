@@ -1,4 +1,3 @@
-import { ensureBirthdayReminders } from '../../utils/birthday'
 import { getDb } from '../../utils/db'
 import { requirePermission } from '../../utils/permissions'
 
@@ -8,7 +7,6 @@ export default defineEventHandler(async (event): Promise<INotificationList> => {
     const actor = await requirePermission(event, 'notifications.list')
     const isParent = actor.role === 'parent'
     const db = getDb()
-    await ensureBirthdayReminders(db, actor.familyId)
     const items = await db<INotification[]>`
         select id, kind, payload, count, read_at is not null as is_read, created_at, updated_at
         from notifications

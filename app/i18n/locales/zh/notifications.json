@@ -21,8 +21,6 @@
         },
         "recordingBatch": {
             "other": "{name} 录完了《{title}》的 {count} 句台词"
-        },
-        "birthdayReminder": "{name} 的生日还有 {days} 天",
-        "birthdayToday": "今天是 {name} 的生日"
+        }
     }
 }

@@ -10,7 +10,6 @@ export type NotificationKind =
     | 'voice_batch'
     | 'recording_batch'
     | 'review_result'
-    | 'birthday_reminder'
     | 'recording_request'
     | 'book_proposed'
     | 'proposal_result'

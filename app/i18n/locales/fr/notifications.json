@@ -24,8 +24,6 @@
         "recordingBatch": {
             "one": "{name} a fini d’enregistrer {count} réplique de « {title} »",
             "other": "{name} a fini d’enregistrer {count} répliques de « {title} »"
-        },
-        "birthdayReminder": "L’anniversaire de {name} est dans {days} jours",
-        "birthdayToday": "C’est l’anniversaire de {name} aujourd’hui"
+        }
     }
 }
