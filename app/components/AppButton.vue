@@ -7,7 +7,6 @@
         :disabled="isNative ? isInert : undefined"
         :aria-disabled="isInert ? 'true' : undefined"
         :aria-busy="loading ? 'true' : undefined"
-        :aria-describedby="showReason ? reasonId : undefined"
         :tabindex="!isNative && isInert ? -1 : undefined"
         class="btn"
         :class="classes"
@@ -16,8 +15,8 @@
         <span v-if="loading" class="btn__spinner" aria-hidden="true" />
         <AppIcon v-else-if="icon" :name="icon" :size="iconSize" motion="none" />
         <slot />
+        <small v-if="showReason" class="btn__reason">{{ disabledReason }}</small>
     </component>
-    <small v-if="showReason" :id="reasonId" class="btn__reason" role="note">{{ disabledReason }}</small>
 </template>
 
 <script setup lang="ts">
@@ -47,7 +46,6 @@ const props = withDefaults(
 
 const emit = defineEmits<{ click: [event: MouseEvent] }>()
 
-const reasonId = useId()
 const isInert = computed(() => props.disabled || props.loading)
 const isNative = computed(() => !props.to && props.as === 'button')
 const showReason = computed(() => props.disabled && Boolean(props.disabledReason))

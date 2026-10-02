@@ -16,7 +16,7 @@
                     ×
                 </AppButton>
             </div>
-            <div class="row row--wrap" role="group" :aria-label="t('bookDraft.characters.colors')">
+            <div v-if="!character.isNarrator" class="row row--wrap" role="group" :aria-label="t('bookDraft.characters.colors')">
                 <button
                     v-for="color in VOICE_COLORS"
                     :key="color.id"

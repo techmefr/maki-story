@@ -54,6 +54,9 @@ export const SERVER_MESSAGE_KEYS: Record<string, string> = {
     'At least one parent is required': 'errors.server.parentRequired',
     'This book already has a narrator': 'errors.server.narratorExists',
     'This character already exists': 'errors.server.characterExists',
+    'Recording is too long': 'errors.server.recordingTooLong',
+    'Unsupported recording type': 'errors.server.recordingType',
+    'This language is not one of your spoken languages': 'errors.server.spokenLanguage',
 }
 
 const MESSAGE_PATTERNS: { pattern: RegExp; key: string }[] = [

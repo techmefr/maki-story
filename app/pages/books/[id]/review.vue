@@ -36,7 +36,51 @@
                 {{ t(`review.filters.${item.id}`) }} ({{ countOf(item.id) }})
             </button>
         </div>
-        <ol class="review__lines">
+        <div class="row row--wrap" role="group" :aria-label="t('pageView.viewMode')">
+            <button type="button" class="chip review__chip" :class="{ 'chip--on': !isPageMode }" :aria-pressed="!isPageMode" @click="isPageMode = false">
+                <AppIcon name="check" :size="18" />{{ t('pageView.byLine') }}
+            </button>
+            <button type="button" class="chip review__chip" :class="{ 'chip--on': isPageMode }" :aria-pressed="isPageMode" data-testid="review-page-mode" @click="isPageMode = true">
+                <AppIcon name="book" :size="18" />{{ t('pageView.byPage') }}
+            </button>
+        </div>
+        <BookPageView
+            v-if="isPageMode && pageView"
+            :view="pageView"
+            mode="review"
+            :page-number="pageIndex + 1"
+            :page-count="Math.max(1, book.pages.length)"
+            :language="book.language"
+            @go="goPage"
+        >
+            <template #line-actions="{ line }">
+                <div class="row row--wrap">
+                    <span class="badge review__state" :class="`review__state--${stateOfId(line.id)}`">{{ t(`review.state.${stateOfId(line.id)}`) }}</span>
+                    <AppButton variant="secondary" size="sm" class="review__action" :disabled="!hasTakeId(line.id)" @click="playId(line.id)">
+                        <AppIcon name="play" :size="18" />{{ t('review.play') }}
+                    </AppButton>
+                    <AppButton variant="secondary" tone="mint" size="sm"
+                        v-if="canReviewId(line.id) && stateOfId(line.id) !== 'approved'"
+                        class="review__action"
+                        :disabled="isBusy"
+                        :data-testid="`page-approve-${line.id}`"
+                        @click="approveId(line.id)">
+                        <AppIcon name="check" :size="18" />{{ t('review.approve') }}
+                    </AppButton>
+                    <AppButton variant="destructive" size="sm" v-if="canReviewId(line.id)" class="review__action" :disabled="isBusy" :aria-expanded="openCommentId === line.id" @click="toggleCommentId(line.id)">
+                        <AppIcon name="redo" :size="18" />{{ t('review.filters.redo') }}
+                    </AppButton>
+                </div>
+                <form v-if="openCommentId === line.id" class="stack" @submit.prevent="requestChangesId(line.id)">
+                    <label class="label" :for="`page-comment-${line.id}`">{{ t('review.commentLabel') }}</label>
+                    <textarea :id="`page-comment-${line.id}`" v-model="draft" class="input" rows="3" maxlength="500" required />
+                    <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === ''">
+                        <AppIcon name="send" :size="18" />{{ t('review.sendRequest') }}
+                    </AppButton>
+                </form>
+            </template>
+        </BookPageView>
+        <ol v-else class="review__lines">
             <li v-for="line in shownLines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
                 <div class="row row--wrap">
                     <AppAvatar :member="memberOf(line)" :size="36" />
@@ -116,6 +160,8 @@ const draft = ref('')
 const isBusy = ref(false)
 const errorMessage = ref('')
 const playingLineId = ref<string | null>(null)
+const isPageMode = ref(false)
+const pageIndex = ref(0)
 
 const recordingOf = (line: ILine): ILineRecording | null => {
     return book.value?.recordings.find(item => item.lineId === line.id && item.language === book.value?.language) ?? null
@@ -127,6 +173,17 @@ const canReview = (line: ILine): boolean => ['to_review', 'changes', 'approved']
 const memberOf = (line: ILine): IMember | null => getById(line.memberId)
 const commentsOf = (line: ILine): IReviewComment[] => comments.value.filter(item => item.lineId === line.id)
 const authorName = (comment: IReviewComment): string => getById(comment.authorMemberId)?.name ?? t('review.parent')
+
+const lineOf = (id: string): ILine => book.value!.lines.find(line => line.id === id)!
+const stateOfId = (id: string): ReviewLineState => stateOf(lineOf(id))
+const hasTakeId = (id: string): boolean => hasTake(lineOf(id))
+const canReviewId = (id: string): boolean => canReview(lineOf(id))
+const pageView = computed(() => (book.value ? buildBookPageView(book.value, pageIndex.value, book.value.language) : null))
+
+const goPage = (step: number): void => {
+    const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
+    pageIndex.value = Math.min(last, Math.max(0, pageIndex.value + step))
+}
 
 const matches = (line: ILine, id: FilterId): boolean => {
     const state = stateOf(line)
@@ -204,6 +261,11 @@ const play = async (line: ILine): Promise<void> => {
 }
 
 const approve = (line: ILine): Promise<void> => run(async () => void (await reviewLine(bookId, line.id, { action: 'approve' })))
+
+const playId = (id: string): Promise<void> => play(lineOf(id))
+const approveId = (id: string): Promise<void> => approve(lineOf(id))
+const toggleCommentId = (id: string): void => toggleComment(lineOf(id))
+const requestChangesId = (id: string): Promise<void> => requestChanges(lineOf(id))
 
 const toggleComment = (line: ILine): void => {
     draft.value = ''

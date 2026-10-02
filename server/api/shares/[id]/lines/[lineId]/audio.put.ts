@@ -3,6 +3,7 @@ import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
 import { logEvent } from '../../../../../utils/log'
 import { requireActorMember, requirePermission } from '../../../../../utils/permissions'
+import { assertRecordingAcceptable } from '../../../../../utils/recordings'
 import { bookTitle, familyName, findOrCreateGuestVoice, memberName, notifyParents, requireRecordShare } from '../../../../../utils/shares'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '../../../../../utils/validate'
 
@@ -31,6 +32,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         return notFound('Line not found')
     }
     await assertFilesInFamily(db, actor.familyId, [body.fileId])
+    const [shared] = await db<{ mime: string }[]>`select mime from files where id = ${body.fileId} and family_id = ${actor.familyId}`
+    const sharedDurationMs = assertRecordingAcceptable(shared?.mime ?? '', body.ms)
     const guest = await findOrCreateGuestVoice(db, share.ownerFamilyId, actor.familyId, memberId)
     if (isVoiceBlocked(guest.status, guest.voicePolicy)) {
         throw createError({ statusCode: 403, statusMessage: 'This voice is blocked' })
@@ -49,7 +52,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         `
         await tx`
             insert into recordings (family_id, line_id, member_id, language, file_id, duration_ms, mime, status)
-            values (${share.ownerFamilyId}, ${lineId}, ${guest.id}, ${line.language}, ${copy!.id}, ${Math.max(0, Math.round(body.ms ?? 0))}, ${copy!.mime}, 'submitted')
+            values (${share.ownerFamilyId}, ${lineId}, ${guest.id}, ${line.language}, ${copy!.id}, ${sharedDurationMs}, ${copy!.mime}, 'submitted')
             on conflict (line_id, language) do update set
                 member_id = excluded.member_id, file_id = excluded.file_id, duration_ms = excluded.duration_ms,
                 mime = excluded.mime, status = 'submitted', created_at = now()

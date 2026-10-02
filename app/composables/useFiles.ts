@@ -18,25 +18,26 @@ export const useFiles = () => {
         return result.id
     }
 
-    const fetchUrl = async (fileId: string): Promise<string> => {
-        const cached = urlCache.get(fileId)
+    const fetchUrl = async (fileId: string, size?: 'full'): Promise<string> => {
+        const cacheKey = size ? `${fileId}:${size}` : fileId
+        const cached = urlCache.get(cacheKey)
         if (cached) {
             return cached
         }
         const saved = await readOfflineFile(fileId).catch(() => null)
         if (saved) {
             const savedUrl = URL.createObjectURL(saved)
-            urlCache.set(fileId, savedUrl)
+            urlCache.set(cacheKey, savedUrl)
             return savedUrl
         }
-        const response = await fetch(`${config.public.apiBase}/api/files/${fileId}`, {
+        const response = await fetch(`${config.public.apiBase}/api/files/${fileId}${size ? `?size=${size}` : ''}`, {
             credentials: 'include',
         })
         if (!response.ok) {
             throw new Error('File not found')
         }
         const url = URL.createObjectURL(await response.blob())
-        urlCache.set(fileId, url)
+        urlCache.set(cacheKey, url)
         return url
     }
 

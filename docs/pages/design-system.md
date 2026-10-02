@@ -17,7 +17,7 @@ One component, never a raw `.btn` class in a template.
 Props: `variant`, `size` (`md`, `sm`), `tone`, `icon`, `is-block`, `is-round`, `loading`, `disabled`, `disabled-reason`, `wiggle`, `to` (renders a router link), `as` (`a`, `label`), `type` (`submit`).
 
 States:
-- disabled: grey background, grey border, no shadow, `not-allowed` cursor. When `disabled-reason` is set the reason is shown under the button and linked with `aria-describedby`.
+- disabled: grey background, grey border, no shadow, `not-allowed` cursor. When `disabled-reason` is set the reason is shown inside the button under the label.
 - loading: spinner replaces the icon, the button is inert and `aria-busy`.
 - focus: global visible outline (3px ink + sky halo).
 - tap zone: `--tap` is 48px; kid screens use `--tap-kid` 66px; `btn--big` for the reader.

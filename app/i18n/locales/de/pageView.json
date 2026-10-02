@@ -1,0 +1,38 @@
+{
+    "title": "Seite {n}",
+    "previous": "Vorherige Seite",
+    "next": "Nächste Seite",
+    "noScan": "Kein Scan für diese Seite.",
+    "description": "Seitenbeschreibung",
+    "noDescription": "Keine Beschreibung.",
+    "characters": {
+        "one": "{count} Figur",
+        "other": "{count} Figuren"
+    },
+    "onlyMine": "Meine Zeilen",
+    "largeText": "Größerer Text",
+    "noLines": "Keine Zeilen auf dieser Seite.",
+    "narrator": "Erzähler",
+    "noReader": "Stimme auswählen",
+    "original": "Originaltext",
+    "tone": "Ton: {tone}",
+    "studioSection": "Buchseite",
+    "showPage": "Seite anzeigen",
+    "hidePage": "Seite ausblenden",
+    "recordLine": "Diese Zeile aufnehmen",
+    "viewMode": "Prüfmodus",
+    "byLine": "Zeile für Zeile",
+    "byPage": "Seite für Seite",
+    "scan": {
+        "label": "Gescannte Seite",
+        "alt": "Scan von Seite {n}",
+        "zoomIn": "Vergrößern",
+        "zoomOut": "Verkleinern",
+        "rotate": "Drehen",
+        "reset": "Zurücksetzen",
+        "full": "Vollbild",
+        "exitFull": "Vollbild beenden",
+        "failed": "Die Seite konnte nicht geladen werden.",
+        "panelHint": "Tippe auf ein Comicbild, um es zu vergrößern."
+    }
+}
