@@ -14,7 +14,7 @@
             </button>
         </div>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
-        <AiPrefillCard v-if="step === 'book' && isParent && !isAiPrefilled" />
+        <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
         <BookStepBook v-if="step === 'book'" @next="goNext" />
         <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
         <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+const isAiCreationEnabled = useAiCreationEnabled()
 const STEP_TITLE_KEYS: Record<DraftStep, string> = {
     book: 'bookDraft.wizard.stepBook',
     pages: 'bookDraft.wizard.stepPages',

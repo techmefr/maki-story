@@ -143,7 +143,7 @@ onMounted(async () => {
         const spoken = (current.value?.spokenLanguages ?? []).find(code => code !== book.value?.language)
         target.value = known ?? spoken ?? targets.value[0]?.code ?? ''
         loadDrafts()
-        isAiEnabled.value = (await status().catch(() => null))?.enabled === true
+        isAiEnabled.value = useAiCreationEnabled() && (await status().catch(() => null))?.enabled === true
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
         await navigateTo('/home')

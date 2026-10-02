@@ -107,7 +107,7 @@
                 </section>
                 <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-ai">
                     <h3 id="menu-ai" class="label">{{ t('profile.menu.ai') }}</h3>
-                    <AiQuota />
+                    <AiQuota v-if="isAiCreationEnabled" />
                 </section>
                 <section class="stack menu__section" aria-labelledby="menu-sounds">
                     <h3 id="menu-sounds" class="label">{{ t('profile.menu.sounds') }}</h3>
@@ -132,6 +132,7 @@
 </template>
 
 <script setup lang="ts">
+const isAiCreationEnabled = useAiCreationEnabled()
 const PASSWORD_MIN_LENGTH = 8
 
 const { t, isDraft } = useI18n()
