@@ -6,7 +6,8 @@ test.describe('feedback', () => {
         const comment = `Super écran ${info.project.name}`
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.getByRole('button', { name: 'Avis' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
+        await page.getByRole('button', { name: 'Donner mon avis' }).click()
         await expect(page.getByRole('button', { name: 'Envoyer' })).toBeDisabled()
         await page.getByRole('button', { name: 'J’adore' }).click()
         await page.getByPlaceholder(/Ce qui marche/).fill(comment)

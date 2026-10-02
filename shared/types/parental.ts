@@ -32,3 +32,13 @@ export interface IAccessBlockInput {
     mode: TAccessBlockMode
     until?: string
 }
+
+export interface IAccessSnapshot extends IAccessStatus {
+    schedule: IChildSchedule | null
+    overrideUntil: string | null
+}
+
+export interface IAccessOverrideInput {
+    parentId: string
+    code: string
+}

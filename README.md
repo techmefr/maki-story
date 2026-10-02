@@ -373,7 +373,7 @@ Progress is stored per profile and per book in `playback_progress` (family scope
 
 ## Deployment
 
-The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push.
+The project deploys on Vercel from the `main` branch. Connect a Postgres database (Neon integration), set the environment variables above, and push. `vercel.json` disables deployments of the `dev` branch, which is the integration branch; CI runs on pull requests and pushes to `main` only.
 
 ## Landing page
 

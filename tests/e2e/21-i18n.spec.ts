@@ -14,7 +14,7 @@ test.describe('interface language', () => {
         await expect(html).toHaveAttribute('lang', 'fr')
         await expect(html).toHaveAttribute('dir', 'ltr')
 
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await expect(page.getByRole('button', { name: 'Changer ma photo' })).toBeVisible()
 
         await chooseLanguage(page, 'en')

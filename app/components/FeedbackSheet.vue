@@ -1,6 +1,5 @@
 <template>
     <div>
-        <AppButton variant="secondary" size="sm" @click="open"><AppIcon name="smile" :size="18" />{{ t('feedback.button') }}</AppButton>
         <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
             <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
                 <h2 id="feedback-title" class="subtitle">{{ t('feedback.sheetTitle') }}</h2>
@@ -36,19 +35,20 @@ const route = useRoute()
 const { current } = useCurrentMember()
 const { send: sendFeedback } = useFeedback()
 
-const isOpen = ref(false)
+const isOpen = useState<boolean>('feedback-open', () => false)
 const isSent = ref(false)
 const mood = ref<FeedbackMood | null>(null)
 const text = ref('')
 
 const canSend = computed(() => mood.value !== null || text.value.trim() !== '')
 
-const open = (): void => {
-    mood.value = null
-    text.value = ''
-    isSent.value = false
-    isOpen.value = true
-}
+watch(isOpen, value => {
+    if (value) {
+        mood.value = null
+        text.value = ''
+        isSent.value = false
+    }
+})
 
 const close = (): void => {
     isOpen.value = false

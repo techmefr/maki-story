@@ -1,5 +1,5 @@
 <template>
-    <nav class="tabbar" :aria-label="t('shell.mainNav')">
+    <nav v-if="tabs.length > 1" class="tabbar" :aria-label="t('shell.mainNav')">
         <div class="tabbar__inner">
             <NuxtLink
                 v-for="tab in tabs"

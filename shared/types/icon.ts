@@ -45,5 +45,13 @@ export type IconName =
     | 'maximize'
     | 'rotate'
     | 'chevron-down'
+    | 'bell'
+    | 'settings'
+    | 'sun'
+    | 'auto'
+    | 'logout'
+    | 'search'
+    | 'chevron-right'
+    | 'chevron-left'
 
 export type IconMotion = 'none' | 'bounce' | 'wiggle' | 'pulse' | 'nudge' | 'spin' | 'float'

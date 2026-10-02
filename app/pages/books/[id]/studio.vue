@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ book.title }}</h1>
         <div class="row">
             <div class="progress grow" role="progressbar" :aria-label="t('studio.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
@@ -230,11 +230,11 @@ interface IPendingTake {
 const { t, formatDuration } = useI18n()
 const languageSelect = computed(() => languageSelectOptions(languageOptions.value, t('studio.chooseLanguage')))
 const route = useRoute()
-const { get, patch, remove, setLineAudio, clearLineAudio } = useBooks()
+const { get, patch, remove, clearLineAudio } = useBooks()
 const { submit, validateAll, loadComments } = useReview()
 const { getById } = useMembers()
 const { currentId, current } = useCurrentMember()
-const { upload } = useFiles()
+const { sendNow, cancel } = useOutbox()
 const recorder = useRecorder(recording => takeRecording(recording, true))
 const { isRecording, elapsedMs, remainingMs, errorMessage, start, stop } = recorder
 const player = useAudioPlayer()
@@ -493,8 +493,24 @@ const sendTake = async (): Promise<void> => {
     isBusy.value = true
     errorMessage.value = ''
     try {
-        const fileId = await upload(take.blob, take.mime)
-        await setLineAudio(bookId, take.lineId, fileId, take.ms, take.language)
+        const item = await sendNow({
+            kind: 'recording',
+            label: t('outbox.recordingLabel', { title: book.value?.title ?? '' }),
+            blob: take.blob,
+            mime: take.mime,
+            durationMs: take.ms,
+            payload: { bookId, lineId: take.lineId, language: take.language },
+        })
+        if (item.status === 'failed') {
+            await cancel(item.id)
+            throw new Error('The recording was refused by the server')
+        }
+        if (item.status !== 'sent') {
+            discardPending()
+            limitNotice.value = t('outbox.queuedNotice')
+            goToNextLine(take.lineId)
+            return
+        }
         book.value = await get(bookId)
         discardPending()
         limitNotice.value = ''
@@ -576,7 +592,7 @@ const askDelete = async (): Promise<void> => {
     }
     try {
         await remove(bookId)
-        await navigateTo('/home')
+        await navigateTo('/library')
     } catch (error) {
         console.error('Le livre n a pas pu être supprimé', error)
     }
@@ -630,7 +646,7 @@ onMounted(async () => {
         }
     } catch (error) {
         console.error('Le livre n a pas pu être chargé', error)
-        await navigateTo('/home')
+        await navigateTo('/library')
     }
 })
 </script>

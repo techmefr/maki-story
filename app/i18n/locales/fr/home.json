@@ -41,5 +41,16 @@
         "title": "Fais ta grimace !",
         "text": "Une photo rigolote pour que l’enfant te reconnaisse."
     },
-    "noMatchHint": "Essaie avec d’autres mots ou retire un filtre."
+    "noMatchHint": "Essaie avec d’autres mots ou retire un filtre.",
+    "relatives": {
+        "title": "Les proches",
+        "empty": "Personne n’est encore là",
+        "emptyHint": "Demande à un parent d’inviter la famille.",
+        "emptyHintParent": "Ajoute un proche pour qu’il enregistre sa voix.",
+        "sendMessage": "Envoyer un message à un enfant",
+        "hasMessage": "Un message à écouter",
+        "books": "Ses histoires",
+        "playLabel": "Écouter le message de {name}",
+        "booksLabel": "Histoires lues par {name}"
+    }
 }

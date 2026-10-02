@@ -1,4 +1,4 @@
-export const PROFILE_IDLE_LOCK_MS = 30_000
+export const PROFILE_IDLE_LOCK_MS = 10_000
 
 const UNLOCKED_KEY = 'tantara-profile-unlocked'
 const HIDDEN_AT_KEY = 'tantara-hidden-at'

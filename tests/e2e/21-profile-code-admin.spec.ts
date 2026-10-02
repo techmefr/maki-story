@@ -115,7 +115,7 @@ test.describe('cold start', () => {
         await useProfile(page.request, PARENT_NAME)
         await page.goto('/home')
         await expect(page).toHaveURL(/\/profiles/)
-        await expect(page.getByRole('heading', { name: 'Qui écoute ?' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
         const state = (await (await page.request.get('/api/auth/me')).json()) as { memberId: string | null }
         expect(state.memberId).toBeNull()
         await page.locator('button.card', { hasText: PARENT_NAME }).first().click()

@@ -11,8 +11,8 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     const scope = await requireSettingsScope(event, requireParam(event, 'id'))
     const body = await readBody<IMemberSettingsInput>(event)
     const isChildSelf = scope.isSelf && scope.actor.role === 'child'
-    if (isChildSelf && (body.spokenLanguages !== undefined || body.appLocale !== undefined)) {
-        throw createError({ statusCode: 403, statusMessage: 'A child can only change the photo' })
+    if (isChildSelf && body.spokenLanguages !== undefined) {
+        throw createError({ statusCode: 403, statusMessage: 'A child cannot change the spoken languages' })
     }
     if (body.spokenLanguages !== undefined) {
         const languages = body.spokenLanguages

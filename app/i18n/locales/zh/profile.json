@@ -1,5 +1,5 @@
 {
-    "who": "谁在听？",
+    "who": "是谁？",
     "logout": "退出登录",
     "switchProfile": "切换档案",
     "manageFamily": "管理家庭",
@@ -38,7 +38,17 @@
         "sounds": "按钮音效",
         "soundsOn": "开启音效",
         "soundsVolume": "音效音量",
-        "learningFont": "易读字体"
+        "learningFont": "易读字体",
+        "theme": "主题",
+        "themes": {
+            "light": "浅色",
+            "dark": "深色",
+            "auto": "自动"
+        },
+        "parentTitle": "家长区",
+        "notifications": "通知",
+        "schedule": "每个孩子的收听时间",
+        "feedback": "提供反馈"
     },
     "unlock": {
         "offerTitle": "启用指纹或面容解锁？",

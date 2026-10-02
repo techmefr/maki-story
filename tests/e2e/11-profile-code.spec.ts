@@ -172,7 +172,7 @@ test.describe('profile codes', () => {
             document.dispatchEvent(new Event('visibilitychange'))
         })
         await expect(page).toHaveURL(/\/profiles/)
-        await expect(page.getByRole('heading', { name: 'Qui écoute ?' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
         const state = (await (await page.request.get('/api/auth/me')).json()) as IAuthStateBody
         expect(state.memberId).toBeNull()
     })

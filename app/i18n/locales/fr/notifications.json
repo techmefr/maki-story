@@ -25,5 +25,6 @@
             "one": "{name} a fini d’enregistrer {count} réplique de « {title} »",
             "other": "{name} a fini d’enregistrer {count} répliques de « {title} »"
         }
-    }
+    },
+    "bellNone": "Notifications, aucune nouvelle"
 }

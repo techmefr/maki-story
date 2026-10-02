@@ -1,5 +1,5 @@
 {
-    "who": "من يستمع؟",
+    "who": "من هذا؟",
     "logout": "تسجيل الخروج",
     "switchProfile": "تغيير الملف الشخصي",
     "manageFamily": "إدارة العائلة",
@@ -38,7 +38,17 @@
         "sounds": "أصوات الأزرار",
         "soundsOn": "تفعيل الأصوات",
         "soundsVolume": "مستوى صوت الأصوات",
-        "learningFont": "خط سهل القراءة"
+        "learningFont": "خط سهل القراءة",
+        "theme": "المظهر",
+        "themes": {
+            "light": "فاتح",
+            "dark": "داكن",
+            "auto": "تلقائي"
+        },
+        "parentTitle": "مساحة الوالدين",
+        "notifications": "الإشعارات",
+        "schedule": "أوقات الاستماع لكل طفل",
+        "feedback": "أعطِ رأيك"
     },
     "unlock": {
         "offerTitle": "تفعيل البصمة أو الوجه؟",

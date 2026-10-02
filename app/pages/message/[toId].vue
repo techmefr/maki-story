@@ -3,7 +3,12 @@
         <template v-if="target">
             <AppAvatar :member="target" :size="120" />
             <h1 class="title">{{ heading }}</h1>
-            <template v-if="phase === 'sent'">
+            <template v-if="phase === 'queued'">
+                <AppMaki :size="100" />
+                <div class="subtitle row" role="status"><AppIcon name="cloud-off" :size="28" />{{ t('outbox.status.pending') }}</div>
+                <p class="muted">{{ t('outbox.queuedNotice') }}</p>
+            </template>
+            <template v-else-if="phase === 'sent'">
                 <AppMaki :size="100" />
                 <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />{{ t('messages.compose.sent') }}</div>
             </template>
@@ -41,11 +46,10 @@ const { t, formatDuration } = useI18n()
 const route = useRoute()
 const { getById } = useMembers()
 const { currentId, isChild } = useCurrentMember()
-const { send: sendMessage } = useMessages()
-const { upload } = useFiles()
+const { sendNow, cancel } = useOutbox()
 const { isRecording, elapsedMs, errorMessage, start, stop } = useRecorder()
 
-const phase = ref<'idle' | 'done' | 'sent'>('idle')
+const phase = ref<'idle' | 'done' | 'sent' | 'queued'>('idle')
 const isBusy = ref(false)
 const recording = ref<IRecording | null>(null)
 
@@ -85,15 +89,20 @@ const send = async (): Promise<void> => {
     }
     isBusy.value = true
     try {
-        const fileId = await upload(recording.value.blob, recording.value.mime)
-        await sendMessage({
-            fromMemberId: currentId.value,
-            toMemberId: target.value.id,
-            fileId,
+        const item = await sendNow({
+            kind: 'message',
+            label: t('outbox.messageLabel', { name: target.value.name }),
+            blob: recording.value.blob,
             mime: recording.value.mime,
             durationMs: recording.value.ms,
+            payload: { fromMemberId: currentId.value, toMemberId: target.value.id },
         })
-        phase.value = 'sent'
+        if (item.status === 'failed') {
+            await cancel(item.id)
+            errorMessage.value = errorTextFromMessage(item.errorMessage, 'messages.compose.sendFailed')
+            return
+        }
+        phase.value = item.status === 'sent' ? 'sent' : 'queued'
         setTimeout(() => navigateTo(isChild.value ? '/kid' : '/messages'), BACK_DELAY_MS)
     } catch (error) {
         console.error('Le message n a pas pu être envoyé', error)

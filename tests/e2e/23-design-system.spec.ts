@@ -68,7 +68,7 @@ test.describe('design system', () => {
     test('every touch target is at least 48px on the parent library', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByRole('heading', { name: 'Bibliothèque' })).toBeVisible()
         const heights = await page.evaluate(() =>
             Array.from(document.querySelectorAll<HTMLElement>('.btn:not(.btn--tertiary), .chip, .picker'))

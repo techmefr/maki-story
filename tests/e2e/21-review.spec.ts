@@ -275,7 +275,7 @@ test.describe('book review through the API', () => {
 })
 
 const openReview = async (page: Page, title: string): Promise<void> => {
-    await page.goto('/home')
+    await page.goto('/library')
     await page.locator('a.book', { hasText: title }).first().click()
     await expect(page).toHaveURL(/\/review$/)
 }
@@ -299,7 +299,7 @@ test.describe('book review in the interface', () => {
 
         await signIn(page.request, account)
         await chooseProfile(page, 'Parent')
-        await page.goto('/home')
+        await page.goto('/library')
         const card = page.locator('a.book', { hasText: 'Histoire du matin' }).first()
         await expect(card.getByTestId('review-dot')).toBeVisible()
         await page.goto('/notifications')
@@ -326,7 +326,7 @@ test.describe('book review in the interface', () => {
         await expect(page.getByTestId('voice-progress').first()).toContainText('1/2 validées')
         await expect(page.getByRole('button', { name: 'Valider tout le livre' })).toBeDisabled()
 
-        await page.goto('/home')
+        await page.goto('/library')
         await switchProfile(page, 'Mamie')
         await page.goto('/notifications')
         await expect(page.getByText('« Histoire du matin » : 1 validée, 1 à refaire')).toBeVisible()
@@ -337,7 +337,7 @@ test.describe('book review in the interface', () => {
         await recordAndSend(page)
         await expect(page.getByRole('button', { name: 'À refaire (0)' })).toBeVisible()
 
-        await page.goto('/home')
+        await page.goto('/library')
         await switchProfile(page, 'Parent')
         await openReview(page, 'Histoire du matin')
         await expect(page.getByRole('button', { name: 'À relire (1)' })).toBeVisible()
@@ -351,7 +351,7 @@ test.describe('book review in the interface', () => {
         await page.reload()
         await expect(page.getByTestId('activity-summary')).toHaveText('Rien de nouveau depuis ta dernière visite')
 
-        await page.goto('/home')
+        await page.goto('/library')
         await switchProfile(page, 'Lova')
         await page.goto('/kid/library')
         await expect(page.getByText('Histoire du matin')).toBeVisible()
@@ -376,7 +376,7 @@ test.describe('book review in the interface', () => {
         await page.goto(`/books/${created.id}/review`)
         await expect(page.getByText('Texte modifié, à refaire')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Valider tout le livre' })).toBeDisabled()
-        await page.goto('/home')
+        await page.goto('/library')
         await switchProfile(page, 'Mamie')
         await page.goto(`/books/${created.id}/studio`)
         await expect(page.getByTestId('stale-notice')).toBeVisible()

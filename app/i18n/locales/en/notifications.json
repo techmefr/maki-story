@@ -25,5 +25,6 @@
             "one": "{name} finished recording {count} line of “{title}”",
             "other": "{name} finished recording {count} lines of “{title}”"
         }
-    }
+    },
+    "bellNone": "Notifications, none new"
 }

@@ -1,10 +1,8 @@
 <template>
     <div class="stack">
-        <div class="row hello">
-            <AppMaki :size="64" class="anim-float" />
-            <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
-        </div>
+        <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
         <GrimaceNudge />
+        <BookSearchEntry />
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="`/kid/${face.member.id}`" class="face__link">

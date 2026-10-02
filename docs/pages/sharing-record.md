@@ -1,5 +1,7 @@
 # Share recording (/sharing/[id])
 
+Routes: /sharing/[id]
+
 ## Behaviour
 A guest family member must choose the recording language before recording (mandatory, one of the book voice languages or their spoken languages); the language is stored with the recording and added to the book voice languages. Copying a shared book keeps the illustrator, the cover page kind and the panels (other page kinds become empty pages without file).
 

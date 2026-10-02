@@ -19,7 +19,6 @@
                     </div>
                 </button>
                 <AppButton variant="secondary" is-block to="/family" @click="close">{{ t('profile.manageFamily') }}</AppButton>
-                <AppButton variant="secondary" is-block @click="leave">{{ t('profile.logout') }}</AppButton>
             </template>
         </div>
     </div>
@@ -30,7 +29,6 @@ const { t } = useI18n()
 const isOpen = useState<boolean>('switcher-open', () => false)
 const { people: members, load } = useMembers()
 const { currentId, current, select } = useCurrentMember()
-const { logout } = useSession()
 
 const target = ref<IMember | null>(null)
 
@@ -51,9 +49,4 @@ const enter = async (member: IMember): Promise<void> => {
     await navigateTo(member.role === 'child' ? '/kid' : '/home')
 }
 
-const leave = async (): Promise<void> => {
-    close()
-    await select(null)
-    await logout()
-}
 </script>

@@ -8,7 +8,10 @@
             </main>
         </div>
         <TabBar v-if="!isChild" />
+        <OutboxStatus />
         <ProfileMenu />
+        <ProfileCard />
+        <FeedbackSheet />
         <ProfileSwitcher />
     </div>
 </template>

@@ -94,7 +94,7 @@ export const chooseProfile = async (page: Page, name: string, pin = PROFILE_PIN)
 }
 
 export const openSwitcher = async (page: Page): Promise<void> => {
-    await page.getByRole('button', { name: 'Mon profil' }).click()
+    await page.getByRole('button', { name: 'Réglages' }).click()
     await page.getByRole('button', { name: 'Changer de profil' }).click()
 }
 

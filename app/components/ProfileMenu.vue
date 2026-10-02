@@ -14,7 +14,9 @@
                         <h2 id="profile-menu-title" class="subtitle">{{ current.name }}</h2>
                         <div class="muted">{{ roleLabel(current.role) }}</div>
                     </div>
-                    <AppButton variant="secondary" size="sm" @click="close">{{ t('common.close') }}</AppButton>
+                    <AppButton variant="secondary" size="sm" is-round :aria-label="t('common.close')" data-testid="settings-close" @click="close">
+                        <AppIcon name="close" :size="22" />
+                    </AppButton>
                 </div>
                 <AppButton is-block @click="view = 'photo'">
                     <AppIcon name="camera" :size="22" motion="wiggle" />
@@ -55,7 +57,25 @@
                         </button>
                     </div>
                 </section>
-                <section v-if="!isChild" class="stack menu__section" aria-labelledby="menu-locale">
+                <section class="stack menu__section" aria-labelledby="menu-theme" data-testid="settings-theme">
+                    <h3 id="menu-theme" class="label">{{ t('profile.menu.theme') }}</h3>
+                    <div class="theme-picker" role="group" :aria-label="t('profile.menu.theme')">
+                        <button
+                            v-for="option in themeOptions"
+                            :key="option.id"
+                            type="button"
+                            class="chip"
+                            :class="{ 'chip--on': themeChoice === option.id }"
+                            :aria-pressed="themeChoice === option.id"
+                            :data-theme-choice="option.id"
+                            @click="chooseTheme(option.id)"
+                        >
+                            <AppIcon :name="option.icon" :size="24" :is-active="themeChoice === option.id" />
+                            {{ t(`profile.menu.themes.${option.id}`) }}
+                        </button>
+                    </div>
+                </section>
+                <section class="stack menu__section" aria-labelledby="menu-locale">
                     <h3 id="menu-locale" class="label">{{ t('profile.menu.appLanguage') }}</h3>
                     <div class="row row--wrap" role="group" :aria-label="t('profile.menu.appLanguage')">
                         <button
@@ -84,6 +104,15 @@
                         </button>
                     </div>
                     <p v-if="isDraft" class="muted menu__draft" role="status">{{ t('profile.menu.draftNotice') }}</p>
+                </section>
+                <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-parent">
+                    <h3 id="menu-parent" class="label">{{ t('profile.menu.parentTitle') }}</h3>
+                    <AppButton variant="secondary" is-block to="/notifications" @click="close">
+                        <AppIcon name="bell" :size="22" />{{ t('profile.menu.notifications') }}
+                    </AppButton>
+                    <AppButton variant="secondary" is-block to="/family" @click="close">
+                        <AppIcon name="moon" :size="22" />{{ t('profile.menu.schedule') }}
+                    </AppButton>
                 </section>
                 <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-password">
                     <h3 id="menu-password" class="label">{{ t('profile.menu.passwordTitle') }}</h3>
@@ -125,7 +154,10 @@
                     </div>
                     <AppToggle :model-value="isLearningFont" data-testid="learning-font" @update:model-value="setLearningFont">{{ t('profile.menu.learningFont') }}</AppToggle>
                 </section>
-                <AppButton variant="secondary" is-block @click="openSwitcher">{{ t('profile.switchProfile') }}</AppButton>
+                <AppButton variant="secondary" is-block @click="openSwitcher"><AppIcon name="users" :size="22" />{{ t('profile.switchProfile') }}</AppButton>
+                <AppButton v-if="!isChild" variant="secondary" tone="mint" is-block data-testid="feedback-open" @click="openFeedback">
+                    <AppIcon name="smile" :size="22" />{{ t('profile.menu.feedback') }}
+                </AppButton>
             </template>
         </div>
     </div>
@@ -145,7 +177,29 @@ const { languages, preference, setLocale, syncLocale } = useLocale()
 const { isLearningFont, setLearningFont } = useLearningFont()
 const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
 
+const THEME_OPTIONS: { id: TThemeChoice; icon: IconName }[] = [
+    { id: 'light', icon: 'sun' },
+    { id: 'dark', icon: 'moon' },
+    { id: 'auto', icon: 'auto' },
+]
+
+const { choice: themeChoice, choose: chooseTheme } = useTheme()
+const themeOptions = THEME_OPTIONS
+const isFeedbackOpen = useState<boolean>('feedback-open', () => false)
+const requestedView = useState<'menu' | 'photo'>('profile-menu-view', () => 'menu')
 const view = ref<'menu' | 'photo'>('menu')
+
+watch(isOpen, value => {
+    if (value) {
+        view.value = requestedView.value
+        requestedView.value = 'menu'
+    }
+})
+
+const openFeedback = (): void => {
+    close()
+    isFeedbackOpen.value = true
+}
 const isBusy = ref(false)
 const statusMessage = ref('')
 const errorMessage = ref('')

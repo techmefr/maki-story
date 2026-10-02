@@ -1,5 +1,5 @@
 {
-    "who": "Qui écoute ?",
+    "who": "Qui est-ce ?",
     "logout": "Se déconnecter",
     "switchProfile": "Changer de profil",
     "manageFamily": "Gérer la famille",
@@ -38,7 +38,17 @@
         "sounds": "Sons des boutons",
         "soundsOn": "Activer les sons",
         "soundsVolume": "Volume des sons",
-        "learningFont": "Police de lecture facile"
+        "learningFont": "Police de lecture facile",
+        "theme": "Thème",
+        "themes": {
+            "light": "Clair",
+            "dark": "Sombre",
+            "auto": "Auto"
+        },
+        "parentTitle": "Espace parent",
+        "notifications": "Notifications",
+        "schedule": "Horaires d’écoute par enfant",
+        "feedback": "Donner mon avis"
     },
     "unlock": {
         "offerTitle": "Activer l’empreinte ou le visage ?",

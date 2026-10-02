@@ -1,5 +1,7 @@
 # Child listening
 
+Routes: /kid/listen/[id]
+
 ## Behavior
 - The child only hears approved takes: the playback plan, the book payload and the files endpoint expose approved audio only.
 - When a relative records again, the previously approved take stays playable until the parent approves the new one (table approved_takes, view child_recordings).

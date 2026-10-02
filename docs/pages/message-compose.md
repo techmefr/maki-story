@@ -1,5 +1,7 @@
 # Message compose and listen
 
+Routes: /message/[toId], /message/listen/[id]
+
 ## Behavior
 - Only parents and relatives can send a voice message; the recipient must be a child of the family (server enforced: child sender 403, non child recipient 400).
 - A child can listen but has no reply button (no child to relative reply yet).

@@ -269,6 +269,7 @@ test.describe('recording studio', () => {
             return btoa(binary)
         })
         const jpeg = Buffer.from(original, 'base64')
+        await page.goto('/library')
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await page.getByLabel('Titre du livre').fill('Scan lourd')
         await nextStep(page)

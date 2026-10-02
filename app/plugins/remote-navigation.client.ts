@@ -1,7 +1,8 @@
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 const TEXT_FIELDS = ['INPUT', 'TEXTAREA', 'SELECT']
-const REMOTE_AREAS = [/^\/kid(\/|$)/, /^\/message\/listen\//]
-const BACK_KEYS = ['Escape', 'GoBack', 'BrowserBack', 'XF86Back']
+const KID_AREAS = [/^\/kid(\/|$)/, /^\/message\/listen\//]
+const BACK_KEYS = ['GoBack', 'BrowserBack', 'XF86Back']
+const OWN_ARROW_ROLES = ['slider', 'radio', 'tab', 'menuitem', 'option', 'combobox', 'listbox']
 const ARROWS: Record<string, SpatialDirection> = {
     ArrowLeft: 'left',
     ArrowRight: 'right',
@@ -29,7 +30,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const router = useRouter()
     let isRemote = false
 
-    const isActive = (): boolean => REMOTE_AREAS.some(pattern => pattern.test(router.currentRoute.value.path))
+    const isKidArea = (): boolean => KID_AREAS.some(pattern => pattern.test(router.currentRoute.value.path))
 
     const goBack = (): void => {
         if (document.querySelector('.sheet-backdrop, [role="dialog"]')) {
@@ -39,15 +40,15 @@ export default defineNuxtPlugin(nuxtApp => {
             router.back()
             return
         }
-        void navigateTo('/kid')
+        void navigateTo(isKidArea() ? '/kid' : '/home')
     }
 
     window.addEventListener('keydown', event => {
-        if (!isActive() || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) {
+        if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) {
             return
         }
-        const target = event.target as HTMLElement | null
-        if (target && TEXT_FIELDS.includes(target.tagName)) {
+        const target = event.target instanceof HTMLElement ? event.target : null
+        if (target && (TEXT_FIELDS.includes(target.tagName) || OWN_ARROW_ROLES.includes(target.getAttribute('role') ?? '') || target.isContentEditable)) {
             return
         }
         const direction = ARROWS[event.key]
@@ -74,7 +75,7 @@ export default defineNuxtPlugin(nuxtApp => {
             }
             return
         }
-        if (BACK_KEYS.includes(event.key) || event.keyCode === 4) {
+        if (BACK_KEYS.includes(event.key) || event.keyCode === 4 || (event.key === 'Escape' && (isRemote || isKidArea()))) {
             event.preventDefault()
             goBack()
             return
@@ -91,7 +92,7 @@ export default defineNuxtPlugin(nuxtApp => {
     })
 
     nuxtApp.hook('page:finish', () => {
-        if (isRemote && isActive()) {
+        if (isRemote) {
             requestAnimationFrame(focusFirst)
         }
     })

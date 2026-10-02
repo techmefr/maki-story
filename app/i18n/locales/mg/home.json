@@ -41,5 +41,16 @@
         "title": "Manaova ny endrikao mampihomehy!",
         "text": "Sary mampihomehy mba ho fantatry ny ankizy ianao."
     },
-    "noMatchHint": "Andramo teny hafa na esory ny sivana."
+    "noMatchHint": "Andramo teny hafa na esory ny sivana.",
+    "relatives": {
+        "title": "Ny havana",
+        "empty": "Mbola tsy misy olona",
+        "emptyHint": "Angatahy ny ray aman-dreny hanasa ny fianakaviana.",
+        "emptyHintParent": "Ampio havana hamandrika ny feony.",
+        "sendMessage": "Alefaso hafatra ny zaza",
+        "hasMessage": "Hafatra hhenoina",
+        "books": "Ny tantarany",
+        "playLabel": "Henoy ny hafatr’i {name}",
+        "booksLabel": "Tantara novakin’i {name}"
+    }
 }

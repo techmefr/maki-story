@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/home" class="muted">{{ t('common.cancel') }}</NuxtLink>
+        <NuxtLink to="/library" class="muted">{{ t('common.cancel') }}</NuxtLink>
         <h1 class="title">{{ t('ai.page.title') }}</h1>
         <p v-if="!isParent" class="card" role="alert">{{ t('ai.page.parentsOnly') }}</p>
         <template v-else>
@@ -17,7 +17,7 @@
                 <p v-if="result.imagesBlocked > 0" class="error" data-testid="ai-images-blocked">
                     {{ t('aiSafety.blocked.images', { count: result.imagesBlocked }) }}
                 </p>
-                <AppButton is-block to="/home">{{ t('ai.page.seeLibrary') }}</AppButton>
+                <AppButton is-block to="/library">{{ t('ai.page.seeLibrary') }}</AppButton>
                 <AppButton variant="secondary" is-block @click="restart">{{ t('ai.page.another') }}</AppButton>
             </div>
             <form v-else-if="step === 'idea'" class="stack" @submit.prevent="toSheet">

@@ -1,0 +1,16 @@
+{
+    "title": "Envíos",
+    "pending": "esperando para enviar: {value}",
+    "status": {
+        "pending": "Esperando para enviar",
+        "sending": "Enviando…",
+        "sent": "Enviado",
+        "failed": "Error al enviar"
+    },
+    "failedHint": "Este envío fue rechazado. Inténtalo de nuevo o cancélalo.",
+    "cancel": "Cancelar el envío",
+    "clearSent": "Borrar los envíos terminados",
+    "queuedNotice": "Guardado en este dispositivo: se enviará en cuanto vuelva la conexión.",
+    "messageLabel": "Mensaje para {name}",
+    "recordingLabel": "Grabación: {title}"
+}

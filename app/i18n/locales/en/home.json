@@ -41,5 +41,16 @@
         "title": "Make your funny face!",
         "text": "A funny photo so the child recognises you."
     },
-    "noMatchHint": "Try other words or remove a filter."
+    "noMatchHint": "Try other words or remove a filter.",
+    "relatives": {
+        "title": "Family and friends",
+        "empty": "Nobody is here yet",
+        "emptyHint": "Ask a parent to invite the family.",
+        "emptyHintParent": "Add a relative so they can record their voice.",
+        "sendMessage": "Send a message to a child",
+        "hasMessage": "A message to hear",
+        "books": "Their stories",
+        "playLabel": "Play {name}’s message",
+        "booksLabel": "Stories read by {name}"
+    }
 }

@@ -29,7 +29,7 @@ const publishAsParent = async (api: APIRequestContext, bookId: string): Promise<
 }
 
 const generateFromIdea = async (page: Page, idea: string): Promise<void> => {
-    await page.goto('/home')
+    await page.goto('/library')
     await page.getByTestId('ai-create').click()
     await expect(page.getByRole('heading', { name: 'Créer une histoire avec l’IA' })).toBeVisible()
     await page.getByLabel('Ton idée d’histoire').fill(idea)
@@ -125,15 +125,15 @@ test.describe('ai interface', () => {
         await exhaustBudget(page.request)
         await page.getByRole('button', { name: 'Générer l’histoire' }).click()
         await expect(page.getByRole('alert').filter({ hasText: 'budget IA de ce mois est épuisé' })).toBeVisible()
-        await page.goto('/home')
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.goto('/library')
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await expect(page.getByTestId('ai-quota')).toContainText('budget IA de ce mois est épuisé')
     })
 
     test('the remaining budget is shown in the profile menu and an unconfigured AI is unavailable', async ({ page }) => {
         await openAsParent(page)
-        await page.goto('/home')
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.goto('/library')
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await expect(page.getByTestId('ai-quota')).toContainText('Budget IA du mois : il reste')
         await page.getByRole('button', { name: 'Fermer' }).click()
 
@@ -188,12 +188,12 @@ test.describe('ai interface', () => {
 
     test('children see no AI entry', async ({ page }) => {
         await openAsParent(page)
-        await page.goto('/home')
+        await page.goto('/library')
         await expect(page.getByTestId('ai-create')).toBeVisible()
         await page.request.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: '1234' } } })
         await chooseProfile(page, 'Lova')
         await expect(page).toHaveURL(/\/kid/)
-        await page.getByRole('button', { name: 'Mon profil' }).click()
+        await page.getByRole('button', { name: 'Réglages' }).click()
         await expect(page.getByRole('heading', { name: 'Lova', exact: true })).toBeVisible()
         await expect(page.getByTestId('ai-quota')).toHaveCount(0)
         await page.getByRole('button', { name: 'Fermer' }).click()

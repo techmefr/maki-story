@@ -14,12 +14,10 @@ test.describe('responsive layout', () => {
         await expect(page.locator('.tabbar')).toBeVisible({ visible: !isDesktop })
         await expect(page.locator('.nav')).toBeVisible({ visible: isDesktop })
         const links = isDesktop ? page.locator('.nav .nav__item') : page.locator('.tabbar__item')
-        await links.filter({ hasText: 'Messages' }).click()
-        await expect(page).toHaveURL(/\/messages/)
         await links.filter({ hasText: 'Famille' }).click()
         await expect(page).toHaveURL(/\/family/)
         await links.filter({ hasText: 'Bibliothèque' }).click()
-        await expect(page).toHaveURL(/\/home/)
+        await expect(page).toHaveURL(/\/library/)
     })
 
     test('never scrolls horizontally on any screen', async ({ page }, info) => {

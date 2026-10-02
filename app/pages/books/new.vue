@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/home" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
+        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
         <div class="row" style="justify-content: space-between">
             <h1 class="title">{{ stepTitle }}</h1>
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>

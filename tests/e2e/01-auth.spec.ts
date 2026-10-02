@@ -43,7 +43,7 @@ test.describe('authentication', () => {
         await page.getByLabel('Votre prénom').fill(PARENT_NAME)
         await page.getByRole('button', { name: 'Créer mon compte' }).click()
         await expect(page).toHaveURL(/\/profiles/)
-        await expect(page.getByRole('heading', { name: 'Qui écoute ?' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
         await expect(page.locator('button.card', { hasText: PARENT_NAME })).toHaveCount(1)
         await page.reload()
         await expect(page).toHaveURL(/\/profiles/)

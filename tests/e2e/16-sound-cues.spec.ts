@@ -5,7 +5,7 @@ import { addMember, chooseProfile, PARENT_NAME, signIn, uniqueAccount } from './
 const requestedCues = (page: Page): Promise<string[]> => page.evaluate(() => (window as unknown as { __soundCues?: string[] }).__soundCues ?? [])
 
 const openMenu = async (page: Page): Promise<void> => {
-    await page.getByRole('button', { name: 'Mon profil' }).click()
+    await page.getByRole('button', { name: 'Réglages' }).click()
     await expect(page.getByRole('dialog')).toBeVisible()
 }
 

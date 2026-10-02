@@ -1,5 +1,5 @@
 {
-    "who": "Who’s listening?",
+    "who": "Who is it?",
     "logout": "Log out",
     "switchProfile": "Switch profile",
     "manageFamily": "Manage family",
@@ -38,7 +38,17 @@
         "sounds": "Button sounds",
         "soundsOn": "Turn sounds on",
         "soundsVolume": "Sound volume",
-        "learningFont": "Easy-reading font"
+        "learningFont": "Easy-reading font",
+        "theme": "Theme",
+        "themes": {
+            "light": "Light",
+            "dark": "Dark",
+            "auto": "Auto"
+        },
+        "parentTitle": "Parent area",
+        "notifications": "Notifications",
+        "schedule": "Listening hours per child",
+        "feedback": "Give feedback"
     },
     "unlock": {
         "offerTitle": "Turn on fingerprint or face unlock?",
