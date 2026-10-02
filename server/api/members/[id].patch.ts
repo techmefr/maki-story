@@ -2,6 +2,7 @@ import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily } from '../../utils/family'
 import { actorEntry, record } from '../../utils/journal'
 import { memberExtras, readBirthDate } from '../../utils/members'
+import { syncMembershipStatus } from '../../utils/memberships'
 import { requirePermission } from '../../utils/permissions'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
@@ -93,6 +94,9 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         where id = ${id} and family_id = ${familyId}
         returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)}
     `)
+    if (updated.status !== current.status) {
+        await syncMembershipStatus(db, id, updated.status)
+    }
     await record(event, {
         ...actorEntry(actor),
         action: 'member.updated',

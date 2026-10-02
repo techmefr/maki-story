@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "Hai una nuova notifica.",
+        "share_received": "{fromName} ti ha inviato «{bookTitle}».",
+        "share_accepted": "{familyName} ha accettato «{bookTitle}».",
+        "share_declined": "{familyName} ha rifiutato «{bookTitle}».",
+        "share_to_approve": "{fromName} propone «{bookTitle}»: da approvare.",
+        "share_approved": "La tua proposta «{bookTitle}» è stata approvata.",
+        "voice_batch": "{fromName} ha inviato la sua voce per «{bookTitle}».",
+        "recording_batch": "{memberName} ha registrato battute di «{bookTitle}».",
+        "review_result": "Revisione di «{bookTitle}»: {approved} approvate, {returned} da rifare.",
+        "message_received": "{fromName} ha lasciato un messaggio vocale per {childName}.",
+        "birthday_reminder": "Il compleanno di {childName} si avvicina: tra {days} giorni.",
+        "stale_takes": "Il testo di «{bookTitle}» è cambiato: riprese da rifare ({count})."
+    },
+    "invite": {
+        "subject": "Invito a unirti alla famiglia {family}",
+        "shareText": "{inviter} ti invita a unirti alla famiglia {family} su {app}: {link}"
+    }
+}

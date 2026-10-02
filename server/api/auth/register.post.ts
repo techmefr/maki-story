@@ -61,6 +61,10 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
             `
         }
         await tx`insert into account_families (account_id, family_id) values (${account.id}, ${familyId})`
+        await tx`
+            insert into memberships (account_id, family_id, role) values (${account.id}, ${familyId}, 'parent')
+            on conflict (account_id, family_id) do nothing
+        `
         return { accountId: account.id, familyId, memberId: null }
     })
     startSession(event, session)

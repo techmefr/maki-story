@@ -1,0 +1,20 @@
+{
+    "title": "Einer Familie beitreten",
+    "codeHint": "Gib den Code ein, den du von einem Elternteil erhalten hast.",
+    "codeLabel": "Einladungscode",
+    "check": "Prüfen",
+    "invalidTitle": "Ungültige Einladung",
+    "invalidHint": "Dieser Code ist verwendet, abgelaufen oder unbekannt. Frage nach einem neuen.",
+    "tryAgain": "Anderen Code versuchen",
+    "welcome": "Der Familie {family} beitreten",
+    "invitedBy": "{name} lädt dich ein.",
+    "oneTap": "Der Familie {family} beitreten",
+    "accountHint": "Erstelle dein Konto oder melde dich an, falls du schon eins hast.",
+    "nameLabel": "Dein Vorname",
+    "emailLabel": "E-Mail-Adresse",
+    "passwordLabel": "Passwort",
+    "submit": "Beitreten",
+    "failed": "Beitritt gerade nicht möglich.",
+    "invalidCredentials": "Prüfe E-Mail, Passwort oder Einladung.",
+    "tooMany": "Zu viele Versuche, versuche es später erneut."
+}

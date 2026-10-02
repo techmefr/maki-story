@@ -1,0 +1,31 @@
+{
+    "progress": "Dingana {current} amin’ny {total}",
+    "loadingTitle": "Andraso kely…",
+    "next": "Tohizo",
+    "skip": "Avelao",
+    "code": {
+        "title": "Arovy ny fomba ray aman-dreny",
+        "hint": "Misafidiha kaody isa, na biometrika raha mahazaka izany ny fitaovanao."
+    },
+    "children": {
+        "title": "Iza no mihaino ny tantara?",
+        "hint": "Ampio ankizy: anarana, daty nahaterahana, sary ary kaody."
+    },
+    "child": {
+        "name": "Anaran’ny ankizy",
+        "birthDate": "Daty nahaterahana",
+        "code": "Kaodin’ny ankizy",
+        "add": "Ampio ny ankizy",
+        "failed": "Tsy afaka nampiditra ilay ankizy."
+    },
+    "invite": {
+        "title": "Manasà havana voalohany",
+        "hint": "Dadabe, zoky, namana: hamoaka ny feony izy.",
+        "later": "Any aoriana"
+    },
+    "done": {
+        "title": "Vita daholo!",
+        "hint": "Vita ny fianakaviana. Andeha hihaino tantara.",
+        "cta": "Mankanesa any am-pandraisana"
+    }
+}

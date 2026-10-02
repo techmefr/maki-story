@@ -1,6 +1,6 @@
 <template>
     <div class="stack unlock">
-        <AppButton variant="secondary" size="sm" class="unlock__back" @click="emit('cancel')">
+        <AppButton v-if="hasBack" variant="secondary" size="sm" class="unlock__back" @click="emit('cancel')">
             <AppIcon name="back" :size="18" />
             {{ t('profile.switchProfile') }}
         </AppButton>
@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-const { member } = defineProps<{ member: IMember }>()
+const { member, hasBack = true } = defineProps<{ member: IMember; hasBack?: boolean }>()
 const emit = defineEmits<{ unlocked: []; cancel: [] }>()
 
 const { t } = useI18n()

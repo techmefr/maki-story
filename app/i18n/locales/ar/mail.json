@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "لديك إشعار جديد.",
+        "share_received": "أرسل لك {fromName} «{bookTitle}».",
+        "share_accepted": "قبلت {familyName} «{bookTitle}».",
+        "share_declined": "رفضت {familyName} «{bookTitle}».",
+        "share_to_approve": "يقترح {fromName} «{bookTitle}»: بانتظار الموافقة.",
+        "share_approved": "تمت الموافقة على اقتراحك «{bookTitle}».",
+        "voice_batch": "أرسل {fromName} صوته لـ «{bookTitle}».",
+        "recording_batch": "سجّل {memberName} جملاً من «{bookTitle}».",
+        "review_result": "مراجعة «{bookTitle}»: {approved} مقبولة و{returned} لإعادتها.",
+        "message_received": "ترك {fromName} رسالة صوتية إلى {childName}.",
+        "birthday_reminder": "يقترب عيد ميلاد {childName}: بعد {days} يوماً.",
+        "stale_takes": "تغيّر نص «{bookTitle}»: تسجيلات لإعادتها ({count})."
+    },
+    "invite": {
+        "subject": "دعوة للانضمام إلى عائلة {family}",
+        "shareText": "يدعوك {inviter} للانضمام إلى عائلة {family} على {app}: {link}"
+    }
+}

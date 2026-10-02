@@ -1,0 +1,43 @@
+{
+    "menu": "Angehörigen einladen",
+    "title": "Angehörigen einladen",
+    "hint": "Erstelle einen Einmalcode und sende ihn per WhatsApp, SMS, E-Mail oder Link.",
+    "channelLabel": "Wie senden?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "E-Mail",
+        "LINK": "Link"
+    },
+    "nameLabel": "Vorname des Angehörigen (optional)",
+    "namePlaceholder": "Oma Soa",
+    "emailLabel": "E-Mail-Adresse",
+    "phoneLabel": "Telefonnummer (optional)",
+    "childrenLabel": "Welche Kinder?",
+    "childrenHint": "Keine Auswahl: alle Kinder der Familie.",
+    "create": "Einladung erstellen",
+    "createFailed": "Die Einladung konnte nicht erstellt werden.",
+    "tooMany": "Zu viele Einladungen auf einmal, versuche es später erneut.",
+    "ready": "Einladung bereit",
+    "validFor": "Etwa {hours} Std. gültig, nur einmal nutzbar.",
+    "linkLabel": "Einladungslink",
+    "emailSent": "E-Mail an {contact} gesendet.",
+    "emailNotSent": "Die E-Mail konnte nicht gesendet werden: teile den Link selbst.",
+    "share": "Teilen",
+    "openWhatsapp": "WhatsApp öffnen",
+    "openSms": "Per SMS senden",
+    "copy": "Link kopieren",
+    "copied": "Link kopiert",
+    "another": "Jemand anderen einladen",
+    "historyTitle": "Gesendete Einladungen",
+    "emptyTitle": "Keine Einladung",
+    "emptyHint": "Erstellte Einladungen erscheinen hier.",
+    "state": {
+        "pending": "Offen",
+        "used": "Verwendet",
+        "expired": "Abgelaufen",
+        "revoked": "Widerrufen"
+    },
+    "revoke": "Widerrufen",
+    "revokeAria": "Einladung für {name} widerrufen"
+}

@@ -1,7 +1,8 @@
 import { getDb } from '../../utils/db'
 import { verifyDeviceSecret } from '../../utils/device'
 import { requireSession } from '../../utils/family'
-import { hashCode, loadCodeRow, readCodeInput, verifyMemberCode } from '../../utils/profile-code'
+import { isFamilyParentAccount, relativeMemberFor } from '../../utils/memberships'
+import { hashCode,loadCodeRow, readCodeInput, verifyMemberCode } from '../../utils/profile-code'
 import { startSession } from '../../utils/session'
 import { notFound } from '../../utils/validate'
 
@@ -13,11 +14,19 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     const session = requireSession(event)
     const body = await readBody<IProfileBody>(event)
     const memberId = typeof body.memberId === 'string' ? body.memberId : null
+    const db = getDb()
+    if (!(await isFamilyParentAccount(db, session.accountId, session.familyId))) {
+        const ownMemberId = await relativeMemberFor(db, session.accountId, session.familyId)
+        if (ownMemberId === null || (memberId !== null && memberId !== ownMemberId)) {
+            throw createError({ statusCode: 403, statusMessage: 'This account has no access to that profile' })
+        }
+        startSession(event, { ...session, memberId: ownMemberId })
+        return { isSignedIn: true, memberId: ownMemberId, isRelativeAccount: true }
+    }
     if (memberId === null) {
         startSession(event, { ...session, memberId: null })
         return { isSignedIn: true, memberId: null }
     }
-    const db = getDb()
     const row = await loadCodeRow(db, session.familyId, memberId)
     if (!row || row.status !== 'active') {
         return notFound('Member not found')

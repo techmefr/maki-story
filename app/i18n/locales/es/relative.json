@@ -1,0 +1,26 @@
+{
+    "nav": "Mis familias",
+    "title": "Mis familias",
+    "emptyTitle": "Todavía no hay ninguna familia",
+    "emptyHint": "Pide una invitación a un padre para unirte a su familia.",
+    "family": "Familia {name}",
+    "messageFor": "Mensaje para {name}",
+    "cardMeta": "{child} · familia {family}",
+    "cardFamily": "Familia {family}",
+    "noChild": "Todavía no hay ningún niño en tu círculo.",
+    "requests": "Por grabar",
+    "requestMeta": "Líneas por grabar: {count} · familia {family}",
+    "record": "Grabar",
+    "proposals": "Mis propuestas",
+    "proposalStatus": {
+        "proposed": "Pendiente",
+        "awaiting_owner": "Esperando al propietario",
+        "pending": "Esperando respuesta",
+        "accepted": "Aceptada",
+        "declined": "Rechazada",
+        "revoked": "Cancelada"
+    },
+    "joinAnother": "Unirme a otra familia",
+    "openFailed": "No se pudo abrir esta familia.",
+    "loadFailed": "No se pudieron cargar tus familias."
+}

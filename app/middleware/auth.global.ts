@@ -1,4 +1,6 @@
 const PUBLIC_PATHS = ['/login', '/register']
+const OPEN_PREFIXES = ['/join']
+const RELATIVE_LANDING = '/relative'
 const PARENT_ONLY_PREFIXES = ['/family', '/storage']
 const CHILD_ALLOWED_PREFIXES = ['/kid', '/message/', '/profiles', '/grimace']
 
@@ -6,17 +8,23 @@ export default defineNuxtRouteMiddleware(async to => {
     if (import.meta.server) {
         return
     }
-    const { check } = useSession()
+    if (OPEN_PREFIXES.some(prefix => to.path === prefix || to.path.startsWith(`${prefix}/`))) {
+        return
+    }
+    const { check, isRelativeAccount } = useSession()
     const isSignedIn = await check()
     if (!isSignedIn) {
         return PUBLIC_PATHS.includes(to.path) ? undefined : navigateTo('/login')
     }
     if (PUBLIC_PATHS.includes(to.path)) {
-        return navigateTo('/profiles')
+        return navigateTo(isRelativeAccount.value ? RELATIVE_LANDING : '/profiles')
     }
     const { ensureLoaded, load, getById } = useMembers()
     await ensureLoaded()
     const { currentId, current, select, isChild, isParent } = useCurrentMember()
+    if (isRelativeAccount.value && (to.path === '/profiles' || to.path === '/')) {
+        return navigateTo(RELATIVE_LANDING)
+    }
     if (to.path === '/profiles') {
         if (current.value?.role === 'relative') {
             await select(null)
@@ -26,7 +34,7 @@ export default defineNuxtRouteMiddleware(async to => {
     if (currentId.value && !getById(currentId.value)) {
         await select(null)
     }
-    if (to.path === '/profiles') {
+    if (to.path === '/profiles' || to.path.startsWith('/welcome')) {
         return
     }
     if (!currentId.value) {

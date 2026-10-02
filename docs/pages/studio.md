@@ -19,3 +19,7 @@ Only the parts changed by the page view lot are described here. The page card it
 
 ## Security (takes)
 - Recording again an approved line creates a pending take; the child keeps hearing the approved take until the parent validates the new one (approved_takes table, child_recordings view). Same for the shared record flow and new languages.
+
+## Stale takes (families lot)
+- Editing a line text or tone marks the takes of every language as stale; editing one translation marks only that language. Note and scene description never make takes stale.
+- Stale takes are announced to the parent in one grouped notification per book and voice.

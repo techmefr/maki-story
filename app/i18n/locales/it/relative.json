@@ -1,0 +1,26 @@
+{
+    "nav": "Le mie famiglie",
+    "title": "Le mie famiglie",
+    "emptyTitle": "Nessuna famiglia per ora",
+    "emptyHint": "Chiedi a un genitore un invito per unirti alla sua famiglia.",
+    "family": "Famiglia {name}",
+    "messageFor": "Messaggio per {name}",
+    "cardMeta": "{child} · famiglia {family}",
+    "cardFamily": "Famiglia {family}",
+    "noChild": "Nessun bambino nella tua cerchia per ora.",
+    "requests": "Da registrare",
+    "requestMeta": "Battute da registrare: {count} · famiglia {family}",
+    "record": "Registra",
+    "proposals": "Le mie proposte",
+    "proposalStatus": {
+        "proposed": "In attesa",
+        "awaiting_owner": "In attesa del proprietario",
+        "pending": "In attesa di risposta",
+        "accepted": "Accettata",
+        "declined": "Rifiutata",
+        "revoked": "Annullata"
+    },
+    "joinAnother": "Unisciti a un’altra famiglia",
+    "openFailed": "Impossibile aprire questa famiglia.",
+    "loadFailed": "Impossibile caricare le tue famiglie."
+}

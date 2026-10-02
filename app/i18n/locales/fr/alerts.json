@@ -1,0 +1,28 @@
+{
+    "title": "Notifications hors de l’application",
+    "hint": "Choisis ce que tu reçois, et par quel canal.",
+    "enable": "Activer les notifications",
+    "disable": "Désactiver sur cet appareil",
+    "enabled": "Notifications activées sur cet appareil.",
+    "denied": "Notifications bloquées : autorise-les dans les réglages de l’appareil.",
+    "unsupported": "Cet appareil ne gère pas les notifications. L’e-mail reste disponible.",
+    "channels": {
+        "PUSH": "Notification",
+        "EMAIL": "E-mail"
+    },
+    "kinds": {
+        "message_received": "Message vocal reçu",
+        "share_to_approve": "Livre proposé",
+        "share_received": "Demande d’enregistrement",
+        "voice_batch": "Voix ajoutée",
+        "recording_batch": "Enregistrement terminé",
+        "review_result": "Validation ou commentaire",
+        "stale_takes": "Prises à refaire",
+        "birthday_reminder": "Rappel d’anniversaire"
+    },
+    "describe": {
+        "messageReceived": "{from} a laissé un message vocal pour {child}",
+        "birthdayReminder": "L’anniversaire de {child} approche (dans {days} j)",
+        "staleTakes": "« {title} » : prises à refaire ({count})"
+    }
+}
