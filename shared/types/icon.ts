@@ -40,5 +40,10 @@ export type IconName =
     | 'close'
     | 'download'
     | 'cloud-off'
+    | 'zoom-in'
+    | 'zoom-out'
+    | 'maximize'
+    | 'rotate'
+    | 'chevron-down'
 
 export type IconMotion = 'none' | 'bounce' | 'wiggle' | 'pulse' | 'nudge' | 'spin' | 'float'

@@ -1,0 +1,38 @@
+{
+    "title": "Pagina {n}",
+    "previous": "Pagina precedente",
+    "next": "Pagina successiva",
+    "noScan": "Nessuna scansione per questa pagina.",
+    "description": "Descrizione della pagina",
+    "noDescription": "Nessuna descrizione.",
+    "characters": {
+        "one": "{count} personaggio",
+        "other": "{count} personaggi"
+    },
+    "onlyMine": "Le mie battute",
+    "largeText": "Testo più grande",
+    "noLines": "Nessuna battuta in questa pagina.",
+    "narrator": "Narratore",
+    "noReader": "Voce da scegliere",
+    "original": "Testo originale",
+    "tone": "Tono: {tone}",
+    "studioSection": "Pagina del libro",
+    "showPage": "Mostra la pagina",
+    "hidePage": "Nascondi la pagina",
+    "recordLine": "Registra questa battuta",
+    "viewMode": "Modalità di revisione",
+    "byLine": "Battuta per battuta",
+    "byPage": "Pagina per pagina",
+    "scan": {
+        "label": "Pagina scansionata",
+        "alt": "Scansione della pagina {n}",
+        "zoomIn": "Ingrandisci",
+        "zoomOut": "Riduci",
+        "rotate": "Ruota",
+        "reset": "Reimposta",
+        "full": "Schermo intero",
+        "exitFull": "Esci da schermo intero",
+        "failed": "Impossibile caricare la pagina.",
+        "panelHint": "Tocca una vignetta per ingrandirla."
+    }
+}

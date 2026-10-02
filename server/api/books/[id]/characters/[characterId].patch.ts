@@ -19,9 +19,9 @@ export default defineEventHandler(async (event): Promise<ICharacter> => {
             return notFound('Character not found')
         }
         const name = body.name === undefined ? current.name : checkName(body.name)
-        const color = body.color === undefined ? current.color : checkColor(body.color)
         const description = body.description === undefined ? current.description : checkText(body.description, 'description')
         const isNarrator = body.isNarrator === undefined ? current.isNarrator : body.isNarrator === true
+        const color = isNarrator ? null : body.color === undefined ? current.color : checkColor(body.color)
         const duplicate = await tx`
             select 1 from characters where book_id = ${bookId} and lower(name) = lower(${name}) and id <> ${characterId}
         `

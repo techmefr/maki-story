@@ -1,4 +1,4 @@
-import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages, isNarratorName } from '../../utils/bookModel'
+import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages } from '../../utils/bookModel'
 import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
@@ -72,17 +72,18 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         if (planned.has(name.toLowerCase())) {
             return badRequest('Duplicate character')
         }
+        const isNarrator = character.isNarrator === true
         planned.set(name.toLowerCase(), {
             name,
-            color: checkColor(character.color),
+            color: isNarrator ? null : checkColor(character.color),
             description: checkText(character.description, 'description'),
-            isNarrator: character.isNarrator === true || isNarratorName(name),
+            isNarrator,
         })
     }
     for (const line of lines) {
         const name = (line.character ?? '').trim()
         if (name !== '' && !planned.has(name.toLowerCase())) {
-            planned.set(name.toLowerCase(), { name, color: null, description: '', isNarrator: isNarratorName(name) })
+            planned.set(name.toLowerCase(), { name, color: null, description: '', isNarrator: false })
         }
     }
     const characters = [...planned.values()]

@@ -76,8 +76,6 @@ export const checkName = (value: unknown): string => {
     return isNonEmptyString(value) && value.length <= 80 ? value.trim() : badRequest('A character needs a name')
 }
 
-export const isNarratorName = (name: string): boolean => name.trim().toLowerCase() === 'narrateur'
-
 export const assertBookOwned = async (db: Sql, bookId: string, familyId: string): Promise<void> => {
     const rows = await db`select 1 from books where id = ${bookId} and family_id = ${familyId} and deleted_at is null`
     if (rows.length === 0) {
