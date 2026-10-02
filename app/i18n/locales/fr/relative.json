@@ -1,0 +1,26 @@
+{
+    "nav": "Mes familles",
+    "title": "Mes familles",
+    "emptyTitle": "Aucune famille pour l’instant",
+    "emptyHint": "Demande une invitation à un parent pour rejoindre sa famille.",
+    "family": "Famille {name}",
+    "messageFor": "Message pour {name}",
+    "cardMeta": "{child} · famille {family}",
+    "cardFamily": "Famille {family}",
+    "noChild": "Aucun enfant dans ton cercle pour l’instant.",
+    "requests": "À enregistrer",
+    "requestMeta": "Répliques à enregistrer : {count} · famille {family}",
+    "record": "Enregistrer",
+    "proposals": "Mes propositions",
+    "proposalStatus": {
+        "proposed": "En attente",
+        "awaiting_owner": "En attente du propriétaire",
+        "pending": "En attente de réponse",
+        "accepted": "Acceptée",
+        "declined": "Refusée",
+        "revoked": "Annulée"
+    },
+    "joinAnother": "Rejoindre une autre famille",
+    "openFailed": "Impossible d’ouvrir cette famille.",
+    "loadFailed": "Impossible de charger tes familles."
+}

@@ -40,7 +40,35 @@
         "tts": "Den Titel mit einer Computerstimme vorlesen, bis er aufgenommen ist",
         "errTitle": "Gib dem Buch einen Titel.",
         "errReader": "Wähle aus, wer das Buch liest.",
-        "errAge": "Das Mindestalter muss kleiner als das Höchstalter sein."
+        "errAge": "Das Mindestalter muss kleiner als das Höchstalter sein.",
+        "voiceLanguages": "Sprachen der Stimmen",
+        "voiceLanguagesHint": "Die Sprachen, in denen dieses Buch gelesen wird.",
+        "moods": "Stimmung",
+        "themes": "Themen",
+        "mood": {
+            "calm": "Ruhig",
+            "funny": "Lustig",
+            "adventure": "Abenteuer",
+            "tender": "Zärtlich",
+            "bedtime": "Zum Einschlafen",
+            "curious": "Neugierig",
+            "musical": "Musikalisch",
+            "brave": "Mutig"
+        },
+        "theme": {
+            "animals": "Tiere",
+            "family": "Familie",
+            "friendship": "Freundschaft",
+            "nature": "Natur",
+            "school": "Schule",
+            "feelings": "Gefühle",
+            "travel": "Reisen",
+            "food": "Essen",
+            "seasons": "Jahreszeiten",
+            "legends": "Legenden",
+            "numbers-letters": "Zahlen und Buchstaben",
+            "daily-life": "Alltag"
+        }
     },
     "pages": {
         "intro": "Fotografiere jede Seite des Buchs. Diese Fotos bleiben privat in der Familie und werden dem Kind nie gezeigt.",

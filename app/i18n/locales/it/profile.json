@@ -60,9 +60,8 @@
         "enterTitle": "Inserisci il tuo codice",
         "createTitle": "Crea il tuo codice",
         "confirmTitle": "Conferma il tuo codice",
-        "hintShapes": "Tocca le 3 forme nell’ordine giusto.",
         "hintPin": "Digita il tuo codice segreto.",
-        "hintCreate": "Scegli da 4 a 6 cifre. Ti verrà chiesto ogni volta.",
+        "hintCreate": "Scegli da 4 a 8 cifre. Ti verrà chiesto ogni volta.",
         "hintConfirm": "Digita lo stesso codice una seconda volta.",
         "wrong": "Codice errato. Riprova.",
         "throttled": "Troppi tentativi. Riprova tra qualche minuto.",
@@ -71,7 +70,8 @@
         "cancelled": "Verifica annullata. Digita il tuo codice.",
         "enrolCancelled": "Verifica annullata. Potrai riprovare più tardi.",
         "enrolFailed": "Impossibile attivare per il momento.",
-        "mismatch": "I due codici sono diversi. Ricomincia."
+        "mismatch": "I due codici sono diversi. Ricomincia.",
+        "hintSymbols": "Tocca i tuoi 4 simboli."
     },
     "pad": {
         "progress": "{count} cifre su {max} inserite",
@@ -82,10 +82,19 @@
     "code": {
         "kind": "Tipo di codice",
         "digits": "Cifre",
-        "shapes": "Forme",
         "defaultLabel": "Codice",
         "placeholder": "Da {min} a {max} cifre",
-        "shapesHint": "Scegli 3 forme su 4, in ordine.",
-        "shapesSaved": "Forme salvate."
+        "symbolsHint": "Scegli 4 simboli, in ordine.",
+        "symbolsSaved": "Codice a simboli pronto."
+    },
+    "symbols": {
+        "s0": "Stella rossa",
+        "s1": "Luna blu",
+        "s2": "Cuore verde",
+        "s3": "Sole giallo",
+        "s4": "Nuvola viola",
+        "s5": "Fiore rosa",
+        "chosen": "{count} simboli su {total}",
+        "clear": "Cancella"
     }
 }

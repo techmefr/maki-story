@@ -1,0 +1,43 @@
+{
+    "menu": "Invita un parente",
+    "title": "Invita un parente",
+    "hint": "Crea un codice monouso e invialo con WhatsApp, SMS, e-mail o link.",
+    "channelLabel": "Come inviarlo?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "E-mail",
+        "LINK": "Link"
+    },
+    "nameLabel": "Nome del parente (facoltativo)",
+    "namePlaceholder": "Nonna Soa",
+    "emailLabel": "Indirizzo e-mail",
+    "phoneLabel": "Numero di telefono (facoltativo)",
+    "childrenLabel": "Quali bambini?",
+    "childrenHint": "Nessuna scelta: tutti i bambini della famiglia.",
+    "create": "Crea l’invito",
+    "createFailed": "Impossibile creare l’invito.",
+    "tooMany": "Troppi inviti in poco tempo, riprova più tardi.",
+    "ready": "Invito pronto",
+    "validFor": "Valido circa {hours} h, un solo uso.",
+    "linkLabel": "Link d’invito",
+    "emailSent": "E-mail inviata a {contact}.",
+    "emailNotSent": "Impossibile inviare l’e-mail: condividi tu il link.",
+    "share": "Condividi",
+    "openWhatsapp": "Apri WhatsApp",
+    "openSms": "Invia per SMS",
+    "copy": "Copia il link",
+    "copied": "Link copiato",
+    "another": "Invita qualcun altro",
+    "historyTitle": "Inviti inviati",
+    "emptyTitle": "Nessun invito",
+    "emptyHint": "Gli inviti creati compaiono qui.",
+    "state": {
+        "pending": "In attesa",
+        "used": "Usato",
+        "expired": "Scaduto",
+        "revoked": "Revocato"
+    },
+    "revoke": "Revoca",
+    "revokeAria": "Revoca l’invito di {name}"
+}

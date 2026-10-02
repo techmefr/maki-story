@@ -56,5 +56,6 @@
         "books": "قصصه",
         "playLabel": "استمع إلى رسالة {name}",
         "booksLabel": "قصص بصوت {name}"
-    }
+    },
+    "birthdayMissing": "أضف تاريخ ميلاد {name}"
 }

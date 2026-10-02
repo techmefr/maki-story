@@ -18,3 +18,4 @@ export const getVoiceColor = (id: VoiceColorId): IVoiceColor => {
 
 export const MESSAGE_MAX_DURATION_MS = 120000
 export const MESSAGE_LISTEN_WINDOW_HOURS = 24
+export const TREASURE_LIMIT = 10

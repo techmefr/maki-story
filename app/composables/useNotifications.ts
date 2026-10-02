@@ -20,6 +20,12 @@ export const describeNotification = (notification: INotification, t: (key: strin
             return t('notifications.describe.voiceBatch', { from, title, count })
         case 'recording_batch':
             return t('notifications.describe.recordingBatch', { name: text(payload.memberName), title, count })
+        case 'message_received':
+            return t('alerts.describe.messageReceived', { from: text(payload.fromName), child: text(payload.childName) })
+        case 'birthday_reminder':
+            return t('alerts.describe.birthdayReminder', { child: text(payload.childName), days: Number(payload.days) })
+        case 'stale_takes':
+            return t('alerts.describe.staleTakes', { title, count })
         case 'review_result': {
             const parts = [
                 Number(payload.approved) > 0 ? t('review.notice.approved', { count: Number(payload.approved) }) : '',
@@ -27,12 +33,6 @@ export const describeNotification = (notification: INotification, t: (key: strin
             ]
             return t('review.notice.result', { title, parts: parts.filter(part => part !== '').join(', ') })
         }
-        case 'recording_request':
-            return t('library.notify.recordingRequest', { title, count })
-        case 'book_proposed':
-            return t('library.notify.bookProposed', { name: text(payload.memberName), title })
-        case 'proposal_result':
-            return t(text(payload.decision) === 'approve' ? 'library.notify.proposalApproved' : 'library.notify.proposalDeclined', { title })
         default:
             return t('notifications.describe.default')
     }

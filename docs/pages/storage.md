@@ -1,27 +1,31 @@
-# Storage
+# Offline storage (`/storage`)
 
-Routes: /storage
+Local storage usage and the books downloaded for offline use.
 
-Used space and cleanup.
+## 1. What the page must do
 
-## Behaviour per role
-- Parent: reads usage and frees space.
-- Others: 403.
+### Per role
+- Child: no access.
+- Parent: sees usage, keeps data persistent, removes a downloaded book.
+- Relative: same, for their device.
 
-## States
-Loading, error.
+### Enforced server side
+- No server data: everything is local to the device.
 
-## Responsive
-Checked at 320, 390, 1180 and 1600 px wide, portrait and landscape: no horizontal scroll, targets of 48 px or more, bottom bar or header stay reachable.
+### States
+- Empty: offline empty state with a sentence.
+- Loading: skeleton or the shared loading text, never a blank screen.
+- Error: a short sentence from the server message map with a retry action.
+- Offline: cached data stays readable; actions that need the network are disabled with the reason shown.
 
-## Keyboard and remote
-Tab order follows the visual order, arrow keys and a TV remote D-pad move focus spatially, Back or Escape (remote mode) goes back, Enter activates.
+### Interactions and animations
+- The usage bar is a progressbar with its value announced.
 
-## Design audit checklist
-- [x] One main action per screen.
-- [x] Secondary buttons visible with an icon.
-- [x] Targets of 48 px or more, rem sizes, wrapping text, no overflow at any text size.
-- [x] Keyboard reachable with visible focus ring, native buttons for remote use.
-- [x] prefers-reduced-motion respected.
-- [x] Light and dark themes both readable (contrast 4.5:1 or more).
-- [x] Every string goes through i18n (9 locales).
+## 2. Design audit checklist
+- [ ] One main action per screen, highlighted (main color, relief, gentle wiggle that stops after a few seconds).
+- [ ] Secondary buttons visible, with an icon.
+- [ ] Big childlike icons from the single icon set; a micro-animation on every interaction.
+- [ ] No overflow at any text size (up to Maximum), in Arabic right-to-left and with long words, at 320, 390, 1180 and 1600 px.
+- [ ] Keyboard, TV remote (D-pad) and touch: logical focus order, visible focus, targets of 48 px or more (child 66 px).
+- [ ] `prefers-reduced-motion` respected.
+- [ ] Fredoka (titles, buttons) and Nunito (text), hard shadow `3px 3px 0 #1F1B3A`.

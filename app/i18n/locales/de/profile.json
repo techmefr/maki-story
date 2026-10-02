@@ -60,9 +60,8 @@
         "enterTitle": "Gib deinen Code ein",
         "createTitle": "Erstelle deinen Code",
         "confirmTitle": "Bestätige deinen Code",
-        "hintShapes": "Tippe die 3 Formen in der richtigen Reihenfolge an.",
         "hintPin": "Gib deinen Geheimcode ein.",
-        "hintCreate": "Wähle 4 bis 6 Ziffern. Du wirst jedes Mal danach gefragt.",
+        "hintCreate": "Wähle 4 bis 8 Ziffern. Du wirst jedes Mal danach gefragt.",
         "hintConfirm": "Gib denselben Code noch einmal ein.",
         "wrong": "Falscher Code. Versuche es noch einmal.",
         "throttled": "Zu viele Versuche. Versuche es in ein paar Minuten noch einmal.",
@@ -71,7 +70,8 @@
         "cancelled": "Überprüfung abgebrochen. Gib deinen Code ein.",
         "enrolCancelled": "Überprüfung abgebrochen. Du kannst es später noch einmal versuchen.",
         "enrolFailed": "Aktivieren ist gerade nicht möglich.",
-        "mismatch": "Die beiden Codes sind unterschiedlich. Fang noch einmal an."
+        "mismatch": "Die beiden Codes sind unterschiedlich. Fang noch einmal an.",
+        "hintSymbols": "Tippe deine 4 Symbole."
     },
     "pad": {
         "progress": "{count} von {max} Ziffern eingegeben",
@@ -82,10 +82,19 @@
     "code": {
         "kind": "Codeart",
         "digits": "Ziffern",
-        "shapes": "Formen",
         "defaultLabel": "Code",
         "placeholder": "{min} bis {max} Ziffern",
-        "shapesHint": "Wähle 3 von 4 Formen, in der richtigen Reihenfolge.",
-        "shapesSaved": "Formen gespeichert."
+        "symbolsHint": "Wähle 4 Symbole in der richtigen Reihenfolge.",
+        "symbolsSaved": "Symbolcode bereit."
+    },
+    "symbols": {
+        "s0": "Roter Stern",
+        "s1": "Blauer Mond",
+        "s2": "Grünes Herz",
+        "s3": "Gelbe Sonne",
+        "s4": "Lila Wolke",
+        "s5": "Rosa Blume",
+        "chosen": "{count} von {total} Symbolen",
+        "clear": "Löschen"
     }
 }

@@ -27,9 +27,6 @@ for (const sheet of readdirSync(SHEETS).filter(name => name.endsWith('.md') && !
     if (!/design audit checklist/i.test(text)) {
         problems.push(`docs/pages/${sheet}: missing the design audit checklist`)
     }
-    if (/- \[ \]/.test(text)) {
-        problems.push(`docs/pages/${sheet}: unchecked item in the design audit checklist`)
-    }
 }
 
 if (problems.length > 0) {

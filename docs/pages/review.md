@@ -16,3 +16,9 @@ Only the parts changed by the page view lot are described here. The page card it
 - [x] Keyboard and remote focus, visible focus ring.
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
+
+## Languages, stale takes and ready books (review lot)
+- A language switcher lists the book language, the voice languages and every language that already has a take. The list, the take, the approve and the redo actions all use the selected language (the API already accepted `language`). Page mode uses the same language.
+- A "Show the original" toggle appears for translated languages and shows the original text under each line.
+- The "validate everything" gate and its hints still look at the book language only; validating the whole book approves the pending takes of every language.
+- A redo request on one line of an already validated book keeps the book `ready` and visible to the child. The line is flagged `changes_requested` and the previously approved take stays playable for the child (approved take preserved) until the new take is approved.

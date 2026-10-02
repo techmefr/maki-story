@@ -2,8 +2,9 @@ import { ensureSchema, getDb } from '../utils/db'
 import { accessForMember } from '../utils/parental'
 import { isSessionCurrent, readSession } from '../utils/session'
 
-const PUBLIC_API_PATHS = ['/api/auth/login', '/api/auth/register', '/api/auth/me', '/api/auth/logout']
-const PUBLIC_OAUTH_PREFIX = '/api/auth/oauth/'
+const PUBLIC_API_PATHS = ['/api/auth/login', '/api/auth/register', '/api/auth/me', '/api/auth/logout', '/api/invitations/redeem']
+const PUBLIC_PREFIXES = ['/api/auth/oauth/', '/api/invitations/preview/']
+
 const SCHEMA_FREE_PATHS = ['/api/auth/me', '/api/auth/logout']
 const ACCESS_EXEMPT_PREFIXES = ['/api/auth/', '/api/access']
 const ACCESS_EXEMPT_READS = ['/api/members']
@@ -16,7 +17,7 @@ export default defineEventHandler(async event => {
     if (!SCHEMA_FREE_PATHS.includes(path)) {
         await ensureSchema()
     }
-    if (PUBLIC_API_PATHS.includes(path) || path.startsWith(PUBLIC_OAUTH_PREFIX)) {
+    if (PUBLIC_API_PATHS.includes(path) || PUBLIC_PREFIXES.some(prefix => path.startsWith(prefix))) {
         return
     }
     const session = readSession(event)

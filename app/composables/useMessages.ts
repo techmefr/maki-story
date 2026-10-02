@@ -85,7 +85,11 @@ export const useMessages = () => {
         return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId && isLive(message)) ?? null
     }
 
-    const hasActiveTo = (senderId: string, receiverId: string): boolean => lastSentTo(senderId, receiverId) !== null
+    const hasActiveTo = (senderId: string, receiverId: string, kind: MessageKind = 'NORMAL'): boolean => {
+        return messages.value.some(
+            message => message.fromMemberId === senderId && message.toMemberId === receiverId && message.kind === kind && isLive(message),
+        )
+    }
 
     const unreadCountFor = (receiverId: string): number => {
         return messages.value.filter(message => message.toMemberId === receiverId && !message.firstListenedAt && isLive(message)).length
@@ -106,5 +110,6 @@ export const useMessages = () => {
         hasActiveTo,
         remove,
         unreadCountFor,
+        isLive,
     }
 }

@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "Du hast eine neue Benachrichtigung.",
+        "share_received": "{fromName} hat dir „{bookTitle}“ geschickt.",
+        "share_accepted": "{familyName} hat „{bookTitle}“ angenommen.",
+        "share_declined": "{familyName} hat „{bookTitle}“ abgelehnt.",
+        "share_to_approve": "{fromName} schlägt „{bookTitle}“ vor: zur Freigabe.",
+        "share_approved": "Dein Vorschlag „{bookTitle}“ wurde angenommen.",
+        "voice_batch": "{fromName} hat die Stimme für „{bookTitle}“ geschickt.",
+        "recording_batch": "{memberName} hat Zeilen von „{bookTitle}“ aufgenommen.",
+        "review_result": "Prüfung von „{bookTitle}“: {approved} freigegeben, {returned} neu aufzunehmen.",
+        "message_received": "{fromName} hat eine Sprachnachricht für {childName} hinterlassen.",
+        "birthday_reminder": "{childName} hat bald Geburtstag: in {days} Tagen.",
+        "stale_takes": "Der Text von „{bookTitle}“ hat sich geändert: neu aufzunehmende Takes ({count})."
+    },
+    "invite": {
+        "subject": "Einladung, der Familie {family} beizutreten",
+        "shareText": "{inviter} lädt dich ein, der Familie {family} auf {app} beizutreten: {link}"
+    }
+}

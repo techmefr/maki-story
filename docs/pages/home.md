@@ -1,31 +1,18 @@
-# Home (relatives)
+# Home
 
-Routes: /home
+## Relative section (`/relative`)
+### 1. What the page must do
+- Landing page of an account that only has relative memberships (log in, or join through an invitation): no family profile selector, no code. The server derives the profile from the active membership.
+- One flow mixing every family the account belongs to: for each active membership, the family name, a card per concerned child ("Message for <child>", with child first name and family name), the recording requests (shared books to record and cast lines still without a take) and the relative's own book proposals with their status. A button joins another family.
+- Opening a card of another family switches the session to that family (`POST /api/auth/family`) and then opens the message, studio or sharing screen.
+- Isolation: only memberships of the account are listed; a membership that is not ACTIVE (left, deceased, blocked) disappears from the flow; a status change by a parent affects only that family. A restricted relative sees only the children selected in the invitation and cannot message the others.
+- States: empty (no family yet, with a hint to ask for an invitation), loading, error, offline (the error message is shown).
+- Responsive: cards stack on a single column, two columns from tablet width.
 
-Home of parents and relatives: the family faces with a ring (unheard message, heard, none), a handle to open the book search by swipe or button, and a send message button.
-
-## Behaviour per role
-- Parent: relatives grid, book search entry, send message, library kiosk below.
-- Relative: same grid and kiosk until the families lot replaces it.
-- Child: redirected to /kid.
-
-## States
-Empty family (maki hint), loading, error with retry, offline (cached members).
-
-## Responsive
-Checked at 320, 390, 1180 and 1600 px wide, portrait and landscape: no horizontal scroll, targets of 48 px or more, bottom bar or header stay reachable.
-
-## Keyboard and remote
-Tab order follows the visual order, arrow keys and a TV remote D-pad move focus spatially, Back or Escape (remote mode) goes back, Enter activates.
-
-## Notes
-The bottom bar differs per role: parent Home, Library, Family; relative Home only; child Home and Treasure. The bar is hidden when only one tab exists.
-
-## Design audit checklist
-- [x] One main action per screen.
-- [x] Secondary buttons visible with an icon.
-- [x] Targets of 48 px or more, rem sizes, wrapping text, no overflow at any text size.
-- [x] Keyboard reachable with visible focus ring, native buttons for remote use.
-- [x] prefers-reduced-motion respected.
-- [x] Light and dark themes both readable (contrast 4.5:1 or more).
-- [x] Every string goes through i18n (9 locales).
+### 2. Design audit checklist
+- [x] One main action per card (message, record).
+- [x] Secondary button "Join another family" visible with an icon.
+- [x] Big icons, wiggle micro-animation on the message icon.
+- [x] No overflow at any text size, keyboard and remote focus.
+- [x] `prefers-reduced-motion` respected.
+- [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.

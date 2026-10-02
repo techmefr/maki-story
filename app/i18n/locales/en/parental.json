@@ -3,12 +3,15 @@
         "title": "Profile code",
         "locked": "Profile locked after too many attempts.",
         "none": "No code set.",
-        "shapes": "Shape code set.",
         "digits": "Digit code set.",
         "unlock": "Unlock the profile",
         "remove": "Remove the code",
         "failed": "The code cannot be changed right now.",
-        "removeConfirm": "Remove the code of {name}?"
+        "removeConfirm": "Remove the code of {name}?",
+        "symbols": "Symbol code set.",
+        "disabled": "Off",
+        "disable": "Turn off",
+        "enable": "Turn on"
     },
     "schedule": {
         "title": "Listening time",

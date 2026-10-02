@@ -9,6 +9,7 @@ interface INavTab {
 export const useNavTabs = () => {
     const route = useRoute()
     const { current } = useCurrentMember()
+    const { isRelativeAccount } = useSession()
     const { t } = useI18n()
 
     const tabs = computed<INavTab[]>(() => {
@@ -20,26 +21,17 @@ export const useNavTabs = () => {
             ]
         }
         const home: INavTab = { path: '/home', icon: 'home', label: t('shell.nav.home'), isOn: route.path === '/home', hasBadge: false }
+        const relative: INavTab = { path: '/relative', icon: 'heart', label: t('relative.nav'), isOn: route.path === '/relative', hasBadge: false }
+        const own = isRelativeAccount.value ? [relative] : []
         if (role === 'parent') {
             return [
                 home,
-                {
-                    path: '/library',
-                    icon: 'book',
-                    label: t('shell.nav.library'),
-                    isOn: route.path === '/library' || route.path.startsWith('/books'),
-                    hasBadge: false,
-                },
-                {
-                    path: '/family',
-                    icon: 'users',
-                    label: t('shell.nav.family'),
-                    isOn: route.path.startsWith('/family') || route.path === '/feedback',
-                    hasBadge: false,
-                },
+                { path: '/library', icon: 'book', label: t('shell.nav.library'), isOn: route.path === '/library' || route.path.startsWith('/books'), hasBadge: false },
+                { path: '/family', icon: 'users', label: t('shell.nav.family'), isOn: route.path.startsWith('/family') || route.path === '/feedback', hasBadge: false },
+                ...own,
             ]
         }
-        return [home]
+        return [home, ...own]
     })
 
     return { tabs }

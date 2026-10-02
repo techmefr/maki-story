@@ -3,12 +3,15 @@
         "title": "Codice del profilo",
         "locked": "Profilo bloccato dopo troppi tentativi.",
         "none": "Nessun codice impostato.",
-        "shapes": "Codice a forme impostato.",
         "digits": "Codice a cifre impostato.",
         "unlock": "Sblocca il profilo",
         "remove": "Rimuovi il codice",
         "failed": "Impossibile modificare il codice per ora.",
-        "removeConfirm": "Rimuovere il codice di {name}?"
+        "removeConfirm": "Rimuovere il codice di {name}?",
+        "symbols": "Simboli",
+        "disabled": "Disattivato",
+        "disable": "Disattiva",
+        "enable": "Attiva"
     },
     "schedule": {
         "title": "Tempo di ascolto",

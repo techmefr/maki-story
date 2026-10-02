@@ -1,21 +1,64 @@
 <template>
-    <div class="stack center screen" :class="{ kid: isChild }" :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }">
+    <div
+        class="stack center screen"
+        :class="{ kid: isChild }"
+        :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }"
+        data-testid="message-player"
+        @pointerdown="onPointerDown"
+        @pointerup="onPointerUp"
+    >
         <template v-if="message && sender">
-            <AppAvatar :member="sender" :size="140" />
-            <h1 class="title">{{ sender.name }}</h1>
+            <AppBlob :active="isPlaying" :color="memberHex(sender)" :size="200">
+                <AppAvatar :member="sender" :size="200" />
+            </AppBlob>
+            <h1 class="sr-only">{{ sender.name }}</h1>
             <WaveBars :is-active="isPlaying" color="#1F1B3A" />
-            <div class="progress" style="width: 100%"><div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" /></div>
-            <template v-if="isEnded">
-                <div class="subtitle">{{ t('messages.listen.finished') }}</div>
-                <AppButton variant="secondary" tone="mint" is-block style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="replay">
-                    <AppIcon name="play" :size="32" motion="pulse" />
-                    {{ t('messages.listen.again') }}
+            <div
+                class="progress"
+                style="width: 100%"
+                role="progressbar"
+                :aria-label="t('kid.listen.progress')"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :aria-valuenow="percentValue"
+            >
+                <div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" />
+            </div>
+            <div class="row controls">
+                <AppButton
+                    variant="secondary"
+                    is-round
+                    class="btn--big"
+                    :disabled="!hasPrevious"
+                    :aria-label="t('messages.listen.previous')"
+                    data-testid="message-previous"
+                    @click="go(-1)"
+                >
+                    <AppIcon name="skip-back" :size="40" class="mirror-rtl" />
                 </AppButton>
-            </template>
-            <AppButton is-block v-else-if="!isStarted" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
-                <AppIcon name="play" :size="32" motion="pulse" />
-                {{ t('messages.listen.play') }}
-            </AppButton>
+                <AppButton
+                    class="btn--big"
+                    :wiggle="!isStarted || isEnded"
+                    :aria-label="mainLabel"
+                    data-focus-default
+                    data-testid="message-toggle"
+                    @click="toggle"
+                >
+                    <AppIcon :name="isEnded ? 'redo' : isPlaying ? 'pause' : 'play'" :size="48" motion="none" />
+                </AppButton>
+                <AppButton
+                    variant="secondary"
+                    is-round
+                    class="btn--big"
+                    :aria-label="t('messages.listen.next')"
+                    data-testid="message-next"
+                    @click="go(1)"
+                >
+                    <AppIcon name="skip-forward" :size="40" class="mirror-rtl" />
+                </AppButton>
+            </div>
+            <TreasureHeart v-if="canKeep" :key="message.id" :message-id="message.id" :child-id="message.toMemberId" />
+            <div v-if="isEnded && !isChild" class="subtitle">{{ t('messages.listen.finished') }}</div>
         </template>
         <template v-else-if="isMissing">
             <AppMaki :size="100" />
@@ -26,61 +69,158 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ layout: 'blank', key: route => route.fullPath })
+const SWIPE_DISTANCE_PX = 60
+
+definePageMeta({ layout: 'blank' })
 
 const { t } = useI18n()
 const route = useRoute()
-const { getById } = useMembers()
+const { getById, ensureLoaded } = useMembers()
 const { currentId, isChild } = useCurrentMember()
-const { messages, load, markListened } = useMessages()
+const { messages, load, markListened, isLive } = useMessages()
 const player = useAudioPlayer()
 
 const isStarted = ref(false)
 const isEnded = ref(false)
 const isMissing = ref(false)
+let swipeStartX: number | null = null
 
-const message = computed(() => messages.value.find(item => item.id === String(route.params.id)) ?? null)
+const messageId = computed(() => String(route.params.id))
+const message = computed(() => messages.value.find(item => item.id === messageId.value) ?? null)
 const sender = computed(() => getById(message.value?.fromMemberId ?? null))
 const isPlaying = computed(() => player.isPlaying.value)
 const backPath = computed(() => (isChild.value ? '/kid' : '/messages'))
+const canKeep = computed(() => message.value !== null && (isChild.value || currentId.value !== null) && message.value.fromMemberId !== currentId.value)
 const percent = computed(() => {
     const total = message.value?.durationMs ?? 0
     return total > 0 ? `${Math.min(100, Math.round((player.positionMs.value / total) * 100))}%` : '0%'
 })
+const percentValue = computed(() => Number.parseInt(percent.value, 10))
+const mainLabel = computed(() => (isEnded.value ? t('messages.listen.again') : isPlaying.value ? t('kid.listen.pause') : t('kid.listen.resumePlay')))
 
-const replay = async (): Promise<void> => {
-    await play()
+const queue = computed(() => {
+    const target = message.value?.toMemberId
+    return messages.value
+        .filter(item => item.toMemberId === target && isLive(item))
+        .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+})
+const position = computed(() => queue.value.findIndex(item => item.id === messageId.value))
+const hasPrevious = computed(() => position.value > 0)
+const hasNext = computed(() => position.value >= 0 && position.value < queue.value.length - 1)
+
+const finish = async (): Promise<void> => {
+    const from = message.value?.fromMemberId
+    if (isChild.value && from) {
+        await navigateTo(`/kid/${from}`)
+        return
+    }
+    await navigateTo(backPath.value)
+}
+
+const go = async (step: number): Promise<void> => {
+    const target = queue.value[position.value + step]
+    if (target) {
+        await navigateTo(`/message/listen/${target.id}`, { replace: true })
+        return
+    }
+    if (step > 0) {
+        await finish()
+    }
 }
 
 const play = async (): Promise<void> => {
-    if (!message.value) {
+    const target = message.value
+    if (!target) {
         return
     }
-    const target = message.value
     player.unlock()
     isStarted.value = true
     isEnded.value = false
     const isOk = await player.play(target.fileId)
     if (!isOk) {
         isStarted.value = false
+        return
     }
-}
-
-player.onEnded(async () => {
-    const heard = message.value
-    if (heard && isChild.value && !heard.firstListenedAt) {
+    if (isChild.value && !target.firstListenedAt) {
         try {
-            await markListened(heard.id)
+            await markListened(target.id)
         } catch (error) {
             console.error('Le message n a pas pu être marqué comme écouté', error)
         }
     }
+}
+
+const toggle = async (): Promise<void> => {
+    if (isEnded.value || !isStarted.value) {
+        await play()
+        return
+    }
+    if (isPlaying.value) {
+        player.pause()
+        return
+    }
+    await player.resume()
+}
+
+const onPointerDown = (event: PointerEvent): void => {
+    swipeStartX = event.clientX
+}
+
+const onPointerUp = async (event: PointerEvent): Promise<void> => {
+    if (swipeStartX === null) {
+        return
+    }
+    const distance = event.clientX - swipeStartX
+    swipeStartX = null
+    if (Math.abs(distance) < SWIPE_DISTANCE_PX) {
+        return
+    }
+    const isRtl = document.documentElement.dir === 'rtl'
+    const isForward = isRtl ? distance > 0 : distance < 0
+    await go(isForward ? 1 : -1)
+}
+
+const onKey = async (event: KeyboardEvent): Promise<void> => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+        return
+    }
+    const isRtl = document.documentElement.dir === 'rtl'
+    const isForward = (event.key === 'ArrowRight') !== isRtl
+    await go(isForward ? 1 : -1)
+}
+
+player.onEnded(async () => {
     isEnded.value = true
+    if (!hasNext.value && isChild.value) {
+        await finish()
+        return
+    }
+    if (hasNext.value) {
+        await go(1)
+    }
+})
+
+watch(messageId, async () => {
+    player.stop()
+    isStarted.value = false
+    isEnded.value = false
+    if (message.value) {
+        await play()
+    }
 })
 
 onMounted(async () => {
-    await load()
+    window.addEventListener('keydown', onKey)
+    await Promise.all([ensureLoaded(), load()])
     isMissing.value = !message.value
+    if (message.value) {
+        await play()
+    }
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', onKey)
+    player.stop()
 })
 </script>
 
@@ -92,5 +232,11 @@ onMounted(async () => {
     justify-content: safe center;
     overflow-y: auto;
     padding: 16px;
+    touch-action: pan-y;
+}
+
+.controls {
+    justify-content: center;
+    gap: 16px;
 }
 </style>

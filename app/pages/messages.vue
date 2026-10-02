@@ -13,6 +13,9 @@
                     <div class="muted">{{ child.statusLabel }}</div>
                 </div>
             </div>
+            <AppButton variant="secondary" is-block v-if="isOnline && child.isBirthdaySoon && !child.isWishBlocked" :to="`/message/${child.member.id}?kind=birthday`">
+                <AppIcon name="party" :size="22" />{{ t('messages.birthdayWish') }}
+            </AppButton>
             <AppButton v-if="isOnline && child.isBlocked" is-block disabled :disabled-reason="t('messages.activeBlocked', { name: child.member.name })"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
             <AppButton v-else-if="isOnline" is-block :to="`/message/${child.member.id}`"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
             <AppButton v-else is-block disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</AppButton>
@@ -26,13 +29,21 @@ const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { children } = useMembers()
 const { currentId } = useCurrentMember()
-const { load, startPolling, stopPolling, lastSentTo } = useMessages()
+const { load, startPolling, stopPolling, lastSentTo, hasActiveTo } = useMessages()
 
 const threads = computed(() =>
     children.value.map(member => {
         const sent = currentId.value ? lastSentTo(currentId.value, member.id) : null
         const statusLabel = sent ? (sent.firstListenedAt ? t('messages.status.heard') : t('messages.status.sent')) : t('messages.status.none')
-        return { member, isBlocked: sent !== null, statusLabel }
+        const senderId = currentId.value ?? ''
+        const days = member.birthdayInDays ?? null
+        return {
+            member,
+            isBlocked: hasActiveTo(senderId, member.id, 'NORMAL'),
+            isWishBlocked: hasActiveTo(senderId, member.id, 'BIRTHDAY'),
+            isBirthdaySoon: days !== null && days <= BIRTHDAY_WISH_WINDOW_DAYS,
+            statusLabel,
+        }
     }),
 )
 

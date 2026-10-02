@@ -94,7 +94,7 @@ test.describe('parental schedule on the server', () => {
         const parent = await openSession(playwright, baseURL, account)
         const parentId = await useProfile(parent, PARENT_NAME)
         const childId = await createChild(parent)
-        const relativeResponse = await parent.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '2468' } } })
+        const relativeResponse = await parent.post('/api/members', { data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '246801' } } })
         const relativeId = ((await relativeResponse.json()) as { id: string }).id
 
         expect((await putSchedule(parent, parentId, true, weekly(FULL_DAY))).status()).toBe(400)
@@ -110,7 +110,7 @@ test.describe('parental schedule on the server', () => {
         expect((await child.get(`/api/members/${childId}/schedule`)).status()).toBe(403)
 
         const relative = await openSession(playwright, baseURL, account)
-        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '2468' } })).ok()).toBeTruthy()
+        expect((await relative.post('/api/auth/profile', { data: { memberId: relativeId, code: '246801' } })).ok()).toBeTruthy()
         expect((await putSchedule(relative, childId, false, weekly(FULL_DAY))).status()).toBe(403)
         await parent.dispose()
         await child.dispose()

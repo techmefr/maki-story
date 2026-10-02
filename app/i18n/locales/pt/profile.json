@@ -60,9 +60,8 @@
         "enterTitle": "Escreve o teu código",
         "createTitle": "Cria o teu código",
         "confirmTitle": "Confirma o teu código",
-        "hintShapes": "Toca nas 3 formas pela ordem certa.",
         "hintPin": "Escreve o teu código secreto.",
-        "hintCreate": "Escolhe 4 a 6 algarismos. Vai ser pedido sempre.",
+        "hintCreate": "Escolhe 4 a 8 algarismos. Vai ser pedido sempre.",
         "hintConfirm": "Escreve o mesmo código uma segunda vez.",
         "wrong": "Código incorreto. Tenta de novo.",
         "throttled": "Demasiadas tentativas. Tenta de novo dentro de alguns minutos.",
@@ -71,7 +70,8 @@
         "cancelled": "Verificação cancelada. Escreve o teu código.",
         "enrolCancelled": "Verificação cancelada. Poderás tentar de novo mais tarde.",
         "enrolFailed": "Não foi possível ativar neste momento.",
-        "mismatch": "Os dois códigos são diferentes. Recomeça."
+        "mismatch": "Os dois códigos são diferentes. Recomeça.",
+        "hintSymbols": "Toca nos teus 4 símbolos."
     },
     "pad": {
         "progress": "{count} de {max} algarismos escritos",
@@ -82,10 +82,19 @@
     "code": {
         "kind": "Tipo de código",
         "digits": "Algarismos",
-        "shapes": "Formas",
         "defaultLabel": "Código",
         "placeholder": "{min} a {max} algarismos",
-        "shapesHint": "Escolhe 3 formas entre 4, por ordem.",
-        "shapesSaved": "Formas guardadas."
+        "symbolsHint": "Escolhe 4 símbolos, por ordem.",
+        "symbolsSaved": "Código de símbolos pronto."
+    },
+    "symbols": {
+        "s0": "Estrela vermelha",
+        "s1": "Lua azul",
+        "s2": "Coração verde",
+        "s3": "Sol amarelo",
+        "s4": "Nuvem roxa",
+        "s5": "Flor rosa",
+        "chosen": "{count} de {total} símbolos",
+        "clear": "Apagar"
     }
 }

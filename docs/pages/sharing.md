@@ -1,26 +1,31 @@
-# Sharing
+# Sharing (`/sharing`)
 
-Routes: /sharing
+Invite code, books shared with other families, approvals and proposals.
 
-Recording requests and shares addressed to the member.
+## 1. What the page must do
 
-## Behaviour per role
-- Parent and relative: sees requests and opens the recording page.
+### Per role
+- Child: no access.
+- Parent: manages the invite code, approves, shares and stops sharing.
+- Relative: sees what concerns them and proposes books.
 
-## States
-Empty, loading, error.
+### Enforced server side
+- `shares.*` permissions; every query checks both families; a book is shared with at most 10 families; scans are never sent.
 
-## Responsive
-Checked at 320, 390, 1180 and 1600 px wide, portrait and landscape: no horizontal scroll, targets of 48 px or more, bottom bar or header stay reachable.
+### States
+- Empty: nothing shared yet with a main button.
+- Loading: skeleton or the shared loading text, never a blank screen.
+- Error: a short sentence from the server message map with a retry action.
+- Offline: cached data stays readable; actions that need the network are disabled with the reason shown.
 
-## Keyboard and remote
-Tab order follows the visual order, arrow keys and a TV remote D-pad move focus spatially, Back or Escape (remote mode) goes back, Enter activates.
+### Interactions and animations
+- Revoking an invite asks for confirmation.
 
-## Design audit checklist
-- [x] One main action per screen.
-- [x] Secondary buttons visible with an icon.
-- [x] Targets of 48 px or more, rem sizes, wrapping text, no overflow at any text size.
-- [x] Keyboard reachable with visible focus ring, native buttons for remote use.
-- [x] prefers-reduced-motion respected.
-- [x] Light and dark themes both readable (contrast 4.5:1 or more).
-- [x] Every string goes through i18n (9 locales).
+## 2. Design audit checklist
+- [ ] One main action per screen, highlighted (main color, relief, gentle wiggle that stops after a few seconds).
+- [ ] Secondary buttons visible, with an icon.
+- [ ] Big childlike icons from the single icon set; a micro-animation on every interaction.
+- [ ] No overflow at any text size (up to Maximum), in Arabic right-to-left and with long words, at 320, 390, 1180 and 1600 px.
+- [ ] Keyboard, TV remote (D-pad) and touch: logical focus order, visible focus, targets of 48 px or more (child 66 px).
+- [ ] `prefers-reduced-motion` respected.
+- [ ] Fredoka (titles, buttons) and Nunito (text), hard shadow `3px 3px 0 #1F1B3A`.

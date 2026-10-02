@@ -11,6 +11,7 @@
             </li>
         </ul>
         <AppButton is-block to="/sharing">{{ t('notifications.sharing') }}</AppButton>
+        <NotificationPreferences />
     </div>
 </template>
 

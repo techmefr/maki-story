@@ -175,7 +175,7 @@ test.describe('device secret endpoint', () => {
         await useProfile(owner, PARENT_NAME)
         const device = await enrolDevice(owner)
         const relative = await owner.post('/api/members', {
-            data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '2468' } },
+            data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '246801' } },
         })
         const relativeId = ((await relative.json()) as { id: string }).id
         expect((await useDevice(owner, relativeId, device)).status()).toBe(403)
@@ -192,10 +192,10 @@ test.describe('device secret endpoint', () => {
         const parentId = await useProfile(api, PARENT_NAME)
         const parentDevice = await enrolDevice(api)
         const created = await api.post('/api/members', {
-            data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '2468' } },
+            data: { name: 'Mamie', role: 'relative', color: 'coral', code: { kind: 'pin', value: '246801' } },
         })
         const relativeId = ((await created.json()) as { id: string }).id
-        await api.post('/api/auth/profile', { data: { memberId: relativeId, code: '2468' } })
+        await api.post('/api/auth/profile', { data: { memberId: relativeId, code: '246801' } })
         const relativeDevice = await enrolDevice(api)
         const visible = (await (await api.get('/api/devices')).json()) as { id: string }[]
         expect(visible.map(item => item.id)).toEqual([relativeDevice.id])

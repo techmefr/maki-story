@@ -1,0 +1,31 @@
+{
+    "progress": "Étape {current} sur {total}",
+    "loadingTitle": "Un instant…",
+    "next": "Continuer",
+    "skip": "Passer",
+    "code": {
+        "title": "Protège le mode parent",
+        "hint": "Choisis un code à chiffres, ou la biométrie si ton appareil le permet."
+    },
+    "children": {
+        "title": "Qui écoute les histoires ?",
+        "hint": "Ajoute un enfant : prénom, date de naissance, photo et code."
+    },
+    "child": {
+        "name": "Prénom de l’enfant",
+        "birthDate": "Date de naissance",
+        "code": "Code de l’enfant",
+        "add": "Ajouter l’enfant",
+        "failed": "L’enfant n’a pas pu être ajouté."
+    },
+    "invite": {
+        "title": "Invite un premier proche",
+        "hint": "Une grand-mère, un oncle, un ami : il enregistrera sa voix.",
+        "later": "Plus tard"
+    },
+    "done": {
+        "title": "Tout est prêt !",
+        "hint": "Ta famille est créée. Place aux histoires.",
+        "cta": "Aller à l’accueil"
+    }
+}

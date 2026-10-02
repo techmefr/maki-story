@@ -29,7 +29,9 @@
         "soundOff": "Sans son",
         "sleepTimer": "Minuteur de sommeil",
         "page": "Page {current}/{total}",
-        "progress": "Avancement de la page"
+        "progress": "Avancement de la page",
+        "previousPage": "Page précédente",
+        "nextPageShort": "Page suivante"
     },
     "sleep": {
         "title": "Dodo dans…",
@@ -42,5 +44,29 @@
     },
     "noFaces": "Personne n’est encore là",
     "noFacesHint": "Demande à un grand d’ajouter la famille.",
-    "noSoloHint": "Elle arrive bientôt !"
+    "noSoloHint": "Elle arrive bientôt !",
+    "birthday": {
+        "title": "Joyeux anniversaire {name} !",
+        "age": "{age} ans",
+        "thanks": "Merci !",
+        "bubble": "Message d’anniversaire"
+    },
+    "treasure": {
+        "title": "Mon trésor",
+        "titleOf": "Trésor de {name}",
+        "count": "{count}/{limit} souvenirs",
+        "open": "Ouvrir le trésor",
+        "save": "Garder ce message",
+        "saved": "Message gardé",
+        "empty": "Ton trésor est vide",
+        "emptyHint": "Touche le cœur d’un message pour le garder pour toujours.",
+        "emptyParent": "Le trésor est vide",
+        "emptyParentHint": "Un cœur sur un message le garde ici.",
+        "from": "De {name}",
+        "play": "Écouter le souvenir de {name}",
+        "remove": "Retirer ce souvenir",
+        "removeTitle": "Retirer ce souvenir ?",
+        "removeBody": "Il sera supprimé pour toujours.",
+        "removeConfirm": "Retirer"
+    }
 }

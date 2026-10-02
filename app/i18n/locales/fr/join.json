@@ -1,0 +1,20 @@
+{
+    "title": "Rejoindre une famille",
+    "codeHint": "Entre le code reçu d’un parent.",
+    "codeLabel": "Code d’invitation",
+    "check": "Vérifier",
+    "invalidTitle": "Invitation invalide",
+    "invalidHint": "Ce code est utilisé, expiré ou inconnu. Demande-en un nouveau.",
+    "tryAgain": "Essayer un autre code",
+    "welcome": "Rejoindre la famille {family}",
+    "invitedBy": "{name} t’invite.",
+    "oneTap": "Rejoindre la famille {family}",
+    "accountHint": "Crée ton compte, ou connecte-toi si tu en as déjà un.",
+    "nameLabel": "Ton prénom",
+    "emailLabel": "Adresse e-mail",
+    "passwordLabel": "Mot de passe",
+    "submit": "Rejoindre",
+    "failed": "Impossible de rejoindre pour l’instant.",
+    "invalidCredentials": "Vérifie ton e-mail, ton mot de passe ou l’invitation.",
+    "tooMany": "Trop d’essais, réessaie plus tard."
+}

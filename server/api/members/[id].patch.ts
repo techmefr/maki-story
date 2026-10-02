@@ -2,6 +2,7 @@ import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily } from '../../utils/family'
 import { actorEntry, record } from '../../utils/journal'
 import { memberExtras, readBirthDate } from '../../utils/members'
+import { syncMembershipStatus } from '../../utils/memberships'
 import { requirePermission } from '../../utils/permissions'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '../../utils/validate'
 
@@ -13,6 +14,7 @@ interface IMemberPatch {
     status?: MemberStatus
     voicePolicy?: VoicePolicy
     birthDate?: string | null
+    codeEnabled?: boolean
     ageShift?: number
 }
 
@@ -80,6 +82,9 @@ export default defineEventHandler(async (event): Promise<IMember> => {
     if (body.voicePolicy !== undefined && current.role !== 'relative') {
         return badRequest('Only a relative has a voice policy')
     }
+    if (body.codeEnabled !== undefined && (typeof body.codeEnabled !== 'boolean' || next.role !== 'child')) {
+        return badRequest('Only a child code can be switched on or off')
+    }
     if (body.ageShift !== undefined && current.role !== 'child') {
         return badRequest('Only a child has an age shift')
     }
@@ -89,17 +94,21 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         update members
         set name = ${next.name}, role = ${next.role}, color = ${next.color}, photo_file_id = ${next.photoFileId}, status = ${next.status}, voice_policy = ${next.voicePolicy},
             birth_date = case when ${hasBirthDate}::boolean then ${birthDate}::date else birth_date end,
+            code_enabled = coalesce(${body.codeEnabled ?? null}::boolean, code_enabled),
             age_shift = coalesce(${body.ageShift ?? null}::int, age_shift)
         where id = ${id} and family_id = ${familyId}
         returning id, name, role, color, photo_file_id, status, pin_hash is not null as has_code, code_kind, spoken_languages, app_locale, voice_policy, source_member_id is not null as is_guest, ${memberExtras(db, actor.role, actor.memberId)}
     `)
+    if (updated.status !== current.status) {
+        await syncMembershipStatus(db, id, updated.status)
+    }
     await record(event, {
         ...actorEntry(actor),
         action: 'member.updated',
         entityType: 'member',
         entityId: id,
         before: { name: current.name, role: current.role, status: current.status },
-        after: { name: updated.name, role: updated.role, status: updated.status, birthDateChanged: hasBirthDate },
+        after: { name: updated.name, role: updated.role, status: updated.status, birthDateChanged: hasBirthDate, codeEnabled: body.codeEnabled ?? null },
     })
     return updated
 })

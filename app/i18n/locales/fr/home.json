@@ -52,5 +52,6 @@
         "books": "Ses histoires",
         "playLabel": "Écouter le message de {name}",
         "booksLabel": "Histoires lues par {name}"
-    }
+    },
+    "birthdayMissing": "Ajoute la date de naissance de {name}"
 }

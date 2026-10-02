@@ -3,7 +3,10 @@
         <div v-if="phase === 'page'" class="reader__center stack center">
             <AppMaki :size="160" class="anim-bounce" />
             <h1 class="title">{{ t('kid.listen.nextPage') }}</h1>
-            <AppButton class="btn--big" :aria-label="t('kid.listen.turnPage')" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></AppButton>
+            <div class="row">
+                <AppButton variant="secondary" class="btn--big" :disabled="pageIndex === 0" :aria-label="t('kid.listen.previousPage')" data-testid="previous-page" v-sound="'page-turn'" @click="previousPage"><AppIcon name="skip-back" :size="44" class="mirror-rtl" /></AppButton>
+                <AppButton class="btn--big" wiggle :aria-label="t('kid.listen.turnPage')" data-testid="turn-page" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></AppButton>
+            </div>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
             <AppMaki :size="160" />
@@ -59,7 +62,7 @@
                 <AppButton class="btn--big" :aria-label="t('common.continue')" @click="resume"><AppIcon name="play" :size="56" motion="pulse" /></AppButton>
                 <AppButton variant="secondary" class="btn--big" :aria-label="t('kid.listen.fromStart')" @click="start"><AppIcon name="redo" :size="48" motion="spin" /></AppButton>
             </div>
-            <AppButton v-else class="btn--big" :aria-label="t('kid.listen.read')" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></AppButton>
+            <AppButton v-else class="btn--big" wiggle :aria-label="t('kid.listen.read')" @click="start"><AppIcon name="play" :size="56" motion="pulse" /></AppButton>
         </div>
         <div v-else-if="phase === 'sleep'" class="reader__center stack center">
             <AppIcon name="moon" :size="140" motion="float" />
@@ -71,10 +74,19 @@
                 <AppAvatar :member="reader" :size="200" />
             </AppBlob>
             <h1 class="title">{{ t('kid.listen.reads', { name: reader?.name ?? '' }) }}</h1>
-            <AppButton variant="secondary" class="btn--big" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
-                <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
-            </AppButton>
+            <div class="row">
+                <AppButton variant="secondary" is-round class="btn--big" :disabled="pageIndex === 0" :aria-label="t('kid.listen.previousPage')" data-testid="previous-page" v-sound="'page-turn'" @click="previousPage">
+                    <AppIcon name="skip-back" :size="40" class="mirror-rtl" />
+                </AppButton>
+                <AppButton variant="secondary" class="btn--big" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
+                    <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
+                </AppButton>
+                <AppButton variant="secondary" is-round class="btn--big" :disabled="pageIndex >= pageTotal - 1" :aria-label="t('kid.listen.nextPageShort')" data-testid="skip-page" v-sound="'page-turn'" @click="skipPage">
+                    <AppIcon name="skip-forward" :size="40" class="mirror-rtl" />
+                </AppButton>
+            </div>
         </div>
+        <div v-if="isTurning" class="page-turn" data-testid="page-turn" aria-hidden="true" />
         <div class="reader__bottom">
             <div class="progress" role="progressbar" :aria-label="t('kid.listen.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
             <div class="row row--wrap" style="justify-content: space-between">
@@ -112,6 +124,8 @@
 </template>
 
 <script setup lang="ts">
+const PAGE_TURN_MS = 700
+
 type Phase = 'loading' | 'languages' | 'ready' | 'playing' | 'page' | 'end' | 'sleep'
 
 definePageMeta({ layout: 'blank' })
@@ -320,11 +334,32 @@ const start = async (): Promise<void> => {
     await playLine()
 }
 
-const turnPage = async (): Promise<void> => {
-    pageIndex.value += 1
+const isTurning = ref(false)
+
+const runTurn = async (): Promise<void> => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return
+    }
+    isTurning.value = true
+    ding()
+    await new Promise(resolve => setTimeout(resolve, PAGE_TURN_MS))
+    isTurning.value = false
+}
+
+const goToPage = async (index: number): Promise<void> => {
+    unlock()
+    player.unlock()
+    await runTurn()
+    pageIndex.value = index
     lineIndex.value = 0
     await playLine()
 }
+
+const turnPage = (): Promise<void> => goToPage(pageIndex.value + 1)
+
+const previousPage = (): Promise<void> => goToPage(Math.max(0, pageIndex.value - 1))
+
+const skipPage = (): Promise<void> => goToPage(Math.min(pageTotal.value - 1, pageIndex.value + 1))
 
 const replay = (): Promise<void> => start()
 
@@ -470,6 +505,38 @@ onBeforeUnmount(() => {
 @media (prefers-reduced-motion: reduce) {
     .reader__flash {
         animation: none;
+    }
+}
+
+.page-turn {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    background: linear-gradient(100deg, #fff4d9 0%, #ffe9b3 60%, #1f1b3a22 100%);
+    border-inline-start: 3px solid #1f1b3a;
+    transform-origin: left center;
+    animation: page-turn 0.7s ease-in-out forwards;
+}
+
+[dir='rtl'] .page-turn {
+    transform-origin: right center;
+}
+
+@keyframes page-turn {
+    from {
+        transform: perspective(1200px) rotateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: perspective(1200px) rotateY(-100deg);
+        opacity: 0.2;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-turn {
+        display: none;
     }
 }
 

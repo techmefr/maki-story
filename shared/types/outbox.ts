@@ -5,6 +5,7 @@ export type TOutboxStatus = 'pending' | 'sending' | 'sent' | 'failed'
 export interface IOutboxMessagePayload {
     fromMemberId: string
     toMemberId: string
+    kind?: MessageKind
 }
 
 export interface IOutboxRecordingPayload {

@@ -32,12 +32,12 @@ export const useMembers = () => {
 
     const update = async (id: string, patch: Partial<IMember>): Promise<void> => {
         const member = await request<IMember>(`/members/${id}`, { method: 'PATCH', body: patch })
-        members.value = members.value.map(item => (item.id === id ? member : item))
+        members.value = members.value.map(item => (item.id === id ? { ...item, ...member } : item))
         await preload(members.value)
     }
 
     const replace = async (member: IMember): Promise<void> => {
-        members.value = members.value.map(item => (item.id === member.id ? member : item))
+        members.value = members.value.map(item => (item.id === member.id ? { ...item, ...member } : item))
         await preload(members.value)
     }
 

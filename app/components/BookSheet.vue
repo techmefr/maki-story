@@ -19,7 +19,19 @@
                 </div>
                 <div>
                     <dt>{{ t('books.sheet.language') }}</dt>
-                    <dd>{{ languageLabel(book.language) }}</dd>
+                    <dd>{{ languageLabel(book.writtenLanguage ?? book.language) }}</dd>
+                </div>
+                <div v-if="(book.voiceLanguages ?? []).some(code => code !== (book.writtenLanguage ?? book.language))">
+                    <dt>{{ t('books.sheet.voiceLanguages') }}</dt>
+                    <dd>{{ book.voiceLanguages.map(languageLabel).join(', ') }}</dd>
+                </div>
+                <div v-if="(book.moods ?? []).length > 0">
+                    <dt>{{ t('books.sheet.moods') }}</dt>
+                    <dd>{{ book.moods.map(mood => t(`bookDraft.book.mood.${mood}`)).join(', ') }}</dd>
+                </div>
+                <div v-if="(book.themes ?? []).length > 0">
+                    <dt>{{ t('books.sheet.themes') }}</dt>
+                    <dd>{{ book.themes.map(theme => t(`bookDraft.book.theme.${theme}`)).join(', ') }}</dd>
                 </div>
             </dl>
             <section class="stack" style="gap: 8px" aria-labelledby="book-readers">

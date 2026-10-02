@@ -31,7 +31,11 @@
         "saveError": "No se puede guardar por ahora.",
         "removeConfirm": "¿Eliminar a {name}? Se perderán sus grabaciones.",
         "removeError": "No se puede eliminar: hay que conservar al menos un adulto.",
-        "setCode": "Definir el código"
+        "setCode": "Definir el código",
+        "birthDate": "Fecha de nacimiento",
+        "birthDateHint": "Para celebrar su cumpleaños y mostrar su edad.",
+        "childCodeAsk": "Pedir un código al niño",
+        "childCodeOff": "Sin código, el niño entra directamente."
     },
     "voice": {
         "title": "Situación de esta voz",

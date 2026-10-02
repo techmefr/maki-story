@@ -52,5 +52,6 @@
         "books": "Ny tantarany",
         "playLabel": "Henoy ny hafatr’i {name}",
         "booksLabel": "Tantara novakin’i {name}"
-    }
+    },
+    "birthdayMissing": "Ampio ny daty nahaterahan’i {name}"
 }
