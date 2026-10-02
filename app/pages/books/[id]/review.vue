@@ -18,6 +18,30 @@
                 </li>
             </ul>
         </section>
+        <div v-if="languages.length > 1" class="row row--wrap" role="group" :aria-label="t('reviewLanguage.label')" data-testid="review-languages">
+            <button
+                v-for="code in languages"
+                :key="code"
+                type="button"
+                class="chip review__chip"
+                :class="{ 'chip--on': language === code }"
+                :aria-pressed="language === code"
+                :data-testid="`review-language-${code}`"
+                @click="language = code"
+            >
+                {{ languageLabel(code) }}
+            </button>
+        </div>
+        <button
+            v-if="language !== book.language"
+            type="button"
+            class="btn btn--white btn--small review__action"
+            :aria-pressed="isOriginalShown"
+            data-testid="review-original-toggle"
+            @click="isOriginalShown = !isOriginalShown"
+        >
+            <AppIcon name="book" :size="18" />{{ isOriginalShown ? t('reviewLanguage.hide') : t('reviewLanguage.show') }}
+        </button>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <button type="button" class="btn btn--mint btn--block review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
             <AppIcon name="rocket" :size="22" />{{ t('review.validateAll') }}
@@ -50,7 +74,7 @@
             mode="review"
             :page-number="pageIndex + 1"
             :page-count="Math.max(1, book.pages.length)"
-            :language="book.language"
+            :language="language"
             @go="goPage"
         >
             <template #line-actions="{ line }">
@@ -89,7 +113,8 @@
                     <span class="label">{{ t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') }) }}</span>
                     <span class="badge review__state" :class="`review__state--${stateOf(line)}`">{{ t(`review.state.${stateOf(line)}`) }}</span>
                 </div>
-                <p class="review__text">{{ line.text }}</p>
+                <p class="review__text" data-testid="review-line-text">{{ textOf(line) }}</p>
+                <p v-if="isOriginalShown && language !== book.language" class="review__original muted" data-testid="review-original-text">{{ t('reviewLanguage.original') }} {{ line.text }}</p>
                 <ul v-if="commentsOf(line).length > 0" class="review__thread" :aria-label="t('review.comments')">
                     <li v-for="comment in commentsOf(line)" :key="comment.id" :class="{ 'review__comment--done': comment.resolvedAt !== null }">
                         <strong>{{ authorName(comment) }}</strong> · {{ formatWhen(comment.createdAt) }}
@@ -171,11 +196,32 @@ const playingLineId = ref<string | null>(null)
 const isPageMode = ref(false)
 const pageIndex = ref(0)
 
-const recordingOf = (line: ILine): ILineRecording | null => {
-    return book.value?.recordings.find(item => item.lineId === line.id && item.language === book.value?.language) ?? null
+const language = ref('')
+const isOriginalShown = ref(false)
+
+const languages = computed(() => {
+    if (!book.value) {
+        return []
+    }
+    const codes = new Set<string>([book.value.language, ...book.value.voiceLanguages, ...book.value.recordings.map(item => item.language)])
+    return [...codes]
+})
+
+const recordingIn = (line: ILine, code: string): ILineRecording | null => {
+    return book.value?.recordings.find(item => item.lineId === line.id && item.language === code) ?? null
+}
+
+const recordingOf = (line: ILine): ILineRecording | null => recordingIn(line, language.value)
+
+const textOf = (line: ILine): string => {
+    if (language.value === book.value?.language) {
+        return line.text
+    }
+    return book.value?.translations.find(item => item.lineId === line.id && item.language === language.value)?.text ?? line.text
 }
 
 const stateOf = (line: ILine): ReviewLineState => reviewStateOf(recordingOf(line)?.status ?? null)
+const gateStateOf = (line: ILine): ReviewLineState => reviewStateOf(recordingIn(line, book.value?.language ?? '')?.status ?? null)
 const hasTake = (line: ILine): boolean => recordingOf(line) !== null
 const canReview = (line: ILine): boolean => ['to_review', 'changes', 'approved'].includes(stateOf(line))
 const memberOf = (line: ILine): IMember | null => getById(line.memberId)
@@ -186,7 +232,7 @@ const lineOf = (id: string): ILine => book.value!.lines.find(line => line.id ===
 const stateOfId = (id: string): ReviewLineState => stateOf(lineOf(id))
 const hasTakeId = (id: string): boolean => hasTake(lineOf(id))
 const canReviewId = (id: string): boolean => canReview(lineOf(id))
-const pageView = computed(() => (book.value ? buildBookPageView(book.value, pageIndex.value, book.value.language) : null))
+const pageView = computed(() => (book.value ? buildBookPageView(book.value, pageIndex.value, language.value) : null))
 
 const goPage = (step: number): void => {
     const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
@@ -219,15 +265,15 @@ const voices = computed(() => {
 
 const canValidate = computed(() => {
     const lines = book.value?.lines ?? []
-    return lines.length > 0 && lines.every(line => ['to_review', 'approved'].includes(stateOf(line))) && lines.some(line => stateOf(line) !== 'approved')
+    return lines.length > 0 && lines.every(line => ['to_review', 'approved'].includes(gateStateOf(line))) && lines.some(line => gateStateOf(line) !== 'approved')
 })
 
 const validateHint = computed(() => {
     const lines = book.value?.lines ?? []
-    if (lines.some(line => stateOf(line) === 'changes' || stateOf(line) === 'stale')) {
+    if (lines.some(line => gateStateOf(line) === 'changes' || gateStateOf(line) === 'stale')) {
         return t('review.validateHint.redo')
     }
-    if (lines.some(line => stateOf(line) === 'missing')) {
+    if (lines.some(line => gateStateOf(line) === 'missing')) {
         return t('review.validateHint.missing')
     }
     return t('review.validateHint.done')
@@ -239,6 +285,9 @@ const refresh = async (): Promise<void> => {
     const [loadedBook, loadedComments] = await Promise.all([get(bookId), loadComments(bookId)])
     book.value = loadedBook
     comments.value = loadedComments
+    if (language.value === '') {
+        language.value = loadedBook.language
+    }
 }
 
 const run = async (action: () => Promise<void>): Promise<void> => {
@@ -268,7 +317,7 @@ const play = async (line: ILine): Promise<void> => {
     await player.play(recording.fileId)
 }
 
-const approve = (line: ILine): Promise<void> => run(async () => void (await reviewLine(bookId, line.id, { action: 'approve' })))
+const approve = (line: ILine): Promise<void> => run(async () => void (await reviewLine(bookId, line.id, { action: 'approve', language: language.value })))
 
 const playId = (id: string): Promise<void> => play(lineOf(id))
 const approveId = (id: string): Promise<void> => approve(lineOf(id))
@@ -282,7 +331,7 @@ const toggleComment = (line: ILine): void => {
 
 const requestChanges = (line: ILine): Promise<void> =>
     run(async () => {
-        await reviewLine(bookId, line.id, { action: 'request_changes', comment: draft.value })
+        await reviewLine(bookId, line.id, { action: 'request_changes', comment: draft.value, language: language.value })
         openCommentId.value = null
         draft.value = ''
     })
@@ -324,6 +373,11 @@ onMounted(async () => {
 .review__text {
     margin: 0;
     font: 700 19px/1.4 var(--font-body);
+    overflow-wrap: anywhere;
+}
+
+.review__original {
+    margin: 0;
     overflow-wrap: anywhere;
 }
 

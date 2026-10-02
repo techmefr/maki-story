@@ -4,6 +4,8 @@ import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
 import { actorEntry, record } from '../../utils/journal'
 import { logEvent } from '../../utils/log'
 import { purgeExpiredMessages } from '../../utils/messages'
+import { assertChildConcerned } from '../../utils/memberships'
+import { notify } from '../../utils/notifications'
 import { requireActorMember, requirePermission } from '../../utils/permissions'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
@@ -45,6 +47,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     if (!recipient) {
         return badRequest('A message goes to exactly one child')
     }
+    await assertChildConcerned(db, actor.accountId, familyId, actor.role, recipient.id)
     if (actor.role !== 'parent') {
         const [owned] = await db<{ id: string }[]>`
             select id from files where id = ${body.fileId} and family_id = ${familyId} and created_by_member_id = ${fromMemberId}
@@ -78,6 +81,12 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
             return refuseBusy()
         }
         throw error
+    }
+    const [sender] = await db<{ name: string }[]>`select name from members where id = ${fromMemberId}`
+    const payload = { fromName: sender?.name ?? '', childName: recipient.name, messageId: message.id }
+    await notify(db, { familyId, recipientMemberId: recipient.id, kind: 'message_received', payload })
+    if (actor.role !== 'parent') {
+        await notify(db, { familyId, recipientMemberId: null, kind: 'message_received', payload })
     }
     await record(event, { ...actorEntry(actor), action: 'message.sent', entityType: 'message', entityId: message.id, targetMemberId: recipient.id, after: { kind, durationMs } })
     logEvent(`Message vocal envoyé (${message.durationMs} ms)`)

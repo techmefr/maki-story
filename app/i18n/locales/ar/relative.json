@@ -1,0 +1,26 @@
+{
+    "nav": "عائلاتي",
+    "title": "عائلاتي",
+    "emptyTitle": "لا توجد عائلة بعد",
+    "emptyHint": "اطلب دعوة من أحد الوالدين للانضمام إلى عائلته.",
+    "family": "عائلة {name}",
+    "messageFor": "رسالة إلى {name}",
+    "cardMeta": "{child} · عائلة {family}",
+    "cardFamily": "عائلة {family}",
+    "noChild": "لا يوجد طفل في دائرتك بعد.",
+    "requests": "للتسجيل",
+    "requestMeta": "جمل للتسجيل: {count} · عائلة {family}",
+    "record": "تسجيل",
+    "proposals": "اقتراحاتي",
+    "proposalStatus": {
+        "proposed": "قيد الانتظار",
+        "awaiting_owner": "بانتظار المالك",
+        "pending": "بانتظار الرد",
+        "accepted": "تم القبول",
+        "declined": "مرفوضة",
+        "revoked": "ملغاة"
+    },
+    "joinAnother": "الانضمام إلى عائلة أخرى",
+    "openFailed": "تعذّر فتح هذه العائلة.",
+    "loadFailed": "تعذّر تحميل عائلاتك."
+}

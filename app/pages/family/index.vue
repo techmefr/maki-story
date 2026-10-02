@@ -31,6 +31,7 @@
             </NuxtLink>
         </template>
         <NuxtLink to="/family/add" class="btn btn--block"><AppIcon name="user-plus" :size="22" />{{ t('family.index.add') }}</NuxtLink>
+        <NuxtLink to="/family/invite" class="btn btn--white btn--block" data-testid="family-invite"><AppIcon name="send" :size="22" />{{ t('invite.menu') }}</NuxtLink>
         <NuxtLink to="/storage" class="btn btn--white btn--block"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</NuxtLink>
         <NuxtLink to="/sharing" class="btn btn--white btn--block"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</NuxtLink>
         <NuxtLink to="/family/devices" class="btn btn--white btn--block">{{ t('family.index.devices') }}</NuxtLink>

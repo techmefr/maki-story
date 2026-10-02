@@ -11,6 +11,7 @@
             </li>
         </ul>
         <NuxtLink to="/sharing" class="btn btn--block">{{ t('notifications.sharing') }}</NuxtLink>
+        <NotificationPreferences />
     </div>
 </template>
 

@@ -4,9 +4,18 @@ export const useNavTabs = () => {
     const { unreadCountFor } = useMessages()
     const { t } = useI18n()
 
-    const tabs = computed(() => allTabs.value.filter(tab => tab.path !== '/family' || isParent.value))
+    const { isRelativeAccount } = useSession()
+
+    const tabs = computed(() => allTabs.value.filter(tab => (tab.path !== '/family' || isParent.value) && (tab.path !== '/relative' || isRelativeAccount.value)))
 
     const allTabs = computed(() => [
+        {
+            path: '/relative',
+            icon: 'heart' as IconName,
+            label: t('relative.nav'),
+            isOn: route.path === '/relative',
+            hasBadge: false,
+        },
         {
             path: '/home',
             icon: 'book' as IconName,

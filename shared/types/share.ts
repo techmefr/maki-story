@@ -10,6 +10,9 @@ export type NotificationKind =
     | 'voice_batch'
     | 'recording_batch'
     | 'review_result'
+    | 'message_received'
+    | 'birthday_reminder'
+    | 'stale_takes'
 
 export interface IFamilyInvite {
     code: string

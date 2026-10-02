@@ -14,6 +14,33 @@ self.addEventListener('activate', event => {
     )
 })
 
+const showLatestNotification = async () => {
+    let content = { title: 'Tantara', body: '' }
+    try {
+        const response = await fetch('/api/notifications/latest', { credentials: 'same-origin' })
+        if (response.ok) {
+            content = await response.json()
+        }
+    } catch (_error) {
+        content = { title: 'Tantara', body: '' }
+    }
+    await self.registration.showNotification(content.title, { body: content.body, icon: '/icon-192.png', badge: '/favicon-32.png', tag: 'tantara' })
+}
+
+self.addEventListener('push', event => {
+    event.waitUntil(showLatestNotification())
+})
+
+self.addEventListener('notificationclick', event => {
+    event.notification.close()
+    event.waitUntil(
+        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windows => {
+            const open = windows.find(client => 'focus' in client)
+            return open ? open.focus() : self.clients.openWindow('/notifications')
+        }),
+    )
+})
+
 self.addEventListener('fetch', event => {
     const request = event.request
     const url = new URL(request.url)

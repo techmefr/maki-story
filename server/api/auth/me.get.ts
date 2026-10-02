@@ -1,4 +1,5 @@
-import { ensureSchema } from '../../utils/db'
+import { ensureSchema, getDb } from '../../utils/db'
+import { isFamilyParentAccount } from '../../utils/memberships'
 import { isSessionCurrent, readSession } from '../../utils/session'
 
 export default defineEventHandler(async (event): Promise<IAuthState> => {
@@ -10,5 +11,6 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     if (!(await isSessionCurrent(session))) {
         return { isSignedIn: false, memberId: null }
     }
-    return { isSignedIn: true, memberId: session.memberId }
+    const isRelativeAccount = !(await isFamilyParentAccount(getDb(), session.accountId, session.familyId))
+    return { isSignedIn: true, memberId: session.memberId, isRelativeAccount }
 })

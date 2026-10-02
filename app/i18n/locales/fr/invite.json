@@ -1,0 +1,43 @@
+{
+    "menu": "Inviter un proche",
+    "title": "Inviter un proche",
+    "hint": "Crée un code à usage unique et envoie-le par WhatsApp, SMS, e-mail ou lien.",
+    "channelLabel": "Comment l’envoyer ?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "E-mail",
+        "LINK": "Lien"
+    },
+    "nameLabel": "Prénom du proche (facultatif)",
+    "namePlaceholder": "Mamie Soa",
+    "emailLabel": "Adresse e-mail",
+    "phoneLabel": "Numéro de téléphone (facultatif)",
+    "childrenLabel": "Quels enfants ?",
+    "childrenHint": "Aucun choix : tous les enfants de la famille.",
+    "create": "Créer l’invitation",
+    "createFailed": "L’invitation n’a pas pu être créée.",
+    "tooMany": "Trop d’invitations d’un coup, réessaie plus tard.",
+    "ready": "Invitation prête",
+    "validFor": "Valable environ {hours} h, une seule fois.",
+    "linkLabel": "Lien d’invitation",
+    "emailSent": "E-mail envoyé à {contact}.",
+    "emailNotSent": "L’e-mail n’a pas pu partir : partage le lien à la main.",
+    "share": "Partager",
+    "openWhatsapp": "Ouvrir WhatsApp",
+    "openSms": "Envoyer par SMS",
+    "copy": "Copier le lien",
+    "copied": "Lien copié",
+    "another": "Inviter quelqu’un d’autre",
+    "historyTitle": "Invitations envoyées",
+    "emptyTitle": "Aucune invitation",
+    "emptyHint": "Les invitations créées apparaissent ici.",
+    "state": {
+        "pending": "En attente",
+        "used": "Utilisée",
+        "expired": "Expirée",
+        "revoked": "Révoquée"
+    },
+    "revoke": "Révoquer",
+    "revokeAria": "Révoquer l’invitation de {name}"
+}

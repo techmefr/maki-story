@@ -1,0 +1,28 @@
+{
+    "title": "Benachrichtigungen außerhalb der App",
+    "hint": "Wähle, was du erhältst und über welchen Kanal.",
+    "enable": "Benachrichtigungen aktivieren",
+    "disable": "Auf diesem Gerät deaktivieren",
+    "enabled": "Benachrichtigungen sind auf diesem Gerät aktiv.",
+    "denied": "Benachrichtigungen blockiert: erlaube sie in den Geräteeinstellungen.",
+    "unsupported": "Dieses Gerät unterstützt keine Benachrichtigungen. E-Mail bleibt verfügbar.",
+    "channels": {
+        "PUSH": "Benachrichtigung",
+        "EMAIL": "E-Mail"
+    },
+    "kinds": {
+        "message_received": "Sprachnachricht erhalten",
+        "share_to_approve": "Buch vorgeschlagen",
+        "share_received": "Aufnahmeanfrage",
+        "voice_batch": "Stimme hinzugefügt",
+        "recording_batch": "Aufnahme beendet",
+        "review_result": "Freigabe oder Kommentar",
+        "stale_takes": "Neu aufzunehmende Takes",
+        "birthday_reminder": "Geburtstagserinnerung"
+    },
+    "describe": {
+        "messageReceived": "{from} hat eine Sprachnachricht für {child} hinterlassen",
+        "birthdayReminder": "{child} hat bald Geburtstag (in {days} T.)",
+        "staleTakes": "„{title}“: neu aufzunehmende Takes ({count})"
+    }
+}

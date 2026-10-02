@@ -1,0 +1,20 @@
+{
+    "title": "Join a family",
+    "codeHint": "Enter the code you received from a parent.",
+    "codeLabel": "Invitation code",
+    "check": "Check",
+    "invalidTitle": "Invalid invitation",
+    "invalidHint": "This code is used, expired or unknown. Ask for a new one.",
+    "tryAgain": "Try another code",
+    "welcome": "Join the {family} family",
+    "invitedBy": "{name} invited you.",
+    "oneTap": "Join the {family} family",
+    "accountHint": "Create your account, or sign in if you already have one.",
+    "nameLabel": "Your first name",
+    "emailLabel": "E-mail address",
+    "passwordLabel": "Password",
+    "submit": "Join",
+    "failed": "Joining is not possible right now.",
+    "invalidCredentials": "Check your e-mail, your password or the invitation.",
+    "tooMany": "Too many attempts, try again later."
+}

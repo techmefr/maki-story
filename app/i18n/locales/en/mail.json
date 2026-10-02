@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "You have a new notification.",
+        "share_received": "{fromName} sent you “{bookTitle}”.",
+        "share_accepted": "{familyName} accepted “{bookTitle}”.",
+        "share_declined": "{familyName} declined “{bookTitle}”.",
+        "share_to_approve": "{fromName} proposes “{bookTitle}”: to approve.",
+        "share_approved": "Your proposal “{bookTitle}” was approved.",
+        "voice_batch": "{fromName} sent their voice for “{bookTitle}”.",
+        "recording_batch": "{memberName} recorded lines of “{bookTitle}”.",
+        "review_result": "Review of “{bookTitle}”: {approved} approved, {returned} to redo.",
+        "message_received": "{fromName} left a voice message for {childName}.",
+        "birthday_reminder": "{childName}’s birthday is coming up: in {days} days.",
+        "stale_takes": "The text of “{bookTitle}” changed: takes to redo ({count})."
+    },
+    "invite": {
+        "subject": "Invitation to join the {family} family",
+        "shareText": "{inviter} invites you to join the {family} family on {app}: {link}"
+    }
+}

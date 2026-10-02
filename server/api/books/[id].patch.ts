@@ -110,7 +110,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
                 isEdited = isEdited || changed.length > 0
             }
             if (isEdited) {
-                await markLineRecordingsStale(tx, patch.id, familyId, current.language, actor.memberId)
+                await markLineRecordingsStale(tx, patch.id, familyId, null, actor.memberId)
             }
             if (patch.sceneDescription !== undefined) {
                 await tx`

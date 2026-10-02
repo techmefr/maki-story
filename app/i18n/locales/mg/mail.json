@@ -1,0 +1,21 @@
+{
+    "notify": {
+        "title": "{app}",
+        "generic": "Manana fampandrenesana vaovao ianao.",
+        "share_received": "{fromName} dia nandefa « {bookTitle} » ho anao.",
+        "share_accepted": "{familyName} dia nanaiky « {bookTitle} ».",
+        "share_declined": "{familyName} dia nandà « {bookTitle} ».",
+        "share_to_approve": "{fromName} dia manolotra « {bookTitle} » : hankatoavina.",
+        "share_approved": "Ekena ny tolokevitrao « {bookTitle} ».",
+        "voice_batch": "{fromName} dia nandefa ny feony ho an’ny « {bookTitle} ».",
+        "recording_batch": "{memberName} dia nandrakitra andalana ao amin’ny « {bookTitle} ».",
+        "review_result": "Fanaraha-maso ny « {bookTitle} » : {approved} nekena, {returned} averina.",
+        "message_received": "Namela hafatra feo ho an’i {childName} i {fromName}.",
+        "birthday_reminder": "Antomotra ny tsingerintaonan’i {childName} : afaka {days} andro.",
+        "stale_takes": "Niova ny lahatsoratry ny « {bookTitle} » : fakana feo averina ({count})."
+    },
+    "invite": {
+        "subject": "Fanasana hiditra amin’ny fianakaviana {family}",
+        "shareText": "{inviter} dia manasa anao hiditra amin’ny fianakaviana {family} ao amin’ny {app} : {link}"
+    }
+}

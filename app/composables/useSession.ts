@@ -26,6 +26,7 @@ export const useSession = () => {
     const { request } = useApi()
     const isSignedIn = useState<boolean | null>('session-state', () => null)
     const currentId = useState<string | null>('current-member-id', () => null)
+    const isRelativeAccount = useState<boolean>('session-relative', () => false)
 
     const check = async (): Promise<boolean> => {
         if (isSignedIn.value !== null) {
@@ -35,11 +36,12 @@ export const useSession = () => {
             const result = await request<IAuthState>('/auth/me')
             isSignedIn.value = result.isSignedIn
             currentId.value = result.memberId
+            isRelativeAccount.value = result.isRelativeAccount === true
         } catch (_error) {
             isSignedIn.value = false
             return false
         }
-        if (isSignedIn.value && currentId.value && !isProfileUnlockedInSession()) {
+        if (isSignedIn.value && currentId.value && !isRelativeAccount.value && !isProfileUnlockedInSession()) {
             try {
                 await request('/auth/profile', { method: 'POST', body: { memberId: null } })
                 currentId.value = null
@@ -59,6 +61,7 @@ export const useSession = () => {
                 clearNuxtState()
                 useState<boolean | null>('session-state', () => null).value = result.isSignedIn
                 useState<string | null>('current-member-id', () => null).value = result.memberId
+                useState<boolean>('session-relative', () => false).value = result.isRelativeAccount === true
             })
             return { status: 'ok' }
         } catch (error) {
@@ -84,5 +87,32 @@ export const useSession = () => {
         reloadNuxtApp({ path: '/login', persistState: false, force: true })
     }
 
-    return { isSignedIn, check, login, register, logout }
+    const switchFamily = async (familyId: string): Promise<void> => {
+        const result = await request<IAuthState>('/auth/family', { method: 'POST', body: { familyId } })
+        await clearOfflineData()
+        nuxtApp.runWithContext(() => {
+            clearNuxtState()
+            useState<boolean | null>('session-state', () => null).value = result.isSignedIn
+            useState<string | null>('current-member-id', () => null).value = result.memberId
+            useState<boolean>('session-relative', () => false).value = result.isRelativeAccount === true
+        })
+    }
+
+    const redeemInvitation = async (input: IInvitationRedeem): Promise<TAuthResult> => {
+        try {
+            const result = await request<IAuthState>('/invitations/redeem', { method: 'POST', body: input })
+            await clearOfflineData()
+            nuxtApp.runWithContext(() => {
+                clearNuxtState()
+                useState<boolean | null>('session-state', () => null).value = result.isSignedIn
+                useState<string | null>('current-member-id', () => null).value = result.memberId
+                useState<boolean>('session-relative', () => false).value = true
+            })
+            return { status: 'ok' }
+        } catch (error) {
+            return toAuthFailure(error)
+        }
+    }
+
+    return { isSignedIn, isRelativeAccount, check, login, register, logout, switchFamily, redeemInvitation }
 }

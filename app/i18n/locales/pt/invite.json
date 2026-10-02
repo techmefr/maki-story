@@ -1,0 +1,43 @@
+{
+    "menu": "Convidar um familiar",
+    "title": "Convidar um familiar",
+    "hint": "Cria um código de uso único e envia-o por WhatsApp, SMS, e-mail ou ligação.",
+    "channelLabel": "Como enviar?",
+    "channels": {
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "E-mail",
+        "LINK": "Ligação"
+    },
+    "nameLabel": "Nome do familiar (opcional)",
+    "namePlaceholder": "Avó Soa",
+    "emailLabel": "Endereço de e-mail",
+    "phoneLabel": "Número de telefone (opcional)",
+    "childrenLabel": "Que crianças?",
+    "childrenHint": "Sem escolha: todas as crianças da família.",
+    "create": "Criar o convite",
+    "createFailed": "Não foi possível criar o convite.",
+    "tooMany": "Demasiados convites seguidos, tenta mais tarde.",
+    "ready": "Convite pronto",
+    "validFor": "Válido cerca de {hours} h, uma única vez.",
+    "linkLabel": "Ligação do convite",
+    "emailSent": "E-mail enviado para {contact}.",
+    "emailNotSent": "Não foi possível enviar o e-mail: partilha tu a ligação.",
+    "share": "Partilhar",
+    "openWhatsapp": "Abrir o WhatsApp",
+    "openSms": "Enviar por SMS",
+    "copy": "Copiar a ligação",
+    "copied": "Ligação copiada",
+    "another": "Convidar outra pessoa",
+    "historyTitle": "Convites enviados",
+    "emptyTitle": "Nenhum convite",
+    "emptyHint": "Os convites criados aparecem aqui.",
+    "state": {
+        "pending": "Pendente",
+        "used": "Usado",
+        "expired": "Expirado",
+        "revoked": "Revogado"
+    },
+    "revoke": "Revogar",
+    "revokeAria": "Revogar o convite de {name}"
+}

@@ -1,0 +1,20 @@
+{
+    "title": "Unisciti a una famiglia",
+    "codeHint": "Inserisci il codice ricevuto da un genitore.",
+    "codeLabel": "Codice d’invito",
+    "check": "Verifica",
+    "invalidTitle": "Invito non valido",
+    "invalidHint": "Questo codice è usato, scaduto o sconosciuto. Chiedine uno nuovo.",
+    "tryAgain": "Prova un altro codice",
+    "welcome": "Unisciti alla famiglia {family}",
+    "invitedBy": "{name} ti invita.",
+    "oneTap": "Unisciti alla famiglia {family}",
+    "accountHint": "Crea il tuo account o accedi se ne hai già uno.",
+    "nameLabel": "Il tuo nome",
+    "emailLabel": "Indirizzo e-mail",
+    "passwordLabel": "Password",
+    "submit": "Unisciti",
+    "failed": "Impossibile unirsi per ora.",
+    "invalidCredentials": "Controlla e-mail, password o invito.",
+    "tooMany": "Troppi tentativi, riprova più tardi."
+}
