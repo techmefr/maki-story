@@ -41,11 +41,11 @@
                 <input v-model="parentName" class="input" type="text" :placeholder="t('auth.register.parentPlaceholder')" required />
             </label>
             <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-            <button type="submit" class="btn btn--block" :disabled="isBusy">
+            <AppButton is-block type="submit" :disabled="isBusy">
                 {{ isBusy ? t('auth.register.submitting') : t('auth.register.submit') }}
-            </button>
+            </AppButton>
         </form>
-        <NuxtLink to="/login" class="btn btn--white btn--block">{{ t('auth.register.haveAccount') }}</NuxtLink>
+        <AppButton variant="secondary" is-block to="/login">{{ t('auth.register.haveAccount') }}</AppButton>
     </div>
 </template>
 

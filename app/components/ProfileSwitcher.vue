@@ -18,8 +18,8 @@
                         <div class="muted">{{ roleLabel(member.role) }}</div>
                     </div>
                 </button>
-                <NuxtLink to="/family" class="btn btn--white btn--block" @click="close">{{ t('profile.manageFamily') }}</NuxtLink>
-                <button type="button" class="btn btn--white btn--block" @click="leave">{{ t('profile.logout') }}</button>
+                <AppButton variant="secondary" is-block to="/family" @click="close">{{ t('profile.manageFamily') }}</AppButton>
+                <AppButton variant="secondary" is-block @click="leave">{{ t('profile.logout') }}</AppButton>
             </template>
         </div>
     </div>

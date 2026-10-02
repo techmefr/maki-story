@@ -31,17 +31,17 @@
                         spellcheck="false"
                         required
                     />
-                    <button type="button" class="btn btn--small btn--white" @click="isVisible = !isVisible">
+                    <AppButton variant="secondary" size="sm" @click="isVisible = !isVisible">
                         {{ isVisible ? t('auth.login.hide') : t('auth.login.show') }}
-                    </button>
+                    </AppButton>
                 </div>
             </label>
             <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-            <button type="submit" class="btn btn--block" :disabled="isBusy">
+            <AppButton is-block type="submit" :disabled="isBusy">
                 {{ isBusy ? t('auth.login.submitting') : t('auth.login.submit') }}
-            </button>
+            </AppButton>
         </form>
-        <NuxtLink to="/register" class="btn btn--white btn--block">{{ t('auth.login.createFamily') }}</NuxtLink>
+        <AppButton variant="secondary" is-block to="/register">{{ t('auth.login.createFamily') }}</AppButton>
         <SocialSignIn />
         <div class="dots" style="justify-content: center" aria-hidden="true">
             <span v-for="color in colors" :key="color.id" class="dot" :style="{ background: color.hex }" />

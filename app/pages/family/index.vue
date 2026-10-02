@@ -30,11 +30,11 @@
                 <span class="badge">{{ t('family.index.manage') }}</span>
             </NuxtLink>
         </template>
-        <NuxtLink to="/family/add" class="btn btn--block"><AppIcon name="user-plus" :size="22" />{{ t('family.index.add') }}</NuxtLink>
-        <NuxtLink to="/storage" class="btn btn--white btn--block"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</NuxtLink>
-        <NuxtLink to="/sharing" class="btn btn--white btn--block"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</NuxtLink>
-        <NuxtLink to="/family/devices" class="btn btn--white btn--block">{{ t('family.index.devices') }}</NuxtLink>
-        <NuxtLink to="/feedback" class="btn btn--white btn--block">{{ t('family.index.feedback') }}</NuxtLink>
+        <AppButton is-block to="/family/add"><AppIcon name="user-plus" :size="22" />{{ t('family.index.add') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/storage"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/sharing"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/family/devices">{{ t('family.index.devices') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/feedback">{{ t('family.index.feedback') }}</AppButton>
     </div>
 </template>
 

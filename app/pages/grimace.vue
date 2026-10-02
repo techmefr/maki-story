@@ -3,7 +3,7 @@
         <h1 class="title">{{ t('home.grimace.title') }}</h1>
         <p class="muted">{{ t('home.grimace.help') }}</p>
         <PhotoCapture :frame-color="hex" @captured="onCaptured" />
-        <NuxtLink :to="homePath" class="btn btn--white btn--small">{{ t('home.grimace.later') }}</NuxtLink>
+        <AppButton variant="secondary" size="sm" :to="homePath">{{ t('home.grimace.later') }}</AppButton>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
     </div>
 </template>

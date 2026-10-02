@@ -1,9 +1,9 @@
 <template>
     <div class="stack unlock">
-        <button type="button" class="btn btn--white btn--small unlock__back" @click="emit('cancel')">
+        <AppButton variant="secondary" size="sm" class="unlock__back" @click="emit('cancel')">
             <AppIcon name="back" :size="18" />
             {{ t('profile.switchProfile') }}
-        </button>
+        </AppButton>
         <div class="stack unlock__head">
             <AppAvatar :member="member" :size="84" />
             <div class="subtitle">{{ member.name }}</div>
@@ -11,8 +11,8 @@
         <template v-if="stage === 'offer'">
             <h2 class="subtitle" tabindex="-1">{{ t('profile.unlock.offerTitle') }}</h2>
             <p class="muted">{{ t('profile.unlock.offerBody') }}</p>
-            <button type="button" class="btn btn--block" :disabled="isBusy" @click="onEnrol">{{ t('profile.unlock.enable') }}</button>
-            <button type="button" class="btn btn--white btn--block" :disabled="isBusy" @click="onSkipOffer">{{ t('profile.unlock.notNow') }}</button>
+            <AppButton is-block :disabled="isBusy" @click="onEnrol">{{ t('profile.unlock.enable') }}</AppButton>
+            <AppButton variant="secondary" is-block :disabled="isBusy" @click="onSkipOffer">{{ t('profile.unlock.notNow') }}</AppButton>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
         <template v-else-if="mode === 'blocked'">
@@ -24,16 +24,13 @@
             <p class="muted">{{ hint }}</p>
             <ShapePad v-if="padKind === 'shapes'" :key="padKey" :is-disabled="isBusy" @submit="onCode" />
             <PinPad v-else :key="padKey" :is-disabled="isBusy" @submit="onCode" />
-            <button
+            <AppButton variant="secondary" is-block
                 v-for="unlocker in availableUnlockers"
                 :key="unlocker.id"
-                type="button"
-                class="btn btn--white btn--block"
                 :disabled="isBusy"
-                @click="onUnlocker(unlocker)"
-            >
+                @click="onUnlocker(unlocker)">
                 {{ unlocker.label }}
-            </button>
+            </AppButton>
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         </template>
     </div>

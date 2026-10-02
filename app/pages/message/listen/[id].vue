@@ -7,28 +7,26 @@
             <div class="progress" style="width: 100%"><div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" /></div>
             <template v-if="isEnded">
                 <div class="subtitle">{{ t('messages.listen.finished') }}</div>
-                <NuxtLink
+                <AppButton variant="secondary" tone="mint" is-block
                     v-if="nextMessage"
                     :to="`/message/listen/${nextMessage.id}`"
-                    class="btn btn--mint btn--block"
                     style="min-height: 72px; font-size: 1.375rem"
-                    data-focus-default
-                >
+                    data-focus-default>
                     <AppIcon name="volume" :size="32" motion="pulse" />
                     {{ nextLabel }}
-                </NuxtLink>
-                <NuxtLink :to="replyPath" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />{{ t('messages.listen.reply') }}</NuxtLink>
+                </AppButton>
+                <AppButton is-block :to="replyPath" style="min-height: 72px; font-size: 1.375rem"><AppIcon name="mic" :size="32" motion="wiggle" />{{ t('messages.listen.reply') }}</AppButton>
             </template>
-            <button v-else-if="!isStarted" type="button" class="btn btn--block" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
+            <AppButton is-block v-else-if="!isStarted" style="min-height: 72px; font-size: 1.375rem" data-focus-default @click="play">
                 <AppIcon name="play" :size="32" motion="pulse" />
                 {{ t('messages.listen.play') }}
-            </button>
+            </AppButton>
         </template>
         <template v-else-if="isMissing">
             <AppMaki :size="100" />
             <div class="subtitle">{{ t('messages.listen.alreadyHeard') }}</div>
         </template>
-        <NuxtLink :to="backPath" class="btn btn--white btn--small"><AppIcon name="close" :size="18" />{{ t('common.close') }}</NuxtLink>
+        <AppButton variant="secondary" size="sm" :to="backPath"><AppIcon name="close" :size="18" />{{ t('common.close') }}</AppButton>
     </div>
 </template>
 

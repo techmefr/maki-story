@@ -9,15 +9,12 @@
                     <span class="label">{{ t('bookDraft.characters.name') }}</span>
                     <input class="input" :value="character.name" @input="updateCharacter(character.key, { name: ($event.target as HTMLInputElement).value })" />
                 </label>
-                <button
-                    type="button"
-                    class="btn btn--small btn--white"
+                <AppButton variant="secondary" size="sm"
                     :disabled="isCharacterUsed(character.key)"
                     :aria-label="t('bookDraft.characters.remove', { name: character.name })"
-                    @click="removeCharacter(character.key)"
-                >
+                    @click="removeCharacter(character.key)">
                     ×
-                </button>
+                </AppButton>
             </div>
             <div class="row row--wrap" role="group" :aria-label="t('bookDraft.characters.colors')">
                 <button
@@ -60,10 +57,10 @@
                 <span class="label">{{ t('bookDraft.characters.newCharacter') }}</span>
                 <input v-model="newName" class="input" :placeholder="t('bookDraft.characters.newPlaceholder')" />
             </label>
-            <button type="submit" class="btn btn--white" :disabled="newName.trim() === ''">{{ t('bookDraft.characters.add') }}</button>
+            <AppButton variant="secondary" type="submit" :disabled="newName.trim() === ''">{{ t('bookDraft.characters.add') }}</AppButton>
         </form>
         <div class="muted" role="status">{{ castHint }}</div>
-        <button type="button" class="btn btn--block" @click="emit('next')">{{ t('common.next') }}</button>
+        <AppButton is-block @click="emit('next')">{{ t('common.next') }}</AppButton>
     </div>
 </template>
 

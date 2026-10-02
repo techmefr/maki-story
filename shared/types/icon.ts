@@ -1,4 +1,5 @@
 export type IconName =
+    | 'chevron-down'
     | 'back'
     | 'next'
     | 'book'

@@ -20,7 +20,7 @@
             </template>
         </div>
         <div v-if="!hasLines" class="muted">{{ t('bookDraft.lines.needOne') }}</div>
-        <button type="button" class="btn btn--block" :disabled="!hasLines" @click="emit('next')">{{ t('common.next') }}</button>
+        <AppButton is-block :disabled="!hasLines" @click="emit('next')">{{ t('common.next') }}</AppButton>
     </div>
 </template>
 

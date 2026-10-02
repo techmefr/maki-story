@@ -37,7 +37,8 @@
         },
         "sounds": "Sons des boutons",
         "soundsOn": "Activer les sons",
-        "soundsVolume": "Volume des sons"
+        "soundsVolume": "Volume des sons",
+        "learningFont": "Police de lecture facile"
     },
     "unlock": {
         "offerTitle": "Activer l’empreinte ou le visage ?",

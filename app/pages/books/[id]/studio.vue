@@ -8,10 +8,7 @@
         </div>
         <div class="stack">
             <label class="label" for="studio-language">{{ t('studio.recordingLanguage') }}</label>
-            <select id="studio-language" v-model="language" class="input" required :disabled="isLocked">
-                <option value="">{{ t('studio.chooseLanguage') }}</option>
-                <option v-for="option in LANGUAGES" :key="option.code" :value="option.code">{{ option.flag }} {{ option.label }}</option>
-            </select>
+            <AppSelect id="studio-language" v-model="language" :disabled="isLocked" :options="languageOptions" />
             <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
         </div>
         <div class="row row--wrap">
@@ -45,21 +42,18 @@
             :aria-label="t('studio.prompter')"
         >
             <div class="stage__bar row row--wrap">
-                <button type="button" class="btn btn--white btn--small" :aria-pressed="isPrompter" @click="togglePrompter">
+                <AppButton variant="secondary" size="sm" :aria-pressed="isPrompter" @click="togglePrompter">
                     <AppIcon :name="isPrompter ? 'close' : 'eye'" :size="18" />
                     {{ isPrompter ? t('studio.prompterExit') : t('studio.prompter') }}
-                </button>
-                <button
+                </AppButton>
+                <AppButton variant="secondary" size="sm"
                     v-if="speech.isAvailable.value"
-                    type="button"
-                    class="btn btn--white btn--small"
                     :aria-pressed="speech.isEnabled.value"
                     :aria-label="t('studio.assist')"
-                    @click="toggleAssist"
-                >
+                    @click="toggleAssist">
                     <AppIcon :name="speech.isEnabled.value ? 'volume' : 'mute'" :size="18" />
                     {{ speech.isEnabled.value ? t('studio.assistOn') : t('studio.assistOff') }}
-                </button>
+                </AppButton>
             </div>
             <div v-if="speech.isAvailable.value && speech.isEnabled.value" class="stage__bar row row--wrap">
                 <button
@@ -73,10 +67,10 @@
                 >
                     {{ t(`studio.categories.${category.id}`) }}
                 </button>
-                <button type="button" class="btn btn--white btn--small" :disabled="isRecording" @click="assistCurrentLine">
+                <AppButton variant="secondary" size="sm" :disabled="isRecording" @click="assistCurrentLine">
                     <AppIcon name="ear" :size="18" />
                     {{ t('studio.replayAssist') }}
-                </button>
+                </AppButton>
             </div>
             <div class="stage__script stack">
                 <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
@@ -102,14 +96,14 @@
                     <p class="label">{{ t('studio.listenBeforeSend') }}</p>
                     <audio class="stage__audio" :src="pending.url" controls :aria-label="t('studio.takeAudio')" />
                     <div class="row row--wrap">
-                        <button type="button" class="btn btn--mint btn--small" :disabled="isBusy" @click="sendTake">
+                        <AppButton variant="secondary" tone="mint" size="sm" :disabled="isBusy" @click="sendTake">
                             <AppIcon name="send" :size="18" />
                             {{ isBusy ? t('studio.sending') : t('common.send') }}
-                        </button>
-                        <button type="button" class="btn btn--white btn--small" :disabled="isBusy" @click="cancelTake">
+                        </AppButton>
+                        <AppButton variant="secondary" size="sm" :disabled="isBusy" @click="cancelTake">
                             <AppIcon name="close" :size="18" />
                             {{ t('common.cancel') }}
-                        </button>
+                        </AppButton>
                     </div>
                 </template>
                 <button
@@ -126,24 +120,24 @@
                 <div class="muted">{{ hint }}</div>
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
+                    <AppButton variant="secondary" size="sm" :disabled="isLocked || !hasPrevious" @click="goRelative(-1)">
                         <AppIcon name="skip-back" :size="18" class="mirror-rtl" />
                         {{ t('studio.previousLine') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="isLocked || !hasNext" @click="goRelative(1)">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="isLocked || !hasNext" @click="goRelative(1)">
                         {{ t('studio.nextLine') }}
                         <AppIcon name="skip-forward" :size="18" class="mirror-rtl" />
-                    </button>
+                    </AppButton>
                 </div>
                 <div class="row row--wrap">
-                    <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="listen">
+                    <AppButton variant="secondary" size="sm" :disabled="!currentRecording || isLocked" @click="listen">
                         <AppIcon :name="isPlaying ? 'stop' : 'volume'" :size="18" />
                         {{ isPlaying ? t('studio.stopPlayback') : t('studio.listen') }}
-                    </button>
-                    <button type="button" class="btn btn--white btn--small" :disabled="!currentRecording || isLocked" @click="redo">
+                    </AppButton>
+                    <AppButton variant="secondary" size="sm" :disabled="!currentRecording || isLocked" @click="redo">
                         <AppIcon name="redo" :size="18" />
                         {{ t('studio.redo') }}
-                    </button>
+                    </AppButton>
                 </div>
             </div>
         </section>
@@ -171,19 +165,19 @@
             :get-member-name="memberName"
             @select="jumpTo"
         />
-        <button v-if="isRestricted" type="button" class="btn btn--mint btn--block" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
+        <AppButton variant="secondary" tone="mint" is-block v-if="isRestricted" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
             <AppIcon name="send" :size="22" />
             {{ draftCount > 0 ? t('review.studio.send', { count: draftCount }) : t('review.studio.nothingToSend') }}
-        </button>
+        </AppButton>
         <template v-if="canManage">
-            <NuxtLink v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`" class="btn btn--white btn--block">
+            <AppButton variant="secondary" is-block v-if="current?.role === 'parent'" :to="`/books/${book.id}/translate`">
                 <AppIcon name="languages" :size="22" />{{ t('studio.translateBook') }}
-            </NuxtLink>
-            <button v-if="!isRestricted" type="button" class="btn btn--mint btn--block" :disabled="!isComplete || isRecording" @click="publish">
+            </AppButton>
+            <AppButton variant="secondary" tone="mint" is-block v-if="!isRestricted" :disabled="!isComplete || isRecording" @click="publish">
                 <AppIcon v-if="isComplete" name="rocket" :size="22" motion="float" />
                 {{ isComplete ? t('studio.publish') : t('studio.recordAll') }}
-            </button>
-            <button type="button" class="btn btn--white btn--small" @click="askDelete">{{ t('studio.deleteBook') }}</button>
+            </AppButton>
+            <AppButton variant="secondary" size="sm" @click="askDelete">{{ t('studio.deleteBook') }}</AppButton>
         </template>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
@@ -206,6 +200,7 @@ interface IPendingTake {
 }
 
 const { t, formatDuration } = useI18n()
+const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('studio.chooseLanguage')))
 const route = useRoute()
 const { get, patch, remove, setLineAudio, clearLineAudio } = useBooks()
 const { submit, validateAll, loadComments } = useReview()

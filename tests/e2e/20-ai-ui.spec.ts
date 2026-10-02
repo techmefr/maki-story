@@ -160,7 +160,7 @@ test.describe('ai interface', () => {
         await addLine(page, 1, null, 'Au revoir petit zébu')
         const first = page.locator('.line', { hasText: 'Bonjour petit zébu' })
         await first.getByRole('button', { name: 'Suggérer une traduction' }).click()
-        await expect(first.getByLabel('Traduire en')).toHaveValue('mg')
+        await expect(first.getByLabel('Traduire en')).toContainText('Malagasy')
         await first.getByRole('button', { name: 'Suggérer', exact: true }).click()
         const field = first.getByLabel(/Traduction proposée en/)
         await expect(field).toHaveValue('[mg] 1')

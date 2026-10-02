@@ -1,8 +1,16 @@
-const CACHE_NAME = 'tantara-v1'
+const CACHE_NAME = 'tantara-v2'
 const SHELL_URL = '/'
+const FONT_URLS = [
+    '/fonts/fredoka-500.woff2',
+    '/fonts/fredoka-600.woff2',
+    '/fonts/fredoka-700.woff2',
+    '/fonts/nunito-500.woff2',
+    '/fonts/nunito-700.woff2',
+    '/fonts/nunito-800.woff2',
+]
 
 self.addEventListener('install', event => {
-    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.add(SHELL_URL)).then(() => self.skipWaiting()))
+    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.add(SHELL_URL).then(() => cache.addAll(FONT_URLS))).then(() => self.skipWaiting()))
 })
 
 self.addEventListener('activate', event => {
@@ -20,7 +28,7 @@ self.addEventListener('fetch', event => {
     if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) {
         return
     }
-    if (url.pathname.startsWith('/_nuxt/')) {
+    if (url.pathname.startsWith('/_nuxt/') || url.pathname.startsWith('/fonts/')) {
         event.respondWith(
             caches.match(request).then(
                 cached =>
