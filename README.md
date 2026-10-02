@@ -42,6 +42,18 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 6. **Listen**: the child taps a face, hears the story, gets a soft "ding" and a "next page" screen at each page end, and a lighter, shorter cue plus a quick transition between two comic panels. The cue respects reduced motion and the sound on/off button of the player.
 7. **Message**: children and relatives exchange short voice messages (last five kept per conversation, listened once). A relative can leave at most three unlistened messages for a child (`MAX_STATUS_MESSAGES_PER_RELATIVE`): the fourth is refused with a clear message until the child listens. The child sees a counter bubble per relative, and must listen to each message to the end before the next one unlocks; the server serves the file only for the oldest unlistened message and never again once listened. Parents can replay.
 
+## Status and roadmap
+
+Tantara is a prototype. The current priority is a solid, working and simple foundation: every feature works, is covered by tests and respects the rules (family isolation, server-side permissions, i18n, accessibility, child safety).
+
+Planned for later, with no date:
+
+- UI polish and visual identity.
+- Architecture: migration to the OSDD layers (`technical/` and `functional/`), tracked in issue #116.
+- SaaS: plans, billing and onboarding for many families.
+- A real native app on the stores.
+- A final product name. "Tantara" is a working name, centralized in a single config constant.
+
 ## Features
 
 - Multi-voice casting with six voice colors and a mascot (a lemur with headphones)
