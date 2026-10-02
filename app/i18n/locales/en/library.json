@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Proposals from relatives",
+        "myProposals": "My pending proposals"
+    },
+    "proposals": {
+        "proposedBy": "Proposed by {name}",
+        "approve": "Accept",
+        "decline": "Decline",
+        "approveLabel": "Accept {title}",
+        "declineLabel": "Decline {title}",
+        "error": "This proposal cannot be processed right now."
+    },
+    "proposal": {
+        "toggle": "Propose this book to the family",
+        "hint": "A parent accepts or declines it before anything is recorded."
+    },
+    "filters": {
+        "more": "More filters",
+        "type": "Book type",
+        "mood": "Mood",
+        "theme": "Theme",
+        "types": {
+            "standard": "Book",
+            "comic": "Comic",
+            "wordless": "No text",
+            "child-written": "Written by the child"
+        },
+        "moods": {
+            "calm": "Calm",
+            "funny": "Funny",
+            "adventure": "Adventure",
+            "tender": "Tender",
+            "bedtime": "Bedtime",
+            "curious": "Curious",
+            "musical": "Musical",
+            "brave": "Brave"
+        },
+        "themes": {
+            "animals": "Animals",
+            "family": "Family",
+            "friendship": "Friendship",
+            "nature": "Nature",
+            "school": "School",
+            "feelings": "Feelings",
+            "travel": "Travel",
+            "food": "Food",
+            "seasons": "Seasons",
+            "legends": "Legends",
+            "numbers-letters": "Numbers and letters",
+            "daily-life": "Daily life"
+        }
+    },
+    "childVisible": {
+        "title": "Visibility for the child",
+        "auto": "By age",
+        "show": "Always visible",
+        "hide": "Hidden",
+        "hint": "By default, the child only sees books for their age.",
+        "error": "The visibility cannot be changed right now."
+    },
+    "ageShift": {
+        "title": "Age range shift",
+        "hint": "Shows this child younger (−) or older (+) books than their age, in years.",
+        "error": "The shift cannot be changed right now."
+    },
+    "birthNudge": {
+        "title": "Add the birth date",
+        "hint": "Without a birth date ({names}), every book is shown to the child.",
+        "action": "Fill in"
+    },
+    "shareLanguage": {
+        "label": "Language of your recording",
+        "choose": "Choose a language",
+        "required": "Choose the language before recording."
+    },
+    "notify": {
+        "recordingRequest": "You are asked to record your voice for “{title}” ({count})",
+        "bookProposed": "{name} proposes the book “{title}”",
+        "proposalApproved": "Your proposal “{title}” was accepted",
+        "proposalDeclined": "Your proposal “{title}” was declined"
+    }
+}

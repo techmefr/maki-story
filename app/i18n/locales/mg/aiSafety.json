@@ -1,0 +1,15 @@
+{
+    "blocked": {
+        "refused": "Voasakana ny sivana fiarovana ny ankizy ity votoaty ity. Andramo hevitra hafa.",
+        "images": "{count} sary voasakan’ny sivana fiarovana: mijanona foana ny pejy."
+    },
+    "budget": {
+        "title": "Teti-bola IA an’ny fianakaviana",
+        "default": "Teti-bola tsy miova: {amount} isam-bolana.",
+        "custom": "Teti-bola manokana ho an’ny fianakanao.",
+        "label": "Teti-bola isam-bolana (USD)",
+        "save": "Tehirizo",
+        "reset": "Hiverina amin’ny teti-bola tsy miova",
+        "error": "Tsy afaka voatahiry izao ny teti-bola."
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "blocked": {
+        "refused": "El filtro de seguridad infantil bloqueó este contenido. Prueba otra idea.",
+        "images": "{count} imagen(es) bloqueada(s) por el filtro de seguridad: la página queda vacía."
+    },
+    "budget": {
+        "title": "Presupuesto de IA de la familia",
+        "default": "Presupuesto por defecto: {amount} al mes.",
+        "custom": "Presupuesto personalizado para tu familia.",
+        "label": "Presupuesto mensual (USD)",
+        "save": "Guardar",
+        "reset": "Volver al presupuesto por defecto",
+        "error": "No se puede guardar el presupuesto ahora."
+    }
+}

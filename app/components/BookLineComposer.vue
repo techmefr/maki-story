@@ -35,14 +35,11 @@
           :placeholder="t('studio.composer.newPlaceholder')"
           @keydown.enter.prevent="createCharacter"
         />
-        <button
-          type="button"
-          class="btn btn--small"
+        <AppButton size="sm"
           :disabled="newName.trim() === ''"
-          @click="createCharacter"
-        >
+          @click="createCharacter">
           {{ t("common.create") }}
-        </button>
+        </AppButton>
       </div>
       <div
         v-if="selected && selected.memberId === null"
@@ -106,9 +103,9 @@
     <div v-if="parsedCount > 1" class="muted" role="status">
       {{ t("studio.composer.willAdd", { count: parsedCount }) }}
     </div>
-    <button type="submit" class="btn" :disabled="parsedCount === 0">
+    <AppButton type="submit" :disabled="parsedCount === 0">
       {{ t("common.add") }}
-    </button>
+    </AppButton>
   </form>
 </template>
 

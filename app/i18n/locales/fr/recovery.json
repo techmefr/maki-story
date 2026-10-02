@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Activité de la famille",
+        "trash": "Corbeille",
+        "data": "Données de la famille"
+    },
+    "trash": {
+        "title": "Corbeille",
+        "intro": "Ce qui est supprimé reste récupérable pendant {days} jours, puis disparaît pour de bon.",
+        "empty": "La corbeille est vide",
+        "emptyHint": "Les livres, voix, profils et souvenirs supprimés apparaîtront ici.",
+        "until": "Récupérable jusqu’au {date}",
+        "restore": "Restaurer",
+        "restoreLabel": "Restaurer {label}",
+        "conflict": "Impossible de restaurer : l’élément est en conflit avec un autre (boîte pleine ou message déjà actif).",
+        "error": "La corbeille n’est pas disponible pour le moment.",
+        "messageLabel": "Message de {from} à {to}",
+        "recordingsCount": "{count} enregistrements de voix",
+        "types": {
+            "book": "Livre",
+            "member": "Profil",
+            "message": "Message vocal",
+            "treasure": "Souvenir du coffre",
+            "recordings": "Voix d’un proche"
+        }
+    },
+    "activity": {
+        "title": "Activité de la famille",
+        "intro": "Le journal des actions importantes, conservé {months} mois.",
+        "empty": "Aucune activité pour l’instant",
+        "emptyHint": "Les actions de la famille s’afficheront ici.",
+        "by": "par {name}",
+        "system": "automatique",
+        "more": "Voir plus",
+        "error": "L’activité n’est pas disponible pour le moment.",
+        "outcome": {
+            "denied": "Refusé",
+            "failure": "Échec"
+        },
+        "actions": {
+            "book": {
+                "created": "Livre créé",
+                "proposed": "Livre proposé",
+                "updated": "Livre modifié",
+                "deleted": "Livre supprimé",
+                "purged": "Livre effacé définitivement",
+                "restored": "Livre restauré",
+                "proposal": {
+                    "approve": "Proposition acceptée",
+                    "decline": "Proposition refusée"
+                }
+            },
+            "recording": {
+                "saved": "Voix enregistrée",
+                "deleted": "Voix effacée"
+            },
+            "recordings": {
+                "restored": "Voix restaurées"
+            },
+            "review": {
+                "line": {
+                    "approve": "Réplique validée",
+                    "request_changes": "Réplique à refaire"
+                }
+            },
+            "share": {
+                "created": "Partage créé",
+                "accepted": "Partage accepté",
+                "declined": "Partage refusé",
+                "approved": "Partage approuvé",
+                "stopped": "Partage arrêté",
+                "voice": {
+                    "recorded": "Voix reçue d’une autre famille"
+                }
+            },
+            "message": {
+                "sent": "Message envoyé",
+                "listened": "Message écouté",
+                "deleted": "Message supprimé",
+                "purged": "Message expiré et effacé",
+                "restored": "Message restauré"
+            },
+            "treasure": {
+                "restored": "Souvenir restauré"
+            },
+            "member": {
+                "created": "Profil ajouté",
+                "updated": "Profil modifié",
+                "purged": "Profil effacé définitivement",
+                "restored": "Profil restauré",
+                "voice": {
+                    "deleted": "Voix d’un proche supprimée",
+                    "exported": "Voix d’un proche exportée"
+                },
+                "access": {
+                    "block": "Accès d’un enfant modifié"
+                },
+                "schedule": {
+                    "updated": "Horaires d’un enfant modifiés"
+                }
+            },
+            "family": {
+                "exported": "Données de la famille exportées"
+            },
+            "ai": {
+                "job": {
+                    "started": "Demande à l’IA"
+                },
+                "moderation": {
+                    "blocked": "Contenu IA bloqué par le filtre enfants"
+                },
+                "budget": {
+                    "updated": "Budget IA modifié"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Données de la famille",
+        "intro": "Tu décides de ce qui arrive aux données de ta famille : les exporter ou tout effacer.",
+        "export": {
+            "title": "Exporter toutes les données",
+            "hint": "Un fichier ZIP avec les livres, les voix, les messages et le coffre, sans aucun code.",
+            "button": "Télécharger l’export"
+        },
+        "delete": {
+            "title": "Supprimer toute la famille",
+            "warning": "Irréversible : livres, voix, messages, partages et profils sont effacés pour de bon, sans retour possible.",
+            "start": "Je veux tout supprimer",
+            "nameLabel": "Écris le nom de la famille pour confirmer",
+            "codeLabel": "Entre ton code de parent",
+            "wrongCode": "Code incorrect ou trop d’essais. Réessaie plus tard.",
+            "wrongName": "Le nom de la famille ne correspond pas.",
+            "failed": "La suppression a échoué, rien n’a été effacé. Réessaie plus tard."
+        }
+    },
+    "voice": {
+        "title": "Voix de ce proche",
+        "hint": "Tu peux exporter ses enregistrements puis les supprimer. Ils restent récupérables dans la corbeille pendant un temps.",
+        "export": "Exporter sa voix",
+        "delete": "Supprimer sa voix",
+        "confirm": "Ses enregistrements disparaîtront des livres. Confirmer ?",
+        "confirmAction": "Oui, supprimer",
+        "deleted": "{count} enregistrements supprimés (récupérables dans la corbeille).",
+        "error": "Impossible de supprimer cette voix pour le moment."
+    }
+}

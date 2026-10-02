@@ -22,12 +22,12 @@
                 </button>
                 <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
                 <div v-if="phase === 'done'" class="row">
-                    <button type="button" class="btn btn--white" @click="redo"><AppIcon name="redo" :size="22" />{{ t('messages.compose.redo') }}</button>
-                    <button type="button" class="btn btn--mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />{{ t('common.send') }}</button>
+                    <AppButton variant="secondary" @click="redo"><AppIcon name="redo" :size="22" />{{ t('messages.compose.redo') }}</AppButton>
+                    <AppButton variant="secondary" tone="mint" :disabled="isBusy" @click="send"><AppIcon name="send" :size="22" motion="nudge" />{{ t('common.send') }}</AppButton>
                 </div>
                 <div v-else class="muted">{{ isRecording ? t('messages.compose.tapToFinish') : t('messages.compose.tapMic') }}</div>
             </template>
-            <NuxtLink :to="backPath" class="btn btn--white btn--small">{{ t('common.back') }}</NuxtLink>
+            <AppButton variant="secondary" size="sm" :to="backPath">{{ t('common.back') }}</AppButton>
         </template>
     </div>
 </template>

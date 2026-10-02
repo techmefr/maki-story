@@ -1,8 +1,8 @@
 <template>
     <div class="stack">
         <h1 class="title">{{ t('messages.title') }}</h1>
-        <AppEmpty v-if="children.length === 0" :title="t('messages.noOneTitle')" :hint="t('messages.addChild')">
-            <NuxtLink to="/family/add" class="btn btn--white"><AppIcon name="user-plus" :size="22" />{{ t('family.add.title') }}</NuxtLink>
+        <AppEmpty kind="messages" v-if="children.length === 0" :title="t('messages.noOneTitle')" :hint="t('messages.addChild')">
+            <AppButton variant="secondary" to="/family/add"><AppIcon name="user-plus" :size="22" />{{ t('family.add.title') }}</AppButton>
         </AppEmpty>
         <div class="grid grid--people">
         <div v-for="child in threads" :key="child.member.id" class="card stack">
@@ -13,12 +13,9 @@
                     <div class="muted">{{ child.statusLabel }}</div>
                 </div>
             </div>
-            <template v-if="isOnline && child.isBlocked">
-                <button type="button" class="btn btn--block" disabled aria-describedby="blocked-reason"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</button>
-                <p id="blocked-reason" class="muted" role="status">{{ t('messages.activeBlocked', { name: child.member.name }) }}</p>
-            </template>
-            <NuxtLink v-else-if="isOnline" :to="`/message/${child.member.id}`" class="btn btn--block"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</NuxtLink>
-            <button v-else type="button" class="btn btn--block" disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</button>
+            <AppButton v-if="isOnline && child.isBlocked" is-block disabled :disabled-reason="t('messages.activeBlocked', { name: child.member.name })"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
+            <AppButton v-else-if="isOnline" is-block :to="`/message/${child.member.id}`"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
+            <AppButton v-else is-block disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</AppButton>
         </div>
         </div>
     </div>

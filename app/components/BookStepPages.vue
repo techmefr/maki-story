@@ -3,11 +3,11 @@
         <p class="muted">
             {{ t('bookDraft.pages.intro') }}
         </p>
-        <label class="btn btn--block">
+        <AppButton as="label" is-block>
             {{ pages.length === 0 ? t('bookDraft.pages.takePhoto') : t('bookDraft.pages.addPage') }}
             <input type="file" accept="image/*" capture="environment" multiple hidden @change="addPhotos" />
-        </label>
-        <button v-if="!isWordless" type="button" class="btn btn--white btn--block" @click="addEmptyPage">{{ t('bookDraft.pages.addEmpty') }}</button>
+        </AppButton>
+        <AppButton variant="secondary" is-block v-if="!isWordless" @click="addEmptyPage">{{ t('bookDraft.pages.addEmpty') }}</AppButton>
         <div v-if="isBusy" class="muted" role="status">{{ t('bookDraft.pages.sending') }}</div>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <div v-for="(page, index) in pages" :key="page.key" class="card stack" :aria-label="t('bookDraft.shared.page', { n: index + 1 })" role="group">
@@ -15,20 +15,12 @@
                 <span class="subtitle">{{ t('bookDraft.shared.page', { n: index + 1 }) }}</span>
                 <span v-if="page.kind === 'cover'" class="badge">{{ t('bookDraft.shared.cover') }}</span>
                 <span v-else-if="page.kind === 'empty'" class="badge">{{ t('bookDraft.shared.emptyPage') }}</span>
-                <button type="button" class="btn btn--small btn--white" :aria-label="t('bookDraft.pages.removePage', { n: index + 1 })" @click="removePage(index)">×</button>
+                <AppButton variant="secondary" size="sm" :aria-label="t('bookDraft.pages.removePage', { n: index + 1 })" @click="removePage(index)">×</AppButton>
             </div>
             <div v-if="page.previewUrl" class="thumb" :style="{ backgroundImage: `url(${page.previewUrl})` }" />
             <template v-if="page.kind === 'empty'">
                 <p class="muted">{{ t('bookDraft.pages.emptyNote') }}</p>
-                <label class="row">
-                    <input
-                        type="checkbox"
-                        class="check"
-                        :checked="page.ttsFallback"
-                        @change="updatePage(index, { ttsFallback: ($event.target as HTMLInputElement).checked })"
-                    />
-                    <span>{{ t('bookDraft.pages.ttsFallback') }}</span>
-                </label>
+                <AppCheckbox :model-value="page.ttsFallback" @update:model-value="updatePage(index, { ttsFallback: Boolean($event) })">{{ t('bookDraft.pages.ttsFallback') }}</AppCheckbox>
             </template>
             <template v-else>
                 <button type="button" class="chip" :class="{ 'chip--on': page.kind === 'cover' }" :aria-pressed="page.kind === 'cover'" @click="toggleCover(index)">
@@ -54,23 +46,20 @@
                                 @input="updatePanel(index, panelIndex, ($event.target as HTMLInputElement).value)"
                             />
                         </label>
-                        <button
-                            type="button"
-                            class="btn btn--small btn--white"
+                        <AppButton variant="secondary" size="sm"
                             :aria-label="t('bookDraft.pages.removePanel', { panel: panelIndex + 1, page: index + 1 })"
-                            @click="removePanel(index, panelIndex)"
-                        >
+                            @click="removePanel(index, panelIndex)">
                             ×
-                        </button>
+                        </AppButton>
                     </div>
-                    <button type="button" class="btn btn--white btn--small" @click="addPanel(index)">{{ t('bookDraft.pages.addPanel') }}</button>
+                    <AppButton variant="secondary" size="sm" @click="addPanel(index)">{{ t('bookDraft.pages.addPanel') }}</AppButton>
                 </div>
             </template>
         </div>
         <div v-if="needsPhoto" class="muted">{{ t('bookDraft.pages.needsPhoto') }}</div>
-        <button type="button" class="btn btn--block" :disabled="isBusy || needsPhoto" @click="emit('next')">
+        <AppButton is-block :disabled="isBusy || needsPhoto" @click="emit('next')">
             {{ pages.length === 0 && !needsPhoto ? t('bookDraft.pages.continueNoPhoto') : t('common.next') }}
-        </button>
+        </AppButton>
     </div>
 </template>
 

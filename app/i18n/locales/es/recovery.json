@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Actividad de la familia",
+        "trash": "Papelera",
+        "data": "Datos de la familia"
+    },
+    "trash": {
+        "title": "Papelera",
+        "intro": "Lo eliminado se puede recuperar durante {days} días y luego desaparece para siempre.",
+        "empty": "La papelera está vacía",
+        "emptyHint": "Los libros, voces, perfiles y recuerdos eliminados aparecerán aquí.",
+        "until": "Se puede recuperar hasta el {date}",
+        "restore": "Restaurar",
+        "restoreLabel": "Restaurar {label}",
+        "conflict": "No se puede restaurar: el elemento entra en conflicto con otro (caja llena o mensaje ya activo).",
+        "error": "La papelera no está disponible ahora.",
+        "messageLabel": "Mensaje de {from} para {to}",
+        "recordingsCount": "{count} grabaciones de voz",
+        "types": {
+            "book": "Libro",
+            "member": "Perfil",
+            "message": "Mensaje de voz",
+            "treasure": "Recuerdo del cofre",
+            "recordings": "Voz de un familiar"
+        }
+    },
+    "activity": {
+        "title": "Actividad de la familia",
+        "intro": "El registro de las acciones importantes, conservado {months} meses.",
+        "empty": "Aún no hay actividad",
+        "emptyHint": "Las acciones de la familia aparecerán aquí.",
+        "by": "por {name}",
+        "system": "automático",
+        "more": "Ver más",
+        "error": "La actividad no está disponible ahora.",
+        "outcome": {
+            "denied": "Denegado",
+            "failure": "Fallido"
+        },
+        "actions": {
+            "book": {
+                "created": "Libro creado",
+                "proposed": "Libro propuesto",
+                "updated": "Libro modificado",
+                "deleted": "Libro eliminado",
+                "purged": "Libro borrado definitivamente",
+                "restored": "Libro restaurado",
+                "proposal": {
+                    "approve": "Propuesta aceptada",
+                    "decline": "Propuesta rechazada"
+                }
+            },
+            "recording": {
+                "saved": "Voz grabada",
+                "deleted": "Voz borrada"
+            },
+            "recordings": {
+                "restored": "Voces restauradas"
+            },
+            "review": {
+                "line": {
+                    "approve": "Línea aprobada",
+                    "request_changes": "Línea devuelta"
+                }
+            },
+            "share": {
+                "created": "Uso compartido creado",
+                "accepted": "Uso compartido aceptado",
+                "declined": "Uso compartido rechazado",
+                "approved": "Uso compartido aprobado",
+                "stopped": "Uso compartido detenido",
+                "voice": {
+                    "recorded": "Voz recibida de otra familia"
+                }
+            },
+            "message": {
+                "sent": "Mensaje enviado",
+                "listened": "Mensaje escuchado",
+                "deleted": "Mensaje eliminado",
+                "purged": "Mensaje caducado y borrado",
+                "restored": "Mensaje restaurado"
+            },
+            "treasure": {
+                "restored": "Recuerdo restaurado"
+            },
+            "member": {
+                "created": "Perfil añadido",
+                "updated": "Perfil modificado",
+                "purged": "Perfil borrado definitivamente",
+                "restored": "Perfil restaurado",
+                "voice": {
+                    "deleted": "Voz de un familiar eliminada",
+                    "exported": "Voz de un familiar exportada"
+                },
+                "access": {
+                    "block": "Acceso de un niño modificado"
+                },
+                "schedule": {
+                    "updated": "Horario de un niño modificado"
+                }
+            },
+            "family": {
+                "exported": "Datos de la familia exportados"
+            },
+            "ai": {
+                "job": {
+                    "started": "Solicitud a la IA"
+                },
+                "moderation": {
+                    "blocked": "Contenido de IA bloqueado por el filtro infantil"
+                },
+                "budget": {
+                    "updated": "Presupuesto de IA modificado"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Datos de la familia",
+        "intro": "Tú decides qué pasa con los datos de tu familia: exportarlos o borrarlo todo.",
+        "export": {
+            "title": "Exportar todos los datos",
+            "hint": "Un archivo ZIP con los libros, las voces, los mensajes y el cofre, sin ningún código.",
+            "button": "Descargar la exportación"
+        },
+        "delete": {
+            "title": "Eliminar toda la familia",
+            "warning": "Irreversible: libros, voces, mensajes, usos compartidos y perfiles se borran para siempre, sin vuelta atrás.",
+            "start": "Quiero eliminarlo todo",
+            "nameLabel": "Escribe el nombre de la familia para confirmar",
+            "codeLabel": "Introduce tu código de padre",
+            "wrongCode": "Código incorrecto o demasiados intentos. Inténtalo más tarde.",
+            "wrongName": "El nombre de la familia no coincide.",
+            "failed": "La eliminación falló, no se borró nada. Inténtalo más tarde."
+        }
+    },
+    "voice": {
+        "title": "Voz de este familiar",
+        "hint": "Puedes exportar sus grabaciones y luego eliminarlas. Siguen recuperables en la papelera durante un tiempo.",
+        "export": "Exportar su voz",
+        "delete": "Eliminar su voz",
+        "confirm": "Sus grabaciones desaparecerán de los libros. ¿Confirmar?",
+        "confirmAction": "Sí, eliminar",
+        "deleted": "{count} grabaciones eliminadas (recuperables desde la papelera).",
+        "error": "No se puede eliminar esta voz ahora."
+    }
+}

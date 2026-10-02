@@ -2,7 +2,9 @@ import { checkAge, checkAgeRange, checkBookType, checkLanguage, checkMoods, chec
 import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
 import { assertMembersInFamily } from '../../utils/family'
+import { actorEntry, record } from '../../utils/journal'
 import { logEvent } from '../../utils/log'
+import { notify } from '../../utils/notifications'
 import { requireActorMember, requireBookEditor } from '../../utils/permissions'
 import { dropApprovedTake, markLineRecordingsStale } from '../../utils/recordings'
 import { approveBook, findReviewBook } from '../../utils/review'
@@ -21,7 +23,16 @@ export default defineEventHandler(async (event): Promise<IBook> => {
     if (body.status !== undefined && actor.role !== 'parent' && (body.status === 'ready' || body.status === 'in_review')) {
         throw createError({ statusCode: 403, statusMessage: 'A parent has to validate this book' })
     }
+    if (body.childVisible !== undefined && body.childVisible !== null && typeof body.childVisible !== 'boolean') {
+        return badRequest('Invalid child visibility')
+    }
+    if (body.childVisible !== undefined && actor.role !== 'parent') {
+        throw createError({ statusCode: 403, statusMessage: 'A parent has to decide what a child can see' })
+    }
     const current = await loadBook(id, familyId)
+    if (body.status !== undefined && current.status === 'proposed' && body.status !== 'proposed') {
+        throw createError({ statusCode: 403, statusMessage: 'A parent has to answer this proposal' })
+    }
     const ageMin = body.ageMin === undefined ? current.ageMin : checkAge(body.ageMin)
     const ageMax = body.ageMax === undefined ? current.ageMax : checkAge(body.ageMax)
     checkAgeRange(ageMin, ageMax)
@@ -48,7 +59,17 @@ export default defineEventHandler(async (event): Promise<IBook> => {
     ) {
         return badRequest('Unknown character or panel')
     }
+    const requestedMemberIds = new Set<string>()
+    for (const patch of body.lines ?? []) {
+        const line = current.lines.find(item => item.id === patch.id)
+        if (patch.memberId && line && patch.memberId !== line.memberId && patch.memberId !== actor.memberId) {
+            requestedMemberIds.add(patch.memberId)
+        }
+    }
     await db.begin(async tx => {
+        if (body.childVisible !== undefined) {
+            await tx`update books set child_visible = ${body.childVisible} where id = ${id} and family_id = ${familyId}`
+        }
         if (body.title !== undefined && body.title.trim() !== '') {
             await tx`update books set title = ${body.title.trim()} where id = ${id} and family_id = ${familyId}`
         }
@@ -131,6 +152,20 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         }
     })
     const book = await loadBook(id, familyId)
+    for (const memberId of requestedMemberIds) {
+        const [target] = await db<{ role: MemberRole }[]>`select role from members where id = ${memberId} and family_id = ${familyId} and deleted_at is null`
+        if (target?.role === 'relative') {
+            await notify(db, { familyId, recipientMemberId: memberId, kind: 'recording_request', payload: { bookId: id, bookTitle: book.title }, groupKey: `request:${id}:${memberId}` })
+        }
+    }
+    await record(event, {
+        ...actorEntry(actor),
+        action: 'book.updated',
+        entityType: 'book',
+        entityId: id,
+        before: { status: current.status, childVisible: current.childVisible },
+        after: { status: book.status, childVisible: book.childVisible, linesPatched: (body.lines ?? []).length },
+    })
     if (body.status !== undefined) {
         logEvent(`Livre « ${book.title} » passé en statut ${body.status}`)
     }

@@ -4,6 +4,8 @@ export type AiJobStatus = 'queued' | 'running' | 'succeeded' | 'failed'
 export interface IAiStatus {
     enabled: boolean
     monthlyBudgetUsd: number
+    defaultBudgetUsd: number
+    isCustomBudget: boolean
     spentUsd: number
     remainingUsd: number
 }
@@ -61,6 +63,11 @@ export interface IAiBookGenerationResult {
     bookId: string
     imagesGenerated: number
     imagesSkipped: number
+    imagesBlocked: number
+}
+
+export interface IAiBudgetBody {
+    monthlyBudgetUsd: number | null
 }
 
 export interface IAiTranslationLine {

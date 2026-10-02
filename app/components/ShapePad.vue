@@ -42,14 +42,11 @@
         </svg>
       </button>
     </div>
-    <button
-      type="button"
-      class="btn btn--white btn--small"
+    <AppButton variant="secondary" size="sm"
       :disabled="isDisabled || chosen === ''"
-      @click="clear"
-    >
+      @click="clear">
       {{ t("studio.shapes.clear") }}
-    </button>
+    </AppButton>
   </div>
 </template>
 

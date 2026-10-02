@@ -193,11 +193,12 @@ test.describe('voice message rules v3', () => {
         await chooseProfile(page, 'Lova')
         await page.goto('/kid')
         const mamieFace = page.locator('.face', { hasText: 'Mamie' })
-        await mamieFace.locator('.face__bubble').click()
-        await page.getByRole('button', { name: 'Écouter' }).click()
-        await expect(page.getByRole('button', { name: 'Réécouter' })).toBeVisible({ timeout: 15000 })
+        await mamieFace.locator('.face__link').click()
+        await expect(page.getByTestId('message-player')).toBeVisible()
+        await expect(page).toHaveURL(/\/kid\/[^/]+$/, { timeout: 15000 })
+        await page.goto('/kid')
         await page.reload()
-        await expect(page.getByRole('button', { name: 'Écouter' })).toBeVisible()
+        await expect(mamieFace.locator('.face__link')).toHaveAttribute('data-ring', 'heard')
     })
 
     test('the status strip is pinned on top of the library on a tablet', async ({ page }) => {

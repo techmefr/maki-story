@@ -5,9 +5,9 @@
         <div class="locked__moon" aria-hidden="true">
             <AppIcon name="moon" :size="64" motion="float" />
         </div>
-        <button type="button" class="btn btn--round locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="goToParent">
+        <AppButton is-round class="locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="goToParent">
             <AppIcon name="lock" :size="28" />
-        </button>
+        </AppButton>
     </main>
 </template>
 

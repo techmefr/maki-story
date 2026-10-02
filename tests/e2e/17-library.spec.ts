@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { chooseProfile, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile } from './helpers'
+import { chooseProfile, makeWav, PROFILE_PIN, signIn, uniqueAccount, useProfile, pickOption } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
@@ -183,9 +183,9 @@ test.describe('library', () => {
         await expect(everything.getByRole('link')).toHaveCount(1)
         await expect(page.getByRole('button', { name: '4-6 ans' })).toHaveAttribute('aria-pressed', 'true')
         await page.getByRole('button', { name: '4-6 ans' }).click()
-        await page.getByLabel('Langue').selectOption('mg')
+        await pickOption(page, 'Langue', /Malagasy/)
         await expect(everything.getByRole('link')).toHaveCount(1)
-        await page.getByLabel('Langue').selectOption('en')
+        await pickOption(page, 'Langue', /English/)
         await expect(page.getByText('Aucun livre ne correspond')).toBeVisible()
     })
 

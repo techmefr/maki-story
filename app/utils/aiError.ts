@@ -12,6 +12,9 @@ export const aiErrorKey = (error: unknown): string => {
     if (status === 403) {
         return 'ai.errors.forbidden'
     }
+    if (status === 422) {
+        return 'aiSafety.blocked.refused'
+    }
     if (status === 502) {
         return 'ai.errors.unusable'
     }

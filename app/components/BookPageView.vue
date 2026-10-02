@@ -1,13 +1,13 @@
 <template>
     <section class="pageview stack" :aria-label="t('pageView.title', { n: pageNumber })" :data-mode="mode" data-testid="page-view">
         <header v-if="showNav" class="row row--wrap pageview__head">
-            <button type="button" class="btn btn--white btn--small pageview__nav" :disabled="pageNumber <= 1" :aria-label="t('pageView.previous')" @click="emit('go', -1)">
+            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber <= 1" :aria-label="t('pageView.previous')" @click="emit('go', -1)">
                 <AppIcon name="back" :size="20" class="mirror-rtl" />
-            </button>
+            </AppButton>
             <h3 class="subtitle grow pageview__title">{{ t('pageView.title', { n: pageNumber }) }} / {{ pageCount }}</h3>
-            <button type="button" class="btn btn--white btn--small pageview__nav" :disabled="pageNumber >= pageCount" :aria-label="t('pageView.next')" @click="emit('go', 1)">
+            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber >= pageCount" :aria-label="t('pageView.next')" @click="emit('go', 1)">
                 <AppIcon name="next" :size="20" class="mirror-rtl" />
-            </button>
+            </AppButton>
         </header>
         <PageScanViewer v-if="canSeeScan && view.fileId" :file-id="view.fileId" :panel-count="view.panelCount" :alt="t('pageView.scan.alt', { n: pageNumber })" />
         <img v-else-if="canSeeScan && view.previewUrl" :src="view.previewUrl" :alt="t('pageView.scan.alt', { n: pageNumber })" class="pageview__preview" />

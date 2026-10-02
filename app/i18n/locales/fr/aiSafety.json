@@ -1,0 +1,15 @@
+{
+    "blocked": {
+        "refused": "Ce contenu a été bloqué par le filtre de sécurité pour enfants. Essaie une autre idée.",
+        "images": "{count} image(s) bloquée(s) par le filtre de sécurité : la page reste vide."
+    },
+    "budget": {
+        "title": "Budget IA de la famille",
+        "default": "Budget par défaut : {amount} par mois.",
+        "custom": "Budget personnalisé pour ta famille.",
+        "label": "Budget mensuel (USD)",
+        "save": "Enregistrer",
+        "reset": "Revenir au budget par défaut",
+        "error": "Impossible d’enregistrer le budget pour le moment."
+    }
+}

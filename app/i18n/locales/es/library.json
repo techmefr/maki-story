@@ -1,0 +1,83 @@
+{
+    "rows": {
+        "proposals": "Propuestas de los familiares",
+        "myProposals": "Mis propuestas pendientes"
+    },
+    "proposals": {
+        "proposedBy": "Propuesto por {name}",
+        "approve": "Aceptar",
+        "decline": "Rechazar",
+        "approveLabel": "Aceptar {title}",
+        "declineLabel": "Rechazar {title}",
+        "error": "No se puede procesar esta propuesta ahora."
+    },
+    "proposal": {
+        "toggle": "Proponer este libro a la familia",
+        "hint": "Un padre lo acepta o lo rechaza antes de grabar nada."
+    },
+    "filters": {
+        "more": "Más filtros",
+        "type": "Tipo de libro",
+        "mood": "Ambiente",
+        "theme": "Tema",
+        "types": {
+            "standard": "Libro",
+            "comic": "Cómic",
+            "wordless": "Sin texto",
+            "child-written": "Escrito por el niño"
+        },
+        "moods": {
+            "calm": "Tranquilo",
+            "funny": "Divertido",
+            "adventure": "Aventura",
+            "tender": "Tierno",
+            "bedtime": "Hora de dormir",
+            "curious": "Curioso",
+            "musical": "Musical",
+            "brave": "Valiente"
+        },
+        "themes": {
+            "animals": "Animales",
+            "family": "Familia",
+            "friendship": "Amistad",
+            "nature": "Naturaleza",
+            "school": "Escuela",
+            "feelings": "Emociones",
+            "travel": "Viajes",
+            "food": "Comida",
+            "seasons": "Estaciones",
+            "legends": "Leyendas",
+            "numbers-letters": "Números y letras",
+            "daily-life": "Vida cotidiana"
+        }
+    },
+    "childVisible": {
+        "title": "Visibilidad para el niño",
+        "auto": "Según la edad",
+        "show": "Siempre visible",
+        "hide": "Oculto",
+        "hint": "Por defecto, el niño solo ve los libros de su edad.",
+        "error": "No se puede cambiar la visibilidad ahora."
+    },
+    "ageShift": {
+        "title": "Desfase del rango de edad",
+        "hint": "Muestra a este niño libros más pequeños (−) o mayores (+) que su edad, en años.",
+        "error": "No se puede cambiar el desfase ahora."
+    },
+    "birthNudge": {
+        "title": "Añade la fecha de nacimiento",
+        "hint": "Sin fecha de nacimiento ({names}), se muestran todos los libros al niño.",
+        "action": "Completar"
+    },
+    "shareLanguage": {
+        "label": "Idioma de tu grabación",
+        "choose": "Elegir un idioma",
+        "required": "Elige el idioma antes de grabar."
+    },
+    "notify": {
+        "recordingRequest": "Te piden grabar tu voz para «{title}» ({count})",
+        "bookProposed": "{name} propone el libro «{title}»",
+        "proposalApproved": "Tu propuesta «{title}» fue aceptada",
+        "proposalDeclined": "Tu propuesta «{title}» fue rechazada"
+    }
+}

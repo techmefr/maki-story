@@ -28,7 +28,8 @@
         "alreadyHeard": "Efa henoina ity hafatra ity",
         "next": "Hafatra manaraka",
         "nextWaiting": "Hafatra manaraka ({count} miandry)",
-        "again": "Henoy indray"
+        "again": "Henoy indray",
+        "previous": "Hafatra teo aloha"
     },
     "strip": {
         "label": "Hafatra avy amin’ny fianakaviana",

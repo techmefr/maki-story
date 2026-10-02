@@ -1,7 +1,9 @@
 import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages } from '../../utils/bookModel'
 import { getDb, one } from '../../utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '../../utils/family'
+import { actorEntry, record } from '../../utils/journal'
 import { logEvent } from '../../utils/log'
+import { notify } from '../../utils/notifications'
 import { requirePermission } from '../../utils/permissions'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 
@@ -17,12 +19,24 @@ interface IPlannedCharacter {
     isNarrator: boolean
 }
 
+const memberNameOf = async (memberId: string | null): Promise<string> => {
+    if (memberId === null) {
+        return ''
+    }
+    const [row] = await getDb()<{ name: string }[]>`select name from members where id = ${memberId}`
+    return row?.name ?? ''
+}
+
 export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const actor = await requirePermission(event, 'books.create')
     const { familyId } = actor
     const body = await readBody<Partial<INewBook>>(event)
     if (actor.role === 'relative' && (body.kind !== 'solo' || body.soloMemberId !== actor.memberId)) {
         throw createError({ statusCode: 403, statusMessage: 'A relative can only create a book read by themselves' })
+    }
+    const isProposal = body.isProposal === true
+    if (isProposal && actor.role !== 'relative') {
+        return badRequest('Only a relative can propose a book')
     }
     const lines = body.lines ?? []
     const kind: BookKind = body.kind === 'solo' ? 'solo' : 'multi'
@@ -98,7 +112,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         const book = one(await tx<{ id: string }[]>`
             insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc)
             values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${language}, ${voiceLanguages}, ${moods}, ${themes}, ${type},
-                ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, 'to_record', ${body.imageDesc ?? ''})
+                ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, ${isProposal ? 'proposed' : 'to_record'}, ${body.imageDesc ?? ''})
             returning id
         `)
         const panelIds = new Map<string, string>()
@@ -141,6 +155,10 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         }
         return book
     })
+    if (isProposal) {
+        await notify(db, { familyId, recipientMemberId: null, kind: 'book_proposed', payload: { bookId: created.id, bookTitle: body.title!.trim(), memberName: await memberNameOf(actor.memberId) }, groupKey: `proposal:${created.id}` })
+    }
+    await record(event, { ...actorEntry(actor), action: isProposal ? 'book.proposed' : 'book.created', entityType: 'book', entityId: created.id, after: { kind, type, lines: lines.length, pages: pages.length } })
     logEvent(`Livre créé : « ${body.title!.trim()} » (${lines.length} répliques, ${pages.length} pages)`)
     return created
 })
