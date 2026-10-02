@@ -1,5 +1,6 @@
 import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
+import { actorEntry, record } from '../../../../../utils/journal'
 import { logEvent } from '../../../../../utils/log'
 import { requireActorMember, requirePermission } from '../../../../../utils/permissions'
 import { checkComment, completeIfAllApproved, findReviewBook, logActivity, logNewVoices, notifyVoiceResult } from '../../../../../utils/review'
@@ -66,6 +67,7 @@ export default defineEventHandler(async (event): Promise<IReviewOutcome> => {
         await notifyVoiceResult(tx, familyId, book, reviewerId, recording.memberId, { approved: 0, returned: 1 })
         return { status: 'changes_requested', isBookReady: false }
     })
+    await record(event, { ...actorEntry(actor), action: `review.line.${body.action}`, entityType: 'line', entityId: lineId })
     logEvent(`Relecture : ${body.action}`)
     return outcome
 })

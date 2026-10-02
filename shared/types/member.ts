@@ -19,6 +19,7 @@ export interface IMember {
     codeEnabled?: boolean
     birthDate?: string | null
     ageYears?: number | null
+    ageShift?: number
 }
 
 export interface IMemberCodeInput {

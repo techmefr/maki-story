@@ -1,6 +1,7 @@
 import { checkLanguage } from '../../../../../utils/bookModel'
 import { getDb } from '../../../../../utils/db'
 import { assertFilesInFamily } from '../../../../../utils/family'
+import { actorEntry, record } from '../../../../../utils/journal'
 import { logEvent } from '../../../../../utils/log'
 import { preserveApprovedTake } from '../../../../../utils/recordings'
 import { assertCanRecordLine, requireActorMember, requirePermission } from '../../../../../utils/permissions'
@@ -62,7 +63,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
             values (${familyId}, ${lineId}, ${recorderId}, ${language}, ${fileId}, ${durationMs}, ${file!.mime}, ${status})
             on conflict (line_id, language) do update set
                 member_id = excluded.member_id, file_id = excluded.file_id, duration_ms = excluded.duration_ms,
-                mime = excluded.mime, status = excluded.status, created_at = now()
+                mime = excluded.mime, status = excluded.status, created_at = now(), deleted_at = null, deleted_status = null
         `
         if (isRedo) {
             await tx`update review_comments set resolved_at = now() where line_id = ${lineId} and resolved_at is null`
@@ -70,6 +71,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
             await recordSubmission(tx, { familyId, book, memberId: recorderId, count: 1, lineId, kind: 'resubmitted' })
         }
     })
+    await record(event, { ...actorEntry(actor), action: 'recording.saved', entityType: 'line', entityId: lineId, after: { language, status: 'saved' } })
     logEvent('Enregistrement sauvegardé')
     return { ok: true }
 })

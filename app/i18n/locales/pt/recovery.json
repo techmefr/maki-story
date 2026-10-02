@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Atividade da família",
+        "trash": "Lixeira",
+        "data": "Dados da família"
+    },
+    "trash": {
+        "title": "Lixeira",
+        "intro": "O que é eliminado pode ser recuperado durante {days} dias e depois desaparece de vez.",
+        "empty": "A lixeira está vazia",
+        "emptyHint": "Os livros, vozes, perfis e memórias eliminados aparecerão aqui.",
+        "until": "Recuperável até {date}",
+        "restore": "Restaurar",
+        "restoreLabel": "Restaurar {label}",
+        "conflict": "Não é possível restaurar: o item entra em conflito com outro (caixa cheia ou mensagem já ativa).",
+        "error": "A lixeira não está disponível agora.",
+        "messageLabel": "Mensagem de {from} para {to}",
+        "recordingsCount": "{count} gravações de voz",
+        "types": {
+            "book": "Livro",
+            "member": "Perfil",
+            "message": "Mensagem de voz",
+            "treasure": "Memória do baú",
+            "recordings": "Voz de um familiar"
+        }
+    },
+    "activity": {
+        "title": "Atividade da família",
+        "intro": "O registo das ações importantes, guardado durante {months} meses.",
+        "empty": "Ainda sem atividade",
+        "emptyHint": "As ações da família aparecerão aqui.",
+        "by": "por {name}",
+        "system": "automático",
+        "more": "Ver mais",
+        "error": "A atividade não está disponível agora.",
+        "outcome": {
+            "denied": "Negado",
+            "failure": "Falhou"
+        },
+        "actions": {
+            "book": {
+                "created": "Livro criado",
+                "proposed": "Livro proposto",
+                "updated": "Livro alterado",
+                "deleted": "Livro eliminado",
+                "purged": "Livro apagado definitivamente",
+                "restored": "Livro restaurado",
+                "proposal": {
+                    "approve": "Proposta aceita",
+                    "decline": "Proposta recusada"
+                }
+            },
+            "recording": {
+                "saved": "Voz gravada",
+                "deleted": "Voz apagada"
+            },
+            "recordings": {
+                "restored": "Vozes restauradas"
+            },
+            "review": {
+                "line": {
+                    "approve": "Fala aprovada",
+                    "request_changes": "Fala devolvida"
+                }
+            },
+            "share": {
+                "created": "Partilha criada",
+                "accepted": "Partilha aceita",
+                "declined": "Partilha recusada",
+                "approved": "Partilha aprovada",
+                "stopped": "Partilha interrompida",
+                "voice": {
+                    "recorded": "Voz recebida de outra família"
+                }
+            },
+            "message": {
+                "sent": "Mensagem enviada",
+                "listened": "Mensagem ouvida",
+                "deleted": "Mensagem eliminada",
+                "purged": "Mensagem expirada e apagada",
+                "restored": "Mensagem restaurada"
+            },
+            "treasure": {
+                "restored": "Memória restaurada"
+            },
+            "member": {
+                "created": "Perfil adicionado",
+                "updated": "Perfil alterado",
+                "purged": "Perfil apagado definitivamente",
+                "restored": "Perfil restaurado",
+                "voice": {
+                    "deleted": "Voz de um familiar eliminada",
+                    "exported": "Voz de um familiar exportada"
+                },
+                "access": {
+                    "block": "Acesso de uma criança alterado"
+                },
+                "schedule": {
+                    "updated": "Horários de uma criança alterados"
+                }
+            },
+            "family": {
+                "exported": "Dados da família exportados"
+            },
+            "ai": {
+                "job": {
+                    "started": "Pedido à IA"
+                },
+                "moderation": {
+                    "blocked": "Conteúdo de IA bloqueado pelo filtro infantil"
+                },
+                "budget": {
+                    "updated": "Orçamento de IA alterado"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Dados da família",
+        "intro": "Você decide o que acontece com os dados da sua família: exportá-los ou apagar tudo.",
+        "export": {
+            "title": "Exportar todos os dados",
+            "hint": "Um ficheiro ZIP com os livros, as vozes, as mensagens e o baú, sem qualquer código.",
+            "button": "Transferir a exportação"
+        },
+        "delete": {
+            "title": "Eliminar toda a família",
+            "warning": "Irreversível: livros, vozes, mensagens, partilhas e perfis são apagados de vez, sem volta.",
+            "start": "Quero eliminar tudo",
+            "nameLabel": "Escreva o nome da família para confirmar",
+            "codeLabel": "Introduza o seu código de pai",
+            "wrongCode": "Código incorreto ou demasiadas tentativas. Tente novamente mais tarde.",
+            "wrongName": "O nome da família não corresponde.",
+            "failed": "A eliminação falhou, nada foi apagado. Tente novamente mais tarde."
+        }
+    },
+    "voice": {
+        "title": "Voz deste familiar",
+        "hint": "Pode exportar as gravações e depois eliminá-las. Ficam recuperáveis na lixeira durante algum tempo.",
+        "export": "Exportar a sua voz",
+        "delete": "Eliminar a sua voz",
+        "confirm": "As suas gravações vão desaparecer dos livros. Confirmar?",
+        "confirmAction": "Sim, eliminar",
+        "deleted": "{count} gravações eliminadas (recuperáveis na lixeira).",
+        "error": "Não foi possível eliminar esta voz agora."
+    }
+}

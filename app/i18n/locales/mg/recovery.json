@@ -1,0 +1,147 @@
+{
+    "links": {
+        "activity": "Hetsika amin’ny fianakaviana",
+        "trash": "Fako",
+        "data": "Angona momba ny fianakaviana"
+    },
+    "trash": {
+        "title": "Fako",
+        "intro": "Azo averina mandritra ny {days} andro ny voafafa, avy eo very tanteraka.",
+        "empty": "Foana ny fako",
+        "emptyHint": "Hiseho eto ny boky, feo, mpikambana ary tadidy voafafa.",
+        "until": "Azo averina hatramin’ny {date}",
+        "restore": "Averina",
+        "restoreLabel": "Averina {label}",
+        "conflict": "Tsy azo averina: mifandona amin’ny hafa (feno ny boaty na efa mihetsika ny hafatra).",
+        "error": "Tsy azo ampiasaina izao ny fako.",
+        "messageLabel": "Hafatra avy amin’i {from} ho an’i {to}",
+        "recordingsCount": "{count} fandraisana feo",
+        "types": {
+            "book": "Boky",
+            "member": "Mpikambana",
+            "message": "Hafatra feo",
+            "treasure": "Tadidy ao amin’ny vata",
+            "recordings": "Feon’ny havana"
+        }
+    },
+    "activity": {
+        "title": "Hetsika amin’ny fianakaviana",
+        "intro": "Ny firaketana ireo hetsika lehibe, voatahiry {months} volana.",
+        "empty": "Tsy mbola misy hetsika",
+        "emptyHint": "Hiseho eto ny hetsika amin’ny fianakaviana.",
+        "by": "nataon’i {name}",
+        "system": "ho azy",
+        "more": "Asehoy bebe kokoa",
+        "error": "Tsy azo jerena izao ny hetsika.",
+        "outcome": {
+            "denied": "Nolavina",
+            "failure": "Tsy nahomby"
+        },
+        "actions": {
+            "book": {
+                "created": "Boky noforonina",
+                "proposed": "Boky natolotra",
+                "updated": "Boky novaina",
+                "deleted": "Boky voafafa",
+                "purged": "Boky voafafa tanteraka",
+                "restored": "Boky naverina",
+                "proposal": {
+                    "approve": "Soso-kevitraekena",
+                    "decline": "Soso-kevitra nolavina"
+                }
+            },
+            "recording": {
+                "saved": "Feo voarakitra",
+                "deleted": "Feo voafafa"
+            },
+            "recordings": {
+                "restored": "Feo naverina"
+            },
+            "review": {
+                "line": {
+                    "approve": "Andalana nekena",
+                    "request_changes": "Andalana averina atao"
+                }
+            },
+            "share": {
+                "created": "Fizarana noforonina",
+                "accepted": "Fizarana noekena",
+                "declined": "Fizarana nolavina",
+                "approved": "Fizarana nankatoavina",
+                "stopped": "Fizarana najanona",
+                "voice": {
+                    "recorded": "Feo azo avy amin’ny fianakaviana hafa"
+                }
+            },
+            "message": {
+                "sent": "Hafatra nalefa",
+                "listened": "Hafatra henoina",
+                "deleted": "Hafatra voafafa",
+                "purged": "Hafatra lany daty ary voafafa",
+                "restored": "Hafatra naverina"
+            },
+            "treasure": {
+                "restored": "Tadidy naverina"
+            },
+            "member": {
+                "created": "Mpikambana nampiana",
+                "updated": "Mpikambana novaina",
+                "purged": "Mpikambana voafafa tanteraka",
+                "restored": "Mpikambana naverina",
+                "voice": {
+                    "deleted": "Feon’ny havana voafafa",
+                    "exported": "Feon’ny havana nalefa"
+                },
+                "access": {
+                    "block": "Fidirana an’ny zaza novaina"
+                },
+                "schedule": {
+                    "updated": "Fandaharam-potoana an’ny zaza novaina"
+                }
+            },
+            "family": {
+                "exported": "Angon’ny fianakaviana nalefa"
+            },
+            "ai": {
+                "job": {
+                    "started": "Fangatahana amin’ny IA"
+                },
+                "moderation": {
+                    "blocked": "Votoaty IA voasakan’ny sivana ho an’ny ankizy"
+                },
+                "budget": {
+                    "updated": "Teti-bola IA novaina"
+                }
+            }
+        }
+    },
+    "data": {
+        "title": "Angona momba ny fianakaviana",
+        "intro": "Ianao no mamaritra izay hanjo ny angon’ny fianakanao: alefa na fafana daholo.",
+        "export": {
+            "title": "Alefaso ny angona rehetra",
+            "hint": "Rakitra ZIP misy ny boky, feo, hafatra ary vata, tsy misy kaody.",
+            "button": "Alaina ny fanondranana"
+        },
+        "delete": {
+            "title": "Fafao ny fianakaviana manontolo",
+            "warning": "Tsy azo averina: voafafa tanteraka ny boky, feo, hafatra, fizarana ary mpikambana.",
+            "start": "Tiako ho fafana daholo",
+            "nameLabel": "Soraty ny anaran’ny fianakaviana mba hanamafisana",
+            "codeLabel": "Ampidiro ny kaodin’ny ray aman-drenyao",
+            "wrongCode": "Diso ny kaody na be loatra ny fanandramana. Avereno aoriana kely.",
+            "wrongName": "Tsy mifanaraka ny anaran’ny fianakaviana.",
+            "failed": "Tsy nahomby ny famafana, tsy nisy voafafa. Avereno aoriana kely."
+        }
+    },
+    "voice": {
+        "title": "Feon’ity havana ity",
+        "hint": "Azonao alefa ny feo narakitra dia fafana. Azo averina ao amin’ny fako mandritra ny fotoana.",
+        "export": "Alefaso ny feony",
+        "delete": "Fafao ny feony",
+        "confirm": "Ho ringana amin’ny boky ny feo narakitra. Ekena?",
+        "confirmAction": "Eny, fafao",
+        "deleted": "{count} fandraisana feo voafafa (azo averina ao amin’ny fako).",
+        "error": "Tsy afaka fafana izao ity feo ity."
+    }
+}

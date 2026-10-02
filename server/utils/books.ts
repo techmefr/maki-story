@@ -10,7 +10,7 @@ const BLOCKED_FROM = `from lines bl
     where bl.book_id = b.id and ${BLOCKED_VOICE}`
 
 const SUMMARY_SELECT = `
-    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
+    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.child_visible, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
     b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
@@ -23,6 +23,15 @@ const SUMMARY_SELECT = `
     exists (select 1 ${BLOCKED_FROM}) as is_voice_blocked,
     (select count(distinct bl.id)::int ${BLOCKED_FROM}) as blocked_line_count
 `
+
+const CHILD_AGE_YEARS = `(date_part('year', age((now() at time zone coalesce((select cs.timezone from child_schedules cs where cs.member_id = cm.id), 'UTC'))::date, cm.birth_date))::int + cm.age_shift)`
+
+const childAgeScope = (memberParam: number): string => `(b.child_visible is true or (b.child_visible is null and not exists (
+    select 1 from members cm
+    where cm.id = $${memberParam} and cm.family_id = b.family_id and cm.birth_date is not null
+        and (b.age_min is not null or b.age_max is not null)
+        and not (${CHILD_AGE_YEARS} between coalesce(b.age_min, 0) and coalesce(b.age_max, 999))
+)))`
 
 const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join child_recordings sr on sr.line_id = sl.id where sl.book_id = b.id)
     and not exists (select 1 ${BLOCKED_FROM})`
@@ -41,6 +50,9 @@ export const parseBookQuery = (raw: Record<string, unknown>): IBookQuery => ({
     q: readText(raw.q),
     language: readText(raw.language),
     age: readText(raw.age),
+    type: readText(raw.type),
+    mood: readText(raw.mood),
+    theme: readText(raw.theme),
     limit: Math.max(1, readCount(raw.limit, MAX_PAGE_SIZE, MAX_PAGE_SIZE)),
     offset: readCount(raw.offset, 0, 100000),
 })
@@ -50,12 +62,12 @@ export const bookScope = (actor: IActor, memberParam: number): string => {
         return 'true'
     }
     if (actor.role === 'child') {
-        return CHILD_SCOPE
+        return actor.memberId ? `${CHILD_SCOPE} and ${childAgeScope(memberParam)}` : CHILD_SCOPE
     }
-    return `exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam})`
+    return `(exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam}) or b.solo_member_id = $${memberParam})`
 }
 
-export const bookScopeParams = (actor: IActor): string[] => (actor.role === 'relative' && actor.memberId ? [actor.memberId] : [])
+export const bookScopeParams = (actor: IActor): string[] => (actor.role !== 'parent' && actor.memberId ? [actor.memberId] : [])
 
 export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): Promise<IBookList> => {
     const params: string[] = [actor.familyId, ...bookScopeParams(actor)]
@@ -74,6 +86,15 @@ export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): 
     const tag = AGE_TAGS.find(item => item.id === query.age)
     if (tag) {
         filters.push(`b.age_min is not null and b.age_min <= ${bind(tag.max)}::int and coalesce(b.age_max, b.age_min) >= ${bind(tag.min)}::int`)
+    }
+    if (query.type) {
+        filters.push(`b.type = ${bind(query.type)}`)
+    }
+    if (query.mood) {
+        filters.push(`${bind(query.mood)} = any(b.moods)`)
+    }
+    if (query.theme) {
+        filters.push(`${bind(query.theme)} = any(b.themes)`)
     }
     const where = `b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)}${filters.map(item => ` and ${item}`).join('')}`
     const filterParams = [...params]

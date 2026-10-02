@@ -34,6 +34,9 @@
         <AppButton variant="secondary" is-block to="/storage"><AppIcon name="download" :size="22" />{{ t('family.index.storage') }}</AppButton>
         <AppButton variant="secondary" is-block to="/sharing"><AppIcon name="send" :size="22" />{{ t('family.index.sharing') }}</AppButton>
         <AppButton variant="secondary" is-block to="/family/devices">{{ t('family.index.devices') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/family/activity"><AppIcon name="eye" :size="22" />{{ t('recovery.links.activity') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/family/trash"><AppIcon name="trash" :size="22" />{{ t('recovery.links.trash') }}</AppButton>
+        <AppButton variant="secondary" is-block to="/family/data"><AppIcon name="download" :size="22" />{{ t('recovery.links.data') }}</AppButton>
         <AppButton variant="secondary" is-block to="/feedback">{{ t('family.index.feedback') }}</AppButton>
     </div>
 </template>

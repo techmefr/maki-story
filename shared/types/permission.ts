@@ -27,3 +27,7 @@ export type Permission =
     | 'notifications.list'
     | 'members.code.manage'
     | 'members.schedule.manage'
+    | 'family.export'
+    | 'family.delete'
+    | 'family.activity'
+    | 'family.trash'

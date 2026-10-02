@@ -1,0 +1,15 @@
+{
+    "blocked": {
+        "refused": "This content was blocked by the child safety filter. Try another idea.",
+        "images": "{count} image(s) blocked by the safety filter: the page stays empty."
+    },
+    "budget": {
+        "title": "Family AI budget",
+        "default": "Default budget: {amount} per month.",
+        "custom": "Custom budget for your family.",
+        "label": "Monthly budget (USD)",
+        "save": "Save",
+        "reset": "Back to the default budget",
+        "error": "The budget cannot be saved right now."
+    }
+}
