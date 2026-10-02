@@ -31,6 +31,9 @@
         "parentRequired": "Ilaina farafahakeliny ray aman-dreny iray.",
         "narratorExists": "Efa manana mpitantara ity boky ity.",
         "characterExists": "Efa misy io mpilalao io.",
-        "voiceBlocked": "Voasakana io feo io."
+        "voiceBlocked": "Voasakana io feo io.",
+        "recordingTooLong": "Lava loatra ity firaketana ity (10 minitra no faratampony).",
+        "recordingType": "Tsy ekena ity endrika feo ity.",
+        "spokenLanguage": "Tsy anisan’ny fiteny ampiasainao ity fiteny ity."
     }
 }

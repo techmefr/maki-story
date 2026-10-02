@@ -1,0 +1,38 @@
+{
+    "title": "Page {n}",
+    "previous": "Page précédente",
+    "next": "Page suivante",
+    "noScan": "Pas de scan pour cette page.",
+    "description": "Description de la page",
+    "noDescription": "Aucune description.",
+    "characters": {
+        "one": "{count} personnage",
+        "other": "{count} personnages"
+    },
+    "onlyMine": "Mes répliques",
+    "largeText": "Texte agrandi",
+    "noLines": "Aucune réplique sur cette page.",
+    "narrator": "Narrateur",
+    "noReader": "Voix à choisir",
+    "original": "Texte original",
+    "tone": "Ton : {tone}",
+    "studioSection": "Page du livre",
+    "showPage": "Afficher la page",
+    "hidePage": "Masquer la page",
+    "recordLine": "Enregistrer cette réplique",
+    "viewMode": "Mode de relecture",
+    "byLine": "Réplique par réplique",
+    "byPage": "Page par page",
+    "scan": {
+        "label": "Page scannée",
+        "alt": "Scan de la page {n}",
+        "zoomIn": "Zoom avant",
+        "zoomOut": "Zoom arrière",
+        "rotate": "Pivoter",
+        "reset": "Remettre à zéro",
+        "full": "Plein écran",
+        "exitFull": "Quitter le plein écran",
+        "failed": "La page n’a pas pu être chargée.",
+        "panelHint": "Touche une case de la BD pour zoomer dessus."
+    }
+}

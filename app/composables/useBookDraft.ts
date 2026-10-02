@@ -103,7 +103,7 @@ export const useBookDraft = () => {
     }
 
     const nextColor = (): VoiceColorId => {
-        const used = characters.value.map(character => character.color)
+        const used = characters.value.filter(character => !character.isNarrator).map(character => character.color)
         return (VOICE_COLORS.find(color => !used.includes(color.id)) ?? VOICE_COLORS[characters.value.length % VOICE_COLORS.length]!).id
     }
 
@@ -118,7 +118,7 @@ export const useBookDraft = () => {
             name: trimmed,
             color: nextColor(),
             description: '',
-            isNarrator: trimmed.toLowerCase() === NARRATOR_NAME.toLowerCase() && narrator.value === null,
+            isNarrator: false,
             memberId,
         }
         characters.value = [...characters.value, created]
@@ -130,7 +130,12 @@ export const useBookDraft = () => {
     }
 
     const setNarrator = (key: number): void => {
-        characters.value = characters.value.map(character => ({ ...character, isNarrator: character.key === key }))
+        characters.value = characters.value.map(character => {
+            if (character.key === key) {
+                return { ...character, isNarrator: true, color: null }
+            }
+            return character.isNarrator ? { ...character, isNarrator: false, color: nextColor() } : character
+        })
     }
 
     const removeCharacter = (key: number): void => {
@@ -144,13 +149,16 @@ export const useBookDraft = () => {
         if (narrator.value !== null) {
             return
         }
-        const existing = characters.value.find(character => character.name.toLowerCase() === NARRATOR_NAME.toLowerCase())
-        if (existing) {
-            setNarrator(existing.key)
-            return
+        const taken = characters.value.some(character => character.name.toLowerCase() === NARRATOR_NAME.toLowerCase())
+        const created: IDraftCharacter = {
+            key: nextKey++,
+            name: taken ? `${NARRATOR_NAME} 1` : NARRATOR_NAME,
+            color: null,
+            description: '',
+            isNarrator: true,
+            memberId,
         }
-        const created = addCharacter(NARRATOR_NAME, memberId)
-        setNarrator(created.key)
+        characters.value = [created, ...characters.value]
     }
 
     const setMode = (next: DraftMode): void => {
@@ -203,6 +211,9 @@ export const useBookDraft = () => {
         }))
         const used = new Set<string>()
         characters.value = loaded.map(character => {
+            if (character.isNarrator) {
+                return { ...character, color: null }
+            }
             if (character.color !== null && !used.has(character.color)) {
                 used.add(character.color)
                 return character

@@ -1,0 +1,38 @@
+{
+    "title": "Página {n}",
+    "previous": "Página anterior",
+    "next": "Página siguiente",
+    "noScan": "No hay escaneo de esta página.",
+    "description": "Descripción de la página",
+    "noDescription": "Sin descripción.",
+    "characters": {
+        "one": "{count} personaje",
+        "other": "{count} personajes"
+    },
+    "onlyMine": "Mis líneas",
+    "largeText": "Texto más grande",
+    "noLines": "No hay líneas en esta página.",
+    "narrator": "Narrador",
+    "noReader": "Voz por elegir",
+    "original": "Texto original",
+    "tone": "Tono: {tone}",
+    "studioSection": "Página del libro",
+    "showPage": "Mostrar la página",
+    "hidePage": "Ocultar la página",
+    "recordLine": "Grabar esta línea",
+    "viewMode": "Modo de revisión",
+    "byLine": "Línea por línea",
+    "byPage": "Página por página",
+    "scan": {
+        "label": "Página escaneada",
+        "alt": "Escaneo de la página {n}",
+        "zoomIn": "Acercar",
+        "zoomOut": "Alejar",
+        "rotate": "Girar",
+        "reset": "Restablecer",
+        "full": "Pantalla completa",
+        "exitFull": "Salir de pantalla completa",
+        "failed": "No se pudo cargar la página.",
+        "panelHint": "Toca una viñeta para ampliarla."
+    }
+}

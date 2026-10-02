@@ -8,3 +8,12 @@ export const RECORDING_LIMIT_OVERRIDE_KEY = '__TANTARA_MAX_RECORDING_MS__'
 export const resolveRecordingLimitMs = (override: unknown): number => {
     return typeof override === 'number' && override > 0 ? override : MAX_RECORDING_MS
 }
+
+export const RECORDING_DURATION_TOLERANCE_MS = 5000
+export const RECORDING_AUDIO_BITRATE_MODE = 'variable'
+
+export const isRecordingDurationValid = (ms: number): boolean => {
+    return Number.isFinite(ms) && ms >= 0 && ms <= MAX_RECORDING_MS + RECORDING_DURATION_TOLERANCE_MS
+}
+
+export const isRecordingMimeValid = (mime: string): boolean => mime.startsWith('audio/')
