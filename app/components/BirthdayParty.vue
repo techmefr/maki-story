@@ -10,14 +10,14 @@
                 <path d="M20 49 C 14 56 26 60 20 68" fill="none" stroke="#1F1B3A" stroke-width="2" />
             </svg>
         </div>
-        <div class="party__card stack center">
+        <div ref="card" class="party__card stack center">
             <AppMaki :size="110" class="anim-bounce" />
             <h1 class="title">{{ t('kid.birthday.title', { name }) }}</h1>
             <p class="party__age" aria-live="polite">{{ t('kid.birthday.age', { age: shownAge }) }}</p>
-            <button ref="closeButton" type="button" class="btn btn--block" data-focus-default @click="emit('close')">
+            <AppButton is-block data-focus-default @click="emit('close')">
                 <AppIcon name="party" :size="26" motion="bounce" />
                 {{ t('kid.birthday.thanks') }}
-            </button>
+            </AppButton>
         </div>
     </div>
 </template>
@@ -49,11 +49,11 @@ const BALLOONS = Array.from({ length: 5 }, (_, id) => ({
 }))
 
 const shownAge = ref(age)
-const closeButton = ref<HTMLButtonElement | null>(null)
+const card = ref<HTMLElement | null>(null)
 
 onMounted(() => {
     play('success')
-    closeButton.value?.focus()
+    card.value?.querySelector<HTMLElement>('[data-focus-default]')?.focus()
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (isReduced || age <= 1) {
         return

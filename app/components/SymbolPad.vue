@@ -24,10 +24,10 @@
                 </svg>
             </button>
         </div>
-        <button type="button" class="btn btn--white btn--small" :disabled="isDisabled || chosen === ''" @click="clear">
+        <AppButton variant="secondary" size="sm" :disabled="isDisabled || chosen === ''" @click="clear">
             <AppIcon name="back" :size="18" />
             {{ t('profile.symbols.clear') }}
-        </button>
+        </AppButton>
     </div>
 </template>
 
