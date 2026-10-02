@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-const MAX_MESSAGE_MS = 60000
 const BACK_DELAY_MS = 1600
 
 definePageMeta({ layout: 'blank' })
@@ -52,9 +51,7 @@ const recording = ref<IRecording | null>(null)
 
 const target = computed(() => getById(String(route.params.toId)))
 const backPath = computed(() => (isChild.value ? `/kid/${target.value?.id}` : '/messages'))
-const heading = computed(() =>
-    route.query.reply ? t('messages.compose.reply', { name: target.value?.name ?? '' }) : t('messages.compose.messageFor', { name: target.value?.name ?? '' }),
-)
+const heading = computed(() => t('messages.compose.messageFor', { name: target.value?.name ?? '' }))
 const timeLabel = computed(() => formatDuration((phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value) / 1000))
 
 const toggle = async (): Promise<void> => {
@@ -72,7 +69,7 @@ const toggle = async (): Promise<void> => {
 }
 
 watch(elapsedMs, async ms => {
-    if (isRecording.value && ms >= MAX_MESSAGE_MS) {
+    if (isRecording.value && ms >= MESSAGE_MAX_DURATION_MS) {
         await toggle()
     }
 })

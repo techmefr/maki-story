@@ -16,6 +16,9 @@ export interface IMember {
     voicePolicy: VoicePolicy
     isGuest: boolean
     isCodeLocked?: boolean
+    codeEnabled?: boolean
+    birthDate?: string | null
+    ageYears?: number | null
 }
 
 export interface IMemberCodeInput {
@@ -28,6 +31,7 @@ export interface IMemberInput {
     role: MemberRole
     color: VoiceColorId
     code?: IMemberCodeInput
+    birthDate?: string | null
 }
 
 export interface IProfileProof {

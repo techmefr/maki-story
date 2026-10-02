@@ -13,6 +13,10 @@ export interface IBookSummary {
     ageMin: number | null
     ageMax: number | null
     language: string
+    writtenLanguage: string
+    voiceLanguages: string[]
+    moods: string[]
+    themes: string[]
     type: BookType
     ttsFallback: boolean
     kind: BookKind
@@ -145,6 +149,10 @@ export interface INewBook {
     ageMin?: number | null
     ageMax?: number | null
     language?: string
+    writtenLanguage?: string
+    voiceLanguages?: string[]
+    moods?: string[]
+    themes?: string[]
     type?: BookType
     ttsFallback?: boolean
     kind: BookKind
@@ -175,6 +183,10 @@ export interface IBookPatch {
     ageMin?: number | null
     ageMax?: number | null
     language?: string
+    writtenLanguage?: string
+    voiceLanguages?: string[]
+    moods?: string[]
+    themes?: string[]
     type?: BookType
     ttsFallback?: boolean
     imageDesc?: string

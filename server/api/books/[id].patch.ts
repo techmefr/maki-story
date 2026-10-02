@@ -1,10 +1,10 @@
-import { checkAge, checkAgeRange, checkBookType, checkLanguage, checkText } from '../../utils/bookModel'
+import { checkAge, checkAgeRange, checkBookType, checkLanguage, checkMoods, checkText, checkThemes, checkVoiceLanguages } from '../../utils/bookModel'
 import { loadBook } from '../../utils/books'
 import { getDb } from '../../utils/db'
 import { assertMembersInFamily } from '../../utils/family'
 import { logEvent } from '../../utils/log'
 import { requireActorMember, requireBookEditor } from '../../utils/permissions'
-import { markLineRecordingsStale } from '../../utils/recordings'
+import { dropApprovedTake, markLineRecordingsStale } from '../../utils/recordings'
 import { approveBook, findReviewBook } from '../../utils/review'
 import { badRequest, isNonEmptyString, requireParam } from '../../utils/validate'
 
@@ -26,7 +26,11 @@ export default defineEventHandler(async (event): Promise<IBook> => {
     const ageMax = body.ageMax === undefined ? current.ageMax : checkAge(body.ageMax)
     checkAgeRange(ageMin, ageMax)
     const type = body.type === undefined ? current.type : checkBookType(body.type)
-    const language = body.language === undefined ? current.language : checkLanguage(body.language)
+    const requestedLanguage = body.writtenLanguage ?? body.language
+    const language = requestedLanguage === undefined ? current.language : checkLanguage(requestedLanguage)
+    const voiceLanguages = body.voiceLanguages === undefined ? current.voiceLanguages : checkVoiceLanguages(body.voiceLanguages)
+    const moods = body.moods === undefined ? current.moods : checkMoods(body.moods)
+    const themes = body.themes === undefined ? current.themes : checkThemes(body.themes)
     const subtitle = body.subtitle === undefined ? current.subtitle : checkText(body.subtitle, 'subtitle')
     const author = body.author === undefined ? current.author : checkText(body.author, 'author')
     const illustrator = body.illustrator === undefined ? current.illustrator : checkText(body.illustrator, 'illustrator')
@@ -50,7 +54,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         }
         await tx`
             update books set subtitle = ${subtitle}, author = ${author}, illustrator = ${illustrator || null}, age_min = ${ageMin}, age_max = ${ageMax},
-                language = ${language}, type = ${type}, tts_fallback = ${body.ttsFallback ?? current.ttsFallback}
+                language = ${language}, written_language = ${language}, voice_languages = ${voiceLanguages}, moods = ${moods}, themes = ${themes}, type = ${type}, tts_fallback = ${body.ttsFallback ?? current.ttsFallback}
             where id = ${id} and family_id = ${familyId}
         `
         if (body.imageDesc !== undefined) {
@@ -69,6 +73,11 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         }
         for (const patch of body.lines ?? []) {
             if (patch.memberId !== undefined) {
+                await tx`
+                    delete from approved_takes
+                    where line_id = ${patch.id} and family_id = ${familyId} and member_id is distinct from ${patch.memberId}
+                      and line_id in (select id from lines where book_id = ${id})
+                `
                 await tx`
                     delete from recordings
                     where line_id = ${patch.id} and family_id = ${familyId} and member_id is distinct from ${patch.memberId}

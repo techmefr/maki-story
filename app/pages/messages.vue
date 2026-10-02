@@ -13,14 +13,9 @@
                     <div class="muted">{{ child.statusLabel }}</div>
                 </div>
             </div>
-            <AppButton variant="secondary" tone="mint" is-block
-                v-if="child.incoming"
-                :to="`/message/listen/${child.incoming.id}`">
-                <AppIcon name="volume" :size="22" motion="pulse" />
-                {{ t('kid.listenHer') }}
-            </AppButton>
-            <AppButton is-block v-if="isOnline" :to="`/message/${child.member.id}`"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
-            <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</AppButton>
+            <AppButton v-if="isOnline && child.isBlocked" is-block disabled :disabled-reason="t('messages.activeBlocked', { name: child.member.name })"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
+            <AppButton v-else-if="isOnline" is-block :to="`/message/${child.member.id}`"><AppIcon name="mic" :size="22" />{{ t('messages.sendHim') }}</AppButton>
+            <AppButton v-else is-block disabled><AppIcon name="cloud-off" :size="22" />{{ t('messages.needConnection') }}</AppButton>
         </div>
         </div>
     </div>
@@ -31,20 +26,13 @@ const { t } = useI18n()
 const isOnline = useState<boolean>('is-online', () => true)
 const { children } = useMembers()
 const { currentId } = useCurrentMember()
-const { load, startPolling, stopPolling, playableFrom, lastSentTo } = useMessages()
+const { load, startPolling, stopPolling, lastSentTo } = useMessages()
 
 const threads = computed(() =>
     children.value.map(member => {
         const sent = currentId.value ? lastSentTo(currentId.value, member.id) : null
-        const incoming = currentId.value ? playableFrom(member.id, currentId.value) : null
-        const statusLabel = incoming
-            ? t('messages.status.waiting')
-            : sent
-              ? sent.listenedAt
-                  ? t('messages.status.heard')
-                  : t('messages.status.sent')
-              : t('messages.status.none')
-        return { member, incoming, statusLabel }
+        const statusLabel = sent ? (sent.firstListenedAt ? t('messages.status.heard') : t('messages.status.sent')) : t('messages.status.none')
+        return { member, isBlocked: sent !== null, statusLabel }
     }),
 )
 

@@ -26,7 +26,7 @@ export const loadPlaybackPlan = async (
     `
     const recordings = await db<IPlanRecording[]>`
         select r.line_id, r.language, r.file_id, r.duration_ms, r.member_id, r.status
-        from recordings r join lines l on l.id = r.line_id
+        from ${isChild ? db`child_recordings` : db`recordings`} r join lines l on l.id = r.line_id
         where l.book_id = ${bookId} and r.family_id = ${familyId} and r.status <> 'stale'
     `
     const counts = new Map<string, number>()

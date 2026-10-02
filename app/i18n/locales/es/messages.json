@@ -27,7 +27,8 @@
         "play": "Escuchar",
         "alreadyHeard": "Este mensaje ya se ha escuchado",
         "next": "Mensaje siguiente",
-        "nextWaiting": "Mensaje siguiente ({count} en espera)"
+        "nextWaiting": "Mensaje siguiente ({count} en espera)",
+        "again": "Escuchar otra vez"
     },
     "strip": {
         "label": "Mensajes de la familia",
@@ -36,5 +37,6 @@
             "other": "{name}: {count} mensajes por escuchar"
         }
     },
-    "noOneTitle": "Nadie a quien escribir"
+    "noOneTitle": "Nadie a quien escribir",
+    "activeBlocked": "Ya hay un mensaje esperando a {name}. Podrás enviar otro cuando se haya escuchado y haya caducado."
 }

@@ -28,11 +28,18 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const isOpen = useState<boolean>('switcher-open', () => false)
-const { people: members } = useMembers()
-const { currentId, select } = useCurrentMember()
+const { people: members, load } = useMembers()
+const { currentId, current, select } = useCurrentMember()
 const { logout } = useSession()
 
 const target = ref<IMember | null>(null)
+
+watch(isOpen, async isNowOpen => {
+    if (isNowOpen && current.value?.role === 'relative') {
+        await select(null)
+        await load()
+    }
+})
 
 const close = (): void => {
     isOpen.value = false
