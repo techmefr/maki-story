@@ -1,7 +1,7 @@
 import { APP_NAME } from '~~/shared/utils/appName'
 import { getDb } from '~~/server/utils/db'
-import { notificationText } from '~~/server/utils/delivery'
-import { mailText } from '~~/server/utils/mailTexts'
+import { notificationText } from '~~/technical/Mail/server/utils/delivery'
+import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
 import { loadActor } from '~~/technical/Auth/server/utils/permissions'
 
 interface ILatestNotification {

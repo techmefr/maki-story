@@ -1,12 +1,12 @@
-import ar from '../../app/i18n/locales/ar/mail.json'
-import de from '../../app/i18n/locales/de/mail.json'
-import en from '../../app/i18n/locales/en/mail.json'
-import es from '../../app/i18n/locales/es/mail.json'
-import fr from '../../app/i18n/locales/fr/mail.json'
-import it from '../../app/i18n/locales/it/mail.json'
-import mg from '../../app/i18n/locales/mg/mail.json'
-import pt from '../../app/i18n/locales/pt/mail.json'
-import zh from '../../app/i18n/locales/zh/mail.json'
+import ar from '~/i18n/locales/ar/mail.json'
+import de from '~/i18n/locales/de/mail.json'
+import en from '~/i18n/locales/en/mail.json'
+import es from '~/i18n/locales/es/mail.json'
+import fr from '~/i18n/locales/fr/mail.json'
+import it from '~/i18n/locales/it/mail.json'
+import mg from '~/i18n/locales/mg/mail.json'
+import pt from '~/i18n/locales/pt/mail.json'
+import zh from '~/i18n/locales/zh/mail.json'
 
 type TTree = { [key: string]: string | TTree }
 

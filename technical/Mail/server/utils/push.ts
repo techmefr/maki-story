@@ -1,5 +1,5 @@
 import { createPrivateKey, createSign } from 'node:crypto'
-import { isFakeDelivery } from './mail'
+import { isFakeDelivery } from '~~/technical/Mail/server/utils/mail'
 
 const SEND_TIMEOUT_MS = 4000
 const VAPID_TTL_SECONDS = 3600

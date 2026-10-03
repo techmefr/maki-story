@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import type { Sql, TransactionSql } from 'postgres'
 import { APP_NAME } from '../../shared/utils/appName'
 import { generateInviteCode } from './inviteCode'
-import { mailText } from './mailTexts'
+import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
 
 type Db = Sql | TransactionSql
 

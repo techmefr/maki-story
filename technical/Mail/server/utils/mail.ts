@@ -1,4 +1,4 @@
-import { logEvent } from './log'
+import { logEvent } from '~~/server/utils/log'
 
 const SEND_TIMEOUT_MS = 4000
 const BREVO_URL = 'https://api.brevo.com/v3/smtp/email'

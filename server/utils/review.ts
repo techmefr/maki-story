@@ -1,5 +1,5 @@
 import type { Sql, TransactionSql } from 'postgres'
-import { deliverOutOfApp } from './delivery'
+import { deliverOutOfApp } from '~~/technical/Mail/server/utils/delivery'
 import { badRequest, notFound } from './validate'
 
 type Db = Sql | TransactionSql

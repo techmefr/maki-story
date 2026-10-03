@@ -1,9 +1,9 @@
 import type { Sql, TransactionSql } from 'postgres'
-import { APP_NAME } from '../../shared/utils/appName'
-import { accessForMember } from './parental'
-import { mailText } from './mailTexts'
-import { mailDeliveryReady, sendMail } from './mail'
-import { sendPush } from './push'
+import { APP_NAME } from '~~/shared/utils/appName'
+import { accessForMember } from '~~/server/utils/parental'
+import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
+import { mailDeliveryReady, sendMail } from '~~/technical/Mail/server/utils/mail'
+import { sendPush } from '~~/technical/Mail/server/utils/push'
 
 type Db = Sql | TransactionSql
 
