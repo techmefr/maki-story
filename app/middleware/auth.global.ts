@@ -1,5 +1,5 @@
 const PUBLIC_PATHS = ['/login', '/register', '/magic']
-const OPEN_PREFIXES = ['/join']
+const OPEN_PREFIXES = ['/join', '/legal', '/forgot', '/onboarding']
 const RELATIVE_LANDING = '/relative'
 const PARENT_ONLY_PREFIXES = ['/family', '/storage']
 const CHILD_ALLOWED_PREFIXES = ['/kid', '/message/', '/profiles', '/grimace']
@@ -14,7 +14,10 @@ export default defineNuxtRouteMiddleware(async to => {
     const { check, isRelativeAccount } = useSession()
     const isSignedIn = await check()
     if (!isSignedIn) {
-        return PUBLIC_PATHS.includes(to.path) ? undefined : navigateTo('/login')
+        if (PUBLIC_PATHS.includes(to.path)) {
+            return undefined
+        }
+        return navigateTo(to.path === '/' && !hasSeenOnboarding() ? '/onboarding' : '/login')
     }
     if (PUBLIC_PATHS.includes(to.path)) {
         return navigateTo(isRelativeAccount.value ? RELATIVE_LANDING : '/profiles')

@@ -1,0 +1,12 @@
+{
+    "title": "Forgot your code?",
+    "intro": "We will send you a link to choose a new code.",
+    "email": "Your e-mail address",
+    "send": "Send the link",
+    "sending": "Sending…",
+    "child": "Are you a child? Ask a parent to reset your code from “My family”.",
+    "failed": "The link could not be sent. Try again in a moment.",
+    "sentTitle": "Check your e-mails!",
+    "sentText": "If this address is known, a link has just been sent. It is valid for 15 minutes.",
+    "backToCode": "Back to the code"
+}

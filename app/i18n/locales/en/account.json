@@ -1,0 +1,30 @@
+{
+    "title": "My account",
+    "identity": "{email} · {role}",
+    "loadFailed": "Your account is not available right now.",
+    "parentOnly": "Only a parent can export the data or delete the account.",
+    "terms": {
+        "link": "Terms and privacy"
+    },
+    "export": {
+        "title": "Export my data",
+        "text": "Get an e-mail with a link to a file holding your recordings, the profiles and the reading progress. The link is valid for {days} days.",
+        "request": "Request my export",
+        "sending": "Sending…",
+        "sent": "Link sent by e-mail",
+        "failed": "The e-mail could not be sent. Try again in a moment."
+    },
+    "delete": {
+        "title": "Delete the account",
+        "text": "All the recordings, children’s profiles, favourites and books of the family will be erased. This cannot be undone.",
+        "start": "Delete my account",
+        "sheetTitle": "Are you sure?",
+        "sheetText": "To confirm, type {word}, then the parent code.",
+        "word": "DELETE",
+        "wordLabel": "Confirmation word",
+        "codeLabel": "Parent code",
+        "cancel": "Cancel",
+        "wrongCode": "That code is not right.",
+        "failed": "The deletion could not be completed. Try again."
+    }
+}
