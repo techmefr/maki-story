@@ -23,7 +23,7 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] Tokens et thème (Theme), clair et sombre, avec passage RGAA des contrastes
 - [ ] Contrôle automatique des contrastes dans `scripts/design-audit.ts`
 - [x] 9 atomes
-- [ ] 8 molécules
+- [x] 8 molécules
 - [ ] Sons soundcn et mouvement
 - [ ] Aligner `scripts/design-audit.ts` sur `docs/DESIGN.md`
 

@@ -43,3 +43,4 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 
 - 2026-10-03 : jetons clair/sombre, Nunito retirée (Fredoka seule ; le dépôt n'a que les graisses 500/600/700, pas la 400), audit de contraste.
 - 2026-10-03 : audit refait avec le référentiel nuxt-osdd ; création de `CLAUDE.md` et `docs/`.
+- 2026-10-03 : molécules génériques ajoutées (AppTabs, AppListRow, AppBottomSheet) ; ProfileCard, BookCard et le pavé de code restent dans leurs domaines (Profile, Book) car ils portent des données métier ; la feuille du bas passe à 32 px de rayon.

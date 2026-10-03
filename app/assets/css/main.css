@@ -676,7 +676,7 @@ textarea.input {
     background: var(--bg);
     border: 3px solid var(--ink);
     border-bottom: 0;
-    border-radius: 28px 28px 0 0;
+    border-radius: 32px 32px 0 0;
     padding: 20px 16px calc(env(safe-area-inset-bottom) + 20px);
 }
 
