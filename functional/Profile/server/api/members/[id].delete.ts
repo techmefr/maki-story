@@ -5,8 +5,11 @@ import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {
-    const { familyId } = await requirePermission(event, 'members.manage')
+    const { familyId, memberId } = await requirePermission(event, 'members.manage')
     const id = requireParam(event, 'id')
+    if (id === memberId) {
+        return badRequest('You cannot remove your own profile')
+    }
     const db = getDb()
     const [target] = await db<{ id: string }[]>`
         select id from members where id = ${id} and family_id = ${familyId} and deleted_at is null

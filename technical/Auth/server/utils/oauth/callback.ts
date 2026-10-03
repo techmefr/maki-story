@@ -5,6 +5,8 @@ import { takeFlow } from '~~/technical/Auth/server/utils/oauth/flow'
 import { OAuthError, verifyIdToken } from '~~/technical/Auth/server/utils/oauth/jwt'
 import { getProviderConfig, redirectUriFor, requestOrigin } from '~~/technical/Auth/server/utils/oauth/providers'
 import type { IProviderConfig } from '~~/technical/Auth/server/utils/oauth/providers'
+import { isProviderAllowedForAccount } from '~~/server/utils/allowedProviders'
+import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
 import { normalizeEmail } from '~~/server/utils/validate'
@@ -77,6 +79,9 @@ const finish = async (event: H3Event, provider: OAuthProviderId, params: ICallba
         isEmailVerified: claims.email_verified === true || claims.email_verified === 'true',
         displayName,
     })
+    if (!(await isProviderAllowedForAccount(getDb(), session.accountId, provider))) {
+        throw new OAuthError('oauth_denied')
+    }
     startSession(event, session)
     logEvent('Connexion réussie')
 }
