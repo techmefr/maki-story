@@ -2,7 +2,7 @@ import { getDb, one } from '~~/server/utils/db'
 import { assertMembersInFamily } from '~~/server/utils/family'
 import { CHANNELS, DEFAULT_INVITATION_HOURS, EMAIL_PATTERN, MAX_INVITATIONS_PER_HOUR, MAX_INVITATION_HOURS, invitationLink, invitationShareText, newInvitationCode } from '~~/server/utils/invitations'
 import { logEvent } from '~~/server/utils/log'
-import { mailDeliveryReady, sendMail } from '~~/technical/Mail/server/utils/mail'
+import { mailDeliveryReady, renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
 import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest } from '~~/server/utils/validate'
@@ -66,7 +66,20 @@ export default defineEventHandler(async (event): Promise<IInvitationCreated> => 
     const shareText = invitationShareText(info?.locale ?? null, info?.inviterName ?? '', info?.familyName ?? '', link)
     let isEmailSent = false
     if (channel === 'EMAIL' && mailDeliveryReady()) {
-        isEmailSent = await sendMail({ to: contact, subject: mailText(info?.locale ?? null, 'invite.subject', { family: info?.familyName ?? '' }), text: shareText })
+        const locale = info?.locale ?? null
+        const content = renderLocalizedMail(locale, {
+            template: 'invitation',
+            params: {
+                name: info?.inviterName ?? '',
+                initial: info?.inviterName ?? '',
+                family: info?.familyName ?? '',
+                role: mailText(locale, 'tpl.role.relative'),
+                code,
+                hours,
+                url: link,
+            },
+        }, new URL(link).origin)
+        isEmailSent = await sendMail({ to: contact, ...content })
     }
     logEvent('Invitation créée')
     return { ...created, link, shareText, isEmailSent }

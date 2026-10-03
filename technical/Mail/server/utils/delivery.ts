@@ -2,7 +2,7 @@ import type { Sql, TransactionSql } from 'postgres'
 import { APP_NAME } from '~~/shared/utils/appName'
 import { accessForMember } from '~~/server/utils/parental'
 import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
-import { mailDeliveryReady, sendMail } from '~~/technical/Mail/server/utils/mail'
+import { mailDeliveryReady } from '~~/technical/Mail/server/utils/mail'
 import { sendPush } from '~~/technical/Mail/server/utils/push'
 
 type Db = Sql | TransactionSql
@@ -22,6 +22,7 @@ interface IRecipient {
 }
 
 type Reason = 'opt_out' | 'schedule_lock' | 'no_target' | 'provider_failed' | ''
+type Status = 'SENT' | 'SUPPRESSED' | 'FAILED' | 'QUEUED'
 
 const loadRecipients = async (db: Db, input: IOutOfAppInput): Promise<IRecipient[]> => {
     return db<IRecipient[]>`
@@ -45,19 +46,26 @@ const record = async (db: Db, familyId: string, memberId: string, kind: Notifica
     `
 }
 
-const emailsFor = async (db: Db, familyId: string, member: IRecipient): Promise<string[]> => {
+const accountsFor = async (db: Db, familyId: string, member: IRecipient): Promise<string[]> => {
     const rows =
         member.role === 'parent'
-            ? await db<{ email: string }[]>`
-                select distinct a.email from accounts a
+            ? await db<{ id: string }[]>`
+                select distinct a.id from accounts a
                 where a.id in (select account_id from account_families where family_id = ${familyId})
                     or a.id in (select account_id from memberships where family_id = ${familyId} and role = 'parent' and status = 'ACTIVE')
             `
-            : await db<{ email: string }[]>`
-                select a.email from accounts a join memberships ms on ms.account_id = a.id
+            : await db<{ id: string }[]>`
+                select a.id from accounts a join memberships ms on ms.account_id = a.id
                 where ms.member_id = ${member.id} and ms.family_id = ${familyId} and ms.status = 'ACTIVE'
             `
-    return rows.map(row => row.email)
+    return rows.map(row => row.id)
+}
+
+const queueForDigest = async (db: Db, input: IOutOfAppInput, memberId: string, accountId: string): Promise<void> => {
+    await db`
+        insert into notification_digest_items (family_id, member_id, account_id, kind, payload, count)
+        values (${input.familyId}, ${memberId}, ${accountId}, ${input.kind}, ${db.json(input.payload)}, ${input.count ?? 1})
+    `
 }
 
 export const notificationText = (locale: string | null, input: Pick<IOutOfAppInput, 'kind' | 'payload' | 'count'>): { title: string; body: string } => {
@@ -105,9 +113,12 @@ export const deliverOutOfApp = async (db: Db, input: IOutOfAppInput): Promise<vo
         if (!mailDeliveryReady()) {
             continue
         }
-        for (const email of await emailsFor(db, input.familyId, member)) {
-            const isSent = await sendMail({ to: email, subject: text.title, text: text.body })
-            await record(db, input.familyId, member.id, input.kind, 'EMAIL', isSent ? 'SENT' : 'FAILED', isSent ? '' : 'provider_failed', 'mail')
+        const accounts = await accountsFor(db, input.familyId, member)
+        for (const accountId of accounts) {
+            await queueForDigest(db, input, member.id, accountId)
+        }
+        if (accounts.length > 0) {
+            await record(db, input.familyId, member.id, input.kind, 'EMAIL', 'QUEUED', '', 'digest')
         }
     }
 }
