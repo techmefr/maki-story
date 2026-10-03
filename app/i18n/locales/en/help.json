@@ -1,0 +1,33 @@
+{
+    "title": "Help",
+    "otherQuestion": "Another question?",
+    "writeSupport": "Write to support",
+    "legal": "Terms and privacy",
+    "account": "My account",
+    "faq": {
+        "addRelative": {
+            "q": "How do I add a relative?",
+            "a": "From “My family”, a parent picks “Add a relative” then sends an invitation by e-mail or gives a code valid for 48 hours."
+        },
+        "fiveMessages": {
+            "q": "Why only 5 messages per child?",
+            "a": "So that every message counts. An adult can leave up to 5 for the same child. Remove one to add another."
+        },
+        "recordVoice": {
+            "q": "How do I record my voice?",
+            "a": "Open a story to record, then tap “Record” on your character’s line. You can listen again and start over as often as you like."
+        },
+        "forgotCode": {
+            "q": "I forgot my code",
+            "a": "A parent can reset the code of a child or a relative from “My family”. For a parent’s code, use the e-mail sign-in."
+        },
+        "favoriteVoice": {
+            "q": "How do I keep a favourite voice?",
+            "a": "While listening, the child taps the heart. The message goes to their vault, which keeps up to 10 keepsakes."
+        },
+        "otherLanguage": {
+            "q": "Can we read in another language?",
+            "a": "Yes: a story can have one text per family language. The child reads in the language chosen in their profile."
+        }
+    }
+}

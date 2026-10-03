@@ -23,6 +23,7 @@ export default defineOSDDNuxtConfig({
     runtimeConfig: {
         public: {
             apiBase: '',
+            supportEmail: '',
             appVersion: process.env.npm_package_version ?? '',
             biometricTestBridge: false,
             sleepMinuteMs: 60000,
