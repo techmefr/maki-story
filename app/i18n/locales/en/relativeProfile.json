@@ -1,0 +1,15 @@
+{
+    "messages": "Messages left",
+    "count": "{count}/{max}",
+    "families": "Families",
+    "resetCode": "Reset their code",
+    "codeReset": "{name}’s code is cleared: a new one will be asked at next sign-in.",
+    "makeParent": "Make a parent",
+    "makeRelative": "Make a relative",
+    "nowRole": {
+        "parent": "{name} is now a parent.",
+        "relative": "{name} is now a relative."
+    },
+    "remove": "Remove from the family",
+    "failed": "That did not work. Try again."
+}

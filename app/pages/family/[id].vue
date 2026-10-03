@@ -2,6 +2,7 @@
     <div class="stack narrow">
         <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
         <h1 class="title">{{ t('family.edit.title') }}</h1>
+        <RelativeProfile v-if="member && isRelativeAccountMember && isParentViewing && member.id !== current?.id" :member="member" />
         <MemberForm v-if="member && !member.isGuest" :member="member" @saved="done" />
         <h2 v-else-if="member" class="subtitle">{{ member.name }}</h2>
         <MemberCodeAdmin v-if="liveMember && !liveMember.isGuest && isParentViewing && liveMember.id !== current?.id" :member="liveMember" />
@@ -22,6 +23,7 @@ const { current } = useCurrentMember()
 
 const isParentViewing = computed(() => current.value?.role === 'parent')
 const member = ref(getById(String(route.params.id)))
+const isRelativeAccountMember = computed(() => !!member.value && !member.value.isGuest && (member.value.role === 'relative' || member.value.role === 'parent'))
 const liveMember = computed(() => getById(String(route.params.id)))
 
 watch(liveMember, fresh => {

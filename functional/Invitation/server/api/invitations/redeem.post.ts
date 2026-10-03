@@ -80,13 +80,14 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
         }
         if (invitation.role === 'parent') {
             const parentName = [body.name, invitation.name, account.email.split('@')[0]].find(isNonEmptyString)?.trim().slice(0, MAX_NAME_LENGTH) ?? ''
-            await tx`
+            const parentId = one(await tx<{ id: string }[]>`
                 insert into members (family_id, name, role, color, pin_hash, code_kind, code_enabled)
                 values (${invitation.familyId}, ${parentName}, 'parent', ${DEFAULT_PARENT_COLOR}, ${codeHash}, ${codeInput?.kind ?? null}, ${codeHash !== null})
-            `
+                returning id
+            `).id
             await tx`insert into account_families (account_id, family_id) values (${account.accountId}, ${invitation.familyId})`
             await tx`
-                insert into memberships (account_id, family_id, role, status) values (${account.accountId}, ${invitation.familyId}, 'parent', 'ACTIVE')
+                insert into memberships (account_id, family_id, member_id, role, status) values (${account.accountId}, ${invitation.familyId}, ${parentId}, 'parent', 'ACTIVE')
                 on conflict (account_id, family_id) do nothing
             `
             return null
