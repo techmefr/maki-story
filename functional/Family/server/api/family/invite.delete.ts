@@ -1,6 +1,6 @@
-import { getDb } from '../../utils/db'
-import { logEvent } from '../../utils/log'
-import { requirePermission } from '../../utils/permissions'
+import { getDb } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { requirePermission } from '~~/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const { familyId } = await requirePermission(event, 'family.invite')

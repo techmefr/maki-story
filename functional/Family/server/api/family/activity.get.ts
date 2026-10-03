@@ -1,6 +1,6 @@
-import { ACTIVITY_PAGE_LIMIT, MAX_ACTIVITY_PAGE_LIMIT } from '../../../shared/utils/retention'
-import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
+import { ACTIVITY_PAGE_LIMIT, MAX_ACTIVITY_PAGE_LIMIT } from '~~/shared/utils/retention'
+import { getDb } from '~~/server/utils/db'
+import { requirePermission } from '~~/server/utils/permissions'
 
 const readCount = (value: unknown, fallback: number, max: number): number => {
     const parsed = Number.parseInt(String(value ?? ''), 10)
