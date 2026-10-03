@@ -4,7 +4,7 @@
     "codeLabel": "Code d’invitation",
     "check": "Vérifier",
     "invalidTitle": "Invitation invalide",
-    "invalidHint": "Ce code est utilisé, expiré ou inconnu. Demande-en un nouveau.",
+    "invalidHint": "Ce code n’est pas valable. Il a peut-être expiré (48 h).",
     "tryAgain": "Essayer un autre code",
     "welcome": "Rejoindre la famille {family}",
     "invitedBy": "{name} t’invite.",
@@ -16,5 +16,16 @@
     "submit": "Rejoindre",
     "failed": "Impossible de rejoindre pour l’instant.",
     "invalidCredentials": "Vérifie ton e-mail, ton mot de passe ou l’invitation.",
-    "tooMany": "Trop d’essais, réessaie plus tard."
+    "tooMany": "Trop d’essais, réessaie plus tard.",
+    "progress": "Étape {current} sur {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Tu rejoins {family} comme proche.",
+        "parent": "Tu rejoins {family} comme parent."
+    },
+    "profileTitle": "Crée ton profil",
+    "namePlaceholder": "Ton prénom",
+    "next": "Continuer",
+    "secretTitle": "Ton code secret",
+    "secretHint": "4 à 8 chiffres."
 }

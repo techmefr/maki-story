@@ -6,7 +6,7 @@ import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
 
 type Db = Sql | TransactionSql
 
-export const DEFAULT_INVITATION_HOURS = 72
+export const DEFAULT_INVITATION_HOURS = 48
 export const MAX_INVITATION_HOURS = 24 * 30
 export const MAX_INVITATIONS_PER_HOUR = 30
 export const CHANNELS: InvitationChannel[] = ['WHATSAPP', 'SMS', 'EMAIL', 'LINK']
@@ -22,6 +22,7 @@ export interface IInvitationRow {
     name: string
     childIds: string[]
     memberId: string | null
+    role: MemberRole
     inviterName: string
     isUsable: boolean
 }
@@ -48,7 +49,7 @@ export const newInvitationCode = async (db: Db): Promise<string> => {
 
 export const findInvitation = async (db: Db, code: string): Promise<IInvitationRow | null> => {
     const [row] = await db<IInvitationRow[]>`
-        select i.id, i.family_id, f.name as family_name, i.code, i.channel, i.contact, i.name, i.child_ids, i.member_id,
+        select i.id, i.family_id, f.name as family_name, i.code, i.channel, i.contact, i.name, i.child_ids, i.member_id, i.role,
             coalesce(m.name, '') as inviter_name,
             (i.used_at is null and i.revoked_at is null and i.expires_at > now()) as is_usable
         from invitations i

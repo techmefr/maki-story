@@ -2,6 +2,7 @@ import { getDb, one } from '~~/server/utils/db'
 import { findInvitation } from '~~/server/utils/invitations'
 import { normalizeInviteCode } from '~~/server/utils/inviteCode'
 import { logEvent } from '~~/server/utils/log'
+import { hashCode, readCodeInput } from '~~/technical/Auth/server/utils/profile-code'
 import { DUMMY_HASH, hashPassword, verifyPassword } from '~~/technical/Auth/server/utils/password'
 import { isSessionCurrent, readSession, startSession } from '~~/technical/Auth/server/utils/session'
 import { assertIpBudget, assertNotThrottled, clearFailures, recordFailure, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
@@ -13,6 +14,7 @@ const MAX_PASSWORD_LENGTH = 200
 const MAX_NAME_LENGTH = 60
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const DEFAULT_RELATIVE_COLOR: VoiceColorId = 'grape'
+const DEFAULT_PARENT_COLOR: VoiceColorId = 'sun'
 
 const invalidCode = (): never => {
     throw createError({ statusCode: 410, statusMessage: 'This invitation is invalid or expired' })
@@ -58,6 +60,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     if (!invitation || !invitation.isUsable) {
         return invalidCode()
     }
+    const codeInput = body.profileCode === undefined ? null : readCodeInput(body.profileCode, 'parent')
+    const codeHash = codeInput === null ? null : await hashCode(codeInput)
     const account = await resolveAccount(event, body)
     const memberId = await db.begin(async tx => {
         const claimed = await tx<{ id: string }[]>`
@@ -74,6 +78,19 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
         if (existing || parentLink) {
             throw createError({ statusCode: 409, statusMessage: 'You already belong to this family' })
         }
+        if (invitation.role === 'parent') {
+            const parentName = [body.name, invitation.name, account.email.split('@')[0]].find(isNonEmptyString)?.trim().slice(0, MAX_NAME_LENGTH) ?? ''
+            await tx`
+                insert into members (family_id, name, role, color, pin_hash, code_kind, code_enabled)
+                values (${invitation.familyId}, ${parentName}, 'parent', ${DEFAULT_PARENT_COLOR}, ${codeHash}, ${codeInput?.kind ?? null}, ${codeHash !== null})
+            `
+            await tx`insert into account_families (account_id, family_id) values (${account.accountId}, ${invitation.familyId})`
+            await tx`
+                insert into memberships (account_id, family_id, role, status) values (${account.accountId}, ${invitation.familyId}, 'parent', 'ACTIVE')
+                on conflict (account_id, family_id) do nothing
+            `
+            return null
+        }
         let profileId = invitation.memberId
         if (profileId !== null) {
             const [free] = await tx<{ id: string }[]>`
@@ -85,7 +102,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
             const fallbackName = account.email.split('@')[0] ?? ''
             const name = [body.name, invitation.name, fallbackName].find(isNonEmptyString)?.trim().slice(0, MAX_NAME_LENGTH) ?? fallbackName
             profileId = one(await tx<{ id: string }[]>`
-                insert into members (family_id, name, role, color) values (${invitation.familyId}, ${name}, 'relative', ${DEFAULT_RELATIVE_COLOR}) returning id
+                insert into members (family_id, name, role, color, pin_hash, code_kind, code_enabled)
+                values (${invitation.familyId}, ${name}, 'relative', ${DEFAULT_RELATIVE_COLOR}, ${codeHash}, ${codeInput?.kind ?? null}, ${codeHash !== null}) returning id
             `).id
         }
         await tx`
@@ -96,5 +114,5 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     })
     startSession(event, { accountId: account.accountId, familyId: invitation.familyId, memberId })
     logEvent(account.isNew ? 'Invitation utilisée : nouveau compte' : 'Invitation utilisée : compte existant')
-    return { isSignedIn: true, memberId, isRelativeAccount: true }
+    return { isSignedIn: true, memberId, isRelativeAccount: invitation.role !== 'parent' }
 })

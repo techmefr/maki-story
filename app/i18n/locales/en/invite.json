@@ -1,7 +1,7 @@
 {
     "menu": "Invite a relative",
     "title": "Invite a relative",
-    "hint": "Create a single-use code and send it by WhatsApp, SMS, e-mail or link.",
+    "hint": "Invite a relative or another parent by e-mail, or give them a single-use code.",
     "channelLabel": "How to send it?",
     "channels": {
         "WHATSAPP": "WhatsApp",
@@ -19,7 +19,7 @@
     "createFailed": "The invitation could not be created.",
     "tooMany": "Too many invitations at once, try again later.",
     "ready": "Invitation ready",
-    "validFor": "Valid for about {hours} h, one use only.",
+    "validFor": "Valid for {hours} h, single use.",
     "linkLabel": "Invitation link",
     "emailSent": "E-mail sent to {contact}.",
     "emailNotSent": "The e-mail could not be sent: share the link yourself.",
@@ -39,5 +39,23 @@
         "revoked": "Revoked"
     },
     "revoke": "Revoke",
-    "revokeAria": "Revoke the invitation for {name}"
+    "revokeAria": "Revoke the invitation for {name}",
+    "tabs": {
+        "email": "By e-mail",
+        "code": "By code"
+    },
+    "roleLabel": "Role",
+    "roles": {
+        "relative": "Relative",
+        "parent": "Parent"
+    },
+    "roleHint": {
+        "relative": "Lends their voice and leaves messages for the children.",
+        "parent": "Manages the family with you: children, books, codes and sign-ins."
+    },
+    "emailPlaceholder": "name@example.com",
+    "emailHint": "They receive a link to create their profile and join the family.",
+    "sendEmail": "Send the invitation",
+    "sentTitle": "Invitation sent",
+    "codeLabel": "Invitation code"
 }

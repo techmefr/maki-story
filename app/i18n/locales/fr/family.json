@@ -26,7 +26,8 @@
         "providers": {
             "title": "Connexions autorisées",
             "hint": "Choisis comment les proches et les enfants peuvent se connecter. Le lien magique et Google restent toujours actifs."
-        }
+        },
+        "addChild": "Ajouter un enfant"
     },
     "edit": {
         "title": "Modifier",

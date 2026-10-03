@@ -1,6 +1,7 @@
 export type ToggleableProviderId = 'apple' | 'microsoft' | 'facebook'
 
 export type MembershipStatus = 'ACTIVE' | 'LEFT' | 'DECEASED' | 'BLOCKED'
+export type InvitationRole = 'parent' | 'relative'
 export type InvitationChannel = 'WHATSAPP' | 'SMS' | 'EMAIL' | 'LINK'
 export type PushPlatform = 'WEB' | 'IOS' | 'ANDROID'
 export type NotificationChannel = 'IN_APP' | 'PUSH' | 'EMAIL'
@@ -56,6 +57,7 @@ export interface IAccountOverview {
 
 export interface IInvitationInput {
     channel: InvitationChannel
+    role?: InvitationRole
     contact?: string
     name?: string
     childIds?: string[]
@@ -67,6 +69,7 @@ export interface IInvitation {
     id: string
     code: string
     channel: InvitationChannel
+    role: InvitationRole
     contact: string
     name: string
     childIds: string[]
@@ -85,6 +88,7 @@ export interface IInvitationCreated extends IInvitation {
 export interface IInvitationPreview {
     familyName: string
     inviterName: string
+    role: InvitationRole
     isUsable: boolean
 }
 
@@ -93,6 +97,7 @@ export interface IInvitationRedeem {
     name?: string
     email?: string
     password?: string
+    profileCode?: IMemberCodeInput
 }
 
 export interface IPushSubscriptionInput {

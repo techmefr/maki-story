@@ -1,10 +1,10 @@
 {
     "title": "Join a family",
-    "codeHint": "Enter the code you received from a parent.",
+    "codeHint": "Enter the code a parent gave you.",
     "codeLabel": "Invitation code",
     "check": "Check",
     "invalidTitle": "Invalid invitation",
-    "invalidHint": "This code is used, expired or unknown. Ask for a new one.",
+    "invalidHint": "This code is not valid. It may have expired (48 h).",
     "tryAgain": "Try another code",
     "welcome": "Join the {family} family",
     "invitedBy": "{name} invited you.",
@@ -14,7 +14,18 @@
     "emailLabel": "E-mail address",
     "passwordLabel": "Password",
     "submit": "Join",
-    "failed": "Joining is not possible right now.",
-    "invalidCredentials": "Check your e-mail, your password or the invitation.",
-    "tooMany": "Too many attempts, try again later."
+    "failed": "Could not join right now.",
+    "invalidCredentials": "Check your e-mail, password or invitation.",
+    "tooMany": "Too many attempts, try again later.",
+    "progress": "Step {current} of {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "You are joining {family} as a relative.",
+        "parent": "You are joining {family} as a parent."
+    },
+    "profileTitle": "Create your profile",
+    "namePlaceholder": "Your first name",
+    "next": "Continue",
+    "secretTitle": "Your secret code",
+    "secretHint": "4 to 8 digits."
 }
