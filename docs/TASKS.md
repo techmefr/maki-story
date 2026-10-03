@@ -31,9 +31,9 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 - [ ] Account : onboarding, légal, connexion, lien magique, code oublié, permissions, compte
 - [ ] Profile : codes chiffres (adulte) et formes (enfant, 4 à 6), menu et modification
-- [ ] Family : création, choix, gestion
-- [ ] Invitation : ajout de proche, rejoindre
-- [ ] Lock : contrôle parental, écran verrouillé
+- [ ] Family : création, choix, gestion (codé et relu mobile sombre ; clair et large à relire)
+- [ ] Invitation : ajout de proche, rejoindre, profil proche (codé et relu mobile sombre ; clair et large à relire)
+- [ ] Lock : contrôle parental, écran verrouillé (codé ; écran verrouillé à relire en vrai verrouillage)
 
 ## Phase 4 — Cœur enfant
 
