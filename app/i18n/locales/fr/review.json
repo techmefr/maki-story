@@ -105,5 +105,11 @@
         "aVoice": "Une voix",
         "listen": "Écouter l’histoire",
         "newVoicesFor": "Nouvelles voix pour {title}"
+    },
+    "summary": {
+        "title": "Avancement de la relecture",
+        "approved": "{count} approuvées",
+        "changes": "{count} à corriger",
+        "waiting": "{count} en attente"
     }
 }
