@@ -30,7 +30,7 @@ export default defineEventHandler(async (event): Promise<ITreasure> => {
         where id = ${body.messageId} and family_id = ${actor.familyId} and deleted_at is null and status = 'ACTIVE'
             and (expires_at is null or expires_at > now())
     `
-    if (!source || (actor.role === 'child' && source.toMemberId !== savedBy)) {
+    if (!source || (actor.role !== 'parent' && source.toMemberId !== savedBy)) {
         return notFound('Message not found')
     }
     const [existing] = await db<ITreasure[]>`

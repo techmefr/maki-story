@@ -40,7 +40,7 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 
 ## Journal
 
-- 2026-10-03 : limite de 5 messages actifs par expéditeur et destinataire (adulte vers enfant, enfant vers adulte de la famille) dans une transaction avec verrou ; un message au coffre ne compte plus ; migration 0019 retire l'index d'unicité. Reste : coffre adulte (souvenirs d'un enfant), interface.
+- 2026-10-03 : limite de 5 messages actifs par expéditeur et destinataire (adulte vers enfant, enfant vers adulte de la famille) dans une transaction avec verrou ; un message au coffre ne compte plus ; migration 0019 retire l'index d'unicité. Coffre adulte : une table `treasures` unique, `child_id` désigne le propriétaire du coffre (enfant ou adulte), 10 maximum, un adulte ne lit et ne supprime que le sien.
 - 2026-10-03 : jetons clair/sombre, Nunito retirée (Fredoka seule ; le dépôt n'a que les graisses 500/600/700, pas la 400), audit de contraste.
 - 2026-10-03 : audit refait avec le référentiel nuxt-osdd ; création de `CLAUDE.md` et `docs/`.
 - 2026-10-03 : molécules génériques ajoutées (AppTabs, AppListRow, AppBottomSheet) ; ProfileCard, BookCard et le pavé de code restent dans leurs domaines (Profile, Book) car ils portent des données métier ; la feuille du bas passe à 32 px de rayon.

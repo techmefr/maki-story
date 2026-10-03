@@ -114,8 +114,10 @@ test.describe('player, treasure box and stories playback', () => {
 
     test('relatives and other families cannot read the box', async ({ playwright, baseURL }) => {
         const mamie = await asProfile(playwright, baseURL, 'Mamie')
-        expect((await mamie.get(`/api/treasure?childId=${ids.Lova!}`)).status()).toBe(403)
-        expect((await stranger.get(`/api/treasure?childId=${ids.Lova!}`)).status()).toBe(400)
+        const own = (await (await mamie.get(`/api/treasure?childId=${ids.Lova!}`)).json()) as ITreasureBoxRow
+        expect(own.items).toHaveLength(0)
+        const foreign = (await (await stranger.get(`/api/treasure?childId=${ids.Lova!}`)).json()) as ITreasureBoxRow
+        expect(foreign.items).toHaveLength(0)
         const copyId = ((await (await child.get('/api/treasure')).json()) as ITreasureBoxRow).items[0]!.fileId
         expect((await stranger.get(`/api/files/${copyId}`)).status()).not.toBe(200)
         expect((await mamie.get(`/api/files/${copyId}`)).status()).toBe(403)

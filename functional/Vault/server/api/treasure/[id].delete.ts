@@ -8,7 +8,7 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const id = requireParam(event, 'id')
     const removed = await getDb().begin(async tx => {
         const [row] = await tx<{ fileId: string; childId: string }[]>`
-            delete from treasures where id = ${id} and family_id = ${actor.familyId} returning file_id, child_id
+            delete from treasures where id = ${id} and family_id = ${actor.familyId} and (${actor.role === 'parent'} or child_id = ${actor.memberId}) returning file_id, child_id
         `
         if (row) {
             await tx`delete from files where id = ${row.fileId} and family_id = ${actor.familyId}`

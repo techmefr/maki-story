@@ -7,7 +7,8 @@ import { badRequest } from '~~/server/utils/validate'
 export default defineEventHandler(async (event): Promise<ITreasureBox> => {
     const actor = await requirePermission(event, 'treasure.list')
     const requested = getQuery(event).childId
-    const childId = actor.role === 'child' ? actor.memberId : typeof requested === 'string' ? requested : null
+    const ownsOnly = actor.role !== 'parent'
+    const childId = ownsOnly ? actor.memberId : typeof requested === 'string' ? requested : actor.memberId
     if (childId === null) {
         return badRequest('Missing childId')
     }
