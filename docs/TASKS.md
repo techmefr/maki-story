@@ -6,7 +6,8 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 - [x] Audit du dépôt (OSDD et atomic)
 - [x] Architecture cible et modèle de données
-- [ ] Valider les points ouverts de `docs/MEMORY.md`
+- [x] Décisions du 2026-10-03 (code enfant, coffre, messages adultes, pages sans maquette, adaptatif)
+- [ ] Points ouverts restants de `docs/MEMORY.md`
 - [ ] Réécrire `CLAUDE.md` et `docs/` dans le dépôt
 
 ## Phase 1 — Spécifications
@@ -52,7 +53,7 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 - [ ] Notification : in-app et e-mail quotidien, 9 e-mails
 - [ ] Help : aide, états d'erreur, hors ligne
-- [ ] Pages sans maquette : activité, appareils, corbeille, stockage, grimace, traduction
+- [ ] Pages sans maquette, dans le même style : activité, appareils, corbeille, stockage, grimace, traduction
 - [ ] Builds Capacitor : iOS, Android, PWA, Android TV
 - [ ] Poids pour Madagascar
 - [ ] Vérification finale écran par écran

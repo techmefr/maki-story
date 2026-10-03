@@ -20,16 +20,20 @@ Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famill
 
 ## Règles métier
 
-1. Un adulte laisse au maximum 5 messages actifs à un même enfant.
+1. Un adulte laisse au maximum 5 messages actifs à un même enfant ; un message mis au coffre ne compte plus.
 2. Un message reste accessible 24 h après la première écoute, puis est supprimé, sauf s'il est mis au coffre. Le décompte ne repart pas à la réécoute. Un message jamais écouté n'expire pas.
 3. Coffre : 10 favoris par enfant, 10 souvenirs par adulte. Le 11e ajout est refusé.
-4. Code adulte : 4 à 8 chiffres. Code enfant : 4 à 6 formes parmi 6 touches.
+4. Code adulte : 4 à 8 chiffres. Code enfant : 4 à 6 formes parmi 6 touches, longueur choisie par l'enfant.
 5. Tags : slug anglais, nom par langue de la famille, repli langue choisie puis anglais puis slug.
 6. Seules les langues de la famille sont proposées.
 7. Verrouillage : une règle par profil (jours, heures par pas de 30 min, fuseau), déverrouillage parent de 30 minutes, coupe aussi une écoute en cours.
 8. Livre sans voix caché ; validation parent avant l'enfant ; un livre dans 10 familles au maximum.
 9. Un seul e-mail récapitulatif par jour, selon les préférences.
 10. Hors ligne et poids réduit : audio Opus 16 kHz, images WebP 1200 px, envoi repris après coupure.
+
+## Messages entre adultes
+
+Il n'y a pas de messages libres entre adultes. Seules circulent les demandes liées au livre (demande d'enregistrement, proposition de livre) et à la revue (corrections, commentaires).
 
 ## Studio
 
