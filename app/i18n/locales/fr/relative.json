@@ -22,5 +22,11 @@
     },
     "joinAnother": "Rejoindre une autre famille",
     "openFailed": "Impossible d’ouvrir cette famille.",
-    "loadFailed": "Impossible de charger tes familles."
+    "loadFailed": "Impossible de charger tes familles.",
+    "fixes": "À corriger",
+    "fixTakes": {
+        "one": "{count} prise à refaire",
+        "other": "{count} prises à refaire"
+    },
+    "redo": "Refaire les prises"
 }

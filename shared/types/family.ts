@@ -36,6 +36,14 @@ export interface IRelativeProposal {
     status: ShareStatus
 }
 
+export interface IRelativeFix {
+    bookId: string
+    bookTitle: string
+    takeCount: number
+    comment: string
+    authorName: string
+}
+
 export interface IRelativeFamily {
     familyId: string
     familyName: string
@@ -43,6 +51,7 @@ export interface IRelativeFamily {
     children: IRelativeChild[]
     requests: IRelativeRequest[]
     proposals: IRelativeProposal[]
+    fixes: IRelativeFix[]
 }
 
 export interface IRelativeFlow {

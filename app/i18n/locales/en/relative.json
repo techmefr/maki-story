@@ -22,5 +22,11 @@
     },
     "joinAnother": "Join another family",
     "openFailed": "This family could not be opened.",
-    "loadFailed": "Your families could not be loaded."
+    "loadFailed": "Your families could not be loaded.",
+    "fixes": "To fix",
+    "fixTakes": {
+        "one": "{count} take to redo",
+        "other": "{count} takes to redo"
+    },
+    "redo": "Redo the takes"
 }

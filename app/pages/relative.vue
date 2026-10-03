@@ -36,6 +36,20 @@
                     </AppButton>
                 </li>
             </ul>
+            <h3 v-if="family.fixes.length > 0" class="label">{{ t('relative.fixes') }}</h3>
+            <ul class="stack relative__list">
+                <li v-for="fix in family.fixes" :key="fix.bookId" class="card stack" data-testid="relative-fix">
+                    <div class="row row--wrap">
+                        <AppIcon name="redo" :size="28" />
+                        <div class="grow">
+                            <div class="subtitle">{{ fix.bookTitle }}</div>
+                            <div class="muted">{{ t('relative.fixTakes', { count: fix.takeCount }) }}</div>
+                        </div>
+                    </div>
+                    <p v-if="fix.comment" class="relative__comment">« {{ fix.comment }} »<span v-if="fix.authorName"> — {{ fix.authorName }}</span></p>
+                    <AppButton size="sm" icon="mic" class="relative__action" :disabled="isBusy" @click="open(family.familyId, `/books/${fix.bookId}/studio`)">{{ t('relative.redo') }}</AppButton>
+                </li>
+            </ul>
             <h3 v-if="family.proposals.length > 0" class="label">{{ t('relative.proposals') }}</h3>
             <ul class="stack relative__list">
                 <li v-for="proposal in family.proposals" :key="proposal.shareId" class="card row row--wrap" data-testid="relative-proposal">
@@ -105,5 +119,11 @@ onMounted(async () => {
 
 .relative__action {
     min-height: 48px;
+}
+
+.relative__comment {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 600 1rem/1.4 var(--font-body);
 }
 </style>
