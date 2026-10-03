@@ -68,5 +68,6 @@
         "removeTitle": "Retirer ce souvenir ?",
         "removeBody": "Il sera supprimé pour toujours.",
         "removeConfirm": "Retirer"
-    }
+    },
+    "quota": "{count}/{max} messages"
 }

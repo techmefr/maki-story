@@ -1,0 +1,9 @@
+{
+    "title": "Mon coffre",
+    "count": "{count}/{limit}",
+    "emptyTitle": "Ton coffre est vide",
+    "emptyHint": "Garde ici les messages des enfants. 10 souvenirs maximum.",
+    "remove": "Retirer du coffre",
+    "seconds": "{count} s",
+    "open": "Mon coffre"
+}

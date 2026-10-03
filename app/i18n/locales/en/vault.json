@@ -1,0 +1,9 @@
+{
+    "title": "My vault",
+    "count": "{count}/{limit}",
+    "emptyTitle": "Your vault is empty",
+    "emptyHint": "Keep the children’s messages here. 10 keepsakes at most.",
+    "remove": "Remove from the vault",
+    "seconds": "{count} s",
+    "open": "My vault"
+}
