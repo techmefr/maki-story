@@ -16,6 +16,7 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Un enfant peut écrire à tous les adultes de sa famille (confirmé le 2026-10-03).
 - Pas de messages entre adultes en dehors des demandes liées au livre (demande d'enregistrement, proposition de livre) ou à la revue (décidé le 2026-10-03).
 - Pages sans maquette (activité, appareils, corbeille, stockage, grimace, traduction) : conçues dans le même style que le design system.
+- Passage RGAA demandé (2026-10-03) : des couleurs se superposent parfois en clair et en sombre et rendent le texte illisible ; les deux thèmes sont gardés et les contrastes contrôlés (voir `docs/DESIGN.md`).
 - Mise en page : vraie version adaptative (téléphone, tablette, ordinateur, Android TV), pas une colonne de 440 px étirée.
 
 ## Points ouverts
@@ -23,7 +24,6 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Fuseau horaire du verrouillage : on reprend le fuseau par règle du dépôt actuel.
 - Liste des champs optionnels du studio à valider.
 - Écrans adaptatifs : points de rupture et navigation tablette, ordinateur et TV à dessiner (issue de mise en page).
-- Thème sombre : non décidé.
 - Migrations déjà appliquées en production : renumérotation interdite sans plan.
 - À compléter : vrai logo et favicon, textes juridiques à valider par un juriste, domaine, adresse postale, contact des e-mails.
 

@@ -83,10 +83,18 @@ Fredoka 400, 600, 700. Titre de page 32-34, section 22-26, bouton 18-21, texte 1
 
 Couleurs, contours, ombres et rayons identiques aux maquettes ; zones tactiles d'au moins 44 px ; états vides prévus (notifications, coffre, bibliothèque filtrée).
 
+## Accessibilité (RGAA) et thèmes clair et sombre
+
+- Les deux thèmes (clair, sombre, auto) sont conservés. Chaque token existe en version claire et sombre.
+- Contraste minimal : 4,5:1 pour le texte, 3:1 pour les contours, icônes et composants d'interface, dans les deux thèmes.
+- Aucune superposition de couleurs qui rende un texte illisible : chaque fond a sa couleur de texte associée (jamais de texte clair sur couleur claire, jamais de texte sombre sur fond sombre).
+- Le contrôle est automatisé : `scripts/design-audit.ts` vérifie les paires fond/texte des tokens dans les deux thèmes.
+- Navigation clavier, focus visible et libellés d'accessibilité sur tous les contrôles.
+
 ## Écarts connus avec le dépôt actuel
 
 `scripts/design-audit.ts` exige encore `--shadow 3px`, `#1f1b3a`, Nunito et `--tap 48px` : à aligner sur ce document (`4px 5px 0`, `#1E1A3F`, Fredoka seule, 44 px).
 
 ## À compléter
 
-Vrai logo et favicon, photos de profil, version sombre (non décidée), mise en page tablette, ordinateur et Android TV.
+Vrai logo et favicon, photos de profil, mise en page tablette, ordinateur et Android TV.

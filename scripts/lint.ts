@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const ROOT = join(import.meta.dirname, '..')
-const SCANNED = ['app', 'server', 'shared']
+const SCANNED = ['app', 'server', 'shared', 'functional', 'technical']
 const EXTENSIONS = ['.ts', '.vue']
 const COMMENT = /^\s*(\/\/|\/\*|\*\s|<!--)/
 const problems: string[] = []
@@ -30,6 +30,12 @@ for (const directory of SCANNED) {
                 }
                 if (/[ \t]+$/.test(line)) {
                     problems.push(`${where}: trailing whitespace`)
+                }
+                if (/(:\s*any\b|\bas any\b|<any>|\bany\[\]|<any,|,\s*any>)/.test(line)) {
+                    problems.push(`${where}: any`)
+                }
+                if (relative(ROOT, file).startsWith('technical') && /from\s+['"][^'"]*functional\//.test(line)) {
+                    problems.push(`${where}: technical layer imports a functional layer`)
                 }
             })
     }
