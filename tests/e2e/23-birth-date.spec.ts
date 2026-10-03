@@ -193,6 +193,8 @@ test.describe('symbol codes, disabled child code, birthday and book metadata', (
 
     test('a book carries its voice languages, moods and themes', async () => {
         const base = { title: 'Meta', kind: 'multi', imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: 'Narrateur', text: 'Salut' }] }
+        const everyone = (await (await parent.get('/api/members')).json()) as { id: string }[]
+        await parent.patch(`/api/members/${everyone[0]!.id}/settings`, { data: { spokenLanguages: ['fr', 'en'] } })
         const created = await parent.post('/api/books', { data: { ...base, writtenLanguage: 'fr', voiceLanguages: ['fr', 'en'], moods: ['calm'], themes: ['animals', 'nature'] } })
         expect(created.ok(), await created.text()).toBeTruthy()
         const { id } = (await created.json()) as { id: string }
