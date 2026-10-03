@@ -55,6 +55,6 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [ ] Notification : in-app et e-mail quotidien, 9 e-mails
 - [ ] Help : aide, états d'erreur, hors ligne
 - [ ] Pages sans maquette, dans le même style : activité, appareils, corbeille, stockage, grimace, traduction
-- [ ] Builds Capacitor : iOS, Android, PWA, Android TV
-- [ ] Poids pour Madagascar
+- [ ] Builds Capacitor : iOS, Android, PWA, Android TV (état et marche à suivre dans `docs/capacitor.md` ; aucun build natif possible dans l'environnement actuel)
+- [ ] Poids pour Madagascar (Opus 24 kbit/s, WebP 1200 px et reprise d'envoi déjà en place ; mesures à faire, voir `docs/capacitor.md`)
 - [ ] Vérification finale écran par écran
