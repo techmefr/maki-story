@@ -16,5 +16,8 @@
         "one": "{count} battuta salvata in {language}.",
         "other": "{count} battute salvate in {language}."
     },
-    "saveFailed": "Salvataggio non riuscito. Riprova."
+    "saveFailed": "Salvataggio non riuscito. Riprova.",
+    "markDone": "Traduzione terminata",
+    "markDoneHint": "I bambini vedono questa lingua solo quando è terminata.",
+    "doneFailed": "Non è stato possibile salvare la modifica. Riprova."
 }

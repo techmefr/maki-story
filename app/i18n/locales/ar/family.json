@@ -49,7 +49,10 @@
         "revokeLabel": "إزالة {device} من {member}",
         "loadError": "تعذّر تحميل الأجهزة.",
         "revokeError": "تعذّرت إزالة هذا الجهاز.",
-        "emptyHint": "فعّل البصمة أو الوجه في ملف شخصي ليظهر هنا."
+        "emptyHint": "فعّل البصمة أو الوجه في ملف شخصي ليظهر هنا.",
+        "confirmTitle": "تسجيل خروج {device} الخاص بـ {member}؟",
+        "lastUsed": "آخر استخدام: {date}",
+        "neverUsed": "لم يُستخدم قط"
     },
     "choose": {
         "title": "أي عائلة؟",

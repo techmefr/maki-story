@@ -16,5 +16,8 @@
         "one": "{count} Zeile auf {language} gespeichert.",
         "other": "{count} Zeilen auf {language} gespeichert."
     },
-    "saveFailed": "Speichern fehlgeschlagen. Versuche es erneut."
+    "saveFailed": "Speichern fehlgeschlagen. Versuche es erneut.",
+    "markDone": "Übersetzung abgeschlossen",
+    "markDoneHint": "Kinder sehen diese Sprache erst, wenn sie abgeschlossen ist.",
+    "doneFailed": "Die Änderung konnte nicht gespeichert werden. Versuche es noch einmal."
 }

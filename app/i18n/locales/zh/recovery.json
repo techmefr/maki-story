@@ -22,7 +22,9 @@
             "message": "语音消息",
             "treasure": "宝箱回忆",
             "recordings": "亲人的声音"
-        }
+        },
+        "filter": "按类型筛选",
+        "all": "全部"
     },
     "activity": {
         "title": "家庭动态",
@@ -113,7 +115,11 @@
                     "updated": "已修改 AI 预算"
                 }
             }
-        }
+        },
+        "person": "按人员筛选",
+        "everyone": "所有人",
+        "today": "今天",
+        "yesterday": "昨天"
     },
     "data": {
         "title": "家庭数据",

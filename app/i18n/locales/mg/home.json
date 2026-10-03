@@ -29,7 +29,9 @@
         "removeOne": "Fafao {title}",
         "removeAll": "Fafao daholo",
         "emptyTitle": "Tsy misy boky voasintona",
-        "emptyHint": "Sintony boky avy ao amin’ny tranombokin-drakitra mba hihainoana tsy misy aterineto."
+        "emptyHint": "Sintony boky avy ao amin’ny tranombokin-drakitra mba hihainoana tsy misy aterineto.",
+        "removeAllTitle": "Fafana rehetra?",
+        "removeAllText": "Hesorina amin’ity fitaovana ity ny boky voakarina. Mbola azo vakiana an-tserasera izy ireo."
     },
     "grimace": {
         "title": "Ny endrika mampihomehy anao!",

@@ -1,0 +1,9 @@
+{
+    "toRecord": "待录音",
+    "proposals": "我的推荐",
+    "toFix": "待修改",
+    "record": "录音",
+    "redo": "重录",
+    "emptyTitle": "这里还没有内容",
+    "emptyHint": "此类别的内容会显示在这里。"
+}

@@ -49,7 +49,10 @@
         "revokeLabel": "Rimuovi {device} di {member}",
         "loadError": "Impossibile caricare i dispositivi.",
         "revokeError": "Impossibile rimuovere questo dispositivo.",
-        "emptyHint": "Attiva l’impronta o il volto su un profilo per vederlo qui."
+        "emptyHint": "Attiva l’impronta o il volto su un profilo per vederlo qui.",
+        "confirmTitle": "Disconnettere {device} di {member}?",
+        "lastUsed": "Ultimo utilizzo: {date}",
+        "neverUsed": "Mai usato"
     },
     "choose": {
         "title": "Quale famiglia?",

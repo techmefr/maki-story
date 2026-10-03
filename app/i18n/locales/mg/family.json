@@ -49,7 +49,10 @@
         "revokeLabel": "Esory ny {device} an’i {member}",
         "loadError": "Tsy afaka naka ny fitaovana.",
         "revokeError": "Tsy afaka nanala ity fitaovana ity.",
-        "emptyHint": "Alefaso ny rantsantanana na ny tarehy amin’ny mombamomba mba hiseho eto."
+        "emptyHint": "Alefaso ny rantsantanana na ny tarehy amin’ny mombamomba mba hiseho eto.",
+        "confirmTitle": "Hokatsahina ve ny {device} an’i {member}?",
+        "lastUsed": "Nampiasaina farany: {date}",
+        "neverUsed": "Tsy mbola nampiasaina"
     },
     "choose": {
         "title": "Fianakaviana iza?",
