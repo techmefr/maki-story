@@ -12,6 +12,11 @@
             <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
         </AppListRow>
 
+        <AppListRow to="/family/books" :title="t('bookAccess.menu')" :subtitle="t('bookAccess.menuHint')" data-testid="family-books">
+            <template #lead><AppIcon name="book" :size="28" /></template>
+            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
+        </AppListRow>
+
         <section v-for="group in groups" :key="group.role" class="stack overview__group" :aria-labelledby="`group-${group.role}`">
             <div class="row">
                 <h2 :id="`group-${group.role}`" class="subtitle grow">{{ t(`family.index.groups.${group.role}`) }}</h2>

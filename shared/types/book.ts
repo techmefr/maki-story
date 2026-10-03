@@ -243,3 +243,8 @@ export type ProposalDecision = 'approve' | 'decline'
 export interface IProposalBody {
     decision: ProposalDecision
 }
+
+export interface IBookAccess {
+    isRestricted: boolean
+    bookIds: string[]
+}
