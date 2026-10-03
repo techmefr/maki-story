@@ -1,8 +1,8 @@
-import { getDb, one } from '../../utils/db'
-import { logEvent } from '../../utils/log'
-import { syncMembershipStatus } from '../../utils/memberships'
-import { requirePermission } from '../../utils/permissions'
-import { badRequest, notFound, requireParam } from '../../utils/validate'
+import { getDb, one } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { syncMembershipStatus } from '~~/server/utils/memberships'
+import { requirePermission } from '~~/server/utils/permissions'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {
     const { familyId } = await requirePermission(event, 'members.manage')

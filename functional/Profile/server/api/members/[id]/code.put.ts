@@ -1,8 +1,8 @@
-import { writeAudit } from '../../../utils/audit'
-import { getDb } from '../../../utils/db'
-import { requirePermission } from '../../../utils/permissions'
-import { loadCodeRow, readCodeInput, requireActor, storeMemberCode, verifyMemberCode } from '../../../utils/profile-code'
-import { notFound, requireParam } from '../../../utils/validate'
+import { writeAudit } from '~~/server/utils/audit'
+import { getDb } from '~~/server/utils/db'
+import { requirePermission } from '~~/server/utils/permissions'
+import { loadCodeRow, readCodeInput, requireActor, storeMemberCode, verifyMemberCode } from '~~/server/utils/profile-code'
+import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {
     const actor = await requireActor(event)

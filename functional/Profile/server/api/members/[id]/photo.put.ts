@@ -1,8 +1,8 @@
-import { getDb, one } from '../../../utils/db'
-import { logEvent } from '../../../utils/log'
-import { memberExtras } from '../../../utils/members'
-import { requireSettingsScope } from '../../../utils/settings'
-import { badRequest, requireParam } from '../../../utils/validate'
+import { getDb, one } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { memberExtras } from '~~/server/utils/members'
+import { requireSettingsScope } from '~~/server/utils/settings'
+import { badRequest, requireParam } from '~~/server/utils/validate'
 
 const MAX_PHOTO_BYTES = 4 * 1024 * 1024
 

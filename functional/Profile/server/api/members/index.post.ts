@@ -1,10 +1,10 @@
-import { getDb, one } from '../../utils/db'
-import { actorEntry, record } from '../../utils/journal'
-import { logEvent } from '../../utils/log'
-import { memberExtras, readBirthDate } from '../../utils/members'
-import { requirePermission } from '../../utils/permissions'
-import { hashCode, readCodeInput } from '../../utils/profile-code'
-import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor } from '../../utils/validate'
+import { getDb, one } from '~~/server/utils/db'
+import { actorEntry, record } from '~~/server/utils/journal'
+import { logEvent } from '~~/server/utils/log'
+import { memberExtras, readBirthDate } from '~~/server/utils/members'
+import { requirePermission } from '~~/server/utils/permissions'
+import { hashCode, readCodeInput } from '~~/server/utils/profile-code'
+import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMember> => {
     const actor = await requirePermission(event, 'members.manage')

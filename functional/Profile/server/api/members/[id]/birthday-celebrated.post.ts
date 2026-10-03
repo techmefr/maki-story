@@ -1,6 +1,6 @@
-import { getDb } from '../../../utils/db'
-import { requireSettingsScope } from '../../../utils/settings'
-import { badRequest, requireParam } from '../../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { requireSettingsScope } from '~~/server/utils/settings'
+import { badRequest, requireParam } from '~~/server/utils/validate'
 
 const MIN_YEAR = 2000
 

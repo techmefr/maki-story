@@ -1,9 +1,9 @@
-import { getDb } from '../../../utils/db'
-import { loadActor } from '../../../utils/permissions'
-import { assertBookReadable } from '../../../utils/books'
-import { PROFILE_SCOPE, resolveLanguageConfig } from '../../../utils/playback'
-import { loadCodeRow, verifyMemberCode } from '../../../utils/profile-code'
-import { badRequest, notFound, requireParam } from '../../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { loadActor } from '~~/server/utils/permissions'
+import { assertBookReadable } from '~~/server/utils/books'
+import { PROFILE_SCOPE, resolveLanguageConfig } from '~~/server/utils/playback'
+import { loadCodeRow, verifyMemberCode } from '~~/server/utils/profile-code'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<ILanguageConfig> => {
     const actor = await loadActor(event)

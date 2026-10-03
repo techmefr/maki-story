@@ -1,9 +1,9 @@
-import { isLanguageCode } from '../../../../shared/utils/languages'
-import { getDb, one } from '../../../utils/db'
-import { assertFilesInFamily } from '../../../utils/family'
-import { memberExtras } from '../../../utils/members'
-import { requireSettingsScope } from '../../../utils/settings'
-import { badRequest, requireParam } from '../../../utils/validate'
+import { isLanguageCode } from '~~/shared/utils/languages'
+import { getDb, one } from '~~/server/utils/db'
+import { assertFilesInFamily } from '~~/server/utils/family'
+import { memberExtras } from '~~/server/utils/members'
+import { requireSettingsScope } from '~~/server/utils/settings'
+import { badRequest, requireParam } from '~~/server/utils/validate'
 
 const MAX_SPOKEN_LANGUAGES = 12
 
