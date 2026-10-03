@@ -1,0 +1,20 @@
+{
+    "skip": "Skip",
+    "next": "Next",
+    "start": "Get started",
+    "progress": "Step {current} of {total}",
+    "slides": {
+        "welcome": {
+            "title": "Welcome to Tantara",
+            "text": "Bedtime stories, told with the voices of the people you love."
+        },
+        "voices": {
+            "title": "Everyone lends a voice",
+            "text": "Mum, Grandpa, Grandma… each one records a character, even from far away."
+        },
+        "listen": {
+            "title": "The child listens and keeps",
+            "text": "They turn the pages, find their favourite voices and keep their memories in their chest."
+        }
+    }
+}

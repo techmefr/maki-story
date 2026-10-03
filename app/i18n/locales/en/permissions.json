@@ -1,0 +1,25 @@
+{
+    "title": "A few permissions",
+    "intro": "Tantara needs them to work. You can change them in your phone settings.",
+    "listLabel": "Device permissions",
+    "mic": {
+        "name": "Microphone",
+        "why": "To record your voice on the stories."
+    },
+    "camera": {
+        "name": "Camera and photos",
+        "why": "For the silly-face photo and the page photos."
+    },
+    "notifications": {
+        "name": "Notifications",
+        "why": "To tell you about a new voice or a review."
+    },
+    "allow": "Allow",
+    "allowed": "Allowed",
+    "denied": "Denied",
+    "unsupported": "Unavailable",
+    "deniedHint": "Denied: you can turn it on in your device settings.",
+    "unsupportedHint": "This device does not allow it.",
+    "continue": "Continue",
+    "skipHint": "You can continue even without allowing everything."
+}

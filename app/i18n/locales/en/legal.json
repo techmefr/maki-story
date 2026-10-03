@@ -1,0 +1,89 @@
+{
+    "title": "Terms and privacy",
+    "draft": "Draft to be validated by a lawyer before publication. Passages in brackets are to be completed.",
+    "tabsLabel": "Documents",
+    "tabs": {
+        "cgu": "Terms of use",
+        "priv": "Privacy",
+        "cgv": "Terms of sale"
+    },
+    "checkTerms": "I have read and accept the terms of use, the terms of sale and the privacy policy.",
+    "checkGuardian": "I am a parent or legal guardian and I allow profiles to be created for my children.",
+    "accept": "I accept and continue",
+    "acceptedOn": "Terms accepted on {date}.",
+    "failed": "Your agreement could not be saved right now. Try again.",
+    "cgu": {
+        "1": {
+            "title": "1. Purpose",
+            "text": "Tantara lets relatives record their voice on stories and lets children listen to them, within a family. [Publisher name, address, contact]."
+        },
+        "2": {
+            "title": "2. Account and family",
+            "text": "A parent creates the family and invites other parents or relatives by e-mail or by code. A child has no account of their own: their profile is managed by their parents."
+        },
+        "3": {
+            "title": "3. Recorded content",
+            "text": "Everyone stays responsible for their recordings. An adult can leave up to 5 messages for the same child. Parents can review, refuse or remove any content."
+        },
+        "4": {
+            "title": "4. Rules of use",
+            "text": "Content must suit a young audience. Recording someone’s voice without their consent or publishing unlawful content is forbidden."
+        },
+        "5": {
+            "title": "5. Deletion",
+            "text": "A parent can remove a relative, a child or a book at any time. The account can be deleted from the settings. [Retention period]."
+        },
+        "6": {
+            "title": "6. Liability and changes",
+            "text": "[To be completed: service availability, limitation of liability, changes to the terms, applicable law.]"
+        }
+    },
+    "priv": {
+        "1": {
+            "title": "Data collected",
+            "text": "Adults’ e-mail address, the child’s first name and age, profile photo (silly face), recorded voices, reading progress, favourites, chosen languages."
+        },
+        "2": {
+            "title": "Children’s data",
+            "text": "It is only collected with the consent of a parent or legal guardian, is never used for advertising and is never resold. No profiling."
+        },
+        "3": {
+            "title": "Purposes",
+            "text": "To make the app work: listening, recording, review, notifications chosen by each person."
+        },
+        "4": {
+            "title": "Hosting and duration",
+            "text": "[Host, country]. Data is kept as long as the family exists, then deleted within [duration]."
+        },
+        "5": {
+            "title": "Your rights",
+            "text": "Access, correction, erasure, export and objection, from the settings or at [contact address]. You may complain to your data protection authority."
+        },
+        "6": {
+            "title": "Device permissions",
+            "text": "Microphone to record, camera or photos for the profile picture, notifications if enabled. Each one can be refused."
+        }
+    },
+    "cgv": {
+        "1": {
+            "title": "1. Offer",
+            "text": "[To be completed if the app is paid: free access, subscription, options.]"
+        },
+        "2": {
+            "title": "2. Price and payment",
+            "text": "[Price including tax, payment methods, app store billing.]"
+        },
+        "3": {
+            "title": "3. Duration and cancellation",
+            "text": "[Duration, renewal, cancellation at any time from the settings.]"
+        },
+        "4": {
+            "title": "4. Right of withdrawal",
+            "text": "[Legal 14-day information and its exceptions for digital content.]"
+        },
+        "5": {
+            "title": "5. Complaints",
+            "text": "[Customer service, consumer mediator.]"
+        }
+    }
+}

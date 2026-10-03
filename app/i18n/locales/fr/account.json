@@ -1,0 +1,30 @@
+{
+    "title": "Mon compte",
+    "identity": "{email} · {role}",
+    "loadFailed": "Ton compte n’est pas disponible pour le moment.",
+    "parentOnly": "Seul un parent peut exporter les données ou supprimer le compte.",
+    "terms": {
+        "link": "Conditions et confidentialité"
+    },
+    "export": {
+        "title": "Exporter mes données",
+        "text": "Reçois par e-mail un lien vers un fichier avec tes enregistrements, les profils et la progression de lecture. Le lien est valable {days} jours.",
+        "request": "Demander mon export",
+        "sending": "Envoi en cours…",
+        "sent": "Lien envoyé par e-mail",
+        "failed": "L’e-mail n’a pas pu partir. Réessaie dans un instant."
+    },
+    "delete": {
+        "title": "Supprimer le compte",
+        "text": "Tous les enregistrements, profils d’enfants, favoris et livres de la famille seront effacés. Cette action est définitive.",
+        "start": "Supprimer mon compte",
+        "sheetTitle": "Tu en es sûr ?",
+        "sheetText": "Pour confirmer, tape {word}, puis ton code de parent.",
+        "word": "SUPPRIMER",
+        "wordLabel": "Mot de confirmation",
+        "codeLabel": "Code du parent",
+        "cancel": "Annuler",
+        "wrongCode": "Ce code n’est pas le bon.",
+        "failed": "La suppression n’a pas pu aboutir. Réessaie."
+    }
+}

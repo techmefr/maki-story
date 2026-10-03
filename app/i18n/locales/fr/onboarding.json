@@ -1,0 +1,20 @@
+{
+    "skip": "Passer",
+    "next": "Suivant",
+    "start": "Commencer",
+    "progress": "Étape {current} sur {total}",
+    "slides": {
+        "welcome": {
+            "title": "Bienvenue sur Tantara",
+            "text": "Les histoires du soir, racontées avec la voix de ceux qu’on aime."
+        },
+        "voices": {
+            "title": "Chacun prête sa voix",
+            "text": "Maman, Papi, Mamie… chacun enregistre un personnage, même de loin."
+        },
+        "listen": {
+            "title": "L’enfant écoute et garde",
+            "text": "Il tourne les pages, retrouve ses voix préférées et garde ses souvenirs dans son coffre."
+        }
+    }
+}

@@ -14,6 +14,18 @@
         "birthday_reminder": "{childName}’s birthday is coming up: in {days} days.",
         "stale_takes": "The text of “{bookTitle}” changed: takes to redo ({count})."
     },
+    "export": {
+        "subject": "Your Tantara data export",
+        "body": "Here is your export: {link}\nThe link is valid for {days} days."
+    },
+    "codeReset": {
+        "subject": "Choose a new Tantara code",
+        "body": "Open this link to choose a new code: {link}\nIt is valid for {minutes} minutes and works only once. If you did not ask for it, ignore this message."
+    },
+    "deleted": {
+        "subject": "Your Tantara account was deleted",
+        "body": "The {family} family and all its data were deleted. They can be restored for {days} days."
+    },
     "invite": {
         "subject": "Invitation to join the {family} family",
         "shareText": "{inviter} invites you to join the {family} family on {app}: {link}"
