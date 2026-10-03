@@ -111,5 +111,8 @@
         "approved": "{count} voamarina",
         "changes": "{count} hahitsy",
         "waiting": "{count} miandry"
-    }
+    },
+    "pageLabel": "Pejy {page}",
+    "pageLabelTitle": "Pejy {page} · {title}",
+    "pageToFix": "Hahitsy"
 }

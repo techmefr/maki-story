@@ -114,8 +114,14 @@
                 </form>
             </template>
         </BookPageView>
-        <ol v-else class="review__lines">
-            <li v-for="line in shownLines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
+        <section v-else v-for="group in pageGroups" :key="group.index" class="stack review__page" :aria-labelledby="`review-page-${group.index}`">
+            <button type="button" class="review__page-head" :aria-expanded="isPageOpen(group.index) ? 'true' : 'false'" :data-testid="`review-page-${group.index}`" @click="togglePage(group.index)">
+                <span :id="`review-page-${group.index}`" class="subtitle grow">{{ pageLabel(group.index) }}</span>
+                <AppBadge :tone="group.badge.tone">{{ group.badge.label }}</AppBadge>
+                <AppIcon name="chevron-down" :size="20" class="review__chevron" :class="{ 'review__chevron--open': isPageOpen(group.index) }" />
+            </button>
+        <ol v-show="isPageOpen(group.index)" class="review__lines">
+            <li v-for="line in group.lines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
                 <div class="row row--wrap">
                     <AppAvatar :member="memberOf(line)" :size="36" />
                     <span class="label">{{ t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') }) }}</span>
@@ -172,6 +178,7 @@
                 </form>
             </li>
         </ol>
+        </section>
         <p v-if="shownLines.length === 0" class="muted">{{ t('review.emptyFilter') }}</p>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
@@ -241,6 +248,16 @@ const hasTakeId = (id: string): boolean => hasTake(lineOf(id))
 const canReviewId = (id: string): boolean => canReview(lineOf(id))
 const pageView = computed(() => (book.value ? buildBookPageView(book.value, pageIndex.value, language.value) : null))
 
+const closedPages = ref<number[]>([])
+const isPageOpen = (index: number): boolean => !closedPages.value.includes(index)
+const togglePage = (index: number): void => {
+    closedPages.value = isPageOpen(index) ? [...closedPages.value, index] : closedPages.value.filter(item => item !== index)
+}
+const pageLabel = (index: number): string => {
+    const title = book.value?.pages[index]?.title ?? ''
+    return title === '' ? t('review.pageLabel', { page: index + 1 }) : t('review.pageLabelTitle', { page: index + 1, title })
+}
+
 const goPage = (step: number): void => {
     const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
     pageIndex.value = Math.min(last, Math.max(0, pageIndex.value + step))
@@ -253,6 +270,21 @@ const matches = (line: ILine, id: FilterId): boolean => {
     }
     return id === 'changes' ? state === 'changes' || state === 'stale' : state === id
 }
+
+const pageGroups = computed(() => {
+    const byPage = new Map<number, ILine[]>()
+    for (const line of shownLines.value) {
+        byPage.set(line.pageIndex, [...(byPage.get(line.pageIndex) ?? []), line])
+    }
+    return [...byPage.entries()].map(([index, lines]) => {
+        const approved = lines.filter(line => stateOf(line) === 'approved').length
+        const hasChanges = lines.some(line => stateOf(line) === 'changes' || stateOf(line) === 'stale')
+        const badge: { label: string; tone: 'success' | 'warning' | 'danger' | undefined } = hasChanges
+            ? { label: t('review.pageToFix'), tone: 'danger' }
+            : { label: `${approved}/${lines.length}`, tone: approved === lines.length ? 'success' : undefined }
+        return { index, lines, badge }
+    })
+})
 
 const waitingCount = computed<number>(() => Math.max(0, (book.value?.lines.length ?? 0) - countOf('approved') - countOf('changes')))
 const approvedPercent = computed<number>(() => {
@@ -368,6 +400,36 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.review__page-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: var(--tap);
+    padding: 12px 14px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    color: var(--ink);
+    text-align: start;
+    cursor: pointer;
+}
+
+.review__chevron {
+    flex: none;
+    transition: rotate 0.2s;
+}
+
+.review__chevron--open {
+    rotate: 180deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .review__chevron {
+        transition: none;
+    }
+}
 .review__diff {
     display: flex;
     flex-direction: column;
