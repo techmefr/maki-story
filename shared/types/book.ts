@@ -102,6 +102,7 @@ export interface IBookPage {
     fileId: string | null
     kind: PageKind
     ttsFallback: boolean
+    title: string
     description: string
     panels: IPanel[]
 }
@@ -131,6 +132,7 @@ export interface INewPage {
     fileId: string | null
     kind?: PageKind
     ttsFallback?: boolean
+    title?: string
     description?: string
     panels?: INewPanel[]
 }
@@ -212,6 +214,7 @@ export interface ICharacterBody {
 export interface IPagePatch {
     kind?: PageKind
     ttsFallback?: boolean
+    title?: string
     description?: string
 }
 

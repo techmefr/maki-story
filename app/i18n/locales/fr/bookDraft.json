@@ -86,7 +86,9 @@
         "removePanel": "Retirer la case {panel} de la page {page}",
         "addPanel": "Ajouter une case",
         "needsPhoto": "Ce type de livre a besoin d’au moins une page en photo.",
-        "continueNoPhoto": "Continuer sans photo"
+        "continueNoPhoto": "Continuer sans photo",
+        "pageTitle": "Titre de la page (facultatif)",
+        "pageTitlePlaceholder": "Titre de la page"
     },
     "characters": {
         "intro": "Définis chaque personnage une seule fois : tu le retrouveras ensuite en un clic pour chaque réplique. Choisis qui lit sa voix.",

@@ -86,7 +86,9 @@
         "removePanel": "Remove panel {panel} from page {page}",
         "addPanel": "Add a panel",
         "needsPhoto": "This type of book needs at least one page as a photo.",
-        "continueNoPhoto": "Continue without a photo"
+        "continueNoPhoto": "Continue without a photo",
+        "pageTitle": "Page title (optional)",
+        "pageTitlePlaceholder": "Page title"
     },
     "characters": {
         "intro": "Define each character only once: you will then find it in one tap for each line. Choose who reads its voice.",

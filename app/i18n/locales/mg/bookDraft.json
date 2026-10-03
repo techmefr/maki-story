@@ -86,7 +86,9 @@
         "removePanel": "Esory ny efi-tsary {panel} amin’ny pejy {page}",
         "addPanel": "Ampio efi-tsary",
         "needsPhoto": "Mila pejy iray farafahakeliny amin’ny sary ity karazam-boky ity.",
-        "continueNoPhoto": "Tohizo tsy misy sary"
+        "continueNoPhoto": "Tohizo tsy misy sary",
+        "pageTitle": "Lohatenin’ny pejy (tsy voatery)",
+        "pageTitlePlaceholder": "Lohatenin’ny pejy"
     },
     "characters": {
         "intro": "Faritano indray mandeha ihany ny tarehintsary tsirairay: hitanao amin’ny tsindry iray isaky ny andian-teny avy eo. Fidio izay hamaky ny feony.",
