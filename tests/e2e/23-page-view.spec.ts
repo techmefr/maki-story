@@ -147,8 +147,7 @@ test.describe('page view, scan viewer and recording constraints', () => {
         expect(settings.ok()).toBeTruthy()
         const bookId = await createPagedBook(page.request, memberId)
         await page.goto(`/books/${bookId}/studio`)
-        await page.locator('#studio-language').click()
-        await expect(page.getByRole('option')).toHaveCount(3)
+        await expect(page.locator('[data-testid^="studio-language-"]')).toHaveCount(2)
         await page.request.patch(`/api/members/${memberId}/settings`, { data: { spokenLanguages: [] } })
     })
 

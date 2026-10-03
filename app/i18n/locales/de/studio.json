@@ -123,5 +123,7 @@
         }
     },
     "progress": "Fortschritt der Aufnahmen",
-    "translateBook": "Dieses Buch übersetzen"
+    "translateBook": "Dieses Buch übersetzen",
+    "pageMeta": "Seite {page} von {total} · {done}/{mine} aufgenommen",
+    "voices": "Stimmen"
 }

@@ -127,5 +127,7 @@
         }
     },
     "progress": "تقدم التسجيلات",
-    "translateBook": "ترجمة هذا الكتاب"
+    "translateBook": "ترجمة هذا الكتاب",
+    "pageMeta": "الصفحة {page} من {total} · {done}/{mine} مسجّلة",
+    "voices": "الأصوات"
 }
