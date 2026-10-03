@@ -9,3 +9,10 @@ defineOptions({ inheritAttrs: false })
 
 defineProps<{ selected?: boolean; disabled?: boolean }>()
 </script>
+
+<style scoped>
+.chip.chip--on {
+    background: var(--ink);
+    color: var(--bg);
+}
+</style>

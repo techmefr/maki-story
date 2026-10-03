@@ -65,3 +65,8 @@ export const daysUntilBirthday = (birthDate: string, timeZone: string, now: Date
     const diff = (Date.parse(next) - Date.parse(today)) / 86400000
     return Number.isFinite(diff) ? Math.round(diff) : DAYS_PER_YEAR_FALLBACK
 }
+
+export const birthDateForAge = (age: number, today: Date = new Date()): string => {
+    const year = today.getUTCFullYear() - age
+    return new Date(Date.UTC(year, today.getUTCMonth(), Math.max(1, today.getUTCDate() - 1))).toISOString().slice(0, 10)
+}
