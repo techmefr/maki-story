@@ -29,7 +29,9 @@
         "removeOne": "Supprimer {title}",
         "removeAll": "Tout supprimer",
         "emptyTitle": "Aucun livre téléchargé",
-        "emptyHint": "Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion."
+        "emptyHint": "Télécharge un livre depuis la bibliothèque pour l’écouter sans connexion.",
+        "removeAllTitle": "Tout supprimer ?",
+        "removeAllText": "Les livres téléchargés seront retirés de cet appareil. Ils restent disponibles en ligne."
     },
     "grimace": {
         "title": "Ta grimace !",

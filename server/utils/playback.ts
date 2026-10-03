@@ -19,7 +19,7 @@ export const loadPlaybackPlan = async (
     requested: string[] | null,
 ): Promise<IPlaybackPlan> => {
     const db = getDb()
-    const [book] = await db<{ language: string }[]>`select language from books where id = ${bookId} and family_id = ${familyId}`
+    const [book] = await db<{ language: string; translatedLanguages: string[] }[]>`select language, translated_languages from books where id = ${bookId} and family_id = ${familyId}`
     const bookLanguage = book?.language ?? DEFAULT_LANGUAGE
     const lines = await db<IPlanLine[]>`
         select id, page_index, panel_id from lines where book_id = ${bookId} and family_id = ${familyId} order by position
@@ -31,13 +31,16 @@ export const loadPlaybackPlan = async (
     `
     const counts = new Map<string, number>()
     recordings.forEach(item => counts.set(item.language, (counts.get(item.language) ?? 0) + 1))
+    const isOffered = (code: string): boolean => !isChild || code === bookLanguage || (book?.translatedLanguages ?? []).includes(code)
     const available = [...counts.entries()]
+        .filter(([code]) => isOffered(code))
         .map(([code, recordedCount]): ILanguageAvailability => ({ code, recordedCount }))
         .sort((a, b) => Number(b.code === bookLanguage) - Number(a.code === bookLanguage) || b.recordedCount - a.recordedCount || a.code.localeCompare(b.code))
     const config = memberId ? await resolveLanguageConfig(memberId, familyId, bookId) : null
     const forced = isChild && config?.isLocked === true
     const chosen = forced ? config!.languages : (requested ?? config?.languages ?? null)
-    const languages = chosen ?? (available.length === 1 ? [available[0]!.code] : null)
+    const offered = chosen === null ? null : chosen.filter(isOffered)
+    const languages = offered ?? (available.length === 1 ? [available[0]!.code] : null)
     const steps = languages ? buildPlaybackSteps(lines, recordings, languages, bookLanguage) : []
     return { bookId, bookLanguage, languages, available, config, steps }
 }

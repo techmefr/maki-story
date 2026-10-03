@@ -76,10 +76,12 @@ Saisie du texte d'un livre dans une autre langue de la famille.
 - **États** : langue sans traduction (champs vides), enregistrement en cours, enregistré (bouton vert), erreur, livre introuvable.
 - **Accès** : parents, et proche pour ses livres solo.
 
-## Questions à valider
+## Décisions de Gaëtan (2026-10-03)
 
-1. Activité : faut-il le filtre par personne, ou seulement la liste groupée par jour ?
-2. Corbeille : ajoute-t-on une suppression définitive manuelle, ou on laisse la purge automatique seule ?
-3. Stockage : les proches y ont-ils accès, ou seulement les parents ?
-4. Grimace : propose-t-on le choix d'une photo existante en plus de la caméra ?
-5. Traduction : une langue peut-elle être marquée « terminée » pour être proposée aux enfants, ou toute traduction partielle est-elle lisible ?
+1. Activité : filtre par personne gardé (puces Tous, puis un profil par puce).
+2. Corbeille : suppression douce, restauration manuelle, purge automatique après un mois (30 jours, `RESTORE_WINDOW_DAYS`) ; pas de suppression définitive manuelle.
+3. Stockage : parents, et les proches pour ce qu'ils partagent (livres solo téléchargés sur leur appareil).
+4. Grimace : choix d'une photo existante en plus de la caméra.
+5. Traduction : une langue se marque « terminée » ; les enfants ne voient une langue autre que celle du livre qu'une fois marquée terminée (colonne `books.translated_languages`, migration 0056).
+
+Les six pages sont refaites dans ce style (état : codées, relues seulement par lecture de code, pas encore en clair et en large).

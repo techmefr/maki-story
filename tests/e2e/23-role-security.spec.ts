@@ -113,7 +113,7 @@ test.describe('role security', () => {
         await chooseProfile(page, 'Mamie')
         await expect(page).toHaveURL(/\/home/)
         await expect(page.locator('a[href="/family"]:visible')).toHaveCount(0)
-        for (const path of ['/family', '/family/add', '/storage']) {
+        for (const path of ['/family', '/family/add']) {
             await page.goto(path)
             await expect(page).toHaveURL(/\/home/)
         }

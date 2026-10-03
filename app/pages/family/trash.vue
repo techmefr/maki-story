@@ -1,19 +1,25 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
-        <h1 class="title">{{ t('recovery.trash.title') }}</h1>
-        <p class="muted">{{ t('recovery.trash.intro', { days: RESTORE_WINDOW_DAYS }) }}</p>
-        <AppEmpty v-if="isLoaded && items.length === 0" :title="t('recovery.trash.empty')" :hint="t('recovery.trash.emptyHint')" />
-        <ul class="stack list" :aria-busy="!isLoaded">
-            <li v-for="item in items" :key="keyOf(item)" class="card row" :data-trash="item.type">
-                <div class="grow">
-                    <div class="subtitle">{{ labelOf(item) }}</div>
-                    <div class="muted">{{ detailOf(item) }}</div>
-                    <div class="muted">{{ t('recovery.trash.until', { date: formatDate(item.restoreUntil) }) }}</div>
-                </div>
-                <AppButton variant="secondary" tone="mint" size="sm" :disabled="busyKey === keyOf(item)" :aria-label="t('recovery.trash.restoreLabel', { label: labelOf(item) })" @click="restore(item)">
-                    <AppIcon name="redo" :size="18" />{{ t('recovery.trash.restore') }}
-                </AppButton>
+        <div class="row">
+            <BackLink to="/family" />
+            <h1 class="title grow">{{ t('recovery.trash.title') }}</h1>
+        </div>
+        <p class="trash__hint">{{ t('recovery.trash.intro', { days: RESTORE_WINDOW_DAYS }) }}</p>
+        <div v-if="types.length > 1" class="row row--wrap" role="group" :aria-label="t('recovery.trash.filter')">
+            <AppChip :selected="filter === ''" @click="filter = ''">{{ t('recovery.trash.all') }}</AppChip>
+            <AppChip v-for="type in types" :key="type" :selected="filter === type" @click="filter = type">{{ t(`recovery.trash.types.${type}`) }}</AppChip>
+        </div>
+        <AppEmpty v-if="isLoaded && shown.length === 0" :title="t('recovery.trash.empty')" :hint="t('recovery.trash.emptyHint')" />
+        <ul class="trash__list" :aria-busy="!isLoaded">
+            <li v-for="item in shown" :key="keyOf(item)" :data-trash="item.type">
+                <AppListRow :title="labelOf(item)" :subtitle="`${detailOf(item)} · ${t('recovery.trash.until', { date: formatDate(item.restoreUntil) })}`">
+                    <template #lead><span class="trash__icon" :class="{ 'trash__icon--soon': isSoon(item) }"><AppIcon name="trash" :size="22" /></span></template>
+                    <template #action>
+                        <AppButton variant="secondary" tone="mint" size="sm" icon="redo" :disabled="busyKey === keyOf(item)" :aria-label="t('recovery.trash.restoreLabel', { label: labelOf(item) })" @click="restore(item)">
+                            {{ t('recovery.trash.restore') }}
+                        </AppButton>
+                    </template>
+                </AppListRow>
             </li>
         </ul>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
@@ -29,6 +35,13 @@ const { request } = useApi()
 const items = ref<ITrashItem[]>([])
 const isLoaded = ref(false)
 const busyKey = ref('')
+const filter = ref('')
+const SOON_DAYS = 3
+const DAY_MS = 86400000
+
+const types = computed<string[]>(() => [...new Set(items.value.map(item => item.type))])
+const shown = computed<ITrashItem[]>(() => items.value.filter(item => filter.value === '' || item.type === filter.value))
+const isSoon = (item: ITrashItem): boolean => new Date(item.restoreUntil).getTime() - Date.now() < SOON_DAYS * DAY_MS
 const errorMessage = ref('')
 
 const keyOf = (item: ITrashItem): string => `${item.type}:${item.id}`
@@ -73,9 +86,35 @@ onMounted(load)
 </script>
 
 <style scoped>
-.list {
-    list-style: none;
-    padding: 0;
+.trash__hint {
     margin: 0;
+    color: var(--ink-soft);
+    font: 600 1rem/1.3 var(--font-body);
+}
+
+.trash__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.trash__icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 50%;
+    background: var(--grey);
+    color: var(--on-accent);
+}
+
+.trash__icon--soon {
+    background: var(--danger-soft);
 }
 </style>

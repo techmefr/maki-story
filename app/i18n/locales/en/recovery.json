@@ -22,7 +22,9 @@
             "message": "Voice message",
             "treasure": "Treasure box memory",
             "recordings": "A relative’s voice"
-        }
+        },
+        "filter": "Filter by type",
+        "all": "All"
     },
     "activity": {
         "title": "Family activity",
@@ -113,7 +115,11 @@
                     "updated": "AI budget changed"
                 }
             }
-        }
+        },
+        "person": "Filter by person",
+        "everyone": "Everyone",
+        "today": "Today",
+        "yesterday": "Yesterday"
     },
     "data": {
         "title": "Family data",

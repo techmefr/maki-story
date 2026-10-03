@@ -27,7 +27,7 @@
         </template>
         <AppButton v-if="phase !== 'preview'" as="label" variant="secondary" size="sm">
             {{ t('studio.photo.pick') }}
-            <input type="file" accept="image/*" capture="user" hidden @change="pickFile" />
+            <input type="file" accept="image/*" hidden @change="pickFile" />
         </AppButton>
     </div>
 </template>

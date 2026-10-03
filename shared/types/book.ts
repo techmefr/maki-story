@@ -13,6 +13,7 @@ export interface IBookSummary {
     ageMin: number | null
     ageMax: number | null
     childVisible: boolean | null
+    translatedLanguages: string[]
     language: string
     writtenLanguage: string
     voiceLanguages: string[]
