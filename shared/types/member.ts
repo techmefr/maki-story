@@ -1,12 +1,12 @@
 export type MemberRole = 'parent' | 'relative' | 'child'
 export type MemberStatus = 'active' | 'invited' | 'left' | 'deceased' | 'blocked'
 export type MemberCodeKind = 'pin' | 'symbols'
-export type SymbolShape = 'star' | 'moon' | 'heart' | 'sun' | 'cloud' | 'flower'
+export type SymbolShape = 'star' | 'circle' | 'heart' | 'square' | 'triangle' | 'diamond'
 
 export interface ISymbol {
     id: number
     shape: SymbolShape
-    color: VoiceColorId
+    fill: string
 }
 
 export interface IMember {

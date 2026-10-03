@@ -88,13 +88,14 @@
         "symbolsSaved": "Vonona ny kaody soritra."
     },
     "symbols": {
-        "s0": "Kintana mena",
-        "s1": "Volana manga",
-        "s2": "Fo maitso",
-        "s3": "Masoandro mavo",
-        "s4": "Rahona volomparasy",
-        "s5": "Voninkazo roso",
+        "s0": "Kintana",
+        "s1": "Boribory",
+        "s2": "Fo",
+        "s3": "Efa-joro",
+        "s4": "Telo-joro",
+        "s5": "Kintana efatra",
         "chosen": "Soritra {count} amin’ny {total}",
-        "clear": "Fafao"
+        "clear": "Fafao",
+        "ok": "OK"
     }
 }

@@ -88,13 +88,14 @@
         "symbolsSaved": "Codice a simboli pronto."
     },
     "symbols": {
-        "s0": "Stella rossa",
-        "s1": "Luna blu",
-        "s2": "Cuore verde",
-        "s3": "Sole giallo",
-        "s4": "Nuvola viola",
-        "s5": "Fiore rosa",
+        "s0": "Stella",
+        "s1": "Cerchio",
+        "s2": "Cuore",
+        "s3": "Quadrato",
+        "s4": "Triangolo",
+        "s5": "Rombo",
         "chosen": "{count} simboli su {total}",
-        "clear": "Cancella"
+        "clear": "Cancella",
+        "ok": "OK"
     }
 }

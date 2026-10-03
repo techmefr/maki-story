@@ -88,13 +88,14 @@
         "symbolsSaved": "Symbolcode bereit."
     },
     "symbols": {
-        "s0": "Roter Stern",
-        "s1": "Blauer Mond",
-        "s2": "Grünes Herz",
-        "s3": "Gelbe Sonne",
-        "s4": "Lila Wolke",
-        "s5": "Rosa Blume",
+        "s0": "Stern",
+        "s1": "Kreis",
+        "s2": "Herz",
+        "s3": "Quadrat",
+        "s4": "Dreieck",
+        "s5": "Raute",
         "chosen": "{count} von {total} Symbolen",
-        "clear": "Löschen"
+        "clear": "Löschen",
+        "ok": "OK"
     }
 }

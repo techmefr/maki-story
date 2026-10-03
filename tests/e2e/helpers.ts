@@ -68,19 +68,20 @@ export const enterPin = async (page: Page, pin: string): Promise<void> => {
     await page.getByRole('button', { name: 'Valider' }).click()
 }
 
-export const CHILD_SYMBOLS = ['Étoile rouge', 'Étoile rouge', 'Étoile rouge', 'Étoile rouge']
+export const CHILD_SYMBOLS = ['Étoile', 'Étoile', 'Étoile', 'Étoile']
 
 export const enterSymbols = async (page: Page, labels: string[]): Promise<void> => {
     for (const label of labels) {
         await page.getByRole('button', { name: label, exact: true }).click()
     }
+    await page.getByRole('button', { name: 'OK', exact: true }).click()
 }
 
 export const unlockProfile = async (page: Page, pin = PROFILE_PIN): Promise<void> => {
     const heading = page.getByRole('heading', { name: /Crée ton code|Entre ton code/ })
     await expect(heading).toBeVisible()
     const isCreating = ((await heading.textContent()) ?? '').includes('Crée')
-    if ((await page.getByRole('button', { name: 'Étoile rouge', exact: true }).count()) > 0) {
+    if ((await page.getByRole('button', { name: 'Étoile', exact: true }).count()) > 0) {
         await enterSymbols(page, CHILD_SYMBOLS)
         return
     }

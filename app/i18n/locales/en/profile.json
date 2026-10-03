@@ -84,17 +84,18 @@
         "digits": "Digits",
         "defaultLabel": "Code",
         "placeholder": "{min} to {max} digits",
-        "symbolsHint": "Pick 4 symbols, in order.",
+        "symbolsHint": "Pick 4 to 6 shapes, in order, then press OK.",
         "symbolsSaved": "Symbol code ready."
     },
     "symbols": {
-        "s0": "Red star",
-        "s1": "Blue moon",
-        "s2": "Green heart",
-        "s3": "Yellow sun",
-        "s4": "Purple cloud",
-        "s5": "Pink flower",
+        "s0": "Star",
+        "s1": "Circle",
+        "s2": "Heart",
+        "s3": "Square",
+        "s4": "Triangle",
+        "s5": "Diamond",
         "chosen": "{count} of {total} symbols",
-        "clear": "Clear"
+        "clear": "Clear",
+        "ok": "OK"
     }
 }

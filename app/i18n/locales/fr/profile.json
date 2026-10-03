@@ -84,17 +84,18 @@
         "digits": "Chiffres",
         "defaultLabel": "Code",
         "placeholder": "{min} à {max} chiffres",
-        "symbolsHint": "Choisis 4 symboles, dans l’ordre.",
+        "symbolsHint": "Choisis 4 à 6 formes, dans l’ordre, puis appuie sur OK.",
         "symbolsSaved": "Code en symboles prêt."
     },
     "symbols": {
-        "s0": "Étoile rouge",
-        "s1": "Lune bleue",
-        "s2": "Cœur vert",
-        "s3": "Soleil jaune",
-        "s4": "Nuage violet",
-        "s5": "Fleur rose",
+        "s0": "Étoile",
+        "s1": "Rond",
+        "s2": "Cœur",
+        "s3": "Carré",
+        "s4": "Triangle",
+        "s5": "Losange",
         "chosen": "{count} symboles sur {total}",
-        "clear": "Effacer"
+        "clear": "Effacer",
+        "ok": "OK"
     }
 }

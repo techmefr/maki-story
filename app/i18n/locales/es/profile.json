@@ -88,13 +88,14 @@
         "symbolsSaved": "Código de símbolos listo."
     },
     "symbols": {
-        "s0": "Estrella roja",
-        "s1": "Luna azul",
-        "s2": "Corazón verde",
-        "s3": "Sol amarillo",
-        "s4": "Nube morada",
-        "s5": "Flor rosa",
+        "s0": "Estrella",
+        "s1": "Círculo",
+        "s2": "Corazón",
+        "s3": "Cuadrado",
+        "s4": "Triángulo",
+        "s5": "Rombo",
         "chosen": "{count} de {total} símbolos",
-        "clear": "Borrar"
+        "clear": "Borrar",
+        "ok": "OK"
     }
 }
