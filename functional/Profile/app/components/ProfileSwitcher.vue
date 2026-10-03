@@ -9,7 +9,7 @@
                     :key="member.id"
                     type="button"
                     class="card card--tap row"
-                    :style="member.id === currentId ? { outline: '3px solid #1F1B3A', outlineOffset: '3px' } : {}"
+                    :style="member.id === currentId ? { outline: '3px solid #1E1A3F', outlineOffset: '3px' } : {}"
                     @click="target = member"
                 >
                     <AppAvatar :member="member" :size="52" />

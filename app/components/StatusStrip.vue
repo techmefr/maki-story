@@ -44,7 +44,7 @@ const items = computed(() =>
     gap: 12px;
     overflow-x: auto;
     padding: 8px 4px 12px;
-    background: var(--cream);
+    background: var(--bg);
 }
 
 .status-strip__item {

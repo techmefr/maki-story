@@ -1,6 +1,6 @@
 <template>
     <svg class="clock" viewBox="0 0 200 200" role="img" :aria-label="label">
-        <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#1F1B3A" stroke-width="7" />
+        <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#1E1A3F" stroke-width="7" />
         <line
             v-for="tick in 12"
             :key="tick"
@@ -8,18 +8,18 @@
             y1="16"
             x2="100"
             :y2="tick % 3 === 0 ? 34 : 26"
-            stroke="#1F1B3A"
+            stroke="#1E1A3F"
             stroke-width="6"
             stroke-linecap="round"
             :transform="`rotate(${tick * 30} 100 100)`"
         />
         <template v-if="time">
-            <line x1="100" y1="100" x2="100" y2="52" stroke="#1F1B3A" stroke-width="10" stroke-linecap="round" :transform="`rotate(${hourAngle} 100 100)`" />
+            <line x1="100" y1="100" x2="100" y2="52" stroke="#1E1A3F" stroke-width="10" stroke-linecap="round" :transform="`rotate(${hourAngle} 100 100)`" />
             <line x1="100" y1="100" x2="100" y2="34" stroke="#F4695A" stroke-width="7" stroke-linecap="round" :transform="`rotate(${minuteAngle} 100 100)`" />
         </template>
-        <circle cx="100" cy="100" r="8" fill="#1F1B3A" />
+        <circle cx="100" cy="100" r="8" fill="#1E1A3F" />
         <g v-if="!time" transform="translate(100 70)">
-            <path d="M-12 -14 A16 16 0 1 0 14 8 A13 13 0 0 1 -12 -14 Z" fill="#FFC940" stroke="#1F1B3A" stroke-width="4" stroke-linejoin="round" />
+            <path d="M-12 -14 A16 16 0 1 0 14 8 A13 13 0 0 1 -12 -14 Z" fill="#FFC933" stroke="#1E1A3F" stroke-width="4" stroke-linejoin="round" />
         </g>
     </svg>
 </template>

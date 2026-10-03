@@ -89,12 +89,12 @@ onMounted(load)
     height: 10px;
     border: 2px solid var(--ink);
     border-radius: 999px;
-    background: var(--cream);
+    background: var(--bg);
     transition: background 0.3s;
 }
 
 .welcome__dots li.welcome__dot--on {
-    background: var(--sun);
+    background: var(--yellow);
 }
 
 .welcome__list {

@@ -41,4 +41,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 
 ## Journal
 
+- 2026-10-03 : jetons clair/sombre, Nunito retirée (Fredoka seule ; le dépôt n'a que les graisses 500/600/700, pas la 400), audit de contraste.
 - 2026-10-03 : audit refait avec le référentiel nuxt-osdd ; création de `CLAUDE.md` et `docs/`.

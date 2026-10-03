@@ -38,7 +38,7 @@ const { size = 180 } = defineProps<{ size?: number }>()
     inset-inline-end: -4%;
     top: 4%;
     font: 700 1.5rem/1 var(--font-title);
-    color: #ffc940;
+    color: #FFC933;
     opacity: 0;
     animation: sleeping-float 3.2s ease-in-out infinite;
 }

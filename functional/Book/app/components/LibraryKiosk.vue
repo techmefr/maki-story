@@ -4,7 +4,7 @@
         <h1 v-if="hasTitle" class="title">{{ t('home.title') }}</h1>
         <GrimaceNudge />
         <BirthDateNudge />
-        <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #ffc940; color: inherit">
+        <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #FFC933; color: inherit">
             <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">{{ t('home.listen') }}</span>

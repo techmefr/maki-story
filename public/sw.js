@@ -1,12 +1,9 @@
-const CACHE_NAME = 'tantara-v2'
+const CACHE_NAME = 'tantara-v3'
 const SHELL_URL = '/'
 const FONT_URLS = [
     '/fonts/fredoka-500.woff2',
     '/fonts/fredoka-600.woff2',
     '/fonts/fredoka-700.woff2',
-    '/fonts/nunito-500.woff2',
-    '/fonts/nunito-700.woff2',
-    '/fonts/nunito-800.woff2',
 ]
 
 self.addEventListener('install', event => {

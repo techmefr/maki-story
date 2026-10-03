@@ -70,7 +70,7 @@ const close = (): void => {
     padding: 8px 16px;
     border: 3px solid var(--ink);
     border-radius: 999px;
-    background: var(--sun);
+    background: var(--yellow);
     color: var(--on-accent);
     box-shadow: var(--shadow);
     font: 700 0.9375rem/1.15 var(--font-title);
@@ -80,10 +80,12 @@ const close = (): void => {
 
 .outbox__pill--sent {
     background: var(--mint);
+    color: var(--on-accent);
 }
 
 .outbox__pill--failed {
     background: var(--coral);
+    color: var(--on-accent);
 }
 
 .outbox__list {

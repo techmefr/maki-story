@@ -389,22 +389,25 @@ onMounted(async () => {
 
 .review__state--approved {
     background: var(--mint);
+    color: var(--on-accent);
 }
 
 .review__state--changes,
 .review__state--stale {
     background: var(--coral);
+    color: var(--on-accent);
 }
 
 .review__state--to_review {
-    background: var(--sun);
+    background: var(--yellow);
+    color: var(--on-accent);
 }
 
 .review__thread li {
     border: 2px solid var(--ink);
     border-radius: 12px;
     padding: 8px 10px;
-    background: var(--cream);
+    background: var(--bg);
 }
 
 .review__comment--done {

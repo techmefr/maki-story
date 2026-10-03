@@ -174,10 +174,12 @@ const progressRows = computed(() => {
 
 .coverage__cell--done {
   background: var(--mint);
+  color: var(--on-accent);
 }
 
 .coverage__cell--stale {
-  background: var(--sun);
+  background: var(--yellow);
+  color: var(--on-accent);
 }
 
 .coverage__cell:focus-visible {

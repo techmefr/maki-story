@@ -20,7 +20,7 @@
                 @click="pick(symbol.id)"
             >
                 <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
-                    <path :d="SYMBOL_PATHS[symbol.shape]" fill="#FFF4D9" stroke="#1F1B3A" stroke-width="1.6" stroke-linejoin="round" />
+                    <path :d="SYMBOL_PATHS[symbol.shape]" fill="#FFF3DC" stroke="#1E1A3F" stroke-width="1.6" stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -93,12 +93,12 @@ defineExpose({ clear })
     border: 3px dashed var(--ink);
     border-radius: 18px;
     background: var(--paper);
-    color: #fff4d9;
+    color: #FFF3DC;
 }
 
 .symbols__pop {
     animation: pop-in 0.25s ease-out;
-    filter: drop-shadow(0 0 1px #1f1b3a);
+    filter: drop-shadow(0 0 1px #1E1A3F);
 }
 
 .symbols__grid {

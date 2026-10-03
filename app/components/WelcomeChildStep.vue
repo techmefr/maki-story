@@ -54,7 +54,7 @@ const { upload } = useFiles()
 const { register } = useMemberPhotos()
 
 const colors = VOICE_COLORS
-const swatchRing = '0 0 0 3px #FFF4D9, 0 0 0 5.5px #1F1B3A'
+const swatchRing = '0 0 0 3px #FFF3DC, 0 0 0 5.5px #1E1A3F'
 const today = new Date().toISOString().slice(0, 10)
 
 const name = ref('')

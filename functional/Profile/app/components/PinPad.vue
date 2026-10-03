@@ -131,7 +131,7 @@ defineExpose({ clear })
 }
 
 .pad__key--soft {
-    background: var(--cream);
+    background: var(--bg);
 }
 
 [dir='rtl'] .pad__key--soft :deep(svg) {
@@ -140,6 +140,7 @@ defineExpose({ clear })
 
 .pad__key--ok {
     background: var(--mint);
+    color: var(--on-accent);
 }
 
 .sr-only {

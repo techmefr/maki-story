@@ -65,9 +65,9 @@ const onCode = (code: string): void => {
     max-height: 100%;
     overflow-y: auto;
     padding: 20px;
-    background: #fff4d9;
-    border: 3px solid #1f1b3a;
+    background: #FFF3DC;
+    border: 3px solid #1E1A3F;
     border-radius: 24px;
-    box-shadow: 3px 3px 0 #1f1b3a;
+    box-shadow: 3px 3px 0 #1E1A3F;
 }
 </style>

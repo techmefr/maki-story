@@ -98,7 +98,7 @@ const { register } = useMemberPhotos()
 
 const roles: MemberRole[] = ['parent', 'relative', 'child']
 const colors = VOICE_COLORS
-const swatchRing = '0 0 0 3px #FFF4D9, 0 0 0 5.5px #1F1B3A'
+const swatchRing = '0 0 0 3px #FFF3DC, 0 0 0 5.5px #1E1A3F'
 
 const name = ref(member?.name ?? '')
 const role = ref<MemberRole>(member?.role ?? 'relative')

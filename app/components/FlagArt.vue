@@ -26,7 +26,7 @@
         <rect x="40" width="20" height="40" fill="#D42A36" />
     </g>
     <g v-else-if="code === 'de'">
-        <rect width="60" height="14" fill="#1F1B3A" />
+        <rect width="60" height="14" fill="#1E1A3F" />
         <rect y="14" width="60" height="13" fill="#D42A36" />
         <rect y="27" width="60" height="13" fill="#F7C52D" />
     </g>
@@ -46,7 +46,7 @@
     </g>
     <g v-else>
         <rect width="60" height="40" fill="#EEE9FF" />
-        <circle cx="30" cy="20" r="10" fill="none" stroke="#1F1B3A" stroke-width="3" />
+        <circle cx="30" cy="20" r="10" fill="none" stroke="#1E1A3F" stroke-width="3" />
     </g>
 </template>
 

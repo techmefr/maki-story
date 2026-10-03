@@ -3,7 +3,7 @@ export const THEME_CHOICES = ['light', 'dark', 'auto'] as const
 export type TThemeChoice = (typeof THEME_CHOICES)[number]
 
 const DEVICE_KEY = 'tantara-theme'
-const LIGHT_COLOR = '#FFF4D9'
+const LIGHT_COLOR = '#FFF3DC'
 const DARK_COLOR = '#17142B'
 
 const memberKey = (memberId: string): string => `${DEVICE_KEY}:${memberId}`

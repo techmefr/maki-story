@@ -88,7 +88,7 @@
         </div>
         <div v-if="isTurning" class="page-turn" data-testid="page-turn" aria-hidden="true" />
         <div class="reader__bottom">
-            <div class="progress" role="progressbar" :aria-label="t('kid.listen.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1F1B3A' }" /></div>
+            <div class="progress" role="progressbar" :aria-label="t('kid.listen.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent, background: '#1E1A3F' }" /></div>
             <div class="row row--wrap" style="justify-content: space-between">
                 <AppButton variant="secondary" size="sm" to="/kid"><AppIcon name="close" :size="18" />{{ t('kid.listen.quit') }}</AppButton>
                 <AppButton variant="secondary" size="sm" :aria-pressed="isSoundOn" @click="toggleSound">
@@ -179,7 +179,7 @@ const readerHex = computed(() => {
     if (phase.value === 'sleep') {
         return '#3B3470'
     }
-    return phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF4D9'
+    return phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF3DC'
 })
 const canSleep = computed(() => ['ready', 'playing', 'page'].includes(phase.value))
 const isPlaying = computed(() => player.isPlaying.value)
@@ -469,7 +469,7 @@ onBeforeUnmount(() => {
 }
 
 .reader--night {
-    color: var(--cream);
+    color: var(--bg);
 }
 
 .reader__center {
@@ -513,8 +513,8 @@ onBeforeUnmount(() => {
     inset: 0;
     z-index: 60;
     pointer-events: none;
-    background: linear-gradient(100deg, #fff4d9 0%, #ffe9b3 60%, #1f1b3a22 100%);
-    border-inline-start: 3px solid #1f1b3a;
+    background: linear-gradient(100deg, #FFF3DC 0%, #ffe9b3 60%, #1E1A3F22 100%);
+    border-inline-start: 3px solid #1E1A3F;
     transform-origin: left center;
     animation: page-turn 0.7s ease-in-out forwards;
 }
@@ -551,9 +551,9 @@ onBeforeUnmount(() => {
     display: inline-flex;
     padding: 10px;
     background: #fff;
-    border: 3px solid #1f1b3a;
+    border: 3px solid #1E1A3F;
     border-radius: 24px;
-    box-shadow: 3px 3px 0 #1f1b3a;
+    box-shadow: 3px 3px 0 #1E1A3F;
     cursor: pointer;
     min-width: 96px;
     min-height: 84px;
@@ -563,7 +563,7 @@ onBeforeUnmount(() => {
 
 .choice:active:not(.choice--static) {
     transform: translate(3px, 3px);
-    box-shadow: 0 0 0 #1f1b3a;
+    box-shadow: 0 0 0 #1E1A3F;
 }
 
 .choice--small {

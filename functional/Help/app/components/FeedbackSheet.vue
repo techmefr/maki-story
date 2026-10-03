@@ -24,9 +24,9 @@
 
 <script setup lang="ts">
 const moods: { value: FeedbackMood; labelKey: string; color: string }[] = [
-    { value: 'love', labelKey: 'feedback.moods.love', color: '#4CD4A8' },
-    { value: 'ok', labelKey: 'feedback.moods.ok', color: '#FFC940' },
-    { value: 'bad', labelKey: 'feedback.moods.bad', color: '#FF7A6B' },
+    { value: 'love', labelKey: 'feedback.moods.love', color: '#4AD3A5' },
+    { value: 'ok', labelKey: 'feedback.moods.ok', color: '#FFC933' },
+    { value: 'bad', labelKey: 'feedback.moods.bad', color: '#FF7766' },
 ]
 const CLOSE_DELAY_MS = 1200
 

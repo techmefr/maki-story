@@ -9,7 +9,7 @@
             </div>
             <div class="muted">{{ t('home.storage.downloaded', { size: formatBytes(totalBytes) }) }}</div>
             <AppButton variant="secondary" size="sm" v-if="!usage.isPersisted" @click="keep">{{ t('home.storage.keep') }}</AppButton>
-            <span v-else class="badge" style="background: #4cd4a8">{{ t('home.storage.protected') }}</span>
+            <span v-else class="badge" style="background: #4AD3A5">{{ t('home.storage.protected') }}</span>
         </div>
         <AppEmpty kind="offline" v-if="list.length === 0" :title="t('home.storage.emptyTitle')" :hint="t('home.storage.emptyHint')" />
         <div v-for="record in list" :key="record.id" class="card row" data-offline-book>

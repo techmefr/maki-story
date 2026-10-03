@@ -16,14 +16,14 @@
 
 <script setup lang="ts">
 const MOOD_KEYS: Record<FeedbackMood, string> = { love: 'feedback.moods.love', ok: 'feedback.moods.ok', bad: 'feedback.moods.bad' }
-const MOOD_COLORS: Record<FeedbackMood, string> = { love: '#4CD4A8', ok: '#FFC940', bad: '#FF7A6B' }
+const MOOD_COLORS: Record<FeedbackMood, string> = { love: '#4AD3A5', ok: '#FFC933', bad: '#FF7766' }
 
 const { t, formatDateTime } = useI18n()
 const { list } = useFeedback()
 const entries = ref<IFeedback[]>([])
 
 const moodLabel = (mood: FeedbackMood | null): string => t(mood ? MOOD_KEYS[mood] : 'feedback.note')
-const moodColor = (mood: FeedbackMood | null): string => (mood ? MOOD_COLORS[mood] : '#FFF4D9')
+const moodColor = (mood: FeedbackMood | null): string => (mood ? MOOD_COLORS[mood] : '#FFF3DC')
 
 onMounted(async () => {
     try {

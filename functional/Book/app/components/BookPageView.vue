@@ -185,7 +185,7 @@ const visibleLines = (character: IPageViewCharacter): IPageViewLine[] => {
 
 .pageview__line--mine {
     border-inline-start-color: var(--ink);
-    background: var(--cream);
+    background: var(--bg);
     font-weight: 800;
 }
 

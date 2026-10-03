@@ -38,7 +38,7 @@ export default defineOSDDNuxtConfig({
             htmlAttrs: { lang: 'fr' },
             meta: [
                 { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-                { name: 'theme-color', content: '#FFF4D9' },
+                { name: 'theme-color', content: '#FFF3DC' },
                 { name: 'apple-mobile-web-app-capable', content: 'yes' },
                 { name: 'mobile-web-app-capable', content: 'yes' },
                 { name: 'apple-mobile-web-app-title', content: 'Tantara' },
@@ -56,7 +56,6 @@ export default defineOSDDNuxtConfig({
                 { rel: 'icon', type: 'image/png', href: '/favicon-32.png', sizes: '32x32' },
                 { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
                 { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/fredoka-700.woff2', crossorigin: '' },
-                { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/nunito-700.woff2', crossorigin: '' },
             ],
         },
     },

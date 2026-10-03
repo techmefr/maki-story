@@ -30,6 +30,7 @@ onMounted(load)
 }
 
 .card--unread {
-    background: var(--sun);
+    background: var(--yellow);
+    color: var(--on-accent);
 }
 </style>

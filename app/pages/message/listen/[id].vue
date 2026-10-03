@@ -2,7 +2,7 @@
     <div
         class="stack center screen"
         :class="{ kid: isChild }"
-        :style="{ background: sender ? memberHexLight(sender) : '#FFF4D9' }"
+        :style="{ background: sender ? memberHexLight(sender) : '#FFF3DC' }"
         data-testid="message-player"
         @pointerdown="onPointerDown"
         @pointerup="onPointerUp"
@@ -12,7 +12,7 @@
                 <AppAvatar :member="sender" :size="200" />
             </AppBlob>
             <h1 class="sr-only">{{ sender.name }}</h1>
-            <WaveBars :is-active="isPlaying" color="#1F1B3A" />
+            <WaveBars :is-active="isPlaying" color="#1E1A3F" />
             <div
                 class="progress"
                 style="width: 100%"
@@ -22,7 +22,7 @@
                 aria-valuemax="100"
                 :aria-valuenow="percentValue"
             >
-                <div class="progress__fill" :style="{ width: percent, background: '#1F1B3A' }" />
+                <div class="progress__fill" :style="{ width: percent, background: '#1E1A3F' }" />
             </div>
             <div class="row controls">
                 <AppButton

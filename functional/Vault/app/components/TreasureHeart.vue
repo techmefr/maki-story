@@ -97,7 +97,7 @@ onMounted(() => load(childFilter()))
 
 .heart__button--filled,
 .heart__button--filling {
-    background: #ff94c8;
+    background: #FF8FC9;
 }
 
 .heart__button--filled :deep(svg),

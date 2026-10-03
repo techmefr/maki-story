@@ -16,7 +16,7 @@ const { t } = useI18n()
     display: flex;
     gap: 10px;
     align-items: flex-start;
-    background: #fff4d9;
+    background: #FFF3DC;
     margin: 0;
 }
 </style>

@@ -7,7 +7,7 @@
             <li v-for="book in books" :key="book.id" class="card stack" :aria-label="t('ai.draft.label', { title: book.title })">
                 <div class="row row--wrap">
                     <span class="subtitle grow">{{ book.title }}</span>
-                    <span class="badge" style="background: #fff4d9">{{ t('ai.draft.badge') }}</span>
+                    <span class="badge" style="background: #FFF3DC">{{ t('ai.draft.badge') }}</span>
                 </div>
                 <div class="muted">{{ t('ai.draft.meta', { pages: book.pageCount, lines: book.lineCount, language: languageLabel(book.language) }) }}</div>
                 <div class="row row--wrap">

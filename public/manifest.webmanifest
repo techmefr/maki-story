@@ -4,8 +4,8 @@
     "description": "Les livres de la maison, lus par toute la famille.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#FFF4D9",
-    "theme_color": "#FFF4D9",
+    "background_color": "#FFF3DC",
+    "theme_color": "#FFF3DC",
     "lang": "fr",
     "icons": [
         {

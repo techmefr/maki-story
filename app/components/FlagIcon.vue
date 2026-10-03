@@ -18,9 +18,9 @@
         <template v-else>
             <g :clip-path="`url(#${uid}-a)`"><FlagArt :code="codes[0]!" /></g>
             <g :clip-path="`url(#${uid}-b)`"><FlagArt :code="codes[1]!" /></g>
-            <line x1="30" y1="0" x2="30" y2="40" stroke="#1F1B3A" stroke-width="2" />
+            <line x1="30" y1="0" x2="30" y2="40" stroke="#1E1A3F" stroke-width="2" />
         </template>
-        <rect x="1" y="1" width="58" height="38" rx="3" fill="none" stroke="#1F1B3A" stroke-width="2" />
+        <rect x="1" y="1" width="58" height="38" rx="3" fill="none" stroke="#1E1A3F" stroke-width="2" />
     </svg>
 </template>
 

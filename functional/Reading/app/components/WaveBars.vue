@@ -15,7 +15,7 @@ const TICK_MS = 90
 
 const {
     isActive,
-    color = '#1F1B3A',
+    color = '#1E1A3F',
     height = 56,
 } = defineProps<{ isActive: boolean; color?: string; height?: number }>()
 

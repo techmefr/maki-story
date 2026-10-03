@@ -29,7 +29,7 @@ const retry = async () => {
     justify-content: center;
     gap: 8px;
     padding: 10px 16px calc(env(safe-area-inset-bottom) + 10px);
-    background: #ffc940;
+    background: #FFC933;
     border-top: 2.5px solid var(--ink);
     font: 700 0.875rem/1.3 var(--font-title);
 }

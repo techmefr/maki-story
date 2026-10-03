@@ -103,7 +103,7 @@ onBeforeUnmount(clearTimers)
     top: 0;
     bottom: 0;
     width: 50%;
-    background: var(--cream);
+    background: var(--bg);
     display: none;
 }
 

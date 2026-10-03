@@ -34,7 +34,7 @@ watch(() => [route.path, current.value?.id], refresh)
     height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 50%;
-    background: var(--sun);
+    background: var(--yellow);
     color: var(--on-accent);
     box-shadow: var(--shadow);
 }

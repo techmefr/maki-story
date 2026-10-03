@@ -9,7 +9,7 @@
             <div class="subtitle">{{ book.title }}</div>
             <div class="row row--wrap">
                 <span class="badge" :style="{ background: statusBg }">{{ statusLabel }}</span>
-                <span v-if="book.isVoiceBlocked" class="badge" style="background: #ff7a6b">{{ t('books.card.voiceBlocked') }}</span>
+                <span v-if="book.isVoiceBlocked" class="badge" style="background: #FF7766">{{ t('books.card.voiceBlocked') }}</span>
                 <VoiceDots :member-ids="book.memberIds" />
             </div>
             <div class="muted">{{ progressLabel }}</div>
@@ -37,7 +37,7 @@ const target = computed(() => {
     return isReady.value ? `/books/${book.id}/play` : `/books/${book.id}/studio`
 })
 const statusLabel = computed(() => t(`review.bookStatus.${book.status}`))
-const statusBg = computed(() => (isReady.value ? '#4CD4A8' : '#FFF4D9'))
+const statusBg = computed(() => (isReady.value ? '#4AD3A5' : '#FFF3DC'))
 const kindLabel = computed(() => (book.kind === 'solo' ? t('books.card.kindSolo') : t('books.card.kindCast')))
 const progressLabel = computed(() => t('books.card.progress', { recorded: book.recordedCount, total: book.lineCount }))
 </script>

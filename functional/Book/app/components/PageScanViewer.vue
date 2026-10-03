@@ -271,7 +271,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onDocumentKey))
     position: fixed;
     inset: 0;
     z-index: 200;
-    background: var(--cream);
+    background: var(--bg);
     padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
     grid-template-rows: auto 1fr auto;
 }

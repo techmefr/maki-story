@@ -1,5 +1,5 @@
 <template>
-    <div class="stack center screen" :class="{ kid: isChild }" :style="{ background: target ? memberHexLight(target) : '#FFF4D9' }">
+    <div class="stack center screen" :class="{ kid: isChild }" :style="{ background: target ? memberHexLight(target) : '#FFF3DC' }">
         <template v-if="target">
             <AppAvatar :member="target" :size="120" />
             <h1 class="title">{{ heading }}</h1>
@@ -13,7 +13,7 @@
                 <div class="subtitle row"><AppIcon name="party" :size="28" motion="bounce" is-active />{{ t('messages.compose.sent') }}</div>
             </template>
             <template v-else>
-                <WaveBars :is-active="isRecording" color="#1F1B3A" />
+                <WaveBars :is-active="isRecording" color="#1E1A3F" />
                 <div class="subtitle">{{ timeLabel }}</div>
                 <button
                     v-if="phase !== 'done'"
@@ -142,7 +142,7 @@ const send = async (): Promise<void> => {
 }
 
 .rec--on {
-    box-shadow: 0 0 0 8px var(--cream), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
+    box-shadow: 0 0 0 8px var(--bg), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
 }
 
 </style>

@@ -3,7 +3,7 @@
         <div ref="panel" class="sheet stack" role="dialog" aria-modal="true" :aria-label="t('books.sheet.title', { title: book.title })" @keydown.esc.prevent="emit('close')">
             <h2 class="title">{{ book.title }}</h2>
             <p v-if="book.subtitle" class="subtitle">{{ book.subtitle }}</p>
-            <p v-if="book.isVoiceBlocked && !isChild"><span class="badge" style="background: #ff7a6b">{{ t('books.sheet.voiceBlocked') }}</span></p>
+            <p v-if="book.isVoiceBlocked && !isChild"><span class="badge" style="background: #FF7766">{{ t('books.sheet.voiceBlocked') }}</span></p>
             <dl class="sheet__facts">
                 <div v-if="book.author">
                     <dt>{{ t('books.sheet.author') }}</dt>

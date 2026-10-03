@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
     padding: 10px 16px;
     border: 3px solid var(--ink);
     border-radius: 18px;
-    background: var(--grape);
+    background: var(--violet);
     color: var(--on-accent);
     box-shadow: var(--shadow);
     font: 700 1.0625rem/1.15 var(--font-title);

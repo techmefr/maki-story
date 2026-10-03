@@ -38,7 +38,7 @@ const COUNTDOWN_STEP_MS = 800;
 const OUTPUT_SIZE_PX = 480;
 const GRIMACE_COUNT = 6;
 
-const { frameColor = "#1F1B3A" } = defineProps<{ frameColor?: string }>();
+const { frameColor = "#1E1A3F" } = defineProps<{ frameColor?: string }>();
 const emit = defineEmits<{ captured: [blob: Blob] }>();
 
 const { t } = useI18n();
@@ -204,7 +204,7 @@ onBeforeUnmount(() => {
   border-radius: 50%;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  background: var(--cream);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;

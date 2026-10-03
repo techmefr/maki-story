@@ -5,9 +5,9 @@
         </div>
         <div class="party__balloons" aria-hidden="true">
             <svg v-for="balloon in BALLOONS" :key="balloon.id" class="party__balloon" :style="balloon.style" viewBox="0 0 40 70" width="56" height="98">
-                <ellipse cx="20" cy="22" rx="16" ry="20" :fill="balloon.hex" stroke="#1F1B3A" stroke-width="2.5" />
-                <path d="M20 42 L16 49 L24 49 Z" :fill="balloon.hex" stroke="#1F1B3A" stroke-width="2" stroke-linejoin="round" />
-                <path d="M20 49 C 14 56 26 60 20 68" fill="none" stroke="#1F1B3A" stroke-width="2" />
+                <ellipse cx="20" cy="22" rx="16" ry="20" :fill="balloon.hex" stroke="#1E1A3F" stroke-width="2.5" />
+                <path d="M20 42 L16 49 L24 49 Z" :fill="balloon.hex" stroke="#1E1A3F" stroke-width="2" stroke-linejoin="round" />
+                <path d="M20 49 C 14 56 26 60 20 68" fill="none" stroke="#1E1A3F" stroke-width="2" />
             </svg>
         </div>
         <div ref="card" class="party__card stack center">
@@ -44,7 +44,7 @@ const CONFETTI = Array.from({ length: 28 }, (_, id) => ({
 
 const BALLOONS = Array.from({ length: 5 }, (_, id) => ({
     id,
-    hex: COLORS[(id * 2) % COLORS.length] ?? '#FFC940',
+    hex: COLORS[(id * 2) % COLORS.length] ?? '#FFC933',
     style: { left: `${8 + id * 20}%`, animationDelay: `${id * 0.3}s` },
 }))
 
@@ -89,7 +89,7 @@ onMounted(() => {
     padding: 24px;
     border: 3px solid var(--ink);
     border-radius: 30px;
-    background: var(--cream);
+    background: var(--bg);
     box-shadow: 3px 3px 0 var(--ink);
     text-align: center;
     overflow-wrap: anywhere;

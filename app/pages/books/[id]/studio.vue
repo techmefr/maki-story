@@ -176,7 +176,7 @@
                 type="button"
                 class="card card--tap row"
                 :disabled="isLocked"
-                :style="{ background: line.id === currentLineId ? '#FFF4D9' : '#fff' }"
+                :style="{ background: line.id === currentLineId ? '#FFF3DC' : '#fff' }"
                 @click="currentLineId = line.id"
             >
                 <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : '#fff' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
@@ -660,6 +660,7 @@ onMounted(async () => {
 
 .studio__redo {
     background: var(--coral);
+    color: var(--on-accent);
 }
 
 .stage {
@@ -766,6 +767,6 @@ onMounted(async () => {
 }
 
 .rec--on {
-    box-shadow: 0 0 0 8px var(--cream), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
+    box-shadow: 0 0 0 8px var(--bg), 0 0 0 11px var(--coral), 5px 5px 0 11px var(--ink);
 }
 </style>

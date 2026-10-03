@@ -81,7 +81,7 @@ const openProfile = (): void => {
     height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 50%;
-    background: var(--sky);
+    background: var(--blue);
     color: var(--on-accent);
     box-shadow: var(--shadow);
     cursor: pointer;

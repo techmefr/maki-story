@@ -1,0 +1,47 @@
+:root {
+    --bg: #FFF3DC;
+    --paper: #FFFFFF;
+    --ink: #1E1A3F;
+    --ink-soft: #3B3466;
+    --line: #1E1A3F;
+    --on-accent: #1E1A3F;
+    --yellow: #FFC933;
+    --sky: #CFE5FF;
+    --mint: #4AD3A5;
+    --mint-soft: #ADE6C4;
+    --coral: #FF7766;
+    --pink: #FF8FC9;
+    --violet: #B28DFF;
+    --blue: #6DB5FF;
+    --danger-soft: #FFD9D3;
+    --danger: #B3261E;
+    --grey: #E5E3F0;
+    --grey-line: #9A9390;
+    --grey-ui: #E5E3F0;
+    --grey-ui-ink: #3B3466;
+    --outline: 3px;
+    --shadow: 3px 4px 0 var(--line);
+    --shadow-lg: 4px 5px 0 var(--line);
+    --shadow-press: 1px 1px 0 var(--line);
+    --font-title: Fredoka, sans-serif;
+    --font-body: Fredoka, sans-serif;
+    --font-learn: Andika, Fredoka, sans-serif;
+    --tap: 48px;
+    --tap-kid: 66px;
+    --text-scale: 1;
+    --dir-sign: 1;
+}
+
+:root[data-theme='dark'] {
+    color-scheme: dark;
+    --bg: #17142B;
+    --paper: #26224A;
+    --ink: #F4F0FF;
+    --ink-soft: #CFC8F0;
+    --line: #F4F0FF;
+    --danger: #FF9A90;
+    --grey: #3A3560;
+    --grey-line: #7C77A0;
+    --grey-ui: #3A3560;
+    --grey-ui-ink: #CFC8F0;
+}

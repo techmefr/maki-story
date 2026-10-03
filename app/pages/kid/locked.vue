@@ -66,7 +66,7 @@ const unlock = async (parentId: string, code: string): Promise<void> => {
 }
 
 .locked__moon {
-    color: #ffc940;
+    color: #FFC933;
 }
 
 .locked__parent {
