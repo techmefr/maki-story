@@ -26,5 +26,24 @@
             "other": "{name} dia vita nandrakitra andalana {count} avy amin’ny « {title} »"
         }
     },
-    "bellNone": "Fampandrenesana, tsy misy vaovao"
+    "bellNone": "Fampandrenesana, tsy misy vaovao",
+    "titles": {
+        "share_received": "Boky voaray",
+        "share_accepted": "Fizarana neken’ny",
+        "share_declined": "Fizarana nolavina",
+        "share_to_approve": "Fizarana hamarinina",
+        "share_approved": "Fizarana voamarina",
+        "voice_batch": "Feo nampiana",
+        "recording_batch": "Vita ny fandraketana",
+        "review_result": "Valin’ny famerenana",
+        "recording_request": "Fangatahana fandraketana",
+        "book_proposed": "Boky natolotra",
+        "proposal_result": "Valiny amin’ny tolotrao",
+        "message_received": "Hafatra vaovao",
+        "birthday_reminder": "Fampahatsiarovana ny fetim-bahiny",
+        "stale_takes": "Fandraketana havaozina"
+    },
+    "allRead": "Voavaky avokoa!",
+    "minutes": "{count} min",
+    "hours": "{count} ora"
 }

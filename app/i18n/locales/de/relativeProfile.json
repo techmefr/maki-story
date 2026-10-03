@@ -1,0 +1,15 @@
+{
+    "messages": "Hinterlassene Nachrichten",
+    "count": "{count}/{max}",
+    "families": "Familien",
+    "resetCode": "Code zurücksetzen",
+    "codeReset": "Der Code von {name} wurde gelöscht: Beim nächsten Öffnen wird ein neuer verlangt.",
+    "makeParent": "Zum Elternteil machen",
+    "makeRelative": "Zum Verwandten machen",
+    "nowRole": {
+        "parent": "{name} ist jetzt Elternteil.",
+        "relative": "{name} ist jetzt Verwandte/r."
+    },
+    "remove": "Aus der Familie entfernen",
+    "failed": "Das hat nicht geklappt. Versuche es noch einmal."
+}

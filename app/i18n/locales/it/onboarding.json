@@ -1,0 +1,20 @@
+{
+    "skip": "Salta",
+    "next": "Avanti",
+    "start": "Inizia",
+    "progress": "Passo {current} di {total}",
+    "slides": {
+        "welcome": {
+            "title": "Benvenuto su Tantara",
+            "text": "Le storie della buonanotte, raccontate con la voce delle persone care."
+        },
+        "voices": {
+            "title": "Ognuno presta la sua voce",
+            "text": "Mamma, nonno, nonna… ognuno registra un personaggio, anche da lontano."
+        },
+        "listen": {
+            "title": "Il bambino ascolta e conserva",
+            "text": "Sfoglia le pagine, ritrova le sue voci preferite e conserva i ricordi nel suo scrigno."
+        }
+    }
+}

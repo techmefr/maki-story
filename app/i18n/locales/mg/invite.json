@@ -39,5 +39,23 @@
         "revoked": "Foana"
     },
     "revoke": "Foano",
-    "revokeAria": "Foano ny fanasana an’i {name}"
+    "revokeAria": "Foano ny fanasana an’i {name}",
+    "tabs": {
+        "email": "Amin’ny mailaka",
+        "code": "Amin’ny kaody"
+    },
+    "roleLabel": "Andraikitra",
+    "roles": {
+        "relative": "Havana",
+        "parent": "Ray aman-dreny"
+    },
+    "roleHint": {
+        "relative": "Mampindrana ny feony ary mamela hafatra ho an’ny ankizy.",
+        "parent": "Mitantana ny fianakaviana miaraka aminao: ankizy, boky, kaody ary fidirana."
+    },
+    "emailPlaceholder": "anarana@ohatra.com",
+    "emailHint": "Mahazo rohy hamoronana ny mombamomba azy sy hiditra amin’ny fianakaviana izy.",
+    "sendEmail": "Alefaso ny fanasana",
+    "sentTitle": "Voalefa ny fanasana",
+    "codeLabel": "Kaody fanasana"
 }

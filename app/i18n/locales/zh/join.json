@@ -16,5 +16,16 @@
     "submit": "加入",
     "failed": "暂时无法加入。",
     "invalidCredentials": "请检查邮箱、密码或邀请。",
-    "tooMany": "尝试次数过多，请稍后再试。"
+    "tooMany": "尝试次数过多，请稍后再试。",
+    "progress": "第 {current} 步，共 {total} 步",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "你将以亲友身份加入 {family}。",
+        "parent": "你将以家长身份加入 {family}。"
+    },
+    "profileTitle": "创建你的资料",
+    "namePlaceholder": "你的名字",
+    "next": "继续",
+    "secretTitle": "你的密码",
+    "secretHint": "4 到 8 位数字。"
 }

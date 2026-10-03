@@ -26,5 +26,24 @@
             "other": "{name} ha finito di registrare {count} battute di «{title}»"
         }
     },
-    "bellNone": "Notifiche, nessuna nuova"
+    "bellNone": "Notifiche, nessuna nuova",
+    "titles": {
+        "share_received": "Libro ricevuto",
+        "share_accepted": "Condivisione accettata",
+        "share_declined": "Condivisione rifiutata",
+        "share_to_approve": "Condivisione da approvare",
+        "share_approved": "Condivisione approvata",
+        "voice_batch": "Voce aggiunta",
+        "recording_batch": "Registrazione terminata",
+        "review_result": "Esito della revisione",
+        "recording_request": "Richiesta di registrazione",
+        "book_proposed": "Libro proposto",
+        "proposal_result": "Risposta alla tua proposta",
+        "message_received": "Nuovo messaggio",
+        "birthday_reminder": "Promemoria di compleanno",
+        "stale_takes": "Registrazioni da rifare"
+    },
+    "allRead": "Tutto letto!",
+    "minutes": "{count} min",
+    "hours": "{count} h"
 }

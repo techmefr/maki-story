@@ -1,0 +1,25 @@
+{
+    "title": "Algumas autorizações",
+    "intro": "O Tantara precisa delas para funcionar. Podes alterá-las nas definições do teu telemóvel.",
+    "listLabel": "Autorizações do dispositivo",
+    "mic": {
+        "name": "Microfone",
+        "why": "Para gravar a tua voz nas histórias."
+    },
+    "camera": {
+        "name": "Câmara e fotos",
+        "why": "Para a foto de careta e as fotos das páginas."
+    },
+    "notifications": {
+        "name": "Notificações",
+        "why": "Para te avisar de uma voz nova ou de uma revisão."
+    },
+    "allow": "Permitir",
+    "allowed": "Permitido",
+    "denied": "Recusado",
+    "unsupported": "Indisponível",
+    "deniedHint": "Recusado: podes ativá-lo nas definições do teu dispositivo.",
+    "unsupportedHint": "Este dispositivo não o permite.",
+    "continue": "Continuar",
+    "skipHint": "Podes continuar mesmo sem permitir tudo."
+}

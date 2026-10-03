@@ -1,0 +1,67 @@
+{
+    "title": "Tag",
+    "count": {
+        "one": "{count} tag",
+        "other": "{count} tag"
+    },
+    "intro": "Un tag ha un identificatore in inglese e un nome in ogni lingua. I libri conservano solo l’identificatore.",
+    "language": "Lingua di visualizzazione dei tag",
+    "new": "Nuovo tag",
+    "edit": "Modifica il tag {name}",
+    "toTranslate": "{count} da tradurre",
+    "auto": "auto",
+    "empty": "Ancora nessun tag",
+    "emptyHint": "Un genitore può crearne per classificare i libri.",
+    "editor": {
+        "newTitle": "Nuovo tag",
+        "slug": "Identificatore: {slug}",
+        "names": "Nome per lingua",
+        "nameIn": "Nome in {language}",
+        "placeholder": "Da tradurre",
+        "icon": "Icona",
+        "color": "Colore",
+        "save": "Salva",
+        "delete": "Elimina",
+        "confirmTitle": "Elimina il tag",
+        "confirmText": {
+            "zero": "Questo tag non è usato da nessun libro.",
+            "one": "Questo tag verrà rimosso da un libro.",
+            "other": "Questo tag verrà rimosso da {count} libri."
+        },
+        "confirmDelete": "Sì, elimina"
+    },
+    "colors": {
+        "sun": "Giallo",
+        "sky": "Blu",
+        "mint": "Menta",
+        "grape": "Viola",
+        "pink": "Rosa",
+        "coral": "Corallo"
+    },
+    "icons": {
+        "hat": "Cappello",
+        "waves": "Onde",
+        "tree": "Albero",
+        "star": "Stella",
+        "crown": "Corona",
+        "paw": "Zampa",
+        "moon": "Luna",
+        "heart": "Cuore",
+        "smile": "Sorriso",
+        "compass": "Bussola",
+        "question": "Punto interrogativo",
+        "book": "Libro",
+        "sun": "Sole",
+        "flag": "Bandiera"
+    },
+    "errors": {
+        "save": "Impossibile salvare questo tag al momento.",
+        "name-required": "Dai al tag almeno un nome.",
+        "slug-empty": "Questo nome non permette di creare un identificatore.",
+        "slug-taken": "Esiste già un tag con questo identificatore.",
+        "color-invalid": "Scegli uno dei colori proposti.",
+        "icon-invalid": "Scegli una delle icone proposte.",
+        "language-invalid": "Questa lingua non è riconosciuta.",
+        "name-too-long": "Il nome di un tag ha al massimo 40 caratteri."
+    }
+}

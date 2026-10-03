@@ -1,0 +1,89 @@
+{
+    "title": "Condições e privacidade",
+    "draft": "Rascunho a validar por um jurista antes da publicação. As passagens entre parênteses retos estão por completar.",
+    "tabsLabel": "Documentos",
+    "tabs": {
+        "cgu": "CGU",
+        "priv": "Privacidade",
+        "cgv": "CGV"
+    },
+    "checkTerms": "Li e aceito as CGU, as CGV e a política de privacidade.",
+    "checkGuardian": "Sou pai, mãe ou tutor legal e autorizo a criação de perfis para os meus filhos.",
+    "accept": "Aceito e continuo",
+    "acceptedOn": "Condições aceites em {date}.",
+    "failed": "Não é possível registar o teu acordo de momento. Tenta de novo.",
+    "cgu": {
+        "1": {
+            "title": "1. Objeto",
+            "text": "O Tantara permite que familiares gravem a sua voz em histórias e que as crianças as ouçam, dentro de uma família. [Nome do editor, morada, contacto]."
+        },
+        "2": {
+            "title": "2. Conta e família",
+            "text": "Um pai ou mãe cria a família e convida outros pais ou familiares por e-mail ou por código. Uma criança não tem conta própria: o seu perfil é gerido pelos pais."
+        },
+        "3": {
+            "title": "3. Conteúdos gravados",
+            "text": "Cada pessoa continua responsável pelas suas gravações. Um adulto pode deixar até 5 mensagens à mesma criança. Os pais podem rever, recusar ou remover qualquer conteúdo."
+        },
+        "4": {
+            "title": "4. Regras de utilização",
+            "text": "Os conteúdos devem ser adequados a um público infantil. É proibido gravar a voz de uma pessoa sem o seu acordo ou publicar conteúdo ilícito."
+        },
+        "5": {
+            "title": "5. Eliminação",
+            "text": "Um pai ou mãe pode remover um familiar, uma criança ou um livro a qualquer momento. A conta pode ser eliminada nas definições. [Prazo de conservação]."
+        },
+        "6": {
+            "title": "6. Responsabilidade e alterações",
+            "text": "[A completar: disponibilidade do serviço, limitação de responsabilidade, alteração das condições, direito aplicável.]"
+        }
+    },
+    "priv": {
+        "1": {
+            "title": "Dados recolhidos",
+            "text": "Endereço de e-mail dos adultos, nome e idade da criança, foto de perfil (careta), vozes gravadas, progresso de leitura, favoritos, línguas escolhidas."
+        },
+        "2": {
+            "title": "Dados das crianças",
+            "text": "Só são recolhidos com o acordo de um pai, mãe ou tutor legal, não servem para publicidade e nunca são revendidos. Sem definição de perfis."
+        },
+        "3": {
+            "title": "Finalidades",
+            "text": "Fazer funcionar a aplicação: audição, gravação, revisão, notificações escolhidas por cada pessoa."
+        },
+        "4": {
+            "title": "Alojamento e duração",
+            "text": "[Alojador, país]. Os dados são conservados enquanto a família existir e depois eliminados em [prazo]."
+        },
+        "5": {
+            "title": "Os teus direitos",
+            "text": "Acesso, retificação, apagamento, exportação e oposição, nas definições ou em [endereço de contacto]. É possível apresentar reclamação à autoridade de controlo."
+        },
+        "6": {
+            "title": "Autorizações do dispositivo",
+            "text": "Microfone para gravar, câmara ou fotos para a foto de perfil, notificações se ativadas. Cada uma pode ser recusada."
+        }
+    },
+    "cgv": {
+        "1": {
+            "title": "1. Oferta",
+            "text": "[A completar se a aplicação for paga: gratuidade, subscrição, opções.]"
+        },
+        "2": {
+            "title": "2. Preço e pagamento",
+            "text": "[Preço com IVA, meios de pagamento, passagem pelas lojas de aplicações.]"
+        },
+        "3": {
+            "title": "3. Duração e rescisão",
+            "text": "[Duração, renovação, rescisão a qualquer momento nas definições.]"
+        },
+        "4": {
+            "title": "4. Direito de livre resolução",
+            "text": "[Informação legal de 14 dias e respetivas exceções para os conteúdos digitais.]"
+        },
+        "5": {
+            "title": "5. Reclamações",
+            "text": "[Apoio ao cliente, mediador de consumo.]"
+        }
+    }
+}

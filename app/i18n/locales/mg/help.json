@@ -1,0 +1,33 @@
+{
+    "title": "Fanampiana",
+    "otherQuestion": "Misy fanontaniana hafa?",
+    "writeSupport": "Manorata any amin’ny fanohanana",
+    "legal": "Fepetra sy fiainana manokana",
+    "account": "Ny kaontiko",
+    "faq": {
+        "addRelative": {
+            "q": "Ahoana no fampidirana havana?",
+            "a": "Ao amin’ny « Ny fianakavianay », misafidy « Ampio havana » ny ray na reny dia mandefa fanasana amin’ny mailaka na manome kaody mandeha 48 ora."
+        },
+        "fiveMessages": {
+            "q": "Fa maninona 5 hafatra ihany isaky ny ankizy?",
+            "a": "Mba hisy dikany ny hafatra tsirairay. Mahavita mamela hafatra hatramin’ny 5 amin’ny ankizy iray ny olon-dehibe. Esory iray vao mampiditra hafa."
+        },
+        "recordVoice": {
+            "q": "Ahoana no fandraketana ny feoko?",
+            "a": "Sokafy ny tantara horaketina, dia tsindrio ny « Raketo » eo amin’ny andalan’ny mpilalaonao. Azonao henoina indray sy atombohina indray impiry impiry."
+        },
+        "forgotCode": {
+            "q": "Nanadino ny kaodiko aho",
+            "a": "Mahavita mamerina ny kaodin’ny ankizy na havana ny ray aman-dreny ao amin’ny « Ny fianakavianay ». Ho an’ny kaodin’ny ray aman-dreny, mampiasà ny fidirana amin’ny mailaka."
+        },
+        "favoriteVoice": {
+            "q": "Ahoana no fitehirizana feo tiana indrindra?",
+            "a": "Rehefa mihaino ny ankizy dia mikasika ny fo. Mankany amin’ny vatam-bolany ny hafatra, izay mitahiry hatramin’ny 10 fahatsiarovana."
+        },
+        "otherLanguage": {
+            "q": "Azo vakiana amin’ny fiteny hafa ve?",
+            "a": "Eny: afaka manana lahatsoratra isaky ny fitenin’ny fianakaviana ny tantara iray. Mamaky amin’ny fiteny voafidy ao amin’ny mombamomba azy ny ankizy."
+        }
+    }
+}

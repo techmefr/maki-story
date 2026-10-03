@@ -48,7 +48,13 @@
         "parentTitle": "Faritry ny ray aman-dreny",
         "notifications": "Fampandrenesana",
         "schedule": "Ora fihainoana isaky ny zaza",
-        "feedback": "Hanome hevitra"
+        "feedback": "Hanome hevitra",
+        "chosenCount": {
+            "one": "{count} voafidy",
+            "other": "{count} voafidy"
+        },
+        "quit": "Hiala",
+        "edit": "Ovay ny mombamomba ahy"
     },
     "unlock": {
         "offerTitle": "Hampiasa ny rantsan-tanana na ny tarehy?",
@@ -97,5 +103,21 @@
         "chosen": "Soritra {count} amin’ny {total}",
         "clear": "Fafao",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Ovay ny mombamomba ahy",
+        "email": "Adiresy mailaka",
+        "emailGoogle": "Niditra tamin’ny Google: tsy azo ovaina eto ny adiresy.",
+        "emailAccount": "Ny adiresin’ny kaontinao io: tsy azo ovaina eto.",
+        "changeCode": "Ovay ny kaodiko",
+        "account": "Ny angoko sy ny kaontiko",
+        "saveError": "Tsy afaka mitahiry amin’izao fotoana izao.",
+        "codeTitle": "Ovay ny kaodiko",
+        "codeCurrent": "Soraty ny kaodinao ankehitriny.",
+        "codeNew": "Fidio ny kaodinao vaovao, isa 4 ka hatramin’ny 8.",
+        "codeConfirm": "Soraty indray mandeha ny kaody mitovy.",
+        "codeDone": "Niova ny kaodinao.",
+        "codeBlocked": "Diso na voasakana ny kaody ankehitriny. Atombohy indray.",
+        "codeFailed": "Tsy afaka ovaina ny kaody amin’izao fotoana izao."
     }
 }

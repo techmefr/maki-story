@@ -10,7 +10,24 @@
         "storage": "Offline-Speicher",
         "sharing": "Teilen zwischen Familien",
         "devices": "Geräte",
-        "feedback": "Rückmeldungen der Tester"
+        "feedback": "Rückmeldungen der Tester",
+        "groups": {
+            "parent": "Eltern",
+            "child": "Kinder",
+            "relative": "Verwandte"
+        },
+        "remove": "{name} entfernen",
+        "removeAction": "Entfernen",
+        "confirmTitle": "{name} entfernen?",
+        "confirmText": "Das Profil wird archiviert und die Nachrichten werden gelöscht.",
+        "confirmParent": "Dieses Elternteil verliert den Zugang zur Familie. Mindestens ein weiteres bleibt.",
+        "failed": "Das hat nicht geklappt. Versuche es noch einmal.",
+        "more": "Mehr",
+        "providers": {
+            "title": "Erlaubte Anmeldungen",
+            "hint": "Lege fest, wie Verwandte und Kinder sich anmelden können. Der magische Link und Google bleiben immer aktiv."
+        },
+        "addChild": "Kind hinzufügen"
     },
     "edit": {
         "title": "Bearbeiten",
@@ -33,5 +50,65 @@
         "loadError": "Die Geräte konnten nicht geladen werden.",
         "revokeError": "Dieses Gerät konnte nicht entfernt werden.",
         "emptyHint": "Aktiviere Fingerabdruck oder Gesicht bei einem Profil, um es hier zu sehen."
+    },
+    "choose": {
+        "title": "Welche Familie?",
+        "intro": "Du gehörst zu mehreren Familien. Deine Rolle ist in jeder Familie anders.",
+        "kids": {
+            "zero": "Kein Kind",
+            "one": "{count} Kind",
+            "other": "{count} Kinder"
+        },
+        "role": {
+            "parent": "Elternteil",
+            "relative": "Verwandte/r"
+        },
+        "join": "Mit Code beitreten",
+        "emptyTitle": "Noch keine Familie",
+        "emptyHint": "Tritt einer Familie mit einem Einladungscode bei.",
+        "failed": "Diese Familie konnte nicht geöffnet werden. Versuche es noch einmal.",
+        "create": "Familie erstellen"
+    },
+    "create": {
+        "progress": "Schritt {current} von {total}",
+        "name": {
+            "title": "Erstelle deine Familie",
+            "hint": "Ein Name, den alle wiedererkennen.",
+            "placeholder": "Familie Rakoto"
+        },
+        "child": {
+            "title": "Kind hinzufügen",
+            "photo": "Grimassen-Foto",
+            "namePlaceholder": "Vorname",
+            "age": "Alter"
+        },
+        "childCode": {
+            "title": "Code von {name}"
+        },
+        "parentCode": {
+            "title": "Dein Geheimcode",
+            "hint": "4 bis 8 Ziffern. Er schützt den Elternbereich."
+        },
+        "done": {
+            "title": "{name} ist bereit!",
+            "hint": "{name} hat ein Profil. Lade jetzt die Verwandten ein, die ihre Stimme leihen."
+        },
+        "action": {
+            "name": "Weiter",
+            "child": "Weiter",
+            "childCode": "Weiter",
+            "parentCode": "Meine Familie erstellen",
+            "done": "Verwandte einladen",
+            "you": "Weiter"
+        },
+        "failed": "Die Familie konnte nicht erstellt werden. Versuche es noch einmal.",
+        "you": {
+            "title": "Und du?",
+            "hint": "So kennen dich die Kinder und Verwandten.",
+            "firstName": "Vorname",
+            "lastName": "Nachname",
+            "displayName": "Anzeigename",
+            "displayHint": "Der Anzeigename ist der, den andere sehen. Ohne Angabe ist es dein Vorname."
+        }
     }
 }

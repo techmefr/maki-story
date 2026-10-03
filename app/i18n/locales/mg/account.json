@@ -1,0 +1,30 @@
+{
+    "title": "Ny kaontiko",
+    "identity": "{email} · {role}",
+    "loadFailed": "Tsy azo ampiasaina ankehitriny ny kaontinao.",
+    "parentOnly": "Ray aman-dreny ihany no afaka manondrana ny angona na manafoana ny kaonty.",
+    "terms": {
+        "link": "Fepetra sy fiainana manokana"
+    },
+    "export": {
+        "title": "Alefaso ny angonako",
+        "text": "Mahazoa rohy amin’ny mailaka mankany amin’ny rakitra misy ny rakitsoranao, ny mombamomba sy ny fandrosoan’ny famakiana. Mandeha mandritra ny {days} andro ny rohy.",
+        "request": "Angataho ny fanondranana",
+        "sending": "Mandeha…",
+        "sent": "Voaray tamin’ny mailaka ny rohy",
+        "failed": "Tsy afaka lasa ny mailaka. Andramo indray afaka kelikely."
+    },
+    "delete": {
+        "title": "Fafao ny kaonty",
+        "text": "Ho fafana avokoa ny rakitsoratra rehetra, ny mombamomba ny ankizy, ny tiana indrindra ary ny boky an’ny fianakaviana. Tsy azo averina ity.",
+        "start": "Fafao ny kaontiko",
+        "sheetTitle": "Azo antoka ve ianao?",
+        "sheetText": "Raha hanamarina, soraty ny {word} dia ny kaody ray aman-dreninao.",
+        "word": "DELETE",
+        "wordLabel": "Teny fanamarinana",
+        "codeLabel": "Kaody ray aman-dreny",
+        "cancel": "Foano",
+        "wrongCode": "Diso io kaody io.",
+        "failed": "Tsy nahomby ny famafana. Andramo indray."
+    }
+}

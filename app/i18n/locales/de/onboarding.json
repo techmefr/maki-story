@@ -1,0 +1,20 @@
+{
+    "skip": "Überspringen",
+    "next": "Weiter",
+    "start": "Los geht’s",
+    "progress": "Schritt {current} von {total}",
+    "slides": {
+        "welcome": {
+            "title": "Willkommen bei Tantara",
+            "text": "Gute-Nacht-Geschichten, vorgelesen mit der Stimme der Menschen, die wir lieben."
+        },
+        "voices": {
+            "title": "Jeder leiht seine Stimme",
+            "text": "Mama, Opa, Oma … jeder nimmt eine Figur auf, auch aus der Ferne."
+        },
+        "listen": {
+            "title": "Das Kind hört zu und bewahrt auf",
+            "text": "Es blättert um, findet seine Lieblingsstimmen wieder und bewahrt seine Erinnerungen in der Schatztruhe."
+        }
+    }
+}

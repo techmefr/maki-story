@@ -100,5 +100,11 @@
         "aVoice": "一个声音",
         "listen": "听故事",
         "newVoicesFor": "《{title}》的新声音"
+    },
+    "summary": {
+        "title": "审阅进度",
+        "approved": "{count} 条已通过",
+        "changes": "{count} 条待修改",
+        "waiting": "{count} 条待处理"
     }
 }

@@ -22,5 +22,10 @@
     },
     "joinAnother": "加入另一个家庭",
     "openFailed": "无法打开这个家庭。",
-    "loadFailed": "无法加载你的家庭。"
+    "loadFailed": "无法加载你的家庭。",
+    "fixes": "待修改",
+    "fixTakes": {
+        "other": "{count} 个片段需要重录"
+    },
+    "redo": "重录片段"
 }

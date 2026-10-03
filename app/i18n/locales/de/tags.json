@@ -1,0 +1,67 @@
+{
+    "title": "Tags",
+    "count": {
+        "one": "{count} Tag",
+        "other": "{count} Tags"
+    },
+    "intro": "Ein Tag hat eine englische Kennung und einen Namen in jeder Sprache. Die Bücher behalten nur die Kennung.",
+    "language": "Anzeigesprache der Tags",
+    "new": "Neuer Tag",
+    "edit": "Tag {name} bearbeiten",
+    "toTranslate": "{count} zu übersetzen",
+    "auto": "auto",
+    "empty": "Noch keine Tags",
+    "emptyHint": "Ein Elternteil kann Tags anlegen, um Bücher zu ordnen.",
+    "editor": {
+        "newTitle": "Neuer Tag",
+        "slug": "Kennung: {slug}",
+        "names": "Name pro Sprache",
+        "nameIn": "Name auf {language}",
+        "placeholder": "Zu übersetzen",
+        "icon": "Symbol",
+        "color": "Farbe",
+        "save": "Speichern",
+        "delete": "Löschen",
+        "confirmTitle": "Tag löschen",
+        "confirmText": {
+            "zero": "Dieser Tag wird von keinem Buch verwendet.",
+            "one": "Dieser Tag wird von einem Buch entfernt.",
+            "other": "Dieser Tag wird von {count} Büchern entfernt."
+        },
+        "confirmDelete": "Ja, löschen"
+    },
+    "colors": {
+        "sun": "Gelb",
+        "sky": "Blau",
+        "mint": "Mint",
+        "grape": "Violett",
+        "pink": "Rosa",
+        "coral": "Koralle"
+    },
+    "icons": {
+        "hat": "Hut",
+        "waves": "Wellen",
+        "tree": "Baum",
+        "star": "Stern",
+        "crown": "Krone",
+        "paw": "Pfote",
+        "moon": "Mond",
+        "heart": "Herz",
+        "smile": "Lächeln",
+        "compass": "Kompass",
+        "question": "Fragezeichen",
+        "book": "Buch",
+        "sun": "Sonne",
+        "flag": "Flagge"
+    },
+    "errors": {
+        "save": "Dieser Tag kann im Moment nicht gespeichert werden.",
+        "name-required": "Gib dem Tag mindestens einen Namen.",
+        "slug-empty": "Aus diesem Namen lässt sich keine Kennung erzeugen.",
+        "slug-taken": "Ein Tag mit dieser Kennung existiert bereits.",
+        "color-invalid": "Wähle eine der angebotenen Farben.",
+        "icon-invalid": "Wähle eines der angebotenen Symbole.",
+        "language-invalid": "Diese Sprache wird nicht erkannt.",
+        "name-too-long": "Ein Tag-Name hat höchstens 40 Zeichen."
+    }
+}

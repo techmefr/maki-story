@@ -39,6 +39,9 @@
     },
     "locked": {
         "clock": "Ora in cui riprende l’ascolto",
-        "toParent": "Passa a un genitore"
+        "toParent": "Passa a un genitore",
+        "title": "L’app dorme, {name}",
+        "wakesAt": "Si risveglia alle {time}.",
+        "tomorrow": "A presto per nuove storie!"
     }
 }

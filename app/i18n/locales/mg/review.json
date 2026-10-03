@@ -105,5 +105,11 @@
         "aVoice": "Feo iray",
         "listen": "Henoy ny tantara",
         "newVoicesFor": "Feo vaovao ho an’ny {title}"
+    },
+    "summary": {
+        "title": "Fandrosoan’ny famerenana",
+        "approved": "{count} voamarina",
+        "changes": "{count} hahitsy",
+        "waiting": "{count} miandry"
     }
 }

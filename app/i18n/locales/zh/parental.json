@@ -39,6 +39,9 @@
     },
     "locked": {
         "clock": "恢复收听的时间",
-        "toParent": "切换到家长"
+        "toParent": "切换到家长",
+        "title": "应用睡着了，{name}",
+        "wakesAt": "它会在 {time} 醒来。",
+        "tomorrow": "很快再见，新的故事在等你！"
     }
 }

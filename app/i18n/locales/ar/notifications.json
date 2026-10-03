@@ -38,5 +38,24 @@
             "other": "{name} أنهى تسجيل {count} جملة من «{title}»"
         }
     },
-    "bellNone": "الإشعارات، لا جديد"
+    "bellNone": "الإشعارات، لا جديد",
+    "titles": {
+        "share_received": "وصل كتاب",
+        "share_accepted": "تم قبول المشاركة",
+        "share_declined": "تم رفض المشاركة",
+        "share_to_approve": "مشاركة بانتظار الموافقة",
+        "share_approved": "تمت الموافقة على المشاركة",
+        "voice_batch": "أُضيف صوت",
+        "recording_batch": "انتهى التسجيل",
+        "review_result": "نتيجة المراجعة",
+        "recording_request": "طلب تسجيل",
+        "book_proposed": "كتاب مقترح",
+        "proposal_result": "الرد على اقتراحك",
+        "message_received": "رسالة جديدة",
+        "birthday_reminder": "تذكير بعيد ميلاد",
+        "stale_takes": "مقاطع لإعادة تسجيلها"
+    },
+    "allRead": "تمت قراءة كل شيء!",
+    "minutes": "{count} د",
+    "hours": "{count} س"
 }

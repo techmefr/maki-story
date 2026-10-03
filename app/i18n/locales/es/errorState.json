@@ -1,0 +1,32 @@
+{
+    "offline": {
+        "title": "Sin conexión",
+        "text": "Las historias ya descargadas siguen disponibles. Lo demás volverá cuando haya red.",
+        "action": "Reintentar"
+    },
+    "update": {
+        "title": "Hace falta una actualización",
+        "text": "Para seguir escuchando y grabando, instala la última versión de Tantara.",
+        "action": "Actualizar"
+    },
+    "error": {
+        "title": "Vaya, algo se ha atascado",
+        "text": "No es culpa tuya. Inténtalo de nuevo en un momento.",
+        "action": "Reintentar"
+    },
+    "notFound": {
+        "title": "Página no encontrada",
+        "text": "Esta página ya no existe o el enlace es incorrecto.",
+        "action": "Volver al inicio"
+    },
+    "forbidden": {
+        "title": "Acceso reservado a los padres",
+        "text": "Esta página está protegida. Pide a un padre o una madre que te dé acceso.",
+        "action": "Volver al inicio"
+    },
+    "server": {
+        "title": "Nuestro servidor tiene un problema",
+        "text": "No es culpa tuya. Lo estamos arreglando: inténtalo de nuevo en unos minutos.",
+        "action": "Reintentar"
+    }
+}

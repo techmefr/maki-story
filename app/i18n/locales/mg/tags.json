@@ -1,0 +1,67 @@
+{
+    "title": "Tag",
+    "count": {
+        "one": "{count} tag",
+        "other": "{count} tag"
+    },
+    "intro": "Ny tag dia manana mari-pamantarana amin’ny anglisy sy anarana isaky ny fiteny. Ny mari-pamantarana ihany no tahirin’ny boky.",
+    "language": "Fitenin’ny fanehoana ny tag",
+    "new": "Tag vaovao",
+    "edit": "Ovay ny tag {name}",
+    "toTranslate": "{count} hadika",
+    "auto": "auto",
+    "empty": "Mbola tsy misy tag",
+    "emptyHint": "Afaka mamorona azy ny ray aman-dreny hanasokajiana ny boky.",
+    "editor": {
+        "newTitle": "Tag vaovao",
+        "slug": "Mari-pamantarana: {slug}",
+        "names": "Anarana isaky ny fiteny",
+        "nameIn": "Anarana amin’ny {language}",
+        "placeholder": "Hadika",
+        "icon": "Sary",
+        "color": "Loko",
+        "save": "Tahirizo",
+        "delete": "Fafao",
+        "confirmTitle": "Fafao ny tag",
+        "confirmText": {
+            "zero": "Tsy ampiasain’ny boky ity tag ity.",
+            "one": "Hesorina amin’ny boky iray ity tag ity.",
+            "other": "Hesorina amin’ny boky {count} ity tag ity."
+        },
+        "confirmDelete": "Eny, fafao"
+    },
+    "colors": {
+        "sun": "Mavo",
+        "sky": "Manga",
+        "mint": "Menta",
+        "grape": "Volomparasy",
+        "pink": "Mavokely",
+        "coral": "Korally"
+    },
+    "icons": {
+        "hat": "Satroka",
+        "waves": "Onja",
+        "tree": "Hazo",
+        "star": "Kintana",
+        "crown": "Satro-boninahitra",
+        "paw": "Tongotra biby",
+        "moon": "Volana",
+        "heart": "Fo",
+        "smile": "Tsiky",
+        "compass": "Boussole",
+        "question": "Marika fanontaniana",
+        "book": "Boky",
+        "sun": "Masoandro",
+        "flag": "Saina"
+    },
+    "errors": {
+        "save": "Tsy afaka mitahiry ity tag ity amin’izao fotoana izao.",
+        "name-required": "Omeo anarana iray farafahakeliny ny tag.",
+        "slug-empty": "Tsy ahafahana mamorona mari-pamantarana io anarana io.",
+        "slug-taken": "Efa misy tag manana io mari-pamantarana io.",
+        "color-invalid": "Fidio ny loko iray amin’ireo atolotra.",
+        "icon-invalid": "Fidio ny sary iray amin’ireo atolotra.",
+        "language-invalid": "Tsy fantatra io fiteny io.",
+        "name-too-long": "Tsy mihoatra ny litera 40 ny anaran’ny tag."
+    }
+}

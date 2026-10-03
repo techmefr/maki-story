@@ -20,7 +20,30 @@
         "tapMic": "Toca el micrófono",
         "tooShort": "Demasiado corto, empieza de nuevo.",
         "sendFailed": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
-        "birthdayFor": "Mensaje de cumpleaños para {name}"
+        "birthdayFor": "Mensaje de cumpleaños para {name}",
+        "title": "Dejar un mensaje",
+        "recipients": "¿A quién escribir?",
+        "hintChild": "Tu mensaje irá al buzón de {name} ({count}/{limit}).",
+        "hintAdult": "Tu mensaje irá al buzón de {name} ({count}/{limit}).",
+        "again": "Grabar de nuevo",
+        "listenBack": "Escuchar",
+        "listenBackLabel": "Escuchar mi mensaje",
+        "sentTitle": "¡Mensaje enviado a {name}!",
+        "sentLeft": {
+            "zero": "El buzón de {name} está lleno por ahora.",
+            "one": "Queda {count} mensaje posible para {name}.",
+            "other": "Quedan {count} mensajes posibles para {name}."
+        },
+        "queuedTitle": "Mensaje en espera",
+        "queuedBody": "Saldrá en cuanto vuelva la conexión.",
+        "another": "Otro mensaje",
+        "limitReached": "{name} ya tiene {limit} mensajes tuyos. Desaparecen 24 h después de escucharse por primera vez.",
+        "birthdayToggle": "Mensaje de cumpleaños",
+        "noRecipients": "Nadie a quien escribir",
+        "noRecipientsHint": "Añade un niño o un adulto en la familia para dejarle un mensaje.",
+        "micLabel": "Micrófono",
+        "duration": "Duración {time}",
+        "close": "Cerrar"
     },
     "listen": {
         "finished": "Se acabó",
@@ -30,7 +53,15 @@
         "next": "Mensaje siguiente",
         "nextWaiting": "Mensaje siguiente ({count} en espera)",
         "again": "Escuchar otra vez",
-        "previous": "Mensaje anterior"
+        "previous": "Mensaje anterior",
+        "position": "Mensaje {current} de {total}",
+        "close": "Cerrar",
+        "progress": "Avance del mensaje",
+        "keep": "Guardar en mi cofre",
+        "kept": "Guardado en mi cofre",
+        "vault": "{count}/{limit} recuerdos",
+        "vaultFull": "{count}/{limit} recuerdos · cofre lleno",
+        "from": "De {name}"
     },
     "strip": {
         "label": "Mensajes de la familia",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Nadie a quien escribir",
     "activeBlocked": "Ya hay un mensaje esperando a {name}. Podrás enviar otro cuando se haya escuchado y haya caducado.",
-    "birthdayWish": "Desear feliz cumpleaños"
+    "birthdayWish": "Desear feliz cumpleaños",
+    "quota": {
+        "label": "{count} mensajes de {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "Ya has dejado {limit} mensajes a {name}",
+        "body": "Retira uno para poder grabar uno nuevo.",
+        "retract": "Retirar el más antiguo",
+        "failed": "No se pudo retirar el mensaje. Inténtalo de nuevo."
+    },
+    "expiry": {
+        "hoursMinutes": "Desaparece en {hours} h {minutes} min",
+        "minutes": "Desaparece en {minutes} min",
+        "kept": "Guardado en el cofre"
+    },
+    "bubble": {
+        "label": "{count} mensajes"
+    }
 }

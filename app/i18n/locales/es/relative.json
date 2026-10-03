@@ -22,5 +22,11 @@
     },
     "joinAnother": "Unirme a otra familia",
     "openFailed": "No se pudo abrir esta familia.",
-    "loadFailed": "No se pudieron cargar tus familias."
+    "loadFailed": "No se pudieron cargar tus familias.",
+    "fixes": "Por corregir",
+    "fixTakes": {
+        "one": "{count} toma por repetir",
+        "other": "{count} tomas por repetir"
+    },
+    "redo": "Repetir las tomas"
 }

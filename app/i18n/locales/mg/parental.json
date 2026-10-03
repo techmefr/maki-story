@@ -39,6 +39,9 @@
     },
     "locked": {
         "clock": "Ora hiverenan’ny fihainoana",
-        "toParent": "Mankany amin’ny ray aman-dreny"
+        "toParent": "Mankany amin’ny ray aman-dreny",
+        "title": "Matory ny rindranasa, {name}",
+        "wakesAt": "Msuper amin’ny {time} izy.",
+        "tomorrow": "Mandra-pihaona amin’ny tantara vaovao!"
     }
 }

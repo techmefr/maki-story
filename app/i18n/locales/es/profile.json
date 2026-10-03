@@ -48,7 +48,13 @@
         "parentTitle": "Espacio de los padres",
         "notifications": "Notificaciones",
         "schedule": "Horarios de escucha por niño",
-        "feedback": "Dar mi opinión"
+        "feedback": "Dar mi opinión",
+        "chosenCount": {
+            "one": "{count} elegida",
+            "other": "{count} elegidas"
+        },
+        "quit": "Salir",
+        "edit": "Editar mi perfil"
     },
     "unlock": {
         "offerTitle": "¿Activar la huella o la cara?",
@@ -97,5 +103,21 @@
         "chosen": "{count} de {total} símbolos",
         "clear": "Borrar",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Editar mi perfil",
+        "email": "Correo electrónico",
+        "emailGoogle": "Conectado con Google: la dirección no se cambia aquí.",
+        "emailAccount": "Es la dirección de tu cuenta: no se cambia aquí.",
+        "changeCode": "Cambiar mi código",
+        "account": "Mis datos y mi cuenta",
+        "saveError": "No se puede guardar por ahora.",
+        "codeTitle": "Cambiar mi código",
+        "codeCurrent": "Escribe tu código actual.",
+        "codeNew": "Elige tu código nuevo, de 4 a 8 cifras.",
+        "codeConfirm": "Escribe el mismo código una segunda vez.",
+        "codeDone": "Tu código ha cambiado.",
+        "codeBlocked": "El código actual es incorrecto o está bloqueado. Empieza de nuevo.",
+        "codeFailed": "No se puede cambiar el código por ahora."
     }
 }

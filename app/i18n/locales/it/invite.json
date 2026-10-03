@@ -39,5 +39,23 @@
         "revoked": "Revocato"
     },
     "revoke": "Revoca",
-    "revokeAria": "Revoca l’invito di {name}"
+    "revokeAria": "Revoca l’invito di {name}",
+    "tabs": {
+        "email": "Via e-mail",
+        "code": "Con un codice"
+    },
+    "roleLabel": "Ruolo",
+    "roles": {
+        "relative": "Parente",
+        "parent": "Genitore"
+    },
+    "roleHint": {
+        "relative": "Presta la sua voce e lascia messaggi ai bambini.",
+        "parent": "Gestisce la famiglia con te: bambini, libri, codici e accessi."
+    },
+    "emailPlaceholder": "nome@esempio.com",
+    "emailHint": "Riceve un link per creare il suo profilo e unirsi alla famiglia.",
+    "sendEmail": "Invia l’invito",
+    "sentTitle": "Invito inviato",
+    "codeLabel": "Codice d’invito"
 }

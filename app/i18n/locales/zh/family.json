@@ -10,7 +10,24 @@
         "storage": "离线存储",
         "sharing": "家庭间分享",
         "devices": "设备",
-        "feedback": "测试者反馈"
+        "feedback": "测试者反馈",
+        "groups": {
+            "parent": "家长",
+            "child": "孩子",
+            "relative": "亲友"
+        },
+        "remove": "移除 {name}",
+        "removeAction": "移除",
+        "confirmTitle": "移除 {name}？",
+        "confirmText": "其资料将被归档，消息将被删除。",
+        "confirmParent": "该家长将无法再访问这个家庭。至少还有一位家长。",
+        "failed": "操作未成功，请重试。",
+        "more": "更多",
+        "providers": {
+            "title": "允许的登录方式",
+            "hint": "选择亲友和孩子可以如何登录。魔法链接和 Google 始终可用。"
+        },
+        "addChild": "添加孩子"
     },
     "edit": {
         "title": "编辑",
@@ -33,5 +50,64 @@
         "loadError": "无法加载设备。",
         "revokeError": "无法移除这台设备。",
         "emptyHint": "在个人资料中开启指纹或面容解锁后，会显示在这里。"
+    },
+    "choose": {
+        "title": "哪个家庭？",
+        "intro": "你属于多个家庭，不同家庭中你的角色不同。",
+        "kids": {
+            "zero": "没有孩子",
+            "other": "{count} 个孩子"
+        },
+        "role": {
+            "parent": "家长",
+            "relative": "亲友"
+        },
+        "join": "用代码加入",
+        "emptyTitle": "还没有家庭",
+        "emptyHint": "用邀请码加入一个家庭。",
+        "failed": "无法打开这个家庭，请重试。",
+        "create": "创建家庭"
+    },
+    "create": {
+        "progress": "第 {current} 步，共 {total} 步",
+        "name": {
+            "title": "创建你的家庭",
+            "hint": "一个大家都认得的名字。",
+            "placeholder": "Rakoto 一家"
+        },
+        "child": {
+            "title": "添加孩子",
+            "photo": "鬼脸照片",
+            "namePlaceholder": "名字",
+            "age": "年龄"
+        },
+        "childCode": {
+            "title": "{name} 的代码"
+        },
+        "parentCode": {
+            "title": "你的密码",
+            "hint": "4 到 8 位数字，用来保护家长区域。"
+        },
+        "done": {
+            "title": "{name} 准备好了！",
+            "hint": "{name} 已有资料。现在邀请愿意出声的亲友吧。"
+        },
+        "action": {
+            "name": "继续",
+            "child": "继续",
+            "childCode": "继续",
+            "parentCode": "创建我的家庭",
+            "done": "邀请亲友",
+            "you": "继续"
+        },
+        "failed": "家庭创建失败，请重试。",
+        "you": {
+            "title": "那你呢？",
+            "hint": "孩子和亲友怎么认识你。",
+            "firstName": "名",
+            "lastName": "姓",
+            "displayName": "显示名称",
+            "displayHint": "显示名称是其他人看到的名字。不选择时就是你的名。"
+        }
     }
 }

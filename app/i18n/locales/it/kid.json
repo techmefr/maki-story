@@ -30,7 +30,8 @@
         "page": "Pagina {current}/{total}",
         "progress": "Avanzamento della pagina",
         "previousPage": "Pagina precedente",
-        "nextPageShort": "Pagina successiva"
+        "nextPageShort": "Pagina successiva",
+        "playing": "In riproduzione"
     },
     "sleep": {
         "title": "Nanna tra…",
@@ -67,5 +68,6 @@
         "removeTitle": "Togliere questo ricordo?",
         "removeBody": "Sarà cancellato per sempre.",
         "removeConfirm": "Togli"
-    }
+    },
+    "quota": "{count}/{max} messaggi"
 }

@@ -4,8 +4,7 @@ import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { EXPORT_LINK_DAYS } from '~~/shared/utils/legal'
 import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
-import { isFakeDelivery, sendMail } from '~~/technical/Mail/server/utils/mail'
-import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
+import { isFakeDelivery, renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { hashMagicToken } from '../../utils/magicLink'
 
@@ -30,11 +29,8 @@ export default defineEventHandler(async (event): Promise<IExportRequested> => {
     const base = (process.env.APP_BASE_URL ?? getRequestURL(event).origin).replace(/\/$/, '')
     const link = `${base}/api/account/export/${token}`
     const locale = typeof body.locale === 'string' ? body.locale : null
-    const isEmailSent = await sendMail({
-        to: account.email,
-        subject: mailText(locale, 'export.subject'),
-        text: mailText(locale, 'export.body', { link, days: EXPORT_LINK_DAYS }),
-    })
+    const content = renderLocalizedMail(locale, { template: 'export_ready', params: { days: EXPORT_LINK_DAYS, url: link } }, base)
+    const isEmailSent = await sendMail({ to: account.email, ...content })
     logEvent('Export demandé par e-mail')
     return isFakeDelivery() ? { ok: true, isEmailSent, link } : { ok: true, isEmailSent }
 })

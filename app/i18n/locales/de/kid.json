@@ -30,7 +30,8 @@
         "page": "Seite {current}/{total}",
         "progress": "Fortschritt der Seite",
         "previousPage": "Vorherige Seite",
-        "nextPageShort": "Nächste Seite"
+        "nextPageShort": "Nächste Seite",
+        "playing": "Wird abgespielt"
     },
     "sleep": {
         "title": "Schlafen in…",
@@ -67,5 +68,6 @@
         "removeTitle": "Diese Erinnerung entfernen?",
         "removeBody": "Sie wird für immer gelöscht.",
         "removeConfirm": "Entfernen"
-    }
+    },
+    "quota": "{count}/{max} Nachrichten"
 }

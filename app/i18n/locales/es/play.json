@@ -2,5 +2,6 @@
     "lineAria": "Frase {index}",
     "play": "Reproducir",
     "editRecordings": "Modificar las grabaciones",
-    "lines": "Réplicas"
+    "lines": "Réplicas",
+    "playing": "Reproduciendo"
 }

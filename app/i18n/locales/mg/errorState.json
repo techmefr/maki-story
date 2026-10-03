@@ -1,0 +1,32 @@
+{
+    "offline": {
+        "title": "Tsy misy fifandraisana",
+        "text": "Mijanona azo ampiasaina ny tantara efa voakarina. Ny ambiny hiverina rehefa misy tamba-jotra.",
+        "action": "Andramo indray"
+    },
+    "update": {
+        "title": "Ilaina ny fanavaozana",
+        "text": "Mba hanohizana ny fihainoana sy ny fandraketana, apetraho ny dikan-teny farany an’i Tantara.",
+        "action": "Havaozy"
+    },
+    "error": {
+        "title": "Indrisy, nisy zavatra tsy nandeha",
+        "text": "Tsy ny helokao izany. Andramo indray afaka kelikely.",
+        "action": "Andramo indray"
+    },
+    "notFound": {
+        "title": "Tsy hita ny pejy",
+        "text": "Tsy misy intsony io pejy io na diso ny rohy.",
+        "action": "Hiverina any am-piandohana"
+    },
+    "forbidden": {
+        "title": "Natokana ho an’ny ray aman-dreny",
+        "text": "Voaaro io pejy io. Angataho amin’ny ray aman-dreny mba hanome anao fidirana.",
+        "action": "Hiverina any am-piandohana"
+    },
+    "server": {
+        "title": "Misy olana ny mpizara anay",
+        "text": "Tsy ny helokao izany. Ahitsinay izany: andramo indray afaka minitra vitsy.",
+        "action": "Andramo indray"
+    }
+}

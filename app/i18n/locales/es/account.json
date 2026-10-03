@@ -1,0 +1,30 @@
+{
+    "title": "Mi cuenta",
+    "identity": "{email} · {role}",
+    "loadFailed": "Tu cuenta no está disponible por ahora.",
+    "parentOnly": "Solo un padre o una madre puede exportar los datos o eliminar la cuenta.",
+    "terms": {
+        "link": "Condiciones y privacidad"
+    },
+    "export": {
+        "title": "Exportar mis datos",
+        "text": "Recibe por correo un enlace a un archivo con tus grabaciones, los perfiles y el progreso de lectura. El enlace es válido {days} días.",
+        "request": "Pedir mi exportación",
+        "sending": "Enviando…",
+        "sent": "Enlace enviado por correo",
+        "failed": "No se pudo enviar el correo. Inténtalo de nuevo en un momento."
+    },
+    "delete": {
+        "title": "Eliminar la cuenta",
+        "text": "Se borrarán todas las grabaciones, los perfiles de los niños, los favoritos y los libros de la familia. Esta acción es definitiva.",
+        "start": "Eliminar mi cuenta",
+        "sheetTitle": "¿Seguro?",
+        "sheetText": "Para confirmar, escribe {word} y luego tu código de padre o madre.",
+        "word": "DELETE",
+        "wordLabel": "Palabra de confirmación",
+        "codeLabel": "Código del padre o la madre",
+        "cancel": "Cancelar",
+        "wrongCode": "Ese código no es correcto.",
+        "failed": "No se pudo eliminar. Inténtalo de nuevo."
+    }
+}

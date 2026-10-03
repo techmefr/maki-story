@@ -1,0 +1,89 @@
+{
+    "title": "Condiciones y privacidad",
+    "draft": "Borrador que debe validar un jurista antes de publicarse. Los pasajes entre corchetes están por completar.",
+    "tabsLabel": "Documentos",
+    "tabs": {
+        "cgu": "CGU",
+        "priv": "Privacidad",
+        "cgv": "CGV"
+    },
+    "checkTerms": "He leído y acepto las CGU, las CGV y la política de privacidad.",
+    "checkGuardian": "Soy padre, madre o tutor legal y autorizo la creación de perfiles para mis hijos.",
+    "accept": "Acepto y continúo",
+    "acceptedOn": "Condiciones aceptadas el {date}.",
+    "failed": "No se puede guardar tu conformidad por ahora. Inténtalo de nuevo.",
+    "cgu": {
+        "1": {
+            "title": "1. Objeto",
+            "text": "Tantara permite que los allegados graben su voz en historias y que los niños las escuchen, dentro de una familia. [Nombre del editor, dirección, contacto]."
+        },
+        "2": {
+            "title": "2. Cuenta y familia",
+            "text": "Un padre o una madre crea la familia e invita a otros padres o allegados por correo o por código. Un niño no tiene cuenta propia: sus padres gestionan su perfil."
+        },
+        "3": {
+            "title": "3. Contenidos grabados",
+            "text": "Cada persona sigue siendo responsable de sus grabaciones. Un adulto puede dejar hasta 5 mensajes al mismo niño. Los padres pueden revisar, rechazar o retirar cualquier contenido."
+        },
+        "4": {
+            "title": "4. Normas de uso",
+            "text": "Los contenidos deben ser adecuados para un público infantil. Está prohibido grabar la voz de una persona sin su permiso o publicar contenido ilícito."
+        },
+        "5": {
+            "title": "5. Eliminación",
+            "text": "Un padre o una madre puede retirar a un allegado, a un niño o un libro en cualquier momento. La cuenta puede eliminarse desde los ajustes. [Plazo de conservación]."
+        },
+        "6": {
+            "title": "6. Responsabilidad y cambios",
+            "text": "[Por completar: disponibilidad del servicio, limitación de responsabilidad, modificación de las condiciones, derecho aplicable.]"
+        }
+    },
+    "priv": {
+        "1": {
+            "title": "Datos recogidos",
+            "text": "Correo electrónico de los adultos, nombre y edad del niño, foto de perfil (mueca), voces grabadas, progreso de lectura, favoritos, idiomas elegidos."
+        },
+        "2": {
+            "title": "Datos de los niños",
+            "text": "Solo se recogen con el consentimiento de un padre, una madre o un tutor legal, no se usan para publicidad y nunca se revenden. Sin elaboración de perfiles."
+        },
+        "3": {
+            "title": "Finalidades",
+            "text": "Hacer funcionar la aplicación: escucha, grabación, revisión, notificaciones elegidas por cada persona."
+        },
+        "4": {
+            "title": "Alojamiento y duración",
+            "text": "[Proveedor, país]. Los datos se conservan mientras exista la familia y después se eliminan en [plazo]."
+        },
+        "5": {
+            "title": "Tus derechos",
+            "text": "Acceso, rectificación, supresión, exportación y oposición, desde los ajustes o en [dirección de contacto]. Es posible reclamar ante la autoridad de protección de datos."
+        },
+        "6": {
+            "title": "Permisos del dispositivo",
+            "text": "Micrófono para grabar, cámara o fotos para la foto de perfil, notificaciones si se activan. Cada una puede rechazarse."
+        }
+    },
+    "cgv": {
+        "1": {
+            "title": "1. Oferta",
+            "text": "[Por completar si la aplicación es de pago: gratuidad, suscripción, opciones.]"
+        },
+        "2": {
+            "title": "2. Precio y pago",
+            "text": "[Precio con impuestos, medios de pago, paso por las tiendas de aplicaciones.]"
+        },
+        "3": {
+            "title": "3. Duración y baja",
+            "text": "[Duración, renovación, baja en cualquier momento desde los ajustes.]"
+        },
+        "4": {
+            "title": "4. Derecho de desistimiento",
+            "text": "[Información legal de 14 días y sus excepciones para los contenidos digitales.]"
+        },
+        "5": {
+            "title": "5. Reclamaciones",
+            "text": "[Atención al cliente, mediador de consumo.]"
+        }
+    }
+}

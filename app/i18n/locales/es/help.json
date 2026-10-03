@@ -1,0 +1,33 @@
+{
+    "title": "Ayuda",
+    "otherQuestion": "¿Otra pregunta?",
+    "writeSupport": "Escribir al soporte",
+    "legal": "Condiciones y privacidad",
+    "account": "Mi cuenta",
+    "faq": {
+        "addRelative": {
+            "q": "¿Cómo añado a un allegado?",
+            "a": "Desde «Mi familia», un padre o una madre elige «Añadir un allegado» y envía una invitación por correo o da un código válido 48 h."
+        },
+        "fiveMessages": {
+            "q": "¿Por qué solo 5 mensajes por niño?",
+            "a": "Para que cada mensaje cuente. Un adulto puede dejar hasta 5 al mismo niño. Basta con retirar uno para añadir otro."
+        },
+        "recordVoice": {
+            "q": "¿Cómo grabo mi voz?",
+            "a": "Abre una historia por grabar y toca «Grabar» en la línea de tu personaje. Puedes volver a escuchar y empezar de nuevo cuantas veces quieras."
+        },
+        "forgotCode": {
+            "q": "He olvidado mi código",
+            "a": "Un padre o una madre puede restablecer el código de un niño o de un allegado desde «Mi familia». Para el código de un padre, usa el inicio de sesión por correo."
+        },
+        "favoriteVoice": {
+            "q": "¿Cómo guardo una voz favorita?",
+            "a": "Mientras escucha, el niño toca el corazón. El mensaje va a su cofre, que guarda hasta 10 recuerdos."
+        },
+        "otherLanguage": {
+            "q": "¿Se puede leer en otro idioma?",
+            "a": "Sí: una historia puede tener un texto por idioma de la familia. El niño lee en el idioma elegido en su perfil."
+        }
+    }
+}

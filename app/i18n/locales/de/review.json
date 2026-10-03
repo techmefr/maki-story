@@ -105,5 +105,11 @@
         "aVoice": "Eine Stimme",
         "listen": "Geschichte anhören",
         "newVoicesFor": "Neue Stimmen für {title}"
+    },
+    "summary": {
+        "title": "Fortschritt der Durchsicht",
+        "approved": "{count} bestätigt",
+        "changes": "{count} zu korrigieren",
+        "waiting": "{count} ausstehend"
     }
 }

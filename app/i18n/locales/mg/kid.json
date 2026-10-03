@@ -30,7 +30,8 @@
         "page": "Pejy {current}/{total}",
         "progress": "Fandrosoan’ny pejy",
         "previousPage": "Pejy teo aloha",
-        "nextPageShort": "Pejy manaraka"
+        "nextPageShort": "Pejy manaraka",
+        "playing": "Mandeha ny fihainoana"
     },
     "sleep": {
         "title": "Matory afaka…",
@@ -67,5 +68,6 @@
         "removeTitle": "Esorina ve ity fahatsiarovana ity?",
         "removeBody": "Ho voafafa mandrakizay izy.",
         "removeConfirm": "Esory"
-    }
+    },
+    "quota": "{count}/{max} hafatra"
 }

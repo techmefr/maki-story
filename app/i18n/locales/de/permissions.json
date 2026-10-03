@@ -1,0 +1,25 @@
+{
+    "title": "Ein paar Berechtigungen",
+    "intro": "Tantara braucht sie, um zu funktionieren. Du kannst sie in den Einstellungen deines Telefons ändern.",
+    "listLabel": "Geräteberechtigungen",
+    "mic": {
+        "name": "Mikrofon",
+        "why": "Um deine Stimme für die Geschichten aufzunehmen."
+    },
+    "camera": {
+        "name": "Kamera und Fotos",
+        "why": "Für das Grimassen-Foto und die Seitenfotos."
+    },
+    "notifications": {
+        "name": "Benachrichtigungen",
+        "why": "Um dich über eine neue Stimme oder eine Durchsicht zu informieren."
+    },
+    "allow": "Erlauben",
+    "allowed": "Erlaubt",
+    "denied": "Abgelehnt",
+    "unsupported": "Nicht verfügbar",
+    "deniedHint": "Abgelehnt: Du kannst es in den Einstellungen deines Geräts aktivieren.",
+    "unsupportedHint": "Dieses Gerät erlaubt das nicht.",
+    "continue": "Weiter",
+    "skipHint": "Du kannst auch weitermachen, ohne alles zu erlauben."
+}

@@ -1,0 +1,12 @@
+{
+    "title": "Code vergessen?",
+    "intro": "Wir senden dir einen Link, um einen neuen Code zu wählen.",
+    "email": "Deine E-Mail-Adresse",
+    "send": "Link senden",
+    "sending": "Wird gesendet …",
+    "child": "Du bist ein Kind? Bitte ein Elternteil, deinen Code unter „Meine Familie“ zurückzusetzen.",
+    "failed": "Der Link konnte nicht gesendet werden. Versuche es gleich noch einmal.",
+    "sentTitle": "Schau in deine E-Mails!",
+    "sentText": "Wenn diese Adresse bekannt ist, wurde ein Link gesendet. Er ist 15 Minuten gültig.",
+    "backToCode": "Zurück zum Code"
+}

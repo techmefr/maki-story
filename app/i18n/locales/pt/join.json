@@ -16,5 +16,16 @@
     "submit": "Entrar",
     "failed": "Não é possível entrar neste momento.",
     "invalidCredentials": "Verifica o e-mail, a palavra-passe ou o convite.",
-    "tooMany": "Demasiadas tentativas, tenta mais tarde."
+    "tooMany": "Demasiadas tentativas, tenta mais tarde.",
+    "progress": "Passo {current} de {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Vais juntar-te a {family} como familiar.",
+        "parent": "Vais juntar-te a {family} como pai ou mãe."
+    },
+    "profileTitle": "Cria o teu perfil",
+    "namePlaceholder": "O teu nome",
+    "next": "Continuar",
+    "secretTitle": "O teu código secreto",
+    "secretHint": "De 4 a 8 algarismos."
 }

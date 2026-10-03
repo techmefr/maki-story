@@ -1,0 +1,89 @@
+{
+    "title": "Fepetra sy fiainana manokana",
+    "draft": "Ahitsio ary hojerena amin’ny mpahay lalàna alohan’ny famoahana. Ireo ampahany ao anaty crochet dia mbola hofenoina.",
+    "tabsLabel": "Antontan-taratasy",
+    "tabs": {
+        "cgu": "CGU",
+        "priv": "Fiainana manokana",
+        "cgv": "CGV"
+    },
+    "checkTerms": "Novakiako ary neken’ny CGU, ny CGV ary ny politikan’ny fiainana manokana.",
+    "checkGuardian": "Ray aman-dreny na mpiahy ara-dalàna aho ary manome alalana hamoronana mombamomba ho an’ny zanako.",
+    "accept": "Manaiky aho ary mitohy",
+    "acceptedOn": "Nekena ny fepetra tamin’ny {date}.",
+    "failed": "Tsy afaka voatahiry ny fanekenao amin’izao fotoana izao. Andramo indray.",
+    "cgu": {
+        "1": {
+            "title": "1. Tanjona",
+            "text": "Ahafahan’i Tantara ny havana mandrakitra ny feony amin’ny tantara ary ny ankizy mihaino azy, ao anatin’ny fianakaviana. [Anaran’ny mpamoaka, adiresy, fifandraisana]."
+        },
+        "2": {
+            "title": "2. Kaonty sy fianakaviana",
+            "text": "Ray na reny iray no mamorona ny fianakaviana ary manasa ray aman-dreny hafa na havana amin’ny mailaka na amin’ny kaody. Ny ankizy tsy manana kaonty mahaleotena: ny ray aman-dreniny no mitantana ny mombamomba azy."
+        },
+        "3": {
+            "title": "3. Votoaty voarakitra",
+            "text": "Tompon’andraikitra amin’ny fandraketany ny olona tsirairay. Afaka mamela hafatra hatramin’ny 5 amin’ny ankizy iray ny olon-dehibe. Afaka mamerina, mandà na mampihena votoaty rehetra ny ray aman-dreny."
+        },
+        "4": {
+            "title": "4. Fitsipiky ny fampiasana",
+            "text": "Tsy maintsy mety ho an’ny ankizy ny votoaty. Voarara ny mandrakitra ny feon’olona tsy nahazo ny fanekeny na mamoaka votoaty tsy ara-dalàna."
+        },
+        "5": {
+            "title": "5. Famafana",
+            "text": "Afaka manala havana, ankizy na boky ny ray na reny na oviana na oviana. Azo fafana ao amin’ny fanamafisana ny kaonty. [Faharetan’ny fitehirizana]."
+        },
+        "6": {
+            "title": "6. Andraikitra sy fiovana",
+            "text": "[Hofenoina: fahafahana mampiasa ny serivisy, famerana ny andraikitra, fanovana ny fepetra, lalàna mihatra.]"
+        }
+    },
+    "priv": {
+        "1": {
+            "title": "Angona angonina",
+            "text": "Adiresy mailaky ny olon-dehibe, anarana sy taonan’ny ankizy, sarin’ny mombamomba (maditra), feo voarakitra, fandrosoan’ny famakiana, ny tiana indrindra, fiteny voafidy."
+        },
+        "2": {
+            "title": "Angon’ny ankizy",
+            "text": "Angonina ihany izy ireo rehefa manaiky ny ray na reny na mpiahy ara-dalàna, tsy ampiasaina amin’ny dokambarotra ary tsy amidy mihitsy. Tsy misy fanaovana mombamomba."
+        },
+        "3": {
+            "title": "Tanjona",
+            "text": "Hampandeha ny rindranasa: fihainoana, fandraketana, famerenana, fampandrenesana voafidin’ny olona tsirairay."
+        },
+        "4": {
+            "title": "Fampiantranoana sy faharetana",
+            "text": "[Mpampiantrano, firenena]. Voatahiry ny angona raha mbola misy ny fianakaviana, avy eo fafana afaka [faharetana]."
+        },
+        "5": {
+            "title": "Ny zonanao",
+            "text": "Fidirana, fanitsiana, famafana, fanondranana ary fanoherana, avy amin’ny fanamafisana na amin’ny [adiresy fifandraisana]. Azo atao ny mitaraina amin’ny manam-pahefana miaro ny angona."
+        },
+        "6": {
+            "title": "Fahazoan-dalana amin’ny fitaovana",
+            "text": "Mikrô hamandrihana, fakan-tsary na sary ho an’ny sarin’ny mombamomba, fampandrenesana raha alefa. Azo lavina ny tsirairay."
+        }
+    },
+    "cgv": {
+        "1": {
+            "title": "1. Tolotra",
+            "text": "[Hofenoina raha mandoa vola ny rindranasa: maimaim-poana, fisoratana anarana, safidy.]"
+        },
+        "2": {
+            "title": "2. Vidiny sy fandoavana",
+            "text": "[Vidiny miaraka amin’ny hetra, fomba fandoavana, fampiasana ny tranokalan’ny rindranasa.]"
+        },
+        "3": {
+            "title": "3. Faharetana sy fanafoanana",
+            "text": "[Faharetana, fanavaozana, fanafoanana na oviana na oviana avy amin’ny fanamafisana.]"
+        },
+        "4": {
+            "title": "4. Zon’ny fialana",
+            "text": "[Fampahalalana ara-dalàna 14 andro sy ny tsy fahita amin’ny votoaty nomerika.]"
+        },
+        "5": {
+            "title": "5. Fitarainana",
+            "text": "[Serivisy ho an’ny mpanjifa, mpanelanelana ho an’ny mpanjifa.]"
+        }
+    }
+}

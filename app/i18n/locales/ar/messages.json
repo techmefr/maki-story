@@ -20,7 +20,33 @@
         "tapMic": "المس الميكروفون",
         "tooShort": "قصير جداً، أعد المحاولة.",
         "sendFailed": "تعذّر إرسال الرسالة. حاول مرة أخرى.",
-        "birthdayFor": "رسالة عيد ميلاد إلى {name}"
+        "birthdayFor": "رسالة عيد ميلاد إلى {name}",
+        "title": "ترك رسالة",
+        "recipients": "لمن تريد أن تكتب؟",
+        "hintChild": "ستذهب رسالتك إلى صندوق {name} ({count}/{limit}).",
+        "hintAdult": "ستذهب رسالتك إلى صندوق {name} ({count}/{limit}).",
+        "again": "إعادة التسجيل",
+        "listenBack": "الاستماع مجددًا",
+        "listenBackLabel": "الاستماع إلى رسالتي",
+        "sentTitle": "تم إرسال الرسالة إلى {name}!",
+        "sentLeft": {
+            "zero": "صندوق {name} ممتلئ حاليًا.",
+            "one": "تبقّت رسالة واحدة ممكنة لـ {name}.",
+            "two": "تبقّت رسالتان ممكنتان لـ {name}.",
+            "few": "تبقّت {count} رسائل ممكنة لـ {name}.",
+            "many": "تبقّت {count} رسالة ممكنة لـ {name}.",
+            "other": "تبقّت {count} رسالة ممكنة لـ {name}."
+        },
+        "queuedTitle": "رسالة قيد الانتظار",
+        "queuedBody": "ستُرسل فور عودة الاتصال.",
+        "another": "رسالة أخرى",
+        "limitReached": "لدى {name} بالفعل {limit} رسائل منك. تختفي بعد 24 ساعة من أول استماع.",
+        "birthdayToggle": "رسالة عيد ميلاد",
+        "noRecipients": "لا أحد لتكتب له",
+        "noRecipientsHint": "أضف طفلًا أو بالغًا إلى العائلة لتترك له رسالة.",
+        "micLabel": "الميكروفون",
+        "duration": "المدة {time}",
+        "close": "إغلاق"
     },
     "listen": {
         "finished": "انتهى",
@@ -30,7 +56,15 @@
         "next": "الرسالة التالية",
         "nextWaiting": "الرسالة التالية ({count} بالانتظار)",
         "again": "استمع مرة أخرى",
-        "previous": "الرسالة السابقة"
+        "previous": "الرسالة السابقة",
+        "position": "الرسالة {current} من {total}",
+        "close": "إغلاق",
+        "progress": "تقدّم الرسالة",
+        "keep": "الاحتفاظ بها في صندوقي",
+        "kept": "محفوظة في صندوقي",
+        "vault": "{count}/{limit} ذكريات",
+        "vaultFull": "{count}/{limit} ذكريات · الصندوق ممتلئ",
+        "from": "من {name}"
     },
     "strip": {
         "label": "رسائل العائلة",
@@ -45,5 +79,23 @@
     },
     "noOneTitle": "لا أحد لإرسال رسالة إليه",
     "activeBlocked": "هناك رسالة بانتظار {name} بالفعل. يمكنك إرسال رسالة أخرى بعد أن يتم الاستماع إليها وتنتهي صلاحيتها.",
-    "birthdayWish": "تهنئة بعيد الميلاد"
+    "birthdayWish": "تهنئة بعيد الميلاد",
+    "quota": {
+        "label": "{count} رسائل من {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "تركت بالفعل {limit} رسائل لـ {name}",
+        "body": "احذف واحدة لتتمكن من تسجيل رسالة جديدة.",
+        "retract": "حذف الأقدم",
+        "failed": "تعذّر حذف الرسالة. حاول مرة أخرى."
+    },
+    "expiry": {
+        "hoursMinutes": "تختفي بعد {hours} س {minutes} د",
+        "minutes": "تختفي بعد {minutes} د",
+        "kept": "محفوظة في الصندوق"
+    },
+    "bubble": {
+        "label": "{count} رسائل"
+    }
 }

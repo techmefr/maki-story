@@ -30,7 +30,8 @@
         "page": "第 {current}/{total} 页",
         "progress": "页面进度",
         "previousPage": "上一页",
-        "nextPageShort": "下一页"
+        "nextPageShort": "下一页",
+        "playing": "正在播放"
     },
     "sleep": {
         "title": "多久后睡觉…",
@@ -66,5 +67,6 @@
         "removeTitle": "要移除这个回忆吗？",
         "removeBody": "它将被永久删除。",
         "removeConfirm": "移除"
-    }
+    },
+    "quota": "{count}/{max} 条消息"
 }

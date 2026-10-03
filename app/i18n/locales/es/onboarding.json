@@ -1,0 +1,20 @@
+{
+    "skip": "Omitir",
+    "next": "Siguiente",
+    "start": "Empezar",
+    "progress": "Paso {current} de {total}",
+    "slides": {
+        "welcome": {
+            "title": "Bienvenido a Tantara",
+            "text": "Cuentos de buenas noches, contados con la voz de quienes queremos."
+        },
+        "voices": {
+            "title": "Cada uno presta su voz",
+            "text": "Mamá, abuelo, abuela… cada uno graba un personaje, incluso desde lejos."
+        },
+        "listen": {
+            "title": "El niño escucha y guarda",
+            "text": "Pasa las páginas, reencuentra sus voces favoritas y guarda sus recuerdos en su cofre."
+        }
+    }
+}

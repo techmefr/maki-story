@@ -1,0 +1,89 @@
+{
+    "title": "Bedingungen und Datenschutz",
+    "draft": "Entwurf, der vor der Veröffentlichung von einem Juristen geprüft werden muss. Die Passagen in eckigen Klammern sind zu ergänzen.",
+    "tabsLabel": "Dokumente",
+    "tabs": {
+        "cgu": "AGB",
+        "priv": "Datenschutz",
+        "cgv": "Kaufbedingungen"
+    },
+    "checkTerms": "Ich habe die AGB, die Kaufbedingungen und die Datenschutzerklärung gelesen und akzeptiere sie.",
+    "checkGuardian": "Ich bin Elternteil oder gesetzlicher Vormund und erlaube das Anlegen von Profilen für meine Kinder.",
+    "accept": "Ich akzeptiere und fahre fort",
+    "acceptedOn": "Bedingungen am {date} akzeptiert.",
+    "failed": "Deine Zustimmung kann im Moment nicht gespeichert werden. Versuche es noch einmal.",
+    "cgu": {
+        "1": {
+            "title": "1. Gegenstand",
+            "text": "Tantara ermöglicht es Verwandten, ihre Stimme für Geschichten aufzunehmen, und Kindern, sie innerhalb einer Familie anzuhören. [Name des Herausgebers, Adresse, Kontakt]."
+        },
+        "2": {
+            "title": "2. Konto und Familie",
+            "text": "Ein Elternteil erstellt die Familie und lädt weitere Eltern oder Verwandte per E-Mail oder Code ein. Ein Kind hat kein eigenes Konto: Sein Profil wird von seinen Eltern verwaltet."
+        },
+        "3": {
+            "title": "3. Aufgenommene Inhalte",
+            "text": "Jede Person bleibt für ihre Aufnahmen verantwortlich. Ein Erwachsener kann demselben Kind bis zu 5 Nachrichten hinterlassen. Die Eltern können jeden Inhalt prüfen, ablehnen oder entfernen."
+        },
+        "4": {
+            "title": "4. Nutzungsregeln",
+            "text": "Die Inhalte müssen für ein kindliches Publikum geeignet sein. Es ist verboten, die Stimme einer Person ohne ihr Einverständnis aufzunehmen oder rechtswidrige Inhalte zu veröffentlichen."
+        },
+        "5": {
+            "title": "5. Löschung",
+            "text": "Ein Elternteil kann jederzeit einen Verwandten, ein Kind oder ein Buch entfernen. Das Konto kann in den Einstellungen gelöscht werden. [Aufbewahrungsfrist]."
+        },
+        "6": {
+            "title": "6. Haftung und Änderungen",
+            "text": "[Zu ergänzen: Verfügbarkeit des Dienstes, Haftungsbeschränkung, Änderung der Bedingungen, anwendbares Recht.]"
+        }
+    },
+    "priv": {
+        "1": {
+            "title": "Erhobene Daten",
+            "text": "E-Mail-Adresse der Erwachsenen, Vorname und Alter des Kindes, Profilfoto (Grimasse), aufgenommene Stimmen, Lesefortschritt, Favoriten, gewählte Sprachen."
+        },
+        "2": {
+            "title": "Daten der Kinder",
+            "text": "Sie werden nur mit Einwilligung eines Elternteils oder gesetzlichen Vormunds erhoben, dienen keiner Werbung und werden nie weiterverkauft. Kein Profiling."
+        },
+        "3": {
+            "title": "Zwecke",
+            "text": "Die App zum Laufen bringen: Zuhören, Aufnehmen, Durchsicht, von jeder Person gewählte Benachrichtigungen."
+        },
+        "4": {
+            "title": "Hosting und Dauer",
+            "text": "[Hoster, Land]. Die Daten werden aufbewahrt, solange die Familie besteht, und danach nach [Dauer] gelöscht."
+        },
+        "5": {
+            "title": "Deine Rechte",
+            "text": "Auskunft, Berichtigung, Löschung, Export und Widerspruch, über die Einstellungen oder bei [Kontaktadresse]. Beschwerde bei der Aufsichtsbehörde möglich."
+        },
+        "6": {
+            "title": "Geräteberechtigungen",
+            "text": "Mikrofon zum Aufnehmen, Kamera oder Fotos für das Profilfoto, Benachrichtigungen, falls aktiviert. Jede kann abgelehnt werden."
+        }
+    },
+    "cgv": {
+        "1": {
+            "title": "1. Angebot",
+            "text": "[Zu ergänzen, falls die App kostenpflichtig ist: Kostenfreiheit, Abonnement, Optionen.]"
+        },
+        "2": {
+            "title": "2. Preis und Zahlung",
+            "text": "[Preis inkl. MwSt., Zahlungsmittel, Abwicklung über die App-Stores.]"
+        },
+        "3": {
+            "title": "3. Laufzeit und Kündigung",
+            "text": "[Laufzeit, Verlängerung, Kündigung jederzeit in den Einstellungen.]"
+        },
+        "4": {
+            "title": "4. Widerrufsrecht",
+            "text": "[Gesetzlicher Hinweis zu 14 Tagen und den Ausnahmen für digitale Inhalte.]"
+        },
+        "5": {
+            "title": "5. Beschwerden",
+            "text": "[Kundenservice, Verbraucherschlichtungsstelle.]"
+        }
+    }
+}

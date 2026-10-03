@@ -1,0 +1,10 @@
+{
+    "title": "Bücher der Kinder",
+    "all": "Alle Bücher",
+    "allHint": "Das Kind sieht alle freigegebenen Bücher.",
+    "restrictedHint": "Wähle die Bücher, die das Kind lesen darf.",
+    "emptyTitle": "Kein freigegebenes Buch",
+    "emptyHint": "Freigegebene Bücher erscheinen hier.",
+    "menu": "Bücher der Kinder",
+    "menuHint": "Welche Bücher jedes Kind lesen darf"
+}

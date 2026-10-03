@@ -1,0 +1,65 @@
+{
+    "title": "标签",
+    "count": {
+        "other": "{count} 个标签"
+    },
+    "intro": "标签有一个英文标识和每种语言的名称。图书只保存标识。",
+    "language": "标签显示语言",
+    "new": "新标签",
+    "edit": "编辑标签 {name}",
+    "toTranslate": "{count} 个待翻译",
+    "auto": "自动",
+    "empty": "还没有标签",
+    "emptyHint": "家长可以创建标签来整理图书。",
+    "editor": {
+        "newTitle": "新标签",
+        "slug": "标识：{slug}",
+        "names": "各语言名称",
+        "nameIn": "{language}名称",
+        "placeholder": "待翻译",
+        "icon": "图标",
+        "color": "颜色",
+        "save": "保存",
+        "delete": "删除",
+        "confirmTitle": "删除标签",
+        "confirmText": {
+            "zero": "没有图书使用这个标签。",
+            "other": "这个标签将从 {count} 本书中移除。"
+        },
+        "confirmDelete": "是的，删除"
+    },
+    "colors": {
+        "sun": "黄色",
+        "sky": "蓝色",
+        "mint": "薄荷色",
+        "grape": "紫色",
+        "pink": "粉色",
+        "coral": "珊瑚色"
+    },
+    "icons": {
+        "hat": "帽子",
+        "waves": "波浪",
+        "tree": "树",
+        "star": "星星",
+        "crown": "皇冠",
+        "paw": "爪印",
+        "moon": "月亮",
+        "heart": "爱心",
+        "smile": "笑脸",
+        "compass": "指南针",
+        "question": "问号",
+        "book": "书",
+        "sun": "太阳",
+        "flag": "旗帜"
+    },
+    "errors": {
+        "save": "目前无法保存此标签。",
+        "name-required": "请至少给标签起一个名称。",
+        "slug-empty": "此名称无法生成标识。",
+        "slug-taken": "已有使用此标识的标签。",
+        "color-invalid": "请选择提供的颜色之一。",
+        "icon-invalid": "请选择提供的图标之一。",
+        "language-invalid": "无法识别此语言。",
+        "name-too-long": "标签名称最多 40 个字符。"
+    }
+}

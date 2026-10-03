@@ -48,7 +48,13 @@
         "parentTitle": "Elternbereich",
         "notifications": "Benachrichtigungen",
         "schedule": "Hörzeiten pro Kind",
-        "feedback": "Feedback geben"
+        "feedback": "Feedback geben",
+        "chosenCount": {
+            "one": "{count} gewählt",
+            "other": "{count} gewählt"
+        },
+        "quit": "Beenden",
+        "edit": "Mein Profil bearbeiten"
     },
     "unlock": {
         "offerTitle": "Fingerabdruck oder Gesicht aktivieren?",
@@ -97,5 +103,21 @@
         "chosen": "{count} von {total} Symbolen",
         "clear": "Löschen",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Mein Profil bearbeiten",
+        "email": "E-Mail-Adresse",
+        "emailGoogle": "Mit Google angemeldet: Die Adresse lässt sich hier nicht ändern.",
+        "emailAccount": "Das ist die Adresse deines Kontos: Sie lässt sich hier nicht ändern.",
+        "changeCode": "Meinen Code ändern",
+        "account": "Meine Daten und mein Konto",
+        "saveError": "Im Moment kann nicht gespeichert werden.",
+        "codeTitle": "Meinen Code ändern",
+        "codeCurrent": "Tippe deinen aktuellen Code.",
+        "codeNew": "Wähle deinen neuen Code, 4 bis 8 Ziffern.",
+        "codeConfirm": "Tippe denselben Code noch einmal.",
+        "codeDone": "Dein Code wurde geändert.",
+        "codeBlocked": "Der aktuelle Code ist falsch oder gesperrt. Beginne von vorn.",
+        "codeFailed": "Der Code kann im Moment nicht geändert werden."
     }
 }

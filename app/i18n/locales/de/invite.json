@@ -39,5 +39,23 @@
         "revoked": "Widerrufen"
     },
     "revoke": "Widerrufen",
-    "revokeAria": "Einladung für {name} widerrufen"
+    "revokeAria": "Einladung für {name} widerrufen",
+    "tabs": {
+        "email": "Per E-Mail",
+        "code": "Per Code"
+    },
+    "roleLabel": "Rolle",
+    "roles": {
+        "relative": "Verwandte/r",
+        "parent": "Elternteil"
+    },
+    "roleHint": {
+        "relative": "Leiht seine Stimme und hinterlässt Nachrichten für die Kinder.",
+        "parent": "Verwaltet die Familie mit dir: Kinder, Bücher, Codes und Anmeldungen."
+    },
+    "emailPlaceholder": "vorname@beispiel.de",
+    "emailHint": "Sie oder er erhält einen Link, um ein Profil zu erstellen und der Familie beizutreten.",
+    "sendEmail": "Einladung senden",
+    "sentTitle": "Einladung gesendet",
+    "codeLabel": "Einladungscode"
 }

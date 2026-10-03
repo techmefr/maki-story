@@ -20,7 +20,30 @@
         "tapMic": "Tendreo ny mikrofaona",
         "tooShort": "Fohy loatra, atombohy indray.",
         "sendFailed": "Tsy afaka nalefa ny hafatra. Andramo indray.",
-        "birthdayFor": "Hafatra fetin’ny andro nahaterahana ho an’i {name}"
+        "birthdayFor": "Hafatra fetin’ny andro nahaterahana ho an’i {name}",
+        "title": "Mamela hafatra",
+        "recipients": "Iza no hosoratana?",
+        "hintChild": "Hankany amin’ny boaty fandraisan’i {name} ny hafatrao ({count}/{limit}).",
+        "hintAdult": "Hankany amin’ny boaty fandraisan’i {name} ny hafatrao ({count}/{limit}).",
+        "again": "Raketo indray",
+        "listenBack": "Henoy indray",
+        "listenBackLabel": "Henoy ny hafatro",
+        "sentTitle": "Lasa tany amin’i {name} ny hafatra!",
+        "sentLeft": {
+            "zero": "Feno ny boaty fandraisan’i {name} amin’izao.",
+            "one": "Mbola misy hafatra {count} azo atao ho an’i {name}.",
+            "other": "Mbola misy hafatra {count} azo atao ho an’i {name}."
+        },
+        "queuedTitle": "Hafatra miandry",
+        "queuedBody": "Handeha raha miverina ny tamba-jotra.",
+        "another": "Hafatra hafa",
+        "limitReached": "Efa manana hafatra {limit} avy aminao i {name}. Ho levona 24 ora aorian’ny fihainoana voalohany izy ireo.",
+        "birthdayToggle": "Hafatra fetim-bahiny",
+        "noRecipients": "Tsy misy hosoratana",
+        "noRecipientsHint": "Ampio ankizy na olon-dehibe ao amin’ny fianakaviana mba hamela hafatra aminy.",
+        "micLabel": "Mikrô",
+        "duration": "Faharetana {time}",
+        "close": "Hidio"
     },
     "listen": {
         "finished": "Vita",
@@ -30,7 +53,15 @@
         "next": "Hafatra manaraka",
         "nextWaiting": "Hafatra manaraka ({count} miandry)",
         "again": "Henoy indray",
-        "previous": "Hafatra teo aloha"
+        "previous": "Hafatra teo aloha",
+        "position": "Hafatra {current} amin’ny {total}",
+        "close": "Hidio",
+        "progress": "Fandrosoan’ny hafatra",
+        "keep": "Tehirizo ao amin’ny vatam-bolako",
+        "kept": "Voatahiry ao amin’ny vatam-bolako",
+        "vault": "{count}/{limit} fahatsiarovana",
+        "vaultFull": "{count}/{limit} fahatsiarovana · feno ny vatam-bola",
+        "from": "Avy amin’i {name}"
     },
     "strip": {
         "label": "Hafatra avy amin’ny fianakaviana",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Tsy misy olona hosoratana",
     "activeBlocked": "Misy hafatra miandry an’i {name} efa. Afaka mandefa iray hafa ianao rehefa voatsara sy lany daty izy.",
-    "birthdayWish": "Mandefa firariana"
+    "birthdayWish": "Mandefa firariana",
+    "quota": {
+        "label": "Hafatra {count} amin’ny {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "Efa namela hafatra {limit} ho an’i {name} ianao",
+        "body": "Esory iray mba ahafahana mandrakitra vaovao.",
+        "retract": "Esory ny taloha indrindra",
+        "failed": "Tsy afaka nesorina ny hafatra. Andramo indray."
+    },
+    "expiry": {
+        "hoursMinutes": "Levona afaka {hours} ora {minutes} min",
+        "minutes": "Levona afaka {minutes} min",
+        "kept": "Voatahiry ao amin’ny vatam-bola"
+    },
+    "bubble": {
+        "label": "Hafatra {count}"
+    }
 }

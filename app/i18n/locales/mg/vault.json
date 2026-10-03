@@ -1,0 +1,9 @@
+{
+    "title": "Ny vatam-bolako",
+    "count": "{count}/{limit}",
+    "emptyTitle": "Banga ny vatam-bolanao",
+    "emptyHint": "Tehirizo eto ny hafatry ny ankizy. Fahatsiarovana 10 no tafahoatra.",
+    "remove": "Esory ao amin’ny vatam-bola",
+    "seconds": "{count} s",
+    "open": "Ny vatam-bolako"
+}

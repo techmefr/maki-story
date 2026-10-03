@@ -1,0 +1,12 @@
+{
+    "title": "Esqueceste-te do código?",
+    "intro": "Enviamos-te um link para escolheres um novo código.",
+    "email": "O teu e-mail",
+    "send": "Enviar o link",
+    "sending": "A enviar…",
+    "child": "És uma criança? Pede a um pai ou mãe que reponha o teu código em «A minha família».",
+    "failed": "Não foi possível enviar o link. Tenta de novo daqui a pouco.",
+    "sentTitle": "Vê o teu e-mail!",
+    "sentText": "Se este endereço for conhecido, foi enviado um link. É válido durante 15 minutos.",
+    "backToCode": "Voltar ao código"
+}

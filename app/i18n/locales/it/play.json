@@ -2,5 +2,6 @@
     "lineAria": "Battuta {index}",
     "play": "Riproduci",
     "editRecordings": "Modifica le registrazioni",
-    "lines": "Battute"
+    "lines": "Battute",
+    "playing": "In riproduzione"
 }

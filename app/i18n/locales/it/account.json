@@ -1,0 +1,30 @@
+{
+    "title": "Il mio account",
+    "identity": "{email} · {role}",
+    "loadFailed": "Il tuo account non è disponibile al momento.",
+    "parentOnly": "Solo un genitore può esportare i dati o eliminare l’account.",
+    "terms": {
+        "link": "Condizioni e privacy"
+    },
+    "export": {
+        "title": "Esporta i miei dati",
+        "text": "Ricevi via e-mail un link a un file con le tue registrazioni, i profili e i progressi di lettura. Il link è valido {days} giorni.",
+        "request": "Richiedi l’esportazione",
+        "sending": "Invio in corso…",
+        "sent": "Link inviato per e-mail",
+        "failed": "Non è stato possibile inviare l’e-mail. Riprova tra un attimo."
+    },
+    "delete": {
+        "title": "Elimina l’account",
+        "text": "Tutte le registrazioni, i profili dei bambini, i preferiti e i libri della famiglia verranno cancellati. Questa azione è definitiva.",
+        "start": "Elimina il mio account",
+        "sheetTitle": "Sei sicuro?",
+        "sheetText": "Per confermare, scrivi {word} e poi il tuo codice da genitore.",
+        "word": "DELETE",
+        "wordLabel": "Parola di conferma",
+        "codeLabel": "Codice del genitore",
+        "cancel": "Annulla",
+        "wrongCode": "Questo codice non è corretto.",
+        "failed": "L’eliminazione non è riuscita. Riprova."
+    }
+}

@@ -48,7 +48,13 @@
         "parentTitle": "Area genitori",
         "notifications": "Notifiche",
         "schedule": "Orari di ascolto per bambino",
-        "feedback": "Dai la tua opinione"
+        "feedback": "Dai la tua opinione",
+        "chosenCount": {
+            "one": "{count} scelta",
+            "other": "{count} scelte"
+        },
+        "quit": "Esci",
+        "edit": "Modifica il mio profilo"
     },
     "unlock": {
         "offerTitle": "Attivare l’impronta o il volto?",
@@ -97,5 +103,21 @@
         "chosen": "{count} simboli su {total}",
         "clear": "Cancella",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Modifica il mio profilo",
+        "email": "Indirizzo e-mail",
+        "emailGoogle": "Accesso con Google: l’indirizzo non si cambia da qui.",
+        "emailAccount": "È l’indirizzo del tuo account: non si cambia da qui.",
+        "changeCode": "Cambia il mio codice",
+        "account": "I miei dati e il mio account",
+        "saveError": "Impossibile salvare al momento.",
+        "codeTitle": "Cambia il mio codice",
+        "codeCurrent": "Scrivi il tuo codice attuale.",
+        "codeNew": "Scegli il tuo nuovo codice, da 4 a 8 cifre.",
+        "codeConfirm": "Scrivi lo stesso codice una seconda volta.",
+        "codeDone": "Il tuo codice è cambiato.",
+        "codeBlocked": "Il codice attuale non è corretto o è bloccato. Ricomincia.",
+        "codeFailed": "Impossibile cambiare il codice al momento."
     }
 }

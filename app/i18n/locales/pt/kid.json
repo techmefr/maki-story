@@ -30,7 +30,8 @@
         "page": "Página {current}/{total}",
         "progress": "Progresso da página",
         "previousPage": "Página anterior",
-        "nextPageShort": "Página seguinte"
+        "nextPageShort": "Página seguinte",
+        "playing": "A reproduzir"
     },
     "sleep": {
         "title": "Soneca em…",
@@ -67,5 +68,6 @@
         "removeTitle": "Remover esta memória?",
         "removeBody": "Será apagada para sempre.",
         "removeConfirm": "Remover"
-    }
+    },
+    "quota": "{count}/{max} mensagens"
 }
