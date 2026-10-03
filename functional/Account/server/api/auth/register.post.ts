@@ -1,5 +1,6 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
+import { renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { hashPassword } from '~~/technical/Auth/server/utils/password'
 import { startSession } from '~~/technical/Auth/server/utils/session'
 import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
@@ -68,6 +69,10 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
         return { accountId: account.id, familyId, memberId: null }
     })
     startSession(event, session)
+    const base = process.env.APP_BASE_URL ?? getRequestURL(event).origin
+    const locale = typeof body.locale === 'string' ? body.locale : null
+    const welcome = renderLocalizedMail(locale, { template: 'welcome', params: { name: parentName, family: familyName, url: `${base}/family/invite` } }, base)
+    await sendMail({ to: email, ...welcome })
     logEvent('Compte créé')
     return { isSignedIn: true, memberId: null }
 })
