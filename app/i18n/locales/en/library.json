@@ -49,7 +49,11 @@
             "legends": "Legends",
             "numbers-letters": "Numbers and letters",
             "daily-life": "Daily life"
-        }
+        },
+        "open": "Filters",
+        "title": "Filters",
+        "reset": "Reset",
+        "show": "Show books"
     },
     "childVisible": {
         "title": "Visibility for the child",

@@ -188,6 +188,7 @@ test.describe('shell per role', () => {
         await page.locator('[data-filter="type-comic"]').click()
         await page.getByTestId('book-search-go').click()
         await expect(page).toHaveURL(/\/library\?type=comic/)
+        await page.getByTestId('filters-open').click()
         await expect(page.locator('[data-filter="type-comic"]')).toHaveAttribute('aria-pressed', 'true')
     })
 

@@ -49,7 +49,11 @@
             "legends": "Légendes",
             "numbers-letters": "Chiffres et lettres",
             "daily-life": "Vie quotidienne"
-        }
+        },
+        "open": "Filtres",
+        "title": "Filtres",
+        "reset": "Réinitialiser",
+        "show": "Voir les livres"
     },
     "childVisible": {
         "title": "Visibilité pour l’enfant",
