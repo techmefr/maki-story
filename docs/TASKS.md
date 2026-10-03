@@ -22,7 +22,7 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] Migrations : plan des numéros en double, puis `0019` et suivantes
 - [x] Tokens et thème (Theme), clair et sombre, avec passage RGAA des contrastes
 - [ ] Contrôle automatique des contrastes dans `scripts/design-audit.ts`
-- [ ] 9 atomes
+- [x] 9 atomes
 - [ ] 8 molécules
 - [ ] Sons soundcn et mouvement
 - [ ] Aligner `scripts/design-audit.ts` sur `docs/DESIGN.md`
