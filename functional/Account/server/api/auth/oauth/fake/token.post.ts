@@ -1,5 +1,5 @@
-import { challengeFor } from '../../../../utils/oauth/flow'
-import { assertFakeEnabled, issueFakeIdToken, readFakeCode } from '../../../../utils/oauth/fake'
+import { challengeFor } from '~~/server/utils/oauth/flow'
+import { assertFakeEnabled, issueFakeIdToken, readFakeCode } from '~~/server/utils/oauth/fake'
 
 export default defineEventHandler(async event => {
     assertFakeEnabled()

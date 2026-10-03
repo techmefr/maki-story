@@ -1,10 +1,10 @@
-import { getDb } from '../../utils/db'
-import { verifyDeviceSecret } from '../../utils/device'
-import { requireSession } from '../../utils/family'
-import { isFamilyParentAccount, relativeMemberFor } from '../../utils/memberships'
-import { hashCode,loadCodeRow, readCodeInput, verifyMemberCode } from '../../utils/profile-code'
-import { startSession } from '../../utils/session'
-import { notFound } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { verifyDeviceSecret } from '~~/server/utils/device'
+import { requireSession } from '~~/server/utils/family'
+import { isFamilyParentAccount, relativeMemberFor } from '~~/server/utils/memberships'
+import { hashCode,loadCodeRow, readCodeInput, verifyMemberCode } from '~~/server/utils/profile-code'
+import { startSession } from '~~/server/utils/session'
+import { notFound } from '~~/server/utils/validate'
 
 interface IProfileBody extends IProfileProof {
     memberId?: string | null

@@ -1,4 +1,4 @@
-import { assertFakeEnabled, fakeJwks } from '../../../../utils/oauth/fake'
+import { assertFakeEnabled, fakeJwks } from '~~/server/utils/oauth/fake'
 
 export default defineEventHandler(() => {
     assertFakeEnabled()

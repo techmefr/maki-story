@@ -1,6 +1,6 @@
-import { getDb } from '../../utils/db'
-import { requireSession } from '../../utils/family'
-import { isFamilyParentAccount, listMemberships } from '../../utils/memberships'
+import { getDb } from '~~/server/utils/db'
+import { requireSession } from '~~/server/utils/family'
+import { isFamilyParentAccount, listMemberships } from '~~/server/utils/memberships'
 
 export default defineEventHandler(async (event): Promise<IAccountOverview> => {
     const session = requireSession(event)

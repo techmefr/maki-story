@@ -1,5 +1,5 @@
-import { assertFakeEnabled, defaultFakeClaims, issueFakeCode } from '../../../../utils/oauth/fake'
-import type { IFakeClaims } from '../../../../utils/oauth/fake'
+import { assertFakeEnabled, defaultFakeClaims, issueFakeCode } from '~~/server/utils/oauth/fake'
+import type { IFakeClaims } from '~~/server/utils/oauth/fake'
 
 const escapeHtml = (value: string): string => value.replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`)
 

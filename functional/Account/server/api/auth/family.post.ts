@@ -1,8 +1,8 @@
-import { getDb } from '../../utils/db'
-import { requireSession } from '../../utils/family'
-import { isFamilyParentAccount, relativeMemberFor } from '../../utils/memberships'
-import { startSession } from '../../utils/session'
-import { isNonEmptyString } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { requireSession } from '~~/server/utils/family'
+import { isFamilyParentAccount, relativeMemberFor } from '~~/server/utils/memberships'
+import { startSession } from '~~/server/utils/session'
+import { isNonEmptyString } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IAuthState> => {
     const session = requireSession(event)
