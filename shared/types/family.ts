@@ -9,6 +9,7 @@ export interface IMembership {
     memberId: string | null
     role: 'parent' | 'relative'
     status: MembershipStatus
+    childCount: number
 }
 
 export interface IRelativeChild {

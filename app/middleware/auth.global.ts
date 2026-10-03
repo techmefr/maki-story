@@ -37,7 +37,7 @@ export default defineNuxtRouteMiddleware(async to => {
     if (currentId.value && !getById(currentId.value)) {
         await select(null)
     }
-    if (to.path === '/profiles' || to.path.startsWith('/welcome')) {
+    if (to.path === '/profiles' || to.path === '/families' || to.path.startsWith('/welcome')) {
         return
     }
     if (!currentId.value) {
