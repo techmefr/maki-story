@@ -98,8 +98,17 @@
             "child": "Continuer",
             "childCode": "Continuer",
             "parentCode": "Créer ma famille",
-            "done": "Inviter des proches"
+            "done": "Inviter des proches",
+            "you": "Continuer"
         },
-        "failed": "La famille n’a pas pu être créée. Réessaie."
+        "failed": "La famille n’a pas pu être créée. Réessaie.",
+        "you": {
+            "title": "Et toi ?",
+            "hint": "Comment les enfants et les proches te connaissent.",
+            "firstName": "Prénom",
+            "lastName": "Nom",
+            "displayName": "Nom affiché",
+            "displayHint": "Le nom affiché est celui que les autres voient. Sans choix, c’est ton prénom."
+        }
     }
 }

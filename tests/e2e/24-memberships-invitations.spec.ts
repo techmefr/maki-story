@@ -231,7 +231,7 @@ test.describe('invitation screens', () => {
         await page.getByTestId('invite-name').fill('Tonton Zo')
         await page.getByTestId('invite-create').click()
         const link = await page.getByTestId('invite-link').inputValue()
-        expect(link).toMatch(/\/join\/[a-z0-9]{10}$/)
+        expect(link).toMatch(/\/join\/[a-z0-9]{6}$/)
         await expect(page.getByTestId('invite-copy')).toBeVisible()
 
         const context = await browser.newContext({ locale: 'fr-FR', reducedMotion: 'reduce' })

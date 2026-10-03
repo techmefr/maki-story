@@ -20,7 +20,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     const session = requireSession(event)
     const body = await readBody<Partial<IFamilyCreateInput>>(event)
     const child = body.child
-    if (!isNonEmptyString(body.familyName) || !child || !isNonEmptyString(child.name)) {
+    const parent = body.parent
+    if (!isNonEmptyString(body.familyName) || !child || !isNonEmptyString(child.name) || !parent || !isNonEmptyString(parent.firstName)) {
         return badRequest('A family name and a child are required')
     }
     if (!Number.isInteger(child.age) || child.age < 0 || child.age > MAX_CHILD_AGE) {
@@ -30,10 +31,9 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     const childCode = readCodeInput(child.code, 'child')
     const [parentHash, childHash] = await Promise.all([hashCode(parentCode), hashCode(childCode)])
     const db = getDb()
-    const [account] = await db<{ email: string }[]>`select email from accounts where id = ${session.accountId}`
-    if (!account) {
-        throw createError({ statusCode: 401, statusMessage: 'Not signed in' })
-    }
+    const firstName = parent.firstName.trim().slice(0, MAX_NAME_LENGTH)
+    const lastName = typeof parent.lastName === 'string' ? parent.lastName.trim().slice(0, MAX_NAME_LENGTH) : ''
+    const displayName = (isNonEmptyString(parent.displayName) ? parent.displayName : firstName).trim().slice(0, MAX_NAME_LENGTH)
     const familyId = await db.begin(async tx => {
         const id = one(await tx<{ id: string }[]>`
             insert into families (name, invite_code)
@@ -41,8 +41,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
             returning id
         `).id
         await tx`
-            insert into members (family_id, name, role, color, pin_hash, code_kind, code_enabled)
-            values (${id}, ${parentNameFromEmail(account.email)}, 'parent', ${DEFAULT_PARENT_COLOR}, ${parentHash}, ${parentCode.kind}, true)
+            insert into members (family_id, name, first_name, last_name, role, color, pin_hash, code_kind, code_enabled)
+            values (${id}, ${displayName}, ${firstName}, ${lastName || null}, 'parent', ${DEFAULT_PARENT_COLOR}, ${parentHash}, ${parentCode.kind}, true)
         `
         await tx`
             insert into members (family_id, name, role, color, pin_hash, code_kind, birth_date, code_enabled)

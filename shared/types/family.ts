@@ -128,6 +128,11 @@ export interface IPushConfig {
 
 export interface IFamilyCreateInput {
     familyName: string
+    parent: {
+        firstName: string
+        lastName: string
+        displayName: string
+    }
     parentCode: IMemberCodeInput
     child: {
         name: string
