@@ -1,6 +1,6 @@
 import { getDb } from '~~/server/utils/db'
 import { purgeExpiredMessages } from '~~/server/utils/messages'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IMessage[]> => {
     const { familyId, role, memberId } = await requirePermission(event, 'messages.list')

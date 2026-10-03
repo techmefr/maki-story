@@ -2,7 +2,7 @@ import type { Sql, TransactionSql } from 'postgres'
 import { ACTIVE_SHARE_STATUSES, MAX_FAMILIES_PER_BOOK } from '../../shared/utils/sharing'
 import { one } from './db'
 import { notify } from './notifications'
-import type { IActor } from './permissions'
+import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 import { notFound } from './validate'
 
 type Db = Sql | TransactionSql

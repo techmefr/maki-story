@@ -1,7 +1,7 @@
 import { getDb, one } from '../../utils/db'
 import { requireSession } from '../../utils/family'
 import { hashDeviceSecret, MAX_DEVICES_PER_MEMBER, newDeviceSecret } from '../../utils/device'
-import { loadCodeRow } from '../../utils/profile-code'
+import { loadCodeRow } from '~~/technical/Auth/server/utils/profile-code'
 
 const MAX_LABEL_LENGTH = 60
 

@@ -1,10 +1,10 @@
 import type { H3Event } from 'h3'
 import type { Sql } from 'postgres'
-import { isCodeKindAllowed, isMemberCodeKind, isValidCodeValue } from '../../shared/utils/code'
-import { getDb } from './db'
-import { requireSession } from './family'
-import { hashPassword, verifyPassword } from './password'
-import { badRequest } from './validate'
+import { isCodeKindAllowed, isMemberCodeKind, isValidCodeValue } from '~~/shared/utils/code'
+import { getDb } from '~~/server/utils/db'
+import { requireSession } from '~~/server/utils/family'
+import { hashPassword, verifyPassword } from '~~/technical/Auth/server/utils/password'
+import { badRequest } from '~~/server/utils/validate'
 
 export const MAX_CODE_ATTEMPTS = 5
 export const CODE_LOCK_MINUTES = 5

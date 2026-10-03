@@ -1,6 +1,6 @@
 import { assertBookOwned, checkPageKind, checkText } from '~~/server/utils/bookModel'
 import { getDb, one } from '~~/server/utils/db'
-import { requireBookEditor } from '~~/server/utils/permissions'
+import { requireBookEditor } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ id: string; kind: PageKind; ttsFallback: boolean; description: string }> => {

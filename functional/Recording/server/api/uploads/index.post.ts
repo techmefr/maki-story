@@ -2,7 +2,7 @@ import { getDb, one } from '~~/server/utils/db'
 import { toUploadState } from '~~/server/utils/uploads'
 import type { IUploadSession } from '~~/server/utils/uploads'
 import { badRequest } from '~~/server/utils/validate'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import type { IUploadState } from '~~/shared/types/upload'
 import { UPLOAD_MAX_BYTES, UPLOAD_MIME_PREFIXES, UPLOAD_TTL_HOURS } from '~~/shared/utils/upload'
 

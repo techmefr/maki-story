@@ -2,8 +2,8 @@ import { isValidTimezone, isValidWeekly } from '~~/shared/utils/schedule'
 import { writeAudit } from '~~/server/utils/audit'
 import { getDb } from '~~/server/utils/db'
 import { saveSchedule } from '~~/server/utils/parental'
-import { requirePermission } from '~~/server/utils/permissions'
-import { loadCodeRow } from '~~/server/utils/profile-code'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
+import { loadCodeRow } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {

@@ -1,5 +1,5 @@
 import { getDb } from '../../utils/db'
-import { requireActor } from '../../utils/profile-code'
+import { requireActor } from '~~/technical/Auth/server/utils/profile-code'
 
 export default defineEventHandler(async (event): Promise<IDevice[]> => {
     const actor = await requireActor(event)

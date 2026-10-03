@@ -1,5 +1,5 @@
 import { listBookSummaries, parseBookQuery } from '~~/server/utils/books'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IBookSummary[]> => {
     const actor = await requirePermission(event, 'books.list')

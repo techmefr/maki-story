@@ -4,7 +4,7 @@ import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/fami
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { notify } from '~~/server/utils/notifications'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, isNonEmptyString } from '~~/server/utils/validate'
 
 const MAX_PAGES = 40

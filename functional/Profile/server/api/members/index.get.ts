@@ -2,7 +2,7 @@ import { getDb } from '~~/server/utils/db'
 import { daysUntilBirthday } from '~~/shared/utils/age'
 import { memberExtras } from '~~/server/utils/members'
 import { concernedChildIds } from '~~/server/utils/memberships'
-import { loadActor } from '~~/server/utils/permissions'
+import { loadActor } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IMember[]> => {
     const actor = await loadActor(event)

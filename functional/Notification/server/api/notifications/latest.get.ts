@@ -2,7 +2,7 @@ import { APP_NAME } from '~~/shared/utils/appName'
 import { getDb } from '~~/server/utils/db'
 import { notificationText } from '~~/server/utils/delivery'
 import { mailText } from '~~/server/utils/mailTexts'
-import { loadActor } from '~~/server/utils/permissions'
+import { loadActor } from '~~/technical/Auth/server/utils/permissions'
 
 interface ILatestNotification {
     kind: NotificationKind

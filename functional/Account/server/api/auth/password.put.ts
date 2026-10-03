@@ -1,10 +1,10 @@
 import { getDb } from '~~/server/utils/db'
 import { requireSession } from '~~/server/utils/family'
 import { logEvent } from '~~/server/utils/log'
-import { hashPassword, verifyPassword } from '~~/server/utils/password'
-import { requireActor } from '~~/server/utils/profile-code'
-import { startSession } from '~~/server/utils/session'
-import { assertNotThrottled, clearFailures, recordFailure } from '~~/server/utils/throttle'
+import { hashPassword, verifyPassword } from '~~/technical/Auth/server/utils/password'
+import { requireActor } from '~~/technical/Auth/server/utils/profile-code'
+import { startSession } from '~~/technical/Auth/server/utils/session'
+import { assertNotThrottled, clearFailures, recordFailure } from '~~/technical/Auth/server/utils/throttle'
 import { badRequest } from '~~/server/utils/validate'
 
 const MIN_PASSWORD_LENGTH = 8

@@ -1,7 +1,7 @@
 import { TREASURE_LIMIT } from '~~/shared/utils/voices'
 import { getDb } from '~~/server/utils/db'
 import { assertMembersInFamily } from '~~/server/utils/family'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<ITreasureBox> => {

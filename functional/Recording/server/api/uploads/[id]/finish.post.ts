@@ -1,7 +1,7 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { assertUploadLive, loadUploadSession } from '~~/server/utils/uploads'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const actor = await requirePermission(event, 'files.upload')

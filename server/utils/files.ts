@@ -1,6 +1,6 @@
 import { bookScope, bookScopeParams } from './books'
 import { getDb } from './db'
-import type { IActor } from './permissions'
+import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 
 export const assertFileReadable = async (actor: IActor, fileId: string): Promise<void> => {
     if (actor.role === 'parent') {

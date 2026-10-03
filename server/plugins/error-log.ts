@@ -1,6 +1,6 @@
 import { ensureSchema, getDb } from '../utils/db'
 import { recordError } from '../utils/journal'
-import { readSession } from '../utils/session'
+import { readSession } from '~~/technical/Auth/server/utils/session'
 
 const SERVER_ERROR_STATUS = 500
 

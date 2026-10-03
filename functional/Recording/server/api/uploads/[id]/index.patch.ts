@@ -1,7 +1,7 @@
 import { getDb } from '~~/server/utils/db'
 import { assertUploadLive, loadUploadSession, toUploadState } from '~~/server/utils/uploads'
 import { badRequest } from '~~/server/utils/validate'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import type { IUploadState } from '~~/shared/types/upload'
 import { UPLOAD_CHUNK_BYTES, UPLOAD_OFFSET_HEADER } from '~~/shared/utils/upload'
 

@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 const MAX_SHARES = 100
 const AWAITING_STATUSES: ShareStatus[] = ['proposed', 'awaiting_owner']

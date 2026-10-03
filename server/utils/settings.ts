@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import { getDb } from './db'
-import { loadCodeRow, requireActor } from './profile-code'
+import { loadCodeRow, requireActor } from '~~/technical/Auth/server/utils/profile-code'
 import { notFound } from './validate'
 
 export interface ISettingsScope {

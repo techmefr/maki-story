@@ -1,7 +1,7 @@
 import type { Sql, TransactionSql } from 'postgres'
 import { getDb, one } from '../db'
 import { record } from '../journal'
-import { requireActorMember, requirePermission } from '../permissions'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { collectText, logModeration, MAX_REGENERATIONS, MODERATION_STATUS_MESSAGE, moderateImage, moderateText } from './moderation'
 import type { IModerationVerdict, ModerationAction, ModerationSubject } from './moderation'
 import { requireProvider } from './provider'

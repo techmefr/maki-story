@@ -1,6 +1,6 @@
 import { checkLanguage, checkText } from '~~/server/utils/bookModel'
 import { getDb, one } from '~~/server/utils/db'
-import { requireBookEditor } from '~~/server/utils/permissions'
+import { requireBookEditor } from '~~/technical/Auth/server/utils/permissions'
 import { markLineRecordingsStale } from '~~/server/utils/recordings'
 import { badRequest, isNonEmptyString, notFound, requireParam } from '~~/server/utils/validate'
 

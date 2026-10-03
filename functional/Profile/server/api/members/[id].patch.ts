@@ -3,7 +3,7 @@ import { assertFilesInFamily } from '~~/server/utils/family'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { memberExtras, readBirthDate } from '~~/server/utils/members'
 import { syncMembershipStatus } from '~~/server/utils/memberships'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor, notFound, requireParam } from '~~/server/utils/validate'
 
 interface IMemberPatch {

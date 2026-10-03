@@ -1,7 +1,7 @@
 import { getDb } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { notify } from '~~/server/utils/notifications'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 const DECISIONS: ProposalDecision[] = ['approve', 'decline']

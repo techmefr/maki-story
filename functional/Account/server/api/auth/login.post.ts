@@ -1,8 +1,8 @@
 import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { DUMMY_HASH, verifyPassword } from '~~/server/utils/password'
-import { startSession } from '~~/server/utils/session'
-import { assertNotThrottled, clearFailures, recordFailure } from '~~/server/utils/throttle'
+import { DUMMY_HASH, verifyPassword } from '~~/technical/Auth/server/utils/password'
+import { startSession } from '~~/technical/Auth/server/utils/session'
+import { assertNotThrottled, clearFailures, recordFailure } from '~~/technical/Auth/server/utils/throttle'
 import { normalizeEmail } from '~~/server/utils/validate'
 
 const FAILED_LOGIN_DELAY_MS = 600

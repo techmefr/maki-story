@@ -6,7 +6,7 @@ import { logEvent } from '~~/server/utils/log'
 import { purgeExpiredMessages } from '~~/server/utils/messages'
 import { assertChildConcerned } from '~~/server/utils/memberships'
 import { notify } from '~~/server/utils/notifications'
-import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, isNonEmptyString } from '~~/server/utils/validate'
 
 const KINDS: MessageKind[] = ['NORMAL', 'BIRTHDAY']

@@ -1,7 +1,7 @@
 import { getDb } from '../../utils/db'
 import { isValidBudget } from '../../utils/ai/jobs'
 import { actorEntry, record } from '../../utils/journal'
-import { requirePermission } from '../../utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {

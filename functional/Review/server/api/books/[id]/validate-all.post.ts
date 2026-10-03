@@ -1,7 +1,7 @@
 import { loadBook } from '~~/server/utils/books'
 import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { approveBook, findReviewBook } from '~~/server/utils/review'
 import { requireParam } from '~~/server/utils/validate'
 

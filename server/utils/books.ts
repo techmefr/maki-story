@@ -1,5 +1,5 @@
 import { getDb, one } from './db'
-import type { IActor } from './permissions'
+import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 import { notFound } from './validate'
 
 export const BLOCKED_VOICE = `(bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord')))`

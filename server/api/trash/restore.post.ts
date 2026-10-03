@@ -1,6 +1,6 @@
 import { getDb } from '../../utils/db'
 import { actorEntry, record } from '../../utils/journal'
-import { requirePermission } from '../../utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { restoreTrashItem } from '../../utils/trash'
 import { badRequest, isNonEmptyString } from '../../utils/validate'
 

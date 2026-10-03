@@ -1,6 +1,6 @@
 import { assertBookReadable } from '~~/server/utils/books'
 import { getDb } from '~~/server/utils/db'
-import { requireActorMember, requireRole } from '~~/server/utils/permissions'
+import { requireActorMember, requireRole } from '~~/technical/Auth/server/utils/permissions'
 import { requireParam } from '~~/server/utils/validate'
 
 const MAX_ITEMS = 100

@@ -1,5 +1,5 @@
 import { getDb, one } from '~~/server/utils/db'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IFamilyInvite> => {
     const { familyId } = await requirePermission(event, 'family.invite')

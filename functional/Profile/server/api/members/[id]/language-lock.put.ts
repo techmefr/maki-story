@@ -1,8 +1,8 @@
 import { getDb } from '~~/server/utils/db'
-import { loadActor } from '~~/server/utils/permissions'
+import { loadActor } from '~~/technical/Auth/server/utils/permissions'
 import { assertBookReadable } from '~~/server/utils/books'
 import { PROFILE_SCOPE, resolveLanguageConfig } from '~~/server/utils/playback'
-import { loadCodeRow, verifyMemberCode } from '~~/server/utils/profile-code'
+import { loadCodeRow, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<ILanguageConfig> => {

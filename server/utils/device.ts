@@ -1,8 +1,8 @@
 import { createHash, randomBytes } from 'node:crypto'
 import type { H3Event } from 'h3'
 import type { Sql } from 'postgres'
-import { safeEqual } from './session'
-import { assertNotThrottled, clearFailures, recordFailure } from './throttle'
+import { safeEqual } from '~~/technical/Auth/server/utils/session'
+import { assertNotThrottled, clearFailures, recordFailure } from '~~/technical/Auth/server/utils/throttle'
 
 export const MAX_DEVICES_PER_MEMBER = 10
 const MAX_FIELD_LENGTH = 200

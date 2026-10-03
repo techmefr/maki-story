@@ -1,6 +1,6 @@
 import { assertBookReadable } from '~~/server/utils/books'
 import { getDb } from '~~/server/utils/db'
-import { requireRole } from '~~/server/utils/permissions'
+import { requireRole } from '~~/technical/Auth/server/utils/permissions'
 import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IReviewComment[]> => {

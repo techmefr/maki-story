@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { loadActor, requireActorMember } from '~~/server/utils/permissions'
+import { loadActor, requireActorMember } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, isNonEmptyString } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {

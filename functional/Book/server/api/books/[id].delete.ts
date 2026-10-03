@@ -2,7 +2,7 @@ import { loadBook } from '~~/server/utils/books'
 import { getDb } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {

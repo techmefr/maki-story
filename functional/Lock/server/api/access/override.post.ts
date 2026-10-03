@@ -3,7 +3,7 @@ import { writeAudit } from '~~/server/utils/audit'
 import { getDb } from '~~/server/utils/db'
 import { requireSession } from '~~/server/utils/family'
 import { loadActiveOverride, loadSchedule, saveOverride } from '~~/server/utils/parental'
-import { loadCodeRow, verifyMemberCode } from '~~/server/utils/profile-code'
+import { loadCodeRow, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IAccessSnapshot> => {

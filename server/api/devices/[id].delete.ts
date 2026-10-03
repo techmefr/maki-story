@@ -1,5 +1,5 @@
 import { getDb } from '../../utils/db'
-import { requireActor } from '../../utils/profile-code'
+import { requireActor } from '~~/technical/Auth/server/utils/profile-code'
 import { notFound, requireParam } from '../../utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: true }> => {

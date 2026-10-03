@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto'
 import type { H3Event } from 'h3'
-import { safeEqual, sign } from '../session'
+import { safeEqual, sign } from '~~/technical/Auth/server/utils/session'
 
 export const OAUTH_COOKIE = 'tantara_oauth'
 const FLOW_MAX_AGE_SECONDS = 600

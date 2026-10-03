@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { requireRecordShare } from '~~/server/utils/shares'
 import { checkLanguage } from '~~/server/utils/bookModel'
 import { requireParam } from '~~/server/utils/validate'

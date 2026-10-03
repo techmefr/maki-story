@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3'
-import { getDb } from './db'
+import { getDb } from '~~/server/utils/db'
 
 const WINDOW_MINUTES = 15
 const MAX_FAILURES_PER_ACCOUNT = 5

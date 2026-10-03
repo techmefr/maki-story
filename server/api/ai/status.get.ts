@@ -1,5 +1,5 @@
 import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { familyBudgetUsd, monthlySpentUsd, defaultBudgetUsd } from '../../utils/ai/jobs'
 import { resolveProvider } from '../../utils/ai/provider'
 

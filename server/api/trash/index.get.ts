@@ -1,5 +1,5 @@
 import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { listTrash } from '../../utils/trash'
 
 export default defineEventHandler(async (event): Promise<ITrashItem[]> => {

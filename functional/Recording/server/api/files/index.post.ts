@@ -1,6 +1,6 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest } from '~~/server/utils/validate'
 
 const MAX_FILE_BYTES = 4 * 1024 * 1024

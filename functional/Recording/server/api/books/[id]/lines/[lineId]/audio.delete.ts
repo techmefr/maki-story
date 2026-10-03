@@ -3,7 +3,7 @@ import { getDb } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { dropApprovedTake } from '~~/server/utils/recordings'
-import { assertCanRecordLine, requirePermission } from '~~/server/utils/permissions'
+import { assertCanRecordLine, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {

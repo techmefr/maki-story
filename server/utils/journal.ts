@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 import type { H3Event } from 'h3'
 import type { Sql, TransactionSql } from 'postgres'
 import { getDb } from './db'
-import type { IActor } from './permissions'
+import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 
 export type JournalOutcome = 'SUCCESS' | 'DENIED' | 'FAILURE'
 

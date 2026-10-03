@@ -1,8 +1,8 @@
 import { deleteFamilyData } from '~~/server/utils/familyData'
 import { getDb } from '~~/server/utils/db'
-import { loadCodeRow, verifyMemberCode } from '~~/server/utils/profile-code'
-import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
-import { SESSION_COOKIE } from '~~/server/utils/session'
+import { loadCodeRow, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
+import { SESSION_COOKIE } from '~~/technical/Auth/server/utils/session'
 import { badRequest } from '~~/server/utils/validate'
 
 interface IDeleteBody {

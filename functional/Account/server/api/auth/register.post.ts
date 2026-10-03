@@ -1,8 +1,8 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { hashPassword } from '~~/server/utils/password'
-import { startSession } from '~~/server/utils/session'
-import { assertIpBudget, recordIpHit } from '~~/server/utils/throttle'
+import { hashPassword } from '~~/technical/Auth/server/utils/password'
+import { startSession } from '~~/technical/Auth/server/utils/session'
+import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
 import { badRequest, isNonEmptyString, normalizeEmail } from '~~/server/utils/validate'
 
 const MIN_PASSWORD_LENGTH = 8

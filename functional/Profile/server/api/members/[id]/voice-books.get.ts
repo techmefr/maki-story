@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IVoiceBook[]> => {

@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import type { Sql, TransactionSql } from 'postgres'
 import type { IUploadState } from '../../shared/types/upload'
 import { UPLOAD_CHUNK_BYTES } from '../../shared/utils/upload'
-import type { IActor } from './permissions'
+import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 import { notFound, requireParam } from './validate'
 
 export interface IUploadSession {

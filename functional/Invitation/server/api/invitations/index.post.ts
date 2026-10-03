@@ -4,7 +4,7 @@ import { CHANNELS, DEFAULT_INVITATION_HOURS, EMAIL_PATTERN, MAX_INVITATIONS_PER_
 import { logEvent } from '~~/server/utils/log'
 import { mailDeliveryReady, sendMail } from '~~/server/utils/mail'
 import { mailText } from '~~/server/utils/mailTexts'
-import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest } from '~~/server/utils/validate'
 
 const MAX_CONTACT_LENGTH = 200

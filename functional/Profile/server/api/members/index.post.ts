@@ -2,8 +2,8 @@ import { getDb, one } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { memberExtras, readBirthDate } from '~~/server/utils/members'
-import { requirePermission } from '~~/server/utils/permissions'
-import { hashCode, readCodeInput } from '~~/server/utils/profile-code'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
+import { hashCode, readCodeInput } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IMember> => {

@@ -1,13 +1,13 @@
 import type { H3Event } from 'h3'
-import { safeEqual, startSession } from '../session'
-import { resolveSocialAccount } from './accounts'
-import { takeFlow } from './flow'
-import { OAuthError, verifyIdToken } from './jwt'
-import { getProviderConfig, redirectUriFor, requestOrigin } from './providers'
-import type { IProviderConfig } from './providers'
-import { logEvent } from '../log'
-import { assertIpBudget, recordIpHit } from '../throttle'
-import { normalizeEmail } from '../validate'
+import { safeEqual, startSession } from '~~/technical/Auth/server/utils/session'
+import { resolveSocialAccount } from '~~/technical/Auth/server/utils/oauth/accounts'
+import { takeFlow } from '~~/technical/Auth/server/utils/oauth/flow'
+import { OAuthError, verifyIdToken } from '~~/technical/Auth/server/utils/oauth/jwt'
+import { getProviderConfig, redirectUriFor, requestOrigin } from '~~/technical/Auth/server/utils/oauth/providers'
+import type { IProviderConfig } from '~~/technical/Auth/server/utils/oauth/providers'
+import { logEvent } from '~~/server/utils/log'
+import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
+import { normalizeEmail } from '~~/server/utils/validate'
 
 const FETCH_TIMEOUT_MS = 10_000
 const DEFAULT_CALLBACKS_PER_WINDOW = 30

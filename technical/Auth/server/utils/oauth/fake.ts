@@ -1,8 +1,8 @@
 import { createSign, generateKeyPairSync } from 'node:crypto'
 import type { KeyObject } from 'node:crypto'
-import { isOAuthFake } from '../../../shared/utils/oauth'
-import { sign } from '../session'
-import { FAKE_ISSUER } from './providers'
+import { isOAuthFake } from '~~/shared/utils/oauth'
+import { sign } from '~~/technical/Auth/server/utils/session'
+import { FAKE_ISSUER } from '~~/technical/Auth/server/utils/oauth/providers'
 
 const KEY_ID = 'fake-key'
 const CODE_TTL_MS = 120_000

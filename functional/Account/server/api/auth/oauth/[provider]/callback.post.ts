@@ -1,4 +1,4 @@
-import { handleOAuthCallback } from '~~/server/utils/oauth/callback'
+import { handleOAuthCallback } from '~~/technical/Auth/server/utils/oauth/callback'
 
 export default defineEventHandler(async event => {
     const body = ((await readBody(event)) ?? {}) as Record<string, unknown>

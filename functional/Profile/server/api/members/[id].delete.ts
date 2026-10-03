@@ -1,7 +1,7 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { syncMembershipStatus } from '~~/server/utils/memberships'
-import { requirePermission } from '~~/server/utils/permissions'
+import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {

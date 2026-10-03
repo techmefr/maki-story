@@ -1,8 +1,8 @@
 import { randomBytes } from 'node:crypto'
-import { getDb, one } from '../db'
-import { hashPassword } from '../password'
-import type { ISessionStart } from '../session'
-import { OAuthError } from './jwt'
+import { getDb, one } from '~~/server/utils/db'
+import { hashPassword } from '~~/technical/Auth/server/utils/password'
+import type { ISessionStart } from '~~/technical/Auth/server/utils/session'
+import { OAuthError } from '~~/technical/Auth/server/utils/oauth/jwt'
 
 const MAX_NAME_LENGTH = 60
 const DEFAULT_PARENT_COLOR: VoiceColorId = 'sun'

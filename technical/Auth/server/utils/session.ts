@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import type { H3Event } from 'h3'
-import { getDb } from './db'
+import { getDb } from '~~/server/utils/db'
 
 export const SESSION_COOKIE = 'tantara_session'
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30

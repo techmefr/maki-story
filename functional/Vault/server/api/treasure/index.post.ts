@@ -1,7 +1,7 @@
 import { getDb, one } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { purgeExpiredMessages } from '~~/server/utils/messages'
-import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, isNonEmptyString, notFound } from '~~/server/utils/validate'
 
 const UNIQUE_VIOLATION = '23505'

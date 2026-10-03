@@ -2,9 +2,9 @@ import { getDb, one } from '~~/server/utils/db'
 import { normalizeInviteCode } from '~~/server/utils/inviteCode'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
-import { requireActorMember, requireAnyPermission } from '~~/server/utils/permissions'
+import { requireActorMember, requireAnyPermission } from '~~/technical/Auth/server/utils/permissions'
 import { assertRoomForFamily, bookTitle, familyName, memberName, notifyParents } from '~~/server/utils/shares'
-import { assertIpBudget, recordIpHit } from '~~/server/utils/throttle'
+import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
 import { badRequest, isNonEmptyString, notFound } from '~~/server/utils/validate'
 
 const MAX_MESSAGE_LENGTH = 200

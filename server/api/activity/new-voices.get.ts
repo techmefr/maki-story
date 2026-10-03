@@ -1,5 +1,5 @@
 import { getDb } from '../../utils/db'
-import { requireActorMember, requireRole } from '../../utils/permissions'
+import { requireActorMember, requireRole } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<INewVoices[]> => {
     const actor = await requireRole(event, 'child')

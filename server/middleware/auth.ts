@@ -1,6 +1,6 @@
 import { ensureSchema, getDb } from '../utils/db'
 import { accessForMember } from '../utils/parental'
-import { isSessionCurrent, readSession } from '../utils/session'
+import { isSessionCurrent, readSession } from '~~/technical/Auth/server/utils/session'
 
 const PUBLIC_API_PATHS = ['/api/auth/login', '/api/auth/register', '/api/auth/me', '/api/auth/logout', '/api/invitations/redeem']
 const PUBLIC_PREFIXES = ['/api/auth/oauth/', '/api/invitations/preview/']

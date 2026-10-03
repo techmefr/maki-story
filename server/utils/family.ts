@@ -1,7 +1,7 @@
 import type { H3Event } from 'h3'
 import type { Sql } from 'postgres'
-import { readSession } from './session'
-import type { ISession } from './session'
+import { readSession } from '~~/technical/Auth/server/utils/session'
+import type { ISession } from '~~/technical/Auth/server/utils/session'
 import { badRequest } from './validate'
 
 export const requireSession = (event: H3Event): ISession => {

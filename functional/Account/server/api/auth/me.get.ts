@@ -1,6 +1,6 @@
 import { ensureSchema, getDb } from '~~/server/utils/db'
 import { isFamilyParentAccount } from '~~/server/utils/memberships'
-import { isSessionCurrent, readSession } from '~~/server/utils/session'
+import { isSessionCurrent, readSession } from '~~/technical/Auth/server/utils/session'
 
 export default defineEventHandler(async (event): Promise<IAuthState> => {
     const session = readSession(event)

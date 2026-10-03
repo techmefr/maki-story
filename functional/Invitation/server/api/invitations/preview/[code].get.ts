@@ -1,7 +1,7 @@
 import { getDb } from '~~/server/utils/db'
 import { findInvitation } from '~~/server/utils/invitations'
 import { normalizeInviteCode } from '~~/server/utils/inviteCode'
-import { assertIpBudget, recordIpHit } from '~~/server/utils/throttle'
+import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
 import { requireParam } from '~~/server/utils/validate'
 
 const PREVIEWS_PER_WINDOW = 60

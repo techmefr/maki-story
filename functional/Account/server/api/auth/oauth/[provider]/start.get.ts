@@ -1,6 +1,6 @@
 import { isOAuthFake } from '~~/shared/utils/oauth'
-import { beginFlow, challengeFor } from '~~/server/utils/oauth/flow'
-import { getProviderConfig, redirectUriFor, requestOrigin } from '~~/server/utils/oauth/providers'
+import { beginFlow, challengeFor } from '~~/technical/Auth/server/utils/oauth/flow'
+import { getProviderConfig, redirectUriFor, requestOrigin } from '~~/technical/Auth/server/utils/oauth/providers'
 
 export default defineEventHandler(async event => {
     const provider = getRouterParam(event, 'provider') ?? ''

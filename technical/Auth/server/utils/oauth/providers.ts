@@ -1,6 +1,6 @@
 import { createPrivateKey, createSign } from 'node:crypto'
 import type { H3Event } from 'h3'
-import { isOAuthFake, isProviderConfigured } from '../../../shared/utils/oauth'
+import { isOAuthFake, isProviderConfigured } from '~~/shared/utils/oauth'
 
 export const FAKE_ISSUER = 'https://fake-oidc.tantara.test'
 
