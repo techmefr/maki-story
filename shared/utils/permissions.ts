@@ -16,7 +16,7 @@ export const ROLE_PERMISSIONS: Record<Permission, MemberRole[]> = {
     'messages.list': EVERYONE,
     'messages.send': ['parent', 'relative', 'child'],
     'messages.listen': EVERYONE,
-    'messages.delete': ['parent'],
+    'messages.delete': ['parent', 'relative', 'child'],
     'feedback.send': EVERYONE,
     'feedback.manage': ['parent'],
     'ai.use': ['parent'],

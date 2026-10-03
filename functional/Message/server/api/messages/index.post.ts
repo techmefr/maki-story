@@ -75,7 +75,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
         return one(await tx<IMessage[]>`
             insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms, kind)
             values (${familyId}, ${fromMemberId}, ${recipient.id}, ${body.fileId}, ${body.mime}, ${durationMs}, ${kind})
-            returning id, from_member_id, to_member_id, file_id, mime, duration_ms, kind, status, listened_at, first_listened_at, expires_at, created_at
+            returning id, from_member_id, to_member_id, file_id, mime, duration_ms, kind, status, listened_at, first_listened_at, expires_at, created_at, false as is_saved
         `)
     })
     const [sender] = await db<{ name: string }[]>`select name from members where id = ${fromMemberId}`

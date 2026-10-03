@@ -57,14 +57,10 @@ export const useMessages = () => {
         messages.value = messages.value.filter(message => message.id !== id)
     }
 
-    const isLive = (message: IMessage): boolean => message.expiresAt === null || new Date(message.expiresAt).getTime() > Date.now()
+    const isLive = (message: IMessage): boolean => isLiveMessage(message, Date.now())
 
-    const between = (a: string, b: string): IMessage[] => {
-        return messages.value.filter(
-            message =>
-                isLive(message) &&
-                ((message.fromMemberId === a && message.toMemberId === b) || (message.fromMemberId === b && message.toMemberId === a)),
-        )
+    const markSaved = (id: string): void => {
+        messages.value = messages.value.map(message => (message.id === id ? { ...message, isSaved: true, expiresAt: null } : message))
     }
 
     const queueFrom = (senderId: string, receiverId: string): IMessage[] => {
@@ -81,16 +77,6 @@ export const useMessages = () => {
         return queueFrom(senderId, receiverId).filter(message => !message.firstListenedAt).length
     }
 
-    const lastSentTo = (senderId: string, receiverId: string): IMessage | null => {
-        return messages.value.find(message => message.fromMemberId === senderId && message.toMemberId === receiverId && isLive(message)) ?? null
-    }
-
-    const hasActiveTo = (senderId: string, receiverId: string, kind: MessageKind = 'NORMAL'): boolean => {
-        return messages.value.some(
-            message => message.fromMemberId === senderId && message.toMemberId === receiverId && message.kind === kind && isLive(message),
-        )
-    }
-
     const unreadCountFor = (receiverId: string): number => {
         return messages.value.filter(message => message.toMemberId === receiverId && !message.firstListenedAt && isLive(message)).length
     }
@@ -102,12 +88,10 @@ export const useMessages = () => {
         stopPolling,
         send,
         markListened,
-        between,
         queueFrom,
         playableFrom,
         unreadFrom,
-        lastSentTo,
-        hasActiveTo,
+        markSaved,
         remove,
         unreadCountFor,
         isLive,

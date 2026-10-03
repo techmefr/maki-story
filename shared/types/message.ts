@@ -14,6 +14,7 @@ export interface IMessage {
     firstListenedAt: string | null
     expiresAt: string | null
     createdAt: string
+    isSaved: boolean
 }
 
 export interface INewMessage {
@@ -23,4 +24,16 @@ export interface INewMessage {
     mime: string
     durationMs: number
     kind?: MessageKind
+}
+
+export interface IQuota {
+    count: number
+    limit: number
+    remaining: number
+    isFull: boolean
+}
+
+export interface IMessageRecipient {
+    member: IMember
+    quota: IQuota
 }

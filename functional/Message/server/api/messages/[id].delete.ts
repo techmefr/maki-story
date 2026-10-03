@@ -8,7 +8,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const id = requireParam(event, 'id')
     const deleted = await getDb()`
         update messages set status = 'DELETED', deleted_at = now()
-        where id = ${id} and family_id = ${actor.familyId} and deleted_at is null
+        where id = ${id} and family_id = ${actor.familyId} and deleted_at is null and status = 'ACTIVE'
+            and (${actor.role === 'parent'} or from_member_id = ${actor.memberId})
         returning id
     `
     if (deleted.length === 0) {
