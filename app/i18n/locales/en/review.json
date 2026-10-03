@@ -105,5 +105,11 @@
         "aVoice": "A voice",
         "listen": "Listen to the story",
         "newVoicesFor": "New voices for {title}"
+    },
+    "summary": {
+        "title": "Review progress",
+        "approved": "{count} approved",
+        "changes": "{count} to fix",
+        "waiting": "{count} waiting"
     }
 }

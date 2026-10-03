@@ -8,6 +8,15 @@
                 <AppIcon name="sparkles" :size="16" />{{ t('review.activity') }}
             </AppButton>
         </div>
+        <section class="stack review__summary" aria-labelledby="review-summary" data-testid="review-summary">
+            <h2 id="review-summary" class="sr-only">{{ t('review.summary.title') }}</h2>
+            <div class="row row--wrap">
+                <AppBadge tone="success">{{ t('review.summary.approved', { count: countOf('approved') }) }}</AppBadge>
+                <AppBadge tone="danger">{{ t('review.summary.changes', { count: countOf('changes') }) }}</AppBadge>
+                <AppBadge tone="warning">{{ t('review.summary.waiting', { count: waitingCount }) }}</AppBadge>
+            </div>
+            <AppProgress :value="approvedPercent" :label="t('review.summary.title')" />
+        </section>
         <section class="stack" aria-labelledby="review-voices">
             <h2 id="review-voices" class="subtitle">{{ t('review.voicesTitle') }}</h2>
             <ul class="review__voices">
@@ -240,6 +249,11 @@ const matches = (line: ILine, id: FilterId): boolean => {
     return id === 'changes' ? state === 'changes' || state === 'stale' : state === id
 }
 
+const waitingCount = computed<number>(() => Math.max(0, (book.value?.lines.length ?? 0) - countOf('approved') - countOf('changes')))
+const approvedPercent = computed<number>(() => {
+    const total = book.value?.lines.length ?? 0
+    return total === 0 ? 0 : Math.round((countOf('approved') / total) * 100)
+})
 const countOf = (id: FilterId): number => (book.value?.lines ?? []).filter(line => matches(line, id)).length
 const shownLines = computed(() => (book.value?.lines ?? []).filter(line => matches(line, filter.value)))
 
