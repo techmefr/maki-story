@@ -1,10 +1,10 @@
-import { MESSAGE_LISTEN_WINDOW_HOURS } from '../../../../shared/utils/voices'
-import { getDb } from '../../../utils/db'
-import { actorEntry, record } from '../../../utils/journal'
-import { logEvent } from '../../../utils/log'
-import { purgeExpiredMessages } from '../../../utils/messages'
-import { requireActorMember, requirePermission } from '../../../utils/permissions'
-import { notFound, requireParam } from '../../../utils/validate'
+import { MESSAGE_LISTEN_WINDOW_HOURS } from '~~/shared/utils/voices'
+import { getDb } from '~~/server/utils/db'
+import { actorEntry, record } from '~~/server/utils/journal'
+import { logEvent } from '~~/server/utils/log'
+import { purgeExpiredMessages } from '~~/server/utils/messages'
+import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean; expiresAt: string | null }> => {
     const actor = await requirePermission(event, 'messages.listen')

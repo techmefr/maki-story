@@ -1,7 +1,7 @@
-import { getDb } from '../../utils/db'
-import { actorEntry, record } from '../../utils/journal'
-import { requirePermission } from '../../utils/permissions'
-import { notFound, requireParam } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { actorEntry, record } from '~~/server/utils/journal'
+import { requirePermission } from '~~/server/utils/permissions'
+import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const actor = await requirePermission(event, 'messages.delete')
