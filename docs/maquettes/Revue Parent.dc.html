@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}textarea::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 150px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Proche.dc.html" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="flex:1;min-width:0"><div style="font-size:15px;color:#3b3466">Relecture · proposé par Beau-papa Trésor</div><div style="font-size:26px;font-weight:700;line-height:1.1">{{ bookTitle }}</div></div></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:22px;padding:12px 14px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:8px;flex-wrap:wrap;font-weight:700;font-size:15px"><span style="white-space:nowrap;padding:2px 12px;border-radius:999px;background:#ADE6C4;border:2px solid #1E1A3F">{{ nOk }} approuvés</span><span style="white-space:nowrap;padding:2px 12px;border-radius:999px;background:#FFD9D3;border:2px solid #1E1A3F">{{ nKo }} à corriger</span><span style="white-space:nowrap;padding:2px 12px;border-radius:999px;background:#FFF3DC;border:2px solid #1E1A3F">{{ nWait }} en attente</span></div><div style="height:12px;border-radius:6px;border:3px solid #1E1A3F;background:#FFF3DC;overflow:hidden"><div style="height:100%;width:{{ pct }}%;background:#4AD3A5"></div></div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ langs }}" as="l" hint-placeholder-count="2"><button onClick="{{ l.tap }}" style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ l.bg }};font-weight:700;font-size:15px;color:#1E1A3F;cursor:pointer"><span style="width:24px;height:16px;border-radius:3px;border:2px solid #1E1A3F;background:{{ l.flag }}"></span>{{ l.n }}</button></sc-for></div>
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="3"><div style="background:#fff;border:3px solid #1E1A3F;border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;overflow:hidden">
+<button onClick="{{ p.tap }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;background:#FFF3DC;border:none;border-bottom:3px solid #1E1A3F;cursor:pointer;color:#1E1A3F;text-align:left"><div style="width:52px;height:40px;border-radius:10px;border:3px solid #1E1A3F;background:{{ p.photoBg }} center/cover,#E5E3F0;flex:none"></div><div style="flex:1;min-width:0"><div style="font-size:14px;color:#3b3466">Page {{ p.n }}</div><div style="font-size:19px;font-weight:700;line-height:1.1">{{ p.title }}</div></div><div style="padding:2px 10px;border-radius:999px;border:2px solid #1E1A3F;background:{{ p.bg }};font-weight:700;font-size:14px">{{ p.badge }}</div></button>
+<div style="display:{{ p.openShow }};flex-direction:column">
+<sc-for list="{{ p.lines }}" as="c" hint-placeholder-count="2"><div style="padding:14px;border-bottom:2px solid #E5E3F0;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:{{ c.color }};border:3px solid #1E1A3F;flex:none"></div><div style="flex:1;font-size:18px;font-weight:700">{{ c.name }}</div><div style="font-size:14px;color:#3b3466">{{ c.voice }}</div></div>
+<div style="display:{{ c.diffShow }};border:2px solid #1E1A3F;border-radius:14px;overflow:hidden;font-size:16px"><div style="padding:6px 10px;background:#FFD9D3;text-decoration:line-through">– {{ c.prev }}</div><div style="padding:6px 10px;background:#ADE6C4">+ {{ c.text }}</div></div>
+<div style="display:{{ c.plainShow }};font-size:18px;line-height:1.3">{{ c.text }}</div>
+<div style="display:{{ c.recShow }};align-items:center;gap:10px;background:#FFF3DC;border:3px solid #1E1A3F;border-radius:999px;padding:6px 14px 6px 6px"><button onClick="{{ c.play }}" style="width:40px;height:40px;border-radius:50%;background:{{ c.playBg }};border:3px solid #1E1A3F;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1E1A3F" stroke="#1E1A3F" stroke-width="2" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"></path></svg></button><div style="flex:1;display:flex;gap:3px;align-items:center;height:24px"><sc-for list="{{ c.wave }}" as="w" hint-placeholder-count="16"><div style="width:4px;height:{{ w }}px;border-radius:2px;background:#1E1A3F"></div></sc-for></div><div style="font-weight:700;font-size:15px">{{ c.secs }} s</div></div>
+<div style="display:{{ c.noRecShow }};font-size:15px;color:#3b3466">Pas encore enregistré</div>
+<div style="display:{{ c.cmShow }};background:#FFD9D3;border:2px solid #1E1A3F;border-radius:14px;padding:8px 12px;font-size:16px">{{ c.comment }}</div>
+<div style="display:{{ c.boxShow }};flex-direction:column;gap:8px"><textarea value="{{ c.draft }}" onInput="{{ c.setDraft }}" placeholder="Que faut-il changer ?" style="min-height:60px;resize:none;border:3px solid #1E1A3F;border-radius:16px;padding:10px 14px;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;color:#1E1A3F"></textarea><button onClick="{{ c.sendKo }}" style="padding:10px;border-radius:999px;background:#FF7766;border:3px solid #1E1A3F;font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer">Envoyer la demande</button></div>
+<div style="display:{{ c.actShow }};gap:10px"><button onClick="{{ c.ok }}" style="flex:1;padding:10px;border-radius:999px;background:{{ c.okBg }};border:3px solid #1E1A3F;font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer">Approuver</button><button onClick="{{ c.ko }}" style="flex:1;padding:10px;border-radius:999px;background:{{ c.koBg }};border:3px solid #1E1A3F;font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer">Demander un changement</button></div></div></sc-for>
+</div></div></sc-for>
+<div style="position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:#FFF3DC;z-index:5"><div style="width:100%;max-width:440px;box-sizing:border-box;padding:12px 20px 16px;border-top:3px solid #1E1A3F;display:flex;flex-direction:column;gap:10px"><button onClick="{{ validate }}" style="padding:14px;border-radius:24px;background:{{ valBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer">{{ valLabel }}</button><div style="font-size:14px;text-align:center;color:#3b3466">{{ status }}</div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { book: null, lang: 'fr', open: 0, ko: null, draft: '', playing: null, final: '' };
+  async componentDidMount() { this.M = await import('./studio-data.js'); this.setState({ book: this.M.loadBook() }); }
+  componentWillUnmount() { clearTimeout(this.to); }
+  upd(fn) { const b = JSON.parse(JSON.stringify(this.state.book)); fn(b); this.M.saveBook(b); this.setState({ book: b }); }
+  wave(seed) { return Array.from({ length: 16 }, (_, i) => 6 + ((i * 7 + seed * 5) % 5) * 4); }
+  renderVals() {
+    const M = this.M, b = this.state.book;
+    if (!M || !b) return { langs: [], pages: [], bookTitle: '', nOk: 0, nKo: 0, nWait: 0, pct: 0, status: '', valBg: '#E5E3F0', valLabel: '…', validate: () => {} };
+    const s = this.state, set = o => this.setState(o), L = s.lang;
+    const rec = b.pages.flatMap(p => p.chars).filter(c => c.rec), all = b.pages.flatMap(p => p.chars);
+    const nOk = rec.filter(c => c.review === 'approved').length, nKo = rec.filter(c => c.review === 'changes').length;
+    const nWait = all.length - nOk - nKo;
+    const ready = nOk === all.length && all.length > 0;
+    return {
+      bookTitle: b.title, nOk, nKo, nWait, pct: all.length ? Math.round(nOk / all.length * 100) : 0,
+      langs: b.langs.map(l => ({ n: M.LANGS[l].n, flag: M.LANGS[l].flag, bg: l === L ? '#FFC933' : '#fff', tap: () => set({ lang: l }) })),
+      pages: b.pages.map((p, pi) => {
+        const ok = p.chars.filter(c => c.review === 'approved').length, ko = p.chars.some(c => c.review === 'changes');
+        return {
+          n: pi + 1, title: p.title[L] || p.title.fr || '', photoBg: p.photo ? 'url(' + p.photo + ')' : 'none',
+          badge: ko ? 'À corriger' : ok + '/' + p.chars.length, bg: ko ? '#FFD9D3' : ok === p.chars.length && ok ? '#ADE6C4' : '#FFF3DC',
+          openShow: s.open === pi ? 'flex' : 'none', tap: () => set({ open: s.open === pi ? -1 : pi }),
+          lines: p.chars.map((c, ci) => {
+            const asking = s.ko === c.id, diff = !!c.prev && c.review !== 'approved';
+            return {
+              name: c.name, color: c.color, voice: c.voice, text: c.text[L] || c.text.fr || '', prev: c.prev,
+              diffShow: diff ? 'block' : 'none', plainShow: diff ? 'none' : 'block',
+              recShow: c.rec ? 'flex' : 'none', noRecShow: c.rec ? 'none' : 'block', secs: c.rec ? c.rec.secs : 0, wave: this.wave(ci + pi),
+              playBg: s.playing === c.id ? '#4AD3A5' : '#FFC933', play: () => { clearTimeout(this.to); set({ playing: c.id }); this.to = setTimeout(() => set({ playing: null }), 2500); },
+              cmShow: c.review === 'changes' && c.comment ? 'block' : 'none', comment: c.comment,
+              boxShow: asking ? 'flex' : 'none', draft: s.draft, setDraft: e => set({ draft: e.target.value }),
+              sendKo: () => { this.upd(x => { const t = x.pages[pi].chars[ci]; t.review = 'changes'; t.comment = s.draft; }); set({ ko: null, draft: '' }); },
+              actShow: c.rec && !asking ? 'flex' : 'none',
+              okBg: c.review === 'approved' ? '#4AD3A5' : '#fff', koBg: c.review === 'changes' ? '#FF7766' : '#fff',
+              ok: () => this.upd(x => { const t = x.pages[pi].chars[ci]; t.review = 'approved'; t.comment = ''; }),
+              ko: () => set({ ko: c.id, draft: c.comment || '' })
+            };
+          })
+        };
+      }),
+      valBg: ready ? '#4AD3A5' : nKo ? '#FF7766' : '#E5E3F0',
+      valLabel: s.final || (ready ? 'Valider le livre' : nKo ? 'Renvoyer ' + nKo + ' correction' + (nKo > 1 ? 's' : '') : 'Valider le livre'),
+      validate: () => { if (ready) set({ final: 'Livre validé ✓' }); else if (nKo) set({ final: 'Corrections envoyées' }); },
+      status: ready ? 'Tout est approuvé.' : nWait + ' ligne' + (nWait > 1 ? 's' : '') + ' à relire ou à enregistrer.'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 190px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Connexion.dc.html" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="flex:1;font-size:30px;font-weight:700;line-height:1.1">Conditions et confidentialité</div></div>
+<div style="background:#FFD9D3;border:3px solid #1E1A3F;border-radius:18px;padding:10px 14px;font-size:15px;font-weight:600">Brouillon à faire valider par un juriste avant publication. Les passages entre crochets sont à compléter.</div>
+<div style="display:flex;gap:8px"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.tap }}" style="flex:1;padding:10px 4px;border-radius:999px;border:3px solid #1E1A3F;background:{{ t.bg }};box-shadow:{{ t.sh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer">{{ t.n }}</button></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:14px"><sc-for list="{{ sections }}" as="s" hint-placeholder-count="5"><div style="background:#fff;border:3px solid #1E1A3F;border-radius:22px;padding:14px 16px"><div style="font-size:19px;font-weight:700;margin-bottom:4px">{{ s.h }}</div><div style="font-size:16px;line-height:1.4;color:#3b3466">{{ s.p }}</div></div></sc-for></div>
+<div style="position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:#FFF3DC;z-index:5"><div style="width:100%;max-width:440px;box-sizing:border-box;padding:12px 20px 16px;border-top:3px solid #1E1A3F;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ checks }}" as="c" hint-placeholder-count="2"><button onClick="{{ c.tap }}" style="display:flex;align-items:center;gap:12px;background:transparent;border:none;padding:0;cursor:pointer;color:#1E1A3F;text-align:left;font-size:15px;font-weight:600;line-height:1.25"><span style="width:30px;height:30px;border-radius:9px;border:3px solid #1E1A3F;background:{{ c.bg }};display:flex;align-items:center;justify-content:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="display:{{ c.ck }}"><path d="M5 13l4 4 10-10"></path></svg></span>{{ c.t }}</button></sc-for>
+<a href="{{ href }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:{{ okBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;text-decoration:none;color:#1E1A3F"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"></path></svg>J’accepte et je continue</a></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'cgu', a: false, b: false };
+  D = {
+    cgu: [
+      ['1. Objet', 'Tantara permet à des proches d’enregistrer leur voix sur des histoires et à des enfants de les écouter, au sein d’une famille. [Nom de l’éditeur, adresse, contact].'],
+      ['2. Compte et famille', 'Un parent crée la famille et invite d’autres parents ou des proches par e-mail ou par code. Un enfant n’a pas de compte autonome : son profil est géré par ses parents.'],
+      ['3. Contenus enregistrés', 'Chaque personne reste responsable de ses enregistrements. Un adulte peut laisser jusqu’à 5 messages au même enfant. Les parents peuvent relire, refuser ou retirer tout contenu.'],
+      ['4. Règles d’usage', 'Les contenus doivent convenir à un public enfant. Il est interdit d’enregistrer la voix d’une personne sans son accord ou de publier un contenu illicite.'],
+      ['5. Suppression', 'Un parent peut retirer un proche, un enfant ou un livre à tout moment. Le compte peut être supprimé depuis les réglages. [Délai de conservation].'],
+      ['6. Responsabilité et évolution', '[À compléter : disponibilité du service, limitation de responsabilité, modification des conditions, droit applicable.]']
+    ],
+    priv: [
+      ['Données collectées', 'Adresse e-mail des adultes, prénom et âge de l’enfant, photo de profil (grimace), voix enregistrées, progression de lecture, favoris, langues choisies.'],
+      ['Données des enfants', 'Elles ne sont collectées qu’avec l’accord d’un parent ou tuteur légal, ne servent à aucune publicité et ne sont jamais revendues. Aucun profilage.'],
+      ['Finalités', 'Faire fonctionner l’application : écoute, enregistrement, relecture, notifications choisies par chaque personne.'],
+      ['Hébergement et durée', '[Hébergeur, pays]. Les données sont conservées tant que la famille existe, puis supprimées sous [durée].'],
+      ['Vos droits', 'Accès, rectification, effacement, export et opposition, depuis les réglages ou à [adresse de contact]. Recours possible auprès de la CNIL.'],
+      ['Autorisations de l’appareil', 'Micro pour enregistrer, caméra ou photos pour la photo de profil, notifications si activées. Chacune peut être refusée.']
+    ],
+    cgv: [
+      ['1. Offre', '[À compléter si l’application est payante : gratuité, abonnement, options.]'],
+      ['2. Prix et paiement', '[Prix TTC, moyens de paiement, passage par les boutiques d’applications.]'],
+      ['3. Durée et résiliation', '[Durée, renouvellement, résiliation à tout moment depuis les réglages.]'],
+      ['4. Droit de rétractation', '[Information légale de 14 jours et ses exceptions pour les contenus numériques.]'],
+      ['5. Réclamations', '[Service client, médiateur de la consommation.]']
+    ]
+  };
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const ok = s.a && s.b;
+    return {
+      tabs: [['cgu', 'CGU'], ['priv', 'Confidentialité'], ['cgv', 'CGV']].map(([k, n]) => ({ n, bg: s.tab === k ? '#FFC933' : '#fff', sh: s.tab === k ? '3px 4px 0 #1E1A3F' : 'none', tap: () => set({ tab: k }) })),
+      sections: this.D[s.tab].map(([h, p]) => ({ h, p })),
+      checks: [
+        { t: 'J’ai lu et j’accepte les CGU, les CGV et la politique de confidentialité.', on: s.a, tap: () => set({ a: !s.a }) },
+        { t: 'Je suis parent ou tuteur légal et j’autorise la création de profils pour mes enfants.', on: s.b, tap: () => set({ b: !s.b }) }
+      ].map(c => ({ ...c, bg: c.on ? '#4AD3A5' : '#fff', ck: c.on ? 'block' : 'none' })),
+      okBg: ok ? '#FFC933' : '#E5E3F0', href: ok ? 'Page Profils.dc.html' : '#'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}@keyframes bar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 60px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Proche.dc.html" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="flex:1;min-width:0"><div style="font-size:24px;font-weight:700;line-height:1.1">{{ bookTitle }}</div><div style="font-size:15px;color:#3b3466">Page {{ pn }} sur {{ total }} · {{ done }}/{{ mine }} enregistrés</div></div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ voices }}" as="v" hint-placeholder-count="4"><button onClick="{{ v.tap }}" style="padding:5px 12px;border-radius:999px;border:3px solid #1E1A3F;background:{{ v.bg }};font-weight:700;font-size:14px;color:#1E1A3F;cursor:pointer">{{ v.n }}</button></sc-for></div>
+<div style="height:14px;border-radius:7px;border:3px solid #1E1A3F;background:#fff;overflow:hidden"><div style="height:100%;width:{{ pct }}%;background:#4AD3A5"></div></div>
+<div style="position:relative;aspect-ratio:4/3;border-radius:26px;border:3px solid #1E1A3F;background:#E5E3F0;box-shadow:4px 5px 0 #1E1A3F;overflow:hidden;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:{{ photoBg }} center/cover"></div><div style="display:{{ noPhotoShow }};font-weight:700;color:#3b3466">Pas de photo</div></div>
+<div style="display:flex;gap:8px"><sc-for list="{{ langs }}" as="l" hint-placeholder-count="2"><button onClick="{{ l.tap }}" style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ l.bg }};font-weight:700;font-size:15px;color:#1E1A3F;cursor:pointer"><span style="width:24px;height:16px;border-radius:3px;border:2px solid #1E1A3F;background:{{ l.flag }}"></span>{{ l.n }}</button></sc-for></div>
+<div><div style="font-size:26px;font-weight:700;line-height:1.1">{{ pTitle }}</div><div style="font-size:17px;color:#3b3466;margin-top:4px">{{ pDesc }}</div></div>
+<sc-for list="{{ lines }}" as="c" hint-placeholder-count="2"><div style="background:#fff;border:3px solid {{ c.color }};border-radius:26px;box-shadow:{{ c.shadow }};padding:14px;display:flex;flex-direction:column;gap:10px;opacity:{{ c.op }}">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:{{ c.color }};border:3px solid #1E1A3F;flex:none"></div><div style="flex:1;font-size:19px;font-weight:700">{{ c.name }}</div><div style="font-size:14px;color:#3b3466">{{ c.voice }}</div></div>
+<div style="font-size:21px;font-weight:600;line-height:1.3">{{ c.text }}</div>
+<div style="font-size:16px;color:#3b3466;font-style:italic">{{ c.desc }}</div>
+<div style="display:{{ c.recShow }};align-items:center;justify-content:center;gap:12px;height:44px"><div style="width:12px;height:12px;border-radius:50%;background:#FF7766;border:2px solid #1E1A3F"></div><div style="display:flex;align-items:center;gap:4px;height:36px"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="14"><div style="width:6px;height:36px;border-radius:3px;background:#1E1A3F;animation:bar {{ b.d }}s ease-in-out {{ b.dl }}s infinite"></div></sc-for></div><div style="font-weight:700;font-size:18px">0:0{{ c.t }}</div></div>
+<div style="display:{{ c.actShow }};gap:10px"><button onClick="{{ c.main }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:22px;background:{{ c.mainBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><span style="width:18px;height:18px;border-radius:{{ c.mainShape }};background:#1E1A3F"></span>{{ c.mainLabel }}</button>
+<button onClick="{{ c.listen }}" style="display:{{ c.doneShow }};flex:1;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:22px;background:{{ c.listenBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1E1A3F" stroke="#1E1A3F" stroke-width="2" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"></path></svg>Réécouter</button></div>
+<div style="display:{{ c.doneShow }};font-size:14px;color:#3b3466;margin-top:-4px">Prise {{ c.takes }} · {{ c.secs }} s</div></div></sc-for>
+<div style="display:flex;gap:12px;margin-top:6px"><button onClick="{{ prev }}" style="flex:1;padding:14px;border-radius:24px;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer;opacity:{{ prevOp }}">Précédente</button><button onClick="{{ next }}" style="flex:1;padding:14px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer;opacity:{{ nextOp }}">Suivante</button></div>
+<a href="Revue Parent.dc.html" style="display:{{ sendShow }};justify-content:center;padding:16px;border-radius:24px;background:#4AD3A5;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:20px;text-decoration:none;color:#1E1A3F">Envoyer pour relecture</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { book: null, pg: 0, lang: 'fr', voice: null, active: null, t: 0, playing: null };
+  async componentDidMount() { this.M = await import('./studio-data.js'); this.setState({ book: this.M.loadBook() }); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.to); }
+  upd(fn) { const b = JSON.parse(JSON.stringify(this.state.book)); fn(b); this.M.saveBook(b); this.setState({ book: b }); }
+  bars = Array.from({ length: 14 }, (_, i) => ({ d: (0.5 + ((i * 37) % 10) / 14).toFixed(2), dl: (-(i * 0.13)).toFixed(2) }));
+  renderVals() {
+    const M = this.M, b = this.state.book;
+    if (!M || !b) return { voices: [], langs: [], lines: [], bars: this.bars, photoBg: 'none', noPhotoShow: 'flex', sendShow: 'none' };
+    const s = this.state, set = o => this.setState(o);
+    const voice = s.voice || this.props.voice || 'Maman', L = s.lang;
+    const p = b.pages[s.pg];
+    const all = b.pages.flatMap(q => q.chars.filter(c => c.voice === voice));
+    const done = all.filter(c => c.rec).length;
+    const go = i => set({ pg: i, active: null });
+    const start = id => { clearInterval(this.iv); set({ active: id, t: 0 }); this.iv = setInterval(() => this.setState(st => ({ t: Math.min(9, st.t + 1) })), 1000); };
+    const stop = (ci, id) => { clearInterval(this.iv); const secs = Math.max(2, this.state.t); this.upd(x => { const c = x.pages[s.pg].chars[ci]; c.rec = { takes: (c.rec ? c.rec.takes : 0) + 1, secs }; c.review = ''; }); set({ active: null }); };
+    const play = id => { clearTimeout(this.to); set({ playing: id }); this.to = setTimeout(() => set({ playing: null }), 2500); };
+    return {
+      bookTitle: b.title, pn: s.pg + 1, total: b.pages.length, done, mine: all.length, pct: all.length ? Math.round(done / all.length * 100) : 0,
+      voices: M.VOICES.map(v => ({ n: v, bg: v === voice ? '#FFC933' : '#fff', tap: () => set({ voice: v, active: null }) })),
+      photoBg: p.photo ? 'url(' + p.photo + ')' : 'none', noPhotoShow: p.photo ? 'none' : 'flex',
+      langs: b.langs.map(l => ({ n: M.LANGS[l].n, flag: M.LANGS[l].flag, bg: l === L ? '#FFC933' : '#fff', tap: () => set({ lang: l }) })),
+      pTitle: p.title[L] || p.title.fr || '', pDesc: p.desc[L] || p.desc.fr || '',
+      bars: this.bars,
+      lines: p.chars.map((c, ci) => {
+        const mine = c.voice === voice, rec = s.active === c.id, has = !!c.rec;
+        return {
+          name: c.name, color: c.color, voice: c.voice || '—', text: c.text[L] || c.text.fr || '', desc: c.desc[L] || c.desc.fr || '',
+          shadow: mine ? '4px 5px 0 #1E1A3F' : 'none', op: mine ? 1 : 0.55,
+          recShow: rec ? 'flex' : 'none', t: s.t, actShow: mine && !rec ? 'flex' : 'none', doneShow: has ? 'flex' : 'none',
+          takes: has ? c.rec.takes : 0, secs: has ? c.rec.secs : 0,
+          mainLabel: has ? 'Réenregistrer' : 'Enregistrer', mainBg: has ? '#fff' : '#FF7766', mainShape: '50%',
+          main: () => start(c.id),
+          listenBg: s.playing === c.id ? '#4AD3A5' : '#CFE5FF', listen: () => play(c.id)
+        };
+      }).map((l, ci) => (s.active === p.chars[ci].id ? { ...l, actShow: 'flex', mainLabel: 'Arrêter', mainBg: '#FFC933', mainShape: '3px', doneShow: 'none', main: () => stop(ci) } : l)),
+      prev: () => s.pg > 0 && go(s.pg - 1), next: () => s.pg < b.pages.length - 1 && go(s.pg + 1),
+      prevOp: s.pg > 0 ? 1 : 0.4, nextOp: s.pg < b.pages.length - 1 ? 1 : 0.4,
+      sendShow: all.length && done === all.length ? 'flex' : 'none'
+    };
+  }
+}
+</script>
+</body>
+</html>

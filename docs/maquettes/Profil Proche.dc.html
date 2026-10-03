@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<a href="Famille.dc.html" aria-label="Retour" style="align-self:flex-start;width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a>
+<div style="display:flex;align-items:center;gap:16px"><div style="width:88px;height:88px;border-radius:50%;background:#6DB5FF;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:700;flex:none">P</div><div><div style="font-size:28px;font-weight:700;line-height:1.1">Papi Serge</div><div style="margin-top:6px;display:inline-block;padding:2px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ roleBg }};font-weight:700;font-size:15px">{{ role }}</div></div></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:24px;padding:14px 16px;display:flex;flex-direction:column;gap:12px"><div style="font-size:19px;font-weight:700">Messages laissés</div>
+<sc-for list="{{ kids }}" as="k" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:50%;background:{{ k.c }};border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none">{{ k.i }}</span><span style="width:70px;font-weight:700">{{ k.n }}</span><div style="flex:1;display:flex;gap:4px"><sc-for list="{{ k.cells }}" as="c" hint-placeholder-count="5"><div style="flex:1;height:14px;border-radius:7px;border:2px solid #1E1A3F;background:{{ c.bg }}"></div></sc-for></div><span style="font-weight:700;font-size:15px;width:34px;text-align:right">{{ k.n5 }}/5</span></div></sc-for></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:24px;padding:14px 16px"><div style="font-size:19px;font-weight:700;margin-bottom:6px">Familles</div><div style="font-size:16px;color:#3b3466">Famille Rakoto · Famille Andry</div></div>
+<div style="display:{{ msg }};background:#ADE6C4;border:3px solid #1E1A3F;border-radius:20px;padding:12px 16px;font-weight:700;font-size:16px">{{ msgText }}</div>
+<button onClick="{{ reset }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:26px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9M18 12v4M15 12v3"></path></svg>Réinitialiser son code</button>
+<button onClick="{{ toggleRole }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h12l-3-3M17 17H5l3 3"></path></svg>{{ roleLabel }}</button>
+<button onClick="{{ remove }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#FF7766;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>Retirer de la famille</button></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { parent: false, msg: '' };
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const K = [['Mattéo', 'M', '#FF7766', 3], ['Léa', 'L', '#6DB5FF', 1], ['Noa', 'N', '#4AD3A5', 5]];
+    return {
+      role: s.parent ? 'Parent' : 'Proche', roleBg: s.parent ? '#CFE5FF' : '#ADE6C4', roleLabel: s.parent ? 'Passer en proche' : 'Passer en parent',
+      kids: K.map(([n, i, c, v]) => ({ n, i, c, n5: v, cells: [0, 1, 2, 3, 4].map(x => ({ bg: x < v ? c : '#FFF3DC' })) })),
+      msg: s.msg ? 'block' : 'none', msgText: s.msg,
+      reset: () => set({ msg: 'Un lien de nouveau code a été envoyé à Papi Serge.' }),
+      toggleRole: () => set({ parent: !s.parent, msg: s.parent ? 'Papi Serge est maintenant proche.' : 'Papi Serge est maintenant parent.' }),
+      remove: () => { location.href = 'Famille.dc.html'; }
+    };
+  }
+}
+</script>
+</body>
+</html>

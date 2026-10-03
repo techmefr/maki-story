@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;gap:6px"><sc-for list="{{ segs }}" as="g" hint-placeholder-count="3"><div style="flex:1;height:14px;border-radius:7px;border:3px solid #1E1A3F;background:{{ g.bg }};box-sizing:border-box"></div></sc-for></div>
+<div style="display:{{ s1 }};flex-direction:column;gap:16px"><div style="font-size:32px;font-weight:700;line-height:1.1">Rejoindre une famille</div><div style="font-size:18px;color:#3b3466">Tape le code donné par un parent.</div>
+<input value="{{ code }}" onInput="{{ setCode }}" maxlength="6" placeholder="ABC123" style="height:70px;box-sizing:border-box;text-align:center;border-radius:26px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:36px;font-weight:700;letter-spacing:8px;color:#1E1A3F;text-transform:uppercase"><div style="display:{{ err }};background:#FFD9D3;border:3px solid #1E1A3F;border-radius:18px;padding:10px 14px;font-weight:600">Ce code n’est pas valable. Il a peut-être expiré (48 h).</div></div>
+<div style="display:{{ s2 }};flex-direction:column;gap:16px"><div style="background:#ADE6C4;border:3px solid #1E1A3F;border-radius:22px;padding:12px 16px;font-size:17px;font-weight:600">Tu rejoins <b>Famille Rakoto</b> comme <b>proche</b>.</div><div style="font-size:32px;font-weight:700;line-height:1.1">Crée ton profil</div>
+<label style="align-self:center;position:relative;width:130px;height:130px;border-radius:50%;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer"><div style="position:absolute;inset:0;background:{{ photoBg }} center/cover"></div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative;display:{{ noPhoto }}"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.500"></circle></svg><input type="file" accept="image/*" capture="user" onChange="{{ pick }}" style="display:none"></label>
+<input value="{{ name }}" onInput="{{ setName }}" placeholder="Ton prénom" style="height:54px;box-sizing:border-box;padding:0 22px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:#1E1A3F"></div>
+<div style="display:{{ s3 }};flex-direction:column;gap:16px"><div style="font-size:32px;font-weight:700;line-height:1.1">Ton code secret</div><div style="font-size:18px;color:#3b3466">4 à 8 chiffres.</div><div style="display:flex;gap:10px;justify-content:center"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="8"><div style="width:20px;height:20px;border-radius:50%;border:3px solid #1E1A3F;background:{{ d.bg }}"></div></sc-for></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"><sc-for list="{{ keys }}" as="k" hint-placeholder-count="10"><button onClick="{{ k.tap }}" style="aspect-ratio:1.4;border-radius:22px;background:#fff;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-size:32px;font-weight:700;color:#1E1A3F;cursor:pointer;padding:0;grid-column:{{ k.col }}">{{ k.n }}</button></sc-for><button onClick="{{ del }}" aria-label="Effacer" style="grid-column:3;grid-row:4;aspect-ratio:1.4;border-radius:22px;background:#FFD9D3;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></button></div></div>
+<button onClick="{{ next }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border-radius:28px;background:{{ bg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:21px;color:#1E1A3F;cursor:pointer;margin-top:auto"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ icon }}"></path></svg>{{ label }}</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { step: 1, code: '', err: false, name: '', photo: '', pin: '' };
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const ok = [s.code.length === 6, !!s.name.trim(), s.pin.length >= 4][s.step - 1];
+    return {
+      segs: [1, 2, 3].map(i => ({ bg: s.step > i ? '#1E1A3F' : s.step === i ? '#FFC933' : '#fff' })),
+      s1: s.step === 1 ? 'flex' : 'none', s2: s.step === 2 ? 'flex' : 'none', s3: s.step === 3 ? 'flex' : 'none',
+      code: s.code, setCode: e => set({ code: e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''), err: false }), err: s.err ? 'block' : 'none',
+      name: s.name, setName: e => set({ name: e.target.value }), photoBg: s.photo ? 'url(' + s.photo + ')' : 'none', noPhoto: s.photo ? 'none' : 'block',
+      pick: e => { const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => set({ photo: r.result }); r.readAsDataURL(f); },
+      dots: Array.from({ length: 8 }, (_, i) => ({ bg: i < s.pin.length ? '#1E1A3F' : '#FFF3DC' })),
+      keys: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(n => ({ n, col: n === 0 ? 2 : 'auto', tap: () => s.pin.length < 8 && set({ pin: s.pin + n }) })), del: () => set({ pin: s.pin.slice(0, -1) }),
+      bg: ok ? (s.step === 3 ? '#4AD3A5' : '#FFC933') : '#E5E3F0', icon: s.step === 3 ? 'M5 13l4 4 10-10' : 'M4 12h16M14 6l6 6-6 6', label: s.step === 3 ? 'Terminer' : 'Continuer',
+      next: () => { if (!ok) return; if (s.step === 1 && s.code === 'ZZZZZZ') return set({ err: true }); if (s.step < 3) set({ step: s.step + 1 }); else location.href = 'Permissions.dc.html'; }
+    };
+  }
+}
+</script>
+</body>
+</html>

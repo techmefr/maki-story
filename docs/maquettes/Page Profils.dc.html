@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 32px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="width:52px;height:52px;border-radius:12px;background:url(logo-maki.png) center/cover;border:2px solid #1E1A3F"></div>
+<button style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:#E5E3F0;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:17px;color:#1E1A3F;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H5v16h4M10 12h11M17 8l4 4-4 4"></path></svg>Déconnexion</button>
+</div>
+<div style="font-size:32px;font-weight:700">Qui est-ce ?</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px">
+<sc-for list="{{ profiles }}" as="p" hint-placeholder-count="5">
+<button style="background:#fff;border:4px solid {{ p.color }};border-radius:28px;box-shadow:4px 5px 0 #1E1A3F;padding:18px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#1E1A3F;min-height:190px;justify-content:center" style-active="transform:translate(3px,4px);box-shadow:1px 1px 0 #1E1A3F">
+<div style="width:92px;height:92px;border-radius:50%;background:{{ p.color }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;margin-bottom:6px">{{ p.initial }}</div>
+<div style="font-size:21px;font-weight:700;line-height:1.15;text-wrap:balance">{{ p.name }}</div>
+<div style="font-size:16px;color:#3b3466">{{ p.role }}</div>
+</button></sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { profiles: [
+      { name: 'Maman', role: 'Parent', color: '#FF8FC9', initial: 'M' },
+      { name: 'Papi Serge', role: 'Proche', color: '#6DB5FF', initial: 'P' },
+      { name: 'Mamie Yolande', role: 'Proche', color: '#B28DFF', initial: 'M' },
+      { name: 'Beau-papa Trésor', role: 'Proche', color: '#4AD3A5', initial: 'B' },
+      { name: 'Mattéo', role: 'Enfant', color: '#FF7766', initial: 'M' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

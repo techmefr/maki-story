@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}@keyframes bar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}@keyframes blob{0%,100%{border-radius:50%;transform:scale(1)}50%{border-radius:45% 55% 42% 58%;transform:scale(1.12)}}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Proche.dc.html" aria-label="Retour" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="flex:1;font-size:30px;font-weight:700;line-height:1.1">Laisser un message</div></div>
+<div style="display:flex;gap:10px;overflow-x:auto;padding:2px 2px 8px"><sc-for list="{{ people }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.tap }}" style="flex:none;width:96px;background:{{ p.bg }};border:3px solid #1E1A3F;border-radius:22px;box-shadow:{{ p.sh }};padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#1E1A3F"><span style="width:50px;height:50px;border-radius:50%;background:{{ p.color }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:24px">{{ p.i }}</span><span style="font-weight:700;font-size:16px">{{ p.n }}</span><span style="font-size:13px;font-weight:700">{{ p.sub }}</span></button></sc-for></div>
+<div style="display:{{ fullShow }};background:#FFD9D3;border:3px solid #1E1A3F;border-radius:22px;padding:14px 16px;flex-direction:column;gap:10px"><div style="font-size:19px;font-weight:700">5 messages déjà laissés à {{ dest }}</div><div style="font-size:16px">Retire-en un pour pouvoir en enregistrer un nouveau.</div><button onClick="{{ freeOne }}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:22px;background:#FF7766;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>Retirer le plus ancien</button></div>
+<div style="display:{{ recZone }};flex-direction:column;align-items:center;gap:16px;background:#fff;border:3px solid #1E1A3F;border-radius:30px;box-shadow:4px 5px 0 #1E1A3F;padding:24px 16px">
+<div style="font-size:18px;color:#3b3466;text-align:center">{{ hint }}</div>
+<div style="position:relative;width:150px;height:150px;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:rgba(255,119,102,.3);animation:{{ blob }};display:{{ recOn }}"></div><div style="position:relative;width:112px;height:112px;border-radius:50%;background:{{ micBg }};border:4px solid #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></div></div>
+<div style="display:{{ recOn }};align-items:center;gap:4px;height:36px"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="14"><div style="width:6px;height:36px;border-radius:3px;background:#1E1A3F;animation:bar {{ b.d }}s ease-in-out {{ b.dl }}s infinite"></div></sc-for></div>
+<div style="font-size:28px;font-weight:700">0:{{ time }}</div>
+<button onClick="{{ main }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:26px;background:{{ mainBg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:21px;color:#1E1A3F;cursor:pointer"><span style="width:20px;height:20px;border-radius:{{ shape }};background:#1E1A3F"></span>{{ mainLabel }}</button>
+<div style="display:{{ doneRow }};gap:10px;width:100%"><button onClick="{{ listen }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:22px;background:{{ listenBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1E1A3F" stroke="#1E1A3F" stroke-width="2" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"></path></svg>Réécouter</button><button onClick="{{ send }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:22px;background:#4AD3A5;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-7z"></path></svg>Envoyer</button></div></div>
+<div style="display:{{ sentShow }};flex-direction:column;align-items:center;gap:14px;text-align:center;padding:20px 0"><div style="width:100px;height:100px;border-radius:50%;background:#4AD3A5;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"></path></svg></div><div style="font-size:28px;font-weight:700">Message envoyé à {{ dest }} !</div><div style="font-size:18px;color:#3b3466">{{ sentText }}</div><button onClick="{{ again }}" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer">Un autre message</button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { d: 0, ph: 'idle', t: 0, play: false, sent: false, cnt: null };
+  P = [{ n: 'Mattéo', i: 'M', color: '#FF7766', kid: true }, { n: 'Léa', i: 'L', color: '#6DB5FF', kid: true }, { n: 'Noa', i: 'N', color: '#4AD3A5', kid: true }, { n: 'Maman', i: 'M', color: '#FF8FC9', kid: false }];
+  bars = Array.from({ length: 14 }, (_, i) => ({ d: (0.5 + ((i * 37) % 10) / 14).toFixed(2), dl: (-(i * 0.13)).toFixed(2) }));
+  componentDidMount() { let c = null; try { c = JSON.parse(localStorage.getItem('tantara_msgs_v1')); } catch (e) {} this.setState({ cnt: c || { 'Mattéo': 3, 'Léa': 1, 'Noa': 5 } }); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.to); }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o), c = s.cnt || {};
+    const p = this.P[s.d], n = c[p.n] || 0, full = p.kid && n >= 5;
+    const save = o => { try { localStorage.setItem('tantara_msgs_v1', JSON.stringify(o)); } catch (e) {} set({ cnt: o }); };
+    const reset = d => { clearInterval(this.iv); set({ d, ph: 'idle', t: 0, sent: false }); };
+    const start = () => { clearInterval(this.iv); set({ ph: 'rec', t: 0 }); this.iv = setInterval(() => this.setState(st => ({ t: Math.min(59, st.t + 1) })), 1000); };
+    const stop = () => { clearInterval(this.iv); set({ ph: 'done' }); };
+    const rec = s.ph === 'rec', done = s.ph === 'done';
+    return {
+      people: this.P.map((q, i) => ({ n: q.n, i: q.i, color: q.color, sub: q.kid ? (c[q.n] || 0) + '/5' : 'Privé', bg: i === s.d ? '#FFC933' : '#fff', sh: i === s.d ? '3px 4px 0 #1E1A3F' : 'none', tap: () => reset(i) })),
+      dest: p.n, fullShow: full ? 'flex' : 'none', recZone: !full && !s.sent ? 'flex' : 'none', sentShow: s.sent ? 'flex' : 'none',
+      freeOne: () => save({ ...c, [p.n]: n - 1 }),
+      hint: p.kid ? 'Ton message ira dans la boîte de ' + p.n + ' (' + n + '/5).' : 'Message privé : seule ' + p.n + ' le recevra, dans son coffre.',
+      recOn: rec ? 'flex' : 'none', blob: rec ? 'blob 1.6s ease-in-out infinite' : 'none', micBg: rec ? '#FF7766' : '#FFC933', bars: this.bars,
+      time: String(s.t).padStart(2, '0'), mainLabel: rec ? 'Arrêter' : done ? 'Réenregistrer' : 'Enregistrer', mainBg: rec ? '#FFC933' : done ? '#fff' : '#FF7766', shape: rec ? '4px' : '50%',
+      main: () => (rec ? stop() : start()), doneRow: done ? 'flex' : 'none',
+      listenBg: s.play ? '#4AD3A5' : '#CFE5FF', listen: () => { clearTimeout(this.to); set({ play: true }); this.to = setTimeout(() => set({ play: false }), 2000); },
+      send: () => { if (p.kid) save({ ...c, [p.n]: n + 1 }); set({ sent: true, ph: 'idle' }); },
+      sentText: p.kid ? 'Il lui reste ' + (4 - n) + ' message' + (4 - n > 1 ? 's' : '') + ' possible' + (4 - n > 1 ? 's' : '') + ' pour ' + p.n + '.' : 'Elle pourra le réécouter et le garder dans son coffre.',
+      again: () => reset(s.d)
+    };
+  }
+}
+</script>
+</body>
+</html>

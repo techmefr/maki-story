@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:20px">
+<a href="Accueil Proche.dc.html" style="align-self:flex-start;text-decoration:none;background:#CFE5FF;border:3px solid #1E1A3F;border-radius:16px;box-shadow:3px 4px 0 #1E1A3F;padding:10px 18px;display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px;color:#1E1A3F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg>Retour</a>
+<div style="display:flex;align-items:center;gap:12px"><div style="font-size:32px;font-weight:700;flex:1">{{ title }}</div><div style="background:#FFC933;border:2px solid #1E1A3F;border-radius:999px;padding:0 12px;font-weight:700;font-size:17px">{{ count }}</div></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ items }}" as="b" hint-placeholder-count="4"><div style="background:#fff;border:3px solid #1E1A3F;border-radius:24px;box-shadow:4px 5px 0 #1E1A3F;padding:12px;display:flex;gap:14px;align-items:center">
+<div style="width:52px;height:70px;border-radius:10px;background:{{ b.color }};border:3px solid #1E1A3F;flex:none"></div>
+<div style="flex:1;min-width:0"><div style="font-size:18px;font-weight:700;line-height:1.15">{{ b.title }}</div><div style="font-size:15px;color:#3b3466;margin-top:2px">{{ b.sub }}</div></div>
+<div style="display:{{ b.chipShow }};padding:6px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ b.chipBg }};font-weight:700;font-size:15px;flex:none">{{ b.chip }}</div></div></sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cat: 'a-enregistrer' };
+  componentDidMount() {
+    const read = () => { const h = (location.hash || '').slice(1); if (h) this.setState({ cat: h }); };
+    read(); window.addEventListener('hashchange', read);
+  }
+  renderVals() {
+    const R = '#FFF3DC', G = '#ADE6C4', Y = '#FFC933';
+    const data = {
+      'a-enregistrer': ['À enregistrer', [
+        ['Le petit lémurien', 'Pour Mattéo · demandé par Maman', '#FFC933', 'Lire', '#4AD3A5'],
+        ['La lune qui rit', 'Pour Léa · demandé par Tante Voahangy', '#B28DFF', 'Lire', '#4AD3A5'],
+        ['Le baobab magique', 'Pour Noa · demandé par Papa', '#4AD3A5', 'Lire', '#4AD3A5']]],
+      'propositions': ['Mes propositions', [
+        ['Le renard et la brume', 'Pour Mattéo', '#FF8FC9', 'En attente', R],
+        ['Dans la forêt', 'Pour Léa', '#4AD3A5', 'Validé', G],
+        ['Le poisson d’argent', 'Pour Noa', '#6DB5FF', 'En attente', R]]],
+      'a-corriger': ['À corriger', [
+        ['Au bord du lac', 'Maman : « On entend le vent page 4. » · 2 prises', '#6DB5FF', 'Refaire', Y],
+        ['Le grand voyage', 'Papa : « Relis la fin plus doucement. » · 1 prise', '#FF7766', 'Refaire', Y],
+        ['Dans la forêt', 'Tante Voahangy : « Trop de bruit. » · 3 prises', '#4AD3A5', 'Refaire', Y]]],
+      'bibliotheque': ['Bibliothèque', [
+        ['Le petit lémurien', '', '#FFC933'], ['La lune qui rit', '', '#B28DFF'], ['Au bord du lac', '', '#6DB5FF'],
+        ['Le renard et la brume', '', '#FF8FC9'], ['Dans la forêt', '', '#4AD3A5'], ['Le grand voyage', '', '#FF7766']]]
+    };
+    const [title, rows] = data[this.state.cat] || data['a-enregistrer'];
+    return {
+      title, count: rows.length,
+      items: rows.map(([t, s, c, chip, bg]) => ({ title: t, sub: s, color: c, chip: chip || '', chipBg: bg || '#fff', chipShow: chip ? 'block' : 'none' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

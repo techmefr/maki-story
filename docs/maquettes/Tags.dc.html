@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<a href="Bibliotheque.dc.html" style="align-self:flex-start;text-decoration:none;background:#CFE5FF;border:3px solid #1E1A3F;border-radius:16px;box-shadow:3px 4px 0 #1E1A3F;padding:10px 18px;display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px;color:#1E1A3F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg>Retour</a>
+<div style="display:flex;align-items:center;gap:12px"><div style="font-size:32px;font-weight:700;flex:1">Tags</div><div style="background:#FFC933;border:2px solid #1E1A3F;border-radius:999px;padding:0 12px;font-weight:700;font-size:17px">{{ count }}</div></div>
+<div style="font-size:16px;color:#3b3466">Un tag a un identifiant en anglais et un nom dans chaque langue. Les livres gardent seulement l’identifiant.</div>
+<div style="display:flex;gap:10px"><sc-for list="{{ langs }}" as="l" hint-placeholder-count="4"><button onClick="{{ l.tap }}" style="flex:1;padding:8px 0;border-radius:999px;border:3px solid #1E1A3F;background:{{ l.bg }};box-shadow:{{ l.sh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:26px;height:18px;border-radius:3px;border:2px solid #1E1A3F;background:{{ l.flag }};flex:none"></span>{{ l.n }}</button></sc-for></div>
+<button onClick="{{ addTag }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Nouveau tag</button>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ tags }}" as="t" hint-placeholder-count="6"><button onClick="{{ t.tap }}" style="text-align:left;display:flex;align-items:center;gap:14px;background:#fff;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;padding:10px 14px;cursor:pointer;color:#1E1A3F" style-active="transform:translate(2px,3px);box-shadow:1px 1px 0 #1E1A3F">
+<div style="width:50px;height:50px;border-radius:50%;background:{{ t.color }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg></div>
+<div style="flex:1;min-width:0"><div style="font-size:19px;font-weight:700;line-height:1.1">{{ t.name }}</div><div style="font-size:14px;color:#3b3466;margin-top:2px">{{ t.slug }}</div></div>
+<div style="display:{{ t.warn }};padding:2px 10px;border-radius:999px;border:2px solid #1E1A3F;background:#FFF3DC;font-weight:700;font-size:13px;flex:none">{{ t.miss }} à traduire</div></button></sc-for>
+</div>
+
+<div style="display:{{ edShow }};position:fixed;inset:0;z-index:10;background:rgba(30,26,63,.45);justify-content:center;align-items:flex-end" onClick="{{ closeEd }}">
+<div onClick="{{ stop }}" style="width:100%;max-width:440px;max-height:92vh;overflow-y:auto;background:#FFF3DC;border:3px solid #1E1A3F;border-bottom:none;border-radius:32px 32px 0 0;padding:20px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:14px"><div style="width:64px;height:64px;border-radius:50%;background:{{ ed.color }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ed.icon }}"></path></svg></div><div style="flex:1;min-width:0"><div style="font-size:24px;font-weight:700;line-height:1.1">{{ ed.title }}</div><div style="font-size:15px;color:#3b3466">Identifiant : {{ ed.slug }}</div></div>
+<button onClick="{{ closeEd }}" style="width:48px;height:48px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button></div>
+<div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Nom par langue</div><div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ ed.fields }}" as="f" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:10px"><div style="width:44px;display:flex;justify-content:center;flex:none"><span style="width:38px;height:26px;border-radius:4px;border:2px solid #1E1A3F;background:{{ f.flag }}"></span></div><input value="{{ f.value }}" onInput="{{ f.set }}" placeholder="{{ f.ph }}" style="flex:1;min-width:0;height:46px;box-sizing:border-box;padding:0 16px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:600;color:#1E1A3F"></div></sc-for></div></div>
+<div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Icône</div><div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px">
+<sc-for list="{{ ed.icons }}" as="i" hint-placeholder-count="10"><button onClick="{{ i.tap }}" style="aspect-ratio:1;border-radius:16px;border:3px solid #1E1A3F;background:{{ i.bg }};box-shadow:{{ i.sh }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ i.d }}"></path></svg></button></sc-for></div></div>
+<div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Couleur</div><div style="display:flex;gap:12px;flex-wrap:wrap">
+<sc-for list="{{ ed.colors }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.tap }}" style="width:48px;height:48px;border-radius:50%;background:{{ c.c }};border:3px solid #1E1A3F;box-shadow:{{ c.sh }};cursor:pointer;padding:0"></button></sc-for></div></div>
+<div style="display:flex;gap:12px"><button onClick="{{ ed.del }}" style="display:{{ ed.delShow }};flex:none;padding:14px 20px;border-radius:24px;background:#FFD9D3;border:3px solid #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer">Supprimer</button><button onClick="{{ ed.save }}" style="flex:1;padding:14px;border-radius:24px;background:{{ ed.saveBg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer">Enregistrer</button></div>
+</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'fr', tags: null, ed: null, fam: ['fr', 'mg'] };
+  icons = {
+    hat: 'M2 17c3 1.5 6 1.5 10 1.5s7 0 10-1.5M6.5 15c0-5 1-9 3-9 1 0 1.5 1 2.5 1s1.5-1 2.5-1c2 0 3 4 3 9M7 12.5c3 1 7 1 10 0',
+    waves: 'M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0',
+    tree: 'M12 3l6 8h-3l4 6H5l4-6H6zM12 17v4',
+    star: 'M12 2.5l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.7 5.9 21.1l1.4-6.8L2.2 9.6l6.9-.8z',
+    crown: 'M3 19L2 8l5 4 5-7 5 7 5-4-1 11zM4 22h16',
+    paw: 'M12 20c-3 0-6-2-6-4.5S9 12 12 12s6 1 6 3.5S15 20 12 20zM5.5 10.5a1.5 1.5 0 1 0 .01 0M9.5 6.5a1.5 1.5 0 1 0 .01 0M14.5 6.5a1.5 1.5 0 1 0 .01 0M18.5 10.5a1.5 1.5 0 1 0 .01 0',
+    moon: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z',
+    heart: 'M12 21C5 15.5 3 12 3 8.8A4.8 4.8 0 0 1 12 6.5 4.8 4.8 0 0 1 21 8.8C21 12 19 15.5 12 21z',
+    smile: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM8.5 14a4.5 4.5 0 0 0 7 0M9 9.5v.5M15 9.5v.5',
+    compass: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM15.5 8.5l-2 5-5 2 2-5z',
+    question: 'M9 9a3 3 0 1 1 4 2.8c-1 .5-1 1.2-1 2.2M12 18v.5',
+    book: 'M4 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-7',
+    sun: 'M12 8a4 4 0 1 0 0 8a4 4 0 0 0 0-8zM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+    flag: 'M5 21V4M5 4h12l-2 4 2 4H5'
+  };
+  colors = ['#FFC933', '#6DB5FF', '#4AD3A5', '#B28DFF', '#FF8FC9', '#FF7766'];
+  allLangs = [['fr', 'FR'], ['mg', 'MG'], ['en', 'EN'], ['es', 'ES']];
+  flags = {
+    fr: 'linear-gradient(90deg,#0055A4 33%,#fff 33% 67%,#EF4135 67%)',
+    mg: 'linear-gradient(#FC3D32 50%,#007E3A 50%) right/67% 100% no-repeat,#fff',
+    en: 'linear-gradient(#C8102E,#C8102E) center/100% 22% no-repeat,linear-gradient(#C8102E,#C8102E) center/22% 100% no-repeat,linear-gradient(#fff,#fff) center/100% 44% no-repeat,linear-gradient(#fff,#fff) center/44% 100% no-repeat,#1D3C85',
+    es: 'linear-gradient(#AA151B 25%,#F1BF00 25% 75%,#AA151B 75%)'
+  };
+  get langList() { const fam = this.state.fam || ['fr', 'mg']; return this.allLangs.filter(l => fam.includes(l[0])); }
+  defaults() {
+    const t = (slug, color, icon, fr, mg, en, es, kw) => ({ slug, color, icon, names: { fr, mg, en, es }, kw });
+    return [
+      t('western', '#FFC933', 'hat', 'Western', 'Western', 'Western', 'Oeste', ['western', 'cowboy']),
+      t('ocean', '#6DB5FF', 'waves', 'Océan', 'Ranomasina', 'Ocean', 'Océano', ['ocean', 'sea', 'ship']),
+      t('forest', '#4AD3A5', 'tree', 'Forêt', 'Ala', 'Forest', 'Bosque', ['forest', 'woods']),
+      t('space', '#B28DFF', 'star', 'Espace', '', 'Space', 'Espacio', ['space', 'moon', 'star']),
+      t('castle', '#FF8FC9', 'crown', 'Château', '', 'Castle', 'Castillo', ['castle', 'princess', 'knight']),
+      t('animals', '#FF7766', 'paw', 'Animaux', 'Biby', 'Animals', 'Animales', ['animal', 'lemur', 'fox']),
+      t('calm', '#6DB5FF', 'moon', 'Calme', 'Milamina', 'Calm', 'Calma', ['bedtime', 'sleep', 'lullab']),
+      t('funny', '#FFC933', 'smile', 'Drôle', 'Mahatsikaiky', 'Funny', 'Divertido', ['humor', 'funny']),
+      t('adventure', '#FF7766', 'compass', 'Aventure', '', 'Adventure', 'Aventura', ['adventure', 'journey']),
+      t('cuddle', '#FF8FC9', 'heart', 'Câlin', '', 'Cuddle', 'Cariño', ['love', 'family', 'friendship']),
+      t('mystery', '#B28DFF', 'question', 'Mystère', '', 'Mystery', 'Misterio', ['mystery', 'detective'])
+    ];
+  }
+  componentDidMount() {
+    let tags = null, lang = 'fr', fam = ['fr', 'mg'];
+    try { tags = JSON.parse(localStorage.getItem('tantara_tags_v1')); fam = JSON.parse(localStorage.getItem('tantara_family_langs')) || fam; lang = localStorage.getItem('tantara_lang') || 'fr'; } catch (e) {}
+    if (!fam.includes(lang)) lang = fam[0];
+    this.setState({ tags: tags || this.defaults(), lang, fam });
+  }
+  persist(tags) { try { localStorage.setItem('tantara_tags_v1', JSON.stringify(tags)); } catch (e) {} }
+  nameOf(t, lang) { return t.names[lang] || t.names.en || t.names.fr || t.slug; }
+  slugify(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  open(t) { this.setState({ ed: t ? { isNew: false, orig: t.slug, slug: t.slug, color: t.color, icon: t.icon, names: { ...t.names }, kw: t.kw || [] } : { isNew: true, slug: '', color: '#FFC933', icon: 'book', names: { fr: '', mg: '', en: '', es: '' }, kw: [] } }); }
+  renderVals() {
+    const { lang, ed } = this.state, set = o => this.setState(o);
+    const tags = this.state.tags || [];
+    const edv = ed || { names: { fr: '', mg: '', en: '', es: '' }, color: '#FFC933', icon: 'book', slug: '', isNew: true };
+    const slug = edv.isNew ? this.slugify(edv.names.en || edv.names.fr || '') : edv.slug;
+    const upd = p => set(st => ({ ed: { ...st.ed, ...p } }));
+    const valid = !!(edv.names.fr || '').trim() && (!edv.isNew || !!slug && !tags.some(t => t.slug === slug));
+    return {
+      count: tags.length,
+      langs: this.langList.map(([c, n]) => ({ n, flag: this.flags[c], tap: () => { set({ lang: c }); try { localStorage.setItem('tantara_lang', c); } catch (e) {} }, bg: lang === c ? '#FFC933' : '#fff', sh: lang === c ? '3px 4px 0 #1E1A3F' : 'none' })),
+      addTag: () => this.open(null),
+      tags: tags.map(t => { const miss = this.langList.filter(([c]) => !(t.names[c] || '').trim()).length; return { name: this.nameOf(t, lang), slug: t.slug, color: t.color, icon: this.icons[t.icon] || this.icons.book, warn: miss ? 'block' : 'none', miss, tap: () => this.open(t) }; }),
+      edShow: ed ? 'flex' : 'none', closeEd: () => set({ ed: null }), stop: e => e.stopPropagation(),
+      ed: {
+        title: edv.isNew ? 'Nouveau tag' : (edv.names[lang] || edv.names.fr || edv.slug), slug: slug || '…', color: edv.color, icon: this.icons[edv.icon] || this.icons.book,
+        fields: this.langList.map(([c]) => ({ flag: this.flags[c], value: edv.names[c] || '', ph: c === 'fr' ? 'Obligatoire' : 'À traduire', set: e => { const v = e.target.value; set(st => ({ ed: { ...st.ed, names: { ...st.ed.names, [c]: v } } })); } })),
+        icons: Object.keys(this.icons).map(k => ({ d: this.icons[k], bg: edv.icon === k ? edv.color : '#fff', sh: edv.icon === k ? '3px 4px 0 #1E1A3F' : 'none', tap: () => upd({ icon: k }) })),
+        colors: this.colors.map(c => ({ c, sh: edv.color === c ? '0 0 0 3px #FFF3DC, 0 0 0 6px #1E1A3F' : 'none', tap: () => upd({ color: c }) })),
+        delShow: edv.isNew ? 'none' : 'block', saveBg: valid ? '#4AD3A5' : '#E5E3F0',
+        del: () => { const n = tags.filter(t => t.slug !== edv.slug); this.persist(n); set({ tags: n, ed: null }); },
+        save: () => { if (!valid) return; const nt = { slug, color: edv.color, icon: edv.icon, names: edv.names, kw: edv.kw }; const n = edv.isNew ? [...tags, nt] : tags.map(t => t.slug === edv.orig ? nt : t); this.persist(n); set({ tags: n, ed: null }); }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

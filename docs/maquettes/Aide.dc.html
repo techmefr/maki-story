@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Proche.dc.html" aria-label="Retour" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="font-size:32px;font-weight:700">Aide</div></div>
+<sc-for list="{{ faq }}" as="q" hint-placeholder-count="5"><div style="background:#fff;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;overflow:hidden"><button onClick="{{ q.tap }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:transparent;border:none;cursor:pointer;color:#1E1A3F;text-align:left"><span style="flex:1;font-size:18px;font-weight:700;line-height:1.2">{{ q.q }}</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate({{ q.rot }}deg);flex:none"><path d="M6 9l6 6 6-6"></path></svg></button><div style="display:{{ q.show }};padding:0 16px 14px;font-size:16px;line-height:1.4;color:#3b3466">{{ q.a }}</div></div></sc-for>
+<div style="background:#FFC933;border:3px solid #1E1A3F;border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;padding:16px;display:flex;flex-direction:column;gap:12px"><div style="font-size:21px;font-weight:700">Une autre question ?</div>
+<a href="mailto:[contact@exemple.com]" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#fff;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;text-decoration:none;color:#1E1A3F"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg>Écrire au support</a></div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a href="Legal.dc.html" style="font-weight:700;font-size:16px;color:#1E1A3F">Conditions et confidentialité</a><a href="Compte.dc.html" style="font-weight:700;font-size:16px;color:#1E1A3F">Mon compte</a></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: 0 };
+  Q = [
+    ['Comment ajouter un proche ?', 'Depuis « Ma famille », un parent choisit « Ajouter un proche » puis envoie une invitation par e-mail ou donne un code valable 48 h.'],
+    ['Pourquoi seulement 5 messages par enfant ?', 'Pour que chaque message compte. Un adulte peut en laisser jusqu’à 5 au même enfant. Il suffit d’en retirer un pour en ajouter un autre.'],
+    ['Comment enregistrer ma voix ?', 'Ouvre une histoire à enregistrer, puis touche « Enregistrer » sur la ligne de ton personnage. Tu peux réécouter et recommencer autant que tu veux.'],
+    ['J’ai oublié mon code', 'Un parent peut réinitialiser le code d’un enfant ou d’un proche depuis « Ma famille ». Pour le code d’un parent, passe par la connexion par e-mail.'],
+    ['Comment garder une voix préférée ?', 'Pendant l’écoute, l’enfant touche le cœur. Le message va dans son coffre, qui garde jusqu’à 10 souvenirs.'],
+    ['Peut-on lire dans une autre langue ?', 'Oui : une histoire peut avoir un texte par langue de la famille. L’enfant lit dans la langue choisie dans son profil.']
+  ];
+  renderVals() { const o = this.state.open; return { faq: this.Q.map(([q, a], i) => ({ q, a, show: o === i ? 'block' : 'none', rot: o === i ? 180 : 0, tap: () => this.setState({ open: o === i ? -1 : i }) })) }; }
+}
+</script>
+</body>
+</html>

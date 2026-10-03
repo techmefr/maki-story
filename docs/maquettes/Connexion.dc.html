@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:36px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;align-items:center;gap:18px">
+<div style="width:104px;height:104px;border-radius:26px;background:url(logo-maki.png) center/cover;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F"></div>
+<div style="text-align:center"><div style="font-size:38px;font-weight:700;line-height:1.1">Tantara</div><div style="font-size:18px;color:#3b3466;margin-top:4px;text-wrap:balance">Les histoires, avec la voix de ceux qu’on aime.</div></div>
+<div style="display:{{ formShow }};width:100%;flex-direction:column;gap:14px;margin-top:8px">
+<div style="font-size:22px;font-weight:700">Connexion</div>
+<div style="display:flex;gap:10px"><button onClick="{{ tabMagic }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:999px;border:3px solid #1E1A3F;background:{{ magicBg }};box-shadow:{{ magicSh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-7z"></path></svg>Lien magique</button><button onClick="{{ tabPwd }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:999px;border:3px solid #1E1A3F;background:{{ pwdBg }};box-shadow:{{ pwdSh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Mot de passe</button></div>
+<input value="{{ email }}" onInput="{{ setEmail }}" inputmode="email" placeholder="Ton adresse e-mail" style="height:56px;box-sizing:border-box;padding:0 22px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:19px;font-weight:600;color:#1E1A3F">
+<div style="display:{{ pwShow }};flex-direction:column;gap:8px"><input type="password" value="{{ pw }}" onInput="{{ setPw }}" placeholder="Ton mot de passe" style="height:56px;box-sizing:border-box;padding:0 22px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:19px;font-weight:600;color:#1E1A3F"><div style="font-size:15px;font-weight:700;text-align:right;padding-right:8px">Mot de passe oublié ?</div></div>
+<button onClick="{{ send }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:26px;background:{{ sendBg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:20px;color:#1E1A3F;cursor:pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="{{ sendIcon }}"></path></svg>{{ sendLabel }}</button>
+<div style="display:flex;align-items:center;gap:12px"><div style="flex:1;height:3px;background:#1E1A3F"></div><div style="font-weight:700">ou</div><div style="flex:1;height:3px;background:#1E1A3F"></div></div>
+<button style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:26px;background:#fff;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:20px;color:#1E1A3F;cursor:pointer"><span style="width:30px;height:30px;border-radius:50%;background:#CFE5FF;border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:17px">G</span>Continuer avec Google</button>
+<button onClick="{{ toggleMore }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border-radius:999px;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" style="transform:rotate({{ moreRot }}deg)"><path d="M12 5v14M5 12h14"></path></svg>Autres connexions</button>
+<div style="display:{{ moreShow }};flex-direction:column;gap:10px"><div style="font-size:15px;color:#3b3466">Ton parent choisit celles qui sont autorisées.</div>
+<sc-for list="{{ providers }}" as="p" hint-placeholder-count="3"><button style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:22px;background:{{ p.bg }};border:3px solid #1E1A3F;box-shadow:{{ p.sh }};font-weight:700;font-size:18px;color:#1E1A3F;cursor:{{ p.cur }};opacity:{{ p.op }}"><span style="width:30px;height:30px;border-radius:50%;background:{{ p.color }};border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none">{{ p.l }}</span><span style="flex:1;text-align:left">{{ p.n }}</span><span style="display:{{ p.lock }};align-items:center;gap:6px;font-size:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Désactivé</span></button></sc-for></div>
+</div>
+<div style="display:{{ sentShow }};width:100%;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-top:12px"><div style="width:96px;height:96px;border-radius:50%;background:#ADE6C4;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M3 8l9 6 9-6"></path></svg></div><div style="font-size:28px;font-weight:700">Regarde tes e-mails !</div><div style="font-size:18px;color:#3b3466;text-wrap:balance">Un lien magique vient d’être envoyé à <b style="color:#1E1A3F">{{ email }}</b>. Il est valable 15 minutes.</div>
+<a href="Lien Magique.dc.html" style="display:flex;align-items:center;gap:10px;padding:14px 26px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;text-decoration:none;color:#1E1A3F"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>Ouvrir le lien (démo)</a>
+<button onClick="{{ back }}" style="padding:10px 22px;border-radius:999px;background:#CFE5FF;border:3px solid #1E1A3F;font-weight:700;font-size:17px;color:#1E1A3F;cursor:pointer">Changer d’adresse</button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { email: '', pw: '', mode: 'magic', sent: false, more: false, sso: { apple: true, microsoft: false, facebook: false } };
+  componentDidMount() { try { const o = JSON.parse(localStorage.getItem('tantara_sso_v1')); if (o) this.setState({ sso: o }); } catch (e) {} }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const mg = s.mode === 'magic', valid = /^\S+@\S+\.\S+$/.test(s.email.trim()) && (mg || s.pw.length >= 6);
+    const defs = [['apple', 'Apple', 'A', '#E5E3F0'], ['microsoft', 'Microsoft', 'M', '#6DB5FF'], ['facebook', 'Facebook', 'f', '#B28DFF']];
+    return {
+      formShow: s.sent ? 'none' : 'flex', sentShow: s.sent ? 'flex' : 'none',
+      email: s.email, setEmail: e => set({ email: e.target.value }),
+      sendBg: valid ? '#FFC933' : '#E5E3F0', sendLabel: mg ? 'Recevoir mon lien magique' : 'Se connecter', sendIcon: mg ? 'M4 12l16-8-6 16-3-7z' : 'M4 12h16M14 6l6 6-6 6',
+      pw: s.pw, setPw: e => set({ pw: e.target.value }), pwShow: mg ? 'none' : 'flex',
+      tabMagic: () => set({ mode: 'magic' }), tabPwd: () => set({ mode: 'pwd' }),
+      magicBg: mg ? '#FFC933' : '#fff', magicSh: mg ? '3px 4px 0 #1E1A3F' : 'none', pwdBg: mg ? '#fff' : '#FFC933', pwdSh: mg ? 'none' : '3px 4px 0 #1E1A3F',
+      send: () => { if (!valid) return; if (mg) set({ sent: true }); else location.href = 'Page Profils.dc.html'; }, back: () => set({ sent: false }),
+      toggleMore: () => set({ more: !s.more }), moreRot: s.more ? 45 : 0, moreShow: s.more ? 'flex' : 'none',
+      providers: defs.map(([k, n, l, color]) => { const on = s.sso[k]; return { n, l, color, bg: on ? '#fff' : '#E5E3F0', sh: on ? '3px 4px 0 #1E1A3F' : 'none', cur: on ? 'pointer' : 'not-allowed', op: on ? 1 : 0.7, lock: on ? 'none' : 'flex' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

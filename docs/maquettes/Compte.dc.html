@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Famille.dc.html" aria-label="Retour" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="font-size:32px;font-weight:700">Mon compte</div></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:24px;padding:14px 16px;display:flex;align-items:center;gap:14px"><div style="width:56px;height:56px;border-radius:50%;background:#FF8FC9;border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px;flex:none">M</div><div><div style="font-size:20px;font-weight:700">Maman</div><div style="font-size:15px;color:#3b3466">maman@exemple.com · Parent</div></div></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;padding:16px;display:flex;flex-direction:column;gap:12px"><div style="font-size:21px;font-weight:700">Exporter mes données</div><div style="font-size:16px;color:#3b3466">Reçois un fichier avec tes enregistrements, les profils et la progression de lecture.</div>
+<button onClick="{{ exp }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:{{ expBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>{{ expLabel }}</button></div>
+<div style="background:#FFD9D3;border:3px solid #1E1A3F;border-radius:26px;padding:16px;display:flex;flex-direction:column;gap:12px"><div style="font-size:21px;font-weight:700">Supprimer le compte</div><div style="font-size:16px">Tous les enregistrements, profils d’enfants, favoris et livres de la famille seront effacés. Cette action est définitive.</div>
+<button onClick="{{ ask }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#FF7766;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>Supprimer mon compte</button></div>
+<div style="display:{{ sheet }};position:fixed;inset:0;z-index:10;background:rgba(30,26,63,.5);justify-content:center;align-items:flex-end" onClick="{{ cancel }}"><div onClick="{{ stop }}" style="width:100%;max-width:440px;background:#FFF3DC;border:3px solid #1E1A3F;border-bottom:none;border-radius:32px 32px 0 0;padding:22px 20px 28px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px"><div style="font-size:26px;font-weight:700;line-height:1.15">Tu en es sûr ?</div><div style="font-size:17px;color:#3b3466">Pour confirmer, tape <b style="color:#1E1A3F">SUPPRIMER</b>.</div><input value="{{ word }}" onInput="{{ setWord }}" placeholder="SUPPRIMER" style="height:54px;box-sizing:border-box;padding:0 20px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;color:#1E1A3F">
+<div style="display:flex;gap:12px"><button onClick="{{ cancel }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:24px;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>Annuler</button><button onClick="{{ del }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:24px;background:{{ delBg }};border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>Supprimer</button></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: false, word: '', exp: false };
+  renderVals() {
+    const s = this.state, set = o => this.setState(o), ok = s.word.trim().toUpperCase() === 'SUPPRIMER';
+    return {
+      exp: () => set({ exp: true }), expBg: s.exp ? '#ADE6C4' : '#FFC933', expLabel: s.exp ? 'Lien envoyé par e-mail' : 'Demander mon export',
+      ask: () => set({ open: true, word: '' }), cancel: () => set({ open: false }), stop: e => e.stopPropagation(),
+      sheet: s.open ? 'flex' : 'none', word: s.word, setWord: e => set({ word: e.target.value }),
+      delBg: ok ? '#FF7766' : '#E5E3F0', del: () => { if (ok) location.href = 'Onboarding.dc.html'; }
+    };
+  }
+}
+</script>
+</body>
+</html>

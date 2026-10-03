@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Proche.dc.html" aria-label="Retour" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="font-size:30px;font-weight:700">Modifier mon profil</div></div>
+<label style="align-self:center;position:relative;width:130px;height:130px;border-radius:50%;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;background:#FF8FC9;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer"><div style="position:absolute;inset:0;background:{{ photoBg }} center/cover"></div><span style="position:relative;font-size:60px;font-weight:700;display:{{ initialShow }}">{{ initial }}</span><span style="position:absolute;right:6px;bottom:6px;width:38px;height:38px;border-radius:50%;background:#FFC933;border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span><input type="file" accept="image/*" capture="user" onChange="{{ pick }}" style="display:none"></label>
+<div><div style="font-size:18px;font-weight:700;margin-bottom:8px">Prénom</div><input value="{{ name }}" onInput="{{ setName }}" style="width:100%;height:54px;box-sizing:border-box;padding:0 22px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:20px;font-weight:700;color:#1E1A3F"></div>
+<div><div style="font-size:18px;font-weight:700;margin-bottom:8px">Adresse e-mail</div><div style="display:flex;align-items:center;gap:10px;height:54px;box-sizing:border-box;padding:0 22px;border-radius:999px;border:3px solid #9a9390;background:#E5E3F0;font-size:18px;font-weight:600;color:#3b3466"><span style="flex:1;overflow:hidden;text-overflow:ellipsis">maman@exemple.com</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b3466" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div><div style="font-size:14px;color:#3b3466;margin-top:6px">Connecté avec Google : l’adresse ne se change pas ici.</div></div>
+<a href="Code Oublie.dc.html" style="display:flex;align-items:center;gap:12px;background:#fff;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;padding:14px 16px;text-decoration:none;color:#1E1A3F"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9M18 12v4M15 12v3"></path></svg><span style="flex:1;font-size:19px;font-weight:700">Changer mon code</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></a>
+<a href="Compte.dc.html" style="display:flex;align-items:center;gap:12px;background:#fff;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;padding:14px 16px;text-decoration:none;color:#1E1A3F"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg><span style="flex:1;font-size:19px;font-weight:700">Mes données et mon compte</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></a>
+<button onClick="{{ save }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border-radius:28px;background:{{ bg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:21px;color:#1E1A3F;cursor:pointer;margin-top:auto"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"></path></svg>{{ label }}</button></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { name: 'Maman', photo: '', saved: false };
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    return {
+      name: s.name, setName: e => set({ name: e.target.value, saved: false }), initial: (s.name || '?').charAt(0).toUpperCase(),
+      photoBg: s.photo ? 'url(' + s.photo + ')' : 'none', initialShow: s.photo ? 'none' : 'block',
+      pick: e => { const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => set({ photo: r.result, saved: false }); r.readAsDataURL(f); },
+      bg: s.saved ? '#ADE6C4' : s.name.trim() ? '#FFC933' : '#E5E3F0', label: s.saved ? 'Enregistré' : 'Enregistrer', save: () => s.name.trim() && set({ saved: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

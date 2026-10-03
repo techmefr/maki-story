@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="font-size:32px;font-weight:700;line-height:1.1">Quelle famille ?</div><div style="font-size:18px;color:#3b3466">Tu fais partie de plusieurs familles. Ton rôle change selon la famille.</div>
+<sc-for list="{{ fams }}" as="f" hint-placeholder-count="3"><a href="{{ f.href }}" style="display:flex;align-items:center;gap:14px;background:#fff;border:3px solid #1E1A3F;border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;padding:14px;text-decoration:none;color:#1E1A3F"><div style="width:64px;height:64px;border-radius:50%;background:{{ f.c }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4zM10 20v-6h4v6"></path></svg></div><div style="flex:1;min-width:0"><div style="font-size:22px;font-weight:700;line-height:1.1">{{ f.n }}</div><div style="font-size:15px;color:#3b3466;margin-top:2px">{{ f.kids }}</div></div><div style="padding:3px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ f.rb }};font-weight:700;font-size:15px;flex:none">{{ f.role }}</div></a></sc-for>
+<a href="Rejoindre.dc.html" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:26px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:20px;text-decoration:none;color:#1E1A3F;margin-top:auto"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Rejoindre avec un code</a></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { fams: [
+      { n: 'Famille Rakoto', kids: 'Mattéo, Léa', c: '#FF8FC9', role: 'Parent', rb: '#CFE5FF', href: 'Page Profils.dc.html' },
+      { n: 'Famille Andry', kids: 'Noa', c: '#6DB5FF', role: 'Proche', rb: '#ADE6C4', href: 'Accueil Proche.dc.html' },
+      { n: 'Famille Rabe', kids: 'Tiana, Hery', c: '#FFC933', role: 'Proche', rb: '#ADE6C4', href: 'Accueil Proche.dc.html' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}textarea::placeholder,input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 60px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Bibliotheque.dc.html" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><input value="{{ bookTitle }}" onInput="{{ setBookTitle }}" style="flex:1;min-width:0;border:none;background:transparent;outline:none;font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#1E1A3F"></div>
+<div style="display:flex;gap:10px;overflow-x:auto;padding:2px 2px 8px"><sc-for list="{{ pages }}" as="p" hint-placeholder-count="3"><button onClick="{{ p.tap }}" style="flex:none;width:52px;height:64px;border-radius:14px;border:3px solid #1E1A3F;background:{{ p.bg }};box-shadow:{{ p.sh }};font-weight:700;font-size:20px;color:#1E1A3F;cursor:pointer;padding:0">{{ p.n }}</button></sc-for><button onClick="{{ addPage }}" style="flex:none;width:52px;height:64px;border-radius:14px;border:3px dashed #1E1A3F;background:transparent;font-weight:700;font-size:28px;color:#1E1A3F;cursor:pointer;padding:0">+</button></div>
+<label style="position:relative;display:block;aspect-ratio:4/3;border-radius:26px;border:3px {{ photoBorder }} #1E1A3F;background:#fff;box-shadow:4px 5px 0 #1E1A3F;overflow:hidden;cursor:pointer"><div style="display:{{ photoShow }};width:100%;height:100%;background:{{ photoBg }} center/cover"></div><div style="display:{{ noPhotoShow }};position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:18px"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.500"></circle></svg>Photo de la page</div><div style="display:{{ photoShow }};position:absolute;right:10px;bottom:10px;padding:6px 14px;border-radius:999px;background:#FFC933;border:3px solid #1E1A3F;font-weight:700;font-size:15px">Changer</div><input type="file" accept="image/*" onChange="{{ pickPhoto }}" style="display:none"></label>
+
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="2"><button onClick="{{ t.tap }}" style="position:relative;display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:3px solid #1E1A3F;background:{{ t.bg }};box-shadow:{{ t.sh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><span style="width:26px;height:18px;border-radius:3px;border:2px solid #1E1A3F;background:{{ t.flag }}"></span>{{ t.n }}<span style="display:{{ t.warn }};width:12px;height:12px;border-radius:50%;background:#FF7766;border:2px solid #1E1A3F;position:absolute;top:-5px;right:-3px"></span></button></sc-for>
+<button onClick="{{ toggleAdd }}" style="width:46px;height:46px;border-radius:50%;border:3px dashed #1E1A3F;background:transparent;font-weight:700;font-size:26px;color:#1E1A3F;cursor:pointer;padding:0">+</button></div>
+<div style="display:{{ addShow }};gap:10px;flex-wrap:wrap;margin-top:-6px"><sc-for list="{{ addable }}" as="a" hint-placeholder-count="2"><button onClick="{{ a.tap }}" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:3px solid #1E1A3F;background:#ADE6C4;font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><span style="width:26px;height:18px;border-radius:3px;border:2px solid #1E1A3F;background:{{ a.flag }}"></span>Ajouter {{ a.label }}</button></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:10px"><input value="{{ pTitle }}" onInput="{{ setTitle }}" placeholder="Titre de la page" style="height:50px;box-sizing:border-box;padding:0 18px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:19px;font-weight:700;color:#1E1A3F"><textarea value="{{ pDesc }}" onInput="{{ setDesc }}" placeholder="Description de la scène" style="min-height:80px;resize:none;border:3px solid #1E1A3F;border-radius:22px;padding:12px 18px;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:600;color:#1E1A3F"></textarea></div>
+
+<div style="display:flex;align-items:center"><div style="flex:1;font-size:24px;font-weight:700">Personnages</div></div>
+<sc-for list="{{ chars }}" as="c" hint-placeholder-count="2"><div style="background:#fff;border:3px solid {{ c.color }};border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;padding:14px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:44px;height:44px;border-radius:50%;background:{{ c.color }};border:3px solid #1E1A3F;flex:none"></div><input value="{{ c.name }}" onInput="{{ c.setName }}" placeholder="Nom du personnage" style="flex:1;min-width:0;border:none;background:transparent;outline:none;font-family:'Fredoka',sans-serif;font-size:21px;font-weight:700;color:#1E1A3F"><button onClick="{{ c.del }}" aria-label="Supprimer" style="width:40px;height:40px;border-radius:50%;background:#FFD9D3;border:3px solid #1E1A3F;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></button></div>
+<div style="display:flex;gap:10px"><sc-for list="{{ c.colors }}" as="k" hint-placeholder-count="6"><button onClick="{{ k.tap }}" style="width:34px;height:34px;border-radius:50%;background:{{ k.c }};border:3px solid #1E1A3F;box-shadow:{{ k.sh }};cursor:pointer;padding:0"></button></sc-for></div>
+<div><div style="font-size:15px;font-weight:700;margin-bottom:6px">Qui fait la voix ?</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ c.voices }}" as="v" hint-placeholder-count="4"><button onClick="{{ v.tap }}" style="padding:6px 14px;border-radius:999px;border:3px solid #1E1A3F;background:{{ v.bg }};font-weight:700;font-size:15px;color:#1E1A3F;cursor:pointer">{{ v.n }}</button></sc-for></div></div>
+<textarea value="{{ c.text }}" onInput="{{ c.setText }}" placeholder="Texte à dire" style="min-height:72px;resize:none;border:3px solid #1E1A3F;border-radius:18px;padding:10px 14px;background:#FFF3DC;outline:none;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:600;color:#1E1A3F"></textarea>
+<textarea value="{{ c.desc }}" onInput="{{ c.setDesc }}" placeholder="Description (ton, émotion…)" style="min-height:56px;resize:none;border:3px solid #1E1A3F;border-radius:18px;padding:10px 14px;background:#FFF3DC;outline:none;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;color:#1E1A3F"></textarea></div></sc-for>
+<button onClick="{{ addChar }}" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Ajouter un personnage</button>
+<button onClick="{{ delPage }}" style="padding:12px;border-radius:24px;background:#FFD9D3;border:3px solid #1E1A3F;font-weight:700;font-size:17px;color:#1E1A3F;cursor:pointer">Supprimer cette page</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { book: null, pg: 0, lang: 'fr', add: false };
+  async componentDidMount() { this.M = await import('./studio-data.js'); this.setState({ book: this.M.loadBook() }); }
+  upd(fn) { const b = JSON.parse(JSON.stringify(this.state.book)); fn(b); this.M.saveBook(b); this.setState({ book: b }); }
+  renderVals() {
+    const M = this.M, b = this.state.book;
+    if (!M || !b) return { pages: [], tabs: [], addable: [], chars: [], bookTitle: '', photoBg: 'none', photoShow: 'none', noPhotoShow: 'flex', photoBorder: 'dashed', addShow: 'none' };
+    const s = this.state, set = o => this.setState(o);
+    const pg = Math.min(s.pg, b.pages.length - 1), p = b.pages[pg], L = s.lang;
+    const full = (q, c) => b.langs.every(l => (c ? c.text[l] : p.title[l]) || false);
+    return {
+      bookTitle: b.title, setBookTitle: e => this.upd(x => { x.title = e.target.value; }),
+      pages: b.pages.map((q, i) => ({ n: i + 1, bg: i === pg ? '#FFC933' : '#fff', sh: i === pg ? '3px 4px 0 #1E1A3F' : 'none', tap: () => set({ pg: i }) })),
+      addPage: () => { this.upd(x => { x.pages.push({ id: 'p' + Date.now(), title: {}, desc: {}, photo: '', chars: [] }); }); set({ pg: b.pages.length }); },
+      delPage: () => { if (b.pages.length < 2) return; this.upd(x => { x.pages.splice(pg, 1); }); set({ pg: Math.max(0, pg - 1) }); },
+      photoBg: p.photo ? 'url(' + p.photo + ')' : 'none', photoShow: p.photo ? 'block' : 'none', noPhotoShow: p.photo ? 'none' : 'flex', photoBorder: p.photo ? 'solid' : 'dashed',
+      pickPhoto: e => { const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 800 / im.width), cv = document.createElement('canvas'); cv.width = im.width * k; cv.height = im.height * k; cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); this.upd(x => { x.pages[pg].photo = cv.toDataURL('image/jpeg', 0.7); }); }; im.src = r.result; }; r.readAsDataURL(f); },
+      tabs: b.langs.map(l => ({ n: M.LANGS[l].n, flag: M.LANGS[l].flag, bg: l === L ? '#FFC933' : '#fff', sh: l === L ? '3px 4px 0 #1E1A3F' : 'none', warn: (!p.title[l] || !p.desc[l]) ? 'block' : 'none', tap: () => set({ lang: l }) })),
+      toggleAdd: () => set({ add: !s.add }), addShow: s.add ? 'flex' : 'none',
+      addable: Object.keys(M.LANGS).filter(l => !b.langs.includes(l)).map(l => ({ label: M.LANGS[l].label, flag: M.LANGS[l].flag, tap: () => { this.upd(x => { x.langs.push(l); }); set({ lang: l, add: false }); } })),
+      pTitle: p.title[L] || '', pDesc: p.desc[L] || '',
+      setTitle: e => this.upd(x => { x.pages[pg].title[L] = e.target.value; }), setDesc: e => this.upd(x => { x.pages[pg].desc[L] = e.target.value; }),
+      chars: p.chars.map((c, ci) => ({
+        name: c.name, color: c.color, text: c.text[L] || '', desc: c.desc[L] || '',
+        setName: e => this.upd(x => { x.pages[pg].chars[ci].name = e.target.value; }),
+        setText: e => this.upd(x => { x.pages[pg].chars[ci].text[L] = e.target.value; }),
+        setDesc: e => this.upd(x => { x.pages[pg].chars[ci].desc[L] = e.target.value; }),
+        del: () => this.upd(x => { x.pages[pg].chars.splice(ci, 1); }),
+        colors: M.PALETTE.map(k => ({ c: k, sh: c.color === k ? '0 0 0 3px #fff, 0 0 0 6px #1E1A3F' : 'none', tap: () => this.upd(x => { x.pages[pg].chars[ci].color = k; }) })),
+        voices: M.VOICES.map(v => ({ n: v, bg: c.voice === v ? c.color : '#fff', tap: () => this.upd(x => { x.pages[pg].chars[ci].voice = v; }) }))
+      })),
+      addChar: () => this.upd(x => { x.pages[pg].chars.push({ id: 'c' + Date.now(), name: 'Nouveau personnage', color: M.PALETTE[x.pages[pg].chars.length % 6], voice: '', text: {}, desc: {}, rec: null, review: '', comment: '', prev: '' }); })
+    };
+  }
+}
+</script>
+</body>
+</html>

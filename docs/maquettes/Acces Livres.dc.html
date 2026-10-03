@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px"><a href="Famille.dc.html" aria-label="Retour" style="width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a><div style="flex:1;font-size:28px;font-weight:700;line-height:1.1">Livres des enfants</div></div>
+<div style="display:flex;gap:10px"><sc-for list="{{ kids }}" as="k" hint-placeholder-count="3"><button onClick="{{ k.tap }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:22px;border:3px solid #1E1A3F;background:{{ k.bg }};box-shadow:{{ k.sh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><span style="width:44px;height:44px;border-radius:50%;background:{{ k.c }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:22px">{{ k.i }}</span>{{ k.n }}</button></sc-for></div>
+<button onClick="{{ toggleAll }}" style="display:flex;align-items:center;gap:12px;background:#FFC933;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;padding:12px 14px;cursor:pointer;color:#1E1A3F;text-align:left"><span style="flex:1"><span style="display:block;font-size:19px;font-weight:700">Tous les livres</span><span style="display:block;font-size:14px">{{ allHint }}</span></span><span style="width:64px;height:38px;border-radius:999px;border:3px solid #1E1A3F;background:{{ allBg }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ allLeft }};width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid #1E1A3F;transition:left .15s"></span></span></button>
+<sc-for list="{{ books }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.tap }}" style="display:flex;align-items:center;gap:12px;background:#fff;border:3px solid #1E1A3F;border-radius:22px;box-shadow:3px 4px 0 #1E1A3F;padding:10px 14px;cursor:pointer;color:#1E1A3F;text-align:left;opacity:{{ b.op }}"><span style="width:40px;height:54px;border-radius:8px;background:{{ b.c }};border:3px solid #1E1A3F;flex:none"></span><span style="flex:1;font-size:18px;font-weight:700;line-height:1.15">{{ b.t }}</span><span style="width:34px;height:34px;border-radius:10px;border:3px solid #1E1A3F;background:{{ b.ck }};display:flex;align-items:center;justify-content:center;flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="display:{{ b.show }}"><path d="M5 13l4 4 10-10"></path></svg></span></button></sc-for></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { k: 0, all: [true, false, true], sel: [[], ['b1'], ['b1', 'b2']] };
+  B = [['b1', 'Le petit lémurien', '#FFC933'], ['b2', 'La lune qui rit', '#B28DFF'], ['b3', 'Au bord du lac', '#6DB5FF'], ['b4', 'Le renard et la brume', '#FF8FC9']];
+  K = [['Mattéo', 'M', '#FF7766'], ['Léa', 'L', '#6DB5FF'], ['Noa', 'N', '#4AD3A5']];
+  renderVals() {
+    const s = this.state, set = o => this.setState(o), k = s.k, all = s.all[k], sel = s.sel[k];
+    const upd = (key, v) => set({ [key]: s[key].map((x, i) => (i === k ? v : x)) });
+    return {
+      kids: this.K.map(([n, i, c], x) => ({ n, i, c, bg: x === k ? '#FFC933' : '#fff', sh: x === k ? '3px 4px 0 #1E1A3F' : 'none', tap: () => set({ k: x }) })),
+      allBg: all ? '#4AD3A5' : '#E5E3F0', allLeft: all ? '29px' : '3px', allHint: all ? 'Ouvert : ' + this.K[k][0] + ' voit toute la bibliothèque.' : 'Seuls les livres cochés sont visibles.',
+      toggleAll: () => upd('all', !all),
+      books: this.B.map(([id, t, c]) => { const on = all || sel.includes(id); return { t, c, op: all ? 0.55 : 1, ck: on ? '#4AD3A5' : '#fff', show: on ? 'block' : 'none', tap: () => { if (!all) upd('sel', sel.includes(id) ? sel.filter(x => x !== id) : [...sel, id]); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

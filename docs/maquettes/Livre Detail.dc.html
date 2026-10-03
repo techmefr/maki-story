@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:20px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<a href="Bibliotheque.dc.html" aria-label="Retour" style="align-self:flex-start;width:52px;height:52px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg></a>
+<div style="display:flex;gap:16px;align-items:center"><div style="width:120px;aspect-ratio:3/4;border-radius:18px;background:{{ cover }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;flex:none"></div><div style="min-width:0"><div style="font-size:30px;font-weight:700;line-height:1.1">{{ title }}</div><div style="font-size:17px;color:#3b3466;margin-top:4px">{{ pages }} pages · {{ chars }} personnages</div><div style="display:flex;gap:6px;margin-top:8px"><sc-for list="{{ langs }}" as="l" hint-placeholder-count="2"><span style="width:30px;height:20px;border-radius:4px;border:2px solid #1E1A3F;background:{{ l.flag }}"></span></sc-for></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ tags }}" as="t" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:6px;padding:4px 14px 4px 5px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;font-weight:700;font-size:15px"><span style="width:26px;height:26px;border-radius:50%;background:{{ t.c }};border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.d }}"></path></svg></span>{{ t.n }}</span></sc-for></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:24px;padding:14px 16px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;align-items:center"><div style="flex:1;font-size:19px;font-weight:700">Enregistrement</div><div style="font-weight:700">{{ done }}/{{ total }} lignes</div></div><div style="height:14px;border-radius:7px;border:3px solid #1E1A3F;background:#FFF3DC;overflow:hidden"><div style="height:100%;width:{{ pct }}%;background:#4AD3A5"></div></div>
+<sc-for list="{{ voices }}" as="v" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:50%;background:{{ v.c }};border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">{{ v.i }}</span><span style="flex:1;font-size:16px;font-weight:600">{{ v.n }}</span><span style="font-size:15px;font-weight:700">{{ v.s }}</span></div></sc-for></div>
+<a href="Lecture.dc.html" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border-radius:28px;background:#4AD3A5;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:21px;text-decoration:none;color:#1E1A3F"><svg width="26" height="26" viewBox="0 0 24 24" fill="#1E1A3F" stroke="#1E1A3F" stroke-width="2" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"></path></svg>Lire l’histoire</a>
+<div style="display:flex;gap:12px"><a href="Enregistrer.dc.html" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:24px;background:#FF7766;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;text-decoration:none;color:#1E1A3F"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"></path></svg>Enregistrer</a><a href="Studio.dc.html" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;text-decoration:none;color:#1E1A3F"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16zM14 7l3 3"></path></svg>Modifier</a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { b: null };
+  T = { western: ['Western', '#FFC933', 'M2 17c3 1.5 6 1.5 10 1.5s7 0 10-1.5M6.5 15c0-5 1-9 3-9 1 0 1.5 1 2.5 1s1.5-1 2.5-1c2 0 3 4 3 9'], animals: ['Animaux', '#FF7766', 'M12 20c-3 0-6-2-6-4.5S9 12 12 12s6 1 6 3.5S15 20 12 20z'], calm: ['Calme', '#6DB5FF', 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'], funny: ['Drôle', '#FFC933', 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM8.5 14a4.5 4.5 0 0 0 7 0'] };
+  async componentDidMount() { this.M = await import('./studio-data.js'); this.setState({ b: this.M.loadBook() }); }
+  renderVals() {
+    const b = this.state.b, M = this.M;
+    if (!b) return { cover: '#E5E3F0', title: '', pages: 0, chars: 0, langs: [], tags: [], done: 0, total: 0, pct: 0, voices: [] };
+    const cs = b.pages.flatMap(p => p.chars), done = cs.filter(c => c.rec).length;
+    const by = {}; cs.forEach(c => { const v = c.voice || '—'; by[v] = by[v] || [0, 0]; by[v][1]++; if (c.rec) by[v][0]++; });
+    const col = { 'Maman': '#FF8FC9', 'Papi Serge': '#6DB5FF', 'Mamie Yolande': '#B28DFF', 'Beau-papa Trésor': '#4AD3A5' };
+    return {
+      cover: '#FFC933', title: b.title, pages: b.pages.length, chars: new Set(cs.map(c => c.name)).size,
+      langs: b.langs.map(l => ({ flag: M.LANGS[l].flag })),
+      tags: ['animals', 'calm', 'funny'].map(k => ({ n: this.T[k][0], c: this.T[k][1], d: this.T[k][2] })),
+      done, total: cs.length, pct: cs.length ? Math.round(done / cs.length * 100) : 0,
+      voices: Object.entries(by).map(([n, [d, t]]) => ({ n, i: n.charAt(0), c: col[n] || '#E5E3F0', s: d + '/' + t }))
+    };
+  }
+}
+</script>
+</body>
+</html>

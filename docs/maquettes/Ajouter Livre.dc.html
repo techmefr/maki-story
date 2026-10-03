@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}input::placeholder{color:#6b6590}</style></helmet>
+<div style="max-width:440px;min-height:100vh;margin:0 auto;padding:24px 20px 40px;box-sizing:border-box;color:#1E1A3F;display:flex;flex-direction:column;gap:18px">
+<a href="Bibliotheque.dc.html" style="align-self:flex-start;text-decoration:none;background:#CFE5FF;border:3px solid #1E1A3F;border-radius:16px;box-shadow:3px 4px 0 #1E1A3F;padding:10px 18px;display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px;color:#1E1A3F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg>Retour</a>
+<div style="font-size:32px;font-weight:700">Ajouter un livre</div>
+
+<div style="display:{{ s1 }};flex-direction:column;gap:16px">
+<div style="font-size:17px;color:#3b3466">Scanne le code-barre au dos du livre, ou tape le numéro.</div>
+<button onClick="{{ scan }}" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:20px;border-radius:26px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:21px;color:#1E1A3F;cursor:pointer"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 9v6M10 9v6M13 9v6M17 9v6"></path></svg>Scanner le code-barre</button>
+<div style="display:flex;align-items:center;gap:12px"><div style="flex:1;height:3px;background:#1E1A3F"></div><div style="font-weight:700">ou</div><div style="flex:1;height:3px;background:#1E1A3F"></div></div>
+<div style="display:flex;gap:10px"><input value="{{ isbn }}" onInput="{{ setIsbn }}" inputmode="numeric" placeholder="978…" style="flex:1;min-width:0;height:54px;box-sizing:border-box;padding:0 18px;border-radius:999px;border:3px solid #1E1A3F;background:#fff;outline:none;font-family:'Fredoka',sans-serif;font-size:19px;font-weight:600;color:#1E1A3F"><button onClick="{{ search }}" style="flex:none;padding:0 24px;height:54px;border-radius:999px;background:#4AD3A5;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer">Chercher</button></div>
+<div style="display:{{ notFound }};background:#FFD9D3;border:3px solid #1E1A3F;border-radius:20px;padding:14px 16px;flex-direction:column;gap:10px"><div style="font-weight:700;font-size:18px">Livre introuvable</div><div style="font-size:16px">Ce code n’est pas dans les bases publiques. Tu peux le remplir à la main.</div><button onClick="{{ manual }}" style="padding:10px;border-radius:999px;background:#fff;border:3px solid #1E1A3F;font-weight:700;font-size:17px;color:#1E1A3F;cursor:pointer">Remplir à la main</button></div>
+<div style="font-size:14px;color:#3b3466">Pour tester : 9782000000011, 9782000000028 ou 9782000000035.</div>
+</div>
+
+<div style="display:{{ s2 }};flex-direction:column;gap:18px">
+<div style="display:flex;gap:14px;align-items:center;background:#fff;border:3px solid #1E1A3F;border-radius:24px;box-shadow:4px 5px 0 #1E1A3F;padding:12px">
+<div style="width:64px;height:86px;border-radius:12px;background:{{ cover }};border:3px solid #1E1A3F;flex:none"></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px"><input value="{{ title }}" onInput="{{ setTitle }}" placeholder="Titre" style="min-width:0;height:42px;box-sizing:border-box;padding:0 14px;border-radius:999px;border:3px solid #1E1A3F;background:#FFF3DC;outline:none;font-family:'Fredoka',sans-serif;font-size:18px;font-weight:700;color:#1E1A3F"><input value="{{ author }}" onInput="{{ setAuthor }}" placeholder="Auteur" style="min-width:0;height:38px;box-sizing:border-box;padding:0 14px;border-radius:999px;border:3px solid #1E1A3F;background:#FFF3DC;outline:none;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;color:#1E1A3F"></div></div>
+<div style="display:{{ subjShow }};flex-direction:column;gap:8px"><div style="font-size:15px;color:#3b3466">Sujets trouvés en ligne</div><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ subjects }}" as="s" hint-placeholder-count="3"><div style="padding:3px 12px;border-radius:999px;border:2px dashed #1E1A3F;font-size:14px;font-weight:600">{{ s }}</div></sc-for></div></div>
+<div><div style="display:flex;align-items:center;margin-bottom:10px"><div style="flex:1;font-size:20px;font-weight:700">Tags</div><div style="font-size:15px;color:#3b3466">{{ sugCount }} suggérés</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ tags }}" as="t" hint-placeholder-count="8"><button onClick="{{ t.tap }}" style="display:flex;align-items:center;gap:8px;padding:6px 16px 6px 8px;border-radius:999px;border:3px solid #1E1A3F;background:{{ t.bg }};box-shadow:{{ t.sh }};font-weight:700;font-size:16px;color:#1E1A3F;cursor:pointer"><span style="width:30px;height:30px;border-radius:50%;background:{{ t.color }};border:2px solid #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg></span>{{ t.name }}<span style="display:{{ t.sugShow }};font-size:12px;background:#fff;border:2px solid #1E1A3F;border-radius:999px;padding:0 6px">auto</span></button></sc-for>
+<a href="Tags.dc.html" style="display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:999px;border:3px dashed #1E1A3F;font-weight:700;font-size:16px;text-decoration:none;color:#1E1A3F">+ Nouveau tag</a></div></div>
+<div style="display:flex;gap:12px"><button onClick="{{ back }}" style="flex:none;padding:14px 20px;border-radius:24px;background:#fff;border:3px solid #1E1A3F;font-weight:700;font-size:18px;color:#1E1A3F;cursor:pointer">Annuler</button><button onClick="{{ save }}" style="flex:1;padding:14px;border-radius:24px;background:{{ saveBg }};border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer">Ajouter à la bibliothèque</button></div>
+</div>
+
+<div style="display:{{ s3 }};flex-direction:column;align-items:center;gap:16px;text-align:center;padding:30px 0">
+<div style="width:90px;height:90px;border-radius:50%;background:#4AD3A5;border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"></path></svg></div>
+<div style="font-size:26px;font-weight:700">Livre ajouté !</div><div style="font-size:18px;color:#3b3466">{{ title }}</div>
+<a href="Bibliotheque.dc.html" style="padding:14px 28px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;text-decoration:none;color:#1E1A3F">Voir la bibliothèque</a>
+<button onClick="{{ again }}" style="padding:10px 20px;border-radius:999px;background:#fff;border:3px solid #1E1A3F;font-weight:700;font-size:17px;color:#1E1A3F;cursor:pointer">Ajouter un autre livre</button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { step: 1, isbn: '', nf: false, title: '', author: '', subj: [], sel: [], sug: [], tags: [], lang: 'fr' };
+  icons = {
+    hat: 'M2 17c3 1.5 6 1.5 10 1.5s7 0 10-1.5M6.5 15c0-5 1-9 3-9 1 0 1.5 1 2.5 1s1.5-1 2.5-1c2 0 3 4 3 9M7 12.5c3 1 7 1 10 0',
+    waves: 'M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0',
+    tree: 'M12 3l6 8h-3l4 6H5l4-6H6zM12 17v4',
+    star: 'M12 2.5l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.7 5.9 21.1l1.4-6.8L2.2 9.6l6.9-.8z',
+    crown: 'M3 19L2 8l5 4 5-7 5 7 5-4-1 11zM4 22h16',
+    paw: 'M12 20c-3 0-6-2-6-4.5S9 12 12 12s6 1 6 3.5S15 20 12 20zM5.5 10.5a1.5 1.5 0 1 0 .01 0M9.5 6.5a1.5 1.5 0 1 0 .01 0M14.5 6.5a1.5 1.5 0 1 0 .01 0M18.5 10.5a1.5 1.5 0 1 0 .01 0',
+    moon: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z',
+    heart: 'M12 21C5 15.5 3 12 3 8.8A4.8 4.8 0 0 1 12 6.5 4.8 4.8 0 0 1 21 8.8C21 12 19 15.5 12 21z',
+    smile: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM8.5 14a4.5 4.5 0 0 0 7 0M9 9.5v.5M15 9.5v.5',
+    compass: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM15.5 8.5l-2 5-5 2 2-5z',
+    question: 'M9 9a3 3 0 1 1 4 2.8c-1 .5-1 1.2-1 2.2M12 18v.5',
+    book: 'M4 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-7',
+    sun: 'M12 8a4 4 0 1 0 0 8a4 4 0 0 0 0-8zM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+    flag: 'M5 21V4M5 4h12l-2 4 2 4H5'
+  };
+  mock = {
+    '9782000000011': ['Cow-boy Gaston', 'P. Martin', ['Juvenile Fiction / Westerns', 'Cowboys', 'Humorous Stories']],
+    '9782000000028': ['La princesse Jade', 'S. Dupont', ['Princesses', 'Castles', 'Bedtime Stories']],
+    '9782000000035': ['Le grand voyage', 'L. Petit', ['Ocean', 'Adventure', 'Ships']]
+  };
+  defaults() {
+    const t = (slug, color, icon, fr, en, kw) => ({ slug, color, icon, names: { fr, en }, kw });
+    return [t('western', '#FFC933', 'hat', 'Western', 'Western', ['western', 'cowboy']), t('ocean', '#6DB5FF', 'waves', 'Océan', 'Ocean', ['ocean', 'sea', 'ship']), t('forest', '#4AD3A5', 'tree', 'Forêt', 'Forest', ['forest']), t('space', '#B28DFF', 'star', 'Espace', 'Space', ['space', 'moon']), t('castle', '#FF8FC9', 'crown', 'Château', 'Castle', ['castle', 'princess']), t('animals', '#FF7766', 'paw', 'Animaux', 'Animals', ['animal']), t('calm', '#6DB5FF', 'moon', 'Calme', 'Calm', ['bedtime', 'sleep']), t('funny', '#FFC933', 'smile', 'Drôle', 'Funny', ['humor']), t('adventure', '#FF7766', 'compass', 'Aventure', 'Adventure', ['adventure']), t('cuddle', '#FF8FC9', 'heart', 'Câlin', 'Cuddle', ['love', 'family']), t('mystery', '#B28DFF', 'question', 'Mystère', 'Mystery', ['mystery'])];
+  }
+  componentDidMount() {
+    let tags = null, lang = 'fr';
+    try { tags = JSON.parse(localStorage.getItem('tantara_tags_v1')); lang = localStorage.getItem('tantara_lang') || 'fr'; } catch (e) {}
+    this.setState({ tags: tags || this.defaults(), lang });
+  }
+  lookup(code) {
+    const m = this.mock[code];
+    if (!m) return this.setState({ nf: true });
+    const subj = m[2], txt = subj.join(' ').toLowerCase();
+    const sug = this.state.tags.filter(t => (t.kw || []).some(k => txt.includes(k))).map(t => t.slug);
+    this.setState({ step: 2, nf: false, title: m[0], author: m[1], subj, sug, sel: sug });
+  }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const nameOf = t => t.names[s.lang] || t.names.en || t.names.fr || t.slug;
+    const ok = !!s.title.trim();
+    const first = s.sel.length ? s.tags.find(t => t.slug === s.sel[0]) : null;
+    return {
+      s1: s.step === 1 ? 'flex' : 'none', s2: s.step === 2 ? 'flex' : 'none', s3: s.step === 3 ? 'flex' : 'none',
+      isbn: s.isbn, setIsbn: e => set({ isbn: e.target.value, nf: false }),
+      notFound: s.nf ? 'flex' : 'none',
+      scan: () => { const c = '9782000000011'; set({ isbn: c }); this.lookup(c); },
+      search: () => this.lookup(s.isbn.replace(/\D/g, '')),
+      manual: () => set({ step: 2, nf: false, title: '', author: '', subj: [], sug: [], sel: [] }),
+      title: s.title, author: s.author, setTitle: e => set({ title: e.target.value }), setAuthor: e => set({ author: e.target.value }),
+      cover: first ? first.color : '#E5E3F0',
+      subjShow: s.subj.length ? 'flex' : 'none', subjects: s.subj, sugCount: s.sug.length,
+      tags: s.tags.map(t => { const on = s.sel.includes(t.slug); return { name: nameOf(t), color: t.color, icon: this.icons[t.icon] || this.icons.book, bg: on ? '#FFC933' : '#fff', sh: on ? '3px 4px 0 #1E1A3F' : 'none', sugShow: s.sug.includes(t.slug) ? 'block' : 'none', tap: () => set(st => ({ sel: st.sel.includes(t.slug) ? st.sel.filter(x => x !== t.slug) : [...st.sel, t.slug] })) }; }),
+      saveBg: ok ? '#4AD3A5' : '#E5E3F0',
+      save: () => { if (ok) set({ step: 3 }); },
+      back: () => set({ step: 1 }),
+      again: () => set({ step: 1, isbn: '', title: '', author: '', subj: [], sug: [], sel: [] })
+    };
+  }
+}
+</script>
+</body>
+</html>

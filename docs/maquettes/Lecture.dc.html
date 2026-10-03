@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#FFF3DC;font-family:'Fredoka',sans-serif}a{color:#1E1A3F}a:hover{color:#4a3fa0}button{font-family:'Fredoka',sans-serif}@keyframes blob{0%,100%{border-radius:50%;transform:scale(1) rotate(0)}25%{border-radius:58% 42% 52% 48%;transform:scale(1.08) rotate(6deg)}50%{border-radius:45% 55% 42% 58%;transform:scale(1.16) rotate(-4deg)}75%{border-radius:52% 48% 60% 40%;transform:scale(1.05) rotate(3deg)}}@keyframes bar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}@keyframes nudge{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}</style></helmet>
+<div style="position:fixed;inset:0;background:{{ bg }};transition:background .6s ease;display:flex;justify-content:center;overflow-y:auto">
+<div style="position:relative;width:100%;max-width:440px;min-height:100%;box-sizing:border-box;padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px;color:#1E1A3F">
+<div style="display:flex;align-items:center;gap:12px"><a href="Accueil Enfant.dc.html" aria-label="Fermer" style="width:48px;height:48px;border-radius:50%;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:3px 4px 0 #1E1A3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg></a>
+<div style="flex:1;display:flex;gap:5px;align-items:center"><sc-for list="{{ segs }}" as="g" hint-placeholder-count="6"><div style="flex:1;height:16px;border-radius:8px;border:3px solid #1E1A3F;background:{{ g.bg }};box-sizing:border-box"></div></sc-for></div></div>
+<div style="display:{{ readShow }};flex-direction:column;gap:14px;flex:1">
+<div style="position:relative;z-index:1;flex:none;aspect-ratio:4/3;border-radius:26px;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;background:#FFF3DC;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center"><div style="position:absolute;inset:0;background:{{ photoBg }} center/cover"></div><div style="display:{{ noPhotoShow }};position:relative;font-size:26px;font-weight:700;padding:20px">{{ pTitle }}</div></div>
+<div style="display:flex;align-items:center;gap:16px;padding:6px 6px 0"><div style="position:relative;width:84px;height:84px;flex:none;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:-6px;background:rgba(255,255,255,.45);animation:blob 2.2s ease-in-out infinite;display:{{ talkShow }}"></div><div style="position:relative;width:78px;height:78px;border-radius:50%;background:{{ sColor }};border:3px solid #1E1A3F;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:700">{{ sInitial }}</div></div>
+<div style="flex:1;min-width:0"><div style="font-size:22px;font-weight:700;line-height:1.1">{{ sName }}</div><div style="font-size:16px">{{ sRole }}</div><div style="display:{{ talkShow }};align-items:center;gap:4px;height:22px;margin-top:4px"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="12"><div style="width:5px;height:20px;border-radius:3px;background:#1E1A3F;animation:bar {{ b.d }}s ease-in-out {{ b.dl }}s infinite"></div></sc-for></div></div></div>
+<div style="background:#fff;border:3px solid #1E1A3F;border-radius:26px;box-shadow:4px 5px 0 #1E1A3F;padding:16px 18px;font-size:24px;font-weight:600;line-height:1.3;min-height:84px;display:flex;align-items:center">{{ lineText }}</div>
+<div style="position:absolute;left:0;top:80px;bottom:110px;width:50%;z-index:0;cursor:pointer" onClick="{{ prev }}"></div><div style="position:absolute;right:0;top:80px;bottom:110px;width:50%;z-index:0;cursor:pointer" onClick="{{ next }}"></div>
+<div style="flex:1"></div></div>
+<div style="display:{{ endShow }};flex-direction:column;align-items:center;justify-content:center;gap:18px;flex:1;text-align:center"><div style="width:150px;height:150px;border-radius:50%;background:#fff;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;display:flex;align-items:center;justify-content:center"><svg width="80" height="80" viewBox="0 0 24 24" fill="#FF8FC9" stroke="#1E1A3F" stroke-width="1.6" stroke-linejoin="round"><path d="M12 21C5 15.5 3 12 3 8.8A4.8 4.8 0 0 1 12 6.5 4.8 4.8 0 0 1 21 8.8C21 12 19 15.5 12 21z"></path></svg></div><div style="font-size:36px;font-weight:700">Fin de l’histoire !</div><div style="font-size:19px">{{ bookTitle }}</div><button onClick="{{ again }}" style="padding:14px 28px;border-radius:24px;background:#fff;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer">Relire</button><a href="Accueil Enfant.dc.html" style="padding:14px 28px;border-radius:24px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;text-decoration:none;color:#1E1A3F">Retour à l’accueil</a></div>
+<div style="position:relative;z-index:1;display:{{ readShow }};gap:12px"><button onClick="{{ prev }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border-radius:26px;background:#CFE5FF;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer;opacity:{{ prevOp }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"></path></svg>Avant</button><button onClick="{{ next }}" style="flex:1.3;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border-radius:26px;background:#FFC933;border:3px solid #1E1A3F;box-shadow:4px 5px 0 #1E1A3F;font-weight:700;font-size:19px;color:#1E1A3F;cursor:pointer;animation:{{ nudge }}">{{ nextLabel }}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"></path></svg></button></div>
+</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { book: null, pg: 0, li: 0, done: false, end: false };
+  who = { 'Maman': '#FF8FC9', 'Papi Serge': '#6DB5FF', 'Mamie Yolande': '#B28DFF', 'Beau-papa Trésor': '#4AD3A5' };
+  bars = Array.from({ length: 12 }, (_, i) => ({ d: (0.5 + ((i * 37) % 10) / 14).toFixed(2), dl: (-(i * 0.13)).toFixed(2) }));
+  async componentDidMount() {
+    this.M = await import('./studio-data.js');
+    const b = this.M.loadBook();
+    let pg = 0; try { pg = (JSON.parse(localStorage.getItem('tantara_progress_v1')) || {})[b.title] || 0; } catch (e) {}
+    pg = Math.min(pg, b.pages.length - 1);
+    this.key = e => { if (e.key === 'ArrowRight') this.go(1); if (e.key === 'ArrowLeft') this.go(-1); };
+    window.addEventListener('keydown', this.key);
+    this.setState({ book: b }, () => this.start(pg));
+  }
+  componentWillUnmount() { clearTimeout(this.to); window.removeEventListener('keydown', this.key); }
+  ding() { try { const A = window.AudioContext || window.webkitAudioContext, c = this.ac || (this.ac = new A()), o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = 988; g.gain.setValueAtTime(0.0001, c.currentTime); g.gain.exponentialRampToValueAtTime(0.35, c.currentTime + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 1.2); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + 1.3); } catch (e) {} }
+  start(pg) {
+    clearTimeout(this.to);
+    const b = this.state.book, ch = b.pages[pg].chars;
+    this.setState({ pg, li: 0, done: !ch.length, end: false });
+    try { const k = 'tantara_progress_v1', o = JSON.parse(localStorage.getItem(k)) || {}; o[b.title] = pg; localStorage.setItem(k, JSON.stringify(o)); } catch (e) {}
+    const step = i => { this.to = setTimeout(() => { if (i + 1 < ch.length) { this.setState({ li: i + 1 }); step(i + 1); } else { this.ding(); this.setState({ done: true }); } }, (ch[i].rec ? ch[i].rec.secs : 4) * 500); };
+    if (ch.length) step(0); else this.ding();
+  }
+  go(d) {
+    const s = this.state, b = s.book; if (!b || s.end) return;
+    const n = s.pg + d;
+    if (n < 0) return;
+    if (n >= b.pages.length) { clearTimeout(this.to); try { const k = 'tantara_progress_v1', o = JSON.parse(localStorage.getItem(k)) || {}; o[b.title] = 0; localStorage.setItem(k, JSON.stringify(o)); } catch (e) {} this.setState({ end: true }); return; }
+    this.start(n);
+  }
+  renderVals() {
+    const s = this.state, b = s.book;
+    if (!b) return { pTitle: '', sInitial: '', sName: '', sRole: '', lineText: '', bookTitle: '', nextLabel: '', sColor: '#FFC933', prevOp: 1, segs: [], bars: this.bars, bg: '#FFF3DC', photoBg: 'none', readShow: 'none', endShow: 'none', noPhotoShow: 'none', talkShow: 'none', prev: () => {}, next: () => {}, again: () => {}, nudge: 'none' };
+    const L = (() => { try { return localStorage.getItem('tantara_lang') || 'fr'; } catch (e) { return 'fr'; } })();
+    const lang = b.langs.includes(L) ? L : b.langs[0];
+    const p = b.pages[s.pg], c = p.chars[Math.min(s.li, p.chars.length - 1)];
+    const col = c ? (this.who[c.voice] || c.color) : '#FFC933';
+    const last = s.pg === b.pages.length - 1;
+    return {
+      bookTitle: b.title, bg: s.end ? '#FFC933' : col,
+      segs: b.pages.map((q, i) => ({ bg: s.end || i < s.pg ? '#1E1A3F' : i === s.pg ? '#FFF3DC' : '#fff' })),
+      readShow: s.end ? 'none' : 'flex', endShow: s.end ? 'flex' : 'none',
+      photoBg: p.photo ? 'url(' + p.photo + ')' : 'none', noPhotoShow: p.photo ? 'none' : 'block', pTitle: p.title[lang] || p.title.fr || '',
+      sColor: col, sInitial: c ? (c.voice || '?').charAt(0) : '·', sName: c ? (c.voice || '—') : 'Lotti', sRole: c ? 'dit ' + c.name : 'Page muette',
+      talkShow: s.done ? 'none' : 'flex', lineText: c ? (c.text[lang] || c.text.fr || '') : (p.desc[lang] || p.desc.fr || ''),
+      bars: this.bars, prevOp: s.pg > 0 ? 1 : 0.4,
+      nextLabel: last ? 'Terminer' : 'Page suivante', nudge: s.done ? 'nudge 1.1s ease-in-out infinite' : 'none',
+      prev: () => this.go(-1), next: () => this.go(1),
+      again: () => this.start(0)
+    };
+  }
+}
+</script>
+</body>
+</html>
