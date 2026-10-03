@@ -84,17 +84,13 @@
                 </AppButton>
             </div>
             <div v-if="speech.isAvailable.value && speech.isEnabled.value" class="stage__bar row row--wrap">
-                <button
+                <AppChip
                     v-for="category in SPEECH_CATEGORIES"
                     :key="category.id"
-                    type="button"
-                    class="chip"
-                    :class="{ 'chip--on': speech.categories[category.id] }"
-                    :aria-pressed="speech.categories[category.id]"
                     @click="speech.toggleCategory(category.id)"
-                >
+                 :selected="speech.categories[category.id]">
                     {{ t(`studio.categories.${category.id}`) }}
-                </button>
+                </AppChip>
                 <AppButton variant="secondary" size="sm" :disabled="isRecording" @click="assistCurrentLine">
                     <AppIcon name="ear" :size="18" />
                     {{ t('studio.replayAssist') }}

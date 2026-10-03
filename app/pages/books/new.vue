@@ -6,12 +6,12 @@
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
         </div>
         <div v-if="!isWordless" class="row" role="group" :aria-label="t('bookDraft.wizard.voiceCount')">
-            <button type="button" class="chip" :class="{ 'chip--on': isSimple }" :aria-pressed="isSimple" @click="setMode('simple')">
+            <AppChip @click="setMode('simple')" :selected="isSimple">
                 {{ t('bookDraft.wizard.oneVoice') }}
-            </button>
-            <button type="button" class="chip" :class="{ 'chip--on': !isSimple }" :aria-pressed="!isSimple" @click="setMode('casting')">
+            </AppChip>
+            <AppChip @click="setMode('casting')" :selected="!isSimple">
                 {{ t('bookDraft.wizard.severalVoices') }}
-            </button>
+            </AppChip>
         </div>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />

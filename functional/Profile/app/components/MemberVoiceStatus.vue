@@ -2,18 +2,14 @@
     <section v-if="member" class="card stack" aria-labelledby="voice-status-title">
         <h2 id="voice-status-title" class="subtitle">{{ t('member.voice.title') }}</h2>
         <div class="row row--wrap" role="group" :aria-label="t('member.voice.group')">
-            <button
+            <AppChip
                 v-for="option in statuses"
                 :key="option.value"
-                type="button"
-                class="chip"
-                :class="{ 'chip--on': member.status === option.value }"
-                :aria-pressed="member.status === option.value"
                 :disabled="isBusy"
                 @click="setStatus(option.value)"
-            >
+             :selected="member.status === option.value">
                 {{ option.label }}
-            </button>
+            </AppChip>
         </div>
         <fieldset v-if="isHousehold" class="stack fieldset">
             <legend class="label">{{ t('member.voice.policyQuestion') }}</legend>

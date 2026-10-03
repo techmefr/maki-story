@@ -23,9 +23,9 @@
                 <AppCheckbox :model-value="page.ttsFallback" @update:model-value="updatePage(index, { ttsFallback: Boolean($event) })">{{ t('bookDraft.pages.ttsFallback') }}</AppCheckbox>
             </template>
             <template v-else>
-                <button type="button" class="chip" :class="{ 'chip--on': page.kind === 'cover' }" :aria-pressed="page.kind === 'cover'" @click="toggleCover(index)">
+                <AppChip @click="toggleCover(index)" :selected="page.kind === 'cover'">
                     {{ t('bookDraft.shared.cover') }}
-                </button>
+                </AppChip>
                 <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('bookDraft.pages.describe') }}</span>
                     <input

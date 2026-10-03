@@ -16,18 +16,14 @@
                 <div v-for="group in groups" :key="group.id" class="stack search-entry__group" role="group" :aria-label="t(`library.filters.${group.id}`)">
                     <h3 class="label">{{ t(`library.filters.${group.id}`) }}</h3>
                     <div class="row row--wrap">
-                        <button
+                        <AppChip
                             v-for="item in group.items"
                             :key="item"
-                            type="button"
-                            class="chip"
-                            :class="{ 'chip--on': picked[group.id] === item }"
-                            :aria-pressed="picked[group.id] === item"
                             :data-filter="`${group.id}-${item}`"
                             @click="toggle(group.id, item)"
-                        >
+                         :selected="picked[group.id] === item">
                             {{ t(`library.filters.${group.plural}.${item}`) }}
-                        </button>
+                        </AppChip>
                     </div>
                 </div>
                 <AppButton is-block data-testid="book-search-go" @click="go"><AppIcon name="book" :size="22" />{{ t('search.go') }}</AppButton>

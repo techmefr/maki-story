@@ -11,9 +11,9 @@
                 </AppButton>
             </li>
         </ul>
-        <button v-if="!isOpen" type="button" class="chip" :aria-expanded="false" @click="open">
+        <AppChip v-if="!isOpen" :aria-expanded="false" @click="open">
             <AppIcon name="sparkles" :size="16" />{{ t('ai.translate.suggestButton') }}
-        </button>
+        </AppChip>
         <div v-else class="card stack" role="group" :aria-label="t('ai.translate.groupLabel')">
             <AiNotice :text="t('ai.translate.notice')" />
             <div class="stack" style="gap: 6px">
