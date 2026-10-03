@@ -1,7 +1,7 @@
-import { getDb } from '../../utils/db'
-import { logEvent } from '../../utils/log'
-import { requirePermission } from '../../utils/permissions'
-import { badRequest } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { requirePermission } from '~~/server/utils/permissions'
+import { badRequest } from '~~/server/utils/validate'
 
 const MOODS: FeedbackMood[] = ['love', 'ok', 'bad']
 

@@ -1,5 +1,5 @@
-import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
+import { getDb } from '~~/server/utils/db'
+import { requirePermission } from '~~/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<IFeedback[]> => {
     const { familyId } = await requirePermission(event, 'feedback.manage')

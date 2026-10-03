@@ -1,7 +1,7 @@
-import { getDb } from '../../utils/db'
-import { logEvent } from '../../utils/log'
-import { requirePermission } from '../../utils/permissions'
-import { requireParam } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { requirePermission } from '~~/server/utils/permissions'
+import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {
     const { familyId } = await requirePermission(event, 'feedback.manage')
