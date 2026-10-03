@@ -159,6 +159,8 @@ export interface INewBook {
     kind: BookKind
     soloMemberId: string | null
     isProposal?: boolean
+    isbn?: string
+    coverUrl?: string
     imageDesc: string
     pageFileIds: string[]
     pages?: INewPage[]
@@ -247,4 +249,12 @@ export interface IProposalBody {
 export interface IBookAccess {
     isRestricted: boolean
     bookIds: string[]
+}
+
+export interface IIsbnBook {
+    isbn: string
+    title: string
+    author: string
+    subjects: string[]
+    coverUrl: string | null
 }

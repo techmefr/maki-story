@@ -11,6 +11,7 @@
         </NuxtLink>
         <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
         <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
+        <AppButton variant="secondary" is-block v-if="isOnline && isParent" icon="search" to="/books/isbn" data-testid="add-by-isbn">{{ t('addBook.open') }}</AppButton>
         <AppButton variant="secondary" is-block v-if="isAiCreationEnabled && isOnline && isParent" to="/books/ai" data-testid="ai-create">
             <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
         </AppButton>
