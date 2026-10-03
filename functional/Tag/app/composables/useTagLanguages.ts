@@ -1,4 +1,4 @@
-export const useFamilyLanguages = () => {
+export const useTagLanguages = () => {
     const { members, ensureLoaded } = useMembers()
 
     const languages = computed(() =>

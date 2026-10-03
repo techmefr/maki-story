@@ -35,7 +35,10 @@ const setup = async (playwright: Playwright, baseURL: string | undefined, label:
     const mamieId = await addMemberApi(family.parent, 'Mamie', 'relative')
     await addMemberApi(family.parent, 'Lova', 'child')
     const book = await createBookApi(family.parent, `Livre ${label}`, ['Il était une fois.', 'Le loup arriva.'])
-    await family.parent.patch(`/api/members/${mamieId}/settings`, { data: { spokenLanguages: ['fr', 'en'] } })
+    const everyone = (await (await family.parent.get('/api/members')).json()) as { id: string; role: string }[]
+    const parentId = everyone.find(member => member.role === 'parent')!.id
+    const langs = await family.parent.patch(`/api/members/${parentId}/settings`, { data: { spokenLanguages: ['fr', 'en'] } })
+    expect(langs.ok(), await langs.text()).toBeTruthy()
     const patched = await family.parent.patch(`/api/books/${book.id}`, {
         data: { voiceLanguages: ['fr', 'en'], lines: book.lineIds.map(id => ({ id, memberId: mamieId })) },
     })
