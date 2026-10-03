@@ -38,6 +38,11 @@ export const describeNotification = (notification: INotification, t: (key: strin
     }
 }
 
+export const notificationActor = (notification: INotification): string => {
+    const { payload } = notification
+    return text(payload.fromName) || text(payload.memberName) || text(payload.childName) || text(payload.familyName) || text(payload.bookTitle)
+}
+
 export const useNotifications = () => {
     const { request } = useApi()
     const items = useState<INotification[]>('notifications', () => [])

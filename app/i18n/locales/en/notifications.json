@@ -26,5 +26,24 @@
             "other": "{name} finished recording {count} lines of “{title}”"
         }
     },
-    "bellNone": "Notifications, none new"
+    "bellNone": "Notifications, none new",
+    "titles": {
+        "share_received": "Book received",
+        "share_accepted": "Share accepted",
+        "share_declined": "Share declined",
+        "share_to_approve": "Share to approve",
+        "share_approved": "Share approved",
+        "voice_batch": "Voice added",
+        "recording_batch": "Recording finished",
+        "review_result": "Review result",
+        "recording_request": "Recording request",
+        "book_proposed": "Book proposed",
+        "proposal_result": "Answer to your proposal",
+        "message_received": "New message",
+        "birthday_reminder": "Birthday reminder",
+        "stale_takes": "Takes to redo"
+    },
+    "allRead": "All caught up!",
+    "minutes": "{count} min",
+    "hours": "{count} h"
 }
