@@ -12,20 +12,20 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 ## Phase 1 — Spécifications
 
-- [ ] Une spécification par domaine (14) : règles, états, cas limites, tests attendus
+- [x] Une spécification par domaine (14) : règles, états, cas limites, tests attendus
 
 ## Phase 2 — Fondations
 
-- [ ] Installer `nuxt-osdd`, créer les couches `technical/` et `functional/`, déclarer la config
-- [ ] Ranger le code existant par domaine, un domaine à la fois, sans changer le comportement
-- [ ] Renommer au singulier, étendre le lint à `any`
+- [x] Installer `nuxt-osdd`, créer les couches `technical/` et `functional/`, déclarer la config
+- [x] Ranger le code existant par domaine, un domaine à la fois, sans changer le comportement
+- [x] Renommer au singulier, étendre le lint à `any`
 - [x] Migrations : plan des numéros en double, puis `0019` et suivantes
 - [x] Tokens et thème (Theme), clair et sombre, avec passage RGAA des contrastes
-- [ ] Contrôle automatique des contrastes dans `scripts/design-audit.ts`
+- [x] Contrôle automatique des contrastes dans `scripts/design-audit.ts`
 - [x] 9 atomes
 - [x] 8 molécules
 - [ ] Sons soundcn et mouvement
-- [ ] Aligner `scripts/design-audit.ts` sur `docs/DESIGN.md`
+- [x] Aligner `scripts/design-audit.ts` sur `docs/DESIGN.md`
 
 ## Phase 3 — Accès
 
