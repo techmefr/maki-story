@@ -90,6 +90,7 @@ const MORE_LINKS: { to: string; label: string; icon: IconName }[] = [
     { to: '/family/activity', label: 'recovery.links.activity', icon: 'eye' },
     { to: '/family/trash', label: 'recovery.links.trash', icon: 'trash' },
     { to: '/family/data', label: 'recovery.links.data', icon: 'download' },
+    { to: '/help', label: 'help.title', icon: 'smile' },
     { to: '/feedback', label: 'family.index.feedback', icon: 'message-heart' },
 ]
 

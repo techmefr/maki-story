@@ -62,6 +62,7 @@
                 </li>
             </ul>
         </section>
+        <AppButton variant="secondary" is-block class="relative__action" icon="smile" to="/help">{{ t('help.title') }}</AppButton>
         <AppButton variant="secondary" is-block class="relative__action" icon="chest" to="/vault">{{ t('vault.open') }}</AppButton>
         <AppButton variant="secondary" is-block class="relative__action" to="/join" data-testid="relative-join-another">
             <AppIcon name="user-plus" :size="22" />{{ t('relative.joinAnother') }}
