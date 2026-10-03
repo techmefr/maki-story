@@ -68,5 +68,6 @@
         "removeTitle": "Remove this memory?",
         "removeBody": "It will be deleted forever.",
         "removeConfirm": "Remove"
-    }
+    },
+    "quota": "{count}/{max} messages"
 }

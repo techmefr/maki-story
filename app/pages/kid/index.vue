@@ -15,6 +15,7 @@
                         <AppAvatar :member="face.member" :size="124" />
                     </span>
                     <span class="subtitle">{{ face.member.name }}</span>
+                    <span class="face__quota">{{ t('kid.quota', { count: formatNumber(face.count), max: formatNumber(MESSAGE_MAX_ACTIVE) }) }}</span>
                 </NuxtLink>
                 <NuxtLink
                     v-if="face.message && face.count > 0"
@@ -134,6 +135,11 @@ onBeforeUnmount(stopPolling)
     .face__ring--unheard {
         animation: none;
     }
+}
+
+.face__quota {
+    color: var(--ink-soft);
+    font: 600 0.9375rem/1.2 var(--font-body);
 }
 
 .face__count {

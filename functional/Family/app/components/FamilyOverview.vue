@@ -78,6 +78,7 @@
 <script setup lang="ts">
 const PROVIDER_IDS: ToggleableProviderId[] = ['apple', 'microsoft', 'facebook']
 const MORE_LINKS: { to: string; label: string; icon: IconName }[] = [
+    { to: '/vault', label: 'vault.open', icon: 'chest' },
     { to: '/storage', label: 'family.index.storage', icon: 'download' },
     { to: '/sharing', label: 'family.index.sharing', icon: 'send' },
     { to: '/family/devices', label: 'family.index.devices', icon: 'settings' },
