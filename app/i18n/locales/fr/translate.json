@@ -16,5 +16,8 @@
         "one": "{count} réplique enregistrée en {language}.",
         "other": "{count} répliques enregistrées en {language}."
     },
-    "saveFailed": "L’enregistrement a échoué. Réessaie."
+    "saveFailed": "L’enregistrement a échoué. Réessaie.",
+    "markDone": "Traduction terminée",
+    "markDoneHint": "Les enfants voient cette langue seulement quand elle est terminée.",
+    "doneFailed": "Le changement n’a pas pu être enregistré. Réessaie."
 }

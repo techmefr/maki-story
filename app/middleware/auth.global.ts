@@ -1,7 +1,7 @@
 const PUBLIC_PATHS = ['/login', '/register', '/magic']
 const OPEN_PREFIXES = ['/join', '/legal', '/forgot', '/onboarding']
 const RELATIVE_LANDING = '/relative'
-const PARENT_ONLY_PREFIXES = ['/family', '/storage']
+const PARENT_ONLY_PREFIXES = ['/family']
 const CHILD_ALLOWED_PREFIXES = ['/kid', '/message/', '/profiles', '/grimace']
 
 export default defineNuxtRouteMiddleware(async to => {

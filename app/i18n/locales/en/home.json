@@ -29,7 +29,9 @@
         "removeOne": "Delete {title}",
         "removeAll": "Delete everything",
         "emptyTitle": "No downloaded book",
-        "emptyHint": "Download a book from the library to listen without a connection."
+        "emptyHint": "Download a book from the library to listen without a connection.",
+        "removeAllTitle": "Remove everything?",
+        "removeAllText": "Downloaded books will be removed from this device. They stay available online."
     },
     "grimace": {
         "title": "Your funny face!",

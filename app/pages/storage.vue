@@ -1,27 +1,35 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
-        <h1 class="title">{{ t('home.storage.title') }}</h1>
-        <div class="card stack">
-            <div class="subtitle">{{ usageLabel }}</div>
-            <div class="progress" role="progressbar" :aria-valuenow="usedPercent" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress__fill" :style="{ width: `${usedPercent}%` }" />
-            </div>
-            <div class="muted">{{ t('home.storage.downloaded', { size: formatBytes(totalBytes) }) }}</div>
-            <AppButton variant="secondary" size="sm" v-if="!usage.isPersisted" @click="keep">{{ t('home.storage.keep') }}</AppButton>
-            <span v-else class="badge" style="background: #4AD3A5">{{ t('home.storage.protected') }}</span>
+        <div class="row">
+            <BackLink :to="backPath" />
+            <h1 class="title grow">{{ t('home.storage.title') }}</h1>
         </div>
-        <AppEmpty kind="offline" v-if="list.length === 0" :title="t('home.storage.emptyTitle')" :hint="t('home.storage.emptyHint')" />
-        <div v-for="record in list" :key="record.id" class="card row" data-offline-book>
-            <div class="grow">
-                <div class="subtitle">{{ record.title }}</div>
-                <div class="muted">{{ record.isComplete ? formatBytes(bytesOf(record)) : `${formatBytes(bytesOf(record))} · ${t('home.storage.incomplete')}` }}</div>
+        <section class="stack storage__card" aria-labelledby="storage-usage">
+            <h2 id="storage-usage" class="subtitle">{{ usageLabel }}</h2>
+            <AppProgress :value="usedPercent" :label="t('home.storage.title')" />
+            <p class="storage__hint">{{ t('home.storage.downloaded', { size: formatBytes(totalBytes) }) }}</p>
+            <AppBadge v-if="usage.isPersisted" tone="success">{{ t('home.storage.protected') }}</AppBadge>
+            <AppButton v-else variant="secondary" size="sm" icon="lock" @click="keep">{{ t('home.storage.keep') }}</AppButton>
+        </section>
+        <AppEmpty v-if="list.length === 0" kind="offline" :title="t('home.storage.emptyTitle')" :hint="t('home.storage.emptyHint')" />
+        <ul class="storage__list">
+            <li v-for="record in list" :key="record.id" data-offline-book>
+                <AppListRow :title="record.title" :subtitle="record.isComplete ? formatBytes(bytesOf(record)) : `${formatBytes(bytesOf(record))} · ${t('home.storage.incomplete')}`">
+                    <template #lead><span class="storage__icon"><AppIcon name="book" :size="22" /></span></template>
+                    <template #action>
+                        <AppIconButton icon="trash" tone="coral" :label="t('home.storage.removeOne', { title: record.title })" @click="remove(record.id)" />
+                    </template>
+                </AppListRow>
+            </li>
+        </ul>
+        <AppButton v-if="list.length > 0" variant="secondary" is-block icon="trash" @click="isConfirmingAll = true">{{ t('home.storage.removeAll') }}</AppButton>
+        <AppBottomSheet :open="isConfirmingAll" :title="t('home.storage.removeAllTitle')" @close="isConfirmingAll = false">
+            <p class="storage__hint">{{ t('home.storage.removeAllText') }}</p>
+            <div class="row">
+                <AppButton variant="secondary" class="grow" @click="isConfirmingAll = false">{{ t('common.cancel') }}</AppButton>
+                <AppButton class="grow" icon="trash" @click="confirmRemoveAll">{{ t('home.storage.removeAll') }}</AppButton>
             </div>
-            <AppButton variant="secondary" size="sm" :aria-label="t('home.storage.removeOne', { title: record.title })" @click="remove(record.id)">
-                <AppIcon name="trash" :size="16" />{{ t('common.delete') }}
-            </AppButton>
-        </div>
-        <AppButton variant="secondary" is-block v-if="list.length > 0" @click="removeAll">{{ t('home.storage.removeAll') }}</AppButton>
+        </AppBottomSheet>
     </div>
 </template>
 
@@ -41,9 +49,56 @@ const usageLabel = computed(() =>
         : t('home.storage.usage', { used: formatBytes(usage.value.usedBytes), quota: formatBytes(usage.value.quotaBytes) }),
 )
 
+const { isRelativeAccount } = useSession()
+const isConfirmingAll = ref(false)
+const backPath = computed<string>(() => (isRelativeAccount.value ? '/relative' : '/family'))
+
+const confirmRemoveAll = async (): Promise<void> => {
+    isConfirmingAll.value = false
+    await removeAll()
+}
+
 const keep = async (): Promise<void> => {
     await requestPersistence()
 }
 
 onMounted(refresh)
 </script>
+
+<style scoped>
+.storage__card {
+    padding: 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.storage__hint {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 600 1rem/1.3 var(--font-body);
+}
+
+.storage__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.storage__icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 50%;
+    background: var(--mint-soft);
+    color: var(--on-accent);
+}
+</style>

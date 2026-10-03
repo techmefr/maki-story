@@ -22,7 +22,9 @@
             "message": "Message vocal",
             "treasure": "Souvenir du coffre",
             "recordings": "Voix d’un proche"
-        }
+        },
+        "filter": "Filtrer par type",
+        "all": "Tout"
     },
     "activity": {
         "title": "Activité de la famille",
@@ -113,7 +115,11 @@
                     "updated": "Budget IA modifié"
                 }
             }
-        }
+        },
+        "person": "Filtrer par personne",
+        "everyone": "Tous",
+        "today": "Aujourd’hui",
+        "yesterday": "Hier"
     },
     "data": {
         "title": "Données de la famille",

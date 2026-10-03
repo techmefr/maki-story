@@ -16,5 +16,8 @@
         "one": "{count} line saved in {language}.",
         "other": "{count} lines saved in {language}."
     },
-    "saveFailed": "Saving failed. Try again."
+    "saveFailed": "Saving failed. Try again.",
+    "markDone": "Translation finished",
+    "markDoneHint": "Children only see this language once it is finished.",
+    "doneFailed": "The change could not be saved. Try again."
 }

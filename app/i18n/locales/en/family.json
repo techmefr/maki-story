@@ -49,7 +49,10 @@
         "revokeLabel": "Remove {device} from {member}",
         "loadError": "Couldn’t load the devices.",
         "revokeError": "Couldn’t remove this device.",
-        "emptyHint": "Turn on fingerprint or face unlock on a profile to see it here."
+        "emptyHint": "Turn on fingerprint or face unlock on a profile to see it here.",
+        "confirmTitle": "Sign {device} out of {member}?",
+        "lastUsed": "Last used: {date}",
+        "neverUsed": "Never used"
     },
     "choose": {
         "title": "Which family?",
