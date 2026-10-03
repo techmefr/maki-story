@@ -7,11 +7,21 @@ const DIRECTORY = join(import.meta.dirname, '..', 'server', 'migrations')
 const SCRATCH = 'tantara_migration_check'
 const ADMIN_URL = process.env.MIGRATION_ADMIN_URL ?? 'postgresql://tantara@localhost:5544/postgres'
 const MAX_STEPS = 500
+const FIRST_UNIQUE = 19
 
 const run = async (): Promise<void> => {
     const sources: Record<string, string> = {}
     for (const file of readdirSync(DIRECTORY)) {
         sources[file] = readFileSync(join(DIRECTORY, file), 'utf8')
+    }
+    const seen = new Map<string, string>()
+    for (const file of Object.keys(sources)) {
+        const number = file.slice(0, 4)
+        const key = `${number}:${file.includes('.down.') ? 'down' : 'up'}`
+        if (Number(number) >= FIRST_UNIQUE && seen.has(key)) {
+            throw new Error(`migration number ${number} is used twice: ${seen.get(key)} and ${file}`)
+        }
+        seen.set(key, file)
     }
     const migrations = buildMigrations(sources)
     const admin = postgres(ADMIN_URL, { max: 1, onnotice: () => undefined })

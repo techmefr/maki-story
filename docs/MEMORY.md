@@ -24,7 +24,7 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Fuseau horaire du verrouillage : on reprend le fuseau par règle du dépôt actuel.
 - Liste des champs optionnels du studio à valider.
 - Écrans adaptatifs : points de rupture et navigation tablette, ordinateur et TV à dessiner (issue de mise en page).
-- Migrations déjà appliquées en production : renumérotation interdite sans plan.
+- Migrations : les 18 existantes gardent leur nom (le migrateur suit le nom complet, pas le numéro, donc les 4 numéros en double sont sans effet). Aucune renumérotation. À partir de `0019`, chaque numéro est unique, contrôlé par `scripts/check-migrations.ts`.
 - À compléter : vrai logo et favicon, textes juridiques à valider par un juriste, domaine, adresse postale, contact des e-mails.
 
 ## Pièges connus
