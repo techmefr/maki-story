@@ -1,11 +1,11 @@
-import { checkLanguage } from '../../../../../utils/bookModel'
-import { getDb } from '../../../../../utils/db'
-import { actorEntry, record } from '../../../../../utils/journal'
-import { logEvent } from '../../../../../utils/log'
-import { requireActorMember, requirePermission } from '../../../../../utils/permissions'
-import { preserveApprovedTake } from '../../../../../utils/recordings'
-import { checkComment, completeIfAllApproved, findReviewBook, logActivity, logNewVoices, notifyVoiceResult } from '../../../../../utils/review'
-import { badRequest, notFound, requireParam } from '../../../../../utils/validate'
+import { checkLanguage } from '~~/server/utils/bookModel'
+import { getDb } from '~~/server/utils/db'
+import { actorEntry, record } from '~~/server/utils/journal'
+import { logEvent } from '~~/server/utils/log'
+import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { preserveApprovedTake } from '~~/server/utils/recordings'
+import { checkComment, completeIfAllApproved, findReviewBook, logActivity, logNewVoices, notifyVoiceResult } from '~~/server/utils/review'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 const conflict = (message: string): never => {
     throw createError({ statusCode: 409, statusMessage: message })

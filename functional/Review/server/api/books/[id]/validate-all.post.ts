@@ -1,9 +1,9 @@
-import { loadBook } from '../../../utils/books'
-import { getDb } from '../../../utils/db'
-import { logEvent } from '../../../utils/log'
-import { requireActorMember, requirePermission } from '../../../utils/permissions'
-import { approveBook, findReviewBook } from '../../../utils/review'
-import { requireParam } from '../../../utils/validate'
+import { loadBook } from '~~/server/utils/books'
+import { getDb } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { requireActorMember, requirePermission } from '~~/server/utils/permissions'
+import { approveBook, findReviewBook } from '~~/server/utils/review'
+import { requireParam } from '~~/server/utils/validate'
 
 const conflict = (message: string): never => {
     throw createError({ statusCode: 409, statusMessage: message })

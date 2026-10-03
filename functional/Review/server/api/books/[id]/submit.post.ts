@@ -1,9 +1,9 @@
-import { getDb } from '../../../utils/db'
-import { logEvent } from '../../../utils/log'
-import { assertBookReadable } from '../../../utils/books'
-import { requireActorMember, requireRole } from '../../../utils/permissions'
-import { findReviewBook, recordSubmission } from '../../../utils/review'
-import { requireParam } from '../../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { assertBookReadable } from '~~/server/utils/books'
+import { requireActorMember, requireRole } from '~~/server/utils/permissions'
+import { findReviewBook, recordSubmission } from '~~/server/utils/review'
+import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<ISubmitResult> => {
     const actor = await requireRole(event, 'relative')

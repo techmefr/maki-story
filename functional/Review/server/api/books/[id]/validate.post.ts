@@ -1,7 +1,7 @@
-import { getDb } from '../../../utils/db'
-import { requireParentMember } from '../../../utils/ai/jobs'
-import { loadBook } from '../../../utils/books'
-import { notFound, requireParam } from '../../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { requireParentMember } from '~~/server/utils/ai/jobs'
+import { loadBook } from '~~/server/utils/books'
+import { notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IBook> => {
     const { familyId } = await requireParentMember(event)
