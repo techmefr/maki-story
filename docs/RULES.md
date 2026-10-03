@@ -4,7 +4,7 @@
 
 - TypeScript strict : pas de `any`.
 - Pas de commentaires dans le code. `scripts/lint.ts` les refuse, ainsi que `console.log`.
-- Dossiers au singulier en PascalCase, composables en `useXxx`.
+- Couches à la racine (`functional/<Couche>`, `technical/<Couche>`), au singulier en PascalCase ; composables en `useXxx`. Créer une couche avec `npx nuxt-osdd osdd:layer`.
 - Composables pour la logique, stores pour l'état seul : un store n'a ni calcul ni règle.
 - Une règle métier a un seul foyer (voir `docs/ARCHITECTURE.md`). Le serveur fait autorité, l'interface la reflète.
 - `technical/` ne dépend jamais de `functional/`. Un domaine `functional/` ne lit pas les fichiers d'un autre domaine : il passe par ses composables ou ses routes.

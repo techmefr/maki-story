@@ -4,17 +4,24 @@
 
 Nuxt 4 en SPA, Capacitor 8, PostgreSQL avec le pilote `postgres` et des migrations SQL, tâches Nitro planifiées, Vercel, tests Playwright.
 
-## OSDD : deux couches Nuxt
+## OSDD : deux familles de couches Nuxt
 
-Référence : nuxt-osdd.xefi.com.
+Référence : nuxt-osdd.xefi.com et le README du paquet `nuxt-osdd` (1.0.5). Les couches sont à la racine du projet, pas sous `app/` :
+
+```
+/functional/<Couche>/nuxt.config.ts
+/technical/<Couche>/nuxt.config.ts
+```
 
 - `technical/` : ce qui est transverse et sans règle métier (authentification, permissions, clients d'API, adaptateurs).
-- `functional/` : les domaines métier. Chaque domaine a ses pages, composables, composants et assets.
+- `functional/` : les domaines métier. Chaque couche a ses pages, composables, composants et assets.
 
-Chaque couche est un dossier Nuxt complet : `nuxt.config.ts`, `app/`, `README.md`. La config racine les déclare :
+Chaque couche est une couche Nuxt complète (`nuxt.config.ts`, `app/`, `README.md`, et son `server/` pour les routes et services du domaine). On les crée avec `npx nuxt-osdd osdd:layer <Nom> --functional` ou `--technical`. La config racine les déclare :
 
 ```ts
-defineOSDDNuxtConfig({
+import { defineOSDDNuxtConfig } from 'nuxt-osdd'
+
+export default defineOSDDNuxtConfig({
   osdd: {
     technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media'],
     functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help']
@@ -22,26 +29,29 @@ defineOSDDNuxtConfig({
 })
 ```
 
-À vérifier dans le README du paquet `nuxt-osdd` à l'installation : l'emplacement exact des couches côté serveur et la façon de déclarer les couches serveur.
+La clé `osdd` pilote `extends` et `typescript.tsConfig`. Sans auto-import, les imports se font par `~/functional/<Couche>/...` et `~/technical/<Couche>/...`.
 
 ## Arborescence cible
 
 ```
-app/
-  pages/            pages fines, elles assemblent des organismes de domaine
-  layouts/
-  functional/<Domaine>/   types, composables, components, spécification
-  technical/<Couche>/
+functional/
+  Account/ Family/ Profile/ Invitation/ Book/ Recording/ Review/
+  Message/ Vault/ Tag/ Lock/ Reading/ Notification/ Help/
+    nuxt.config.ts
+    README.md        spécification du domaine
+    app/             components, composables, pages, types
+    server/          routes, services, règles
+technical/
+  Atom/ Molecule/ Audio/ Sound/ Storage/ Native/ Motion/ Locale/ Theme/ Auth/ Mail/ Upload/ Media/
+app/                 shell : app.vue, layouts, middleware
 server/
-  functional/<Domaine>/   routes, services, règles
-  technical/<Couche>/
-  migrations/             0019_*.up.sql et suivantes
+  migrations/        0019_*.up.sql et suivantes
 mobile/
   capacitor.config.ts
 docs/
 ```
 
-Noms : PascalCase au singulier pour les dossiers, `useXxx` pour les composables.
+Noms : PascalCase au singulier pour les couches, `useXxx` pour les composables. Les pages Nuxt restent fines : elles assemblent des composants de domaine.
 
 ## Domaines
 
@@ -68,18 +78,18 @@ Les écrans cités sont les fichiers de `docs/maquettes/` (`<Écran>.dc.html`).
 
 | Règle | Foyer |
 | --- | --- |
-| Parents, proches, rôle par famille | `server/functional/Family`, `Membership` |
-| 5 messages par adulte et par enfant | `server/functional/Message` (transaction), `useMessageQuota` |
-| Expiration 24 h | `server/functional/Message`, tâche de purge, `useMessageExpiry` |
-| Coffre 10 | `server/functional/Vault`, `useVault` |
-| Codes | `server/technical/Auth`, `useCodePad` |
+| Parents, proches, rôle par famille | `functional/Family`, `Membership` |
+| 5 messages par adulte et par enfant | `functional/Message` (transaction), `useMessageQuota` |
+| Expiration 24 h | `functional/Message`, tâche de purge, `useMessageExpiry` |
+| Coffre 10 | `functional/Vault`, `useVault` |
+| Codes | `technical/Auth`, `useCodePad` |
 | Droits des parents | garde de permission serveur |
-| Tags | `server/functional/Tag`, `useTagLabel` |
+| Tags | `functional/Tag`, `useTagLabel` |
 | Langues de la famille | `useFamilyLanguage` |
-| Verrouillage | `server/functional/Lock` (heure du serveur), `useLock` |
-| Validation d'un livre | `server/functional/Book` (machine d'états), `Review` |
-| Hors ligne et poids | `app/technical/Storage`, `Audio`, `server/technical/Upload` |
-| E-mail quotidien | `server/functional/Notification` (tâche planifiée) |
+| Verrouillage | `functional/Lock` (heure du serveur), `useLock` |
+| Validation d'un livre | `functional/Book` (machine d'états), `Review` |
+| Hors ligne et poids | `technical/Storage`, `Audio`, `technical/Upload` |
+| E-mail quotidien | `functional/Notification` (tâche planifiée) |
 
 Le serveur garantit les limites dans une transaction ; l'interface les reflète sans les porter.
 

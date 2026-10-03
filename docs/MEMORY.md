@@ -22,11 +22,11 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Thème sombre : non décidé.
 - Pages sans maquette : activité, appareils, corbeille, stockage, grimace, traduction.
 - Migrations déjà appliquées en production : renumérotation interdite sans plan.
-- Emplacement exact des couches serveur dans `nuxt-osdd` : à lire dans le README du paquet.
 - À compléter : vrai logo et favicon, textes juridiques à valider par un juriste, domaine, adresse postale, contact des e-mails.
 
 ## Pièges connus
 
+- `nuxt-osdd` : couches à la racine (`/functional`, `/technical`), chacune avec son `app/` et son `server/`. Le README du paquet parle d'« Open Source Driven Development », la description npm d'« Operating System Dependency Design » : ne pas figer l'expansion du sigle.
 - Les maquettes de `docs/maquettes/` remplacent celles de `design/` (Kalli). `deck-stage.js` et `support.js` servent seulement à ouvrir les maquettes, ne pas les reprendre dans l'app. Le logo `logo-maki.png` est provisoire.
 - Vercel : un seul merge `dev` vers `main` par lot, sinon les déploiements se bloquent. Tout le reste va dans `dev`.
 - GitHub : 100 push par jour au maximum. Pousser par tâche terminée, pas par petit changement.
