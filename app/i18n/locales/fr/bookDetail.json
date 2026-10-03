@@ -1,0 +1,12 @@
+{
+    "missing": "Ce livre n’existe plus.",
+    "meta": "{pages} pages · {characters} personnages",
+    "tags": "Univers et ambiance",
+    "recording": "Enregistrement",
+    "lines": "{done}/{total} lignes",
+    "noVoice": "Sans voix",
+    "read": "Lire l’histoire",
+    "record": "Enregistrer",
+    "edit": "Modifier",
+    "open": "Voir le détail"
+}
