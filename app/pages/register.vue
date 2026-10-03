@@ -53,7 +53,7 @@
 definePageMeta({ layout: 'blank' })
 
 const { register } = useSession()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const email = ref('')
 const password = ref('')
@@ -70,6 +70,7 @@ const submit = async (): Promise<void> => {
         password: password.value,
         familyName: familyName.value,
         parentName: parentName.value,
+        locale: locale.value,
     })
     isBusy.value = false
     if (result.status === 'unreachable') {

@@ -1,11 +1,10 @@
-import { deleteFamilyData, TOMBSTONE_RESTORE_DAYS } from '~~/server/utils/familyData'
+import { deleteFamilyData } from '~~/server/utils/familyData'
 import { getDb } from '~~/server/utils/db'
 import { DELETE_WORDS } from '~~/shared/utils/legal'
 import { loadCodeRow, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
 import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { SESSION_COOKIE } from '~~/technical/Auth/server/utils/session'
-import { sendMail } from '~~/technical/Mail/server/utils/mail'
-import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
+import { renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { badRequest } from '~~/server/utils/validate'
 
 interface IDeleteBody {
@@ -41,11 +40,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     deleteCookie(event, SESSION_COOKIE, { path: '/' })
     if (account) {
         const locale = typeof body.locale === 'string' ? body.locale : null
-        await sendMail({
-            to: account.email,
-            subject: mailText(locale, 'deleted.subject'),
-            text: mailText(locale, 'deleted.body', { family: family.name, days: TOMBSTONE_RESTORE_DAYS }),
-        })
+        const content = renderLocalizedMail(locale, { template: 'account_deleted', params: { family: family.name, support: process.env.SUPPORT_EMAIL ?? '' } }, process.env.APP_BASE_URL)
+        await sendMail({ to: account.email, ...content })
     }
     return { ok: true }
 })

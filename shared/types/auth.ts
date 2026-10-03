@@ -14,6 +14,7 @@ export interface IRegisterInput {
     password: string
     familyName: string
     parentName: string
+    locale?: string
 }
 
 export interface IPasswordChangeInput {
