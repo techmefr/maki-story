@@ -1,0 +1,10 @@
+{
+    "title": "Children’s books",
+    "all": "All books",
+    "allHint": "The child sees every approved book.",
+    "restrictedHint": "Choose the books the child can read.",
+    "emptyTitle": "No approved book",
+    "emptyHint": "Approved books show up here.",
+    "menu": "Children’s books",
+    "menuHint": "Which books each child can read"
+}

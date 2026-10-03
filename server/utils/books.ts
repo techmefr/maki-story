@@ -33,6 +33,9 @@ const childAgeScope = (memberParam: number): string => `(b.child_visible is true
         and not (${CHILD_AGE_YEARS} between coalesce(b.age_min, 0) and coalesce(b.age_max, 999))
 )))`
 
+const childAccessScope = (memberParam: number): string => `(not exists (select 1 from members am where am.id = $${memberParam} and am.books_restricted)
+    or exists (select 1 from book_access ba where ba.child_id = $${memberParam} and ba.book_id = b.id))`
+
 const CHILD_SCOPE = `b.status = 'ready' and exists (select 1 from lines sl join child_recordings sr on sr.line_id = sl.id where sl.book_id = b.id)
     and not exists (select 1 ${BLOCKED_FROM})`
 
@@ -62,7 +65,7 @@ export const bookScope = (actor: IActor, memberParam: number): string => {
         return 'true'
     }
     if (actor.role === 'child') {
-        return actor.memberId ? `${CHILD_SCOPE} and ${childAgeScope(memberParam)}` : CHILD_SCOPE
+        return actor.memberId ? `${CHILD_SCOPE} and ${childAgeScope(memberParam)} and ${childAccessScope(memberParam)}` : CHILD_SCOPE
     }
     return `(exists (select 1 from lines sl where sl.book_id = b.id and sl.member_id = $${memberParam}) or b.solo_member_id = $${memberParam})`
 }
