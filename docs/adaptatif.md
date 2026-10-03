@@ -36,12 +36,19 @@ Les valeurs sont des variables CSS dans `technical/Theme` (`--bp-tablet`, `--bp-
 - Le bouton retour de la télécommande revient à l'écran précédent (`popstate`).
 - Pas d'interaction tactile obligatoire (pas de balayage seul pour tourner une page).
 
-## Ce qui reste à décider
+## Décisions de Gaëtan (2026-10-03)
 
-1. Les valeurs des points de rupture (600 / 1024 / 1600) conviennent-elles ?
-2. Le rail latéral sur ordinateur : icône et libellé, ou icône seule avec infobulle ?
-3. L'Android TV est-elle réservée aux enfants (lecture) ou aussi aux adultes (gestion) ?
-4. Détection TV : par la largeur seulement, ou par un indicateur de l'application Capacitor ?
+1. Points de rupture 600 / 1024 / 1600 : validés.
+2. Rail latéral : icône avec libellé dessous (choix retenu par défaut, la question n'était pas claire : « icône seule » aurait supprimé le libellé).
+3. Toute l'application est responsive, télévision comprise.
+4. Détection TV : par la largeur (1600 px et plus) **et** par l'appareil (agent utilisateur de télévision, drapeau `?tv=1`, ou application Capacitor native sans écran tactile).
+
+## Réalisé
+
+- `SideRail` (technical/Molecule) : rail de 104 px à partir de 1024 px, la barre du bas reste en dessous ; l'ancienne navigation de l'en-tête est retirée.
+- `app/plugins/tv-layout.client.ts` : classe `tv` selon la largeur ou l'appareil ; échelle de texte 1,25, cibles 72 px, focus de 5 px.
+- Navigation à la télécommande : déjà présente (`remote-navigation.client.ts`, flèches, retour).
+- Reste : relecture aux quatre largeurs, grilles adaptatives écran par écran, Studio et Revue en deux colonnes à partir de 1024 px.
 
 ## Plan de réalisation (après validation)
 

@@ -810,35 +810,6 @@ a {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .tabbar {
-        display: none;
-    }
-
-    .nav {
-        display: flex;
-        gap: 8px;
-        flex: 1;
-        margin-inline-start: 18px;
-    }
-
-    .nav__item {
-        padding: 10px 16px;
-        min-height: var(--tap);
-        border: 2.5px solid transparent;
-        border-radius: 14px;
-        font: 700 0.9375rem/1 var(--font-title);
-        text-decoration: none;
-        color: var(--ink);
-        position: relative;
-    }
-
-    .nav__item--on {
-        background: var(--yellow);
-        border-color: var(--ink);
-        box-shadow: var(--shadow);
-        color: var(--on-accent);
-    }
-
     .narrow {
         max-width: 640px;
         width: 100%;
@@ -852,6 +823,20 @@ a {
     .sheet {
         border-bottom: 3px solid var(--ink);
         border-radius: 28px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .tabbar {
+        display: none;
+    }
+
+    .shell {
+        padding-inline-start: 104px;
+    }
+
+    .app {
+        padding-bottom: 48px;
     }
 }
 
@@ -1487,4 +1472,20 @@ label.row {
 
 .tv .outbox__pill {
     inset-inline-end: 5vw;
+}
+
+.tv {
+    --text-scale: 1.25;
+    --tap: 72px;
+    --tap-kid: 88px;
+}
+
+.tv a:focus-visible,
+.tv button:focus-visible,
+.tv select:focus-visible,
+.tv input:focus-visible,
+.tv textarea:focus-visible,
+.tv [tabindex]:focus-visible {
+    outline: 5px solid var(--ink);
+    outline-offset: 5px;
 }
