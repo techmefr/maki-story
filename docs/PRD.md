@@ -9,7 +9,7 @@ Garder le lien avec la famille éloignée (notamment à Madagascar) : des livres
 | Rôle | Peut faire |
 | --- | --- |
 | Parent | Gère la famille, les proches, les enfants, les livres, les tags, les connexions autorisées ; valide les livres ; verrouille l'app d'un profil |
-| Proche | Ajoute des livres, enregistre des voix, laisse des messages vocaux aux enfants, a un coffre |
+| Proche | Ajoute des livres, enregistre des voix, laisse des messages vocaux aux enfants, a un coffre pour les messages reçus des enfants (10 au maximum) |
 | Enfant | Écoute les livres validés, reçoit des messages, en envoie aussi (5 au maximum par destinataire), garde des favoris dans son coffre |
 
 Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famille et proche d'une autre.

@@ -16,7 +16,7 @@ Message Enfant, Accueil Enfant, Accueil Proche, Categorie (fichiers `docs/maquet
 - `expiresAt = firstListenedAt + 24 h`, écrit une seule fois, jamais mis à jour à la réécoute. Un message jamais écouté n'expire pas.
 - Tâche planifiée : supprime les messages expirés et leur audio ; les lectures filtrent aussi sur `expiresAt`.
 - Pas de messages libres entre adultes : seulement les demandes liées au livre et à la revue.
-- Ouvert : un enfant peut-il écrire à tout adulte de sa famille ou seulement à certains ? Le serveur doit refuser un destinataire hors famille ou non concerné (voir l'ancien défaut de sécurité #96).
+- Un enfant peut écrire à tous les adultes de sa famille. Le serveur refuse tout destinataire hors de sa famille (voir l'ancien défaut de sécurité #96).
 - Lecture façon stories : balayage entre messages, réécoute libre.
 - Durée maximale d'un message selon `MESSAGE_MAX_DURATION_MS`.
 

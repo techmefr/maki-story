@@ -13,7 +13,7 @@ Coffre Adulte, coffre de Accueil Enfant (fichiers `docs/maquettes/<Écran>.dc.ht
 - Coffre enfant : 10 favoris au maximum, ajoutés par l'enfant ou un parent ; le 11e est refusé, pas de remplacement automatique.
 - Ajouter au coffre renseigne `savedAt` et supprime l'expiration.
 - Cœur désactivé (gris) quand le coffre est plein, avec le message « Retire un cœur avant d'en ajouter un nouveau ».
-- Coffre adulte : 10 souvenirs au maximum. Hypothèse à confirmer : il garde les messages reçus d'un enfant.
+- Coffre adulte : 10 souvenirs au maximum. Il garde les messages reçus d'un enfant.
 
 ## États
 
