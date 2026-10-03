@@ -22,7 +22,6 @@
         "read": "Lire",
         "goodNight": "Bonne nuit",
         "reads": "{name} lit",
-        "pause": "Pause",
         "resumePlay": "Lecture",
         "quit": "Quitter",
         "soundOn": "Son",
@@ -31,7 +30,8 @@
         "page": "Page {current}/{total}",
         "progress": "Avancement de la page",
         "previousPage": "Page précédente",
-        "nextPageShort": "Page suivante"
+        "nextPageShort": "Page suivante",
+        "playing": "En cours d’écoute"
     },
     "sleep": {
         "title": "Dodo dans…",

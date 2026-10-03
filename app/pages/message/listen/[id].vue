@@ -39,12 +39,13 @@
                 <AppButton
                     class="btn--big"
                     :wiggle="!isStarted || isEnded"
+                    :disabled="isPlaying"
                     :aria-label="mainLabel"
                     data-focus-default
                     data-testid="message-toggle"
                     @click="toggle"
                 >
-                    <AppIcon :name="isEnded ? 'redo' : isPlaying ? 'pause' : 'play'" :size="48" motion="none" />
+                    <AppIcon :name="mainIcon" :size="48" motion="none" />
                 </AppButton>
                 <AppButton
                     variant="secondary"
@@ -96,7 +97,18 @@ const percent = computed(() => {
     return total > 0 ? `${Math.min(100, Math.round((player.positionMs.value / total) * 100))}%` : '0%'
 })
 const percentValue = computed(() => Number.parseInt(percent.value, 10))
-const mainLabel = computed(() => (isEnded.value ? t('messages.listen.again') : isPlaying.value ? t('kid.listen.pause') : t('kid.listen.resumePlay')))
+const mainLabel = computed<string>(() => {
+    if (isEnded.value) {
+        return t('messages.listen.again')
+    }
+    return isPlaying.value ? t('kid.listen.playing') : t('kid.listen.resumePlay')
+})
+const mainIcon = computed<IconName>(() => {
+    if (isEnded.value) {
+        return 'redo'
+    }
+    return isPlaying.value ? 'volume' : 'play'
+})
 
 const queue = computed(() => {
     const target = message.value?.toMemberId
@@ -155,11 +167,9 @@ const toggle = async (): Promise<void> => {
         await play()
         return
     }
-    if (isPlaying.value) {
-        player.pause()
-        return
+    if (!isPlaying.value) {
+        await player.resume()
     }
-    await player.resume()
 }
 
 const onPointerDown = (event: PointerEvent): void => {

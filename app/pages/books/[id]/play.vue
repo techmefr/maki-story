@@ -29,8 +29,8 @@
         </div>
         <div class="row" style="justify-content: center">
             <AppButton variant="secondary" is-round :aria-label="t('common.previous')" @click="previous"><AppIcon name="skip-back" :size="22" class="mirror-rtl" /></AppButton>
-            <AppButton is-round style="width: 72px; min-height: 72px" :aria-label="isPlaying ? t('play.pause') : t('play.play')" @click="toggle">
-                <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="34" />
+            <AppButton is-round style="width: 72px; min-height: 72px" :disabled="isPlaying" :aria-label="isPlaying ? t('play.playing') : t('play.play')" @click="toggle">
+                <AppIcon :name="isPlaying ? 'volume' : 'play'" :size="34" />
             </AppButton>
             <AppButton variant="secondary" is-round :aria-label="t('common.next')" @click="next"><AppIcon name="skip-forward" :size="22" class="mirror-rtl" /></AppButton>
         </div>
@@ -99,10 +99,6 @@ const previous = (): Promise<void> => jumpTo(currentIndex.value - (player.positi
 const next = (): Promise<void> => jumpTo(currentIndex.value + 1)
 
 const toggle = async (): Promise<void> => {
-    if (isPlaying.value) {
-        player.pause()
-        return
-    }
     if (isActive.value) {
         await player.resume()
         return

@@ -22,10 +22,10 @@
                     variant="secondary"
                     is-round
                     :aria-label="t('kid.treasure.play', { name: senderOf(item)?.name ?? '' })"
-                    :aria-pressed="playingId === item.id"
-                    @click="toggle(item)"
+                    :disabled="playingId === item.id && isPlaying"
+                    @click="play(item)"
                 >
-                    <AppIcon :name="playingId === item.id && isPlaying ? 'pause' : 'play'" :size="30" />
+                    <AppIcon :name="playingId === item.id && isPlaying ? 'volume' : 'play'" :size="30" />
                 </AppButton>
                 <template v-if="isParent">
                     <AppButton
@@ -70,13 +70,9 @@ const title = computed(() => (owner.value ? t('kid.treasure.titleOf', { name: ow
 
 const senderOf = (item: ITreasure): IMember | null => getById(item.fromMemberId)
 
-const toggle = async (item: ITreasure): Promise<void> => {
+const play = async (item: ITreasure): Promise<void> => {
     if (playingId.value === item.id) {
-        if (isPlaying.value) {
-            player.pause()
-        } else {
-            await player.resume()
-        }
+        await player.resume()
         return
     }
     player.unlock()
