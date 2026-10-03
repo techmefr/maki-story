@@ -111,5 +111,8 @@
         "approved": "{count} معتمدة",
         "changes": "{count} للتصحيح",
         "waiting": "{count} قيد الانتظار"
-    }
+    },
+    "pageLabel": "الصفحة {page}",
+    "pageLabelTitle": "الصفحة {page} · {title}",
+    "pageToFix": "للتصحيح"
 }

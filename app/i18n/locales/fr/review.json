@@ -111,5 +111,8 @@
         "approved": "{count} approuvées",
         "changes": "{count} à corriger",
         "waiting": "{count} en attente"
-    }
+    },
+    "pageLabel": "Page {page}",
+    "pageLabelTitle": "Page {page} · {title}",
+    "pageToFix": "À corriger"
 }
