@@ -19,15 +19,15 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean; expiresA
     if (!message) {
         return notFound('Message not found')
     }
-    const isRecipientChild = actor.role === 'child' && message.toMemberId === memberId
+    const isRecipient = message.toMemberId === memberId
     const isWatcher = actor.role === 'parent' || message.fromMemberId === memberId
-    if (!isRecipientChild && !isWatcher) {
+    if (!isRecipient && !isWatcher) {
         return notFound('Message not found')
     }
     if (message.status !== 'ACTIVE') {
         throw createError({ statusCode: 410, statusMessage: 'This message has expired' })
     }
-    if (!isRecipientChild) {
+    if (!isRecipient) {
         return { ok: true, expiresAt: message.expiresAt }
     }
     const [started] = await db<{ expiresAt: string }[]>`

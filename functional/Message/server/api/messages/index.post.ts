@@ -1,4 +1,4 @@
-import { MESSAGE_MAX_DURATION_MS } from '~~/shared/utils/voices'
+import { MESSAGE_MAX_ACTIVE, MESSAGE_MAX_DURATION_MS } from '~~/shared/utils/voices'
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
 import { actorEntry, record } from '~~/server/utils/journal'
@@ -10,7 +10,6 @@ import { requireActorMember, requirePermission } from '~~/technical/Auth/server/
 import { badRequest, isNonEmptyString } from '~~/server/utils/validate'
 
 const KINDS: MessageKind[] = ['NORMAL', 'BIRTHDAY']
-const UNIQUE_VIOLATION = '23505'
 
 export default defineEventHandler(async (event): Promise<IMessage> => {
     const actor = await requirePermission(event, 'messages.send')
@@ -40,14 +39,17 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     if (durationMs > MESSAGE_MAX_DURATION_MS) {
         return badRequest('This message is too long')
     }
+    const recipientRole = actor.role === 'child' ? `role <> 'child'` : `role = 'child'`
     const [recipient] = await db<{ id: string; name: string }[]>`
         select id, name from members
-        where id = ${body.toMemberId} and family_id = ${familyId} and role = 'child' and deleted_at is null and status = 'active' and source_member_id is null
+        where id = ${body.toMemberId} and family_id = ${familyId} and ${db.unsafe(recipientRole)} and deleted_at is null and status = 'active' and source_member_id is null
     `
-    if (!recipient) {
-        return badRequest('A message goes to exactly one child')
+    if (!recipient || recipient.id === fromMemberId) {
+        return badRequest(actor.role === 'child' ? 'A child writes to an adult of the family' : 'A message goes to exactly one child')
     }
-    await assertChildConcerned(db, actor.accountId, familyId, actor.role, recipient.id)
+    if (actor.role !== 'child') {
+        await assertChildConcerned(db, actor.accountId, familyId, actor.role, recipient.id)
+    }
     if (actor.role !== 'parent') {
         const [owned] = await db<{ id: string }[]>`
             select id from files where id = ${body.fileId} and family_id = ${familyId} and created_by_member_id = ${fromMemberId}
@@ -57,35 +59,29 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
         }
     }
     await purgeExpiredMessages(db, familyId)
-    const refuseBusy = (): never => {
-        throw createError({
-            statusCode: 409,
-            statusMessage: `Un message est déjà en attente pour ${recipient.name}. Attends qu’il soit écouté puis expiré.`,
-        })
-    }
-    const [active] = await db<{ id: string }[]>`
-        select id from messages where from_member_id = ${fromMemberId} and to_member_id = ${recipient.id} and kind = ${kind} and status = 'ACTIVE'
-    `
-    if (active) {
-        refuseBusy()
-    }
-    let message: IMessage
-    try {
-        message = one(await db<IMessage[]>`
+    const message = await db.begin(async tx => {
+        await tx`select pg_advisory_xact_lock(hashtext(${`${fromMemberId}:${recipient.id}`}))`
+        const [{ count }] = await tx<{ count: number }[]>`
+            select count(*)::int as count from messages m
+            where m.from_member_id = ${fromMemberId} and m.to_member_id = ${recipient.id} and m.status = 'ACTIVE' and m.deleted_at is null
+                and not exists (select 1 from treasures t where t.source_message_id = m.id and t.deleted_at is null)
+        `
+        if (count >= MESSAGE_MAX_ACTIVE) {
+            throw createError({
+                statusCode: 409,
+                statusMessage: `Tu as déjà ${MESSAGE_MAX_ACTIVE} messages en attente pour ${recipient.name}. Ils disparaissent 24 h après leur première écoute.`,
+            })
+        }
+        return one(await tx<IMessage[]>`
             insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms, kind)
             values (${familyId}, ${fromMemberId}, ${recipient.id}, ${body.fileId}, ${body.mime}, ${durationMs}, ${kind})
             returning id, from_member_id, to_member_id, file_id, mime, duration_ms, kind, status, listened_at, first_listened_at, expires_at, created_at
         `)
-    } catch (error) {
-        if ((error as { code?: string }).code === UNIQUE_VIOLATION) {
-            return refuseBusy()
-        }
-        throw error
-    }
+    })
     const [sender] = await db<{ name: string }[]>`select name from members where id = ${fromMemberId}`
     const payload = { fromName: sender?.name ?? '', childName: recipient.name, messageId: message.id }
     await notify(db, { familyId, recipientMemberId: recipient.id, kind: 'message_received', payload })
-    if (actor.role !== 'parent') {
+    if (actor.role === 'relative') {
         await notify(db, { familyId, recipientMemberId: null, kind: 'message_received', payload })
     }
     await record(event, { ...actorEntry(actor), action: 'message.sent', entityType: 'message', entityId: message.id, targetMemberId: recipient.id, after: { kind, durationMs } })

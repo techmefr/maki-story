@@ -34,13 +34,13 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Vercel : un seul merge `dev` vers `main` par lot, sinon les déploiements se bloquent. Tout le reste va dans `dev`.
 - GitHub : 100 push par jour au maximum. Pousser par tâche terminée, pas par petit changement.
 - L'ancien `CLAUDE.md` était obsolète (Supabase, compte partagé, un seul message actif) ; il est remplacé.
-- `server/api/messages/index.post.ts` refuse un second message actif par expéditeur, destinataire et type (409) : à remplacer par la limite de 5 (un message au coffre ne compte plus).
 - `server/utils/ai/` et 5 routes `server/api/ai` existent mais `aiCreationEnabled` est faux en production : isoler le domaine IA derrière son drapeau.
 - 34 commits sur 52 contiennent un `Co-Authored-By` d'IA, contraire à `docs/RULES.md` ; ne pas en ajouter, ne pas réécrire `main` sans accord.
 - `scripts/design-audit.ts` vérifie encore l'ancien design (voir `docs/DESIGN.md`).
 
 ## Journal
 
+- 2026-10-03 : limite de 5 messages actifs par expéditeur et destinataire (adulte vers enfant, enfant vers adulte de la famille) dans une transaction avec verrou ; un message au coffre ne compte plus ; migration 0019 retire l'index d'unicité. Reste : coffre adulte (souvenirs d'un enfant), interface.
 - 2026-10-03 : jetons clair/sombre, Nunito retirée (Fredoka seule ; le dépôt n'a que les graisses 500/600/700, pas la 400), audit de contraste.
 - 2026-10-03 : audit refait avec le référentiel nuxt-osdd ; création de `CLAUDE.md` et `docs/`.
 - 2026-10-03 : molécules génériques ajoutées (AppTabs, AppListRow, AppBottomSheet) ; ProfileCard, BookCard et le pavé de code restent dans leurs domaines (Profile, Book) car ils portent des données métier ; la feuille du bas passe à 32 px de rayon.

@@ -102,19 +102,22 @@ test.describe('voice message rules v3', () => {
         await Promise.all([parent, mamie, tonton, lova].map(api => api.dispose()))
     })
 
-    test('a relative has one active message per child and the second is refused with the reason', async () => {
+    test('a sender has five active messages per recipient and the sixth is refused with the reason', async () => {
         first = await send(mamie, ids.lova)
         expect(first.status, first.body).toBe(200)
+        for (let count = 1; count < 5; count++) {
+            expect((await send(mamie, ids.lova)).status).toBe(200)
+        }
         const refused = await send(mamie, ids.lova)
         expect(refused.status).toBe(409)
-        expect(refused.body).toContain('déjà en attente')
+        expect(refused.body).toContain('5 messages en attente')
         expect((await send(tonton, ids.lova)).status).toBe(200)
-        expect((await send(mamie, ids.lova, { kind: 'BIRTHDAY' })).status).toBe(200)
     })
 
     test('a message goes to exactly one child, is a real voice and stays under two minutes', async () => {
         expect((await send(tonton, ids.mamie)).status).toBe(400)
-        expect((await send(lova, ids.mamie)).status).toBe(403)
+        expect((await send(lova, ids.lova)).status).toBe(400)
+        expect((await send(lova, ids.mamie)).status).toBe(200)
         const image = await tonton.post('/api/files', { data: PNG_PIXEL, headers: { 'content-type': 'image/png' } })
         const imageId = ((await image.json()) as IIdName).id
         const asImage = await tonton.post('/api/messages', { data: { toMemberId: ids.lova, fileId: imageId, mime: 'image/png', durationMs: 300 } })
