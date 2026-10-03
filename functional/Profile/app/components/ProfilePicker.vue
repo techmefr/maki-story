@@ -105,7 +105,7 @@ const onGate = async (parentId: string, code: string): Promise<void> => {
     justify-content: space-between;
 }
 
-.picker-screen__logout {
+.picker-screen__logout.btn {
     background: var(--grey-ui);
     color: var(--grey-ui-ink);
     border-radius: 999px;
