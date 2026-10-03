@@ -69,7 +69,7 @@ const hasSuggestions = ref(false)
 const message = ref('')
 const errorMessage = ref('')
 
-const { languages: familyLanguages, ensureLoaded: loadFamilyLanguages } = useFamilyLanguages()
+const { languages: familyLanguages, ensureLoaded: loadFamilyLanguages } = useTagLanguages()
 const targets = computed(() => LANGUAGES.filter(option => option.code !== book.value?.language && familyLanguages.value.includes(option.code)))
 const targetLabel = computed(() => LANGUAGES.find(option => option.code === target.value)?.label ?? target.value)
 const translatedCount = computed(() => (book.value?.lines ?? []).filter(line => (drafts.value[line.id]?.text ?? '').trim() !== '').length)

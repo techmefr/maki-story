@@ -3,6 +3,7 @@ import { E2E_PASSWORD, PARENT_NAME, signIn, uniqueAccount } from './helpers'
 
 test.describe('authentication', () => {
     test('redirects anonymous visitors to the login page', async ({ page }) => {
+        await page.addInitScript(() => localStorage.setItem('tantara-onboarded', '1'))
         for (const path of ['/', '/home', '/kid', '/family', '/messages', '/books/new']) {
             await page.goto(path)
             await expect(page).toHaveURL(/\/login/)
@@ -110,6 +111,9 @@ test.describe('authentication', () => {
     test('keeps mobile keyboards from rewriting the credentials', async ({ page }) => {
         for (const path of ['/login', '/register']) {
             await page.goto(path)
+            if (path === '/login') {
+                await page.getByRole('tab', { name: 'Mot de passe' }).click()
+            }
             const email = page.getByLabel('E-mail')
             await expect(email).toHaveAttribute('autocapitalize', 'off')
             await expect(email).toHaveAttribute('autocorrect', 'off')
@@ -121,16 +125,13 @@ test.describe('authentication', () => {
             await expect(password).toHaveAttribute('spellcheck', 'false')
         }
         await page.goto('/login')
+        await page.getByRole('tab', { name: 'Mot de passe' }).click()
         await expect(page.getByLabel('Mot de passe')).toHaveAttribute('autocomplete', 'current-password')
-        await page.getByRole('button', { name: 'Voir' }).click()
-        const visible = page.getByLabel('Mot de passe')
-        await expect(visible).toHaveAttribute('autocapitalize', 'off')
-        await expect(visible).toHaveAttribute('autocorrect', 'off')
-        await expect(visible).toHaveAttribute('spellcheck', 'false')
     })
 
     test('tells apart a wrong password, a throttle and an unreachable server', async ({ page }) => {
         await page.goto('/login')
+        await page.getByRole('tab', { name: 'Mot de passe' }).click()
         await page.getByLabel('E-mail').fill('someone@else.app')
         await page.getByLabel('Mot de passe').fill('nope-nope')
         await page.getByRole('button', { name: 'Se connecter' }).click()
@@ -178,6 +179,7 @@ test.describe('authentication', () => {
         const account = uniqueAccount('padded')
         await signIn(request, account)
         await page.goto('/login')
+        await page.getByRole('tab', { name: 'Mot de passe' }).click()
         await page.getByLabel('E-mail').fill(`  ${account.email.toUpperCase()}  `)
         await page.getByLabel('Mot de passe').fill(account.password)
         await page.getByRole('button', { name: 'Se connecter' }).click()

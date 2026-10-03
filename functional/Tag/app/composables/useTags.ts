@@ -2,7 +2,7 @@ export const useTags = () => {
     const { request } = useApi()
     const tags = useState<ITag[]>('tags', () => [])
     const isLoaded = useState<boolean>('tags-loaded', () => false)
-    const { languages, ensureLoaded: ensureMembers } = useFamilyLanguages()
+    const { languages, ensureLoaded: ensureMembers } = useTagLanguages()
     const { labelOf } = useTagLabel()
 
     const load = async (): Promise<void> => {

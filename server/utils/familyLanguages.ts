@@ -5,7 +5,7 @@ import { badRequest } from './validate'
 
 export const loadFamilyLanguages = async (db: Sql, familyId: string): Promise<string[]> => {
     const members = await db<{ spokenLanguages: string[] }[]>`
-        select spoken_languages from members where family_id = ${familyId} and status = 'active' and deleted_at is null and source_member_id is null
+        select spoken_languages from members where family_id = ${familyId} and status in ('active', 'invited') and deleted_at is null and source_member_id is null
     `
     return familyLanguagesOf(members, LANGUAGES.map(language => language.code), DEFAULT_LOCALE)
 }
