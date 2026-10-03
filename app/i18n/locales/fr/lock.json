@@ -1,0 +1,29 @@
+{
+    "title": "Contrôle parental",
+    "children": "Enfants",
+    "noChildTitle": "Aucun enfant",
+    "noChildHint": "Ajoute un enfant pour choisir ses heures de verrouillage.",
+    "enabled": "Verrouillage de {name}",
+    "enabledHint": "L’app se verrouille aux heures choisies.",
+    "disabledHint": "L’app reste toujours accessible.",
+    "days": "Jours verrouillés",
+    "hours": "Heures de verrouillage",
+    "from": "De",
+    "to": "Jusqu’à",
+    "less": "Moins",
+    "more": "Plus",
+    "presets": {
+        "week": "Semaine",
+        "weekend": "Week-end",
+        "all": "Tous"
+    },
+    "everyDay": "tous les jours",
+    "summary": "{name} ne peut pas utiliser l’app ({days}), de {from} à {to} (le lendemain).",
+    "summaryNoDay": "Aucun jour choisi pour {name}.",
+    "summaryOff": "Aucun verrouillage pour {name}.",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "failed": "Les horaires n’ont pas pu être enregistrés. Réessaie.",
+    "menu": "Contrôle parental",
+    "menuHint": "Jours et heures de verrouillage par enfant"
+}

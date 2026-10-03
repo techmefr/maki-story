@@ -1,12 +1,13 @@
 <template>
     <main class="locked" data-testid="locked-screen">
         <MakiSleeping :size="180" class="locked__maki" />
+        <h1 class="locked__title">{{ t('parental.locked.title', { name: current?.name ?? '' }) }}</h1>
+        <p v-if="wakeTime" class="locked__text">
+            {{ t('parental.locked.wakesAt', { time: wakeTime }) }} {{ t('parental.locked.tomorrow') }}
+        </p>
         <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
-        <div class="locked__moon" aria-hidden="true">
-            <AppIcon name="moon" :size="64" motion="float" />
-        </div>
-        <AppButton is-round class="locked__parent" :aria-label="t('parental.locked.toParent')" data-testid="locked-parent" @click="isGateOpen = true">
-            <AppIcon name="lock" :size="28" />
+        <AppButton class="locked__parent" icon="lock" data-testid="locked-parent" @click="isGateOpen = true">
+            {{ t('parental.locked.toParent') }}
         </AppButton>
         <ParentGate
             v-if="isGateOpen"
@@ -23,7 +24,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'blank' })
 
-const { t } = useI18n()
+const { t, formatDate } = useI18n()
+const { current } = useCurrentMember()
 const { status, unlockWithParent } = useAccess()
 const { members } = useMembers()
 
@@ -33,6 +35,8 @@ const gateError = ref('')
 const gateAttempt = ref(0)
 
 const resumeTime = computed(() => (status.value.resumeAt ? new Date(status.value.resumeAt) : null))
+
+const wakeTime = computed(() => (resumeTime.value ? formatDate(resumeTime.value, { timeStyle: 'short' }) : ''))
 
 const unlock = async (parentId: string, code: string): Promise<void> => {
     isGateBusy.value = true
@@ -58,22 +62,32 @@ const unlock = async (parentId: string, code: string): Promise<void> => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: #3b3470;
+    gap: 1.25rem;
+    padding: 1.5rem 1.5rem 6rem;
+    background: var(--violet);
+    color: var(--on-accent);
+    text-align: center;
     position: relative;
     overflow: hidden;
 }
 
-.locked__moon {
-    color: #FFC933;
+.locked__title {
+    margin: 0;
+    font: 700 2rem/1.1 var(--font-title);
+}
+
+.locked__text {
+    margin: 0;
+    max-width: 20rem;
+    font: 600 1.125rem/1.3 var(--font-body);
 }
 
 .locked__parent {
     position: absolute;
-    right: 1rem;
+    inset-inline: 1rem;
     bottom: 1rem;
-    min-width: 4rem;
-    min-height: 4rem;
+    max-width: calc(100% - 2rem);
+    min-height: var(--tap-kid);
+    margin-inline: auto;
 }
 </style>
