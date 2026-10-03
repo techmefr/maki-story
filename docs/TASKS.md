@@ -24,7 +24,7 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] Contrôle automatique des contrastes dans `scripts/design-audit.ts`
 - [x] 9 atomes
 - [x] 8 molécules
-- [ ] Sons soundcn et mouvement
+- [x] Sons soundcn et mouvement (existants conservés et vérifiés)
 - [x] Aligner `scripts/design-audit.ts` sur `docs/DESIGN.md`
 
 ## Phase 3 — Accès
