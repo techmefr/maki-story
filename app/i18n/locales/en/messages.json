@@ -20,7 +20,30 @@
         "tapMic": "Tap the microphone",
         "tooShort": "Too short, try again.",
         "sendFailed": "The message could not be sent. Try again.",
-        "birthdayFor": "Birthday message for {name}"
+        "birthdayFor": "Birthday message for {name}",
+        "title": "Leave a message",
+        "recipients": "Who is it for?",
+        "hintChild": "Your message goes to {name}'s box ({count}/{limit}).",
+        "hintAdult": "Your message goes to {name}'s box ({count}/{limit}).",
+        "again": "Record again",
+        "listenBack": "Listen again",
+        "listenBackLabel": "Listen to my message again",
+        "sentTitle": "Message sent to {name}!",
+        "sentLeft": {
+            "zero": "{name}'s box is full for now.",
+            "one": "{count} more message possible for {name}.",
+            "other": "{count} more messages possible for {name}."
+        },
+        "queuedTitle": "Message waiting",
+        "queuedBody": "It will leave as soon as the connection is back.",
+        "another": "Another message",
+        "limitReached": "{name} already has {limit} messages from you. They disappear 24 h after the first time they are listened to.",
+        "birthdayToggle": "Birthday message",
+        "noRecipients": "Nobody to write to",
+        "noRecipientsHint": "Add a child or a grown-up to the family to leave them a message.",
+        "micLabel": "Microphone",
+        "duration": "Length {time}",
+        "close": "Close"
     },
     "listen": {
         "finished": "All done",
@@ -30,7 +53,15 @@
         "next": "Next message",
         "nextWaiting": "Next message ({count} waiting)",
         "again": "Listen again",
-        "previous": "Previous message"
+        "previous": "Previous message",
+        "position": "Message {current} of {total}",
+        "close": "Close",
+        "progress": "Message progress",
+        "keep": "Keep in my vault",
+        "kept": "Kept in my vault",
+        "vault": "{count}/{limit} memories",
+        "vaultFull": "{count}/{limit} memories · vault full",
+        "from": "From {name}"
     },
     "strip": {
         "label": "Family messages",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Nobody to write to",
     "activeBlocked": "A message is already waiting for {name}. You can send another one once it has been listened to and has expired.",
-    "birthdayWish": "Send a birthday wish"
+    "birthdayWish": "Send a birthday wish",
+    "quota": {
+        "label": "{count} messages out of {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "{limit} messages already left for {name}",
+        "body": "Remove one to be able to record a new one.",
+        "retract": "Remove the oldest",
+        "failed": "The message could not be removed. Try again."
+    },
+    "expiry": {
+        "hoursMinutes": "Disappears in {hours} h {minutes} min",
+        "minutes": "Disappears in {minutes} min",
+        "kept": "Kept in the vault"
+    },
+    "bubble": {
+        "label": "{count} messages"
+    }
 }
