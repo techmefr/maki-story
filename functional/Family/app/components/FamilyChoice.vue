@@ -17,6 +17,7 @@
         </ul>
         <AppEmpty v-if="isLoaded && memberships.length === 0" :title="t('family.choose.emptyTitle')" :hint="t('family.choose.emptyHint')" />
         <AppButton is-block icon="plus" to="/join" class="choice__join">{{ t('family.choose.join') }}</AppButton>
+        <AppButton is-block variant="secondary" icon="home" to="/families/new">{{ t('family.choose.create') }}</AppButton>
     </div>
 </template>
 

@@ -109,3 +109,13 @@ export interface IPushConfig {
     webPublicKey: string
     isWebEnabled: boolean
 }
+
+export interface IFamilyCreateInput {
+    familyName: string
+    parentCode: IMemberCodeInput
+    child: {
+        name: string
+        age: number
+        code: IMemberCodeInput
+    }
+}

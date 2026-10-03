@@ -37,7 +37,11 @@
     "choose": {
         "title": "Quelle famille ?",
         "intro": "Tu fais partie de plusieurs familles. Ton rôle change selon la famille.",
-        "kids": "{count} enfant | {count} enfants",
+        "kids": {
+            "zero": "Aucun enfant",
+            "one": "{count} enfant",
+            "other": "{count} enfants"
+        },
         "role": {
             "parent": "Parent",
             "relative": "Proche"
@@ -45,6 +49,40 @@
         "join": "Rejoindre avec un code",
         "emptyTitle": "Aucune famille pour l’instant",
         "emptyHint": "Rejoins une famille avec un code d’invitation.",
-        "failed": "Impossible d’ouvrir cette famille. Réessaie."
+        "failed": "Impossible d’ouvrir cette famille. Réessaie.",
+        "create": "Créer une famille"
+    },
+    "create": {
+        "progress": "Étape {current} sur {total}",
+        "name": {
+            "title": "Crée ta famille",
+            "hint": "Un nom que tout le monde reconnaîtra.",
+            "placeholder": "Famille Rakoto"
+        },
+        "child": {
+            "title": "Ajoute un enfant",
+            "photo": "Photo grimace",
+            "namePlaceholder": "Prénom",
+            "age": "Âge"
+        },
+        "childCode": {
+            "title": "Code de {name}"
+        },
+        "parentCode": {
+            "title": "Ton code secret",
+            "hint": "Entre 4 et 8 chiffres. Il protège l’espace parent."
+        },
+        "done": {
+            "title": "{name} est prête !",
+            "hint": "{name} a son profil. Invite maintenant les proches qui vont prêter leur voix."
+        },
+        "action": {
+            "name": "Continuer",
+            "child": "Continuer",
+            "childCode": "Continuer",
+            "parentCode": "Créer ma famille",
+            "done": "Inviter des proches"
+        },
+        "failed": "La famille n’a pas pu être créée. Réessaie."
     }
 }
