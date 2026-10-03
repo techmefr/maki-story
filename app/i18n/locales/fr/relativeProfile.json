@@ -1,0 +1,15 @@
+{
+    "messages": "Messages laissés",
+    "count": "{count}/{max}",
+    "families": "Familles",
+    "resetCode": "Réinitialiser son code",
+    "codeReset": "Le code de {name} est effacé : un nouveau sera demandé à sa prochaine ouverture.",
+    "makeParent": "Passer en parent",
+    "makeRelative": "Passer en proche",
+    "nowRole": {
+        "parent": "{name} est maintenant parent.",
+        "relative": "{name} est maintenant proche."
+    },
+    "remove": "Retirer de la famille",
+    "failed": "L’action n’a pas pu aboutir. Réessaie."
+}

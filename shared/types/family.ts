@@ -126,3 +126,15 @@ export interface IFamilyCreateInput {
         code: IMemberCodeInput
     }
 }
+
+export interface IRelativeMessageCount {
+    childId: string
+    childName: string
+    childColor: VoiceColorId
+    count: number
+}
+
+export interface IRelativeOverview {
+    messages: IRelativeMessageCount[]
+    families: string[]
+}
