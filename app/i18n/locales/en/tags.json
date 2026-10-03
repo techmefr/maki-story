@@ -1,0 +1,67 @@
+{
+    "title": "Tags",
+    "count": {
+        "one": "{count} tag",
+        "other": "{count} tags"
+    },
+    "intro": "A tag has an English identifier and a name in each language. Books only keep the identifier.",
+    "language": "Tag display language",
+    "new": "New tag",
+    "edit": "Edit the tag {name}",
+    "toTranslate": "{count} to translate",
+    "auto": "auto",
+    "empty": "No tags yet",
+    "emptyHint": "A parent can create some to sort the books.",
+    "editor": {
+        "newTitle": "New tag",
+        "slug": "Identifier: {slug}",
+        "names": "Name per language",
+        "nameIn": "Name in {language}",
+        "placeholder": "To translate",
+        "icon": "Icon",
+        "color": "Colour",
+        "save": "Save",
+        "delete": "Delete",
+        "confirmTitle": "Delete the tag",
+        "confirmText": {
+            "zero": "No book uses this tag.",
+            "one": "This tag will be removed from one book.",
+            "other": "This tag will be removed from {count} books."
+        },
+        "confirmDelete": "Yes, delete"
+    },
+    "colors": {
+        "sun": "Yellow",
+        "sky": "Blue",
+        "mint": "Mint",
+        "grape": "Purple",
+        "pink": "Pink",
+        "coral": "Coral"
+    },
+    "icons": {
+        "hat": "Hat",
+        "waves": "Waves",
+        "tree": "Tree",
+        "star": "Star",
+        "crown": "Crown",
+        "paw": "Paw",
+        "moon": "Moon",
+        "heart": "Heart",
+        "smile": "Smile",
+        "compass": "Compass",
+        "question": "Question mark",
+        "book": "Book",
+        "sun": "Sun",
+        "flag": "Flag"
+    },
+    "errors": {
+        "save": "This tag could not be saved right now.",
+        "name-required": "Give the tag at least one name.",
+        "slug-empty": "This name cannot make an identifier.",
+        "slug-taken": "A tag with this identifier already exists.",
+        "color-invalid": "Pick one of the colours.",
+        "icon-invalid": "Pick one of the icons.",
+        "language-invalid": "This language is not recognised.",
+        "name-too-long": "A tag name has 40 characters at most."
+    }
+}

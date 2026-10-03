@@ -1,0 +1,67 @@
+{
+    "title": "Tags",
+    "count": {
+        "one": "{count} tag",
+        "other": "{count} tags"
+    },
+    "intro": "Un tag a un identifiant en anglais et un nom dans chaque langue. Les livres gardent seulement l’identifiant.",
+    "language": "Langue d’affichage des tags",
+    "new": "Nouveau tag",
+    "edit": "Modifier le tag {name}",
+    "toTranslate": "{count} à traduire",
+    "auto": "auto",
+    "empty": "Aucun tag pour l’instant",
+    "emptyHint": "Un parent peut en créer pour classer les livres.",
+    "editor": {
+        "newTitle": "Nouveau tag",
+        "slug": "Identifiant : {slug}",
+        "names": "Nom par langue",
+        "nameIn": "Nom en {language}",
+        "placeholder": "À traduire",
+        "icon": "Icône",
+        "color": "Couleur",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "confirmTitle": "Supprimer le tag",
+        "confirmText": {
+            "zero": "Ce tag n’est utilisé par aucun livre.",
+            "one": "Ce tag sera retiré d’un livre.",
+            "other": "Ce tag sera retiré de {count} livres."
+        },
+        "confirmDelete": "Oui, supprimer"
+    },
+    "colors": {
+        "sun": "Jaune",
+        "sky": "Bleu",
+        "mint": "Menthe",
+        "grape": "Violet",
+        "pink": "Rose",
+        "coral": "Corail"
+    },
+    "icons": {
+        "hat": "Chapeau",
+        "waves": "Vagues",
+        "tree": "Arbre",
+        "star": "Étoile",
+        "crown": "Couronne",
+        "paw": "Patte",
+        "moon": "Lune",
+        "heart": "Cœur",
+        "smile": "Sourire",
+        "compass": "Boussole",
+        "question": "Point d’interrogation",
+        "book": "Livre",
+        "sun": "Soleil",
+        "flag": "Drapeau"
+    },
+    "errors": {
+        "save": "Impossible d’enregistrer ce tag pour le moment.",
+        "name-required": "Donne au moins un nom au tag.",
+        "slug-empty": "Ce nom ne permet pas de créer un identifiant.",
+        "slug-taken": "Un tag avec cet identifiant existe déjà.",
+        "color-invalid": "Choisis une des couleurs proposées.",
+        "icon-invalid": "Choisis une des icônes proposées.",
+        "language-invalid": "Cette langue n’est pas reconnue.",
+        "name-too-long": "Un nom de tag fait 40 caractères au plus."
+    }
+}
