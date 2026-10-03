@@ -27,6 +27,10 @@
                     {{ t('bookDraft.shared.cover') }}
                 </AppChip>
                 <label class="stack" style="gap: 6px">
+                    <span class="label">{{ t('bookDraft.pages.pageTitle') }}</span>
+                    <AppInput :model-value="page.title" maxlength="80" :placeholder="t('bookDraft.pages.pageTitlePlaceholder')" @update:model-value="updatePage(index, { title: $event })" />
+                </label>
+                <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('bookDraft.pages.describe') }}</span>
                     <input
                         class="input"

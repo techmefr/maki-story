@@ -86,7 +86,9 @@
         "removePanel": "Quitar la viñeta {panel} de la página {page}",
         "addPanel": "Añadir una viñeta",
         "needsPhoto": "Este tipo de libro necesita al menos una página en foto.",
-        "continueNoPhoto": "Continuar sin foto"
+        "continueNoPhoto": "Continuar sin foto",
+        "pageTitle": "Título de la página (opcional)",
+        "pageTitlePlaceholder": "Título de la página"
     },
     "characters": {
         "intro": "Define cada personaje una sola vez: luego lo encontrarás con un toque para cada frase. Elige quién lee su voz.",

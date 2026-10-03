@@ -27,6 +27,7 @@ export interface IDraftPage {
     previewUrl: string
     kind: PageKind
     ttsFallback: boolean
+    title: string
     description: string
     panels: IDraftPanel[]
 }
@@ -265,14 +266,14 @@ export const useBookDraft = () => {
     const addPhoto = (fileId: string, previewUrl: string): void => {
         pages.value = [
             ...pages.value,
-            { key: nextKey++, fileId, previewUrl, kind: 'content', ttsFallback: false, description: '', panels: [] },
+            { key: nextKey++, fileId, previewUrl, kind: 'content', ttsFallback: false, title: '', description: '', panels: [] },
         ]
     }
 
     const addEmptyPage = (): void => {
         pages.value = [
             ...pages.value,
-            { key: nextKey++, fileId: null, previewUrl: '', kind: 'empty', ttsFallback: true, description: '', panels: [] },
+            { key: nextKey++, fileId: null, previewUrl: '', kind: 'empty', ttsFallback: true, title: '', description: '', panels: [] },
         ]
     }
 
@@ -394,6 +395,7 @@ export const useBookDraft = () => {
                 fileId: page.fileId,
                 kind: page.kind,
                 ttsFallback: page.kind === 'empty' ? page.ttsFallback : false,
+                title: page.title,
                 description: page.description,
                 panels: page.panels.map(panel => ({ description: panel.description })),
             })),

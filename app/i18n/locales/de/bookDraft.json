@@ -86,7 +86,9 @@
         "removePanel": "Bild {panel} von Seite {page} entfernen",
         "addPanel": "Bild hinzufügen",
         "needsPhoto": "Für diese Art von Buch braucht es mindestens eine Seite als Foto.",
-        "continueNoPhoto": "Ohne Foto weiter"
+        "continueNoPhoto": "Ohne Foto weiter",
+        "pageTitle": "Seitentitel (optional)",
+        "pageTitlePlaceholder": "Seitentitel"
     },
     "characters": {
         "intro": "Lege jede Figur nur einmal an: Danach findest du sie bei jedem Satz mit einem Tippen. Wähle aus, wer ihre Stimme liest.",

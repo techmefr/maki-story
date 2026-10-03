@@ -141,7 +141,7 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     }
     const { imageDesc } = one(await db<{ imageDesc: string }[]>`select image_desc from books where id = ${id} and family_id = ${familyId}`)
     const pageRows = await db<Omit<IBookPage, 'panels'>[]>`
-        select id, position, file_id, kind, tts_fallback, description from book_pages where book_id = ${id} and family_id = ${familyId} order by position
+        select id, position, file_id, kind, tts_fallback, title, description from book_pages where book_id = ${id} and family_id = ${familyId} order by position
     `
     const panels = await db<IPanel[]>`
         select id, page_id, position, description from panels where book_id = ${id} and family_id = ${familyId} order by position

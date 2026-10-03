@@ -86,7 +86,9 @@
         "removePanel": "从第 {page} 页移除第 {panel} 格",
         "addPanel": "添加画格",
         "needsPhoto": "这种图书至少需要一页照片。",
-        "continueNoPhoto": "不拍照，继续"
+        "continueNoPhoto": "不拍照，继续",
+        "pageTitle": "页面标题（可选）",
+        "pageTitlePlaceholder": "页面标题"
     },
     "characters": {
         "intro": "每个角色只需设定一次，之后每句台词一点就能选到。请选择谁来为它配音。",

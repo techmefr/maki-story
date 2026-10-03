@@ -86,7 +86,9 @@
         "removePanel": "Remover o quadro {panel} da página {page}",
         "addPanel": "Adicionar um quadro",
         "needsPhoto": "Este tipo de livro precisa de pelo menos uma página em foto.",
-        "continueNoPhoto": "Continuar sem foto"
+        "continueNoPhoto": "Continuar sem foto",
+        "pageTitle": "Título da página (opcional)",
+        "pageTitlePlaceholder": "Título da página"
     },
     "characters": {
         "intro": "Define cada personagem uma só vez: depois encontras com um toque para cada fala. Escolhe quem lê a sua voz.",
