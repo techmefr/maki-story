@@ -48,6 +48,8 @@ const initialQuery: IBookQuery = {
     type: typeof route.query.type === 'string' ? route.query.type : undefined,
     mood: typeof route.query.mood === 'string' ? route.query.mood : undefined,
     theme: typeof route.query.theme === 'string' ? route.query.theme : undefined,
+    tag: typeof route.query.tag === 'string' ? route.query.tag : undefined,
+    status: typeof route.query.status === 'string' ? route.query.status : undefined,
 }
 const activeQuery = ref<IBookQuery>(initialQuery)
 

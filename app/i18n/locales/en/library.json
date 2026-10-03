@@ -53,7 +53,9 @@
         "open": "Filters",
         "title": "Filters",
         "reset": "Reset",
-        "show": "Show books"
+        "show": "Show books",
+        "tag": "Theme (tags)",
+        "status": "Status"
     },
     "childVisible": {
         "title": "Visibility for the child",
