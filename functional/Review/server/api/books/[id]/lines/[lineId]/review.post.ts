@@ -47,6 +47,7 @@ export default defineEventHandler(async (event): Promise<IReviewOutcome> => {
                 await logNewVoices(tx, familyId, book, reviewerId, [recording.memberId])
             }
             await tx`update recordings set status = 'approved' where id = ${recording.id}`
+            await tx`update lines set previous_text = null where id = ${lineId}`
             await tx`delete from approved_takes where line_id = ${lineId} and family_id = ${familyId} and language = ${language}`
             await tx`update review_comments set resolved_at = now() where line_id = ${lineId} and resolved_at is null`
             if (recording.status !== 'approved') {

@@ -181,6 +181,7 @@ export const approveBook = async (db: Db, familyId: string, book: IReviewBook, a
     if (wasReady) {
         await logNewVoices(db, familyId, book, actorMemberId, voices.map(voice => voice.memberId))
     }
+    await db`update lines set previous_text = null where book_id = ${book.id} and family_id = ${familyId}`
     const approved = await db<{ memberId: string }[]>`
         update recordings r set status = 'approved'
         from lines l

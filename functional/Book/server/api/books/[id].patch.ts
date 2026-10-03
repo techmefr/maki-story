@@ -116,7 +116,7 @@ export default defineEventHandler(async (event): Promise<IBook> => {
                     return badRequest('A line needs text')
                 }
                 const changed = await tx`
-                    update lines set text = ${patch.text.trim()}
+                    update lines set previous_text = text, text = ${patch.text.trim()}
                     where id = ${patch.id} and book_id = ${id} and family_id = ${familyId} and text is distinct from ${patch.text.trim()}
                     returning id
                 `

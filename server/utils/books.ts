@@ -153,7 +153,7 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     `
     const lines = await db<ILine[]>`
         select l.id, l.position, l.page_index, coalesce(c.name, l.character) as character, l.character_id, l.panel_id,
-            l.text, l.note, l.tone, l.scene_description, l.member_id,
+            l.text, l.previous_text, l.note, l.tone, l.scene_description, l.member_id,
             r.file_id as audio_file_id, coalesce(r.duration_ms, 0) as audio_ms, r.status as recording_status,
             coalesce(r.status <> 'stale' and (bm.status = 'blocked' or (bm.status in ('left', 'deceased') and bm.voice_policy in ('block', 'rerecord'))), false) as is_voice_blocked
         from lines l

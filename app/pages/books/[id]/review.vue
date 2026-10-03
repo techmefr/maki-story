@@ -121,7 +121,11 @@
                     <span class="label">{{ t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') }) }}</span>
                     <span class="badge review__state" :class="`review__state--${stateOf(line)}`">{{ t(`review.state.${stateOf(line)}`) }}</span>
                 </div>
-                <p class="review__text" data-testid="review-line-text">{{ textOf(line) }}</p>
+                <p v-if="hasDiff(line)" class="review__diff" data-testid="review-line-diff">
+                    <del class="review__old">{{ line.previousText }}</del>
+                    <ins class="review__new">{{ line.text }}</ins>
+                </p>
+                <p v-else class="review__text" data-testid="review-line-text">{{ textOf(line) }}</p>
                 <p v-if="isOriginalShown && language !== book.language" class="review__original muted" data-testid="review-original-text">{{ t('reviewLanguage.original') }} {{ line.text }}</p>
                 <ul v-if="commentsOf(line).length > 0" class="review__thread" :aria-label="t('review.comments')">
                     <li v-for="comment in commentsOf(line)" :key="comment.id" :class="{ 'review__comment--done': comment.resolvedAt !== null }">
@@ -231,6 +235,7 @@ const commentsOf = (line: ILine): IReviewComment[] => comments.value.filter(item
 const authorName = (comment: IReviewComment): string => getById(comment.authorMemberId)?.name ?? t('review.parent')
 
 const lineOf = (id: string): ILine => book.value!.lines.find(line => line.id === id)!
+const hasDiff = (line: ILine): boolean => line.previousText !== null && line.previousText !== line.text && stateOf(line) !== 'approved' && language.value === book.value?.language
 const stateOfId = (id: string): ReviewLineState => stateOf(lineOf(id))
 const hasTakeId = (id: string): boolean => hasTake(lineOf(id))
 const canReviewId = (id: string): boolean => canReview(lineOf(id))
@@ -363,6 +368,25 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.review__diff {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+}
+
+.review__old {
+    color: var(--danger);
+    text-decoration-thickness: 2px;
+}
+
+.review__new {
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: var(--mint-soft);
+    color: var(--on-accent);
+    text-decoration: none;
+}
 .review__voices,
 .review__lines,
 .review__thread {
