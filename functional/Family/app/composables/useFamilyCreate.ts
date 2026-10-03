@@ -1,6 +1,6 @@
-export type TFamilyCreateStep = 'name' | 'child' | 'childCode' | 'parentCode' | 'done'
+export type TFamilyCreateStep = 'name' | 'you' | 'child' | 'childCode' | 'parentCode' | 'done'
 
-export const FAMILY_CREATE_STEPS: TFamilyCreateStep[] = ['name', 'child', 'childCode', 'parentCode', 'done']
+export const FAMILY_CREATE_STEPS: TFamilyCreateStep[] = ['name', 'you', 'child', 'childCode', 'parentCode', 'done']
 export const MAX_CHILD_AGE = 17
 
 export const useFamilyCreate = () => {
@@ -11,6 +11,9 @@ export const useFamilyCreate = () => {
 
     const step = ref<TFamilyCreateStep>('name')
     const familyName = ref('')
+    const firstName = ref('')
+    const lastName = ref('')
+    const displayName = ref('')
     const childName = ref('')
     const childAge = ref<number | null>(null)
     const childPhoto = ref<Blob | null>(null)
@@ -24,6 +27,9 @@ export const useFamilyCreate = () => {
     const canContinue = computed<boolean>(() => {
         if (step.value === 'name') {
             return familyName.value.trim() !== ''
+        }
+        if (step.value === 'you') {
+            return firstName.value.trim() !== ''
         }
         if (step.value === 'child') {
             return childName.value.trim() !== '' && childAge.value !== null
@@ -64,6 +70,7 @@ export const useFamilyCreate = () => {
                 method: 'POST',
                 body: {
                     familyName: familyName.value,
+                    parent: { firstName: firstName.value, lastName: lastName.value, displayName: displayName.value },
                     parentCode: parentCode.value,
                     child: { name: childName.value, age: childAge.value, code: childCode.value },
                 },
@@ -103,5 +110,5 @@ export const useFamilyCreate = () => {
         step.value = FAMILY_CREATE_STEPS[stepIndex.value + 1] as TFamilyCreateStep
     }
 
-    return { step, stepIndex, familyName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next }
+    return { step, stepIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next }
 }

@@ -98,8 +98,17 @@
             "child": "Continue",
             "childCode": "Continue",
             "parentCode": "Create my family",
-            "done": "Invite relatives"
+            "done": "Invite relatives",
+            "you": "Continue"
         },
-        "failed": "The family could not be created. Try again."
+        "failed": "The family could not be created. Try again.",
+        "you": {
+            "title": "And you?",
+            "hint": "How the children and relatives know you.",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "displayName": "Display name",
+            "displayHint": "The display name is what others see. Left empty, it is your first name."
+        }
     }
 }

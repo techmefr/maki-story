@@ -13,6 +13,15 @@
             <AppInput v-model="familyName" maxlength="60" :placeholder="t('family.create.name.placeholder')" :aria-label="t('family.create.name.title')" data-testid="family-create-name" />
         </section>
 
+        <section v-else-if="step === 'you'" class="stack">
+            <h1 class="title" tabindex="-1">{{ t('family.create.you.title') }}</h1>
+            <p class="create__hint">{{ t('family.create.you.hint') }}</p>
+            <AppInput v-model="firstName" maxlength="60" autocomplete="given-name" :placeholder="t('family.create.you.firstName')" :aria-label="t('family.create.you.firstName')" data-testid="family-create-first-name" />
+            <AppInput v-model="lastName" maxlength="60" autocomplete="family-name" :placeholder="t('family.create.you.lastName')" :aria-label="t('family.create.you.lastName')" />
+            <AppInput v-model="displayName" maxlength="60" :placeholder="firstName || t('family.create.you.displayName')" :aria-label="t('family.create.you.displayName')" />
+            <p class="create__hint">{{ t('family.create.you.displayHint') }}</p>
+        </section>
+
         <section v-else-if="step === 'child'" class="stack">
             <h1 class="title" tabindex="-1">{{ t('family.create.child.title') }}</h1>
             <button type="button" class="create__photo" :aria-label="t('family.create.child.photo')" @click="isCapturing = true">
@@ -59,7 +68,7 @@
 const AGES = Array.from({ length: 13 }, (_, index) => index)
 
 const { t } = useI18n()
-const { step, stepIndex, familyName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next } = useFamilyCreate()
+const { step, stepIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next } = useFamilyCreate()
 
 const isCapturing = ref(false)
 const photoUrl = ref<string | null>(null)
