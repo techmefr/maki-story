@@ -1,7 +1,7 @@
-import { assertBookReadable } from '../../../utils/books'
-import { getDb } from '../../../utils/db'
-import { requireActorMember, requireRole } from '../../../utils/permissions'
-import { requireParam } from '../../../utils/validate'
+import { assertBookReadable } from '~~/server/utils/books'
+import { getDb } from '~~/server/utils/db'
+import { requireActorMember, requireRole } from '~~/server/utils/permissions'
+import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const actor = await requireRole(event, 'parent', 'child')

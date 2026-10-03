@@ -1,6 +1,6 @@
-import { getDb } from '../../../utils/db'
-import { requireMember, requireSession } from '../../../utils/family'
-import { requireParam } from '../../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { requireMember, requireSession } from '~~/server/utils/family'
+import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const { familyId } = requireSession(event)

@@ -1,7 +1,7 @@
-import { loadActor } from '../../../utils/permissions'
-import { assertBookReadable } from '../../../utils/books'
-import { loadPlaybackPlan } from '../../../utils/playback'
-import { badRequest, requireParam } from '../../../utils/validate'
+import { loadActor } from '~~/server/utils/permissions'
+import { assertBookReadable } from '~~/server/utils/books'
+import { loadPlaybackPlan } from '~~/server/utils/playback'
+import { badRequest, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IPlaybackPlan> => {
     const actor = await loadActor(event)
