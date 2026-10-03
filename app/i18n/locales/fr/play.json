@@ -1,7 +1,7 @@
 {
     "lineAria": "Réplique {index}",
-    "pause": "Pause",
     "play": "Lecture",
     "editRecordings": "Modifier les enregistrements",
-    "lines": "Répliques"
+    "lines": "Répliques",
+    "playing": "En cours d’écoute"
 }

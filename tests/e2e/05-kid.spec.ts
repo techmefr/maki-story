@@ -68,15 +68,12 @@ test.describe('kid space', () => {
         await expect(page).toHaveURL(/\/kid$/)
     })
 
-    test('pauses and resumes playback', async ({ page }, info) => {
+    test('the reader has no pause button', async ({ page }, info) => {
         await login(page)
         await chooseProfile(page, uniqueName('Lova', info.project.name))
         await page.goto(`/kid/listen/${multiId}`)
         await page.getByRole('button', { name: 'Lire' }).click()
-        await page.getByRole('button', { name: 'Pause' }).click()
-        await expect(page.getByRole('button', { name: 'Lecture' })).toBeVisible()
-        await page.getByRole('button', { name: 'Lecture' }).click()
-        await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Pause' })).toHaveCount(0)
     })
 
     test('a child cannot reach the adult screens', async ({ page }, info) => {

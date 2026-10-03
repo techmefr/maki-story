@@ -78,8 +78,8 @@
                 <AppButton variant="secondary" is-round class="btn--big" :disabled="pageIndex === 0" :aria-label="t('kid.listen.previousPage')" data-testid="previous-page" v-sound="'page-turn'" @click="previousPage">
                     <AppIcon name="skip-back" :size="40" class="mirror-rtl" />
                 </AppButton>
-                <AppButton variant="secondary" class="btn--big" :aria-label="isPlaying ? t('kid.listen.pause') : t('kid.listen.resumePlay')" @click="togglePause">
-                    <AppIcon :name="isPlaying ? 'pause' : 'play'" :size="48" />
+                <AppButton variant="secondary" class="btn--big" :disabled="isPlaying" :aria-label="isPlaying ? t('kid.listen.playing') : t('kid.listen.resumePlay')" @click="resumePlayback">
+                    <AppIcon :name="isPlaying ? 'volume' : 'play'" :size="48" />
                 </AppButton>
                 <AppButton variant="secondary" is-round class="btn--big" :disabled="pageIndex >= pageTotal - 1" :aria-label="t('kid.listen.nextPageShort')" data-testid="skip-page" v-sound="'page-turn'" @click="skipPage">
                     <AppIcon name="skip-forward" :size="40" class="mirror-rtl" />
@@ -363,12 +363,7 @@ const skipPage = (): Promise<void> => goToPage(Math.min(pageTotal.value - 1, pag
 
 const replay = (): Promise<void> => start()
 
-const togglePause = async (): Promise<void> => {
-    if (isPlaying.value) {
-        player.pause()
-        await saveProgress()
-        return
-    }
+const resumePlayback = async (): Promise<void> => {
     await player.resume()
 }
 

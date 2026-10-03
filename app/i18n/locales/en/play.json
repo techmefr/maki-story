@@ -1,7 +1,7 @@
 {
     "lineAria": "Line {index}",
-    "pause": "Pause",
     "play": "Play",
     "editRecordings": "Edit the recordings",
-    "lines": "Lines"
+    "lines": "Lines",
+    "playing": "Playing"
 }

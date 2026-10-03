@@ -22,7 +22,6 @@
         "read": "Play",
         "goodNight": "Good night",
         "reads": "{name} is reading",
-        "pause": "Pause",
         "resumePlay": "Play",
         "quit": "Leave",
         "soundOn": "Sound",
@@ -31,7 +30,8 @@
         "page": "Page {current}/{total}",
         "progress": "Page progress",
         "previousPage": "Previous page",
-        "nextPageShort": "Next page"
+        "nextPageShort": "Next page",
+        "playing": "Playing"
     },
     "sleep": {
         "title": "Sleepy in…",
