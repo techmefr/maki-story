@@ -10,7 +10,7 @@ Garder le lien avec la famille éloignée (notamment à Madagascar) : des livres
 | --- | --- |
 | Parent | Gère la famille, les proches, les enfants, les livres, les tags, les connexions autorisées ; valide les livres ; verrouille l'app d'un profil |
 | Proche | Ajoute des livres, enregistre des voix, laisse des messages vocaux aux enfants, a un coffre |
-| Enfant | Écoute les livres validés, reçoit des messages, garde des favoris dans son coffre |
+| Enfant | Écoute les livres validés, reçoit des messages, en envoie aussi (5 au maximum par destinataire), garde des favoris dans son coffre |
 
 Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famille et proche d'une autre.
 
@@ -20,8 +20,8 @@ Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famill
 
 ## Règles métier
 
-1. Un adulte laisse au maximum 5 messages actifs à un même enfant ; un message mis au coffre ne compte plus.
-2. Un message reste accessible 24 h après la première écoute, puis est supprimé, sauf s'il est mis au coffre. Le décompte ne repart pas à la réécoute. Un message jamais écouté n'expire pas.
+1. Un expéditeur (adulte ou enfant) laisse au maximum 5 messages vocaux actifs à un même destinataire ; un message mis au coffre ne compte plus.
+2. Un message, d'un adulte ou d'un enfant, reste accessible 24 h après la première écoute par son destinataire, puis est supprimé, sauf s'il est mis au coffre. Le décompte ne repart pas à la réécoute. Un message jamais écouté n'expire pas.
 3. Coffre : 10 favoris par enfant, 10 souvenirs par adulte. Le 11e ajout est refusé.
 4. Code adulte : 4 à 8 chiffres. Code enfant : 4 à 6 formes parmi 6 touches, longueur choisie par l'enfant.
 5. Tags : slug anglais, nom par langue de la famille, repli langue choisie puis anglais puis slug.
@@ -33,7 +33,7 @@ Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famill
 
 ## Messages entre adultes
 
-Il n'y a pas de messages libres entre adultes. Seules circulent les demandes liées au livre (demande d'enregistrement, proposition de livre) et à la revue (corrections, commentaires).
+Il n'y a pas de messages libres entre adultes (un enfant peut en envoyer à un adulte, et inversement). Seules circulent les demandes liées au livre (demande d'enregistrement, proposition de livre) et à la revue (corrections, commentaires).
 
 ## Studio
 

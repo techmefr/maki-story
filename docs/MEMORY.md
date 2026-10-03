@@ -10,7 +10,8 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - Studio : création page par page conservée, certains champs deviennent optionnels.
 - IA : reportée à plus tard ; seulement `Book.origin = manuel` prévu.
 - Maquettes Claude Design : font foi pour l'interface et les règles métier.
-- Un message mis au coffre ne compte plus dans les 5 de l'adulte (décidé le 2026-10-03).
+- Un message mis au coffre ne compte plus dans les 5 de l'expéditeur (décidé le 2026-10-03).
+- L'enfant peut aussi envoyer des messages audio : 5 au maximum par destinataire, même effacement 24 h après la première écoute sauf mis au coffre (décidé le 2026-10-03).
 - Pas de messages entre adultes en dehors des demandes liées au livre (demande d'enregistrement, proposition de livre) ou à la revue (décidé le 2026-10-03).
 - Pages sans maquette (activité, appareils, corbeille, stockage, grimace, traduction) : conçues dans le même style que le design system.
 - Mise en page : vraie version adaptative (téléphone, tablette, ordinateur, Android TV), pas une colonne de 440 px étirée.
@@ -19,7 +20,8 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 
 - Fuseau horaire du verrouillage : on reprend le fuseau par règle du dépôt actuel.
 - Liste des champs optionnels du studio à valider.
-- Coffre adulte : sans messages libres entre adultes, que contient-il ? (messages d'enfant, demandes, enregistrements marqués ?) À trancher dans la spécification Vault.
+- Coffre adulte : hypothèse, il garde les messages reçus d'un enfant (10 au maximum). À confirmer.
+- Un enfant peut-il écrire à n'importe quel adulte de sa famille, ou seulement à certains ? (le dépôt actuel vérifie que l'enfant est concerné, voir `assertChildConcerned`.) À confirmer.
 - Écrans adaptatifs : points de rupture et navigation tablette, ordinateur et TV à dessiner (issue de mise en page).
 - Thème sombre : non décidé.
 - Migrations déjà appliquées en production : renumérotation interdite sans plan.

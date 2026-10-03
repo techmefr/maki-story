@@ -10,11 +10,13 @@ Message Enfant, Accueil Enfant, Accueil Proche, Categorie (fichiers `docs/maquet
 
 ## Règles
 
-- Un message vocal vise exactement un enfant.
-- Un adulte laisse au maximum 5 messages actifs à un même enfant ; un message mis au coffre ne compte plus. Garanti par transaction serveur.
+- Un message vocal vise exactement un destinataire (un enfant, ou un adulte quand c'est un enfant qui écrit).
+- Un expéditeur (adulte ou enfant) laisse au maximum 5 messages actifs à un même destinataire ; un message mis au coffre ne compte plus. Garanti par transaction serveur.
+- Les messages de l'enfant suivent les mêmes règles : effacés 24 h après la première écoute du destinataire, sauf mis au coffre.
 - `expiresAt = firstListenedAt + 24 h`, écrit une seule fois, jamais mis à jour à la réécoute. Un message jamais écouté n'expire pas.
 - Tâche planifiée : supprime les messages expirés et leur audio ; les lectures filtrent aussi sur `expiresAt`.
 - Pas de messages libres entre adultes : seulement les demandes liées au livre et à la revue.
+- Ouvert : un enfant peut-il écrire à tout adulte de sa famille ou seulement à certains ? Le serveur doit refuser un destinataire hors famille ou non concerné (voir l'ancien défaut de sécurité #96).
 - Lecture façon stories : balayage entre messages, réécoute libre.
 - Durée maximale d'un message selon `MESSAGE_MAX_DURATION_MS`.
 

@@ -36,7 +36,7 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 ## Phase 4 — Cœur enfant
 
-- [ ] Message : envoi, limite de 5, expiration 24 h, purge planifiée
+- [ ] Message : envoi par adulte et par enfant, limite de 5, expiration 24 h, purge planifiée
 - [ ] Vault : coffre enfant et adulte, limite de 10
 - [ ] Reading : lecture multivoix, progression
 - [ ] Accueil Enfant

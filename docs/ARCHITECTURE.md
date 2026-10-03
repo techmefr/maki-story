@@ -79,7 +79,7 @@ Les écrans cités sont les fichiers de `docs/maquettes/` (`<Écran>.dc.html`).
 | Règle | Foyer |
 | --- | --- |
 | Parents, proches, rôle par famille | `functional/Family`, `Membership` |
-| 5 messages par adulte et par enfant | `functional/Message` (transaction), `useMessageQuota` |
+| 5 messages par expéditeur (adulte ou enfant) et par destinataire | `functional/Message` (transaction), `useMessageQuota` |
 | Expiration 24 h | `functional/Message`, tâche de purge, `useMessageExpiry` |
 | Coffre 10 | `functional/Vault`, `useVault` |
 | Codes | `technical/Auth`, `useCodePad` |
