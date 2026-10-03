@@ -1,7 +1,7 @@
 import type { Sql, TransactionSql } from 'postgres'
 import { loadBook } from './books'
 import { getDb } from './db'
-import type { IZipEntry } from './zip'
+import type { IZipEntry } from '~~/technical/Upload/server/utils/zip'
 
 type Db = Sql | TransactionSql
 

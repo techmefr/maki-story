@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { assertFileReadable } from '~~/server/utils/files'
+import { assertFileReadable } from '~~/technical/Upload/server/utils/files'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 

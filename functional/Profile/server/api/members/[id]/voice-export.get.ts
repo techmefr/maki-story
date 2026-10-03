@@ -4,8 +4,8 @@ import { mediaPath } from '~~/server/utils/familyData'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { notFound, requireParam } from '~~/server/utils/validate'
-import { zipStream } from '~~/server/utils/zip'
-import type { IZipEntry } from '~~/server/utils/zip'
+import { zipStream } from '~~/technical/Upload/server/utils/zip'
+import type { IZipEntry } from '~~/technical/Upload/server/utils/zip'
 
 async function* voiceEntries(familyId: string, memberId: string): AsyncGenerator<IZipEntry> {
     const db = getDb()

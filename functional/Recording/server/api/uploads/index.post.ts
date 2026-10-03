@@ -1,6 +1,6 @@
 import { getDb, one } from '~~/server/utils/db'
-import { toUploadState } from '~~/server/utils/uploads'
-import type { IUploadSession } from '~~/server/utils/uploads'
+import { toUploadState } from '~~/technical/Upload/server/utils/uploads'
+import type { IUploadSession } from '~~/technical/Upload/server/utils/uploads'
 import { badRequest } from '~~/server/utils/validate'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import type { IUploadState } from '~~/shared/types/upload'

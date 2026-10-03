@@ -1,9 +1,9 @@
 import type { H3Event } from 'h3'
 import type { Sql, TransactionSql } from 'postgres'
-import type { IUploadState } from '../../shared/types/upload'
-import { UPLOAD_CHUNK_BYTES } from '../../shared/utils/upload'
+import type { IUploadState } from '~~/shared/types/upload'
+import { UPLOAD_CHUNK_BYTES } from '~~/shared/utils/upload'
 import type { IActor } from '~~/technical/Auth/server/utils/permissions'
-import { notFound, requireParam } from './validate'
+import { notFound, requireParam } from '~~/server/utils/validate'
 
 export interface IUploadSession {
     id: string

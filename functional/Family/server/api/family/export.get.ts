@@ -2,7 +2,7 @@ import { Readable } from 'node:stream'
 import { familyExportEntries } from '~~/server/utils/familyData'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
-import { zipStream } from '~~/server/utils/zip'
+import { zipStream } from '~~/technical/Upload/server/utils/zip'
 
 export default defineEventHandler(async event => {
     const actor = await requirePermission(event, 'family.export')

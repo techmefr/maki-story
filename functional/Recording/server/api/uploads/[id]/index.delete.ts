@@ -1,5 +1,5 @@
 import { getDb } from '~~/server/utils/db'
-import { loadUploadSession } from '~~/server/utils/uploads'
+import { loadUploadSession } from '~~/technical/Upload/server/utils/uploads'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ ok: true }> => {

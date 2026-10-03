@@ -1,6 +1,6 @@
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { assertUploadLive, loadUploadSession } from '~~/server/utils/uploads'
+import { assertUploadLive, loadUploadSession } from '~~/technical/Upload/server/utils/uploads'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ id: string }> => {
