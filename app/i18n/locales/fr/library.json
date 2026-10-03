@@ -53,7 +53,9 @@
         "open": "Filtres",
         "title": "Filtres",
         "reset": "Réinitialiser",
-        "show": "Voir les livres"
+        "show": "Voir les livres",
+        "tag": "Univers (tags)",
+        "status": "Statut"
     },
     "childVisible": {
         "title": "Visibilité pour l’enfant",

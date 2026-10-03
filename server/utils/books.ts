@@ -56,6 +56,8 @@ export const parseBookQuery = (raw: Record<string, unknown>): IBookQuery => ({
     type: readText(raw.type),
     mood: readText(raw.mood),
     theme: readText(raw.theme),
+    tag: readText(raw.tag),
+    status: readText(raw.status),
     limit: Math.max(1, readCount(raw.limit, MAX_PAGE_SIZE, MAX_PAGE_SIZE)),
     offset: readCount(raw.offset, 0, 100000),
 })
@@ -98,6 +100,12 @@ export const listBookSummaries = async (actor: IActor, query: IBookQuery = {}): 
     }
     if (query.theme) {
         filters.push(`${bind(query.theme)} = any(b.themes)`)
+    }
+    if (query.tag) {
+        filters.push(`exists (select 1 from book_tags bt where bt.book_id = b.id and bt.slug = ${bind(query.tag)})`)
+    }
+    if (query.status) {
+        filters.push(`b.status = ${bind(query.status)}`)
     }
     const where = `b.family_id = $1 and b.deleted_at is null and ${bookScope(actor, 2)}${filters.map(item => ` and ${item}`).join('')}`
     const filterParams = [...params]

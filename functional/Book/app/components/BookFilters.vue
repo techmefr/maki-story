@@ -17,6 +17,22 @@
         </div>
         <AppBottomSheet :open="isOpen" :title="t('library.filters.title')" @close="isOpen = false">
             <AppSelect v-model="language" :aria-label="t('books.filters.language')" :options="languageOptions" />
+            <div v-if="tags.length > 0" class="stack filters__group" role="group" :aria-label="t('library.filters.tag')">
+                <span class="label">{{ t('library.filters.tag') }}</span>
+                <div class="row row--wrap">
+                    <AppChip v-for="item in tags" :key="item.slug" :selected="tag === item.slug" :data-filter="`tag-${item.slug}`" @click="tag = tag === item.slug ? '' : item.slug">
+                        {{ labelOf(item, locale) }}
+                    </AppChip>
+                </div>
+            </div>
+            <div class="stack filters__group" role="group" :aria-label="t('library.filters.status')">
+                <span class="label">{{ t('library.filters.status') }}</span>
+                <div class="row row--wrap">
+                    <AppChip v-for="item in STATUSES" :key="item" :selected="status === item" :data-filter="`status-${item}`" @click="status = status === item ? '' : item">
+                        {{ t(`review.bookStatus.${item}`) }}
+                    </AppChip>
+                </div>
+            </div>
             <div class="stack filters__group" role="group" :aria-label="t('library.filters.type')">
                 <span class="label">{{ t('library.filters.type') }}</span>
                 <div class="row row--wrap">
@@ -59,7 +75,11 @@ const AGE_TAG_KEYS: Record<string, string> = {
 }
 const BOOK_TYPES: BookType[] = ['standard', 'comic', 'wordless', 'child-written']
 
-const { t } = useI18n()
+const STATUSES: BookStatus[] = ['to_record', 'in_review', 'ready']
+
+const { t, locale } = useI18n()
+const { tags, ensureLoaded: loadTags } = useTags()
+const { labelOf } = useTagLabel()
 const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('books.filters.allLanguages')))
 
 const { initial = {} } = defineProps<{ initial?: Partial<IBookQuery> }>()
@@ -71,14 +91,18 @@ const age = ref('')
 const type = ref(initial.type ?? '')
 const mood = ref(initial.mood ?? '')
 const theme = ref(initial.theme ?? '')
+const tag = ref(initial.tag ?? '')
+const status = ref(initial.status ?? '')
 
 const isOpen = ref(false)
-const activeCount = computed<number>(() => [type.value, mood.value, theme.value, language.value].filter(value => value !== '').length)
+const activeCount = computed<number>(() => [type.value, mood.value, theme.value, tag.value, status.value, language.value].filter(value => value !== '').length)
 
 const reset = (): void => {
     type.value = ''
     mood.value = ''
     theme.value = ''
+    tag.value = ''
+    status.value = ''
     language.value = ''
 }
 
@@ -88,15 +112,17 @@ const toggleAge = (id: string): void => {
 
 let timer: ReturnType<typeof setTimeout> | null = null
 
-watch([text, language, age, type, mood, theme], () => {
+watch([text, language, age, type, mood, theme, tag, status], () => {
     if (timer) {
         clearTimeout(timer)
     }
     timer = setTimeout(
-        () => emit('change', { q: text.value, language: language.value, age: age.value, type: type.value, mood: mood.value, theme: theme.value }),
+        () => emit('change', { q: text.value, language: language.value, age: age.value, type: type.value, mood: mood.value, theme: theme.value, tag: tag.value, status: status.value }),
         SEARCH_DELAY_MS,
     )
 })
+
+onMounted(loadTags)
 
 onBeforeUnmount(() => {
     if (timer) {

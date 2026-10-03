@@ -231,6 +231,8 @@ export interface IBookQuery {
     type?: string
     mood?: string
     theme?: string
+    tag?: string
+    status?: string
     limit?: number
     offset?: number
 }
