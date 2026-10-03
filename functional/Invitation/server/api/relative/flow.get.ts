@@ -49,6 +49,17 @@ export default defineEventHandler(async (event): Promise<IRelativeFlow> => {
             where s.proposed_by_member_id = ${seat.memberId}
             order by s.created_at desc limit 50
         `
+        const fixes = await db<IRelativeFix[]>`
+            select b.id as book_id, b.title as book_title, count(distinct r.id)::int as take_count,
+                coalesce((select c.body from review_comments c where c.book_id = b.id and c.resolved_at is null order by c.created_at desc limit 1), '') as comment,
+                coalesce((select am.name from review_comments c join members am on am.id = c.author_member_id
+                    where c.book_id = b.id and c.resolved_at is null order by c.created_at desc limit 1), '') as author_name
+            from recordings r
+            join lines l on l.id = r.line_id
+            join books b on b.id = l.book_id and b.deleted_at is null
+            where l.family_id = ${seat.familyId} and r.member_id = ${seat.memberId} and r.status = 'changes_requested'
+            group by b.id, b.title order by b.title limit 50
+        `
         families.push({
             familyId: seat.familyId,
             familyName: seat.familyName,
@@ -56,6 +67,7 @@ export default defineEventHandler(async (event): Promise<IRelativeFlow> => {
             children,
             requests: [...shareRequests, ...lineRequests],
             proposals,
+            fixes,
         })
     }
     return { families, currentFamilyId }
