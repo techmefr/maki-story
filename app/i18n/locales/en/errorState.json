@@ -1,0 +1,32 @@
+{
+    "offline": {
+        "title": "No connection",
+        "text": "Stories you already downloaded stay available. The rest will come back when the network does.",
+        "action": "Try again"
+    },
+    "update": {
+        "title": "An update is needed",
+        "text": "To keep listening and recording, install the latest version of Tantara.",
+        "action": "Update"
+    },
+    "error": {
+        "title": "Oops, something got stuck",
+        "text": "It is not your fault. Try again in a moment.",
+        "action": "Try again"
+    },
+    "notFound": {
+        "title": "Page not found",
+        "text": "This page no longer exists or the link is wrong.",
+        "action": "Back to home"
+    },
+    "forbidden": {
+        "title": "Parents only",
+        "text": "This page is protected. Ask a parent to give you access.",
+        "action": "Back to home"
+    },
+    "server": {
+        "title": "Our server has a problem",
+        "text": "It is not your fault. We are fixing it: try again in a few minutes.",
+        "action": "Try again"
+    }
+}
