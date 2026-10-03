@@ -2,8 +2,7 @@ import { randomBytes } from 'node:crypto'
 import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { normalizeEmail } from '~~/server/utils/validate'
-import { sendMail } from '~~/technical/Mail/server/utils/mail'
-import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
+import { renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { assertIpBudget, recordIpHit } from '~~/technical/Auth/server/utils/throttle'
 import { hashMagicToken, MAGIC_LINK_MINUTES } from '../../utils/magicLink'
 
@@ -24,11 +23,8 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         `
         const base = process.env.APP_BASE_URL ?? getRequestURL(event).origin
         const locale = typeof body.locale === 'string' ? body.locale : null
-        await sendMail({
-            to: email,
-            subject: mailText(locale, 'magic.subject'),
-            text: mailText(locale, 'magic.body', { link: `${base}/magic?token=${token}`, minutes: MAGIC_LINK_MINUTES }),
-        })
+        const content = renderLocalizedMail(locale, { template: 'magic_link', params: { minutes: MAGIC_LINK_MINUTES, url: `${base}/magic?token=${token}` } }, base)
+        await sendMail({ to: email, ...content })
         logEvent('Lien magique envoyé')
     }
     return { ok: true }

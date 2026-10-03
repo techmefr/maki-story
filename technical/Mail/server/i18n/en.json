@@ -1,0 +1,110 @@
+{
+    "tpl": {
+        "common": {
+            "reason": "You are receiving this message because you have a Tantara account.",
+            "help": "Help",
+            "legal": "Privacy",
+            "manage": "Manage my e-mails"
+        },
+        "role": {
+            "relative": "relative",
+            "parent": "parent"
+        },
+        "magic_link": {
+            "subject": "Your Tantara sign-in link",
+            "preheader": "Tap the button to sign in. It is valid for {minutes} minutes.",
+            "title": "Your magic link",
+            "p1": "Hello,",
+            "p2": "Tap the button to sign in to Tantara. No password needed.",
+            "button": "Sign in",
+            "note": "This link is valid for {minutes} minutes and works only once. If you did not ask for it, ignore this message."
+        },
+        "invitation": {
+            "subject": "{name} invites you to join {family} on Tantara",
+            "preheader": "Lend your voice to the family’s stories. Join in one tap.",
+            "title": "{name} invites you to join {family}",
+            "p1": "{name} invites you to join the family as a [[{role}]].",
+            "p2": "On Tantara, everyone lends their voice to the children’s bedtime stories, even from far away.",
+            "button": "Join the family",
+            "note": "You can also enter the code **{code}** when you create your profile. It is valid for {hours} h."
+        },
+        "code_reset": {
+            "subject": "Choose a new Tantara code",
+            "preheader": "This link is valid for {minutes} minutes.",
+            "title": "A new code?",
+            "p1": "You asked to reset your secret code.",
+            "p2": "Tap the button to choose a new one.",
+            "button": "Choose a new code",
+            "note": "If you did not make this request, ignore this message: your current code stays valid."
+        },
+        "welcome": {
+            "subject": "Welcome to Tantara!",
+            "preheader": "Your family is ready. Here is how to start.",
+            "title": "Welcome, {name}!",
+            "p1": "The **{family}** family is ready.",
+            "p2": "To start: invite a relative, add a first story, then let the magic of voices begin.",
+            "button": "Invite a relative"
+        },
+        "review_request": {
+            "subject": "{name} recorded “{book}”",
+            "preheader": "Lines are waiting for your review.",
+            "title": "A story is waiting for your review",
+            "p1": "**{name}** finished recording “{book}”.",
+            "p2": "Lines to review: {count}. You can approve each line or ask for a change.",
+            "button": "Review the story",
+            "reason": "You are receiving this e-mail because you are a parent in a family on Tantara."
+        },
+        "corrections": {
+            "subject": "Takes to redo on “{book}”",
+            "preheader": "{parent} asks for changes ({count}).",
+            "title": "A few takes to redo",
+            "p1": "**{parent}** reviewed “{book}” and asks for changes ({count}).",
+            "p2": "“{comment}”",
+            "button": "Redo the takes",
+            "reason": "You are receiving this e-mail because you recorded a voice on this story."
+        },
+        "new_voice": {
+            "subject": "{name} left a message for {child}",
+            "preheader": "A new message in {child}’s inbox.",
+            "title": "A new message for {child}",
+            "p1": "**{name}** just left a message for {child} ([[{n}/5]]).",
+            "p1Plain": "**{name}** just left a message for {child}.",
+            "p2": "It is waiting in their inbox, on their home screen.",
+            "button": "See the family",
+            "reason": "You are receiving this e-mail because you turned on new voice notifications."
+        },
+        "export_ready": {
+            "subject": "Your Tantara data export is ready",
+            "preheader": "The download link is valid for {days} days.",
+            "title": "Your export is ready",
+            "p1": "You asked for a copy of your data: recordings, profiles and reading progress.",
+            "button": "Download my export",
+            "note": "The link is valid for {days} days. Do not share it: it gives access to your data."
+        },
+        "account_deleted": {
+            "subject": "Your Tantara account has been deleted",
+            "preheader": "Confirmation that your account and data were deleted.",
+            "title": "Your account has been deleted",
+            "p1": "As requested, your account and all the data of the **{family}** family have been deleted.",
+            "p2": "Thank you for sharing stories with us. You are always welcome back.",
+            "note": "If you did not ask for this deletion, write to us right away at {support}.",
+            "noteNoContact": "If you did not ask for this deletion, reply to this message right away."
+        },
+        "digest": {
+            "subject": "Your Tantara daily summary",
+            "preheader": "News today: {count}.",
+            "title": "Your daily summary",
+            "p1": "Here is what happened on Tantara since yesterday.",
+            "button": "Open Tantara",
+            "more": "And {count} more updates in the app.",
+            "reason": "You receive a single summary e-mail per day, because you turned on e-mail notifications."
+        },
+        "digestLine": {
+            "default": "New notification.",
+            "share_received": "{fromName} sent you “{bookTitle}”.",
+            "recording_request": "You are asked to record your voice for “{bookTitle}”.",
+            "book_proposed": "{memberName} proposes “{bookTitle}”: to approve.",
+            "proposal_result": "Your proposal “{bookTitle}” got an answer."
+        }
+    }
+}
