@@ -64,7 +64,7 @@ test.describe('guided first launch', () => {
         await page.getByTestId('invite-tab-code').click()
         await page.getByTestId('invite-channel-LINK').click()
         await page.getByTestId('invite-create').click()
-        await expect(page.getByTestId('invite-link')).toHaveValue(/\/join\/[a-z0-9]{10}$/)
+        await expect(page.getByTestId('invite-link')).toHaveValue(/\/join\/[a-z0-9]{6}$/)
         await expect(page.getByTestId('welcome-invite-next')).toContainText('Continuer')
         await page.getByTestId('welcome-invite-next').click()
         await page.getByTestId('welcome-finish').click()
