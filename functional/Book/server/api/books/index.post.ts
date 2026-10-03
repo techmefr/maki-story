@@ -1,6 +1,7 @@
 import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages } from '~~/server/utils/bookModel'
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
+import { assertFamilyLanguages } from '~~/server/utils/familyLanguages'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { notify } from '~~/server/utils/notifications'
@@ -59,6 +60,9 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     checkAgeRange(ageMin, ageMax)
     const language = checkLanguage(body.writtenLanguage ?? body.language ?? 'fr')
     const voiceLanguages = body.voiceLanguages === undefined ? [language] : checkVoiceLanguages(body.voiceLanguages)
+    if (body.voiceLanguages !== undefined) {
+        await assertFamilyLanguages(getDb(), familyId, voiceLanguages)
+    }
     const moods = body.moods === undefined ? [] : checkMoods(body.moods)
     const themes = body.themes === undefined ? [] : checkThemes(body.themes)
     const subtitle = checkText(body.subtitle, 'subtitle')

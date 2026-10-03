@@ -2,6 +2,7 @@ import { checkAge, checkAgeRange, checkBookType, checkLanguage, checkMoods, chec
 import { loadBook } from '~~/server/utils/books'
 import { getDb } from '~~/server/utils/db'
 import { assertMembersInFamily } from '~~/server/utils/family'
+import { assertFamilyLanguages } from '~~/server/utils/familyLanguages'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { notify } from '~~/server/utils/notifications'
@@ -51,6 +52,9 @@ export default defineEventHandler(async (event): Promise<IBook> => {
         ...(body.lines ?? []).flatMap(patch => (patch.memberId ? [patch.memberId] : [])),
     ]
     await assertMembersInFamily(db, familyId, patchedMemberIds)
+    if (body.voiceLanguages !== undefined) {
+        await assertFamilyLanguages(db, familyId, voiceLanguages.filter(code => !current.voiceLanguages.includes(code)))
+    }
     const characterIds = (body.lines ?? []).flatMap(patch => (patch.characterId ? [patch.characterId] : []))
     const panelIds = (body.lines ?? []).flatMap(patch => (patch.panelId ? [patch.panelId] : []))
     if (
