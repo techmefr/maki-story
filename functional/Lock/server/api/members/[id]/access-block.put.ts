@@ -1,9 +1,9 @@
-import { writeAudit } from '../../../utils/audit'
-import { getDb } from '../../../utils/db'
-import { saveManualBlock } from '../../../utils/parental'
-import { requirePermission } from '../../../utils/permissions'
-import { loadCodeRow } from '../../../utils/profile-code'
-import { badRequest, notFound, requireParam } from '../../../utils/validate'
+import { writeAudit } from '~~/server/utils/audit'
+import { getDb } from '~~/server/utils/db'
+import { saveManualBlock } from '~~/server/utils/parental'
+import { requirePermission } from '~~/server/utils/permissions'
+import { loadCodeRow } from '~~/server/utils/profile-code'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 const MODES: TAccessBlockMode[] = ['now', 'until', 'clear']
 const MAX_BLOCK_MS = 7 * 24 * 60 * 60 * 1000

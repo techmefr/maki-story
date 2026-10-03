@@ -1,8 +1,8 @@
-import { defaultWeekly } from '../../../../shared/utils/schedule'
-import { getDb } from '../../../utils/db'
-import { loadSchedule } from '../../../utils/parental'
-import { requirePermission } from '../../../utils/permissions'
-import { requireParam } from '../../../utils/validate'
+import { defaultWeekly } from '~~/shared/utils/schedule'
+import { getDb } from '~~/server/utils/db'
+import { loadSchedule } from '~~/server/utils/parental'
+import { requirePermission } from '~~/server/utils/permissions'
+import { requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<IChildSchedule> => {
     const actor = await requirePermission(event, 'members.schedule.manage')

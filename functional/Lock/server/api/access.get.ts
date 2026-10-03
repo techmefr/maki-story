@@ -1,6 +1,6 @@
-import { getDb } from '../utils/db'
-import { requireSession } from '../utils/family'
-import { accessForMember, loadActiveOverride, loadSchedule } from '../utils/parental'
+import { getDb } from '~~/server/utils/db'
+import { requireSession } from '~~/server/utils/family'
+import { accessForMember, loadActiveOverride, loadSchedule } from '~~/server/utils/parental'
 
 export default defineEventHandler(async (event): Promise<IAccessSnapshot> => {
     const session = requireSession(event)

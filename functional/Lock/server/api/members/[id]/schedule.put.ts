@@ -1,10 +1,10 @@
-import { isValidTimezone, isValidWeekly } from '../../../../shared/utils/schedule'
-import { writeAudit } from '../../../utils/audit'
-import { getDb } from '../../../utils/db'
-import { saveSchedule } from '../../../utils/parental'
-import { requirePermission } from '../../../utils/permissions'
-import { loadCodeRow } from '../../../utils/profile-code'
-import { badRequest, notFound, requireParam } from '../../../utils/validate'
+import { isValidTimezone, isValidWeekly } from '~~/shared/utils/schedule'
+import { writeAudit } from '~~/server/utils/audit'
+import { getDb } from '~~/server/utils/db'
+import { saveSchedule } from '~~/server/utils/parental'
+import { requirePermission } from '~~/server/utils/permissions'
+import { loadCodeRow } from '~~/server/utils/profile-code'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 export default defineEventHandler(async event => {
     const actor = await requirePermission(event, 'members.schedule.manage')
