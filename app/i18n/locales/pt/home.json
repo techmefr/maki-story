@@ -29,7 +29,9 @@
         "removeOne": "Excluir {title}",
         "removeAll": "Excluir tudo",
         "emptyTitle": "Nenhum livro descarregado",
-        "emptyHint": "Descarrega um livro da biblioteca para o ouvir sem ligação."
+        "emptyHint": "Descarrega um livro da biblioteca para o ouvir sem ligação.",
+        "removeAllTitle": "Remover tudo?",
+        "removeAllText": "Os livros descarregados serão removidos deste dispositivo. Continuam disponíveis online."
     },
     "grimace": {
         "title": "Sua careta!",

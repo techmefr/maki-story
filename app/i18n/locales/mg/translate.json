@@ -16,5 +16,8 @@
         "one": "Voatahiry amin’ny {language} ny andalana {count}.",
         "other": "Voatahiry amin’ny {language} ny andalana {count}."
     },
-    "saveFailed": "Tsy nahomby ny fitahirizana. Andramo indray."
+    "saveFailed": "Tsy nahomby ny fitahirizana. Andramo indray.",
+    "markDone": "Vita ny fandikana",
+    "markDoneHint": "Tsy hitan’ny ankizy io fiteny io raha tsy vita.",
+    "doneFailed": "Tsy voatahiry ny fanovana. Andramo indray."
 }

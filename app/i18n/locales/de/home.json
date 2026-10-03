@@ -29,7 +29,9 @@
         "removeOne": "{title} löschen",
         "removeAll": "Alles löschen",
         "emptyTitle": "Kein Buch heruntergeladen",
-        "emptyHint": "Lade ein Buch aus der Bibliothek herunter, um es ohne Verbindung zu hören."
+        "emptyHint": "Lade ein Buch aus der Bibliothek herunter, um es ohne Verbindung zu hören.",
+        "removeAllTitle": "Alles löschen?",
+        "removeAllText": "Heruntergeladene Bücher werden von diesem Gerät entfernt. Online bleiben sie verfügbar."
     },
     "grimace": {
         "title": "Deine Grimasse!",

@@ -29,7 +29,9 @@
         "removeOne": "Elimina {title}",
         "removeAll": "Elimina tutto",
         "emptyTitle": "Nessun libro scaricato",
-        "emptyHint": "Scarica un libro dalla libreria per ascoltarlo senza connessione."
+        "emptyHint": "Scarica un libro dalla libreria per ascoltarlo senza connessione.",
+        "removeAllTitle": "Eliminare tutto?",
+        "removeAllText": "I libri scaricati verranno rimossi da questo dispositivo. Restano disponibili online."
     },
     "grimace": {
         "title": "La tua smorfia!",

@@ -29,7 +29,9 @@
         "removeOne": "Eliminar {title}",
         "removeAll": "Eliminar todo",
         "emptyTitle": "Ningún libro descargado",
-        "emptyHint": "Descarga un libro desde la biblioteca para escucharlo sin conexión."
+        "emptyHint": "Descarga un libro desde la biblioteca para escucharlo sin conexión.",
+        "removeAllTitle": "¿Eliminar todo?",
+        "removeAllText": "Los libros descargados se quitarán de este dispositivo. Seguirán disponibles en línea."
     },
     "grimace": {
         "title": "¡Tu mueca!",

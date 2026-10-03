@@ -49,7 +49,10 @@
         "revokeLabel": "Quitar {device} de {member}",
         "loadError": "No se pudieron cargar los dispositivos.",
         "revokeError": "No se pudo quitar este dispositivo.",
-        "emptyHint": "Activa la huella o el rostro en un perfil para verlo aquí."
+        "emptyHint": "Activa la huella o el rostro en un perfil para verlo aquí.",
+        "confirmTitle": "¿Cerrar la sesión de {device} de {member}?",
+        "lastUsed": "Último uso: {date}",
+        "neverUsed": "Nunca usado"
     },
     "choose": {
         "title": "¿Qué familia?",

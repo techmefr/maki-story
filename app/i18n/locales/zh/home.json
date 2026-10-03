@@ -28,7 +28,9 @@
         "removeOne": "删除 {title}",
         "removeAll": "全部删除",
         "emptyTitle": "没有已下载的书",
-        "emptyHint": "从书库下载一本书，就可以离线收听。"
+        "emptyHint": "从书库下载一本书，就可以离线收听。",
+        "removeAllTitle": "全部删除？",
+        "removeAllText": "已下载的图书将从此设备移除，联网后仍可使用。"
     },
     "grimace": {
         "title": "你的鬼脸！",

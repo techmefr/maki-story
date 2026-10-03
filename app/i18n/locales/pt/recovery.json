@@ -22,7 +22,9 @@
             "message": "Mensagem de voz",
             "treasure": "Memória do baú",
             "recordings": "Voz de um familiar"
-        }
+        },
+        "filter": "Filtrar por tipo",
+        "all": "Tudo"
     },
     "activity": {
         "title": "Atividade da família",
@@ -113,7 +115,11 @@
                     "updated": "Orçamento de IA alterado"
                 }
             }
-        }
+        },
+        "person": "Filtrar por pessoa",
+        "everyone": "Todos",
+        "today": "Hoje",
+        "yesterday": "Ontem"
     },
     "data": {
         "title": "Dados da família",

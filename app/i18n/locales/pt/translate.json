@@ -16,5 +16,8 @@
         "one": "{count} fala guardada em {language}.",
         "other": "{count} falas guardadas em {language}."
     },
-    "saveFailed": "Falha ao guardar. Tenta de novo."
+    "saveFailed": "Falha ao guardar. Tenta de novo.",
+    "markDone": "Tradução concluída",
+    "markDoneHint": "As crianças só veem esta língua quando estiver concluída.",
+    "doneFailed": "Não foi possível guardar a alteração. Tenta de novo."
 }

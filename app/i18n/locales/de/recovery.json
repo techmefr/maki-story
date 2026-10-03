@@ -22,7 +22,9 @@
             "message": "Sprachnachricht",
             "treasure": "Erinnerung aus der Schatzkiste",
             "recordings": "Stimme eines Verwandten"
-        }
+        },
+        "filter": "Nach Typ filtern",
+        "all": "Alle"
     },
     "activity": {
         "title": "Aktivität der Familie",
@@ -113,7 +115,11 @@
                     "updated": "KI-Budget geändert"
                 }
             }
-        }
+        },
+        "person": "Nach Person filtern",
+        "everyone": "Alle",
+        "today": "Heute",
+        "yesterday": "Gestern"
     },
     "data": {
         "title": "Daten der Familie",

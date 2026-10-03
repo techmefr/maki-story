@@ -22,7 +22,9 @@
             "message": "Hafatra feo",
             "treasure": "Tadidy ao amin’ny vata",
             "recordings": "Feon’ny havana"
-        }
+        },
+        "filter": "Sivano araka ny karazana",
+        "all": "Rehetra"
     },
     "activity": {
         "title": "Hetsika amin’ny fianakaviana",
@@ -113,7 +115,11 @@
                     "updated": "Teti-bola IA novaina"
                 }
             }
-        }
+        },
+        "person": "Sivano araka ny olona",
+        "everyone": "Rehetra",
+        "today": "Anio",
+        "yesterday": "Omaly"
     },
     "data": {
         "title": "Angona momba ny fianakaviana",

@@ -15,5 +15,8 @@
     "saved": {
         "other": "已用{language}保存 {count} 句台词。"
     },
-    "saveFailed": "保存失败，请重试。"
+    "saveFailed": "保存失败，请重试。",
+    "markDone": "翻译已完成",
+    "markDoneHint": "该语言完成后，孩子才能看到。",
+    "doneFailed": "更改未能保存，请重试。"
 }

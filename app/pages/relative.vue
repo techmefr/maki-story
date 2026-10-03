@@ -62,6 +62,11 @@
                 </li>
             </ul>
         </section>
+        <div class="row row--wrap">
+            <AppButton variant="tertiary" size="sm" to="/categories/toRecord">{{ t('category.toRecord') }}</AppButton>
+            <AppButton variant="tertiary" size="sm" to="/categories/proposals">{{ t('category.proposals') }}</AppButton>
+            <AppButton variant="tertiary" size="sm" to="/categories/toFix">{{ t('category.toFix') }}</AppButton>
+        </div>
         <AppButton variant="secondary" is-block class="relative__action" icon="smile" to="/help">{{ t('help.title') }}</AppButton>
         <AppButton variant="secondary" is-block class="relative__action" icon="chest" to="/vault">{{ t('vault.open') }}</AppButton>
         <AppButton variant="secondary" is-block class="relative__action" to="/join" data-testid="relative-join-another">

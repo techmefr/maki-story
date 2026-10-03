@@ -22,7 +22,9 @@
             "message": "Mensaje de voz",
             "treasure": "Recuerdo del cofre",
             "recordings": "Voz de un familiar"
-        }
+        },
+        "filter": "Filtrar por tipo",
+        "all": "Todo"
     },
     "activity": {
         "title": "Actividad de la familia",
@@ -113,7 +115,11 @@
                     "updated": "Presupuesto de IA modificado"
                 }
             }
-        }
+        },
+        "person": "Filtrar por persona",
+        "everyone": "Todos",
+        "today": "Hoy",
+        "yesterday": "Ayer"
     },
     "data": {
         "title": "Datos de la familia",

@@ -49,7 +49,10 @@
         "revokeLabel": "Remover {device} de {member}",
         "loadError": "Não foi possível carregar os dispositivos.",
         "revokeError": "Não foi possível remover este dispositivo.",
-        "emptyHint": "Ativa a impressão digital ou o rosto num perfil para o ver aqui."
+        "emptyHint": "Ativa a impressão digital ou o rosto num perfil para o ver aqui.",
+        "confirmTitle": "Terminar a sessão de {device} de {member}?",
+        "lastUsed": "Última utilização: {date}",
+        "neverUsed": "Nunca usado"
     },
     "choose": {
         "title": "Que família?",
