@@ -61,6 +61,7 @@ export interface ILine {
     characterId: string | null
     panelId: string | null
     text: string
+    previousText: string | null
     note: string
     tone: string
     sceneDescription: string
