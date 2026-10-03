@@ -1,0 +1,29 @@
+{
+    "title": "Parental control",
+    "children": "Children",
+    "noChildTitle": "No children",
+    "noChildHint": "Add a child to choose their lock hours.",
+    "enabled": "Lock for {name}",
+    "enabledHint": "The app locks at the chosen hours.",
+    "disabledHint": "The app is always available.",
+    "days": "Locked days",
+    "hours": "Lock hours",
+    "from": "From",
+    "to": "Until",
+    "less": "Less",
+    "more": "More",
+    "presets": {
+        "week": "Weekdays",
+        "weekend": "Weekend",
+        "all": "All"
+    },
+    "everyDay": "every day",
+    "summary": "{name} cannot use the app ({days}), from {from} to {to} (the next day).",
+    "summaryNoDay": "No day chosen for {name}.",
+    "summaryOff": "No lock for {name}.",
+    "save": "Save",
+    "saved": "Saved",
+    "failed": "The hours could not be saved. Try again.",
+    "menu": "Parental control",
+    "menuHint": "Lock days and hours for each child"
+}

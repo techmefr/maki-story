@@ -39,6 +39,9 @@
     },
     "locked": {
         "clock": "Time listening resumes",
-        "toParent": "Switch to a parent"
+        "toParent": "I am a parent",
+        "title": "The app is asleep, {name}",
+        "wakesAt": "It wakes up at {time}.",
+        "tomorrow": "See you soon for new stories!"
     }
 }

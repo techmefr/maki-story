@@ -7,6 +7,11 @@
         <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
         <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
 
+        <AppListRow to="/family/parental" :title="t('lock.menu')" :subtitle="t('lock.menuHint')" data-testid="family-parental">
+            <template #lead><AppIcon name="timer-off" :size="28" /></template>
+            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
+        </AppListRow>
+
         <section v-for="group in groups" :key="group.role" class="stack overview__group" :aria-labelledby="`group-${group.role}`">
             <div class="row">
                 <h2 :id="`group-${group.role}`" class="subtitle grow">{{ t(`family.index.groups.${group.role}`) }}</h2>
