@@ -1,8 +1,8 @@
-import { APP_NAME } from '../../../shared/utils/appName'
-import { getDb } from '../../utils/db'
-import { notificationText } from '../../utils/delivery'
-import { mailText } from '../../utils/mailTexts'
-import { loadActor } from '../../utils/permissions'
+import { APP_NAME } from '~~/shared/utils/appName'
+import { getDb } from '~~/server/utils/db'
+import { notificationText } from '~~/server/utils/delivery'
+import { mailText } from '~~/server/utils/mailTexts'
+import { loadActor } from '~~/server/utils/permissions'
 
 interface ILatestNotification {
     kind: NotificationKind

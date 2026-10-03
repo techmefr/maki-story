@@ -1,6 +1,6 @@
-import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
-import { isNonEmptyString } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { requirePermission } from '~~/server/utils/permissions'
+import { isNonEmptyString } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const actor = await requirePermission(event, 'notifications.list')

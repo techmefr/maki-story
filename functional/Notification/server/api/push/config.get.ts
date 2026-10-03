@@ -1,5 +1,5 @@
-import { requireSession } from '../../utils/family'
-import { isWebPushConfigured, webPushPublicKey } from '../../utils/push'
+import { requireSession } from '~~/server/utils/family'
+import { isWebPushConfigured, webPushPublicKey } from '~~/server/utils/push'
 
 export default defineEventHandler((event): IPushConfig => {
     requireSession(event)

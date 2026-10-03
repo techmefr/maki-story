@@ -1,6 +1,6 @@
-import { getDb } from '../../utils/db'
-import { loadActor, requireActorMember } from '../../utils/permissions'
-import { badRequest, isNonEmptyString } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { loadActor, requireActorMember } from '~~/server/utils/permissions'
+import { badRequest, isNonEmptyString } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     const actor = await loadActor(event)

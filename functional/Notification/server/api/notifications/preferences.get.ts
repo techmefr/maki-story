@@ -1,6 +1,6 @@
-import { getDb } from '../../utils/db'
-import { requireActorMember, requireAnyPermission } from '../../utils/permissions'
-import { NOTIFICATION_KINDS, PREFERENCE_CHANNELS } from '../../../shared/utils/notificationPreferences'
+import { getDb } from '~~/server/utils/db'
+import { requireActorMember, requireAnyPermission } from '~~/server/utils/permissions'
+import { NOTIFICATION_KINDS, PREFERENCE_CHANNELS } from '~~/shared/utils/notificationPreferences'
 
 export default defineEventHandler(async (event): Promise<INotificationPreference[]> => {
     const actor = await requireAnyPermission(event, 'notifications.list')
