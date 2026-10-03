@@ -10,7 +10,23 @@
         "storage": "Stockage hors ligne",
         "sharing": "Partage entre familles",
         "devices": "Appareils",
-        "feedback": "Avis des testeurs"
+        "feedback": "Avis des testeurs",
+        "groups": {
+            "parent": "Parents",
+            "child": "Enfants",
+            "relative": "Proches"
+        },
+        "remove": "Retirer {name}",
+        "removeAction": "Retirer",
+        "confirmTitle": "Retirer {name} ?",
+        "confirmText": "Son profil sera archivé et ses messages effacés.",
+        "confirmParent": "Ce parent n’aura plus accès à la famille. Il en reste au moins un autre.",
+        "failed": "L’action n’a pas pu aboutir. Réessaie.",
+        "more": "Plus",
+        "providers": {
+            "title": "Connexions autorisées",
+            "hint": "Choisis comment les proches et les enfants peuvent se connecter. Le lien magique et Google restent toujours actifs."
+        }
     },
     "edit": {
         "title": "Modifier",

@@ -10,7 +10,23 @@
         "storage": "Offline storage",
         "sharing": "Sharing between families",
         "devices": "Devices",
-        "feedback": "Tester feedback"
+        "feedback": "Tester feedback",
+        "groups": {
+            "parent": "Parents",
+            "child": "Children",
+            "relative": "Relatives"
+        },
+        "remove": "Remove {name}",
+        "removeAction": "Remove",
+        "confirmTitle": "Remove {name}?",
+        "confirmText": "Their profile will be archived and their messages deleted.",
+        "confirmParent": "This parent will lose access to the family. At least one other parent remains.",
+        "failed": "That did not work. Try again.",
+        "more": "More",
+        "providers": {
+            "title": "Allowed sign-ins",
+            "hint": "Choose how relatives and children can sign in. The magic link and Google always stay on."
+        }
     },
     "edit": {
         "title": "Edit",

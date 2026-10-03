@@ -1,3 +1,5 @@
+export type ToggleableProviderId = 'apple' | 'microsoft' | 'facebook'
+
 export type MembershipStatus = 'ACTIVE' | 'LEFT' | 'DECEASED' | 'BLOCKED'
 export type InvitationChannel = 'WHATSAPP' | 'SMS' | 'EMAIL' | 'LINK'
 export type PushPlatform = 'WEB' | 'IOS' | 'ANDROID'
