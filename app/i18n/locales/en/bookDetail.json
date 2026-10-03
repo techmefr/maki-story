@@ -1,0 +1,12 @@
+{
+    "missing": "This book no longer exists.",
+    "meta": "{pages} pages · {characters} characters",
+    "tags": "Theme and mood",
+    "recording": "Recording",
+    "lines": "{done}/{total} lines",
+    "noVoice": "No voice",
+    "read": "Read the story",
+    "record": "Record",
+    "edit": "Edit",
+    "open": "See details"
+}

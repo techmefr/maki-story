@@ -48,6 +48,7 @@
             <AppButton is-block v-if="target" :to="target.path" data-focus-default @click="emit('close')">
                 <AppIcon :name="target.icon" :size="22" />{{ target.label }}
             </AppButton>
+            <AppButton variant="secondary" is-block icon="book" :to="`/books/${book.id}`" @click="emit('close')">{{ t('bookDetail.open') }}</AppButton>
             <AppButton variant="secondary" is-block v-if="canShare" @click="emit('share', book)">{{ t('books.sheet.share') }}</AppButton>
             <AppButton variant="secondary" is-block @click="emit('close')">{{ t('common.close') }}</AppButton>
         </div>
