@@ -33,5 +33,18 @@
         "loadError": "Couldn’t load the devices.",
         "revokeError": "Couldn’t remove this device.",
         "emptyHint": "Turn on fingerprint or face unlock on a profile to see it here."
+    },
+    "choose": {
+        "title": "Which family?",
+        "intro": "You belong to several families. Your role changes with each family.",
+        "kids": "{count} child | {count} children",
+        "role": {
+            "parent": "Parent",
+            "relative": "Relative"
+        },
+        "join": "Join with a code",
+        "emptyTitle": "No family yet",
+        "emptyHint": "Join a family with an invitation code.",
+        "failed": "This family could not be opened. Try again."
     }
 }

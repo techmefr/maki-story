@@ -33,5 +33,18 @@
         "loadError": "Impossible de charger les appareils.",
         "revokeError": "Impossible de retirer cet appareil.",
         "emptyHint": "Active l’empreinte ou le visage sur un profil pour le voir ici."
+    },
+    "choose": {
+        "title": "Quelle famille ?",
+        "intro": "Tu fais partie de plusieurs familles. Ton rôle change selon la famille.",
+        "kids": "{count} enfant | {count} enfants",
+        "role": {
+            "parent": "Parent",
+            "relative": "Proche"
+        },
+        "join": "Rejoindre avec un code",
+        "emptyTitle": "Aucune famille pour l’instant",
+        "emptyHint": "Rejoins une famille avec un code d’invitation.",
+        "failed": "Impossible d’ouvrir cette famille. Réessaie."
     }
 }

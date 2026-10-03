@@ -46,7 +46,8 @@ export const assertChildConcerned = async (db: Db, accountId: string, familyId: 
 
 export const listMemberships = async (db: Db, accountId: string): Promise<IMembership[]> => {
     return db<IMembership[]>`
-        select ms.family_id, f.name as family_name, ms.member_id, ms.role, ms.status
+        select ms.family_id, f.name as family_name, ms.member_id, ms.role, ms.status,
+            (select count(*)::int from members c where c.family_id = ms.family_id and c.role = 'child' and c.deleted_at is null) as child_count
         from memberships ms join families f on f.id = ms.family_id and f.deleted_at is null
         where ms.account_id = ${accountId} order by ms.created_at
     `
