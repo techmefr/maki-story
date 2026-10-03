@@ -63,7 +63,7 @@ test.describe('authentication', () => {
         await expect(page).toHaveURL(/\/profiles/)
         await page.goto('/login')
         await expect(page).toHaveURL(/\/profiles/)
-        await page.getByRole('button', { name: 'Se déconnecter' }).click()
+        await page.getByRole('button', { name: 'Déconnexion' }).click()
         await expect(page).toHaveURL(/\/login/)
         await page.goto('/home')
         await expect(page).toHaveURL(/\/login/)

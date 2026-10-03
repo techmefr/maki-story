@@ -106,7 +106,7 @@ test.describe('offline books', () => {
         await expect(page.getByText(/Disponible hors ligne · /)).toBeVisible()
         expect(await offlineBookCount(page)).toBe(1)
         await page.goto('/profiles')
-        await page.getByRole('button', { name: 'Se déconnecter' }).click()
+        await page.getByRole('button', { name: 'Déconnexion' }).click()
         await enterPin(page, PROFILE_PIN)
         await expect(page).toHaveURL(/\/login/)
         expect(await offlineBookCount(page)).toBe(0)
