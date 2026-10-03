@@ -1,8 +1,8 @@
-import { TREASURE_LIMIT } from '../../../shared/utils/voices'
-import { getDb } from '../../utils/db'
-import { assertMembersInFamily } from '../../utils/family'
-import { requirePermission } from '../../utils/permissions'
-import { badRequest } from '../../utils/validate'
+import { TREASURE_LIMIT } from '~~/shared/utils/voices'
+import { getDb } from '~~/server/utils/db'
+import { assertMembersInFamily } from '~~/server/utils/family'
+import { requirePermission } from '~~/server/utils/permissions'
+import { badRequest } from '~~/server/utils/validate'
 
 export default defineEventHandler(async (event): Promise<ITreasureBox> => {
     const actor = await requirePermission(event, 'treasure.list')
