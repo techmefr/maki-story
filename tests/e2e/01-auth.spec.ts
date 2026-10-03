@@ -13,6 +13,7 @@ test.describe('authentication', () => {
         const account = uniqueAccount('wrong')
         await signIn(request, account)
         await page.goto('/login')
+        await page.getByRole('tab', { name: 'Mot de passe' }).click()
         await page.getByLabel('E-mail').fill(account.email)
         await page.getByLabel('Mot de passe').fill('nope-nope')
         await page.getByRole('button', { name: 'Se connecter' }).click()
@@ -24,12 +25,22 @@ test.describe('authentication', () => {
         await expect(page).toHaveURL(/\/login/)
     })
 
-    test('toggles password visibility', async ({ page }) => {
+    test('sends a magic link for a known account and says nothing about unknown ones', async ({ page, request }) => {
+        const account = uniqueAccount('magic')
+        await signIn(request, account)
         await page.goto('/login')
-        const field = page.getByLabel('Mot de passe')
-        await expect(field).toHaveAttribute('type', 'password')
-        await page.getByRole('button', { name: 'Voir' }).click()
-        await expect(field).toHaveAttribute('type', 'text')
+        await page.getByLabel('E-mail').fill(account.email)
+        await page.getByRole('button', { name: 'Recevoir mon lien' }).click()
+        await expect(page.getByRole('heading', { name: 'Regarde tes e-mails !' })).toBeVisible()
+        await page.getByRole('button', { name: 'Changer d’adresse' }).click()
+        await page.getByLabel('E-mail').fill('nobody@else.app')
+        await page.getByRole('button', { name: 'Recevoir mon lien' }).click()
+        await expect(page.getByRole('heading', { name: 'Regarde tes e-mails !' })).toBeVisible()
+    })
+
+    test('refuses an unknown magic link token', async ({ page }) => {
+        await page.goto('/magic?token=unknown')
+        await expect(page.getByText('Ce lien a expiré. Demande-en un nouveau.')).toBeVisible()
     })
 
     test('registers a family, keeps the session after a reload, signs out, then signs back in', async ({ page }) => {
@@ -56,6 +67,7 @@ test.describe('authentication', () => {
         await expect(page).toHaveURL(/\/login/)
         await page.goto('/home')
         await expect(page).toHaveURL(/\/login/)
+        await page.getByRole('tab', { name: 'Mot de passe' }).click()
         await page.getByLabel('E-mail').fill(account.email.toUpperCase())
         await page.getByLabel('Mot de passe').fill(account.password)
         await page.getByRole('button', { name: 'Se connecter' }).click()

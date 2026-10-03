@@ -40,7 +40,7 @@ test.describe('responsive layout', () => {
 
     test('the login page fits the screen', async ({ page }) => {
         await page.goto('/login')
-        await expect(page.getByRole('button', { name: 'Se connecter' })).toBeInViewport()
+        await expect(page.getByRole('button', { name: 'Recevoir mon lien' })).toBeInViewport()
         expect(await hasNoHorizontalScroll(page)).toBeTruthy()
     })
 

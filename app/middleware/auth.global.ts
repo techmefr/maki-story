@@ -1,4 +1,4 @@
-const PUBLIC_PATHS = ['/login', '/register']
+const PUBLIC_PATHS = ['/login', '/register', '/magic']
 const OPEN_PREFIXES = ['/join']
 const RELATIVE_LANDING = '/relative'
 const PARENT_ONLY_PREFIXES = ['/family', '/storage']

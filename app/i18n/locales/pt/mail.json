@@ -17,5 +17,9 @@
     "invite": {
         "subject": "Convite para entrares na família {family}",
         "shareText": "{inviter} convida-te a entrares na família {family} no {app}: {link}"
+    },
+    "magic": {
+        "subject": "O teu link de acesso ao Tantara",
+        "body": "Abre este link para entrar: {link}\nÉ válido durante {minutes} minutos e só funciona uma vez."
     }
 }

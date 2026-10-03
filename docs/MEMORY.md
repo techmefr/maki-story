@@ -44,3 +44,4 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-03 : jetons clair/sombre, Nunito retirée (Fredoka seule ; le dépôt n'a que les graisses 500/600/700, pas la 400), audit de contraste.
 - 2026-10-03 : audit refait avec le référentiel nuxt-osdd ; création de `CLAUDE.md` et `docs/`.
 - 2026-10-03 : molécules génériques ajoutées (AppTabs, AppListRow, AppBottomSheet) ; ProfileCard, BookCard et le pavé de code restent dans leurs domaines (Profile, Book) car ils portent des données métier ; la feuille du bas passe à 32 px de rayon.
+- 2026-10-03 : connexion refaite d'après la maquette (lien magique par défaut, mot de passe en second onglet) ; lien magique 15 min, usage unique, haché, migration 0020 ; « mot de passe oublié » renvoie vers le lien magique. Textes de connexion traduits en fr et en seulement, les autres langues retombent sur le français. Code oublié (profil) reste à faire avec le domaine Profile.

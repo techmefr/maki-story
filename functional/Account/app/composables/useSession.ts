@@ -73,6 +73,19 @@ export const useSession = () => {
         return start('/auth/login', { email, password })
     }
 
+    const requestMagicLink = async (email: string, locale: string): Promise<TAuthResult> => {
+        try {
+            await request('/auth/magic', { method: 'POST', body: { email, locale } })
+            return { status: 'ok' }
+        } catch (error) {
+            return toAuthFailure(error)
+        }
+    }
+
+    const verifyMagicLink = (token: string): Promise<TAuthResult> => {
+        return start('/auth/magic/verify', { token })
+    }
+
     const register = (input: IRegisterInput): Promise<TAuthResult> => {
         return start('/auth/register', input)
     }
@@ -114,5 +127,5 @@ export const useSession = () => {
         }
     }
 
-    return { isSignedIn, isRelativeAccount, check, login, register, logout, switchFamily, redeemInvitation }
+    return { isSignedIn, isRelativeAccount, check, login, requestMagicLink, verifyMagicLink, register, logout, switchFamily, redeemInvitation }
 }

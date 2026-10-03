@@ -17,5 +17,9 @@
     "invite": {
         "subject": "Fanasana hiditra amin’ny fianakaviana {family}",
         "shareText": "{inviter} dia manasa anao hiditra amin’ny fianakaviana {family} ao amin’ny {app} : {link}"
+    },
+    "magic": {
+        "subject": "Ny rohy hidirana Tantara",
+        "body": "Sokafy ity rohy ity hiditra: {link}\nManan-kery mandritra ny {minutes} minitra ary indray mandeha ihany."
     }
 }
