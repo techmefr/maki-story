@@ -26,5 +26,24 @@
             "other": "{name} a fini d’enregistrer {count} répliques de « {title} »"
         }
     },
-    "bellNone": "Notifications, aucune nouvelle"
+    "bellNone": "Notifications, aucune nouvelle",
+    "titles": {
+        "share_received": "Livre reçu",
+        "share_accepted": "Partage accepté",
+        "share_declined": "Partage refusé",
+        "share_to_approve": "Partage à valider",
+        "share_approved": "Partage validé",
+        "voice_batch": "Voix ajoutée",
+        "recording_batch": "Enregistrement terminé",
+        "review_result": "Résultat de relecture",
+        "recording_request": "Demande d’enregistrement",
+        "book_proposed": "Livre proposé",
+        "proposal_result": "Réponse à ta proposition",
+        "message_received": "Nouveau message",
+        "birthday_reminder": "Rappel d’anniversaire",
+        "stale_takes": "Prises à refaire"
+    },
+    "allRead": "Tout est lu !",
+    "minutes": "{count} min",
+    "hours": "{count} h"
 }
