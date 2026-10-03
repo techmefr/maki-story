@@ -1,6 +1,7 @@
 import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages } from '~~/server/utils/bookModel'
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
+import { normalizeIsbn } from '~~/server/utils/isbn'
 import { assertFamilyLanguages } from '~~/server/utils/familyLanguages'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
@@ -58,6 +59,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const ageMin = checkAge(body.ageMin)
     const ageMax = checkAge(body.ageMax)
     checkAgeRange(ageMin, ageMax)
+    const isbn = normalizeIsbn(body.isbn)
+    const coverUrl = typeof body.coverUrl === 'string' && body.coverUrl.startsWith('https://') ? body.coverUrl.slice(0, 500) : null
     const language = checkLanguage(body.writtenLanguage ?? body.language ?? 'fr')
     const voiceLanguages = body.voiceLanguages === undefined ? [language] : checkVoiceLanguages(body.voiceLanguages)
     if (body.voiceLanguages !== undefined) {
@@ -114,9 +117,9 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     await assertMembersInFamily(db, familyId, soloMemberId ? [soloMemberId] : [])
     const created = await db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
-            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc)
+            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc, isbn, cover_url)
             values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${language}, ${voiceLanguages}, ${moods}, ${themes}, ${type},
-                ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, ${isProposal ? 'proposed' : 'to_record'}, ${body.imageDesc ?? ''})
+                ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, ${isProposal ? 'proposed' : 'to_record'}, ${body.imageDesc ?? ''}, ${isbn}, ${coverUrl})
             returning id
         `)
         const panelIds = new Map<string, string>()
