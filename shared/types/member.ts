@@ -56,7 +56,13 @@ export interface IMemberCodeUpdate extends IMemberCodeInput {
 }
 
 export interface IMemberSettingsInput {
+    name?: string
     photoFileId?: string | null
     spokenLanguages?: string[]
     appLocale?: string | null
+}
+
+export interface IProfileAccount {
+    email: string
+    hasGoogle: boolean
 }

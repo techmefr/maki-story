@@ -152,24 +152,20 @@ test.describe('shell per role', () => {
         }
     })
 
-    test('the logout icon and the add button ask for a parent code', async ({ page }) => {
+    test('the logout button asks for a parent code and there is no add button', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/profiles')
         await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
-        await expect(page.locator('.profiles .maki, .profiles svg[viewBox="0 0 120 120"]')).toHaveCount(0)
-        await page.getByTestId('add-member').click()
+        await expect(page.locator('.picker-screen .maki, .picker-screen svg[viewBox="0 0 120 120"]')).toHaveCount(0)
+        await expect(page.getByTestId('add-member')).toHaveCount(0)
+        await page.getByTestId('logout').click()
         await expect(page.getByRole('heading', { name: 'Code d’un parent' })).toBeVisible()
         await enterPin(page, '9999')
         await expect(page.getByRole('alert')).toBeVisible()
         await expect(page).toHaveURL(/\/profiles/)
         await page.getByRole('button', { name: 'Annuler' }).click()
-        await page.getByTestId('logout').click()
-        await expect(page.getByRole('heading', { name: 'Code d’un parent' })).toBeVisible()
-        await page.getByRole('button', { name: 'Annuler' }).click()
-        await page.getByTestId('add-member').click()
-        await enterPin(page, PROFILE_PIN)
-        await expect(page).toHaveURL(/\/family\/add/)
+        await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
     })
 
     test('the book search opens from the button, the keyboard and a swipe', async ({ page }) => {

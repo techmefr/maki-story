@@ -6,7 +6,7 @@
         </AppButton>
         <div class="stack unlock__head">
             <AppAvatar :member="member" :size="84" />
-            <div class="subtitle">{{ member.name }}</div>
+            <div class="unlock__name">{{ member.name }}</div>
         </div>
         <template v-if="stage === 'offer'">
             <h2 class="subtitle" tabindex="-1">{{ t('profile.unlock.offerTitle') }}</h2>
@@ -20,8 +20,8 @@
             <p class="muted">{{ t('profile.unlock.blockedBody', { name: member.name }) }}</p>
         </template>
         <template v-else>
-            <h2 class="subtitle" tabindex="-1">{{ heading }}</h2>
-            <p class="muted">{{ hint }}</p>
+            <h2 class="unlock__title" tabindex="-1">{{ heading }}</h2>
+            <p class="unlock__hint">{{ hint }}</p>
             <div v-if="padKind === 'symbols'" class="stack unlock__symbols" :class="{ 'unlock__symbols--shake': isShaking }">
                 <AppMaki :size="72" />
                 <SymbolPad :key="padKey" :is-disabled="isBusy" @submit="onCode" />
@@ -220,8 +220,31 @@ const onCode = async (value: string): Promise<void> => {
     align-self: flex-start;
 }
 
+.unlock {
+    width: 100%;
+    gap: 14px;
+}
+
 .unlock__head {
     align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.unlock__name {
+    font: 700 1.5rem/1.15 var(--font-title);
+    overflow-wrap: anywhere;
+}
+
+.unlock__title {
+    margin: 0;
+    font: 700 1.625rem/1.15 var(--font-title);
+}
+
+.unlock__hint {
+    margin: -6px 0 0;
+    color: var(--ink-soft);
+    font: 500 1.0625rem/1.3 var(--font-body);
 }
 
 .unlock__symbols {

@@ -1,182 +1,168 @@
 <template>
     <div v-if="isOpen && current" class="sheet-backdrop" @click.self="close">
-        <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" aria-labelledby="profile-menu-title">
+        <div v-sheet="close" class="sheet stack pmenu" role="dialog" aria-modal="true" aria-labelledby="profile-menu-title">
             <template v-if="view === 'photo'">
                 <h2 id="profile-menu-title" class="subtitle">{{ t('profile.menu.photoTitle') }}</h2>
                 <PhotoCapture :frame-color="memberHex(current)" @captured="onCaptured" />
                 <p v-if="photoError" class="error" role="alert">{{ photoError }}</p>
-                <AppButton variant="secondary" size="sm" @click="view = 'menu'">{{ t('common.cancel') }}</AppButton>
+                <AppButton variant="secondary" size="sm" icon="back" @click="view = 'menu'">{{ t('common.cancel') }}</AppButton>
             </template>
             <template v-else>
-                <div class="row">
+                <div class="row pmenu__head">
                     <AppAvatar :member="current" :size="64" />
                     <div class="grow">
-                        <h2 id="profile-menu-title" class="subtitle">{{ current.name }}</h2>
-                        <div class="muted">{{ roleLabel(current.role) }}</div>
+                        <h2 id="profile-menu-title" class="pmenu__name">{{ current.name }}</h2>
+                        <div class="pmenu__role">
+                            {{ roleLabel(current.role) }} ·
+                            <button type="button" class="pmenu__photo" @click="view = 'photo'">
+                                <AppIcon name="camera" :size="16" />{{ t('profile.menu.changePhoto') }}
+                            </button>
+                        </div>
                     </div>
-                    <AppButton variant="secondary" size="sm" is-round :aria-label="t('common.close')" data-testid="settings-close" @click="close">
-                        <AppIcon name="close" :size="22" />
-                    </AppButton>
+                    <AppIconButton icon="close" :label="t('common.close')" data-testid="settings-close" @click="close" />
                 </div>
-                <AppButton is-block @click="view = 'photo'">
-                    <AppIcon name="camera" :size="22" motion="wiggle" />
-                    {{ t('profile.menu.changePhoto') }}
-                </AppButton>
-                <p v-if="statusMessage" class="muted" role="status">{{ statusMessage }}</p>
+                <p v-if="statusMessage" class="pmenu__status" role="status">{{ statusMessage }}</p>
                 <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-                <section v-if="isChild ? spoken.length > 0 : true" class="stack menu__section" aria-labelledby="menu-spoken">
-                    <h3 id="menu-spoken" class="label">{{ t('profile.menu.spokenLanguages') }}</h3>
-                    <template v-if="isChild">
-                        <ul class="row row--wrap menu__list">
+                <div class="stack pmenu__list">
+                    <ProfileMenuSection
+                        v-if="!isChild || spoken.length > 0"
+                        :label="t('profile.menu.spokenLanguages')"
+                        :value="t('profile.menu.chosenCount', { count: spoken.length })"
+                        :is-open="openId === 'spoken'"
+                        @toggle="toggleSection('spoken')"
+                    >
+                        <ul v-if="isChild" class="row row--wrap pmenu__readonly">
                             <li v-for="language in spokenOptions" :key="language.code" class="badge">
                                 <FlagIcon :codes="[language.code]" :size="24" aria-hidden="true" />
                                 {{ language.label }}
                             </li>
                         </ul>
-                    </template>
-                    <template v-else>
-                        <p class="muted">{{ t('profile.menu.spokenHint') }}</p>
-                        <LanguagePicker v-model="spokenModel" :label="t('profile.menu.spokenLanguages')" :is-disabled="isBusy" />
-                    </template>
-                </section>
-                <section class="stack menu__section" aria-labelledby="menu-text-size">
-                    <h3 id="menu-text-size" class="label">{{ t('profile.menu.textSize') }}</h3>
-                    <div class="size-picker" role="group" :aria-label="t('profile.menu.textSize')">
-                        <button
-                            v-for="size in textSizes"
-                            :key="size.id"
-                            type="button"
-                            class="chip"
-                            :class="{ 'chip--on': textSizeId === size.id }"
-                            :aria-pressed="textSizeId === size.id"
-                            :data-text-size="size.id"
-                            @click="chooseTextSize(size.id)"
-                        >
-                            <span class="size-picker__a" aria-hidden="true" :style="{ fontSize: `${16 * size.scale}px` }">A</span>
-                            {{ t(`profile.menu.textSizes.${size.id}`) }}
-                        </button>
-                    </div>
-                </section>
-                <section class="stack menu__section" aria-labelledby="menu-theme" data-testid="settings-theme">
-                    <h3 id="menu-theme" class="label">{{ t('profile.menu.theme') }}</h3>
-                    <div class="theme-picker" role="group" :aria-label="t('profile.menu.theme')">
-                        <button
-                            v-for="option in themeOptions"
-                            :key="option.id"
-                            type="button"
-                            class="chip"
-                            :class="{ 'chip--on': themeChoice === option.id }"
-                            :aria-pressed="themeChoice === option.id"
-                            :data-theme-choice="option.id"
-                            @click="chooseTheme(option.id)"
-                        >
-                            <AppIcon :name="option.icon" :size="24" :is-active="themeChoice === option.id" />
-                            {{ t(`profile.menu.themes.${option.id}`) }}
-                        </button>
-                    </div>
-                </section>
-                <section class="stack menu__section" aria-labelledby="menu-locale">
-                    <h3 id="menu-locale" class="label">{{ t('profile.menu.appLanguage') }}</h3>
-                    <div class="row row--wrap" role="group" :aria-label="t('profile.menu.appLanguage')">
-                        <button
-                            type="button"
-                            class="chip menu__chip"
-                            :class="{ 'chip--on': preference === null }"
-                            :aria-pressed="preference === null"
-                            :disabled="isBusy"
-                            @click="chooseLocale(null)"
-                        >
-                            {{ t('profile.menu.automatic') }}
-                        </button>
-                        <button
-                            v-for="language in languages"
-                            :key="language.code"
-                            type="button"
-                            class="chip menu__chip"
-                            :class="{ 'chip--on': preference === language.code }"
-                            :aria-pressed="preference === language.code"
-                            :disabled="isBusy"
-                            :lang="language.code"
-                            @click="chooseLocale(language.code)"
-                        >
-                            <FlagIcon :codes="[language.code]" :size="24" aria-hidden="true" />
-                            {{ language.label }}
-                        </button>
-                    </div>
-                    <p v-if="isDraft" class="muted menu__draft" role="status">{{ t('profile.menu.draftNotice') }}</p>
-                </section>
-                <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-parent">
-                    <h3 id="menu-parent" class="label">{{ t('profile.menu.parentTitle') }}</h3>
-                    <AppButton variant="secondary" is-block to="/notifications" @click="close">
-                        <AppIcon name="bell" :size="22" />{{ t('profile.menu.notifications') }}
-                    </AppButton>
-                    <AppButton variant="secondary" is-block to="/family" @click="close">
-                        <AppIcon name="moon" :size="22" />{{ t('profile.menu.schedule') }}
-                    </AppButton>
-                </section>
-                <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-password">
-                    <h3 id="menu-password" class="label">{{ t('profile.menu.passwordTitle') }}</h3>
-                    <form class="stack" @submit.prevent="changePassword">
-                        <label class="stack menu__field">
-                            <span class="label">{{ t('profile.menu.currentPassword') }}</span>
-                            <input v-model="currentPassword" class="input" type="password" autocomplete="current-password" required />
-                        </label>
-                        <label class="stack menu__field">
-                            <span class="label">{{ t('profile.menu.newPassword') }}</span>
-                            <input v-model="newPassword" class="input" type="password" autocomplete="new-password" :minlength="PASSWORD_MIN_LENGTH" required />
-                        </label>
-                        <label class="stack menu__field">
-                            <span class="label">{{ t('profile.menu.confirmPassword') }}</span>
-                            <input v-model="confirmPassword" class="input" type="password" autocomplete="new-password" required />
-                        </label>
-                        <p v-if="passwordError" class="error" role="alert">{{ passwordError }}</p>
-                        <p v-if="passwordDone" class="muted" role="status">{{ t('profile.menu.passwordDone') }}</p>
-                        <AppButton variant="secondary" is-block type="submit" :disabled="isBusy">{{ t('profile.menu.changePassword') }}</AppButton>
-                    </form>
-                </section>
-                <section v-if="current.role === 'parent'" class="stack menu__section" aria-labelledby="menu-ai">
-                    <h3 id="menu-ai" class="label">{{ t('profile.menu.ai') }}</h3>
-                    <AiQuota v-if="isAiCreationEnabled" />
-                </section>
-                <section class="stack menu__section" aria-labelledby="menu-sounds">
-                    <h3 id="menu-sounds" class="label">{{ t('profile.menu.sounds') }}</h3>
-                    <AppToggle :model-value="isCueOn" @update:model-value="setCueOn">{{ t('profile.menu.soundsOn') }}</AppToggle>
-                    <div class="stack menu__field">
-                        <span id="sound-volume-label" class="label">{{ t('profile.menu.soundsVolume') }}</span>
+                        <template v-else>
+                            <p class="pmenu__hint">{{ t('profile.menu.spokenHint') }}</p>
+                            <div class="row row--wrap" role="group" :aria-label="t('profile.menu.spokenLanguages')">
+                                <ProfileChip
+                                    v-for="language in spokenChoices"
+                                    :key="language.code"
+                                    :selected="spoken.includes(language.code)"
+                                    :disabled="isBusy"
+                                    :lang="language.code"
+                                    @click="toggleSpoken(language.code)"
+                                >
+                                    <FlagIcon :codes="[language.code]" :size="26" aria-hidden="true" />
+                                    {{ language.label }}
+                                </ProfileChip>
+                            </div>
+                        </template>
+                    </ProfileMenuSection>
+                    <ProfileMenuSection
+                        :label="t('profile.menu.appLanguage')"
+                        :value="localeLabel"
+                        :is-open="openId === 'locale'"
+                        @toggle="toggleSection('locale')"
+                    >
+                        <div class="row row--wrap" role="group" :aria-label="t('profile.menu.appLanguage')">
+                            <ProfileChip :selected="preference === null" :disabled="isBusy" @click="chooseLocale(null)">
+                                {{ t('profile.menu.automatic') }}
+                            </ProfileChip>
+                            <ProfileChip
+                                v-for="language in languages"
+                                :key="language.code"
+                                :selected="preference === language.code"
+                                :disabled="isBusy"
+                                :lang="language.code"
+                                @click="chooseLocale(language.code)"
+                            >
+                                <FlagIcon :codes="[language.code]" :size="26" aria-hidden="true" />
+                                {{ language.label }}
+                            </ProfileChip>
+                        </div>
+                        <p v-if="isDraft" class="pmenu__hint menu__draft" role="status">{{ t('profile.menu.draftNotice') }}</p>
+                    </ProfileMenuSection>
+                    <ProfileMenuSection
+                        :label="t('profile.menu.textSize')"
+                        :value="t(`profile.menu.textSizes.${textSizeId}`)"
+                        :is-open="openId === 'size'"
+                        @toggle="toggleSection('size')"
+                    >
+                        <div class="row row--wrap" role="group" :aria-label="t('profile.menu.textSize')">
+                            <ProfileChip
+                                v-for="size in textSizes"
+                                :key="size.id"
+                                :selected="textSizeId === size.id"
+                                :data-text-size="size.id"
+                                @click="chooseTextSize(size.id)"
+                            >
+                                {{ t(`profile.menu.textSizes.${size.id}`) }}
+                            </ProfileChip>
+                        </div>
+                        <AppToggle :model-value="isLearningFont" data-testid="learning-font" @update:model-value="setLearningFont">
+                            {{ t('profile.menu.learningFont') }}
+                        </AppToggle>
+                    </ProfileMenuSection>
+                    <ProfileMenuSection
+                        :label="t('profile.menu.theme')"
+                        :value="t(`profile.menu.themes.${themeChoice}`)"
+                        :is-open="openId === 'theme'"
+                        data-testid="settings-theme"
+                        @toggle="toggleSection('theme')"
+                    >
+                        <div class="row row--wrap" role="group" :aria-label="t('profile.menu.theme')">
+                            <ProfileChip
+                                v-for="option in themeOptions"
+                                :key="option.id"
+                                :selected="themeChoice === option.id"
+                                :data-theme-choice="option.id"
+                                @click="chooseTheme(option.id)"
+                            >
+                                <AppIcon :name="option.icon" :size="20" />
+                                {{ t(`profile.menu.themes.${option.id}`) }}
+                            </ProfileChip>
+                        </div>
+                    </ProfileMenuSection>
+                    <ProfileMenuSection
+                        v-if="!isChild"
+                        :label="t('profile.menu.notifications')"
+                        :is-open="openId === 'notifications'"
+                        @toggle="toggleSection('notifications')"
+                    >
+                        <ProfileNotificationPrefs v-if="openedOnce.has('notifications')" />
+                    </ProfileMenuSection>
+                    <div class="pmenu__sounds">
+                        <AppToggle :model-value="isCueOn" data-testid="sound-toggle" @update:model-value="setCueOn">{{ t('profile.menu.sounds') }}</AppToggle>
                         <AppSlider
+                            v-if="isCueOn"
                             :model-value="cueVolume"
-                            aria-labelledby="sound-volume-label"
+                            :aria-label="t('profile.menu.soundsVolume')"
                             start-icon="mute"
                             end-icon="volume"
-                            :disabled="!isCueOn"
                             @update:model-value="setCueVolume"
                         />
                     </div>
-                    <AppToggle :model-value="isLearningFont" data-testid="learning-font" @update:model-value="setLearningFont">{{ t('profile.menu.learningFont') }}</AppToggle>
-                </section>
-                <AppButton variant="secondary" is-block @click="openSwitcher"><AppIcon name="users" :size="22" />{{ t('profile.switchProfile') }}</AppButton>
-                <AppButton v-if="!isChild" variant="secondary" tone="mint" is-block data-testid="feedback-open" @click="openFeedback">
-                    <AppIcon name="smile" :size="22" />{{ t('profile.menu.feedback') }}
+                    <section v-if="isAiCreationEnabled && current.role === 'parent'" class="pmenu__ai" aria-labelledby="menu-ai">
+                        <h3 id="menu-ai" class="pmenu__subhead">{{ t('profile.menu.ai') }}</h3>
+                        <AiQuota />
+                    </section>
+                </div>
+                <AppButton v-if="!isChild" variant="secondary" tone="mint" icon="pencil" is-block to="/profile/edit" data-testid="profile-edit-open" @click="close">
+                    {{ t('profile.menu.edit') }}
                 </AppButton>
+                <AppButton v-if="current.role === 'parent'" variant="secondary" tone="grape" icon="moon" is-block to="/family/parental" data-testid="parental-open" @click="close">
+                    {{ t('profile.menu.schedule') }}
+                </AppButton>
+                <AppButton variant="secondary" icon="users" is-block data-testid="profile-switch" @click="openSwitcher">{{ t('profile.switchProfile') }}</AppButton>
+                <AppButton v-if="!isChild" variant="secondary" icon="logout" is-block class="pmenu__quit" data-testid="profile-quit" @click="quit">
+                    {{ t('profile.menu.quit') }}
+                </AppButton>
+                <div v-if="!isChild" class="pmenu__feedback">
+                    <AppButton variant="tertiary" icon="smile" data-testid="feedback-open" @click="openFeedback">{{ t('profile.menu.feedback') }}</AppButton>
+                </div>
             </template>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const isAiCreationEnabled = useAiCreationEnabled()
-const PASSWORD_MIN_LENGTH = 8
-
-const { t, isDraft } = useI18n()
-const isOpen = useState<boolean>('profile-menu-open', () => false)
-const isSwitcherOpen = useState<boolean>('switcher-open', () => false)
-const { current, isChild } = useCurrentMember()
-const { updateSettings, changePhoto } = useMembers()
-const { request } = useApi()
-const { isCueOn, cueVolume, setCueOn, setCueVolume, play } = useSoundCues()
-const { languages, preference, setLocale, syncLocale } = useLocale()
-const { isLearningFont, setLearningFont } = useLearningFont()
-const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
+type TSectionId = 'spoken' | 'locale' | 'size' | 'theme' | 'notifications'
 
 const THEME_OPTIONS: { id: TThemeChoice; icon: IconName }[] = [
     { id: 'light', icon: 'sun' },
@@ -184,11 +170,35 @@ const THEME_OPTIONS: { id: TThemeChoice; icon: IconName }[] = [
     { id: 'auto', icon: 'auto' },
 ]
 
-const { choice: themeChoice, choose: chooseTheme } = useTheme()
-const themeOptions = THEME_OPTIONS
+const isAiCreationEnabled = useAiCreationEnabled()
+const { t, isDraft } = useI18n()
+const isOpen = useState<boolean>('profile-menu-open', () => false)
+const isSwitcherOpen = useState<boolean>('switcher-open', () => false)
 const isFeedbackOpen = useState<boolean>('feedback-open', () => false)
 const requestedView = useState<'menu' | 'photo'>('profile-menu-view', () => 'menu')
+const { current, isChild, select } = useCurrentMember()
+const { updateSettings, changePhoto } = useMembers()
+const { logout } = useSession()
+const { isCueOn, cueVolume, setCueOn, setCueVolume, play } = useSoundCues()
+const { languages, preference, setLocale, syncLocale } = useLocale()
+const { isLearningFont, setLearningFont } = useLearningFont()
+const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
+const { choice: themeChoice, choose: chooseTheme } = useTheme()
+const { optionsFor } = useFamilyLanguages()
+
+const themeOptions = THEME_OPTIONS
 const view = ref<'menu' | 'photo'>('menu')
+const openId = ref<TSectionId | null>(null)
+const openedOnce = ref(new Set<TSectionId>())
+const isBusy = ref(false)
+const statusMessage = ref('')
+const errorMessage = ref('')
+const photoError = ref('')
+
+const spoken = computed(() => current.value?.spokenLanguages ?? [])
+const spokenOptions = computed(() => languages.filter(language => spoken.value.includes(language.code)))
+const spokenChoices = computed(() => optionsFor(spoken.value))
+const localeLabel = computed(() => languages.find(language => language.code === preference.value)?.label ?? t('profile.menu.automatic'))
 
 watch(isOpen, value => {
     if (value) {
@@ -197,33 +207,19 @@ watch(isOpen, value => {
     }
 })
 
-const openFeedback = (): void => {
-    close()
-    isFeedbackOpen.value = true
+const toggleSection = (id: TSectionId): void => {
+    openId.value = openId.value === id ? null : id
+    if (openId.value !== null) {
+        openedOnce.value.add(openId.value)
+    }
 }
-const isBusy = ref(false)
-const statusMessage = ref('')
-const errorMessage = ref('')
-const photoError = ref('')
-const currentPassword = ref('')
-const newPassword = ref('')
-const confirmPassword = ref('')
-const passwordError = ref('')
-const passwordDone = ref(false)
-
-const spoken = computed(() => current.value?.spokenLanguages ?? [])
-const spokenOptions = computed(() => languages.filter(language => spoken.value.includes(language.code)))
 
 const reset = (): void => {
     view.value = 'menu'
+    openId.value = null
     statusMessage.value = ''
     errorMessage.value = ''
     photoError.value = ''
-    currentPassword.value = ''
-    newPassword.value = ''
-    confirmPassword.value = ''
-    passwordError.value = ''
-    passwordDone.value = false
 }
 
 const close = (): void => {
@@ -234,6 +230,17 @@ const close = (): void => {
 const openSwitcher = (): void => {
     close()
     isSwitcherOpen.value = true
+}
+
+const openFeedback = (): void => {
+    close()
+    isFeedbackOpen.value = true
+}
+
+const quit = async (): Promise<void> => {
+    close()
+    await select(null)
+    await logout()
 }
 
 const run = async (action: () => Promise<void>): Promise<void> => {
@@ -253,14 +260,14 @@ const run = async (action: () => Promise<void>): Promise<void> => {
     }
 }
 
-const spokenModel = computed({
-    get: () => spoken.value,
-    set: (value: string[]) => {
-        if (current.value) {
-            void run(() => updateSettings(current.value!.id, { spokenLanguages: value }))
-        }
-    },
-})
+const toggleSpoken = (code: string): Promise<void> => {
+    const member = current.value
+    if (!member) {
+        return Promise.resolve()
+    }
+    const next = spoken.value.includes(code) ? spoken.value.filter(item => item !== code) : [...spoken.value, code]
+    return run(() => updateSettings(member.id, { spokenLanguages: next }))
+}
 
 const chooseLocale = (code: string | null): Promise<void> =>
     run(async () => {
@@ -282,63 +289,105 @@ const onCaptured = async (blob: Blob): Promise<void> => {
         photoError.value = t('profile.menu.photoError')
     }
 }
-
-const changePassword = async (): Promise<void> => {
-    passwordError.value = ''
-    passwordDone.value = false
-    if (newPassword.value.length < PASSWORD_MIN_LENGTH) {
-        passwordError.value = t('profile.menu.passwordTooShort', { min: PASSWORD_MIN_LENGTH })
-        return
-    }
-    if (newPassword.value !== confirmPassword.value) {
-        passwordError.value = t('profile.menu.passwordMismatch')
-        return
-    }
-    if (newPassword.value === currentPassword.value) {
-        passwordError.value = t('profile.menu.passwordSame')
-        return
-    }
-    isBusy.value = true
-    try {
-        await request('/auth/password', { method: 'PUT', body: { currentPassword: currentPassword.value, newPassword: newPassword.value } })
-        currentPassword.value = ''
-        newPassword.value = ''
-        confirmPassword.value = ''
-        passwordDone.value = true
-    } catch (error) {
-        const status = (error as { statusCode?: number }).statusCode
-        passwordError.value =
-            status === 403
-                ? t('profile.menu.passwordWrong')
-                : status === 429
-                  ? t('profile.menu.passwordThrottled')
-                  : t('profile.menu.passwordFailed')
-    } finally {
-        isBusy.value = false
-    }
-}
 </script>
 
 <style scoped>
-.menu__section {
-    border-top: 2.5px solid var(--ink);
-    padding-top: 14px;
+.pmenu {
+    gap: 14px;
 }
 
-.menu__list {
-    list-style: none;
-    padding: 0;
+.pmenu__head {
+    gap: 14px;
+}
+
+.pmenu__name {
     margin: 0;
+    font: 700 1.375rem/1.1 var(--font-title);
+    overflow-wrap: anywhere;
 }
 
-.menu__chip {
-    min-height: 44px;
+.pmenu__role {
+    color: var(--ink-soft);
+    font: 500 1rem/1.3 var(--font-body);
+}
+
+.pmenu__photo {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    font: 700 1rem/1.3 var(--font-body);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
 }
 
-.menu__field {
-    gap: 6px;
+.pmenu__status {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 700 0.9375rem/1.3 var(--font-body);
+}
+
+.pmenu__list {
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.pmenu__hint {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 500 0.9375rem/1.3 var(--font-body);
+}
+
+.pmenu__readonly {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pmenu__sounds {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+}
+
+.pmenu__sounds :deep(.toggle) {
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    font: 700 1.125rem/1.2 var(--font-title);
+}
+
+.pmenu__ai {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+}
+
+.pmenu__subhead {
+    margin: 0;
+    font: 700 1.125rem/1.2 var(--font-title);
+}
+
+.pmenu__quit {
+    background: var(--danger-soft);
+}
+
+.pmenu__feedback {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
 }
 </style>
