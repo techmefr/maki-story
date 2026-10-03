@@ -35,7 +35,7 @@
             "huge": "Énorme",
             "max": "Maximum"
         },
-        "sounds": "Sons des boutons",
+        "sounds": "Sons",
         "soundsOn": "Activer les sons",
         "soundsVolume": "Volume des sons",
         "learningFont": "Police de lecture facile",
@@ -47,8 +47,14 @@
         },
         "parentTitle": "Espace parent",
         "notifications": "Notifications",
-        "schedule": "Horaires d’écoute par enfant",
-        "feedback": "Donner mon avis"
+        "schedule": "Contrôle parental",
+        "feedback": "Donner mon avis",
+        "chosenCount": {
+            "one": "{count} choisie",
+            "other": "{count} choisies"
+        },
+        "quit": "Quitter",
+        "edit": "Modifier mon profil"
     },
     "unlock": {
         "offerTitle": "Activer l’empreinte ou le visage ?",
@@ -97,5 +103,21 @@
         "chosen": "{count} symboles sur {total}",
         "clear": "Effacer",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Modifier mon profil",
+        "email": "Adresse e-mail",
+        "emailGoogle": "Connecté avec Google : l’adresse ne se change pas ici.",
+        "emailAccount": "C’est l’adresse de ton compte : elle ne se change pas ici.",
+        "changeCode": "Changer mon code",
+        "account": "Mes données et mon compte",
+        "saveError": "Impossible d’enregistrer pour le moment.",
+        "codeTitle": "Changer mon code",
+        "codeCurrent": "Tape ton code actuel.",
+        "codeNew": "Choisis ton nouveau code, de 4 à 8 chiffres.",
+        "codeConfirm": "Tape le même code une seconde fois.",
+        "codeDone": "Ton code est changé.",
+        "codeBlocked": "Le code actuel est incorrect ou bloqué. Recommence.",
+        "codeFailed": "Impossible de changer le code pour le moment."
     }
 }

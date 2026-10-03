@@ -35,7 +35,7 @@
             "huge": "Huge",
             "max": "Maximum"
         },
-        "sounds": "Button sounds",
+        "sounds": "Sounds",
         "soundsOn": "Turn sounds on",
         "soundsVolume": "Sound volume",
         "learningFont": "Easy-reading font",
@@ -47,8 +47,14 @@
         },
         "parentTitle": "Parent area",
         "notifications": "Notifications",
-        "schedule": "Listening hours per child",
-        "feedback": "Give feedback"
+        "schedule": "Parental control",
+        "feedback": "Give feedback",
+        "chosenCount": {
+            "one": "{count} chosen",
+            "other": "{count} chosen"
+        },
+        "quit": "Quit",
+        "edit": "Edit my profile"
     },
     "unlock": {
         "offerTitle": "Turn on fingerprint or face unlock?",
@@ -97,5 +103,21 @@
         "chosen": "{count} of {total} symbols",
         "clear": "Clear",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Edit my profile",
+        "email": "Email address",
+        "emailGoogle": "Signed in with Google: the address can’t be changed here.",
+        "emailAccount": "This is your account address: it can’t be changed here.",
+        "changeCode": "Change my code",
+        "account": "My data and my account",
+        "saveError": "Couldn’t save right now.",
+        "codeTitle": "Change my code",
+        "codeCurrent": "Type your current code.",
+        "codeNew": "Choose your new code, 4 to 8 digits.",
+        "codeConfirm": "Type the same code a second time.",
+        "codeDone": "Your code has been changed.",
+        "codeBlocked": "The current code is wrong or blocked. Try again.",
+        "codeFailed": "Couldn’t change the code right now."
     }
 }
