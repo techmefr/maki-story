@@ -1,0 +1,10 @@
+{
+    "title": "Livros das crianças",
+    "all": "Todos os livros",
+    "allHint": "A criança vê todos os livros validados.",
+    "restrictedHint": "Escolhe os livros que a criança pode ler.",
+    "emptyTitle": "Nenhum livro validado",
+    "emptyHint": "Os livros validados aparecem aqui.",
+    "menu": "Livros das crianças",
+    "menuHint": "Que livros cada criança pode ler"
+}

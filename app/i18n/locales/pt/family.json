@@ -10,7 +10,24 @@
         "storage": "Armazenamento offline",
         "sharing": "Partilha entre famílias",
         "devices": "Dispositivos",
-        "feedback": "Opiniões dos testadores"
+        "feedback": "Opiniões dos testadores",
+        "groups": {
+            "parent": "Pais",
+            "child": "Crianças",
+            "relative": "Familiares"
+        },
+        "remove": "Remover {name}",
+        "removeAction": "Remover",
+        "confirmTitle": "Remover {name}?",
+        "confirmText": "O perfil será arquivado e as mensagens apagadas.",
+        "confirmParent": "Este pai ou mãe deixará de ter acesso à família. Fica pelo menos outro.",
+        "failed": "A ação não foi concluída. Tenta de novo.",
+        "more": "Mais",
+        "providers": {
+            "title": "Ligações permitidas",
+            "hint": "Escolhe como os familiares e as crianças se podem ligar. O link mágico e o Google estão sempre ativos."
+        },
+        "addChild": "Adicionar uma criança"
     },
     "edit": {
         "title": "Editar",
@@ -33,5 +50,65 @@
         "loadError": "Não foi possível carregar os dispositivos.",
         "revokeError": "Não foi possível remover este dispositivo.",
         "emptyHint": "Ativa a impressão digital ou o rosto num perfil para o ver aqui."
+    },
+    "choose": {
+        "title": "Que família?",
+        "intro": "Fazes parte de várias famílias. O teu papel muda consoante a família.",
+        "kids": {
+            "zero": "Nenhuma criança",
+            "one": "{count} criança",
+            "other": "{count} crianças"
+        },
+        "role": {
+            "parent": "Pai/mãe",
+            "relative": "Familiar"
+        },
+        "join": "Juntar-me com um código",
+        "emptyTitle": "Ainda nenhuma família",
+        "emptyHint": "Junta-te a uma família com um código de convite.",
+        "failed": "Não foi possível abrir esta família. Tenta de novo.",
+        "create": "Criar uma família"
+    },
+    "create": {
+        "progress": "Passo {current} de {total}",
+        "name": {
+            "title": "Cria a tua família",
+            "hint": "Um nome que todos reconheçam.",
+            "placeholder": "Família Rakoto"
+        },
+        "child": {
+            "title": "Adiciona uma criança",
+            "photo": "Foto de careta",
+            "namePlaceholder": "Nome próprio",
+            "age": "Idade"
+        },
+        "childCode": {
+            "title": "Código de {name}"
+        },
+        "parentCode": {
+            "title": "O teu código secreto",
+            "hint": "De 4 a 8 algarismos. Protege o espaço dos pais."
+        },
+        "done": {
+            "title": "{name} está pronta!",
+            "hint": "{name} já tem o seu perfil. Convida agora os familiares que vão emprestar a voz."
+        },
+        "action": {
+            "name": "Continuar",
+            "child": "Continuar",
+            "childCode": "Continuar",
+            "parentCode": "Criar a minha família",
+            "done": "Convidar familiares",
+            "you": "Continuar"
+        },
+        "failed": "Não foi possível criar a família. Tenta de novo.",
+        "you": {
+            "title": "E tu?",
+            "hint": "Como as crianças e os familiares te conhecem.",
+            "firstName": "Nome próprio",
+            "lastName": "Apelido",
+            "displayName": "Nome apresentado",
+            "displayHint": "O nome apresentado é o que os outros veem. Sem escolha, é o teu nome próprio."
+        }
     }
 }

@@ -1,0 +1,29 @@
+{
+    "title": "Controlo parental",
+    "children": "Crianças",
+    "noChildTitle": "Nenhuma criança",
+    "noChildHint": "Adiciona uma criança para escolher as suas horas de bloqueio.",
+    "enabled": "Bloqueio de {name}",
+    "enabledHint": "A app bloqueia-se nas horas escolhidas.",
+    "disabledHint": "A app está sempre disponível.",
+    "days": "Dias bloqueados",
+    "hours": "Horas de bloqueio",
+    "from": "Das",
+    "to": "Até às",
+    "less": "Menos",
+    "more": "Mais",
+    "presets": {
+        "week": "Semana",
+        "weekend": "Fim de semana",
+        "all": "Todos"
+    },
+    "everyDay": "todos os dias",
+    "summary": "{name} não pode usar a app ({days}), das {from} às {to} (no dia seguinte).",
+    "summaryNoDay": "Nenhum dia escolhido para {name}.",
+    "summaryOff": "Sem bloqueio para {name}.",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "failed": "Não foi possível guardar os horários. Tenta de novo.",
+    "menu": "Controlo parental",
+    "menuHint": "Dias e horas de bloqueio por criança"
+}

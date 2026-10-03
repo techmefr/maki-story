@@ -1,0 +1,25 @@
+{
+    "title": "Algunos permisos",
+    "intro": "Tantara los necesita para funcionar. Podrás cambiarlos en los ajustes de tu teléfono.",
+    "listLabel": "Permisos del dispositivo",
+    "mic": {
+        "name": "Micrófono",
+        "why": "Para grabar tu voz en las historias."
+    },
+    "camera": {
+        "name": "Cámara y fotos",
+        "why": "Para la foto de mueca y las fotos de las páginas."
+    },
+    "notifications": {
+        "name": "Notificaciones",
+        "why": "Para avisarte de una voz nueva o de una revisión."
+    },
+    "allow": "Permitir",
+    "allowed": "Permitido",
+    "denied": "Denegado",
+    "unsupported": "No disponible",
+    "deniedHint": "Denegado: puedes activarlo en los ajustes de tu dispositivo.",
+    "unsupportedHint": "Este dispositivo no lo permite.",
+    "continue": "Continuar",
+    "skipHint": "Puedes continuar aunque no permitas todo."
+}

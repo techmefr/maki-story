@@ -1,0 +1,9 @@
+{
+    "title": "O meu cofre",
+    "count": "{count}/{limit}",
+    "emptyTitle": "O teu cofre está vazio",
+    "emptyHint": "Guarda aqui as mensagens das crianças. No máximo 10 recordações.",
+    "remove": "Remover do cofre",
+    "seconds": "{count} s",
+    "open": "O meu cofre"
+}

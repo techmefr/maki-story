@@ -16,5 +16,16 @@
     "submit": "Unirme",
     "failed": "No es posible unirse por ahora.",
     "invalidCredentials": "Revisa tu correo, tu contraseña o la invitación.",
-    "tooMany": "Demasiados intentos, inténtalo más tarde."
+    "tooMany": "Demasiados intentos, inténtalo más tarde.",
+    "progress": "Paso {current} de {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Te unes a {family} como allegado.",
+        "parent": "Te unes a {family} como padre o madre."
+    },
+    "profileTitle": "Crea tu perfil",
+    "namePlaceholder": "Tu nombre",
+    "next": "Continuar",
+    "secretTitle": "Tu código secreto",
+    "secretHint": "De 4 a 8 cifras."
 }

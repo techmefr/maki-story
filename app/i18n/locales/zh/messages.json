@@ -20,7 +20,29 @@
         "tapMic": "点一下麦克风",
         "tooShort": "太短了，再来一次。",
         "sendFailed": "消息没能发出去，再试一次。",
-        "birthdayFor": "给 {name} 的生日留言"
+        "birthdayFor": "给 {name} 的生日留言",
+        "title": "留言",
+        "recipients": "给谁写？",
+        "hintChild": "你的消息会进入 {name} 的信箱（{count}/{limit}）。",
+        "hintAdult": "你的消息会进入 {name} 的信箱（{count}/{limit}）。",
+        "again": "重新录制",
+        "listenBack": "重听",
+        "listenBackLabel": "重听我的留言",
+        "sentTitle": "消息已发送给 {name}！",
+        "sentLeft": {
+            "zero": "{name} 的信箱暂时已满。",
+            "other": "还可以给 {name} 留 {count} 条消息。"
+        },
+        "queuedTitle": "消息等待发送",
+        "queuedBody": "网络恢复后就会发出。",
+        "another": "再留一条",
+        "limitReached": "{name} 已有你的 {limit} 条消息。首次收听 24 小时后它们会消失。",
+        "birthdayToggle": "生日消息",
+        "noRecipients": "没有可以留言的人",
+        "noRecipientsHint": "在家庭中添加孩子或成年人后才能给他们留言。",
+        "micLabel": "麦克风",
+        "duration": "时长 {time}",
+        "close": "关闭"
     },
     "listen": {
         "finished": "播完啦",
@@ -30,7 +52,15 @@
         "next": "下一条消息",
         "nextWaiting": "下一条消息（{count} 条等待中）",
         "again": "再听一次",
-        "previous": "上一条消息"
+        "previous": "上一条消息",
+        "position": "第 {current} 条消息，共 {total} 条",
+        "close": "关闭",
+        "progress": "消息进度",
+        "keep": "存进我的宝箱",
+        "kept": "已存进我的宝箱",
+        "vault": "{count}/{limit} 个珍藏",
+        "vaultFull": "{count}/{limit} 个珍藏 · 宝箱已满",
+        "from": "来自 {name}"
     },
     "strip": {
         "label": "家人的消息",
@@ -40,5 +70,23 @@
     },
     "noOneTitle": "没有可以发消息的人",
     "activeBlocked": "{name} 已经有一条待听的留言。等它被听过并过期后，你才能再发一条。",
-    "birthdayWish": "送上生日祝福"
+    "birthdayWish": "送上生日祝福",
+    "quota": {
+        "label": "{count} 条消息，上限 {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "已给 {name} 留了 {limit} 条消息",
+        "body": "删除一条才能录制新的。",
+        "retract": "删除最早的一条",
+        "failed": "消息未能删除，请重试。"
+    },
+    "expiry": {
+        "hoursMinutes": "{hours} 小时 {minutes} 分钟后消失",
+        "minutes": "{minutes} 分钟后消失",
+        "kept": "已存进宝箱"
+    },
+    "bubble": {
+        "label": "{count} 条消息"
+    }
 }

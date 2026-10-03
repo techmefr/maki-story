@@ -1,0 +1,12 @@
+{
+    "missing": "Este livro já não existe.",
+    "meta": "{pages} páginas · {characters} personagens",
+    "tags": "Universo e ambiente",
+    "recording": "Gravação",
+    "lines": "{done}/{total} linhas",
+    "noVoice": "Sem voz",
+    "read": "Ler a história",
+    "record": "Gravar",
+    "edit": "Editar",
+    "open": "Ver o detalhe"
+}

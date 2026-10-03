@@ -30,7 +30,8 @@
         "page": "Página {current}/{total}",
         "progress": "Progreso de la página",
         "previousPage": "Página anterior",
-        "nextPageShort": "Página siguiente"
+        "nextPageShort": "Página siguiente",
+        "playing": "Reproduciendo"
     },
     "sleep": {
         "title": "A dormir en…",
@@ -67,5 +68,6 @@
         "removeTitle": "¿Quitar este recuerdo?",
         "removeBody": "Se borrará para siempre.",
         "removeConfirm": "Quitar"
-    }
+    },
+    "quota": "{count}/{max} mensajes"
 }

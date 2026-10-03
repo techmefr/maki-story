@@ -1,0 +1,12 @@
+{
+    "missing": "这本书已不存在。",
+    "meta": "{pages} 页 · {characters} 个角色",
+    "tags": "世界与氛围",
+    "recording": "录音",
+    "lines": "{done}/{total} 行",
+    "noVoice": "无声音",
+    "read": "阅读故事",
+    "record": "录音",
+    "edit": "编辑",
+    "open": "查看详情"
+}

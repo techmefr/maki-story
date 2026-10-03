@@ -1,0 +1,15 @@
+{
+    "messages": "Messaggi lasciati",
+    "count": "{count}/{max}",
+    "families": "Famiglie",
+    "resetCode": "Reimposta il suo codice",
+    "codeReset": "Il codice di {name} è stato cancellato: ne verrà chiesto uno nuovo alla prossima apertura.",
+    "makeParent": "Rendi genitore",
+    "makeRelative": "Rendi parente",
+    "nowRole": {
+        "parent": "{name} ora è genitore.",
+        "relative": "{name} ora è parente."
+    },
+    "remove": "Rimuovi dalla famiglia",
+    "failed": "L’azione non è riuscita. Riprova."
+}

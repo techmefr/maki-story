@@ -39,5 +39,23 @@
         "revoked": "已撤销"
     },
     "revoke": "撤销",
-    "revokeAria": "撤销给 {name} 的邀请"
+    "revokeAria": "撤销给 {name} 的邀请",
+    "tabs": {
+        "email": "通过邮箱",
+        "code": "通过代码"
+    },
+    "roleLabel": "角色",
+    "roles": {
+        "relative": "亲友",
+        "parent": "家长"
+    },
+    "roleHint": {
+        "relative": "出借声音，并给孩子们留言。",
+        "parent": "与你一起管理家庭：孩子、图书、代码和登录。"
+    },
+    "emailPlaceholder": "name@example.com",
+    "emailHint": "对方会收到一个链接，用来创建资料并加入家庭。",
+    "sendEmail": "发送邀请",
+    "sentTitle": "邀请已发送",
+    "codeLabel": "邀请码"
 }

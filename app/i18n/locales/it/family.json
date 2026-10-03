@@ -10,7 +10,24 @@
         "storage": "Archiviazione offline",
         "sharing": "Condivisione tra famiglie",
         "devices": "Dispositivi",
-        "feedback": "Opinioni dei tester"
+        "feedback": "Opinioni dei tester",
+        "groups": {
+            "parent": "Genitori",
+            "child": "Bambini",
+            "relative": "Parenti e amici"
+        },
+        "remove": "Rimuovi {name}",
+        "removeAction": "Rimuovi",
+        "confirmTitle": "Rimuovere {name}?",
+        "confirmText": "Il suo profilo verrà archiviato e i suoi messaggi cancellati.",
+        "confirmParent": "Questo genitore non avrà più accesso alla famiglia. Ne resta almeno un altro.",
+        "failed": "L’azione non è riuscita. Riprova.",
+        "more": "Altro",
+        "providers": {
+            "title": "Accessi consentiti",
+            "hint": "Scegli come parenti e bambini possono accedere. Il link magico e Google restano sempre attivi."
+        },
+        "addChild": "Aggiungi un bambino"
     },
     "edit": {
         "title": "Modifica",
@@ -33,5 +50,65 @@
         "loadError": "Impossibile caricare i dispositivi.",
         "revokeError": "Impossibile rimuovere questo dispositivo.",
         "emptyHint": "Attiva l’impronta o il volto su un profilo per vederlo qui."
+    },
+    "choose": {
+        "title": "Quale famiglia?",
+        "intro": "Fai parte di più famiglie. Il tuo ruolo cambia a seconda della famiglia.",
+        "kids": {
+            "zero": "Nessun bambino",
+            "one": "{count} bambino",
+            "other": "{count} bambini"
+        },
+        "role": {
+            "parent": "Genitore",
+            "relative": "Parente"
+        },
+        "join": "Unisciti con un codice",
+        "emptyTitle": "Ancora nessuna famiglia",
+        "emptyHint": "Unisciti a una famiglia con un codice d’invito.",
+        "failed": "Impossibile aprire questa famiglia. Riprova.",
+        "create": "Crea una famiglia"
+    },
+    "create": {
+        "progress": "Passo {current} di {total}",
+        "name": {
+            "title": "Crea la tua famiglia",
+            "hint": "Un nome che tutti riconosceranno.",
+            "placeholder": "Famiglia Rakoto"
+        },
+        "child": {
+            "title": "Aggiungi un bambino",
+            "photo": "Foto smorfia",
+            "namePlaceholder": "Nome",
+            "age": "Età"
+        },
+        "childCode": {
+            "title": "Codice di {name}"
+        },
+        "parentCode": {
+            "title": "Il tuo codice segreto",
+            "hint": "Da 4 a 8 cifre. Protegge l’area dei genitori."
+        },
+        "done": {
+            "title": "{name} è pronta!",
+            "hint": "{name} ha il suo profilo. Invita ora i parenti che presteranno la loro voce."
+        },
+        "action": {
+            "name": "Continua",
+            "child": "Continua",
+            "childCode": "Continua",
+            "parentCode": "Crea la mia famiglia",
+            "done": "Invita i parenti",
+            "you": "Continua"
+        },
+        "failed": "Non è stato possibile creare la famiglia. Riprova.",
+        "you": {
+            "title": "E tu?",
+            "hint": "Come ti conoscono i bambini e i parenti.",
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "displayName": "Nome visualizzato",
+            "displayHint": "Il nome visualizzato è quello che vedono gli altri. Se non scegli, è il tuo nome."
+        }
     }
 }

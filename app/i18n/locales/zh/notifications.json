@@ -23,5 +23,24 @@
             "other": "{name} 录完了《{title}》的 {count} 句台词"
         }
     },
-    "bellNone": "通知，没有新通知"
+    "bellNone": "通知，没有新通知",
+    "titles": {
+        "share_received": "收到图书",
+        "share_accepted": "分享已接受",
+        "share_declined": "分享被拒绝",
+        "share_to_approve": "待审核的分享",
+        "share_approved": "分享已通过",
+        "voice_batch": "已添加声音",
+        "recording_batch": "录音完成",
+        "review_result": "审阅结果",
+        "recording_request": "录音请求",
+        "book_proposed": "已推荐图书",
+        "proposal_result": "你的推荐有了回复",
+        "message_received": "新消息",
+        "birthday_reminder": "生日提醒",
+        "stale_takes": "需要重录的片段"
+    },
+    "allRead": "全部已读！",
+    "minutes": "{count} 分钟",
+    "hours": "{count} 小时"
 }

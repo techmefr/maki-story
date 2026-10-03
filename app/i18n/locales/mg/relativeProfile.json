@@ -1,0 +1,15 @@
+{
+    "messages": "Hafatra navela",
+    "count": "{count}/{max}",
+    "families": "Fianakaviana",
+    "resetCode": "Averina ny kaodiny",
+    "codeReset": "Voafafa ny kaodin’i {name}: hangatahina vaovao rehefa mamoha izy manaraka.",
+    "makeParent": "Ataovy ray aman-dreny",
+    "makeRelative": "Ataovy havana",
+    "nowRole": {
+        "parent": "Ray aman-dreny i {name} izao.",
+        "relative": "Havana i {name} izao."
+    },
+    "remove": "Esory amin’ny fianakaviana",
+    "failed": "Tsy nahomby ny asa. Andramo indray."
+}

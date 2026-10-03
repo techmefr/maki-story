@@ -1,0 +1,9 @@
+{
+    "title": "Meine Schatztruhe",
+    "count": "{count}/{limit}",
+    "emptyTitle": "Deine Schatztruhe ist leer",
+    "emptyHint": "Bewahre hier die Nachrichten der Kinder auf. Höchstens 10 Erinnerungen.",
+    "remove": "Aus der Truhe entfernen",
+    "seconds": "{count} Sek.",
+    "open": "Meine Schatztruhe"
+}

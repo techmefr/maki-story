@@ -1,0 +1,29 @@
+{
+    "title": "Kindersicherung",
+    "children": "Kinder",
+    "noChildTitle": "Kein Kind",
+    "noChildHint": "Füge ein Kind hinzu, um seine Sperrzeiten festzulegen.",
+    "enabled": "Sperre für {name}",
+    "enabledHint": "Die App sperrt sich zu den gewählten Zeiten.",
+    "disabledHint": "Die App ist immer verfügbar.",
+    "days": "Gesperrte Tage",
+    "hours": "Sperrzeiten",
+    "from": "Von",
+    "to": "Bis",
+    "less": "Weniger",
+    "more": "Mehr",
+    "presets": {
+        "week": "Wochentage",
+        "weekend": "Wochenende",
+        "all": "Alle"
+    },
+    "everyDay": "jeden Tag",
+    "summary": "{name} kann die App nicht benutzen ({days}), von {from} bis {to} (am nächsten Tag).",
+    "summaryNoDay": "Kein Tag für {name} gewählt.",
+    "summaryOff": "Keine Sperre für {name}.",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "failed": "Die Zeiten konnten nicht gespeichert werden. Versuche es noch einmal.",
+    "menu": "Kindersicherung",
+    "menuHint": "Sperrtage und -zeiten für jedes Kind"
+}

@@ -1,0 +1,30 @@
+{
+    "title": "Mein Konto",
+    "identity": "{email} · {role}",
+    "loadFailed": "Dein Konto ist im Moment nicht verfügbar.",
+    "parentOnly": "Nur ein Elternteil kann Daten exportieren oder das Konto löschen.",
+    "terms": {
+        "link": "Bedingungen und Datenschutz"
+    },
+    "export": {
+        "title": "Meine Daten exportieren",
+        "text": "Du erhältst per E-Mail einen Link zu einer Datei mit deinen Aufnahmen, den Profilen und dem Lesefortschritt. Der Link ist {days} Tage gültig.",
+        "request": "Export anfordern",
+        "sending": "Wird gesendet …",
+        "sent": "Link per E-Mail gesendet",
+        "failed": "Die E-Mail konnte nicht gesendet werden. Versuche es gleich noch einmal."
+    },
+    "delete": {
+        "title": "Konto löschen",
+        "text": "Alle Aufnahmen, Kinderprofile, Favoriten und Bücher der Familie werden gelöscht. Das lässt sich nicht rückgängig machen.",
+        "start": "Mein Konto löschen",
+        "sheetTitle": "Bist du sicher?",
+        "sheetText": "Tippe zur Bestätigung {word} und dann deinen Elterncode.",
+        "word": "DELETE",
+        "wordLabel": "Bestätigungswort",
+        "codeLabel": "Elterncode",
+        "cancel": "Abbrechen",
+        "wrongCode": "Dieser Code ist nicht richtig.",
+        "failed": "Das Löschen hat nicht geklappt. Versuche es noch einmal."
+    }
+}

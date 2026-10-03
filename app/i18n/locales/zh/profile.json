@@ -48,7 +48,12 @@
         "parentTitle": "家长区",
         "notifications": "通知",
         "schedule": "每个孩子的收听时间",
-        "feedback": "提供反馈"
+        "feedback": "提供反馈",
+        "chosenCount": {
+            "other": "已选 {count} 个"
+        },
+        "quit": "退出",
+        "edit": "编辑我的资料"
     },
     "unlock": {
         "offerTitle": "启用指纹或面容解锁？",
@@ -97,5 +102,21 @@
         "chosen": "已选 {count}/{total} 个符号",
         "clear": "清除",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "编辑我的资料",
+        "email": "电子邮箱",
+        "emailGoogle": "已通过 Google 登录：此处无法更改邮箱。",
+        "emailAccount": "这是你的账户邮箱，不能在这里更改。",
+        "changeCode": "更改我的代码",
+        "account": "我的数据和账户",
+        "saveError": "目前无法保存。",
+        "codeTitle": "更改我的代码",
+        "codeCurrent": "请输入当前代码。",
+        "codeNew": "选择新代码，4 到 8 位数字。",
+        "codeConfirm": "请再输入一次相同的代码。",
+        "codeDone": "你的代码已更改。",
+        "codeBlocked": "当前代码不正确或已被锁定，请重新开始。",
+        "codeFailed": "目前无法更改代码。"
     }
 }

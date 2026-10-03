@@ -105,5 +105,11 @@
         "aVoice": "Una voce",
         "listen": "Ascolta la storia",
         "newVoicesFor": "Nuove voci per {title}"
+    },
+    "summary": {
+        "title": "Avanzamento della revisione",
+        "approved": "{count} approvate",
+        "changes": "{count} da correggere",
+        "waiting": "{count} in attesa"
     }
 }

@@ -16,5 +16,16 @@
     "submit": "Hiditra",
     "failed": "Tsy afaka miditra amin’izao fotoana izao.",
     "invalidCredentials": "Hamarino ny mailaka, ny teny miafina na ny fanasana.",
-    "tooMany": "Be loatra ny andrana, andramo afaka kelikely."
+    "tooMany": "Be loatra ny andrana, andramo afaka kelikely.",
+    "progress": "Dingana {current} amin’ny {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Miditra amin’ny {family} ho havana ianao.",
+        "parent": "Miditra amin’ny {family} ho ray aman-dreny ianao."
+    },
+    "profileTitle": "Foronina ny mombamomba anao",
+    "namePlaceholder": "Ny anaranao",
+    "next": "Tohizo",
+    "secretTitle": "Ny kaody miafinao",
+    "secretHint": "Isa 4 ka hatramin’ny 8."
 }

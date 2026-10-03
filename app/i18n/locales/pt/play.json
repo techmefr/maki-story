@@ -2,5 +2,6 @@
     "lineAria": "Fala {index}",
     "play": "Reproduzir",
     "editRecordings": "Modificar as gravações",
-    "lines": "Falas"
+    "lines": "Falas",
+    "playing": "A reproduzir"
 }

@@ -1,0 +1,67 @@
+{
+    "title": "Etiquetas",
+    "count": {
+        "one": "{count} etiqueta",
+        "other": "{count} etiquetas"
+    },
+    "intro": "Una etiqueta tiene un identificador en inglés y un nombre en cada idioma. Los libros solo guardan el identificador.",
+    "language": "Idioma de visualización de las etiquetas",
+    "new": "Nueva etiqueta",
+    "edit": "Editar la etiqueta {name}",
+    "toTranslate": "{count} por traducir",
+    "auto": "auto",
+    "empty": "Todavía no hay etiquetas",
+    "emptyHint": "Un padre o una madre puede crearlas para clasificar los libros.",
+    "editor": {
+        "newTitle": "Nueva etiqueta",
+        "slug": "Identificador: {slug}",
+        "names": "Nombre por idioma",
+        "nameIn": "Nombre en {language}",
+        "placeholder": "Por traducir",
+        "icon": "Icono",
+        "color": "Color",
+        "save": "Guardar",
+        "delete": "Eliminar",
+        "confirmTitle": "Eliminar la etiqueta",
+        "confirmText": {
+            "zero": "Ningún libro usa esta etiqueta.",
+            "one": "Esta etiqueta se quitará de un libro.",
+            "other": "Esta etiqueta se quitará de {count} libros."
+        },
+        "confirmDelete": "Sí, eliminar"
+    },
+    "colors": {
+        "sun": "Amarillo",
+        "sky": "Azul",
+        "mint": "Menta",
+        "grape": "Violeta",
+        "pink": "Rosa",
+        "coral": "Coral"
+    },
+    "icons": {
+        "hat": "Sombrero",
+        "waves": "Olas",
+        "tree": "Árbol",
+        "star": "Estrella",
+        "crown": "Corona",
+        "paw": "Huella",
+        "moon": "Luna",
+        "heart": "Corazón",
+        "smile": "Sonrisa",
+        "compass": "Brújula",
+        "question": "Signo de interrogación",
+        "book": "Libro",
+        "sun": "Sol",
+        "flag": "Bandera"
+    },
+    "errors": {
+        "save": "No se puede guardar esta etiqueta por ahora.",
+        "name-required": "Ponle al menos un nombre a la etiqueta.",
+        "slug-empty": "Este nombre no permite crear un identificador.",
+        "slug-taken": "Ya existe una etiqueta con este identificador.",
+        "color-invalid": "Elige uno de los colores propuestos.",
+        "icon-invalid": "Elige uno de los iconos propuestos.",
+        "language-invalid": "Este idioma no se reconoce.",
+        "name-too-long": "El nombre de una etiqueta tiene 40 caracteres como máximo."
+    }
+}

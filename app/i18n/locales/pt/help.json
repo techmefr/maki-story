@@ -1,0 +1,33 @@
+{
+    "title": "Ajuda",
+    "otherQuestion": "Outra pergunta?",
+    "writeSupport": "Escrever ao suporte",
+    "legal": "Condições e privacidade",
+    "account": "A minha conta",
+    "faq": {
+        "addRelative": {
+            "q": "Como adiciono um familiar?",
+            "a": "Em «A minha família», um pai ou mãe escolhe «Adicionar um familiar» e envia um convite por e-mail ou dá um código válido durante 48 h."
+        },
+        "fiveMessages": {
+            "q": "Porque só 5 mensagens por criança?",
+            "a": "Para que cada mensagem conte. Um adulto pode deixar até 5 à mesma criança. Basta remover uma para adicionar outra."
+        },
+        "recordVoice": {
+            "q": "Como gravo a minha voz?",
+            "a": "Abre uma história por gravar e toca em «Gravar» na linha da tua personagem. Podes ouvir de novo e recomeçar quantas vezes quiseres."
+        },
+        "forgotCode": {
+            "q": "Esqueci-me do meu código",
+            "a": "Um pai ou mãe pode repor o código de uma criança ou de um familiar em «A minha família». Para o código de um pai, usa o início de sessão por e-mail."
+        },
+        "favoriteVoice": {
+            "q": "Como guardo uma voz preferida?",
+            "a": "Durante a audição, a criança toca no coração. A mensagem vai para o seu cofre, que guarda até 10 recordações."
+        },
+        "otherLanguage": {
+            "q": "Podemos ler noutra língua?",
+            "a": "Sim: uma história pode ter um texto por língua da família. A criança lê na língua escolhida no seu perfil."
+        }
+    }
+}

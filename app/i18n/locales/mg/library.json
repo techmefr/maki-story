@@ -49,7 +49,13 @@
             "legends": "Angano",
             "numbers-letters": "Isa sy litera",
             "daily-life": "Fiainana andavan’andro"
-        }
+        },
+        "open": "Sivana",
+        "title": "Sivana",
+        "reset": "Averina",
+        "show": "Asehoy ny boky",
+        "tag": "Tontolo (tag)",
+        "status": "Toetra"
     },
     "childVisible": {
         "title": "Fahitana ho an’ny zaza",

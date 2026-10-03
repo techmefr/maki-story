@@ -10,7 +10,24 @@
         "storage": "Fitahirizana tsy mila aterineto",
         "sharing": "Fizarana eo amin’ny ankohonana",
         "devices": "Fitaovana",
-        "feedback": "Hevitry ny mpitsapa"
+        "feedback": "Hevitry ny mpitsapa",
+        "groups": {
+            "parent": "Ray aman-dreny",
+            "child": "Ankizy",
+            "relative": "Havana"
+        },
+        "remove": "Esory i {name}",
+        "removeAction": "Esory",
+        "confirmTitle": "Esorina i {name}?",
+        "confirmText": "Hatao arisiva ny mombamomba azy ary ho fafana ny hafatra.",
+        "confirmParent": "Tsy hahazo miditra amin’ny fianakaviana intsony ity ray na reny ity. Mbola misy iray farafahakeliny.",
+        "failed": "Tsy nahomby ny asa. Andramo indray.",
+        "more": "Hafa",
+        "providers": {
+            "title": "Fidirana avela",
+            "hint": "Fidio ny fomba azon’ny havana sy ny ankizy fidirana. Mijanona mandrakariva ny rohy mahagaga sy Google."
+        },
+        "addChild": "Ampio ankizy"
     },
     "edit": {
         "title": "Hanova",
@@ -33,5 +50,65 @@
         "loadError": "Tsy afaka naka ny fitaovana.",
         "revokeError": "Tsy afaka nanala ity fitaovana ity.",
         "emptyHint": "Alefaso ny rantsantanana na ny tarehy amin’ny mombamomba mba hiseho eto."
+    },
+    "choose": {
+        "title": "Fianakaviana iza?",
+        "intro": "Anisan’ny fianakaviana maro ianao. Miova arakaraka ny fianakaviana ny andraikitrao.",
+        "kids": {
+            "zero": "Tsy misy ankizy",
+            "one": "{count} ankizy",
+            "other": "{count} ankizy"
+        },
+        "role": {
+            "parent": "Ray aman-dreny",
+            "relative": "Havana"
+        },
+        "join": "Miditra amin’ny kaody",
+        "emptyTitle": "Mbola tsy misy fianakaviana",
+        "emptyHint": "Miditra amin’ny fianakaviana amin’ny kaody fanasana.",
+        "failed": "Tsy afaka novohana io fianakaviana io. Andramo indray.",
+        "create": "Mamorona fianakaviana"
+    },
+    "create": {
+        "progress": "Dingana {current} amin’ny {total}",
+        "name": {
+            "title": "Foronina ny fianakavianao",
+            "hint": "Anarana fantatry ny rehetra.",
+            "placeholder": "Fianakaviana Rakoto"
+        },
+        "child": {
+            "title": "Ampio ankizy",
+            "photo": "Sary maditra",
+            "namePlaceholder": "Anarana",
+            "age": "Taona"
+        },
+        "childCode": {
+            "title": "Kaodin’i {name}"
+        },
+        "parentCode": {
+            "title": "Ny kaody miafinao",
+            "hint": "Isa 4 ka hatramin’ny 8. Miaro ny faritry ny ray aman-dreny izy."
+        },
+        "done": {
+            "title": "Vonona i {name}!",
+            "hint": "Manana mombamomba i {name}. Asao izao ny havana hamoaka ny feony."
+        },
+        "action": {
+            "name": "Tohizo",
+            "child": "Tohizo",
+            "childCode": "Tohizo",
+            "parentCode": "Foronina ny fianakavianako",
+            "done": "Asao ny havana",
+            "you": "Tohizo"
+        },
+        "failed": "Tsy afaka naforona ny fianakaviana. Andramo indray.",
+        "you": {
+            "title": "Ary ianao?",
+            "hint": "Ny fomba ahafantaran’ny ankizy sy ny havana anao.",
+            "firstName": "Anarana",
+            "lastName": "Fanampin’anarana",
+            "displayName": "Anarana aseho",
+            "displayHint": "Ny anarana aseho no hitan’ny hafa. Raha tsy misy fisafidianana, ny anaranao no ampiasaina."
+        }
     }
 }

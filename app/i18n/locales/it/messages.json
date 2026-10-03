@@ -20,7 +20,30 @@
         "tapMic": "Tocca il microfono",
         "tooShort": "Troppo breve, ricomincia.",
         "sendFailed": "Non è stato possibile inviare il messaggio. Riprova.",
-        "birthdayFor": "Messaggio di compleanno per {name}"
+        "birthdayFor": "Messaggio di compleanno per {name}",
+        "title": "Lascia un messaggio",
+        "recipients": "A chi scrivere?",
+        "hintChild": "Il tuo messaggio andrà nella casella di {name} ({count}/{limit}).",
+        "hintAdult": "Il tuo messaggio andrà nella casella di {name} ({count}/{limit}).",
+        "again": "Registra di nuovo",
+        "listenBack": "Riascolta",
+        "listenBackLabel": "Riascolta il mio messaggio",
+        "sentTitle": "Messaggio inviato a {name}!",
+        "sentLeft": {
+            "zero": "La casella di {name} è piena per ora.",
+            "one": "Resta {count} messaggio possibile per {name}.",
+            "other": "Restano {count} messaggi possibili per {name}."
+        },
+        "queuedTitle": "Messaggio in attesa",
+        "queuedBody": "Partirà appena torna la connessione.",
+        "another": "Un altro messaggio",
+        "limitReached": "{name} ha già {limit} messaggi da te. Spariscono 24 ore dopo il primo ascolto.",
+        "birthdayToggle": "Messaggio di compleanno",
+        "noRecipients": "Nessuno a cui scrivere",
+        "noRecipientsHint": "Aggiungi un bambino o un adulto alla famiglia per lasciargli un messaggio.",
+        "micLabel": "Microfono",
+        "duration": "Durata {time}",
+        "close": "Chiudi"
     },
     "listen": {
         "finished": "Finito",
@@ -30,7 +53,15 @@
         "next": "Messaggio successivo",
         "nextWaiting": "Messaggio successivo ({count} in attesa)",
         "again": "Riascolta",
-        "previous": "Messaggio precedente"
+        "previous": "Messaggio precedente",
+        "position": "Messaggio {current} di {total}",
+        "close": "Chiudi",
+        "progress": "Avanzamento del messaggio",
+        "keep": "Conserva nel mio scrigno",
+        "kept": "Conservato nel mio scrigno",
+        "vault": "{count}/{limit} ricordi",
+        "vaultFull": "{count}/{limit} ricordi · scrigno pieno",
+        "from": "Da {name}"
     },
     "strip": {
         "label": "Messaggi della famiglia",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Nessuno a cui scrivere",
     "activeBlocked": "C’è già un messaggio in attesa per {name}. Potrai inviarne un altro quando sarà stato ascoltato e sarà scaduto.",
-    "birthdayWish": "Augura buon compleanno"
+    "birthdayWish": "Augura buon compleanno",
+    "quota": {
+        "label": "{count} messaggi su {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "Hai già lasciato {limit} messaggi a {name}",
+        "body": "Toglierne uno per poterne registrare uno nuovo.",
+        "retract": "Rimuovi il più vecchio",
+        "failed": "Non è stato possibile rimuovere il messaggio. Riprova."
+    },
+    "expiry": {
+        "hoursMinutes": "Sparisce tra {hours} h {minutes} min",
+        "minutes": "Sparisce tra {minutes} min",
+        "kept": "Conservato nello scrigno"
+    },
+    "bubble": {
+        "label": "{count} messaggi"
+    }
 }

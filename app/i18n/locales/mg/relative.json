@@ -22,5 +22,11 @@
     },
     "joinAnother": "Hiditra amin’ny fianakaviana hafa",
     "openFailed": "Tsy afaka nanokatra io fianakaviana io.",
-    "loadFailed": "Tsy azo ny fianakavianao."
+    "loadFailed": "Tsy azo ny fianakavianao.",
+    "fixes": "Hahitsy",
+    "fixTakes": {
+        "one": "{count} fandraketana havaozina",
+        "other": "{count} fandraketana havaozina"
+    },
+    "redo": "Havaozy ny fandraketana"
 }

@@ -39,5 +39,23 @@
         "revoked": "Revogado"
     },
     "revoke": "Revogar",
-    "revokeAria": "Revogar o convite de {name}"
+    "revokeAria": "Revogar o convite de {name}",
+    "tabs": {
+        "email": "Por e-mail",
+        "code": "Por código"
+    },
+    "roleLabel": "Papel",
+    "roles": {
+        "relative": "Familiar",
+        "parent": "Pai/mãe"
+    },
+    "roleHint": {
+        "relative": "Empresta a sua voz e deixa mensagens às crianças.",
+        "parent": "Gere a família contigo: crianças, livros, códigos e ligações."
+    },
+    "emailPlaceholder": "nome@exemplo.com",
+    "emailHint": "Recebe um link para criar o seu perfil e juntar-se à família.",
+    "sendEmail": "Enviar o convite",
+    "sentTitle": "Convite enviado",
+    "codeLabel": "Código de convite"
 }

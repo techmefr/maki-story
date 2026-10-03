@@ -1,0 +1,29 @@
+{
+    "title": "Fanaraha-maso ray aman-dreny",
+    "children": "Ankizy",
+    "noChildTitle": "Tsy misy ankizy",
+    "noChildHint": "Ampio ankizy mba hifidianana ny ora famehezana azy.",
+    "enabled": "Famehezana an’i {name}",
+    "enabledHint": "Mihidy ny rindranasa amin’ny ora voafidy.",
+    "disabledHint": "Misokatra mandrakariva ny rindranasa.",
+    "days": "Andro mihidy",
+    "hours": "Ora famehezana",
+    "from": "Manomboka",
+    "to": "Hatramin’ny",
+    "less": "Kely kokoa",
+    "more": "Be kokoa",
+    "presets": {
+        "week": "Herinandro",
+        "weekend": "Faran’ny herinandro",
+        "all": "Rehetra"
+    },
+    "everyDay": "isan’andro",
+    "summary": "Tsy afaka mampiasa ny rindranasa i {name} ({days}), manomboka {from} ka hatramin’ny {to} (ny ampitson’iny).",
+    "summaryNoDay": "Tsy misy andro voafidy ho an’i {name}.",
+    "summaryOff": "Tsy misy famehezana ho an’i {name}.",
+    "save": "Tahirizo",
+    "saved": "Voatahiry",
+    "failed": "Tsy voatahiry ny ora. Andramo indray.",
+    "menu": "Fanaraha-maso ray aman-dreny",
+    "menuHint": "Andro sy ora famehezana isaky ny ankizy"
+}

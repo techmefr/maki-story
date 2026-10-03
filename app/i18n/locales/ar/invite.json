@@ -39,5 +39,23 @@
         "revoked": "ملغاة"
     },
     "revoke": "إلغاء",
-    "revokeAria": "إلغاء دعوة {name}"
+    "revokeAria": "إلغاء دعوة {name}",
+    "tabs": {
+        "email": "بالبريد الإلكتروني",
+        "code": "بالرمز"
+    },
+    "roleLabel": "الدور",
+    "roles": {
+        "relative": "قريب",
+        "parent": "والد"
+    },
+    "roleHint": {
+        "relative": "يعير صوته ويترك رسائل للأطفال.",
+        "parent": "يدير العائلة معك: الأطفال والكتب والرموز وطرق الاتصال."
+    },
+    "emailPlaceholder": "name@example.com",
+    "emailHint": "يتلقى رابطًا لإنشاء ملفه الشخصي والانضمام إلى العائلة.",
+    "sendEmail": "إرسال الدعوة",
+    "sentTitle": "تم إرسال الدعوة",
+    "codeLabel": "رمز الدعوة"
 }

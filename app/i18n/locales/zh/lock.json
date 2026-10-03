@@ -1,0 +1,29 @@
+{
+    "title": "家长控制",
+    "children": "孩子",
+    "noChildTitle": "没有孩子",
+    "noChildHint": "添加孩子后可设置其锁定时间。",
+    "enabled": "{name} 的锁定",
+    "enabledHint": "应用会在所选时间锁定。",
+    "disabledHint": "应用始终可用。",
+    "days": "锁定的日子",
+    "hours": "锁定时间",
+    "from": "从",
+    "to": "到",
+    "less": "减少",
+    "more": "增加",
+    "presets": {
+        "week": "工作日",
+        "weekend": "周末",
+        "all": "每天"
+    },
+    "everyDay": "每天",
+    "summary": "{name} 不能使用应用（{days}），从 {from} 到 {to}（次日）。",
+    "summaryNoDay": "没有为 {name} 选择日期。",
+    "summaryOff": "{name} 没有锁定。",
+    "save": "保存",
+    "saved": "已保存",
+    "failed": "时间未能保存，请重试。",
+    "menu": "家长控制",
+    "menuHint": "按孩子设置锁定的日期和时间"
+}

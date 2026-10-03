@@ -26,5 +26,24 @@
             "other": "{name} hat {count} Sprechtexte aus „{title}“ fertig aufgenommen"
         }
     },
-    "bellNone": "Benachrichtigungen, keine neuen"
+    "bellNone": "Benachrichtigungen, keine neuen",
+    "titles": {
+        "share_received": "Buch erhalten",
+        "share_accepted": "Teilen akzeptiert",
+        "share_declined": "Teilen abgelehnt",
+        "share_to_approve": "Teilen zu bestätigen",
+        "share_approved": "Teilen bestätigt",
+        "voice_batch": "Stimme hinzugefügt",
+        "recording_batch": "Aufnahme beendet",
+        "review_result": "Ergebnis der Durchsicht",
+        "recording_request": "Aufnahmeanfrage",
+        "book_proposed": "Buch vorgeschlagen",
+        "proposal_result": "Antwort auf deinen Vorschlag",
+        "message_received": "Neue Nachricht",
+        "birthday_reminder": "Geburtstagserinnerung",
+        "stale_takes": "Aufnahmen zu wiederholen"
+    },
+    "allRead": "Alles gelesen!",
+    "minutes": "{count} Min.",
+    "hours": "{count} Std."
 }

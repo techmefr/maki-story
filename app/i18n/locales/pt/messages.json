@@ -20,7 +20,30 @@
         "tapMic": "Toque no microfone",
         "tooShort": "Muito curto, comece de novo.",
         "sendFailed": "Não foi possível enviar a mensagem. Tente de novo.",
-        "birthdayFor": "Mensagem de aniversário para {name}"
+        "birthdayFor": "Mensagem de aniversário para {name}",
+        "title": "Deixar uma mensagem",
+        "recipients": "A quem escrever?",
+        "hintChild": "A tua mensagem irá para a caixa de {name} ({count}/{limit}).",
+        "hintAdult": "A tua mensagem irá para a caixa de {name} ({count}/{limit}).",
+        "again": "Gravar de novo",
+        "listenBack": "Ouvir de novo",
+        "listenBackLabel": "Ouvir a minha mensagem",
+        "sentTitle": "Mensagem enviada a {name}!",
+        "sentLeft": {
+            "zero": "A caixa de {name} está cheia por agora.",
+            "one": "Resta {count} mensagem possível para {name}.",
+            "other": "Restam {count} mensagens possíveis para {name}."
+        },
+        "queuedTitle": "Mensagem em espera",
+        "queuedBody": "Seguirá assim que a ligação voltar.",
+        "another": "Outra mensagem",
+        "limitReached": "{name} já tem {limit} mensagens tuas. Desaparecem 24 h depois de serem ouvidas pela primeira vez.",
+        "birthdayToggle": "Mensagem de aniversário",
+        "noRecipients": "Ninguém a quem escrever",
+        "noRecipientsHint": "Adiciona uma criança ou um adulto na família para lhe deixares uma mensagem.",
+        "micLabel": "Microfone",
+        "duration": "Duração {time}",
+        "close": "Fechar"
     },
     "listen": {
         "finished": "Acabou",
@@ -30,7 +53,15 @@
         "next": "Próxima mensagem",
         "nextWaiting": "Próxima mensagem ({count} aguardando)",
         "again": "Ouvir de novo",
-        "previous": "Mensagem anterior"
+        "previous": "Mensagem anterior",
+        "position": "Mensagem {current} de {total}",
+        "close": "Fechar",
+        "progress": "Progresso da mensagem",
+        "keep": "Guardar no meu cofre",
+        "kept": "Guardada no meu cofre",
+        "vault": "{count}/{limit} recordações",
+        "vaultFull": "{count}/{limit} recordações · cofre cheio",
+        "from": "De {name}"
     },
     "strip": {
         "label": "Mensagens da família",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Ninguém a quem escrever",
     "activeBlocked": "Já há uma mensagem à espera de {name}. Poderás enviar outra quando for ouvida e expirar.",
-    "birthdayWish": "Desejar feliz aniversário"
+    "birthdayWish": "Desejar feliz aniversário",
+    "quota": {
+        "label": "{count} mensagens de {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "Já deixaste {limit} mensagens a {name}",
+        "body": "Remove uma para poderes gravar uma nova.",
+        "retract": "Remover a mais antiga",
+        "failed": "Não foi possível remover a mensagem. Tenta de novo."
+    },
+    "expiry": {
+        "hoursMinutes": "Desaparece dentro de {hours} h {minutes} min",
+        "minutes": "Desaparece dentro de {minutes} min",
+        "kept": "Guardada no cofre"
+    },
+    "bubble": {
+        "label": "{count} mensagens"
+    }
 }

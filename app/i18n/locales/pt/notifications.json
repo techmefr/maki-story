@@ -26,5 +26,24 @@
             "other": "{name} terminou de gravar {count} falas de “{title}”"
         }
     },
-    "bellNone": "Notificações, nenhuma nova"
+    "bellNone": "Notificações, nenhuma nova",
+    "titles": {
+        "share_received": "Livro recebido",
+        "share_accepted": "Partilha aceite",
+        "share_declined": "Partilha recusada",
+        "share_to_approve": "Partilha por validar",
+        "share_approved": "Partilha validada",
+        "voice_batch": "Voz adicionada",
+        "recording_batch": "Gravação terminada",
+        "review_result": "Resultado da revisão",
+        "recording_request": "Pedido de gravação",
+        "book_proposed": "Livro proposto",
+        "proposal_result": "Resposta à tua proposta",
+        "message_received": "Mensagem nova",
+        "birthday_reminder": "Lembrete de aniversário",
+        "stale_takes": "Takes a repetir"
+    },
+    "allRead": "Tudo lido!",
+    "minutes": "{count} min",
+    "hours": "{count} h"
 }

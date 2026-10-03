@@ -22,5 +22,11 @@
     },
     "joinAnother": "Einer weiteren Familie beitreten",
     "openFailed": "Diese Familie konnte nicht geöffnet werden.",
-    "loadFailed": "Deine Familien konnten nicht geladen werden."
+    "loadFailed": "Deine Familien konnten nicht geladen werden.",
+    "fixes": "Zu korrigieren",
+    "fixTakes": {
+        "one": "{count} Aufnahme zu wiederholen",
+        "other": "{count} Aufnahmen zu wiederholen"
+    },
+    "redo": "Aufnahmen wiederholen"
 }

@@ -1,0 +1,30 @@
+{
+    "title": "A minha conta",
+    "identity": "{email} · {role}",
+    "loadFailed": "A tua conta não está disponível de momento.",
+    "parentOnly": "Só um pai ou uma mãe pode exportar os dados ou eliminar a conta.",
+    "terms": {
+        "link": "Condições e privacidade"
+    },
+    "export": {
+        "title": "Exportar os meus dados",
+        "text": "Recebe por e-mail um link para um ficheiro com as tuas gravações, os perfis e o progresso de leitura. O link é válido durante {days} dias.",
+        "request": "Pedir a minha exportação",
+        "sending": "A enviar…",
+        "sent": "Link enviado por e-mail",
+        "failed": "Não foi possível enviar o e-mail. Tenta de novo daqui a pouco."
+    },
+    "delete": {
+        "title": "Eliminar a conta",
+        "text": "Todas as gravações, perfis de crianças, favoritos e livros da família serão apagados. Esta ação é definitiva.",
+        "start": "Eliminar a minha conta",
+        "sheetTitle": "Tens a certeza?",
+        "sheetText": "Para confirmar, escreve {word} e depois o teu código de pai ou mãe.",
+        "word": "DELETE",
+        "wordLabel": "Palavra de confirmação",
+        "codeLabel": "Código do pai ou da mãe",
+        "cancel": "Cancelar",
+        "wrongCode": "Este código não está correto.",
+        "failed": "Não foi possível eliminar. Tenta de novo."
+    }
+}

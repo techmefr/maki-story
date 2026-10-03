@@ -1,0 +1,12 @@
+{
+    "missing": "Questo libro non esiste più.",
+    "meta": "{pages} pagine · {characters} personaggi",
+    "tags": "Universo e atmosfera",
+    "recording": "Registrazione",
+    "lines": "{done}/{total} righe",
+    "noVoice": "Senza voce",
+    "read": "Leggi la storia",
+    "record": "Registra",
+    "edit": "Modifica",
+    "open": "Vedi i dettagli"
+}

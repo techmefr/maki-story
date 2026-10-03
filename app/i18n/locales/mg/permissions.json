@@ -1,0 +1,25 @@
+{
+    "title": "Fahazoan-dalana vitsivitsy",
+    "intro": "Ilain’i Tantara izany mba hiasa. Azonao ovaina ao amin’ny fanamafisana ny findainao.",
+    "listLabel": "Fahazoan-dalana amin’ny fitaovana",
+    "mic": {
+        "name": "Mikrô",
+        "why": "Hamandrihana ny feonao amin’ny tantara."
+    },
+    "camera": {
+        "name": "Fakan-tsary sy sary",
+        "why": "Ho an’ny sary maditra sy ny sarin’ny pejy."
+    },
+    "notifications": {
+        "name": "Fampandrenesana",
+        "why": "Hampandrenesana anao rehefa misy feo vaovao na famerenana."
+    },
+    "allow": "Avelao",
+    "allowed": "Voaray",
+    "denied": "Nolavina",
+    "unsupported": "Tsy misy",
+    "deniedHint": "Nolavina: azonao ampiasaina ao amin’ny fanamafisana ny fitaovanao.",
+    "unsupportedHint": "Tsy eken’ity fitaovana ity izany.",
+    "continue": "Tohizo",
+    "skipHint": "Azonao atohy na dia tsy navela rehetra aza."
+}

@@ -1,0 +1,20 @@
+{
+    "skip": "Alefaso",
+    "next": "Manaraka",
+    "start": "Atombohy",
+    "progress": "Dingana {current} amin’ny {total}",
+    "slides": {
+        "welcome": {
+            "title": "Tonga soa eto amin’i Tantara",
+            "text": "Tantara alina, ambara amin’ny feon’ireo tiantsika."
+        },
+        "voices": {
+            "title": "Samy mampindrana ny feony",
+            "text": "Neny, dadabe, nenibe… samy mandrakitra mpilalao, na dia lavitra aza."
+        },
+        "listen": {
+            "title": "Mihaino sy mitahiry ny ankizy",
+            "text": "Mamadika pejy izy, mahita indray ny feo tiany indrindra ary mitahiry ny fahatsiarovany ao amin’ny vatam-bolany."
+        }
+    }
+}

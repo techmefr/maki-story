@@ -16,5 +16,16 @@
     "submit": "Beitreten",
     "failed": "Beitritt gerade nicht möglich.",
     "invalidCredentials": "Prüfe E-Mail, Passwort oder Einladung.",
-    "tooMany": "Zu viele Versuche, versuche es später erneut."
+    "tooMany": "Zu viele Versuche, versuche es später erneut.",
+    "progress": "Schritt {current} von {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Du trittst {family} als Verwandte/r bei.",
+        "parent": "Du trittst {family} als Elternteil bei."
+    },
+    "profileTitle": "Erstelle dein Profil",
+    "namePlaceholder": "Dein Vorname",
+    "next": "Weiter",
+    "secretTitle": "Dein Geheimcode",
+    "secretHint": "4 bis 8 Ziffern."
 }

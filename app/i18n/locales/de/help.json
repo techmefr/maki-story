@@ -1,0 +1,33 @@
+{
+    "title": "Hilfe",
+    "otherQuestion": "Noch eine Frage?",
+    "writeSupport": "Support schreiben",
+    "legal": "Bedingungen und Datenschutz",
+    "account": "Mein Konto",
+    "faq": {
+        "addRelative": {
+            "q": "Wie füge ich Verwandte hinzu?",
+            "a": "Unter „Meine Familie“ wählt ein Elternteil „Verwandte hinzufügen“ und schickt eine Einladung per E-Mail oder gibt einen Code, der 48 Stunden gilt."
+        },
+        "fiveMessages": {
+            "q": "Warum nur 5 Nachrichten pro Kind?",
+            "a": "Damit jede Nachricht zählt. Ein Erwachsener kann demselben Kind bis zu 5 hinterlassen. Entferne eine, um eine neue hinzuzufügen."
+        },
+        "recordVoice": {
+            "q": "Wie nehme ich meine Stimme auf?",
+            "a": "Öffne eine Geschichte zum Aufnehmen und tippe bei der Zeile deiner Figur auf „Aufnehmen“. Du kannst so oft anhören und neu beginnen, wie du möchtest."
+        },
+        "forgotCode": {
+            "q": "Ich habe meinen Code vergessen",
+            "a": "Ein Elternteil kann den Code eines Kindes oder Verwandten unter „Meine Familie“ zurücksetzen. Für den Code eines Elternteils nutze die Anmeldung per E-Mail."
+        },
+        "favoriteVoice": {
+            "q": "Wie behalte ich eine Lieblingsstimme?",
+            "a": "Beim Zuhören tippt das Kind auf das Herz. Die Nachricht landet in seiner Schatztruhe, die bis zu 10 Erinnerungen aufbewahrt."
+        },
+        "otherLanguage": {
+            "q": "Kann man in einer anderen Sprache lesen?",
+            "a": "Ja: Eine Geschichte kann pro Familiensprache einen Text haben. Das Kind liest in der Sprache, die in seinem Profil gewählt ist."
+        }
+    }
+}

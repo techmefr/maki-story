@@ -48,7 +48,13 @@
         "parentTitle": "Área dos pais",
         "notifications": "Notificações",
         "schedule": "Horários de escuta por criança",
-        "feedback": "Dar minha opinião"
+        "feedback": "Dar minha opinião",
+        "chosenCount": {
+            "one": "{count} escolhida",
+            "other": "{count} escolhidas"
+        },
+        "quit": "Sair",
+        "edit": "Editar o meu perfil"
     },
     "unlock": {
         "offerTitle": "Ativar a impressão digital ou o rosto?",
@@ -97,5 +103,21 @@
         "chosen": "{count} de {total} símbolos",
         "clear": "Apagar",
         "ok": "OK"
+    },
+    "edit": {
+        "title": "Editar o meu perfil",
+        "email": "Endereço de e-mail",
+        "emailGoogle": "Ligado com o Google: o endereço não se altera aqui.",
+        "emailAccount": "É o endereço da tua conta: não se altera aqui.",
+        "changeCode": "Alterar o meu código",
+        "account": "Os meus dados e a minha conta",
+        "saveError": "Não é possível guardar de momento.",
+        "codeTitle": "Alterar o meu código",
+        "codeCurrent": "Escreve o teu código atual.",
+        "codeNew": "Escolhe o teu novo código, de 4 a 8 algarismos.",
+        "codeConfirm": "Escreve o mesmo código uma segunda vez.",
+        "codeDone": "O teu código foi alterado.",
+        "codeBlocked": "O código atual está incorreto ou bloqueado. Recomeça.",
+        "codeFailed": "Não é possível alterar o código de momento."
     }
 }

@@ -1,0 +1,12 @@
+{
+    "missing": "Dieses Buch gibt es nicht mehr.",
+    "meta": "{pages} Seiten · {characters} Figuren",
+    "tags": "Welt und Stimmung",
+    "recording": "Aufnahme",
+    "lines": "{done}/{total} Zeilen",
+    "noVoice": "Ohne Stimme",
+    "read": "Geschichte lesen",
+    "record": "Aufnehmen",
+    "edit": "Bearbeiten",
+    "open": "Details ansehen"
+}

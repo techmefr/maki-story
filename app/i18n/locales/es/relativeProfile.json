@@ -1,0 +1,15 @@
+{
+    "messages": "Mensajes dejados",
+    "count": "{count}/{max}",
+    "families": "Familias",
+    "resetCode": "Restablecer su código",
+    "codeReset": "El código de {name} se ha borrado: se pedirá uno nuevo la próxima vez que abra la app.",
+    "makeParent": "Pasar a padre o madre",
+    "makeRelative": "Pasar a allegado",
+    "nowRole": {
+        "parent": "{name} ahora es padre o madre.",
+        "relative": "{name} ahora es allegado."
+    },
+    "remove": "Retirar de la familia",
+    "failed": "La acción no se pudo completar. Inténtalo de nuevo."
+}

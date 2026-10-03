@@ -105,5 +105,11 @@
         "aVoice": "صوت",
         "listen": "استمع إلى القصة",
         "newVoicesFor": "أصوات جديدة لـ {title}"
+    },
+    "summary": {
+        "title": "تقدّم المراجعة",
+        "approved": "{count} معتمدة",
+        "changes": "{count} للتصحيح",
+        "waiting": "{count} قيد الانتظار"
     }
 }

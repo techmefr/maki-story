@@ -39,6 +39,9 @@
     },
     "locked": {
         "clock": "Uhrzeit, ab der wieder gehört wird",
-        "toParent": "Zu einem Elternteil wechseln"
+        "toParent": "Zu einem Elternteil wechseln",
+        "title": "Die App schläft, {name}",
+        "wakesAt": "Sie wacht um {time} wieder auf.",
+        "tomorrow": "Bis bald für neue Geschichten!"
     }
 }

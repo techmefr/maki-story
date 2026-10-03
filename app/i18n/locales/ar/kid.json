@@ -30,7 +30,8 @@
         "page": "الصفحة {current}/{total}",
         "progress": "تقدم الصفحة",
         "previousPage": "الصفحة السابقة",
-        "nextPageShort": "الصفحة التالية"
+        "nextPageShort": "الصفحة التالية",
+        "playing": "قيد التشغيل"
     },
     "sleep": {
         "title": "النوم بعد…",
@@ -71,5 +72,6 @@
         "removeTitle": "هل تريد إزالة هذه الذكرى؟",
         "removeBody": "ستُحذف للأبد.",
         "removeConfirm": "إزالة"
-    }
+    },
+    "quota": "{count}/{max} رسائل"
 }

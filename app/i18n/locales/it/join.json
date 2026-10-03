@@ -16,5 +16,16 @@
     "submit": "Unisciti",
     "failed": "Impossibile unirsi per ora.",
     "invalidCredentials": "Controlla e-mail, password o invito.",
-    "tooMany": "Troppi tentativi, riprova più tardi."
+    "tooMany": "Troppi tentativi, riprova più tardi.",
+    "progress": "Passo {current} di {total}",
+    "codePlaceholder": "ABC123",
+    "banner": {
+        "relative": "Ti unisci a {family} come parente.",
+        "parent": "Ti unisci a {family} come genitore."
+    },
+    "profileTitle": "Crea il tuo profilo",
+    "namePlaceholder": "Il tuo nome",
+    "next": "Continua",
+    "secretTitle": "Il tuo codice segreto",
+    "secretHint": "Da 4 a 8 cifre."
 }

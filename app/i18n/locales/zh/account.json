@@ -1,0 +1,30 @@
+{
+    "title": "我的账户",
+    "identity": "{email} · {role}",
+    "loadFailed": "你的账户暂时无法使用。",
+    "parentOnly": "只有家长可以导出数据或删除账户。",
+    "terms": {
+        "link": "条款与隐私"
+    },
+    "export": {
+        "title": "导出我的数据",
+        "text": "通过电子邮件收到一个链接，指向包含你的录音、个人资料和阅读进度的文件。链接有效期为 {days} 天。",
+        "request": "申请导出",
+        "sending": "发送中…",
+        "sent": "链接已通过电子邮件发送",
+        "failed": "邮件未能发出，请稍后再试。"
+    },
+    "delete": {
+        "title": "删除账户",
+        "text": "家庭的所有录音、儿童资料、收藏和图书都将被删除，此操作无法撤销。",
+        "start": "删除我的账户",
+        "sheetTitle": "你确定吗？",
+        "sheetText": "请输入 {word}，然后输入家长密码以确认。",
+        "word": "DELETE",
+        "wordLabel": "确认词",
+        "codeLabel": "家长密码",
+        "cancel": "取消",
+        "wrongCode": "密码不正确。",
+        "failed": "删除未成功，请重试。"
+    }
+}

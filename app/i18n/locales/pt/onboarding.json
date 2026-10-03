@@ -1,0 +1,20 @@
+{
+    "skip": "Saltar",
+    "next": "Seguinte",
+    "start": "Começar",
+    "progress": "Passo {current} de {total}",
+    "slides": {
+        "welcome": {
+            "title": "Bem-vindo ao Tantara",
+            "text": "As histórias de adormecer, contadas com a voz de quem amamos."
+        },
+        "voices": {
+            "title": "Cada um empresta a sua voz",
+            "text": "Mamã, avô, avó… cada um grava uma personagem, mesmo de longe."
+        },
+        "listen": {
+            "title": "A criança ouve e guarda",
+            "text": "Vira as páginas, reencontra as suas vozes preferidas e guarda as recordações no seu cofre."
+        }
+    }
+}

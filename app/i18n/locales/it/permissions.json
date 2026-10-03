@@ -1,0 +1,25 @@
+{
+    "title": "Alcune autorizzazioni",
+    "intro": "Tantara ne ha bisogno per funzionare. Potrai cambiarle nelle impostazioni del telefono.",
+    "listLabel": "Autorizzazioni del dispositivo",
+    "mic": {
+        "name": "Microfono",
+        "why": "Per registrare la tua voce sulle storie."
+    },
+    "camera": {
+        "name": "Fotocamera e foto",
+        "why": "Per la foto smorfia e le foto delle pagine."
+    },
+    "notifications": {
+        "name": "Notifiche",
+        "why": "Per avvisarti di una nuova voce o di una revisione."
+    },
+    "allow": "Consenti",
+    "allowed": "Consentito",
+    "denied": "Negato",
+    "unsupported": "Non disponibile",
+    "deniedHint": "Negato: puoi attivarlo nelle impostazioni del dispositivo.",
+    "unsupportedHint": "Questo dispositivo non lo permette.",
+    "continue": "Continua",
+    "skipHint": "Puoi continuare anche senza consentire tutto."
+}

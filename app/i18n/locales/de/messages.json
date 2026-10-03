@@ -20,7 +20,30 @@
         "tapMic": "Tippe auf das Mikrofon",
         "tooShort": "Zu kurz, versuch es noch einmal.",
         "sendFailed": "Die Nachricht konnte nicht gesendet werden. Versuch es noch einmal.",
-        "birthdayFor": "Geburtstagsnachricht für {name}"
+        "birthdayFor": "Geburtstagsnachricht für {name}",
+        "title": "Eine Nachricht hinterlassen",
+        "recipients": "An wen schreiben?",
+        "hintChild": "Deine Nachricht landet im Postfach von {name} ({count}/{limit}).",
+        "hintAdult": "Deine Nachricht landet im Postfach von {name} ({count}/{limit}).",
+        "again": "Neu aufnehmen",
+        "listenBack": "Anhören",
+        "listenBackLabel": "Meine Nachricht anhören",
+        "sentTitle": "Nachricht an {name} gesendet!",
+        "sentLeft": {
+            "zero": "Das Postfach von {name} ist im Moment voll.",
+            "one": "Noch {count} Nachricht für {name} möglich.",
+            "other": "Noch {count} Nachrichten für {name} möglich."
+        },
+        "queuedTitle": "Nachricht wartet",
+        "queuedBody": "Sie wird gesendet, sobald die Verbindung zurück ist.",
+        "another": "Eine weitere Nachricht",
+        "limitReached": "{name} hat schon {limit} Nachrichten von dir. Sie verschwinden 24 Std. nach dem ersten Anhören.",
+        "birthdayToggle": "Geburtstagsnachricht",
+        "noRecipients": "Niemand zum Schreiben",
+        "noRecipientsHint": "Füge ein Kind oder einen Erwachsenen in der Familie hinzu, um eine Nachricht zu hinterlassen.",
+        "micLabel": "Mikrofon",
+        "duration": "Dauer {time}",
+        "close": "Schließen"
     },
     "listen": {
         "finished": "Fertig",
@@ -30,7 +53,15 @@
         "next": "Nächste Nachricht",
         "nextWaiting": "Nächste Nachricht ({count} wartend)",
         "again": "Nochmal anhören",
-        "previous": "Vorherige Nachricht"
+        "previous": "Vorherige Nachricht",
+        "position": "Nachricht {current} von {total}",
+        "close": "Schließen",
+        "progress": "Fortschritt der Nachricht",
+        "keep": "In meiner Truhe behalten",
+        "kept": "In meiner Truhe behalten",
+        "vault": "{count}/{limit} Erinnerungen",
+        "vaultFull": "{count}/{limit} Erinnerungen · Truhe voll",
+        "from": "Von {name}"
     },
     "strip": {
         "label": "Nachrichten der Familie",
@@ -41,5 +72,23 @@
     },
     "noOneTitle": "Niemand zum Schreiben",
     "activeBlocked": "Für {name} wartet bereits eine Nachricht. Du kannst eine neue senden, sobald sie gehört wurde und abgelaufen ist.",
-    "birthdayWish": "Geburtstagswunsch senden"
+    "birthdayWish": "Geburtstagswunsch senden",
+    "quota": {
+        "label": "{count} Nachrichten von {limit}",
+        "short": "{count}/{limit}"
+    },
+    "full": {
+        "title": "Schon {limit} Nachrichten an {name} hinterlassen",
+        "body": "Entferne eine, um eine neue aufnehmen zu können.",
+        "retract": "Die älteste entfernen",
+        "failed": "Die Nachricht konnte nicht entfernt werden. Versuche es noch einmal."
+    },
+    "expiry": {
+        "hoursMinutes": "Verschwindet in {hours} Std. {minutes} Min.",
+        "minutes": "Verschwindet in {minutes} Min.",
+        "kept": "In der Truhe behalten"
+    },
+    "bubble": {
+        "label": "{count} Nachrichten"
+    }
 }
