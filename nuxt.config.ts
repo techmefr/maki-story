@@ -1,6 +1,11 @@
 import { fileURLToPath } from 'node:url'
+import { defineOSDDNuxtConfig } from 'nuxt-osdd'
 
-export default defineNuxtConfig({
+export default defineOSDDNuxtConfig({
+    osdd: {
+        technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media'],
+        functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help'],
+    },
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
     ssr: false,
