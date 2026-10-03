@@ -7,17 +7,13 @@
             </template>
             <template v-else>
                 <div class="row row--wrap" role="group" :aria-label="t('parental.gate.which')">
-                    <button
+                    <AppChip
                         v-for="parent in parents"
                         :key="parent.id"
-                        type="button"
-                        class="chip"
-                        :class="{ 'chip--on': parent.id === parentId }"
-                        :aria-pressed="parent.id === parentId"
                         @click="parentId = parent.id"
-                    >
+                     :selected="parent.id === parentId">
                         {{ parent.name }}
-                    </button>
+                    </AppChip>
                 </div>
                 <PinPad :key="attempt" :is-disabled="isBusy" :min-length="PIN_MIN_LENGTH" @submit="onCode" />
             </template>

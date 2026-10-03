@@ -7,17 +7,13 @@
         <fieldset class="stack fieldset">
             <legend class="label">{{ t('bookDraft.book.type') }}</legend>
             <div class="row row--wrap">
-                <button
+                <AppChip
                     v-for="option in TYPE_OPTIONS"
                     :key="option.id"
-                    type="button"
-                    class="chip"
-                    :class="{ 'chip--on': type === option.id }"
-                    :aria-pressed="type === option.id"
                     @click="type = option.id"
-                >
+                 :selected="type === option.id">
                     {{ t(option.labelKey) }}
-                </button>
+                </AppChip>
             </div>
             <p class="muted">{{ typeHint }}</p>
         </fieldset>
@@ -33,17 +29,17 @@
         <fieldset class="stack fieldset">
             <legend class="label">{{ t('bookDraft.book.moods') }}</legend>
             <div class="row row--wrap">
-                <button v-for="mood in BOOK_MOODS" :key="mood" type="button" class="chip" :class="{ 'chip--on': moods.includes(mood) }" :aria-pressed="moods.includes(mood)" @click="toggleTag(moods, mood, MAX_BOOK_MOODS)">
+                <AppChip v-for="mood in BOOK_MOODS" :key="mood" @click="toggleTag(moods, mood, MAX_BOOK_MOODS)" :selected="moods.includes(mood)">
                     {{ t(`bookDraft.book.mood.${mood}`) }}
-                </button>
+                </AppChip>
             </div>
         </fieldset>
         <fieldset class="stack fieldset">
             <legend class="label">{{ t('bookDraft.book.themes') }}</legend>
             <div class="row row--wrap">
-                <button v-for="theme in BOOK_THEMES" :key="theme" type="button" class="chip" :class="{ 'chip--on': themes.includes(theme) }" :aria-pressed="themes.includes(theme)" @click="toggleTag(themes, theme, MAX_BOOK_THEMES)">
+                <AppChip v-for="theme in BOOK_THEMES" :key="theme" @click="toggleTag(themes, theme, MAX_BOOK_THEMES)" :selected="themes.includes(theme)">
                     {{ t(`bookDraft.book.theme.${theme}`) }}
-                </button>
+                </AppChip>
             </div>
         </fieldset>
         <div v-if="isSimple && !isWordless" class="card stack">

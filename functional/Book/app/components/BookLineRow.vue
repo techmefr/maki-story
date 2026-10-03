@@ -11,9 +11,7 @@
           {{ t("studio.sceneLine", { text: line.sceneDescription }) }}
         </div>
       </div>
-      <button
-        type="button"
-        class="chip"
+      <AppChip
         :aria-expanded="isEditing"
         @click="isEditing = !isEditing"
       >
@@ -22,7 +20,7 @@
             ? t("studio.lineRow.tone")
             : t("studio.lineRow.toneWith", { tone: line.tone })
         }}
-      </button>
+      </AppChip>
       <AppButton variant="secondary" size="sm"
         :aria-label="t('studio.lineRow.remove')"
         @click="removeLine(line.key)">

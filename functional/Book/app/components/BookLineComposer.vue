@@ -7,25 +7,19 @@
         role="group"
         :aria-label="t('studio.composer.character')"
       >
-        <button
+        <AppChip
           v-for="character in characters"
           :key="character.key"
-          type="button"
-          class="chip"
-          :class="{ 'chip--on': selectedKey === character.key }"
-          :aria-pressed="selectedKey === character.key"
           @click="selectedKey = character.key"
-        >
+         :selected="selectedKey === character.key">
           {{ character.name }}
-        </button>
-        <button
+        </AppChip>
+        <AppChip
           v-if="!isCreating"
-          type="button"
-          class="chip"
           @click="isCreating = true"
         >
           {{ t("studio.composer.newCharacter") }}
-        </button>
+        </AppChip>
       </div>
       <div v-if="isCreating" class="row">
         <input
@@ -64,17 +58,13 @@
         role="group"
         :aria-label="t('studio.composer.panelGroup')"
       >
-        <button
+        <AppChip
           v-for="(_panel, index) in panels"
           :key="index"
-          type="button"
-          class="chip"
-          :class="{ 'chip--on': panelIndex === index }"
-          :aria-pressed="panelIndex === index"
           @click="panelIndex = index"
-        >
+         :selected="panelIndex === index">
           {{ t("studio.composer.panel", { index: index + 1 }) }}
-        </button>
+        </AppChip>
       </div>
     </div>
     <label class="stack" style="gap: 6px">

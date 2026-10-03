@@ -6,26 +6,18 @@
       role="group"
       :aria-label="t('studio.tones.group')"
     >
-      <button
+      <AppChip
         v-for="option in TONES"
         :key="option.id"
-        type="button"
-        class="chip"
-        :class="{ 'chip--on': modelValue === toneLabel(option.id) }"
-        :aria-pressed="modelValue === toneLabel(option.id)"
         @click="toggle(toneLabel(option.id))"
-      >
+       :selected="modelValue === toneLabel(option.id)">
         {{ toneLabel(option.id) }}
-      </button>
-      <button
-        type="button"
-        class="chip"
-        :class="{ 'chip--on': isOther }"
-        :aria-pressed="isOther"
+      </AppChip>
+      <AppChip
         @click="isFree = !isFree"
-      >
+       :selected="isOther">
         {{ t("studio.tones.other") }}
-      </button>
+      </AppChip>
     </div>
     <input
       v-if="isOther"

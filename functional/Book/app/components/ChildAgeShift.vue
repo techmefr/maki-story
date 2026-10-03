@@ -3,18 +3,14 @@
         <h2 id="age-shift-title" class="subtitle">{{ t('library.ageShift.title') }}</h2>
         <p class="muted">{{ t('library.ageShift.hint') }}</p>
         <div class="row row--wrap" role="group" :aria-label="t('library.ageShift.title')">
-            <button
+            <AppChip
                 v-for="value in SHIFTS"
                 :key="value"
-                type="button"
-                class="chip"
-                :class="{ 'chip--on': (member?.ageShift ?? 0) === value }"
-                :aria-pressed="(member?.ageShift ?? 0) === value"
                 :disabled="isBusy"
                 @click="save(value)"
-            >
+             :selected="(member?.ageShift ?? 0) === value">
                 {{ value > 0 ? `+${value}` : value }}
-            </button>
+            </AppChip>
         </div>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
     </section>

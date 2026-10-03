@@ -2,19 +2,15 @@
     <section class="stack" style="gap: 8px" aria-labelledby="child-visibility-title" data-testid="child-visibility">
         <h3 id="child-visibility-title" class="label">{{ t('library.childVisible.title') }}</h3>
         <div class="row row--wrap" role="group" :aria-label="t('library.childVisible.title')">
-            <button
+            <AppChip
                 v-for="option in options"
                 :key="option.id"
-                type="button"
-                class="chip"
-                :class="{ 'chip--on': value === option.value }"
-                :aria-pressed="value === option.value"
                 :disabled="isBusy"
                 :data-visibility="option.id"
                 @click="save(option.value)"
-            >
+             :selected="value === option.value">
                 {{ option.label }}
-            </button>
+            </AppChip>
         </div>
         <p class="muted">{{ t('library.childVisible.hint') }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>

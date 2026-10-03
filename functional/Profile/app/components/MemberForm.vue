@@ -13,17 +13,13 @@
         <div class="stack" style="gap: 6px">
             <span class="label">{{ t('member.form.role') }}</span>
             <div class="row row--wrap">
-                <button
+                <AppChip
                     v-for="option in roles"
                     :key="option"
-                    type="button"
-                    class="chip"
-                    :class="{ 'chip--on': role === option }"
-                    :aria-pressed="role === option"
                     @click="role = option"
-                >
+                 :selected="role === option">
                     {{ roleLabel(option) }}
-                </button>
+                </AppChip>
             </div>
             <span class="muted">{{ roleHint }}</span>
         </div>
@@ -33,9 +29,9 @@
                 <input v-model="birthDate" class="input" type="date" :max="today" />
             </label>
             <span class="muted">{{ t('member.form.birthDateHint') }}</span>
-            <button type="button" class="chip" :class="{ 'chip--on': isCodeEnabled }" :aria-pressed="isCodeEnabled" @click="isCodeEnabled = !isCodeEnabled">
+            <AppChip @click="isCodeEnabled = !isCodeEnabled" :selected="isCodeEnabled">
                 {{ t('member.form.childCodeAsk') }}
-            </button>
+            </AppChip>
             <span v-if="!isCodeEnabled" class="muted">{{ t('member.form.childCodeOff') }}</span>
         </div>
         <CodeField v-if="!member && needsCode" v-model="code" :role="role" :label="t('member.form.codeLabel')" />
