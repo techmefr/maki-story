@@ -26,7 +26,8 @@
         "providers": {
             "title": "Allowed sign-ins",
             "hint": "Choose how relatives and children can sign in. The magic link and Google always stay on."
-        }
+        },
+        "addChild": "Add a child"
     },
     "edit": {
         "title": "Edit",

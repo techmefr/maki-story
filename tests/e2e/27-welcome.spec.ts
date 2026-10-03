@@ -61,6 +61,7 @@ test.describe('guided first launch', () => {
         await setParentCode(page)
         await page.getByTestId('welcome-children-skip').click()
         await expect(page.getByRole('heading', { name: 'Invite un premier proche' })).toBeVisible()
+        await page.getByTestId('invite-tab-code').click()
         await page.getByTestId('invite-channel-LINK').click()
         await page.getByTestId('invite-create').click()
         await expect(page.getByTestId('invite-link')).toHaveValue(/\/join\/[a-z0-9]{10}$/)

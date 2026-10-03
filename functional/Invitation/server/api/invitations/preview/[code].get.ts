@@ -11,7 +11,7 @@ export default defineEventHandler(async (event): Promise<IInvitationPreview> => 
     await recordIpHit(event, 'invite-preview')
     const invitation = await findInvitation(getDb(), normalizeInviteCode(requireParam(event, 'code')))
     if (!invitation || !invitation.isUsable) {
-        return { familyName: '', inviterName: '', isUsable: false }
+        return { familyName: '', inviterName: '', role: 'relative', isUsable: false }
     }
-    return { familyName: invitation.familyName, inviterName: invitation.inviterName, isUsable: true }
+    return { familyName: invitation.familyName, inviterName: invitation.inviterName, role: invitation.role, isUsable: true }
 })

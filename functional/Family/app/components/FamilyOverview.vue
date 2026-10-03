@@ -4,8 +4,8 @@
             <BackLink :to="homePath" />
             <h1 class="title grow">{{ t('family.index.title') }}</h1>
         </div>
-        <AppButton is-block icon="user-plus" to="/family/add">{{ t('family.index.add') }}</AppButton>
-        <AppButton is-block variant="secondary" icon="send" to="/family/invite" data-testid="family-invite">{{ t('invite.menu') }}</AppButton>
+        <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
+        <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
 
         <section v-for="group in groups" :key="group.role" class="stack overview__group" :aria-labelledby="`group-${group.role}`">
             <div class="row">

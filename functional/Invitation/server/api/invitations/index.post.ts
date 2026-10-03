@@ -18,6 +18,7 @@ export default defineEventHandler(async (event): Promise<IInvitationCreated> => 
         return badRequest('Invalid channel')
     }
     const channel = body.channel as InvitationChannel
+    const role: InvitationRole = body.role === 'parent' ? 'parent' : 'relative'
     const contact = typeof body.contact === 'string' ? body.contact.trim().slice(0, MAX_CONTACT_LENGTH) : ''
     if (channel === 'EMAIL' && !EMAIL_PATTERN.test(contact)) {
         return badRequest('An e-mail address is required')
@@ -54,9 +55,9 @@ export default defineEventHandler(async (event): Promise<IInvitationCreated> => 
     const inviterId = requireActorMember(actor)
     const code = await newInvitationCode(db)
     const created = one(await db<IInvitation[]>`
-        insert into invitations (family_id, code, channel, contact, name, child_ids, member_id, created_by_member_id, expires_at)
-        values (${familyId}, ${code}, ${channel}, ${contact}, ${name}, ${childIds}, ${memberId}, ${inviterId}, now() + make_interval(hours => ${hours}))
-        returning id, code, channel, coalesce(contact, '') as contact, name, child_ids, expires_at, used_at, revoked_at, created_at
+        insert into invitations (family_id, code, channel, role, contact, name, child_ids, member_id, created_by_member_id, expires_at)
+        values (${familyId}, ${code}, ${channel}, ${role}, ${contact}, ${name}, ${childIds}, ${memberId}, ${inviterId}, now() + make_interval(hours => ${hours}))
+        returning id, code, channel, role, coalesce(contact, '') as contact, name, child_ids, expires_at, used_at, revoked_at, created_at
     `)
     const [info] = await db<{ familyName: string; inviterName: string; locale: string | null }[]>`
         select f.name as family_name, m.name as inviter_name, m.app_locale as locale
@@ -73,7 +74,7 @@ export default defineEventHandler(async (event): Promise<IInvitationCreated> => 
                 name: info?.inviterName ?? '',
                 initial: info?.inviterName ?? '',
                 family: info?.familyName ?? '',
-                role: mailText(locale, 'tpl.role.relative'),
+                role: mailText(locale, `tpl.role.${role}`),
                 code,
                 hours,
                 url: link,

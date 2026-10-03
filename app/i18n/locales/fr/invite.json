@@ -1,7 +1,7 @@
 {
     "menu": "Inviter un proche",
     "title": "Inviter un proche",
-    "hint": "Crée un code à usage unique et envoie-le par WhatsApp, SMS, e-mail ou lien.",
+    "hint": "Invite un proche ou un autre parent par e-mail, ou donne-lui un code à usage unique.",
     "channelLabel": "Comment l’envoyer ?",
     "channels": {
         "WHATSAPP": "WhatsApp",
@@ -19,7 +19,7 @@
     "createFailed": "L’invitation n’a pas pu être créée.",
     "tooMany": "Trop d’invitations d’un coup, réessaie plus tard.",
     "ready": "Invitation prête",
-    "validFor": "Valable environ {hours} h, une seule fois.",
+    "validFor": "Valable {hours} h, utilisable une seule fois.",
     "linkLabel": "Lien d’invitation",
     "emailSent": "E-mail envoyé à {contact}.",
     "emailNotSent": "L’e-mail n’a pas pu partir : partage le lien à la main.",
@@ -39,5 +39,23 @@
         "revoked": "Révoquée"
     },
     "revoke": "Révoquer",
-    "revokeAria": "Révoquer l’invitation de {name}"
+    "revokeAria": "Révoquer l’invitation de {name}",
+    "tabs": {
+        "email": "Par e-mail",
+        "code": "Par code"
+    },
+    "roleLabel": "Rôle",
+    "roles": {
+        "relative": "Proche",
+        "parent": "Parent"
+    },
+    "roleHint": {
+        "relative": "Prête sa voix et laisse des messages aux enfants.",
+        "parent": "Gère la famille avec toi : enfants, livres, codes et connexions."
+    },
+    "emailPlaceholder": "prenom@exemple.com",
+    "emailHint": "Elle ou il reçoit un lien pour créer son profil et rejoindre la famille.",
+    "sendEmail": "Envoyer l’invitation",
+    "sentTitle": "Invitation envoyée",
+    "codeLabel": "Code d’invitation"
 }
