@@ -6,7 +6,7 @@ import {
     RECORDING_MIMES,
     RECORDING_SAMPLE_RATE,
     resolveRecordingLimitMs,
-} from '../../shared/utils/recording'
+} from '~~/shared/utils/recording'
 
 const TICK_MS = 100
 

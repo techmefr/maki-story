@@ -1,7 +1,7 @@
-import { getDb, one } from '../../utils/db'
-import { logEvent } from '../../utils/log'
-import { requirePermission } from '../../utils/permissions'
-import { badRequest } from '../../utils/validate'
+import { getDb, one } from '~~/server/utils/db'
+import { logEvent } from '~~/server/utils/log'
+import { requirePermission } from '~~/server/utils/permissions'
+import { badRequest } from '~~/server/utils/validate'
 
 const MAX_FILE_BYTES = 4 * 1024 * 1024
 const ALLOWED_PREFIXES = ['image/', 'audio/', 'video/mp4', 'video/webm']

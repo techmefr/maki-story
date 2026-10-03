@@ -1,6 +1,6 @@
-import { getDb } from '../../../utils/db'
-import { loadUploadSession } from '../../../utils/uploads'
-import { requirePermission } from '../../../utils/permissions'
+import { getDb } from '~~/server/utils/db'
+import { loadUploadSession } from '~~/server/utils/uploads'
+import { requirePermission } from '~~/server/utils/permissions'
 
 export default defineEventHandler(async (event): Promise<{ ok: true }> => {
     const db = getDb()

@@ -1,5 +1,5 @@
-import type { IUploadState } from '../../shared/types/upload'
-import { UPLOAD_OFFSET_HEADER } from '../../shared/utils/upload'
+import type { IUploadState } from '~~/shared/types/upload'
+import { UPLOAD_OFFSET_HEADER } from '~~/shared/utils/upload'
 
 const MAX_ATTEMPTS = 8
 const BASE_DELAY_MS = 400

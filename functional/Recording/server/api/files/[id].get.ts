@@ -1,7 +1,7 @@
-import { getDb } from '../../utils/db'
-import { assertFileReadable } from '../../utils/files'
-import { requirePermission } from '../../utils/permissions'
-import { badRequest, notFound, requireParam } from '../../utils/validate'
+import { getDb } from '~~/server/utils/db'
+import { assertFileReadable } from '~~/server/utils/files'
+import { requirePermission } from '~~/server/utils/permissions'
+import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 interface IFileRow {
     mime: string

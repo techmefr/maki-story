@@ -1,10 +1,10 @@
-import { getDb, one } from '../../utils/db'
-import { toUploadState } from '../../utils/uploads'
-import type { IUploadSession } from '../../utils/uploads'
-import { badRequest } from '../../utils/validate'
-import { requirePermission } from '../../utils/permissions'
-import type { IUploadState } from '../../../shared/types/upload'
-import { UPLOAD_MAX_BYTES, UPLOAD_MIME_PREFIXES, UPLOAD_TTL_HOURS } from '../../../shared/utils/upload'
+import { getDb, one } from '~~/server/utils/db'
+import { toUploadState } from '~~/server/utils/uploads'
+import type { IUploadSession } from '~~/server/utils/uploads'
+import { badRequest } from '~~/server/utils/validate'
+import { requirePermission } from '~~/server/utils/permissions'
+import type { IUploadState } from '~~/shared/types/upload'
+import { UPLOAD_MAX_BYTES, UPLOAD_MIME_PREFIXES, UPLOAD_TTL_HOURS } from '~~/shared/utils/upload'
 
 interface IBody {
     size?: unknown
