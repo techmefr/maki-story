@@ -1,5 +1,5 @@
-import { getDb } from '../../utils/db'
-import { requireSession } from '../../utils/family'
+import { getDb } from '~~/server/utils/db'
+import { requireSession } from '~~/server/utils/family'
 
 interface ISeat {
     familyId: string

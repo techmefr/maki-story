@@ -1,5 +1,5 @@
-import { getDb } from '../../utils/db'
-import { requirePermission } from '../../utils/permissions'
+import { getDb } from '~~/server/utils/db'
+import { requirePermission } from '~~/server/utils/permissions'
 
 const MAX_INVITATIONS = 50
 
