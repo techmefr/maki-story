@@ -123,5 +123,7 @@
         }
     },
     "progress": "Recording progress",
-    "translateBook": "Translate this book"
+    "translateBook": "Translate this book",
+    "pageMeta": "Page {page} of {total} · {done}/{mine} recorded",
+    "voices": "Voices"
 }

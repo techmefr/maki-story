@@ -1,30 +1,30 @@
 <template>
     <div class="stack narrow" v-if="book">
-        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
-        <h1 class="title">{{ book.title }}</h1>
         <div class="row">
-            <div class="progress grow" role="progressbar" :aria-label="t('studio.progress')" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"><div class="progress__fill" :style="{ width: progressPercent }" /></div>
-            <span class="badge">{{ recordedCount }}/{{ visibleLines.length }}</span>
+            <BackLink :to="`/books/${book.id}`" />
+            <div class="stack studio__head grow">
+                <h1 class="title">{{ book.title }}</h1>
+                <p class="studio__meta">{{ t('studio.pageMeta', { page: viewPageIndex + 1, total: Math.max(1, book.pages.length), done: recordedCount, mine: visibleLines.length }) }}</p>
+            </div>
         </div>
-        <div class="stack">
-            <label class="label" for="studio-language">{{ t('studio.recordingLanguage') }}</label>
-            <AppSelect id="studio-language" v-model="language" :disabled="isLocked" :options="languageSelect" />
-            <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
-        </div>
-        <div class="row row--wrap">
-            <button
-                v-for="tab in tabs"
-                :key="tab.member.id"
-                type="button"
-                class="picker"
+        <AppProgress :value="progressValue" :label="t('studio.progress')" />
+        <div class="row row--wrap" role="group" :aria-label="t('studio.recordingLanguage')">
+            <AppChip
+                v-for="option in languageOptions"
+                :key="option.code"
+                :selected="language === option.code"
                 :disabled="isLocked"
-                :aria-pressed="tab.member.id === activeMemberId"
-                :style="{ background: tab.member.id === activeMemberId ? tab.hex : '#fff' }"
-                @click="selectMember(tab.member.id)"
+                :data-testid="`studio-language-${option.code}`"
+                @click="language = option.code"
             >
-                <AppAvatar :member="tab.member" :size="28" />
-                <span>{{ tab.member.name }} {{ tab.progress }}</span>
-            </button>
+                <FlagIcon :codes="[option.code]" :size="24" />{{ option.label }}
+            </AppChip>
+        </div>
+        <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
+        <div class="row row--wrap" role="group" :aria-label="t('studio.voices')">
+            <AppChip v-for="tab in tabs" :key="tab.member.id" :selected="tab.member.id === activeMemberId" :disabled="isLocked" @click="selectMember(tab.member.id)">
+                <AppAvatar :member="tab.member" :size="28" />{{ tab.member.name }} {{ tab.progress }}
+            </AppChip>
         </div>
         <div v-if="redoCount > 0 || isRedoOnly" class="row row--wrap" role="group" :aria-label="t('review.studio.filterLabel')">
             <button type="button" class="chip studio__chip" :class="{ 'chip--on': !isRedoOnly }" :aria-pressed="!isRedoOnly" :disabled="isLocked" @click="setRedoOnly(false)">
@@ -228,7 +228,6 @@ interface IPendingTake {
 }
 
 const { t, formatDuration } = useI18n()
-const languageSelect = computed(() => languageSelectOptions(languageOptions.value, t('studio.chooseLanguage')))
 const route = useRoute()
 const { get, patch, remove, clearLineAudio } = useBooks()
 const { submit, validateAll, loadComments } = useReview()
