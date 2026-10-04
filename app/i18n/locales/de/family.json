@@ -27,7 +27,8 @@
             "title": "Erlaubte Anmeldungen",
             "hint": "Lege fest, wie Verwandte und Kinder sich anmelden können. Der magische Link und Google bleiben immer aktiv."
         },
-        "addChild": "Kind hinzufügen"
+        "addChild": "Kind hinzufügen",
+        "legacyCode": "Zifferncode: auf Formen umstellen"
     },
     "edit": {
         "title": "Bearbeiten",

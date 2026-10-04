@@ -27,7 +27,8 @@
             "title": "Accessi consentiti",
             "hint": "Scegli come parenti e bambini possono accedere. Il link magico e Google restano sempre attivi."
         },
-        "addChild": "Aggiungi un bambino"
+        "addChild": "Aggiungi un bambino",
+        "legacyCode": "Codice a cifre: passa alle forme"
     },
     "edit": {
         "title": "Modifica",

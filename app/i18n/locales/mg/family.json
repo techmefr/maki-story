@@ -27,7 +27,8 @@
             "title": "Fidirana avela",
             "hint": "Fidio ny fomba azon’ny havana sy ny ankizy fidirana. Mijanona mandrakariva ny rohy mahagaga sy Google."
         },
-        "addChild": "Ampio ankizy"
+        "addChild": "Ampio ankizy",
+        "legacyCode": "Kaody isa: ovay ho sary"
     },
     "edit": {
         "title": "Hanova",

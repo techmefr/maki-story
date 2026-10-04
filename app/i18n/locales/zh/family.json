@@ -27,7 +27,8 @@
             "title": "允许的登录方式",
             "hint": "选择亲友和孩子可以如何登录。魔法链接和 Google 始终可用。"
         },
-        "addChild": "添加孩子"
+        "addChild": "添加孩子",
+        "legacyCode": "数字代码：改为图形"
     },
     "edit": {
         "title": "编辑",
