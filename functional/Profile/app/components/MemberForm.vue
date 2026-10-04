@@ -218,6 +218,12 @@ const save = async (): Promise<void> => {
     }
 }
 
+watch(code, async value => {
+    if (member && isChangingCode.value && value?.kind === 'symbols' && canSave.value && !isBusy.value) {
+        await save()
+    }
+})
+
 const askRemove = async (): Promise<void> => {
     if (!member || !window.confirm(t('member.form.removeConfirm', { name: member.name }))) {
         return
