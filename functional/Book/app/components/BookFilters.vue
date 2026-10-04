@@ -134,7 +134,8 @@ onBeforeUnmount(() => {
 <style scoped>
 .filters__search {
     position: relative;
-    min-width: 12rem;
+    flex: 1 1 8rem;
+    min-width: 0;
 }
 
 .filters__search-icon {
@@ -146,6 +147,8 @@ onBeforeUnmount(() => {
 }
 
 .filters__input {
+    width: 100%;
+    min-width: 0;
     padding-inline-start: 44px;
 }
 

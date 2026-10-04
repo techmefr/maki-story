@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addMember, chooseProfile, createReadyBook, login, PARENT_NAME, switchProfile, uniqueName } from './helpers'
+import { addMember, chooseProfile, createReadyBook, login, PARENT_NAME, switchProfile, uniqueName, openMenuSection } from './helpers'
 
 const MAX_SIZE_PX = 40
 
@@ -63,6 +63,7 @@ test.describe('accessibility', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.getByRole('button', { name: 'Réglages' }).click()
+        await openMenuSection(page, 'Taille du texte')
         const group = page.getByRole('dialog').getByRole('group', { name: 'Taille du texte' })
         await expect(group.getByRole('button', { name: 'Normal' })).toHaveAttribute('aria-pressed', 'true')
         await group.getByRole('button', { name: 'Maximum' }).click()
@@ -72,6 +73,7 @@ test.describe('accessibility', () => {
         await page.reload()
         await expect(page.locator('html')).toHaveCSS('font-size', `${MAX_SIZE_PX}px`)
         await page.getByRole('button', { name: 'Réglages' }).click()
+        await openMenuSection(page, 'Taille du texte')
         await page.getByRole('dialog').getByRole('group', { name: 'Taille du texte' }).getByRole('button', { name: 'Normal' }).click()
         await expect(page.locator('html')).toHaveCSS('font-size', '16px')
     })

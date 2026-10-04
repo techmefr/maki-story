@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { addMember, chooseProfile, E2E_PASSWORD, PARENT_NAME, pngFile, signIn, uniqueAccount, uniqueName } from './helpers'
+import { addMember, chooseProfile, E2E_PASSWORD, PARENT_NAME, pngFile, signIn, uniqueAccount, uniqueName, openMenuSection } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 interface IMemberBody {
@@ -50,6 +50,7 @@ test.describe('profile menu', () => {
     test('saves the spoken languages with Malagasy first class', async ({ page }) => {
         await startParent(page, 'menu-spoken')
         await openMenu(page)
+        await openMenuSection(page, 'Langues parlées')
         const malagasy = page.getByRole('button', { name: /Malagasy/ }).first()
         await expect(malagasy).toHaveAttribute('aria-pressed', 'false')
         await page.getByRole('group', { name: 'Langues parlées' }).getByRole('button', { name: /Malagasy/ }).click()
@@ -59,6 +60,7 @@ test.describe('profile menu', () => {
         await page.reload()
         await chooseProfile(page, PARENT_NAME)
         await openMenu(page)
+        await openMenuSection(page, 'Langues parlées')
         const group = page.getByRole('group', { name: 'Langues parlées' })
         await expect(group.getByRole('button', { name: /Malagasy/ })).toHaveAttribute('aria-pressed', 'true')
         await expect(group.getByRole('button', { name: /Français/ })).toHaveAttribute('aria-pressed', 'true')
@@ -69,18 +71,20 @@ test.describe('profile menu', () => {
     test('persists the app language and switches the interface', async ({ page }) => {
         await startParent(page, 'menu-locale')
         await openMenu(page)
+        await openMenuSection(page, 'Langue de l’application')
         const group = page.getByRole('group', { name: 'Langue de l’application' })
         await expect(group.getByRole('button', { name: 'Automatique' })).toHaveAttribute('aria-pressed', 'true')
         await group.getByRole('button', { name: /Malagasy/ }).click()
         await expect(page.locator('.menu__draft')).toBeVisible()
         await expect(page.locator('html')).toHaveAttribute('lang', 'mg')
         await expect.poll(async () => (await memberNamed(page.request, PARENT_NAME)).appLocale).toBe('mg')
-        await page.getByRole('dialog').locator('button.menu__chip').first().click()
+        await page.getByRole('dialog').getByRole('group').filter({ has: page.locator('button[lang="mg"]') }).last().locator('button').first().click()
         await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
         await expect.poll(async () => (await memberNamed(page.request, PARENT_NAME)).appLocale).toBeNull()
         await page.reload()
         await chooseProfile(page, PARENT_NAME)
         await openMenu(page)
+        await openMenuSection(page, 'Langue de l’application')
         await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
         await expect(page.getByRole('group', { name: 'Langue de l’application' }).getByRole('button', { name: 'Automatique' })).toHaveAttribute('aria-pressed', 'true')
     })
@@ -91,7 +95,7 @@ test.describe('profile menu', () => {
         await signIn(otherDevice, account)
         expect((await otherDevice.get('/api/members')).ok()).toBeTruthy()
         const newPassword = `${E2E_PASSWORD}-new`
-        await openMenu(page)
+        await page.goto('/profile/edit')
         await page.getByLabel('Mot de passe actuel').fill('wrong-password-1')
         await page.getByLabel('Nouveau mot de passe', { exact: true }).fill(newPassword)
         await page.getByLabel('Confirmer le nouveau mot de passe').fill(newPassword)
@@ -147,6 +151,7 @@ test.describe('profile menu', () => {
         await openMenu(page)
         const dialog = page.getByRole('dialog')
         await expect(dialog.getByRole('button', { name: 'Changer ma photo' })).toBeVisible()
+        await openMenuSection(page, 'Langues parlées')
         await expect(dialog.getByRole('list').getByText('Malagasy')).toBeVisible()
         await expect(dialog.getByText('Mot de passe du compte')).toHaveCount(0)
         await expect(dialog.getByText('Langue de l’application')).toBeVisible()

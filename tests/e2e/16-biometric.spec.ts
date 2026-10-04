@@ -127,7 +127,8 @@ test.describe('biometric unlock with a native bridge', () => {
         await page.goto('/family/devices')
         await expect(page.getByText(PARENT_NAME, { exact: true })).toBeVisible()
         await page.getByRole('button', { name: /^Retirer/ }).click()
-        await expect(page.getByText('Aucun appareil enregistré.')).toBeVisible()
+        await page.getByTestId('device-revoke-confirm').click()
+        await expect(page.getByText('Aucun appareil enregistré.', { exact: true })).toBeVisible()
 
         await relock(page)
         await parentCard(page).click()

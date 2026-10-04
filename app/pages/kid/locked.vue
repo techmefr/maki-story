@@ -83,10 +83,12 @@ const unlock = async (parentId: string, code: string): Promise<void> => {
 }
 
 .locked__parent {
-    position: absolute;
-    inset-inline: 1rem;
-    bottom: 1rem;
-    max-width: calc(100% - 2rem);
+    position: fixed;
+    inset-inline: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+    max-height: 40dvh;
+    overflow: hidden;
     min-height: var(--tap-kid);
     margin-inline: auto;
 }

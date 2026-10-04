@@ -6,15 +6,15 @@ import type { IBook } from '../../shared/types/book'
 test.describe.configure({ mode: 'serial' })
 
 const recordMemberLines = async (page: Page, member: string): Promise<void> => {
-    await page.locator('.picker', { hasText: member }).first().click()
+    await page.locator('.studio__voice', { hasText: member }).first().click()
     for (let i = 0; i < 5; i++) {
-        const isStillTodo = await page.locator('.picker', { hasText: new RegExp(`${member}.* (\\d+)/(\\d+)`) }).first().innerText()
+        const isStillTodo = await page.locator('.studio__voice', { hasText: new RegExp(`${member}.* (\\d+)/(\\d+)`) }).first().innerText()
         const [, done, total] = isStillTodo.match(/(\d+)\/(\d+)/) ?? []
         if (done === total) {
             return
         }
         await recordAndSend(page)
-        await expect(page.locator('.picker', { hasText: member }).first()).not.toHaveText(new RegExp(`${done}/${total}$`), { timeout: 15000 })
+        await expect(page.locator('.studio__voice', { hasText: member }).first()).not.toHaveText(new RegExp(`${done}/${total}$`), { timeout: 15000 })
     }
 }
 
@@ -124,15 +124,13 @@ test.describe('multi voice book', () => {
         await expect(page.getByRole('heading', { name: `Le petit zébu ${info.project.name}` })).toBeVisible()
         await expect(page.getByText('Pourquoi je n’ai pas d’ailes ?')).toBeVisible()
         await page.getByRole('button', { name: 'Lecture' }).click()
-        await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Pause' })).toHaveCount(0)
         await page.getByRole('button', { name: 'Suivant' }).click()
         await page.getByRole('button', { name: 'Précédent' }).click()
         await page.getByRole('button', { name: /1×/ }).click()
         await expect(page.getByRole('button', { name: /1.25×/ })).toBeVisible()
-        await page.getByRole('button', { name: 'Pause' }).click()
-        await expect(page.getByRole('button', { name: 'Lecture' })).toBeVisible()
         await page.locator('.card--tap', { hasText: 'Parce que tu as quatre pattes solides.' }).click()
-        await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Pause' })).toHaveCount(0)
     })
 
     test('shows the published book as ready and deletes another one', async ({ page }, info) => {

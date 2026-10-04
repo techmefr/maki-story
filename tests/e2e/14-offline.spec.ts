@@ -57,7 +57,7 @@ test.describe('offline books', () => {
         await page.getByRole('link', { name: new RegExp(title) }).click()
         await expect(page.getByRole('heading', { name: title })).toBeVisible()
         await page.getByRole('button', { name: 'Lecture' }).click()
-        await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'En cours d’écoute' })).toBeVisible()
         await context.setOffline(false)
     })
 
@@ -91,7 +91,8 @@ test.describe('offline books', () => {
         await expect(page.locator('[data-offline-book]', { hasText: title })).toBeVisible()
         expect(await cachedFileCount(page)).toBeGreaterThan(0)
         await page.getByRole('button', { name: 'Tout supprimer' }).click()
-        await expect(page.getByText('Aucun livre téléchargé')).toBeVisible()
+        await page.getByRole('dialog').getByRole('button', { name: 'Tout supprimer' }).click()
+        await expect(page.getByText('Aucun livre téléchargé', { exact: true })).toBeVisible()
         expect(await cachedFileCount(page)).toBe(0)
         expect(await offlineBookCount(page)).toBe(0)
     })

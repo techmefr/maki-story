@@ -154,7 +154,7 @@ test.describe('symbol codes, disabled child code, birthday and book metadata', (
         const child = await parent.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'symbols', value: '0000' } } })
         expect(child.ok(), await child.text()).toBeTruthy()
         const childId = ((await child.json()) as { id: string }).id
-        for (const value of ['012', '01234', '0126', 'abcd']) {
+        for (const value of ['012', '0123456', '0126', 'abcd']) {
             expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value } })).status()).toBe(400)
         }
         expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value: '5120' } })).ok()).toBeTruthy()

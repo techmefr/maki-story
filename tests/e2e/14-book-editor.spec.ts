@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, startBook, uploadWav, PARENT_NAME, pickOption } from './helpers'
+import { addLine, apiJson, chooseProfile, linesCard, login, nextStep, pngFile, startBook, uploadWav, PARENT_NAME, pickOption, allowSpokenLanguages } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 const openEditor = async (page: Page, title: string): Promise<void> => {
@@ -204,6 +204,7 @@ test.describe('book editor', () => {
 
     test('a pasted text is split into lines and the language can be Malagasy', async ({ page }, info) => {
         await openEditor(page, `Malagasy ${info.project.name}`)
+        await allowSpokenLanguages(page.request, ['fr', 'mg'])
         await page.getByLabel('Langue du livre', { exact: true }).click()
         const languages = await page.getByRole('option').allTextContents()
         expect(languages).toHaveLength(9)

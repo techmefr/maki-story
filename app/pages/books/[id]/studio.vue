@@ -22,7 +22,7 @@
         </div>
         <p v-if="!isLanguageChosen" class="error" role="alert">{{ t('studio.languageRequired') }}</p>
         <div class="row row--wrap" role="group" :aria-label="t('studio.voices')">
-            <AppChip v-for="tab in tabs" :key="tab.member.id" :selected="tab.member.id === activeMemberId" :disabled="isLocked" @click="selectMember(tab.member.id)">
+            <AppChip v-for="tab in tabs" :key="tab.member.id" class="studio__voice" :selected="tab.member.id === activeMemberId" :disabled="isLocked" @click="selectMember(tab.member.id)">
                 <AppAvatar :member="tab.member" :size="28" />{{ tab.member.name }} {{ tab.progress }}
             </AppChip>
         </div>
