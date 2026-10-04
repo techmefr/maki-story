@@ -15,6 +15,7 @@
 definePageMeta({ layout: 'blank' })
 
 const { verifyMagicLink } = useSession()
+const { landingPath } = useFamilies()
 const { t } = useI18n()
 const route = useRoute()
 
@@ -24,7 +25,7 @@ onMounted(async () => {
     const token = String(route.query.token ?? '')
     const result = await verifyMagicLink(token)
     if (result.status === 'ok') {
-        await navigateTo('/profiles')
+        await navigateTo(await landingPath())
         return
     }
     failure.value = t('auth.magic.expired')

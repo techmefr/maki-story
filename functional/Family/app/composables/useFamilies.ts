@@ -29,5 +29,10 @@ export const useFamilies = () => {
         }
     }
 
-    return { memberships, isLoaded, isBusy, hasFailed, load, choose }
+    const landingPath = async (): Promise<string> => {
+        await load()
+        return memberships.value.length > 1 ? '/families' : '/profiles'
+    }
+
+    return { memberships, isLoaded, isBusy, hasFailed, load, choose, landingPath }
 }

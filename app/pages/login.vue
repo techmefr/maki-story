@@ -51,6 +51,7 @@
 definePageMeta({ layout: 'blank' })
 
 const { login, requestMagicLink } = useSession()
+const { landingPath } = useFamilies()
 const { t, locale } = useI18n()
 const route = useRoute()
 
@@ -113,7 +114,7 @@ const submit = async (): Promise<void> => {
         errorMessage.value = failureMessage(result)
         return
     }
-    await navigateTo('/profiles')
+    await navigateTo(await landingPath())
 }
 </script>
 
