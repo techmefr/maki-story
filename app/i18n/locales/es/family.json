@@ -27,7 +27,8 @@
             "title": "Conexiones permitidas",
             "hint": "Elige cómo pueden conectarse los allegados y los niños. El enlace mágico y Google siempre están activos."
         },
-        "addChild": "Añadir un niño"
+        "addChild": "Añadir un niño",
+        "legacyCode": "Código numérico: pasar a formas"
     },
     "edit": {
         "title": "Editar",

@@ -27,7 +27,8 @@
             "title": "Ligações permitidas",
             "hint": "Escolhe como os familiares e as crianças se podem ligar. O link mágico e o Google estão sempre ativos."
         },
-        "addChild": "Adicionar uma criança"
+        "addChild": "Adicionar uma criança",
+        "legacyCode": "Código numérico: passar para formas"
     },
     "edit": {
         "title": "Editar",

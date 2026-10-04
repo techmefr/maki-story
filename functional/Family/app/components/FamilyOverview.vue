@@ -26,7 +26,10 @@
                 <li v-for="member in group.members" :key="member.id" class="row overview__item">
                     <AppListRow class="grow" :to="`/family/${member.id}`" :title="member.name" :subtitle="subtitleOf(member)">
                         <template #lead><AppAvatar :member="member" :size="48" /></template>
-                        <template #action><AppIcon name="pencil" :size="22" /></template>
+                        <template #action>
+                            <AppBadge v-if="hasLegacyCode(member)" tone="warning" data-testid="legacy-code-badge">{{ t('family.index.legacyCode') }}</AppBadge>
+                            <AppIcon v-else name="pencil" :size="22" />
+                        </template>
                     </AppListRow>
                     <AppIconButton
                         v-if="isRemovable(member)"
@@ -98,6 +101,8 @@ const { t } = useI18n()
 const { homePath } = useCurrentMember()
 const { guests } = useMembers()
 const { groups, providers, pending, hasFailed, isBusy, isRemovable, toggleProvider, confirmRemoval, init } = useFamilyOverview()
+
+const hasLegacyCode = (member: IMember): boolean => member.role === 'child' && member.codeKind === 'pin'
 
 const subtitleOf = (member: IMember): string => {
     if (member.status === 'blocked' || member.status === 'deceased') {

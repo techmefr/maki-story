@@ -27,7 +27,8 @@
             "title": "Connexions autorisées",
             "hint": "Choisis comment les proches et les enfants peuvent se connecter. Le lien magique et Google restent toujours actifs."
         },
-        "addChild": "Ajouter un enfant"
+        "addChild": "Ajouter un enfant",
+        "legacyCode": "Code à chiffres : passer aux formes"
     },
     "edit": {
         "title": "Modifier",
