@@ -54,5 +54,34 @@
         "playLabel": "播放{name}的消息",
         "booksLabel": "{name}朗读的故事"
     },
-    "birthdayMissing": "添加 {name} 的出生日期"
+    "birthdayMissing": "添加 {name} 的出生日期",
+    "dash": {
+        "myChildren": "我的孩子",
+        "message": "留言",
+        "quota": "{count}/{max} 条消息",
+        "messageTo": "给 {name} 留言",
+        "noChildren": "还没有孩子",
+        "noChildrenParent": "添加孩子后，就可以给他留言和讲故事。",
+        "noChildrenHint": "请家长添加孩子。",
+        "actions": "想做什么？",
+        "newBook": "新书",
+        "newBookHint": "一页一页写故事",
+        "byIsbn": "通过 ISBN 添加",
+        "byIsbnHint": "扫描或输入条形码",
+        "toReview": "待审阅",
+        "toReviewHint": "等待通过的录音",
+        "library": "图书馆",
+        "libraryHint": "家庭的所有图书",
+        "manageFamily": "管理家庭",
+        "manageFamilyHint": "家长、亲友、孩子和权限",
+        "proposeBook": "推荐一本书",
+        "proposeBookHint": "由家长审核后再给孩子",
+        "requests": "录音请求",
+        "requestsHint": "请你朗读的故事",
+        "pending": "等待审核",
+        "pendingHint": "你的推荐和回复",
+        "toFix": "待修改",
+        "toFixHint": "需要重录的片段",
+        "vaultHint": "保存的孩子留言"
+    }
 }

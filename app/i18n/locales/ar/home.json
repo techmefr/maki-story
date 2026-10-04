@@ -59,5 +59,34 @@
         "playLabel": "استمع إلى رسالة {name}",
         "booksLabel": "قصص بصوت {name}"
     },
-    "birthdayMissing": "أضف تاريخ ميلاد {name}"
+    "birthdayMissing": "أضف تاريخ ميلاد {name}",
+    "dash": {
+        "myChildren": "أطفالي",
+        "message": "رسالة",
+        "quota": "{count}/{max} رسائل",
+        "messageTo": "ترك رسالة لـ {name}",
+        "noChildren": "لا يوجد أطفال بعد",
+        "noChildrenParent": "أضف طفلًا لتترك له رسائل وقصصًا.",
+        "noChildrenHint": "اطلب من أحد الوالدين إضافة طفل.",
+        "actions": "ماذا تريد أن تفعل؟",
+        "newBook": "كتاب جديد",
+        "newBookHint": "كتابة قصة صفحة بصفحة",
+        "byIsbn": "إضافة عبر ISBN",
+        "byIsbnHint": "مسح الرمز الشريطي أو كتابته",
+        "toReview": "للمراجعة",
+        "toReviewHint": "تسجيلات بانتظار الموافقة",
+        "library": "المكتبة",
+        "libraryHint": "كل كتب العائلة",
+        "manageFamily": "إدارة العائلة",
+        "manageFamilyHint": "الوالدان والأقارب والأطفال والصلاحيات",
+        "proposeBook": "اقتراح كتاب",
+        "proposeBookHint": "يوافق عليه أحد الوالدين قبل الطفل",
+        "requests": "طلبات التسجيل",
+        "requestsHint": "القصص المطلوب منك قراءتها",
+        "pending": "بانتظار الموافقة",
+        "pendingHint": "اقتراحاتك والرد عليها",
+        "toFix": "للتصحيح",
+        "toFixHint": "مقاطع لإعادة تسجيلها",
+        "vaultHint": "رسائل الأطفال المحفوظة"
+    }
 }

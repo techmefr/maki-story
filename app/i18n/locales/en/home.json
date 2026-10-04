@@ -55,5 +55,34 @@
         "playLabel": "Play {name}’s message",
         "booksLabel": "Stories read by {name}"
     },
-    "birthdayMissing": "Add {name}’s birth date"
+    "birthdayMissing": "Add {name}’s birth date",
+    "dash": {
+        "myChildren": "My children",
+        "message": "Message",
+        "quota": "{count}/{max} messages",
+        "messageTo": "Leave a message for {name}",
+        "noChildren": "No children yet",
+        "noChildrenParent": "Add a child to leave messages and stories.",
+        "noChildrenHint": "Ask a parent to add a child.",
+        "actions": "What do you want to do?",
+        "newBook": "New book",
+        "newBookHint": "Write a story page by page",
+        "byIsbn": "Add by ISBN",
+        "byIsbnHint": "Scan or type the barcode",
+        "toReview": "To review",
+        "toReviewHint": "Recordings waiting for approval",
+        "library": "Library",
+        "libraryHint": "All the family’s books",
+        "manageFamily": "Manage the family",
+        "manageFamilyHint": "Parents, relatives, children and access",
+        "proposeBook": "Propose a book",
+        "proposeBookHint": "A parent approves it before the child",
+        "requests": "Recording requests",
+        "requestsHint": "Stories you are asked to read",
+        "pending": "Waiting for approval",
+        "pendingHint": "Your proposals and their answer",
+        "toFix": "To fix",
+        "toFixHint": "Takes to redo",
+        "vaultHint": "Children’s messages kept"
+    }
 }

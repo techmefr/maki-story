@@ -55,5 +55,34 @@
         "playLabel": "Nachricht von {name} anhören",
         "booksLabel": "Von {name} gelesene Geschichten"
     },
-    "birthdayMissing": "Geburtsdatum von {name} hinzufügen"
+    "birthdayMissing": "Geburtsdatum von {name} hinzufügen",
+    "dash": {
+        "myChildren": "Meine Kinder",
+        "message": "Nachricht",
+        "quota": "{count}/{max} Nachrichten",
+        "messageTo": "Eine Nachricht für {name} hinterlassen",
+        "noChildren": "Noch keine Kinder",
+        "noChildrenParent": "Füge ein Kind hinzu, um Nachrichten und Geschichten zu hinterlassen.",
+        "noChildrenHint": "Bitte ein Elternteil, ein Kind hinzuzufügen.",
+        "actions": "Was möchtest du tun?",
+        "newBook": "Neues Buch",
+        "newBookHint": "Eine Geschichte Seite für Seite schreiben",
+        "byIsbn": "Per ISBN hinzufügen",
+        "byIsbnHint": "Strichcode scannen oder eintippen",
+        "toReview": "Zu prüfen",
+        "toReviewHint": "Aufnahmen, die auf Freigabe warten",
+        "library": "Bibliothek",
+        "libraryHint": "Alle Bücher der Familie",
+        "manageFamily": "Familie verwalten",
+        "manageFamilyHint": "Eltern, Verwandte, Kinder und Zugriffe",
+        "proposeBook": "Ein Buch vorschlagen",
+        "proposeBookHint": "Ein Elternteil gibt es vor dem Kind frei",
+        "requests": "Aufnahmeanfragen",
+        "requestsHint": "Geschichten, die du vorlesen sollst",
+        "pending": "Wartet auf Freigabe",
+        "pendingHint": "Deine Vorschläge und die Antwort",
+        "toFix": "Zu korrigieren",
+        "toFixHint": "Aufnahmen zum Wiederholen",
+        "vaultHint": "Aufbewahrte Nachrichten der Kinder"
+    }
 }

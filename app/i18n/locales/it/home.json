@@ -55,5 +55,34 @@
         "playLabel": "Ascolta il messaggio di {name}",
         "booksLabel": "Storie lette da {name}"
     },
-    "birthdayMissing": "Aggiungi la data di nascita di {name}"
+    "birthdayMissing": "Aggiungi la data di nascita di {name}",
+    "dash": {
+        "myChildren": "I miei bambini",
+        "message": "Messaggio",
+        "quota": "{count}/{max} messaggi",
+        "messageTo": "Lascia un messaggio a {name}",
+        "noChildren": "Ancora nessun bambino",
+        "noChildrenParent": "Aggiungi un bambino per lasciargli messaggi e storie.",
+        "noChildrenHint": "Chiedi a un genitore di aggiungere un bambino.",
+        "actions": "Cosa vuoi fare?",
+        "newBook": "Nuovo libro",
+        "newBookHint": "Scrivere una storia pagina per pagina",
+        "byIsbn": "Aggiungi tramite ISBN",
+        "byIsbnHint": "Scansiona o scrivi il codice a barre",
+        "toReview": "Da rivedere",
+        "toReviewHint": "Registrazioni in attesa di approvazione",
+        "library": "Biblioteca",
+        "libraryHint": "Tutti i libri della famiglia",
+        "manageFamily": "Gestisci la famiglia",
+        "manageFamilyHint": "Genitori, parenti, bambini e accessi",
+        "proposeBook": "Proponi un libro",
+        "proposeBookHint": "Un genitore lo approva prima del bambino",
+        "requests": "Richieste di registrazione",
+        "requestsHint": "Le storie che ti chiedono di leggere",
+        "pending": "In attesa di approvazione",
+        "pendingHint": "Le tue proposte e la risposta",
+        "toFix": "Da correggere",
+        "toFixHint": "Registrazioni da rifare",
+        "vaultHint": "Messaggi dei bambini conservati"
+    }
 }
