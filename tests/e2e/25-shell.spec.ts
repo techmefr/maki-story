@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { accountFor, chooseProfile, enterPin, login, makeWav, PARENT_NAME, PROFILE_PIN, signIn, useProfile } from './helpers'
+import { accountFor, chooseProfile, enterPin, login, makeWav, PARENT_NAME, PROFILE_PIN, signIn, useProfile, openMenuSection } from './helpers'
 
 const CHILD = 'Zazashell'
 const RELATIVE = 'Tantine'
@@ -256,6 +256,7 @@ test.describe('settings, theme and header', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.getByTestId('settings-open').click()
+        await openMenuSection(page, 'Thème')
         await page.locator('[data-theme-choice="dark"]').click()
         await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
         await page.getByTestId('settings-close').click()
@@ -280,11 +281,11 @@ test.describe('settings, theme and header', () => {
                 return (high! + 0.05) / (low! + 0.05)
             }
             return {
-                text: ratio('--ink', '--cream'),
+                text: ratio('--ink', '--bg'),
                 card: ratio('--ink', '--paper'),
-                soft: ratio('--ink-soft', '--cream'),
-                danger: ratio('--danger', '--cream'),
-                sun: ratio('--on-accent', '--sun'),
+                soft: ratio('--ink-soft', '--bg'),
+                danger: ratio('--danger', '--bg'),
+                sun: ratio('--on-accent', '--yellow'),
                 sky: ratio('--on-accent', '--sky'),
                 mint: ratio('--on-accent', '--mint'),
                 coral: ratio('--on-accent', '--coral'),
@@ -295,6 +296,7 @@ test.describe('settings, theme and header', () => {
             expect(value, `contrast ${name}`).toBeGreaterThanOrEqual(4.5)
         }
         await page.getByTestId('settings-open').click()
+        await openMenuSection(page, 'Thème')
         await page.locator('[data-theme-choice="light"]').click()
         await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
     })
@@ -310,7 +312,7 @@ test.describe('settings, theme and header', () => {
         await expect(dialog.getByText('Thème')).toBeVisible()
         await expect(dialog.getByText('Taille du texte')).toBeVisible()
         await expect(dialog.getByText('Langue de l’application')).toBeVisible()
-        await expect(dialog.getByText('Sons des boutons')).toBeVisible()
+        await expect(dialog.getByText('Sons')).toBeVisible()
         await expect(dialog.getByRole('button', { name: 'Changer de profil' })).toBeVisible()
         await expect(dialog.getByText('Espace parent')).toHaveCount(0)
         await expect(dialog.getByText('Mot de passe du compte')).toHaveCount(0)
@@ -339,7 +341,7 @@ test.describe('parental lock without a connection', () => {
         await page.waitForTimeout(2500)
         await context.setOffline(true)
         await expect(page).toHaveURL(/\/kid\/locked/,{ timeout: 200_000 })
-        await expect(page.getByTestId('locked-screen')).toHaveText('')
+        await expect(page.getByTestId('locked-screen')).toContainText('L’app dort')
         await context.setOffline(false)
     })
 
@@ -379,7 +381,7 @@ test.describe('offline send queue', () => {
         await page.waitForTimeout(1300)
         await page.getByRole('button', { name: 'Arrêter' }).click()
         await page.getByRole('button', { name: 'Envoyer', exact: true }).click()
-        await expect(page.getByRole('status').filter({ hasText: 'En attente d’envoi' })).toBeVisible()
+        await expect(page.getByText('Message en attente')).toBeVisible()
         const queued = await page.evaluate(
             () =>
                 new Promise<number>(resolve => {

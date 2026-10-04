@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import type { IBook } from '../../shared/types/book'
-import { apiJson, chooseProfile, login, nextStep, PARENT_NAME, recordAndSend, recordOnce, useProfile, pickOption } from './helpers'
+import { apiJson, chooseProfile, login, nextStep, PARENT_NAME, recordAndSend, recordOnce, useProfile, pickOption, allowSpokenLanguages } from './helpers'
 
 interface IFixture {
     bookId: string
@@ -155,7 +155,7 @@ test.describe('recording studio', () => {
         expect(uploads.sessions()).toBe(0)
         expect((await loadBook(page, fixture)).recordings).toHaveLength(0)
         await recordAndSend(page)
-        await expect(page.locator('.picker', { hasText: PARENT_NAME }).first()).toContainText('1/2')
+        await expect(page.locator('.studio__voice', { hasText: PARENT_NAME }).first()).toContainText('1/2')
         expect(uploads.sessions()).toBe(1)
         expect(uploads.finishes()).toBe(1)
         const book = await loadBook(page, fixture)
@@ -170,18 +170,16 @@ test.describe('recording studio', () => {
         expect(bytes / (book.recordings[0]!.durationMs / 1000)).toBeLessThan(6000)
     })
 
-    test('the language is mandatory and stored with the recording', async ({ page }) => {
+    test('the language is chosen with chips and stored with the recording', async ({ page }) => {
         const fixture = await prepare(page)
+        await allowSpokenLanguages(page.request, ['fr', 'mg'])
         await openStudio(page, fixture)
-        const select = page.getByLabel('Langue de l’enregistrement')
-        await expect(select).toContainText('Français')
-        await pickOption(page, 'Langue de l’enregistrement', 'Choisis une langue')
-        await expect(page.getByRole('button', { name: 'Enregistrer' })).toBeDisabled()
-        await expect(page.getByRole('alert')).toContainText('Choisis la langue')
-        await pickOption(page, 'Langue de l’enregistrement', /Malagasy/)
+        const languages = page.getByRole('group', { name: 'Langue de l’enregistrement' })
+        await expect(languages.getByRole('button', { name: /Français/ })).toBeVisible()
+        await languages.getByRole('button', { name: /Malagasy/ }).click()
         await expect(page.getByRole('button', { name: 'Enregistrer' })).toBeEnabled()
         await recordAndSend(page)
-        await expect(page.locator('.picker', { hasText: PARENT_NAME }).first()).toContainText('1/2')
+        await expect(page.locator('.studio__voice', { hasText: PARENT_NAME }).first()).toContainText('1/2')
         const book = await loadBook(page, fixture)
         expect(book.recordings.map(item => item.language)).toEqual(['mg'])
     })
@@ -198,7 +196,7 @@ test.describe('recording studio', () => {
         await expect(page.getByText('Durée maximale atteinte')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Arrêter' })).toHaveCount(0)
         await page.getByRole('button', { name: 'Envoyer', exact: true }).click()
-        await expect(page.locator('.picker', { hasText: PARENT_NAME }).first()).toContainText('1/2')
+        await expect(page.locator('.studio__voice', { hasText: PARENT_NAME }).first()).toContainText('1/2')
         const book = await loadBook(page, fixture)
         expect(book.recordings[0]!.durationMs).toBeLessThanOrEqual(2500)
         expect(book.recordings[0]!.durationMs).toBeGreaterThan(1500)
@@ -208,7 +206,7 @@ test.describe('recording studio', () => {
         const fixture = await prepare(page)
         await openStudio(page, fixture)
         await recordAndSend(page)
-        await expect(page.locator('.picker', { hasText: PARENT_NAME }).first()).toContainText('1/2')
+        await expect(page.locator('.studio__voice', { hasText: PARENT_NAME }).first()).toContainText('1/2')
         const coverage = page.getByRole('region', { name: 'Couverture des voix' })
         await expect(coverage).toBeVisible()
         await expect(coverage.getByRole('button', { name: /Page 1, Narrateur, .*Français : fait/ })).toBeVisible()
@@ -221,7 +219,7 @@ test.describe('recording studio', () => {
         await coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ }).click()
         await expect(page.getByLabel('Langue de l’enregistrement')).toContainText('Français')
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
-        await page.locator('.picker', { hasText: fixture.relativeName }).click()
+        await page.locator('.studio__voice', { hasText: fixture.relativeName }).click()
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
     })
 
@@ -232,7 +230,7 @@ test.describe('recording studio', () => {
         await page.goto(`/books/${fixture.bookId}/studio`)
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
         await expect(page.getByText('Il était une fois un zébu.')).toHaveCount(0)
-        await expect(page.locator('.picker')).toHaveCount(1)
+        await expect(page.locator('.studio__voice')).toHaveCount(1)
         await expect(page.getByRole('button', { name: 'Supprimer ce livre' })).toHaveCount(0)
     })
 

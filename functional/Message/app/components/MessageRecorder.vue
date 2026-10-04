@@ -61,6 +61,7 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 
 .rec__hint {
     margin: 0;
+    overflow-wrap: anywhere;
     color: var(--ink-soft);
     font-size: 1.125rem;
     text-align: center;

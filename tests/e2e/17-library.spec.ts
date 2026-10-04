@@ -183,6 +183,7 @@ test.describe('library', () => {
         await expect(everything.getByRole('link')).toHaveCount(1)
         await expect(page.getByRole('button', { name: '4-6 ans' })).toHaveAttribute('aria-pressed', 'true')
         await page.getByRole('button', { name: '4-6 ans' }).click()
+        await page.getByTestId('filters-open').click()
         await pickOption(page, 'Langue', /Malagasy/)
         await expect(everything.getByRole('link')).toHaveCount(1)
         await pickOption(page, 'Langue', /English/)

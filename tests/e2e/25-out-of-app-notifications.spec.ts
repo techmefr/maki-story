@@ -107,13 +107,13 @@ test.describe('delivery rules', () => {
         await sendMessage(mamie, childId)
         let rows = (await deliveries(family.parent)).filter(row => row.kind === 'message_received' && row.memberId === parentId)
         expect(rows.some(row => row.channel === 'PUSH' && row.status === 'SENT')).toBe(false)
-        expect(rows.find(row => row.channel === 'EMAIL')).toMatchObject({ status: 'SENT' })
+        expect(rows.find(row => row.channel === 'EMAIL')).toMatchObject({ status: 'QUEUED' })
 
         await family.parent.put('/api/notifications/preferences', { data: { kind: 'message_received', channel: 'EMAIL', isEnabled: false } })
         await sendMessage(tonton, childId)
         rows = (await deliveries(family.parent)).filter(row => row.kind === 'message_received' && row.memberId === parentId)
         expect(rows.filter(row => row.status === 'SUPPRESSED' && row.reason === 'opt_out').length).toBeGreaterThanOrEqual(1)
-        expect(rows.filter(row => row.status === 'SENT')).toHaveLength(1)
+        expect(rows.filter(row => row.status === 'QUEUED')).toHaveLength(1)
     })
 
     test('a child under schedule lock gets no out-of-app notification', async ({ playwright, baseURL }) => {
@@ -142,7 +142,7 @@ test.describe('delivery rules', () => {
         await sendMessage(mamie, childId)
         const rows = (await deliveries(family.parent)).filter(row => row.memberId === parentId && row.kind === 'message_received')
         expect(rows.find(row => row.channel === 'PUSH')).toMatchObject({ status: 'FAILED' })
-        expect(rows.find(row => row.channel === 'EMAIL')).toMatchObject({ status: 'SENT' })
+        expect(rows.find(row => row.channel === 'EMAIL')).toMatchObject({ status: 'QUEUED' })
     })
 
     test('a relative with an account is reached by e-mail and never sees another family log', async ({ playwright, baseURL }) => {

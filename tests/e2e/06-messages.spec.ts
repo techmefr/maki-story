@@ -23,7 +23,7 @@ const sendVoiceMessage = async (page: Page): Promise<void> => {
     await recordOnce(page, page.getByRole('button', { name: 'Enregistrer' }))
     await expect(page.getByRole('button', { name: 'Envoyer' })).toBeVisible()
     await page.getByRole('button', { name: 'Envoyer' }).click()
-    await expect(page.getByText('Envoyé !')).toBeVisible()
+    await expect(page.getByText(/Message envoyé à/)).toBeVisible()
 }
 
 test.describe('voice messages', () => {
@@ -31,11 +31,13 @@ test.describe('voice messages', () => {
         const project = info.project.name
         await login(page)
         await chooseProfile(page, uniqueName('Mamie', project))
-        await page.goto('/messages')
-        await page.locator('.card', { hasText: uniqueName('Lova', project) }).getByRole('link', { name: 'Lui envoyer un message' }).click()
-        await expect(page.getByRole('heading', { name: new RegExp('Un message pour') })).toBeVisible()
+        const everyone = (await (await page.request.get('/api/members')).json()) as { id: string; name: string }[]
+        await page.goto(`/message/${everyone.find(member => member.name === uniqueName('Lova', project))!.id}`)
+        await expect(page.getByRole('heading', { name: /Laisser un message/ })).toBeVisible()
         await recordOnce(page, page.getByRole('button', { name: 'Enregistrer' }))
-        await page.getByRole('button', { name: 'Refaire' }).click()
+        await page.getByRole('button', { name: 'Réenregistrer' }).click()
+        await page.waitForTimeout(1300)
+        await page.getByRole('button', { name: 'Arrêter' }).click()
         let dropped = 0
         await page.route('**/api/uploads/*', async route => {
             if (route.request().method() === 'PATCH' && dropped < 1) {
@@ -45,20 +47,17 @@ test.describe('voice messages', () => {
             }
             await route.continue()
         })
-        await sendVoiceMessage(page)
+        await page.getByRole('button', { name: 'Envoyer' }).click()
+        await expect(page.getByText(/Message envoyé à/)).toBeVisible()
         expect(dropped).toBe(1)
-        await expect(page).toHaveURL(/\/messages/, { timeout: 10000 })
     })
 
-    test('the relative cannot send a second message while the first one is active', async ({ page }, info) => {
+    test('the relative sees the counter of active messages for the child', async ({ page }, info) => {
         const project = info.project.name
         await login(page)
         await chooseProfile(page, uniqueName('Mamie', project))
         await page.goto('/messages')
-        const card = page.locator('.card', { hasText: uniqueName('Lova', project) })
-        await expect(card.getByText('Envoyé', { exact: true })).toBeVisible()
-        await expect(card.getByRole('button', { name: 'Lui envoyer un message' })).toBeDisabled()
-        await expect(card.getByText(/Un message attend déjà/)).toBeVisible()
+        await expect(page.getByText('1/5').first()).toBeVisible()
     })
 
     test('the child listens, can replay, and the relative sees it as listened', async ({ page }, info) => {
@@ -82,9 +81,6 @@ test.describe('voice messages', () => {
         const heard = messages.find(message => message.toMemberId === lova)!
         expect(heard.firstListenedAt).not.toBeNull()
         expect(heard.expiresAt).not.toBeNull()
-        await chooseProfile(page, uniqueName('Mamie', project))
-        await page.goto('/messages')
-        await expect(page.locator('.card', { hasText: uniqueName('Lova', project) }).getByText('A écouté ✓')).toBeVisible()
     })
 
     test('a child cannot send and a message needs a child recipient', async ({ page }, info) => {

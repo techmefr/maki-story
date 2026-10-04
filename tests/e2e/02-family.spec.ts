@@ -28,7 +28,7 @@ test.describe('family', () => {
     test('uploads a photo and edits a member', async ({ page }, info) => {
         const name = uniqueName('Mamie', info.project.name)
         await page.goto('/family')
-        await page.locator('a.card', { hasText: name }).click()
+        await page.locator('a.listrow', { hasText: name }).click()
         await page.getByRole('button', { name: 'Changer la photo' }).click()
         await page.locator('input[type=file]').setInputFiles(pngFile('face.png'))
         await page.getByRole('button', { name: 'Garder' }).click()
@@ -42,7 +42,7 @@ test.describe('family', () => {
         const edited = members.find(member => member.name === `${name}-ok`)
         expect(edited?.photoFileId).not.toBeNull()
         expect(edited?.color).toBe('coral')
-        await page.locator('a.card', { hasText: `${name}-ok` }).click()
+        await page.locator('a.listrow', { hasText: `${name}-ok` }).click()
         await page.getByPlaceholder('Maman, Mamie, Lova…').fill(name)
         await page.getByRole('button', { name: 'Enregistrer' }).click()
         await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
@@ -56,7 +56,7 @@ test.describe('family', () => {
     test('deletes a member after confirmation', async ({ page }, info) => {
         const name = uniqueName('Temporaire', info.project.name)
         await addMember(page, name, 'Proche')
-        await page.locator('a.card', { hasText: name }).click()
+        await page.locator('a.listrow', { hasText: name }).click()
         page.once('dialog', dialog => dialog.dismiss())
         await page.getByRole('button', { name: 'Supprimer ce proche' }).click()
         await expect(page).toHaveURL(/\/family\//)

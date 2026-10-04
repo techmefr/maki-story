@@ -146,7 +146,7 @@ test.describe('parental schedule in the app', () => {
         await expect(page.getByTestId('parental-status')).toContainText('Écoute coupée jusqu’à')
     })
 
-    test('the child gets a text-free locked screen, a parent can step in, and it reopens by itself', async ({ page, playwright, baseURL }) => {
+    test('the child gets a lock screened screen, a parent can step in, and it reopens by itself', async ({ page, playwright, baseURL }) => {
         const account = uniqueAccount('parental-locked')
         await signIn(page.request, account)
         const parent = await openSession(playwright, baseURL, account)
@@ -158,7 +158,7 @@ test.describe('parental schedule in the app', () => {
         await expect(page).toHaveURL(/\/kid\/locked/)
         const screen = page.getByTestId('locked-screen')
         await expect(screen).toBeVisible()
-        await expect(screen).toHaveText('')
+        await expect(screen).toContainText('L’app dort')
         await expect(screen.getByRole('img', { name: 'Retour de l’heure d’écoute' })).toBeVisible()
         await page.goto('/kid')
         await expect(page).toHaveURL(/\/kid\/locked/)
@@ -194,7 +194,7 @@ test.describe('parental schedule in the app', () => {
         await expect(page.getByText(/lit$/)).toBeVisible()
         expect((await parent.put(`/api/members/${childId}/access-block`, { data: { mode: 'now' } })).ok()).toBeTruthy()
         await expect(page).toHaveURL(/\/kid\/locked/, { timeout: 15_000 })
-        await expect(page.getByTestId('locked-screen')).toHaveText('')
+        await expect(page.getByTestId('locked-screen')).toContainText('L’app dort')
         await parent.dispose()
     })
 

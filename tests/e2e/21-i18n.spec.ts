@@ -3,7 +3,11 @@ import type { Page } from '@playwright/test'
 import { chooseProfile, PARENT_NAME, signIn, uniqueAccount } from './helpers'
 
 const chooseLanguage = async (page: Page, code: string): Promise<void> => {
-    await page.getByRole('dialog').locator(`button.menu__chip[lang="${code}"]`).click()
+    const header = page.getByRole('dialog').locator('.msec__head').nth(1)
+    if ((await header.getAttribute('aria-expanded')) !== 'true') {
+        await header.click()
+    }
+    await page.getByRole('dialog').locator(`button[lang="${code}"]`).last().click()
 }
 
 test.describe('interface language', () => {

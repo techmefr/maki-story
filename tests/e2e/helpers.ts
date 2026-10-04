@@ -267,3 +267,17 @@ export const pickOption = async (page: Page, label: string, option: string | Reg
     await page.getByLabel(label, { exact: true }).click()
     await page.getByRole('option', { name: option }).click()
 }
+
+export const openMenuSection = async (page: Page, label: string): Promise<void> => {
+    const header = page.getByRole('dialog').getByRole('button', { name: new RegExp(`^${label}`) }).first()
+    if ((await header.getAttribute('aria-expanded')) !== 'true') {
+        await header.click()
+    }
+}
+
+export const allowSpokenLanguages = async (api: APIRequestContext, codes: string[]): Promise<void> => {
+    const members = (await (await api.get('/api/members')).json()) as { id: string; role: string }[]
+    const parent = members.find(member => member.role === 'parent')!
+    const response = await api.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: codes } })
+    expect(response.ok(), await response.text()).toBeTruthy()
+}
