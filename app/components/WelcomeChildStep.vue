@@ -29,7 +29,7 @@
                 />
             </div>
         </div>
-        <CodeField v-model="code" :can-use-shapes="true" :label="t('welcome.child.code')" />
+        <CodeField v-model="code" role="child" :label="t('welcome.child.code')" />
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <AppButton is-block class="welcome-child__action" type="submit" :disabled="isBusy || !canSave" data-testid="welcome-child-save">
             <AppIcon name="user-plus" :size="22" motion="bounce" />{{ t('welcome.child.add') }}
