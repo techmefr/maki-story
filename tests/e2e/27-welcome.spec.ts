@@ -34,7 +34,10 @@ test.describe('guided first launch', () => {
 
         await page.getByTestId('welcome-child-name').fill('Lova')
         await page.getByTestId('welcome-child-birth').fill('2020-05-17')
-        await page.getByLabel('Code de l’enfant').fill(PROFILE_PIN)
+        for (const shape of ['Étoile', 'Rond', 'Cœur', 'Carré']) {
+            await page.getByRole('button', { name: shape }).click()
+        }
+        await page.getByRole('button', { name: 'OK' }).click()
         await page.getByTestId('welcome-child-save').click()
         await expect(page.getByTestId('welcome-children')).toContainText('Lova')
         await expect(page.getByTestId('welcome-children-next')).toBeEnabled()
