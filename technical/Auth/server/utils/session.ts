@@ -98,5 +98,9 @@ export const isSessionCurrent = async (session: ISession): Promise<boolean> => {
     if (!account) {
         return false
     }
+    const [family] = await getDb()<{ id: string }[]>`select id from families where id = ${session.familyId} and deleted_at is null`
+    if (!family) {
+        return false
+    }
     return account.passwordChangedAt === null || session.issuedAt >= account.passwordChangedAt.getTime()
 }
