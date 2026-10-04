@@ -107,12 +107,12 @@ test.describe('shell per role', () => {
         await page.goto('/home')
         await expectTabs(page, ['Accueil', 'Bibliothèque', 'Famille'])
         await expect(page.getByTestId('relatives-grid')).toBeVisible()
-        await expect(page.getByTestId('relatives-grid').getByText(RELATIVE)).toBeVisible()
-        await expect(page.getByTestId('relatives-grid').getByText(CHILD)).toHaveCount(0)
+        await expect(page.getByTestId('relatives-grid').getByText(CHILD)).toBeVisible()
+        await expect(page.getByTestId('relatives-grid').getByText(RELATIVE)).toHaveCount(0)
 
         await chooseProfile(page, CHILD)
         await page.goto('/kid')
-        await expectTabs(page, ['Accueil', 'Coffre'])
+        await expectTabs(page, ['Accueil', 'Coffre', 'Bibliothèque'])
         await expect(page.getByRole('heading', { name: /Coucou/ })).toBeVisible()
         await expect(page.locator('.hello svg[viewBox="0 0 120 120"]')).toHaveCount(0)
 
@@ -215,7 +215,7 @@ test.describe('shell per role', () => {
         await expect(bell.locator('svg')).toHaveCount(1)
     })
 
-    test('an unheard message puts a ring on the relative card and opens the playback', async ({ page, playwright, baseURL }, info) => {
+    test('an unheard message puts a ring on the relative face of the child and opens the playback', async ({ page, playwright, baseURL }, info) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         const { childId, relativeId } = await seedFamily(page)
@@ -227,8 +227,9 @@ test.describe('shell per role', () => {
         const sent = await relative.post('/api/messages', { data: { fromMemberId: relativeId, toMemberId: childId, fileId, mime: 'audio/wav', durationMs: 300 } })
         expect(sent.ok(), await sent.text()).toBeTruthy()
         await relative.dispose()
-        await page.goto('/home')
-        const card = page.getByTestId('relatives-grid').locator('a', { hasText: RELATIVE })
+        await chooseProfile(page, CHILD)
+        await page.goto('/kid')
+        const card = page.locator('.face__link', { hasText: RELATIVE })
         await expect(card).toHaveAttribute('data-ring', 'unheard')
         await card.click()
         await expect(page).toHaveURL(/\/message\/listen\//)

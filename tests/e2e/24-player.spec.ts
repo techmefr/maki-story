@@ -127,8 +127,7 @@ test.describe('player, treasure box and stories playback', () => {
     test('the child opens the chest, a parent removes a memory after confirming', async ({ page }) => {
         await signIn(page.request, account)
         await chooseProfile(page, 'Lova')
-        await expect(page.getByTestId('treasure-chest')).toBeVisible()
-        await page.getByTestId('treasure-chest').click()
+        await page.getByRole('link', { name: 'Coffre' }).click()
         await expect(page.getByTestId('treasure-counter')).toContainText(`${BOX_LIMIT}/${BOX_LIMIT}`)
         await expect(page.getByTestId('treasure-item')).toHaveCount(BOX_LIMIT)
         await expect(page.getByRole('button', { name: 'Retirer ce souvenir' })).toHaveCount(0)

@@ -55,5 +55,34 @@
         "playLabel": "Ouvir a mensagem de {name}",
         "booksLabel": "Histórias lidas por {name}"
     },
-    "birthdayMissing": "Adiciona a data de nascimento de {name}"
+    "birthdayMissing": "Adiciona a data de nascimento de {name}",
+    "dash": {
+        "myChildren": "As minhas crianças",
+        "message": "Mensagem",
+        "quota": "{count}/{max} mensagens",
+        "messageTo": "Deixar uma mensagem a {name}",
+        "noChildren": "Ainda não há crianças",
+        "noChildrenParent": "Adiciona uma criança para lhe deixares mensagens e histórias.",
+        "noChildrenHint": "Pede a um pai ou mãe que adicione uma criança.",
+        "actions": "O que queres fazer?",
+        "newBook": "Novo livro",
+        "newBookHint": "Escrever uma história página a página",
+        "byIsbn": "Adicionar por ISBN",
+        "byIsbnHint": "Digitalizar ou escrever o código de barras",
+        "toReview": "Por rever",
+        "toReviewHint": "Gravações à espera de validação",
+        "library": "Biblioteca",
+        "libraryHint": "Todos os livros da família",
+        "manageFamily": "Gerir a família",
+        "manageFamilyHint": "Pais, familiares, crianças e acessos",
+        "proposeBook": "Propor um livro",
+        "proposeBookHint": "Um pai ou mãe valida antes da criança",
+        "requests": "Pedidos de gravação",
+        "requestsHint": "As histórias que te pedem para ler",
+        "pending": "À espera de validação",
+        "pendingHint": "As tuas propostas e a resposta",
+        "toFix": "Por corrigir",
+        "toFixHint": "Takes a repetir",
+        "vaultHint": "Mensagens das crianças guardadas"
+    }
 }

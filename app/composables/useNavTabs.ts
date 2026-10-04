@@ -16,8 +16,9 @@ export const useNavTabs = () => {
         const role = current.value?.role
         if (role === 'child') {
             return [
-                { path: '/kid', icon: 'home', label: t('shell.nav.home'), isOn: route.path.startsWith('/kid') && !route.path.startsWith('/kid/treasure'), hasBadge: false },
+                { path: '/kid', icon: 'home', label: t('shell.nav.home'), isOn: route.path.startsWith('/kid') && !route.path.startsWith('/kid/treasure') && !route.path.startsWith('/kid/library'), hasBadge: false },
                 { path: '/kid/treasure', icon: 'heart', label: t('shell.nav.treasure'), isOn: route.path.startsWith('/kid/treasure'), hasBadge: false },
+                { path: '/kid/library', icon: 'book', label: t('shell.nav.library'), isOn: route.path.startsWith('/kid/library'), hasBadge: false },
             ]
         }
         const home: INavTab = { path: '/home', icon: 'home', label: t('shell.nav.home'), isOn: route.path === '/home', hasBadge: false }

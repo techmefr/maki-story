@@ -55,5 +55,34 @@
         "playLabel": "Henoy ny hafatr’i {name}",
         "booksLabel": "Tantara novakin’i {name}"
     },
-    "birthdayMissing": "Ampio ny daty nahaterahan’i {name}"
+    "birthdayMissing": "Ampio ny daty nahaterahan’i {name}",
+    "dash": {
+        "myChildren": "Ny zanako",
+        "message": "Hafatra",
+        "quota": "Hafatra {count}/{max}",
+        "messageTo": "Mamela hafatra ho an’i {name}",
+        "noChildren": "Mbola tsy misy ankizy",
+        "noChildrenParent": "Ampio ankizy mba hamelana hafatra sy tantara aminy.",
+        "noChildrenHint": "Angataho amin’ny ray aman-dreny ny hanampy ankizy.",
+        "actions": "Inona no tianao hatao?",
+        "newBook": "Boky vaovao",
+        "newBookHint": "Manoratra tantara pejy tsirairay",
+        "byIsbn": "Ampio amin’ny ISBN",
+        "byIsbnHint": "Tsarao na soraty ny kaody tsipika",
+        "toReview": "Hojerena",
+        "toReviewHint": "Fandraketana miandry fankatoavana",
+        "library": "Tranombokatra",
+        "libraryHint": "Ny boky rehetra an’ny fianakaviana",
+        "manageFamily": "Tantano ny fianakaviana",
+        "manageFamilyHint": "Ray aman-dreny, havana, ankizy ary fidirana",
+        "proposeBook": "Atolory boky",
+        "proposeBookHint": "Ray na reny no manamarina alohan’ny ankizy",
+        "requests": "Fangatahana fandraketana",
+        "requestsHint": "Ny tantara angatahana hovakianao",
+        "pending": "Miandry fankatoavana",
+        "pendingHint": "Ny tolotrao sy ny valiny",
+        "toFix": "Hahitsy",
+        "toFixHint": "Fandraketana havaozina",
+        "vaultHint": "Hafatry ny ankizy voatahiry"
+    }
 }
