@@ -273,7 +273,7 @@ test.describe('recording studio', () => {
         await nextStep(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         const uploaded = page.waitForResponse(response => new URL(response.url()).pathname === '/api/files' && response.request().method() === 'POST')
-        await page.locator('input[type=file]').setInputFiles({ name: 'scan.jpg', mimeType: 'image/jpeg', buffer: jpeg })
+        await page.getByTestId('add-photo-input').setInputFiles({ name: 'scan.jpg', mimeType: 'image/jpeg', buffer: jpeg })
         const response = await uploaded
         const mime = response.request().headers()['content-type']
         const { id } = (await response.json()) as { id: string }

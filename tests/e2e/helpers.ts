@@ -171,6 +171,14 @@ export const nextStep = async (page: Page): Promise<void> => {
     await page.getByRole('button', { name: 'Suivant', exact: true }).click()
 }
 
+export const finishPages = async (page: Page): Promise<void> => {
+    await page.getByRole('button', { name: 'Terminer', exact: true }).click()
+}
+
+export const openCast = async (page: Page): Promise<void> => {
+    await page.getByTestId('accordion-cast').click()
+}
+
 export const uniqueName = (base: string, projectName: string): string => `${base}-${projectName}`
 
 export const fakeAudioBytes = (): Buffer => Buffer.from('GkXfo59ChoEBQveBAULygQRC84EIQoKEd2VibUKHgQRChYECGFOAZwEAAAAAAAHTEU2bdLpNu4tTq4QVSalmU6yBoU27i1OrhBVJqWZTrIHfTbuMU6uEFlSua1OsggEwTbuMU6uEHFO7a1OsggHk', 'base64')
