@@ -1,6 +1,6 @@
 import { expect, request, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, linesCard, makeWav, nextStep, PARENT_NAME, pngFile, signIn, startBook, uniqueAccount, useProfile } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, linesCard, makeWav, nextStep, PARENT_NAME, pngFile, signIn, startBook, uniqueAccount, useProfile } from './helpers'
 
 test.skip(Boolean(process.env.E2E_BASE_URL), 'AI tests need the fake provider of the local server')
 
@@ -53,13 +53,12 @@ test.describe('ai interface', () => {
         await expect(page.getByText('Proposé par l’IA.')).toBeVisible()
         await expect(page.getByLabel('Titre du livre')).toHaveValue('Le petit zébu')
         await nextStep(page)
-        await nextStep(page)
-        await expect(page.getByRole('heading', { name: 'Les répliques' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await expect(page.getByText('Réplique 1', { exact: true })).toBeVisible()
         await expect(page.getByText('Réplique 4', { exact: true })).toBeVisible()
         await linesCard(page, 1).getByLabel('Retirer la réplique').first().click()
         await expect(page.getByText('Réplique 1', { exact: true })).toHaveCount(0)
-        await nextStep(page)
+        await finishPages(page)
         await page.getByRole('button', { name: 'Passer au studio' }).click()
         await expect(page).toHaveURL(/\/books\/.+\/studio/)
         const book = await apiJson<IBook>(page, `/books/${page.url().split('/')[4]}`)
@@ -153,9 +152,7 @@ test.describe('ai interface', () => {
         await openAsParent(page)
         await startBook(page, 'Livre traduit')
         await nextStep(page)
-        await page.getByRole('button', { name: 'Continuer sans photo' }).click()
-        await nextStep(page)
-        await expect(page.getByRole('heading', { name: 'Les répliques' })).toBeVisible()
+        await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await addLine(page, 1, null, 'Bonjour petit zébu')
         await addLine(page, 1, null, 'Au revoir petit zébu')
         const first = page.locator('.line', { hasText: 'Bonjour petit zébu' })
@@ -176,7 +173,7 @@ test.describe('ai interface', () => {
         await expect(second.getByLabel(/Traduction proposée en/)).toHaveCount(0)
         await second.getByRole('button', { name: 'Fermer' }).click()
 
-        await nextStep(page)
+        await finishPages(page)
         await page.getByRole('button', { name: 'Passer au studio' }).click()
         await expect(page).toHaveURL(/\/books\/.+\/studio/)
         const book = await apiJson<IBook>(page, `/books/${page.url().split('/')[4]}`)
