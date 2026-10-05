@@ -22,15 +22,18 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
         return badRequest('Invalid message kind')
     }
     const kind: MessageKind = body.kind ?? 'NORMAL'
+    const toMemberId = body.toMemberId
+    const fileId = body.fileId
+    const mime = body.mime
     const fromMemberId = requireActorMember(actor)
     if (body.fromMemberId !== undefined && body.fromMemberId !== fromMemberId) {
         throw createError({ statusCode: 403, statusMessage: 'You can only send messages as yourself' })
     }
     const db = getDb()
-    await assertMembersInFamily(db, familyId, [fromMemberId, body.toMemberId])
-    await assertFilesInFamily(db, familyId, [body.fileId])
+    await assertMembersInFamily(db, familyId, [fromMemberId, toMemberId])
+    await assertFilesInFamily(db, familyId, [fileId])
     const [audio] = await db<{ id: string }[]>`
-        select id from files where id = ${body.fileId} and family_id = ${familyId} and mime like 'audio/%' and octet_length(data) > 0
+        select id from files where id = ${fileId} and family_id = ${familyId} and mime like 'audio/%' and octet_length(data) > 0
     `
     const durationMs = Math.round(Number(body.durationMs))
     if (!audio || !(durationMs > 0)) {
@@ -42,7 +45,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     const recipientRole = actor.role === 'child' ? `role <> 'child'` : `role = 'child'`
     const [recipient] = await db<{ id: string; name: string }[]>`
         select id, name from members
-        where id = ${body.toMemberId} and family_id = ${familyId} and ${db.unsafe(recipientRole)} and deleted_at is null and status = 'active' and source_member_id is null
+        where id = ${toMemberId} and family_id = ${familyId} and ${db.unsafe(recipientRole)} and deleted_at is null and status = 'active' and source_member_id is null
     `
     if (!recipient || recipient.id === fromMemberId) {
         return badRequest(actor.role === 'child' ? 'A child writes to an adult of the family' : 'A message goes to exactly one child')
@@ -52,7 +55,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     }
     if (actor.role !== 'parent') {
         const [owned] = await db<{ id: string }[]>`
-            select id from files where id = ${body.fileId} and family_id = ${familyId} and created_by_member_id = ${fromMemberId}
+            select id from files where id = ${fileId} and family_id = ${familyId} and created_by_member_id = ${fromMemberId}
         `
         if (!owned) {
             throw createError({ statusCode: 403, statusMessage: 'You can only send files you uploaded' })
@@ -61,12 +64,12 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     await purgeExpiredMessages(db, familyId)
     const message = await db.begin(async tx => {
         await tx`select pg_advisory_xact_lock(hashtext(${`${fromMemberId}:${recipient.id}`}))`
-        const [{ count }] = await tx<{ count: number }[]>`
+        const [activeRow] = await tx<{ count: number }[]>`
             select count(*)::int as count from messages m
             where m.from_member_id = ${fromMemberId} and m.to_member_id = ${recipient.id} and m.status = 'ACTIVE' and m.deleted_at is null
                 and not exists (select 1 from treasures t where t.source_message_id = m.id and t.deleted_at is null)
         `
-        if (count >= MESSAGE_MAX_ACTIVE) {
+        if ((activeRow?.count ?? 0) >= MESSAGE_MAX_ACTIVE) {
             throw createError({
                 statusCode: 409,
                 statusMessage: `Tu as déjà ${MESSAGE_MAX_ACTIVE} messages en attente pour ${recipient.name}. Ils disparaissent 24 h après leur première écoute.`,
@@ -74,7 +77,7 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
         }
         return one(await tx<IMessage[]>`
             insert into messages (family_id, from_member_id, to_member_id, file_id, mime, duration_ms, kind)
-            values (${familyId}, ${fromMemberId}, ${recipient.id}, ${body.fileId}, ${body.mime}, ${durationMs}, ${kind})
+            values (${familyId}, ${fromMemberId}, ${recipient.id}, ${fileId}, ${mime}, ${durationMs}, ${kind})
             returning id, from_member_id, to_member_id, file_id, mime, duration_ms, kind, status, listened_at, first_listened_at, expires_at, created_at, false as is_saved
         `)
     })

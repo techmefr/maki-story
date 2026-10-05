@@ -22,7 +22,7 @@ export interface IInvitationRow {
     name: string
     childIds: string[]
     memberId: string | null
-    role: MemberRole
+    role: InvitationRole
     inviterName: string
     isUsable: boolean
 }

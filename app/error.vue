@@ -3,6 +3,8 @@
 </template>
 
 <script setup lang="ts">
+import type { TErrorStateType } from '~~/functional/Help/app/components/ErrorState.vue'
+
 const HTTP_FORBIDDEN = 403
 const HTTP_NOT_FOUND = 404
 const HTTP_SERVER_ERROR = 500

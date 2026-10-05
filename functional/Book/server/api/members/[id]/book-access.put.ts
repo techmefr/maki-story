@@ -10,6 +10,7 @@ export default defineEventHandler(async (event): Promise<IBookAccess> => {
     if (typeof body.isRestricted !== 'boolean' || !Array.isArray(body.bookIds) || !body.bookIds.every(item => typeof item === 'string')) {
         return badRequest('Invalid book access')
     }
+    const isRestricted = body.isRestricted
     const bookIds = [...new Set(body.bookIds)]
     const db = getDb()
     await assertMembersInFamily(db, familyId, [id])
@@ -24,7 +25,7 @@ export default defineEventHandler(async (event): Promise<IBookAccess> => {
                 return badRequest('Unknown book')
             }
         }
-        await tx`update members set books_restricted = ${body.isRestricted} where id = ${id}`
+        await tx`update members set books_restricted = ${isRestricted} where id = ${id}`
         await tx`delete from book_access where child_id = ${id}`
         for (const bookId of bookIds) {
             await tx`insert into book_access (child_id, book_id) values (${id}, ${bookId})`
