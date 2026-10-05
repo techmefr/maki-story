@@ -83,7 +83,7 @@ test.describe('voice messages', () => {
         expect(heard.expiresAt).not.toBeNull()
     })
 
-    test('a child cannot send and a message needs a child recipient', async ({ page }, info) => {
+    test('a child writes to an adult and an adult message needs a child recipient', async ({ page }, info) => {
         const project = info.project.name
         await login(page)
         const lova = await idOf(page, uniqueName('Lova', project))
@@ -91,7 +91,7 @@ test.describe('voice messages', () => {
         await useProfile(page.request, uniqueName('Lova', project))
         const fileId = await uploadWav(page, 300)
         const fromChild = await page.request.post('/api/messages', { data: { toMemberId: mamie, fileId, mime: 'audio/wav', durationMs: 300 } })
-        expect(fromChild.status()).toBe(403)
+        expect(fromChild.status()).toBe(200)
         await useProfile(page.request, uniqueName('Mamie', project))
         const toRelative = await page.request.post('/api/messages', { data: { toMemberId: mamie, fileId: await uploadWav(page, 300), mime: 'audio/wav', durationMs: 300 } })
         expect(toRelative.status()).toBe(400)

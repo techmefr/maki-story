@@ -102,7 +102,6 @@ test.describe('member code administration', () => {
         await expect(page.getByTestId('code-state')).toHaveText('Aucun code défini.')
         await page.getByRole('button', { name: 'Définir le code' }).click()
         await enterSymbols(page, CHILD_SYMBOLS)
-        await page.getByRole('button', { name: 'Enregistrer', exact: true }).click()
         await expect(page).toHaveURL(/\/family$/)
         await page.goto(`/family/${childId}`)
         await expect(page.getByTestId('code-state')).toHaveText('Code en symboles défini.')
