@@ -47,7 +47,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     if (!isNonEmptyString(body.title)) {
         return badRequest('A title is required')
     }
-    if ((lines.length === 0 && type !== 'wordless') || lines.length > MAX_LINES || pages.length > MAX_PAGES) {
+    if ((lines.length === 0 && pages.length === 0) || lines.length > MAX_LINES || pages.length > MAX_PAGES) {
         return badRequest('Invalid lines or pages')
     }
     if (lines.some(line => !isNonEmptyString(line.text))) {

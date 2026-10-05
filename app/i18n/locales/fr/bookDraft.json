@@ -88,7 +88,15 @@
         "needsPhoto": "Ce type de livre a besoin d’au moins une page en photo.",
         "continueNoPhoto": "Continuer sans photo",
         "pageTitle": "Titre de la page (facultatif)",
-        "pageTitlePlaceholder": "Titre de la page"
+        "pageTitlePlaceholder": "Titre de la page",
+        "introAccordion": "Ajoute les pages une à une. Dans chaque page, tu peux ajouter les répliques et les personnages. Tu peux enregistrer le brouillon et reprendre plus tard.",
+        "addWithPhoto": "Ajouter une page avec photo",
+        "addSilent": "Ajouter une page sans voix",
+        "saveDraft": "Enregistrer le brouillon",
+        "draftSaved": "Brouillon enregistré sur cet appareil.",
+        "finish": "Terminer",
+        "silentPage": "Page sans paroles (image seule)",
+        "silentPanel": "Case sans paroles (image seule)"
     },
     "characters": {
         "intro": "Définis chaque personnage une seule fois : tu le retrouveras ensuite en un clic pour chaque réplique. Choisis qui lit sa voix.",
@@ -119,6 +127,7 @@
         "image": "Image : {description}",
         "panelWithDescription": "Case {n} : {description}",
         "needOne": "Ajoute au moins une réplique pour continuer.",
+        "moveTo": "Déplacer vers la page",
         "count": {
             "one": "{count} réplique",
             "other": "{count} répliques"
@@ -128,7 +137,7 @@
         "readsAll": "{name} lit tout le livre",
         "narratorName": "{name} (narrateur)",
         "pickVoice": "Voix à choisir",
-        "errLines": "Ajoute au moins une réplique.",
+        "errLines": "Ajoute au moins une page.",
         "errNames": "Chaque personnage a besoin d’un nom différent.",
         "errVoiceless": "Choisis une voix pour : {names}.",
         "saving": "Enregistrement…",
@@ -138,5 +147,11 @@
             "one": "{count} page",
             "other": "{count} pages"
         }
+    },
+    "resume": {
+        "title": "Un brouillon t’attend",
+        "hint": "Tu avais commencé un livre. Tu peux le reprendre ou repartir de zéro.",
+        "resume": "Reprendre le brouillon",
+        "discard": "Repartir de zéro"
     }
 }

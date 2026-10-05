@@ -27,6 +27,12 @@
         ×
       </AppButton>
     </div>
+    <label v-if="pages.length > 1" class="stack" style="gap: 4px">
+      <span class="label">{{ t("bookDraft.lines.moveTo") }}</span>
+      <select class="input" :value="line.pageIndex" @change="moveLine(Number(($event.target as HTMLSelectElement).value))">
+        <option v-for="(_page, index) in pages" :key="index" :value="index">{{ t("bookDraft.shared.page", { n: index + 1 }) }}</option>
+      </select>
+    </label>
     <AiTranslationSuggest v-if="isAiCreationEnabled && isParent && !isWordless" :line="line" />
     <ToneChips
       v-if="isEditing"
@@ -48,11 +54,16 @@ const {
   isWordless,
   characterByKey,
   effectiveCharacterKey,
+  pages,
   updateLine,
   removeLine,
 } = useBookDraft();
 
 const isEditing = ref(false);
+
+const moveLine = (pageIndex: number): void => {
+  updateLine(props.line.key, { pageIndex, panelIndex: null });
+};
 
 const character = computed(() =>
   characterByKey(effectiveCharacterKey(props.line)),

@@ -125,5 +125,6 @@
     "progress": "Fandrosoan’ny fandraketana",
     "translateBook": "Adikao ity boky ity",
     "pageMeta": "Pejy {page} amin’ny {total} · {done}/{mine} voarakitra",
-    "voices": "Feo"
+    "voices": "Feo",
+    "panelLine": "Panel {n}"
 }

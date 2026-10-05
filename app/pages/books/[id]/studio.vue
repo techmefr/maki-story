@@ -65,7 +65,7 @@
         <section
             v-if="currentLine"
             class="stage"
-            :class="{ 'stage--prompter': isPrompter }"
+            :class="{ 'stage--prompter': isPrompter, 'stage--cue': isCueFlashing }"
             :style="{ background: activeHex }"
             :aria-label="t('studio.prompter')"
         >
@@ -98,6 +98,7 @@
             </div>
             <div class="stage__script stack">
                 <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
+                <div v-if="currentPanelNumber" class="badge" data-testid="current-panel">{{ t('studio.panelLine', { n: currentPanelNumber }) }}</div>
                 <p class="stage__text" data-testid="teleprompter-text">{{ lineText(currentLine) }}</p>
                 <div v-if="book.imageDesc" class="hint">{{ t('studio.image', { text: book.imageDesc }) }}</div>
                 <div v-if="activeTone" class="hint">{{ t('studio.voiceTone', { text: activeTone }) }}</div>
@@ -235,6 +236,7 @@ const { isRecording, elapsedMs, remainingMs, errorMessage, start, stop } = recor
 const player = useAudioPlayer()
 const speech = useSpeechAssist()
 const wakeLock = useWakeLock()
+const { unlock, panelCue, isCueFlashing } = useDing()
 
 const book = ref<IBook | null>(null)
 const comments = ref<IReviewComment[]>([])
@@ -331,6 +333,12 @@ const memberLines = computed(() =>
     visibleLines.value.filter(line => line.memberId === activeMemberId.value && (!isRedoOnly.value || needsRedo(line))),
 )
 const currentLine = computed(() => memberLines.value.find(line => line.id === currentLineId.value) ?? null)
+const currentPanelNumber = computed(() => {
+    const line = currentLine.value
+    const panels = book.value?.pages[line?.pageIndex ?? -1]?.panels ?? []
+    const index = panels.findIndex(panel => panel.id === line?.panelId)
+    return line?.panelId && index >= 0 ? index + 1 : 0
+})
 const currentIndex = computed(() => memberLines.value.findIndex(line => line.id === currentLineId.value))
 const nextLine = computed(() => memberLines.value[currentIndex.value + 1] ?? null)
 const hasPrevious = computed(() => currentIndex.value > 0)
@@ -443,6 +451,10 @@ const goToNextLine = (fromId: string): void => {
     const anywhere = lines.find(line => !hasVoice(line, language.value))
     const next = after ?? anywhere
     if (next) {
+        const from = lines[index]
+        if (next.panelId !== null && (next.panelId !== from?.panelId || next.pageIndex !== from?.pageIndex)) {
+            panelCue()
+        }
         currentLineId.value = next.id
     }
 }
@@ -469,6 +481,7 @@ const toggleRecord = async (): Promise<void> => {
         return
     }
     player.stop()
+    unlock()
     if (!isRecording.value) {
         speech.cancel()
         limitNotice.value = ''
@@ -690,6 +703,11 @@ onMounted(async () => {
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     padding: 6px 10px;
+}
+
+.stage--cue {
+    outline: 6px solid var(--ink);
+    outline-offset: -6px;
 }
 
 .stage--prompter {

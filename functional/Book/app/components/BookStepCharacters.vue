@@ -60,11 +60,12 @@
             <AppButton variant="secondary" type="submit" :disabled="newName.trim() === ''">{{ t('bookDraft.characters.add') }}</AppButton>
         </form>
         <div class="muted" role="status">{{ castHint }}</div>
-        <AppButton is-block @click="emit('next')">{{ t('common.next') }}</AppButton>
+        <AppButton v-if="hasNext" is-block @click="emit('next')">{{ t('common.next') }}</AppButton>
     </div>
 </template>
 
 <script setup lang="ts">
+withDefaults(defineProps<{ hasNext?: boolean }>(), { hasNext: true })
 const emit = defineEmits<{ next: [] }>()
 
 const COLOR_KEYS: Record<VoiceColorId, string> = {

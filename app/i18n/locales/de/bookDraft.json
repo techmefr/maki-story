@@ -88,7 +88,15 @@
         "needsPhoto": "Für diese Art von Buch braucht es mindestens eine Seite als Foto.",
         "continueNoPhoto": "Ohne Foto weiter",
         "pageTitle": "Seitentitel (optional)",
-        "pageTitlePlaceholder": "Seitentitel"
+        "pageTitlePlaceholder": "Seitentitel",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "Lege jede Figur nur einmal an: Danach findest du sie bei jedem Satz mit einem Tippen. Wähle aus, wer ihre Stimme liest.",
@@ -119,6 +127,7 @@
         "image": "Bild: {description}",
         "panelWithDescription": "Bild {n}: {description}",
         "needOne": "Füge mindestens einen Satz hinzu, um fortzufahren.",
+        "moveTo": "Auf Seite verschieben",
         "count": {
             "one": "{count} Satz",
             "other": "{count} Sätze"
@@ -128,7 +137,7 @@
         "readsAll": "{name} liest das ganze Buch",
         "narratorName": "{name} (Erzähler)",
         "pickVoice": "Stimme auswählen",
-        "errLines": "Füge mindestens einen Satz hinzu.",
+        "errLines": "Add at least one page.",
         "errNames": "Jede Figur braucht einen eigenen Namen.",
         "errVoiceless": "Wähle eine Stimme für: {names}.",
         "saving": "Wird gespeichert…",
@@ -138,5 +147,11 @@
             "one": "{count} Seite",
             "other": "{count} Seiten"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }

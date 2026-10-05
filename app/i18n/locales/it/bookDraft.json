@@ -88,7 +88,15 @@
         "needsPhoto": "Questo tipo di libro ha bisogno di almeno una pagina in foto.",
         "continueNoPhoto": "Continua senza foto",
         "pageTitle": "Titolo della pagina (facoltativo)",
-        "pageTitlePlaceholder": "Titolo della pagina"
+        "pageTitlePlaceholder": "Titolo della pagina",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "Definisci ogni personaggio una volta sola: lo ritroverai poi con un tocco per ogni battuta. Scegli chi legge la sua voce.",
@@ -119,6 +127,7 @@
         "image": "Immagine: {description}",
         "panelWithDescription": "Vignetta {n}: {description}",
         "needOne": "Aggiungi almeno una battuta per continuare.",
+        "moveTo": "Sposta alla pagina",
         "count": {
             "one": "{count} battuta",
             "other": "{count} battute"
@@ -128,7 +137,7 @@
         "readsAll": "{name} legge tutto il libro",
         "narratorName": "{name} (narratore)",
         "pickVoice": "Voce da scegliere",
-        "errLines": "Aggiungi almeno una battuta.",
+        "errLines": "Add at least one page.",
         "errNames": "Ogni personaggio ha bisogno di un nome diverso.",
         "errVoiceless": "Scegli una voce per: {names}.",
         "saving": "Salvataggio…",
@@ -138,5 +147,11 @@
             "one": "{count} pagina",
             "other": "{count} pagine"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }

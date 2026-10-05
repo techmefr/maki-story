@@ -129,5 +129,6 @@
     "progress": "تقدم التسجيلات",
     "translateBook": "ترجمة هذا الكتاب",
     "pageMeta": "الصفحة {page} من {total} · {done}/{mine} مسجّلة",
-    "voices": "الأصوات"
+    "voices": "الأصوات",
+    "panelLine": "Panel {n}"
 }

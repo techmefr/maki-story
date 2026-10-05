@@ -15,10 +15,16 @@
         </div>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
-        <BookStepBook v-if="step === 'book'" @next="goNext" />
+        <div v-if="isResumable" class="card stack" role="group" :aria-label="t('bookDraft.resume.title')">
+            <span class="subtitle">{{ t('bookDraft.resume.title') }}</span>
+            <p class="muted">{{ t('bookDraft.resume.hint') }}</p>
+            <div class="row">
+                <AppButton class="grow" data-testid="resume-draft" @click="resumeDraft">{{ t('bookDraft.resume.resume') }}</AppButton>
+                <AppButton variant="secondary" class="grow" data-testid="discard-draft" @click="discardDraft">{{ t('bookDraft.resume.discard') }}</AppButton>
+            </div>
+        </div>
+        <BookStepBook v-else-if="step === 'book'" @next="goNext" />
         <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
-        <BookStepCharacters v-else-if="step === 'characters'" @next="goNext" />
-        <BookStepLines v-else-if="step === 'lines'" @next="goNext" />
         <BookStepReview v-else />
         <AppButton variant="secondary" size="sm" v-if="step !== 'book'" @click="back">{{ t('common.back') }}</AppButton>
     </div>
@@ -29,13 +35,11 @@ const isAiCreationEnabled = useAiCreationEnabled()
 const STEP_TITLE_KEYS: Record<DraftStep, string> = {
     book: 'bookDraft.wizard.stepBook',
     pages: 'bookDraft.wizard.stepPages',
-    characters: 'bookDraft.wizard.stepCharacters',
-    lines: 'bookDraft.wizard.stepLines',
     review: 'bookDraft.wizard.stepReview',
 }
 
 const { t } = useI18n()
-const { step, steps, isSimple, isWordless, isAiPrefilled, setMode, reset } = useBookDraft()
+const { step, steps, isSimple, isWordless, isAiPrefilled, title, pages, lines, characters, setMode, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
 const { current, isParent } = useCurrentMember()
 
 const stepCount = computed(() => steps.value.length)
@@ -56,9 +60,50 @@ watch(steps, list => {
     }
 })
 
-onMounted(() => {
+const isResumable = ref(false)
+const isAutosaving = ref(false)
+
+const startFresh = (): void => {
     const member = current.value
     const isRelative = member?.role === 'relative'
     reset(isRelative ? 'simple' : 'casting', member?.id ?? null)
+}
+
+const resumeDraft = (): void => {
+    restoreDraft()
+    isResumable.value = false
+    isAutosaving.value = true
+}
+
+const discardDraft = (): void => {
+    clearDraft()
+    startFresh()
+    isResumable.value = false
+    isAutosaving.value = true
+}
+
+let saveTimer: ReturnType<typeof setTimeout> | undefined
+
+watch(
+    () => [title.value, pages.value, lines.value, characters.value, step.value],
+    () => {
+        if (!isAutosaving.value || (title.value.trim() === '' && pages.value.length === 0)) {
+            return
+        }
+        clearTimeout(saveTimer)
+        saveTimer = setTimeout(saveDraft, 600)
+    },
+    { deep: true },
+)
+
+onBeforeUnmount(() => clearTimeout(saveTimer))
+
+onMounted(() => {
+    startFresh()
+    if (hasSavedDraft()) {
+        isResumable.value = true
+        return
+    }
+    isAutosaving.value = true
 })
 </script>
