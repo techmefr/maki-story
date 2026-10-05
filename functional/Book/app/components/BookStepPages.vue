@@ -66,6 +66,11 @@
                 </template>
             </div>
         </section>
+        <section v-if="pages.length === 0 && !isWordless && !isComic" class="card stack" role="group" :aria-label="t('bookDraft.shared.page', { n: 1 })">
+            <span class="subtitle">{{ t('bookDraft.shared.page', { n: 1 }) }}</span>
+            <BookLineRow v-for="line in linesOfPanel(0, null)" :key="line.key" :line="line" />
+            <BookLineComposer :page-index="0" :panels="[]" />
+        </section>
         <AppButton as="label" is-block>
             {{ t('bookDraft.pages.addWithPhoto') }}
             <input type="file" accept="image/*" capture="environment" multiple hidden data-testid="add-photo-input" @change="addPhotos" />
