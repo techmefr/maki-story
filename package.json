@@ -18,7 +18,9 @@
     "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts",
     "check:docs": "node --experimental-strip-types scripts/check-docs-pages.ts",
     "audit:design": "node --experimental-strip-types scripts/design-audit.ts",
-    "check:migrations": "node --experimental-strip-types scripts/check-migrations.ts"
+    "check:migrations": "node --experimental-strip-types scripts/check-migrations.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm i18n:check && pnpm check:docs && pnpm audit:design && pnpm test:unit && pnpm check:migrations",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.2",
