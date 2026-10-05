@@ -41,7 +41,7 @@
     "priv": {
         "1": {
             "title": "Data collected",
-            "text": "Adults’ e-mail address, the child’s first name and age, profile photo (silly face), recorded voices, reading progress, favourites, chosen languages."
+            "text": "Adults’ e-mail address, the child’s first name and age, profile photo (silly face), recorded voices, reading progress, favourites, chosen languages. A cookie-free audience measurement (GoatCounter) counts page views in aggregate, with no IP address or identifier, and can be switched off."
         },
         "2": {
             "title": "Children’s data",
