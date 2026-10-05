@@ -124,5 +124,6 @@
     "progress": "录音进度",
     "translateBook": "翻译这本书",
     "pageMeta": "第 {page} 页，共 {total} 页 · 已录 {done}/{mine}",
-    "voices": "声音"
+    "voices": "声音",
+    "panelLine": "Panel {n}"
 }

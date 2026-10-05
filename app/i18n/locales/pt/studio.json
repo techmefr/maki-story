@@ -125,5 +125,6 @@
     "progress": "Progresso das gravações",
     "translateBook": "Traduzir este livro",
     "pageMeta": "Página {page} de {total} · {done}/{mine} gravadas",
-    "voices": "Vozes"
+    "voices": "Vozes",
+    "panelLine": "Panel {n}"
 }
