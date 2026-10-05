@@ -33,7 +33,7 @@ const { t } = useI18n()
 const { flow, isLoaded, load } = useRelativeFlow()
 
 const rows = computed<ICategoryRow[]>(() =>
-    flow.value.families.flatMap(family => {
+    flow.value.families.flatMap((family): ICategoryRow[] => {
         if (slug === 'toRecord') {
             return family.requests.map(request => ({
                 key: `${request.kind}-${request.bookId}-${request.shareId ?? ''}`,

@@ -48,7 +48,7 @@
                             </AppChip>
                         </div>
                         <div class="row row--wrap">
-                            <AppChip v-for="preset in PRESETS" :key="preset" :disabled="!rule.isEnabled" @click="patch({ days: LOCK_PRESETS[preset] })">
+                            <AppChip v-for="preset in PRESETS" :key="preset" :disabled="!rule.isEnabled" @click="patch({ days: PRESET_DAYS[preset] })">
                                 {{ t(`lock.presets.${preset}`) }}
                             </AppChip>
                         </div>
@@ -77,8 +77,11 @@
 </template>
 
 <script setup lang="ts">
+import { LOCK_PRESETS } from '~~/shared/utils/lockRule'
+
 const DAYS = [0, 1, 2, 3, 4, 5, 6]
 const PRESETS: ('week' | 'weekend' | 'all')[] = ['week', 'weekend', 'all']
+const PRESET_DAYS = LOCK_PRESETS
 const TIME_KEYS: ('from' | 'to')[] = ['from', 'to']
 const MONDAY_REFERENCE = Date.UTC(2023, 0, 2, 12)
 const MS_PER_DAY = 86_400_000

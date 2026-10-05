@@ -39,7 +39,7 @@ const isEnabled = async (db: Db, memberId: string, kind: NotificationKind, chann
     return row?.isEnabled ?? true
 }
 
-const record = async (db: Db, familyId: string, memberId: string, kind: NotificationKind, channel: 'PUSH' | 'EMAIL', status: 'SENT' | 'SUPPRESSED' | 'FAILED', reason: Reason, provider: string): Promise<void> => {
+const record = async (db: Db, familyId: string, memberId: string, kind: NotificationKind, channel: 'PUSH' | 'EMAIL', status: Status, reason: Reason, provider: string): Promise<void> => {
     await db`
         insert into notification_deliveries (family_id, member_id, kind, channel, status, reason, provider)
         values (${familyId}, ${memberId}, ${kind}, ${channel}, ${status}, ${reason}, ${provider})
