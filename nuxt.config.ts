@@ -24,6 +24,7 @@ export default defineOSDDNuxtConfig({
         public: {
             apiBase: '',
             supportEmail: '',
+            goatcounterSite: process.env.NODE_ENV === 'production' ? 'techmefr' : '',
             appVersion: process.env.npm_package_version ?? '',
             biometricTestBridge: false,
             sleepMinuteMs: 60000,

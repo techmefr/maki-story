@@ -41,7 +41,7 @@
     "priv": {
         "1": {
             "title": "Données collectées",
-            "text": "Adresse e-mail des adultes, prénom et âge de l’enfant, photo de profil (grimace), voix enregistrées, progression de lecture, favoris, langues choisies."
+            "text": "Adresse e-mail des adultes, prénom et âge de l’enfant, photo de profil (grimace), voix enregistrées, progression de lecture, favoris, langues choisies. Une mesure d’audience sans cookie (GoatCounter) compte les pages vues de façon agrégée, sans adresse IP ni identifiant, et peut être désactivée."
         },
         "2": {
             "title": "Données des enfants",
