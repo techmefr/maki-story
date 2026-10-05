@@ -204,6 +204,7 @@ test.describe('recording studio', () => {
 
     test('the coverage table lists missing voices per language and jumps to a line', async ({ page }) => {
         const fixture = await prepare(page)
+        await allowSpokenLanguages(page.request, ['fr', 'mg'])
         await openStudio(page, fixture)
         await recordAndSend(page)
         await expect(page.locator('.studio__voice', { hasText: PARENT_NAME }).first()).toContainText('1/2')
@@ -214,10 +215,10 @@ test.describe('recording studio', () => {
         await expect(coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ })).toBeVisible()
         await expect(coverage.getByText(/Français 1\/2/)).toBeVisible()
         await expect(coverage.getByText(fixture.relativeName)).toBeVisible()
-        await pickOption(page, 'Langue de l’enregistrement', /Malagasy/)
+        await page.getByTestId('studio-language-mg').click()
         await expect(coverage.getByRole('button', { name: /Page 1, Zébu, .*Malagasy : manquant/ })).toBeVisible()
         await coverage.getByRole('button', { name: /Page 2, Mamie, .*Français : manquant/ }).click()
-        await expect(page.getByLabel('Langue de l’enregistrement')).toContainText('Français')
+        await expect(page.getByTestId('studio-language-fr')).toHaveAttribute('aria-pressed', 'true')
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')
         await page.locator('.studio__voice', { hasText: fixture.relativeName }).click()
         await expect(page.getByTestId('teleprompter-text')).toHaveText('Au revoir.')

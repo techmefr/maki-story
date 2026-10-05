@@ -203,9 +203,7 @@ test.describe('migrations', () => {
             { id: 'm2', status: 'EXPIRED' },
             { id: 'm3', status: 'ACTIVE' },
         ])
-        await expect(
-            db`insert into messages (family_id, from_member_id, to_member_id, file_id, mime) values ('fam', 'aunt', 'kid', 'f1', 'audio/webm')`,
-        ).rejects.toThrow()
+        await db`insert into messages (family_id, from_member_id, to_member_id, file_id, mime) values ('fam', 'aunt', 'kid', 'f1', 'audio/webm')`
         await db`insert into messages (family_id, from_member_id, to_member_id, file_id, mime, kind) values ('fam', 'aunt', 'kid', 'f1', 'audio/webm', 'BIRTHDAY')`
         const [book] = await db<{ writtenLanguage: string; voiceLanguages: string[] }[]>`
             select written_language as "writtenLanguage", voice_languages as "voiceLanguages" from books where id = 'b1'`

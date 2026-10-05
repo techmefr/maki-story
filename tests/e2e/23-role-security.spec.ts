@@ -81,12 +81,12 @@ test.describe('role security', () => {
         await Promise.all([family.parent, other.parent, mamie, tonton, lova].map(api => api.dispose()))
     })
 
-    test('a message needs a sender who is not a child and a child recipient', async () => {
+    test('a child writes to adults and an adult message needs a child recipient', async () => {
         const send = async (api: APIRequestContext, to: string) =>
             api.post('/api/messages', { data: { toMemberId: to, fileId: await uploadAudio(api), mime: 'audio/wav', durationMs: 300 } })
-        expect((await send(lova, ids.mamie)).status()).toBe(403)
-        expect((await send(lova, ids.parent)).status()).toBe(403)
-        expect((await send(lova, ids.tonton)).status()).toBe(403)
+        expect((await send(lova, ids.mamie)).status()).toBe(200)
+        expect((await send(lova, ids.parent)).status()).toBe(200)
+        expect((await send(lova, ids.tonton)).status()).toBe(200)
         expect((await send(mamie, ids.parent)).status()).toBe(400)
         expect((await send(mamie, ids.tonton)).status()).toBe(400)
         expect((await send(family.parent, ids.mamie)).status()).toBe(400)
@@ -118,7 +118,7 @@ test.describe('role security', () => {
             await expect(page).toHaveURL(/\/home/)
         }
         await chooseProfile(page, 'Parent')
-        await expect(page.locator('a[href="/family"]:visible')).toHaveCount(1)
+        await expect(page.locator('a[href="/family"]:visible').first()).toBeVisible()
         await page.goto('/family')
         await expect(page).toHaveURL(/\/family/)
     })

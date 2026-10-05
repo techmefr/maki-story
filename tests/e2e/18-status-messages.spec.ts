@@ -171,24 +171,27 @@ test.describe('voice message rules v3', () => {
         expect(kept).toMatchObject({ status: 'ACTIVE', expires_at: null })
     })
 
-    test('only a parent can delete a message and it frees the slot', async () => {
+    test('a sender retracts their own message, only a parent deletes any message, and a deletion frees the slot', async () => {
+        const own = await send(tonton, ids.lova)
+        expect(own.status, own.body).toBe(200)
+        expect((await lova.delete(`/api/messages/${own.id}`)).status()).toBe(404)
+        expect((await tonton.delete(`/api/messages/${own.id}`)).status()).toBe(200)
+        expect((await tonton.delete(`/api/messages/${own.id}`)).status()).toBe(404)
         const sent = await send(tonton, ids.lova)
         expect(sent.status, sent.body).toBe(200)
-        expect((await tonton.delete(`/api/messages/${sent.id}`)).status()).toBe(403)
-        expect((await lova.delete(`/api/messages/${sent.id}`)).status()).toBe(403)
+        expect((await lova.delete(`/api/messages/${sent.id}`)).status()).toBe(404)
         expect((await parent.delete(`/api/messages/${sent.id}`)).status()).toBe(200)
         expect(await messageById(lova, sent.id)).toBeUndefined()
         expect((await parent.delete(`/api/messages/${sent.id}`)).status()).toBe(404)
         expect((await send(tonton, ids.lova)).status).toBe(200)
     })
 
-    test('the send button is disabled with the reason while a message is active', async ({ page }) => {
+    test('a full box is explained and the oldest message can be retracted', async ({ page }) => {
         await signIn(page.request, account)
         await chooseProfile(page, 'Mamie')
         await page.goto('/messages')
-        const card = page.locator('.card', { hasText: 'Lova' })
-        await expect(card.getByRole('button', { name: 'Lui envoyer un message' })).toBeDisabled()
-        await expect(card.getByText(/Un message attend déjà Lova/)).toBeVisible()
+        await expect(page.getByRole('heading', { name: '5 messages déjà laissés à Lova' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Retirer le plus ancien' })).toBeVisible()
     })
 
     test('the child replays the message and the reload does not block it', async ({ page }) => {
