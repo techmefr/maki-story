@@ -59,12 +59,12 @@ const {
     readerId,
     characters,
     usedCharacters,
-    voicelessCharacters,
     effectiveCharacterKey,
     toNewBook,
     memberIdsForSave,
     translationsForSave,
     reset,
+    clearDraft,
 } = useBookDraft()
 const { saveTranslation } = useAi()
 const { getById } = useMembers()
@@ -83,16 +83,13 @@ const problem = computed(() => {
     if (title.value.trim() === '') {
         return t('bookDraft.book.errTitle')
     }
-    if (!isWordless.value && lines.value.length === 0) {
+    if (lines.value.length === 0 && pages.value.length === 0) {
         return t('bookDraft.review.errLines')
     }
     if (!isSimple.value && !isWordless.value) {
         const names = characters.value.map(character => character.name.trim().toLowerCase())
         if (names.some(name => name === '') || new Set(names).size !== names.length) {
             return t('bookDraft.review.errNames')
-        }
-        if (voicelessCharacters.value.length > 0) {
-            return t('bookDraft.review.errVoiceless', { names: voicelessCharacters.value.map(character => character.name).join(', ') })
         }
     }
     return ''
@@ -117,6 +114,7 @@ const save = async (): Promise<void> => {
                 }
             }
         }
+        clearDraft()
         reset(isSimple.value ? 'simple' : 'casting', readerId.value)
         await navigateTo(`/books/${created.id}/studio`)
     } catch (error) {

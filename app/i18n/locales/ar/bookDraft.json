@@ -88,7 +88,15 @@
         "needsPhoto": "هذا النوع من الكتب يحتاج إلى صفحة واحدة على الأقل مصوّرة.",
         "continueNoPhoto": "المتابعة بدون صورة",
         "pageTitle": "عنوان الصفحة (اختياري)",
-        "pageTitlePlaceholder": "عنوان الصفحة"
+        "pageTitlePlaceholder": "عنوان الصفحة",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "عرّف كل شخصية مرة واحدة فقط: ستجدها بعد ذلك بنقرة واحدة لكل جملة. اختر من يقرأ صوتها.",
@@ -119,6 +127,7 @@
         "image": "الصورة: {description}",
         "panelWithDescription": "الإطار {n}: {description}",
         "needOne": "أضف جملة واحدة على الأقل للمتابعة.",
+        "moveTo": "نقل إلى الصفحة",
         "count": {
             "zero": "{count} جملة",
             "one": "جملة واحدة",
@@ -132,7 +141,7 @@
         "readsAll": "{name} يقرأ الكتاب كله",
         "narratorName": "{name} (الراوي)",
         "pickVoice": "الصوت بانتظار الاختيار",
-        "errLines": "أضف جملة واحدة على الأقل.",
+        "errLines": "Add at least one page.",
         "errNames": "تحتاج كل شخصية إلى اسم مختلف.",
         "errVoiceless": "اختر صوتاً لـ: {names}.",
         "saving": "جارٍ الحفظ…",
@@ -146,5 +155,11 @@
             "many": "{count} صفحة",
             "other": "{count} صفحة"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }

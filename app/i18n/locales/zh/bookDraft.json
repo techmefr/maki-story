@@ -88,7 +88,15 @@
         "needsPhoto": "这种图书至少需要一页照片。",
         "continueNoPhoto": "不拍照，继续",
         "pageTitle": "页面标题（可选）",
-        "pageTitlePlaceholder": "页面标题"
+        "pageTitlePlaceholder": "页面标题",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "每个角色只需设定一次，之后每句台词一点就能选到。请选择谁来为它配音。",
@@ -119,6 +127,7 @@
         "image": "图片：{description}",
         "panelWithDescription": "第 {n} 格：{description}",
         "needOne": "请至少添加一句台词再继续。",
+        "moveTo": "移到页面",
         "count": {
             "other": "{count} 句台词"
         }
@@ -127,7 +136,7 @@
         "readsAll": "{name} 朗读整本书",
         "narratorName": "{name}（旁白）",
         "pickVoice": "待选择声音",
-        "errLines": "请至少添加一句台词。",
+        "errLines": "Add at least one page.",
         "errNames": "每个角色都需要不同的名字。",
         "errVoiceless": "请为以下角色选择声音：{names}。",
         "saving": "正在保存…",
@@ -136,5 +145,11 @@
         "pages": {
             "other": "{count} 页"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }

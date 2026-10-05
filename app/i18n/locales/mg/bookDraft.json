@@ -88,7 +88,15 @@
         "needsPhoto": "Mila pejy iray farafahakeliny amin’ny sary ity karazam-boky ity.",
         "continueNoPhoto": "Tohizo tsy misy sary",
         "pageTitle": "Lohatenin’ny pejy (tsy voatery)",
-        "pageTitlePlaceholder": "Lohatenin’ny pejy"
+        "pageTitlePlaceholder": "Lohatenin’ny pejy",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "Faritano indray mandeha ihany ny tarehintsary tsirairay: hitanao amin’ny tsindry iray isaky ny andian-teny avy eo. Fidio izay hamaky ny feony.",
@@ -119,6 +127,7 @@
         "image": "Sary: {description}",
         "panelWithDescription": "Efi-tsary {n}: {description}",
         "needOne": "Ampio andian-teny iray farafahakeliny hanohizana.",
+        "moveTo": "Afindra any amin’ny pejy",
         "count": {
             "one": "Andian-teny {count}",
             "other": "Andian-teny {count}"
@@ -128,7 +137,7 @@
         "readsAll": "{name} no mamaky ny boky manontolo",
         "narratorName": "{name} (mpanoratra)",
         "pickVoice": "Feo hofidiana",
-        "errLines": "Ampio andian-teny iray farafahakeliny.",
+        "errLines": "Add at least one page.",
         "errNames": "Mila anarana samihafa ny tarehintsary tsirairay.",
         "errVoiceless": "Mifidiana feo ho an’i: {names}.",
         "saving": "Mitahiry…",
@@ -138,5 +147,11 @@
             "one": "Pejy {count}",
             "other": "Pejy {count}"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }

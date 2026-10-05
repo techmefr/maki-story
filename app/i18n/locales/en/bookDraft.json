@@ -88,7 +88,15 @@
         "needsPhoto": "This type of book needs at least one page as a photo.",
         "continueNoPhoto": "Continue without a photo",
         "pageTitle": "Page title (optional)",
-        "pageTitlePlaceholder": "Page title"
+        "pageTitlePlaceholder": "Page title",
+        "introAccordion": "Add pages one by one. In each page you can add lines and characters. You can save the draft and come back later.",
+        "addWithPhoto": "Add a page with a photo",
+        "addSilent": "Add a page without voice",
+        "saveDraft": "Save draft",
+        "draftSaved": "Draft saved on this device.",
+        "finish": "Finish",
+        "silentPage": "Page without words (image only)",
+        "silentPanel": "Panel without words (image only)"
     },
     "characters": {
         "intro": "Define each character only once: you will then find it in one tap for each line. Choose who reads its voice.",
@@ -119,6 +127,7 @@
         "image": "Picture: {description}",
         "panelWithDescription": "Panel {n}: {description}",
         "needOne": "Add at least one line to continue.",
+        "moveTo": "Move to page",
         "count": {
             "one": "{count} line",
             "other": "{count} lines"
@@ -128,7 +137,7 @@
         "readsAll": "{name} reads the whole book",
         "narratorName": "{name} (narrator)",
         "pickVoice": "Voice to choose",
-        "errLines": "Add at least one line.",
+        "errLines": "Add at least one page.",
         "errNames": "Each character needs a different name.",
         "errVoiceless": "Choose a voice for: {names}.",
         "saving": "Saving…",
@@ -138,5 +147,11 @@
             "one": "{count} page",
             "other": "{count} pages"
         }
+    },
+    "resume": {
+        "title": "A draft is waiting",
+        "hint": "You had started a book. You can resume it or start over.",
+        "resume": "Resume draft",
+        "discard": "Start over"
     }
 }
