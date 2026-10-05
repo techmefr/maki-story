@@ -35,15 +35,6 @@
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.11"
   },
-  "pnpm": {
-    "overrides": {
-      "rolldown": "1.2.11",
-      "caniuse-lite": "1.0.30001813",
-      "electron-to-chromium": "1.5.442",
-      "ignore": "7.0.10",
-      "source-map-js": "1.2.1"
-    }
-  },
   "packageManager": "pnpm@12.8.1",
   "engines": {
     "node": ">=22"

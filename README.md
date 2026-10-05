@@ -217,7 +217,15 @@ Adding a language:
 
 ## Getting started
 
-Requirements: Node 22, pnpm, a PostgreSQL database.
+With Docker (recommended, nothing to install on the host):
+
+```bash
+docker compose up
+```
+
+The app is served on http://localhost:3000 and PostgreSQL on port 5544. Run any command in the same environment with `docker compose exec app pnpm <script>` (for example `pnpm test:unit` or `pnpm exec nuxt typecheck`).
+
+Without Docker: Node 22, pnpm, a PostgreSQL database.
 
 ```bash
 pnpm install
