@@ -11,7 +11,7 @@
                 <li v-for="card in cards" :key="card.id">
                     <NuxtLink :to="card.to" class="card card--tap home__card" :data-testid="`home-card-${card.id}`">
                         <span class="home__icon"><AppIcon :name="card.icon" :size="24" /></span>
-                        <span class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span>
+                        <span v-if="card.count !== null" class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span>
                         <span class="home__label">{{ t(card.label) }}</span>
                     </NuxtLink>
                 </li>
@@ -26,7 +26,7 @@ interface IHomeCard {
     to: string
     icon: IconName
     label: string
-    count: number
+    count: number | null
 }
 
 const { t } = useI18n()
@@ -55,6 +55,8 @@ const cards = computed<IHomeCard[]>(() => {
     const value = counts.value
     if (isParent.value) {
         return [
+            { id: 'new-book', to: '/books/new', icon: 'book-plus', label: 'home.dash.newBook', count: null },
+            { id: 'library', to: '/library', icon: 'book', label: 'home.dash.library', count: null },
             { id: 'proposals', to: '/library?status=proposed', icon: 'send', label: 'homeBar.cards.proposalsWaiting', count: value?.proposals ?? 0 },
             { id: 'drafts', to: '/library?status=draft', icon: 'pencil', label: 'homeBar.cards.started', count: value?.drafts ?? 0 },
             { id: 'to-record', to: '/library?status=to_record', icon: 'mic', label: 'homeBar.cards.toRecord', count: value?.toRecord ?? 0 },
@@ -64,6 +66,8 @@ const cards = computed<IHomeCard[]>(() => {
         ]
     }
     return [
+        { id: 'new-book', to: '/books/new', icon: 'book-plus', label: 'home.dash.proposeBook', count: null },
+        { id: 'library', to: '/library', icon: 'book', label: 'home.dash.library', count: null },
         { id: 'proposed', to: '/categories/proposals', icon: 'book-plus', label: 'homeBar.cards.proposedByMe', count: value?.proposedByMe ?? 0 },
         { id: 'requests', to: '/categories/toRecord', icon: 'mic', label: 'homeBar.cards.requested', count: value?.requests ?? 0 },
         { id: 'proposals', to: '/categories/proposals', icon: 'send', label: 'homeBar.cards.proposalsWaiting', count: value?.proposalsWaiting ?? 0 },

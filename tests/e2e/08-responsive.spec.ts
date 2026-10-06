@@ -12,8 +12,8 @@ test.describe('responsive layout', () => {
         await chooseProfile(page, PARENT_NAME)
         const isDesktop = info.project.name === 'desktop'
         await expect(page.locator('.tabbar')).toBeVisible({ visible: !isDesktop })
-        await expect(page.locator('.nav')).toBeVisible({ visible: isDesktop })
-        const links = isDesktop ? page.locator('.nav .nav__item') : page.locator('.tabbar__item')
+        await expect(page.locator('.rail')).toBeVisible({ visible: isDesktop })
+        const links = isDesktop ? page.locator('.rail .rail__item') : page.locator('.tabbar__item')
         await links.filter({ hasText: 'Famille' }).click()
         await expect(page).toHaveURL(/\/family/)
         await links.filter({ hasText: 'Bibliothèque' }).click()

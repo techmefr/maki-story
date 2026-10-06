@@ -4,7 +4,7 @@
         <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <h1 class="title">{{ t('kid.library.title') }}</h1>
         <BookSearchEntry />
-        <BookFilters :initial="initialQuery" @change="reload" />
+        <BookFilters :key="route.fullPath" :initial="initialQuery" @change="reload" />
         <div class="stack" role="group" :aria-label="t('kidBrowse.reader.label')">
             <h2 class="label">{{ t('kidBrowse.reader.label') }}</h2>
             <div class="row row--wrap">
@@ -141,16 +141,18 @@ const ageLabel = (book: IBookSummary): string => {
 }
 
 const route = useRoute()
-const initialQuery: IBookQuery = {
+const initialQuery = computed<IBookQuery>(() => ({
     type: typeof route.query.type === 'string' ? route.query.type : undefined,
     mood: typeof route.query.mood === 'string' ? route.query.mood : undefined,
     theme: typeof route.query.theme === 'string' ? route.query.theme : undefined,
-}
+}))
 
 const reload = (query: IBookQuery): Promise<void> => load(query)
 
+watch(initialQuery, query => void load(query))
+
 onMounted(async () => {
-    await Promise.all([load(initialQuery), loadMessages(), ensureLoaded()])
+    await Promise.all([load(initialQuery.value), loadMessages(), ensureLoaded()])
     isLoaded.value = true
     try {
         newVoices.value = await loadNewVoices()

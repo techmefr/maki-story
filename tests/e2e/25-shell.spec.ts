@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { accountFor, chooseProfile, enterPin, login, makeWav, PARENT_NAME, PROFILE_PIN, signIn, useProfile, openMenuSection } from './helpers'
+import { accountFor, addMember, uniqueName, chooseProfile, enterPin, login, makeWav, PARENT_NAME, PROFILE_PIN, signIn, useProfile, openMenuSection } from './helpers'
 
 const CHILD = 'Zazashell'
 const RELATIVE = 'Tantine'
@@ -172,10 +172,13 @@ test.describe('shell per role', () => {
         await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
     })
 
-    test('the book search opens from the button, the keyboard and a swipe', async ({ page }) => {
+    test('the book search opens from the button, the keyboard and a swipe', async ({ page }, info) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        await page.goto('/home')
+        const child = uniqueName('Lova', info.project.name)
+        await addMember(page, child, 'Enfant')
+        await chooseProfile(page, child)
+        await page.goto('/kid/library')
         const open = page.getByTestId('book-search-open')
         await expect(open).toBeVisible()
         await open.focus()
@@ -191,7 +194,7 @@ test.describe('shell per role', () => {
         await expect(page.getByTestId('book-search')).toBeVisible()
         await page.locator('[data-filter="type-comic"]').click()
         await page.getByTestId('book-search-go').click()
-        await expect(page).toHaveURL(/\/library\?type=comic/)
+        await expect(page).toHaveURL(/\/kid\/library\?type=comic/)
         await page.getByTestId('filters-open').click()
         await expect(page.locator('[data-filter="type-comic"]')).toHaveAttribute('aria-pressed', 'true')
     })

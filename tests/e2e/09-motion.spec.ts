@@ -7,7 +7,7 @@ test.describe('motion', () => {
     test('page curtain and transitions never block navigation', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        const nav = page.viewportSize()!.width >= 720 ? page.locator('.nav .nav__item') : page.locator('.tabbar__item')
+        const nav = page.viewportSize()!.width >= 1024 ? page.locator('.rail .rail__item') : page.locator('.tabbar__item')
         for (const label of ['Accueil', 'Famille', 'Bibliothèque', 'Famille']) {
             await nav.filter({ hasText: label }).click()
             await expect(page.locator('.curtain')).toHaveCSS('visibility', 'hidden', { timeout: 5000 })
@@ -18,7 +18,7 @@ test.describe('motion', () => {
     test('navigation icons are drawn', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
-        const icons = page.viewportSize()!.width >= 720 ? page.locator('.nav svg.icon') : page.locator('.tabbar svg.icon')
+        const icons = page.viewportSize()!.width >= 1024 ? page.locator('.rail svg.icon') : page.locator('.tabbar svg.icon')
         await expect(icons).toHaveCount(3)
     })
 

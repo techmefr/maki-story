@@ -139,7 +139,7 @@ test.describe('player, treasure box and stories playback', () => {
     })
 
     test('a message plays on one tap, the heart saves it and prev/next are reachable', async ({ page }) => {
-        const [messageId] = await insertMessages(1)
+        const [messageId] = await insertMessages(2)
         await signIn(page.request, account)
         await chooseProfile(page, 'Lova')
         const face = page.locator('.face__link', { hasText: 'Parent' })
