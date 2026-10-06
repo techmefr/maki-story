@@ -6,10 +6,12 @@
         </NuxtLayout>
         <PageCurtain />
         <OfflineBanner />
+        <DevFeedbackWidget v-if="isDevFeedback" />
     </div>
 </template>
 
 <script setup lang="ts">
+const isDevFeedback = useRuntimeConfig().public.appEnv === 'development-local'
 const { locale, dir } = useI18n()
 const { activeLocale, syncLocale } = useLocale()
 

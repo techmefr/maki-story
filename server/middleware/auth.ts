@@ -10,6 +10,7 @@ const PUBLIC_API_PATHS = [
     '/api/auth/magic',
     '/api/auth/magic/verify',
     '/api/auth/code-reset',
+    '/api/__design-feedback',
     '/api/invitations/redeem',
 ]
 const PUBLIC_PREFIXES = ['/api/auth/oauth/', '/api/invitations/preview/', '/api/account/export/']

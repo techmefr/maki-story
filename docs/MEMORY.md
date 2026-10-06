@@ -65,3 +65,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-03 : adaptatif : rail latéral à partir de 1024 px (`SideRail`), barre du bas en dessous, classe `tv` par largeur ou appareil (voir `docs/adaptatif.md`). Pages sans maquette refaites (activité avec filtre par personne, appareils, corbeille 30 jours, stockage ouvert aux proches, traduction avec langue « terminée » : migration 0056 `books.translated_languages`, filtre côté enfant dans `loadPlaybackPlan`).
 
 - Book creation is a single accordion screen (pages, lines, characters) with a device-local draft (localStorage, key tantara-book-draft). A book can be saved with pages only: lines of reference are generated per page or panel unless flagged without words. Dev runs under docker compose (app + postgres).
+
+- Dev feedback widget (technical/DevFeedback): shown only with NUXT_PUBLIC_APP_ENV=development-local, stores remarks in .design-feedback/<branch>.json (git-ignored); e2e force the variable to empty.

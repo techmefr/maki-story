@@ -39,6 +39,7 @@ const serverFor = (port: number, isAiCreationEnabled: boolean) => ({
         GOOGLE_CLIENT_ID: 'fake-google-client',
         APPLE_CLIENT_ID: 'fake-apple-client',
         NUXT_PUBLIC_BIOMETRIC_TEST_BRIDGE: '1',
+        NUXT_PUBLIC_APP_ENV: '',
         NUXT_PUBLIC_SLEEP_MINUTE_MS: '100',
         NUXT_PUBLIC_SLEEP_FADE_MS: '300',
         NUXT_PUBLIC_ACCESS_POLL_MS: '1000',

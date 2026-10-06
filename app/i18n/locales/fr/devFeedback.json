@@ -1,0 +1,30 @@
+{
+    "open": "Signaler un souci sur cet écran",
+    "title": "Retour sur l'écran",
+    "point": "Pointer un élément",
+    "repoint": "Pointer un autre élément",
+    "pointing": "Clique sur l'élément concerné",
+    "category": "Catégorie",
+    "comment": "Ce qui ne va pas",
+    "send": "Envoyer",
+    "close": "Fermer",
+    "delete": "Supprimer",
+    "error": "Envoi impossible",
+    "list": "Remarques ({count})",
+    "categories": {
+        "color": "Couleur",
+        "spacing": "Espacement",
+        "typography": "Typographie",
+        "alignment": "Alignement",
+        "text": "Texte",
+        "icon": "Icône",
+        "behavior": "Comportement",
+        "responsive": "Responsive",
+        "other": "Autre"
+    },
+    "status": {
+        "todo": "À traiter",
+        "doing": "En cours",
+        "done": "Traité"
+    }
+}
