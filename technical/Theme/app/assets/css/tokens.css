@@ -5,6 +5,8 @@
     --ink-soft: #3B3466;
     --line: #1E1A3F;
     --on-accent: #1E1A3F;
+    --chip-on-bg: #1E1A3F;
+    --chip-on-ink: #FFFFFF;
     --yellow: #FFC933;
     --sky: #CFE5FF;
     --mint: #4AD3A5;
@@ -39,6 +41,8 @@
     --ink: #F4F0FF;
     --ink-soft: #CFC8F0;
     --line: #F4F0FF;
+    --chip-on-bg: #FFC933;
+    --chip-on-ink: #17142B;
     --danger: #FF9A90;
     --grey: #3A3560;
     --grey-line: #7C77A0;

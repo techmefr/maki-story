@@ -12,7 +12,7 @@ defineProps<{ selected?: boolean; disabled?: boolean }>()
 
 <style scoped>
 .chip.chip--on {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--chip-on-bg);
+    color: var(--chip-on-ink);
 }
 </style>
