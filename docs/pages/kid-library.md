@@ -13,6 +13,9 @@ The family library as the child sees it: only validated books with a recorded vo
 - The list is the child scope of `books.list`: validated, voiced, inside the age range (no bound when empty), `childVisible` overrides.
 - Scans and page images are never in the payload.
 
+### Browsing
+- A search entry opens the type, mood and theme chooser; a "who reads" chip row filters by relative voice; a segmented control switches between all, by voice, by mood and by theme.
+
 ### States
 - Empty: library empty state, "ask a grown-up to record one".
 - Loading: skeleton or the shared loading text, never a blank screen.
