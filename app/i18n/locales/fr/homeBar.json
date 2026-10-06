@@ -1,10 +1,7 @@
 {
     "label": "Envoyer un message vocal",
     "all": "Tous les enfants",
-    "everyone": "Tous",
     "quota": "{count}/{max} messages",
-    "record": "Enregistrer un message pour {name}",
-    "stopSend": "Arrêter et envoyer à {name}",
     "sending": "Envoi en cours",
     "result": {
         "sent": "Envoyé à {name}",

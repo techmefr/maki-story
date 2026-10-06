@@ -1,7 +1,7 @@
 <template>
     <div class="stack home">
         <StatusStrip v-if="isParent" />
-        <HomeChildrenBar v-if="kids.length > 0" :kids="kids" :counts="liveCounts" @sent="loadMessages" />
+        <HomeKidCards v-if="kids.length > 0" :kids="kids" :counts="liveCounts" />
         <AppEmpty v-else-if="isLoaded" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
             <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
         </AppEmpty>

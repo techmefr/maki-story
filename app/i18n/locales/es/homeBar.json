@@ -1,10 +1,7 @@
 {
     "label": "Send a voice message",
     "all": "All children",
-    "everyone": "Everyone",
     "quota": "{count}/{max} messages",
-    "record": "Record a message for {name}",
-    "stopSend": "Stop and send to {name}",
     "sending": "Sending",
     "result": {
         "sent": "Sent to {name}",

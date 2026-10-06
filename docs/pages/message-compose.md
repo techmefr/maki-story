@@ -17,3 +17,7 @@ Routes: /message/[toId], /message/listen/[id]
 ## Update v3
 - One active message per relative, per child and per kind (normal, birthday). A new one is refused with a reason until the previous one expires or is deleted.
 - Birthday wish: available from 7 days before the birthday, opens the compose screen with the birthday kind. Max 120 s.
+
+## All children
+- `/message/all` is available to adults with two or more children: the same recording is sent once per active child through the outbox, the per-child quota is checked first, and a result list (sent, queued, limit reached, blocked, failed) is shown.
+- The message listen screen marks a message as listened for any recipient, adults included.

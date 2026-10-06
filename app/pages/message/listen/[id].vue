@@ -153,7 +153,7 @@ const play = async (): Promise<void> => {
         isStarted.value = false
         return
     }
-    if (isChild.value && !target.firstListenedAt) {
+    if (target.toMemberId === currentId.value && !target.firstListenedAt) {
         try {
             await markListened(target.id)
         } catch (error) {
