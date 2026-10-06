@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "Borrador",
+        "proposed": "Proposal",
         "to_record": "Por grabar",
         "in_review": "En revisión",
         "ready": "Listo"

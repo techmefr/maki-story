@@ -75,7 +75,7 @@ const AGE_TAG_KEYS: Record<string, string> = {
 }
 const BOOK_TYPES: BookType[] = ['standard', 'comic', 'wordless', 'child-written']
 
-const STATUSES: BookStatus[] = ['to_record', 'in_review', 'ready']
+const STATUSES: BookStatus[] = ['proposed', 'draft', 'to_record', 'in_review', 'ready']
 
 const { t, locale } = useI18n()
 const { tags, ensureLoaded: loadTags } = useTags()

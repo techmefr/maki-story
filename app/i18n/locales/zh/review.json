@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "草稿",
+        "proposed": "Proposal",
         "to_record": "待录音",
         "in_review": "审阅中",
         "ready": "已就绪"

@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "مسودة",
+        "proposed": "Proposal",
         "to_record": "للتسجيل",
         "in_review": "قيد المراجعة",
         "ready": "جاهز"

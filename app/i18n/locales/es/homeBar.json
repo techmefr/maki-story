@@ -1,0 +1,27 @@
+{
+    "label": "Send a voice message",
+    "all": "All children",
+    "everyone": "Everyone",
+    "quota": "{count}/{max} messages",
+    "record": "Record a message for {name}",
+    "stopSend": "Stop and send to {name}",
+    "sending": "Sending",
+    "result": {
+        "sent": "Sent to {name}",
+        "queued": "Waiting for connection for {name}",
+        "quota": "Limit reached for {name}",
+        "blocked": "Sending blocked for {name}",
+        "failed": "Could not send to {name}"
+    },
+    "cards": {
+        "proposalsWaiting": "Proposals waiting",
+        "started": "Books started",
+        "toRecord": "To record",
+        "recorded": "Recorded",
+        "toReview": "To review",
+        "trash": "Trash",
+        "proposedByMe": "Books proposed by me",
+        "requested": "Requested from me",
+        "toFix": "To fix"
+    }
+}
