@@ -1,0 +1,15 @@
+{
+    "browse": {
+        "label": "Way to browse",
+        "all": "All",
+        "voice": "By voice",
+        "mood": "By mood",
+        "theme": "By theme"
+    },
+    "reader": {
+        "label": "Who reads?",
+        "any": "Everyone"
+    },
+    "noVoice": "No voice",
+    "other": "Other"
+}

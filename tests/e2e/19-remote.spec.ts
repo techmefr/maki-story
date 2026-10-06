@@ -86,8 +86,7 @@ test.describe('remote and keyboard navigation', () => {
     test('the back key leaves the player and closes the sheet first', async ({ page }) => {
         await signIn(page.request, account)
         await chooseProfile(page, 'Lova')
-        await page.goto('/kid')
-        await page.getByRole('link', { name: /Histoires à plusieurs voix/ }).click()
+        await page.goto('/kid/library')
         await expect(page).toHaveURL(/\/kid\/library$/)
         await page.getByRole('button', { name: 'Fiche de Second conte' }).click()
         await expect(page.getByRole('dialog')).toBeVisible()

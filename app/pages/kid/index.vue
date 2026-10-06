@@ -1,8 +1,6 @@
 <template>
     <div class="stack">
         <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
-        <GrimaceNudge />
-        <BookSearchEntry />
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">
@@ -28,11 +26,6 @@
         </div>
         <LazyBirthdayParty v-if="isPartyOpen && current" :name="current.name" :age="partyAge" @close="closeParty" />
         <AppEmpty kind="people" v-if="faces.length === 0" :title="t('kid.noFaces')" :hint="t('kid.noFacesHint')" />
-        <NuxtLink to="/kid/library" class="card card--tap stack center" style="color: inherit; text-decoration: none; gap: 8px">
-            <AppIcon name="book" :size="44" motion="float" />
-            <span class="subtitle">{{ t('kid.multiVoice') }}</span>
-            <VoiceDots :member-ids="faceIds" />
-        </NuxtLink>
     </div>
 </template>
 
@@ -77,8 +70,6 @@ const closeParty = async (): Promise<void> => {
         console.error('Impossible d’enregistrer l’anniversaire pour le moment', error)
     }
 }
-
-const faceIds = computed(() => grownUps.value.map(member => member.id))
 
 onMounted(async () => {
     await load()
