@@ -12,7 +12,7 @@
                 <button type="button" class="note" :class="{ 'note--unread': !item.isRead }" :data-testid="`notification-${item.id}`" @click="markRead([item.id])">
                     <span class="note__initial" :style="{ background: pickVoiceByText(item.id).hex }" aria-hidden="true">{{ initialOf(item) }}</span>
                     <span class="note__body">
-                        <span class="note__title">{{ t(`notifications.titles.${item.kind}`) }}</span>
+                        <span class="note__title">{{ t(item.kind === 'homework_request' ? 'homework.notificationTitle' : `notifications.titles.${item.kind}`) }}</span>
                         <span class="note__text">{{ describeNotification(item, t) }}</span>
                     </span>
                     <span class="note__side">
@@ -23,6 +23,7 @@
             </li>
         </ul>
         <AppButton is-block icon="send" to="/sharing">{{ t('notifications.sharing') }}</AppButton>
+        <HomeworkRequests v-if="current?.role === 'parent'" />
         <NotificationPreferences />
     </div>
 </template>
@@ -30,6 +31,7 @@
 <script setup lang="ts">
 const { t, formatDate } = useI18n()
 const { isRelativeAccount } = useSession()
+const { current } = useCurrentMember()
 const { items, unreadCount, load, markRead } = useNotifications()
 
 const MINUTE_MS = 60000

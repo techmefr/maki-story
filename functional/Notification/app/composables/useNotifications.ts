@@ -22,6 +22,8 @@ export const describeNotification = (notification: INotification, t: (key: strin
             return t('notifications.describe.recordingBatch', { name: text(payload.memberName), title, count })
         case 'message_received':
             return t('alerts.describe.messageReceived', { from: text(payload.fromName), child: text(payload.childName) })
+        case 'homework_request':
+            return t('homework.describe', { name: text(payload.childName) })
         case 'birthday_reminder':
             return t('alerts.describe.birthdayReminder', { child: text(payload.childName), days: Number(payload.days) })
         case 'stale_takes':

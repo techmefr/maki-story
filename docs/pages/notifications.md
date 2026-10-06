@@ -16,3 +16,6 @@
 - [x] No overflow at any text size, 48 px targets, keyboard focus.
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
+
+## Homework requests
+- A parent sees pending homework access requests above the preferences, with Allow and Refuse buttons. The first parent answer wins.

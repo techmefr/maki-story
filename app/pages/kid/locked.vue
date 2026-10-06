@@ -1,11 +1,23 @@
 <template>
     <main class="locked" data-testid="locked-screen">
-        <MakiSleeping :size="180" class="locked__maki" />
-        <h1 class="locked__title">{{ t('parental.locked.title', { name: current?.name ?? '' }) }}</h1>
-        <p v-if="wakeTime" class="locked__text">
-            {{ t('parental.locked.wakesAt', { time: wakeTime }) }} {{ t('parental.locked.tomorrow') }}
-        </p>
-        <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
+        <template v-if="isHomeworkLock">
+            <HomeworkMascot :size="180" class="locked__maki" />
+            <h1 class="locked__title">{{ t(homework === 'refused' ? 'homework.locked.refusedTitle' : 'homework.locked.title', { name: current?.name ?? '' }) }}</h1>
+            <p class="locked__text" role="status" data-testid="homework-state">
+                {{ t(homework === 'refused' ? 'homework.locked.refused' : homework === 'pending' ? 'homework.locked.waiting' : 'homework.locked.sending') }}
+            </p>
+            <AppButton v-if="homework === 'refused'" variant="secondary" icon="send" :disabled="isAsking" data-testid="homework-ask-again" @click="askAgain">
+                {{ t('homework.locked.askAgain') }}
+            </AppButton>
+        </template>
+        <template v-else>
+            <MakiSleeping :size="180" class="locked__maki" />
+            <h1 class="locked__title">{{ t('parental.locked.title', { name: current?.name ?? '' }) }}</h1>
+            <p v-if="wakeTime" class="locked__text">
+                {{ t('parental.locked.wakesAt', { time: wakeTime }) }} {{ t('parental.locked.tomorrow') }}
+            </p>
+            <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
+        </template>
         <AppButton class="locked__parent" icon="lock" data-testid="locked-parent" @click="isGateOpen = true">
             {{ t('parental.locked.toParent') }}
         </AppButton>
@@ -26,17 +38,31 @@ definePageMeta({ layout: 'blank' })
 
 const { t, formatDate } = useI18n()
 const { current } = useCurrentMember()
-const { status, unlockWithParent } = useAccess()
+const { status, homework, refresh, unlockWithParent } = useAccess()
+const { ask } = useHomeworkGate()
 const { members } = useMembers()
 
 const isGateOpen = ref(false)
 const isGateBusy = ref(false)
 const gateError = ref('')
 const gateAttempt = ref(0)
+const isAsking = ref(false)
 
 const resumeTime = computed(() => (status.value.resumeAt ? new Date(status.value.resumeAt) : null))
 
 const wakeTime = computed(() => (resumeTime.value ? formatDate(resumeTime.value, { timeStyle: 'short' }) : ''))
+
+const isHomeworkLock = computed(() => status.value.reason === 'homework')
+
+const askAgain = async (): Promise<void> => {
+    isAsking.value = true
+    try {
+        await ask()
+        await refresh()
+    } finally {
+        isAsking.value = false
+    }
+}
 
 const unlock = async (parentId: string, code: string): Promise<void> => {
     isGateBusy.value = true
@@ -53,6 +79,13 @@ const unlock = async (parentId: string, code: string): Promise<void> => {
         isGateBusy.value = false
     }
 }
+
+onMounted(async () => {
+    await refresh()
+    if (isHomeworkLock.value && homework.value === 'none') {
+        await askAgain()
+    }
+})
 </script>
 
 <style scoped>

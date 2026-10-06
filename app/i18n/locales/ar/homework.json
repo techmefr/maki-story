@@ -1,0 +1,23 @@
+{
+    "follow": {
+        "title": "Homework follow-up for {name}",
+        "hint": "The app stays closed until a parent confirms the homework is done. Approval lasts until midnight."
+    },
+    "notificationTitle": "Access request",
+    "describe": "{name} asks to use the app: is the homework done?",
+    "requests": {
+        "title": "Access requests",
+        "text": "{name} asks to use the app. Is the homework done?",
+        "approve": "Allow",
+        "refuse": "Refuse",
+        "failed": "The answer could not be saved."
+    },
+    "locked": {
+        "title": "Just a moment, {name}",
+        "refusedTitle": "Not right now, {name}",
+        "waiting": "Your parents have been told. Stay here while we wait for their answer.",
+        "sending": "Telling your parents…",
+        "refused": "Do your homework first, then ask again.",
+        "askAgain": "Ask again"
+    }
+}

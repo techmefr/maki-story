@@ -25,3 +25,8 @@ Tab order follows the visual order, arrow keys and a TV remote D-pad move focus 
 - [x] prefers-reduced-motion respected.
 - [x] Light and dark themes both readable (contrast 4.5:1 or more).
 - [x] Every string goes through i18n (9 locales).
+
+## Homework follow-up
+- When the parent enabled homework follow-up for the child, the screen sends an access request, then shows a waiting message until a parent answers.
+- A refusal shows the homework message with the replaceable mascot slot (HomeworkMascot) and an ask-again button.
+- An approval opens the app until midnight.
