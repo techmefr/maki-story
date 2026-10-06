@@ -28,6 +28,29 @@ export default defineNuxtRouteMiddleware(async to => {
     if (isRelativeAccount.value && (to.path === '/profiles' || to.path === '/')) {
         return navigateTo(RELATIVE_LANDING)
     }
+    const personal = usePersonalDevice()
+    const personalDevice = personal.stored.value
+    const isPersonalLocked = personalDevice !== null && !isRelativeAccount.value && !personal.isReleased.value
+    if (isPersonalLocked && currentId.value !== personalDevice.memberId) {
+        try {
+            await select(personalDevice.memberId, { device: { id: personalDevice.id, secret: personalDevice.secret } })
+        } catch (error) {
+            const status = (error as { statusCode?: number }).statusCode
+            if (status === 403 || status === 404) {
+                personal.forget()
+            }
+        }
+    }
+    if (isPersonalLocked && personal.isPersonal.value && currentId.value === personalDevice.memberId) {
+        if (to.path === '/profiles') {
+            return navigateTo('/home')
+        }
+        if (PARENT_ONLY_PREFIXES.some(prefix => to.path.startsWith(prefix))) {
+            personal.gateNext.value = to.path
+            useState<boolean>('switcher-open', () => false).value = true
+            return navigateTo('/home')
+        }
+    }
     if (to.path === '/profiles') {
         if (current.value?.role === 'relative') {
             await select(null)

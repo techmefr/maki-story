@@ -1,0 +1,5 @@
+{
+    "label": "Téléphone personnel",
+    "toggle": "Cet appareil est mon téléphone personnel",
+    "hint": "L’app s’ouvre directement sur ton profil, sans code. Pour changer de profil ou ouvrir la famille, le code est demandé. Désactive pour revenir au choix de profil."
+}

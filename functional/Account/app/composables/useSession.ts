@@ -92,6 +92,11 @@ export const useSession = () => {
 
     const logout = async (): Promise<void> => {
         try {
+            await usePersonalDevice().disable()
+        } catch (_error) {
+            console.warn('L appareil personnel n a pas pu être révoqué côté serveur')
+        }
+        try {
             await request('/auth/logout', { method: 'POST' })
         } catch (_error) {
             console.warn('La deconnexion n a pas pu etre confirmee par le serveur')

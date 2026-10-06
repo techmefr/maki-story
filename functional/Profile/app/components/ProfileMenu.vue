@@ -138,6 +138,17 @@
                             @update:model-value="setCueVolume"
                         />
                     </div>
+                    <div v-if="current.role === 'parent'" class="pmenu__personal">
+                        <AppToggle
+                            :model-value="personal.isPersonalFor(current.id)"
+                            :disabled="isBusy || (personal.isPersonal.value && !personal.isPersonalFor(current.id))"
+                            data-testid="personal-device-toggle"
+                            @update:model-value="setPersonal"
+                        >
+                            {{ t('personalDevice.toggle') }}
+                        </AppToggle>
+                        <p class="pmenu__hint">{{ t('personalDevice.hint') }}</p>
+                    </div>
                     <section v-if="isAiCreationEnabled && current.role === 'parent'" class="pmenu__ai" aria-labelledby="menu-ai">
                         <h3 id="menu-ai" class="pmenu__subhead">{{ t('profile.menu.ai') }}</h3>
                         <AiQuota />
@@ -185,6 +196,8 @@ const { isLearningFont, setLearningFont } = useLearningFont()
 const { sizeId: textSizeId, sizes: textSizes, choose: chooseTextSize } = useTextSize()
 const { choice: themeChoice, choose: chooseTheme } = useTheme()
 const { optionsFor } = useFamilyLanguages()
+
+const personal = usePersonalDevice()
 
 const themeOptions = THEME_OPTIONS
 const view = ref<'menu' | 'photo'>('menu')
@@ -258,6 +271,14 @@ const run = async (action: () => Promise<void>): Promise<void> => {
     } finally {
         isBusy.value = false
     }
+}
+
+const setPersonal = (isOn: boolean): Promise<void> => {
+    const member = current.value
+    if (!member) {
+        return Promise.resolve()
+    }
+    return run(() => (isOn ? personal.enable(member.id) : personal.disable()))
 }
 
 const toggleSpoken = (code: string): Promise<void> => {
@@ -360,6 +381,23 @@ const onCaptured = async (blob: Blob): Promise<void> => {
 }
 
 .pmenu__sounds :deep(.toggle) {
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    font: 700 1.125rem/1.2 var(--font-title);
+}
+
+.pmenu__personal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+}
+
+.pmenu__personal :deep(.toggle) {
     width: 100%;
     justify-content: space-between;
     flex-direction: row-reverse;
