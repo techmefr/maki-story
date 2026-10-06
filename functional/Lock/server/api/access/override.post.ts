@@ -28,5 +28,5 @@ export default defineEventHandler(async (event): Promise<IAccessSnapshot> => {
         details: { minutes: OVERRIDE_MINUTES, until: overrideUntil },
     })
     const schedule = await loadSchedule(db, session.familyId, child.id)
-    return { isAllowed: true, reason: null, resumeAt: null, schedule, overrideUntil: (await loadActiveOverride(db, session.familyId, child.id)) ?? overrideUntil }
+    return { isAllowed: true, reason: null, resumeAt: null, schedule, overrideUntil: (await loadActiveOverride(db, session.familyId, child.id)) ?? overrideUntil, homework: 'none' }
 })
