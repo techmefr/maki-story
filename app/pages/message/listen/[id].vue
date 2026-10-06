@@ -2,70 +2,70 @@
     <div
         class="stack center screen"
         :class="{ kid: isChild }"
-        :style="{ background: sender ? memberHexLight(sender) : '#FFF3DC' }"
+        :style="sender ? { background: memberHexLight(sender) } : undefined"
         data-testid="message-player"
         @pointerdown="onPointerDown"
         @pointerup="onPointerUp"
     >
+        <AppButton class="screen__back" variant="secondary" size="sm" :to="backPath" :aria-label="t(common.back)">
+            <AppIcon name="back" :size="18" class="mirror-rtl" />{{ t(common.back) }}
+        </AppButton>
         <template v-if="message && sender">
-            <AppBlob :active="isPlaying" :color="memberHex(sender)" :size="200">
-                <AppAvatar :member="sender" :size="200" />
-            </AppBlob>
-            <h1 class="sr-only">{{ sender.name }}</h1>
-            <WaveBars :is-active="isPlaying" color="#1E1A3F" />
+            <div class="focal">
+                <AppBlob :active="isPlaying" :color="memberHex(sender)" :size="200">
+                    <AppAvatar :member="sender" :size="200" />
+                </AppBlob>
+                <TreasureHeart v-if="canKeep" :key="message.id" class="focal__heart" :message-id="message.id" :child-id="message.toMemberId" />
+            </div>
+            <h1 class="focal__name">{{ sender.name }}</h1>
+            <WaveBars v-if="isPlaying" :is-active="isPlaying" color="var(--ink)" />
+            <AppButton
+                class="btn--big"
+                :wiggle="!isStarted || isEnded"
+                :disabled="isPlaying"
+                :aria-label="mainLabel"
+                data-focus-default
+                data-testid="message-toggle"
+                @click="toggle"
+            >
+                <AppIcon :name="mainIcon" :size="48" motion="none" />
+            </AppButton>
             <div
-                class="progress"
-                style="width: 100%"
+                class="progress player__progress"
                 role="progressbar"
-                :aria-label="t('kid.listen.progress')"
+                :aria-label="t(kid.listen.progress)"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 :aria-valuenow="percentValue"
             >
-                <div class="progress__fill" :style="{ width: percent, background: '#1E1A3F' }" />
+                <div class="progress__fill player__fill" :style="{ width: percent }" />
             </div>
-            <div class="row controls">
+            <div v-if="queue.length > 1" class="row controls">
                 <AppButton
                     variant="secondary"
                     is-round
-                    class="btn--big"
                     :disabled="!hasPrevious"
-                    :aria-label="t('messages.listen.previous')"
+                    :aria-label="t(messages.listen.previous)"
                     data-testid="message-previous"
                     @click="go(-1)"
                 >
-                    <AppIcon name="skip-back" :size="40" class="mirror-rtl" />
-                </AppButton>
-                <AppButton
-                    class="btn--big"
-                    :wiggle="!isStarted || isEnded"
-                    :disabled="isPlaying"
-                    :aria-label="mainLabel"
-                    data-focus-default
-                    data-testid="message-toggle"
-                    @click="toggle"
-                >
-                    <AppIcon :name="mainIcon" :size="48" motion="none" />
+                    <AppIcon name="skip-back" :size="24" class="mirror-rtl" />
                 </AppButton>
                 <AppButton
                     variant="secondary"
                     is-round
-                    class="btn--big"
-                    :aria-label="t('messages.listen.next')"
+                    :aria-label="t(messages.listen.next)"
                     data-testid="message-next"
                     @click="go(1)"
                 >
-                    <AppIcon name="skip-forward" :size="40" class="mirror-rtl" />
+                    <AppIcon name="skip-forward" :size="24" class="mirror-rtl" />
                 </AppButton>
             </div>
-            <TreasureHeart v-if="canKeep" :key="message.id" :message-id="message.id" :child-id="message.toMemberId" />
-            <div v-if="isEnded && !isChild" class="subtitle">{{ t('messages.listen.finished') }}</div>
         </template>
         <template v-else-if="isMissing">
             <AppMaki :size="100" />
             <div class="subtitle">{{ t('messages.listen.alreadyHeard') }}</div>
         </template>
-        <AppButton variant="secondary" size="sm" :to="backPath"><AppIcon name="close" :size="18" />{{ t('common.close') }}</AppButton>
     </div>
 </template>
 
@@ -243,6 +243,36 @@ onBeforeUnmount(() => {
     overflow-y: auto;
     padding: 16px;
     touch-action: pan-y;
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.screen__back {
+    position: absolute;
+    inset-block-start: 16px;
+    inset-inline-start: 16px;
+}
+
+.focal {
+    position: relative;
+}
+
+.focal__heart {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+}
+
+.focal__name {
+    margin: 0;
+}
+
+.player__progress {
+    width: min(100%, 360px);
+}
+
+.player__fill {
+    background: var(--ink);
 }
 
 .controls {
