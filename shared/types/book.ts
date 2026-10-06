@@ -265,3 +265,16 @@ export interface IIsbnBook {
     subjects: string[]
     coverUrl: string | null
 }
+
+export interface IHomeCounts {
+    proposals: number
+    drafts: number
+    toRecord: number
+    inReview: number
+    recorded: number
+    trash: number
+    proposedByMe: number
+    requests: number
+    proposalsWaiting: number
+    toFix: number
+}

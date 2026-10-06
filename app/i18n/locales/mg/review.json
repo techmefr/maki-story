@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "Rakitra mialoha",
+        "proposed": "Proposal",
         "to_record": "Horakitra",
         "in_review": "Eo am-pamerenana",
         "ready": "Vita"

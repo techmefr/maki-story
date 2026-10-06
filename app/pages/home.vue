@@ -1,32 +1,19 @@
 <template>
     <div class="stack home">
         <StatusStrip v-if="isParent" />
-        <h1 class="title">{{ t('home.dash.myChildren') }}</h1>
-        <GrimaceNudge />
-        <BirthDateNudge />
-        <BookSearchEntry />
-        <ul v-if="kids.length > 0" class="home__kids" role="list" data-testid="relatives-grid">
-            <li v-for="(kid, index) in kids" :key="kid.member.id" class="pop-in" :style="{ '--i': index }">
-                <NuxtLink :to="`/message/${kid.member.id}`" class="card card--tap home__kid" :aria-label="t('home.dash.messageTo', { name: kid.member.name })" :data-testid="`home-kid-${kid.member.id}`">
-                    <span class="home__photo" :style="{ '--ring': memberHex(kid.member) }"><AppAvatar :member="kid.member" :size="96" /></span>
-                    <span class="subtitle home__name">{{ kid.member.name }}</span>
-                    <AppBadge :tone="kid.isFull ? 'warning' : undefined">{{ t('home.dash.quota', { count: kid.count, max: MESSAGE_MAX_ACTIVE }) }}</AppBadge>
-                    <span class="home__send"><AppIcon name="mic" :size="18" />{{ t('home.dash.message') }}</span>
-                </NuxtLink>
-            </li>
-        </ul>
+        <HomeChildrenBar v-if="kids.length > 0" :kids="kids" :counts="liveCounts" @sent="loadMessages" />
         <AppEmpty v-else-if="isLoaded" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
             <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
         </AppEmpty>
-        <section class="stack" aria-labelledby="home-actions">
-            <h2 id="home-actions" class="subtitle">{{ t('home.dash.actions') }}</h2>
-            <ul class="home__actions">
-                <li v-for="action in actions" :key="action.to">
-                    <AppListRow :to="action.to" :title="t(action.label)" :subtitle="t(action.hint)" :data-testid="action.testId">
-                        <template #lead><span class="home__action-icon"><AppIcon :name="action.icon" :size="24" /></span></template>
-                        <template v-if="action.count > 0" #action><AppBadge tone="warning">{{ action.count }}</AppBadge></template>
-                        <template v-else #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
-                    </AppListRow>
+        <section class="stack" aria-labelledby="home-dashboard">
+            <h2 id="home-dashboard" class="subtitle">{{ t('home.dash.actions') }}</h2>
+            <ul class="home__cards" role="list">
+                <li v-for="card in cards" :key="card.id">
+                    <NuxtLink :to="card.to" class="card card--tap home__card" :data-testid="`home-card-${card.id}`">
+                        <span class="home__icon"><AppIcon :name="card.icon" :size="24" /></span>
+                        <span class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span>
+                        <span class="home__label">{{ t(card.label) }}</span>
+                    </NuxtLink>
                 </li>
             </ul>
         </section>
@@ -34,60 +21,62 @@
 </template>
 
 <script setup lang="ts">
-interface IHomeAction {
+interface IHomeCard {
+    id: string
     to: string
     icon: IconName
     label: string
-    hint: string
     count: number
-    testId: string
 }
 
 const { t } = useI18n()
 const { currentId, isParent } = useCurrentMember()
 const { children, ensureLoaded } = useMembers()
 const { messages, load: loadMessages, startPolling, stopPolling } = useMessages()
-const { books, load: loadBooks } = useBooks()
-const { flow, load: loadFlow } = useRelativeFlow()
+const { request } = useApi()
 
 const isLoaded = ref(false)
+const counts = ref<IHomeCounts | null>(null)
 
 const isLive = (message: IMessage): boolean => message.status === 'ACTIVE' && (message.expiresAt === null || new Date(message.expiresAt).getTime() > Date.now()) && !message.isSaved
 
-const kids = computed(() =>
-    children.value
-        .filter(member => member.status === 'active')
-        .map(member => {
-            const count = messages.value.filter(message => message.fromMemberId === currentId.value && message.toMemberId === member.id && isLive(message)).length
-            return { member, count, isFull: count >= MESSAGE_MAX_ACTIVE }
-        }),
+const kids = computed(() => children.value.filter(member => member.status === 'active'))
+
+const liveCounts = computed<Record<string, number>>(() =>
+    Object.fromEntries(
+        kids.value.map(member => [
+            member.id,
+            messages.value.filter(message => message.fromMemberId === currentId.value && message.toMemberId === member.id && isLive(message)).length,
+        ]),
+    ),
 )
 
-const family = computed(() => flow.value.families.find(item => item.familyId === flow.value.currentFamilyId) ?? null)
-const toReview = computed<number>(() => books.value.filter(book => book.submittedCount > 0).length)
-
-const actions = computed<IHomeAction[]>(() => {
+const cards = computed<IHomeCard[]>(() => {
+    const value = counts.value
     if (isParent.value) {
         return [
-            { to: '/books/new', icon: 'book-plus', label: 'home.dash.newBook', hint: 'home.dash.newBookHint', count: 0, testId: 'home-new-book' },
-            { to: '/books/isbn', icon: 'search', label: 'home.dash.byIsbn', hint: 'home.dash.byIsbnHint', count: 0, testId: 'home-isbn' },
-            { to: '/library?status=in_review', icon: 'check', label: 'home.dash.toReview', hint: 'home.dash.toReviewHint', count: toReview.value, testId: 'home-review' },
-            { to: '/library', icon: 'book', label: 'home.dash.library', hint: 'home.dash.libraryHint', count: 0, testId: 'home-library' },
-            { to: '/family', icon: 'users', label: 'home.dash.manageFamily', hint: 'home.dash.manageFamilyHint', count: 0, testId: 'home-family' },
+            { id: 'proposals', to: '/library?status=proposed', icon: 'send', label: 'homeBar.cards.proposalsWaiting', count: value?.proposals ?? 0 },
+            { id: 'drafts', to: '/library?status=draft', icon: 'pencil', label: 'homeBar.cards.started', count: value?.drafts ?? 0 },
+            { id: 'to-record', to: '/library?status=to_record', icon: 'mic', label: 'homeBar.cards.toRecord', count: value?.toRecord ?? 0 },
+            { id: 'recorded', to: '/library?status=ready', icon: 'check', label: 'homeBar.cards.recorded', count: value?.recorded ?? 0 },
+            { id: 'review', to: '/library?status=in_review', icon: 'redo', label: 'homeBar.cards.toReview', count: value?.inReview ?? 0 },
+            { id: 'trash', to: '/family/trash', icon: 'trash', label: 'homeBar.cards.trash', count: value?.trash ?? 0 },
         ]
     }
     return [
-        { to: '/books/new', icon: 'book-plus', label: 'home.dash.proposeBook', hint: 'home.dash.proposeBookHint', count: 0, testId: 'home-propose' },
-        { to: '/categories/toRecord', icon: 'mic', label: 'home.dash.requests', hint: 'home.dash.requestsHint', count: family.value?.requests.length ?? 0, testId: 'home-requests' },
-        { to: '/categories/proposals', icon: 'send', label: 'home.dash.pending', hint: 'home.dash.pendingHint', count: family.value?.proposals.length ?? 0, testId: 'home-pending' },
-        { to: '/categories/toFix', icon: 'redo', label: 'home.dash.toFix', hint: 'home.dash.toFixHint', count: family.value?.fixes.length ?? 0, testId: 'home-fix' },
-        { to: '/library', icon: 'book', label: 'home.dash.library', hint: 'home.dash.libraryHint', count: 0, testId: 'home-library' },
-        { to: '/vault', icon: 'chest', label: 'vault.open', hint: 'home.dash.vaultHint', count: 0, testId: 'home-vault' },
+        { id: 'proposed', to: '/categories/proposals', icon: 'book-plus', label: 'homeBar.cards.proposedByMe', count: value?.proposedByMe ?? 0 },
+        { id: 'requests', to: '/categories/toRecord', icon: 'mic', label: 'homeBar.cards.requested', count: value?.requests ?? 0 },
+        { id: 'proposals', to: '/categories/proposals', icon: 'send', label: 'homeBar.cards.proposalsWaiting', count: value?.proposalsWaiting ?? 0 },
+        { id: 'fix', to: '/categories/toFix', icon: 'redo', label: 'homeBar.cards.toFix', count: value?.toFix ?? 0 },
     ]
 })
 
+const loadCounts = async (): Promise<void> => {
+    counts.value = await request<IHomeCounts>('/home/counts')
+}
+
 onMounted(async () => {
-    await Promise.all([ensureLoaded(), loadMessages(), isParent.value ? loadBooks() : loadFlow()])
+    await Promise.all([ensureLoaded(), loadMessages(), loadCounts()])
     isLoaded.value = true
     startPolling()
 })
@@ -96,7 +85,7 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
-.home__kids {
+.home__cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
@@ -106,60 +95,25 @@ onBeforeUnmount(stopPolling)
 }
 
 @media (min-width: 720px) {
-    .home__kids {
+    .home__cards {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-@media (min-width: 1100px) {
-    .home__kids {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-}
-
-.home__kid {
+.home__card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    min-height: 200px;
+    gap: 6px;
+    min-height: 44px;
     text-align: center;
     color: inherit;
     text-decoration: none;
     overflow-wrap: anywhere;
 }
 
-.home__photo {
-    display: inline-flex;
-    padding: 4px;
-    border: 5px solid var(--ring);
-    border-radius: 50%;
-}
-
-.home__name {
-    max-width: 100%;
-}
-
-.home__send {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--ink-soft);
-    font: 700 0.9375rem/1 var(--font-title);
-}
-
-.home__actions {
+.home__icon {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.home__action-icon {
-    display: flex;
-    flex: none;
     align-items: center;
     justify-content: center;
     width: 44px;
@@ -168,5 +122,13 @@ onBeforeUnmount(stopPolling)
     border-radius: 50%;
     background: var(--sky);
     color: var(--on-accent);
+}
+
+.home__count {
+    font: 800 2rem/1 var(--font-title);
+}
+
+.home__label {
+    font: 700 0.9375rem/1.2 var(--font-title);
 }
 </style>

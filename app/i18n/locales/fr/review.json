@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "Brouillon",
+        "proposed": "Proposition",
         "to_record": "À enregistrer",
         "in_review": "En relecture",
         "ready": "Prêt"

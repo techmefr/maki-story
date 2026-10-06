@@ -17,6 +17,11 @@
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
 
+## Adult home (`/home`)
+- First row: children bar with an All children bubble then one bubble per child. Tapping a bubble starts a live recording, tapping it again stops and sends. Each child quota and block rule applies, and a result per child (sent, queued, limit reached, blocked, failed) is announced.
+- Below: cards with icon, number and label from `GET /api/home/counts`. Parent: proposals, started, to record, recorded, to review, trash, each opening `/library?status=...` or the trash. Relative: proposed by me, requested from me, proposals waiting, to fix.
+- The nudges and the book search entry are not shown on this page.
+
 ## AI flag
 
 The create with AI button and the AI draft row are hidden when NUXT_PUBLIC_AI_CREATION_ENABLED is false.
