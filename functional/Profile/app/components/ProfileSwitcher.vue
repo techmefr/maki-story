@@ -1,7 +1,8 @@
 <template>
     <div v-if="isOpen" class="sheet-backdrop" @click.self="close">
         <div v-sheet="close" class="sheet stack" role="dialog" aria-modal="true" :aria-label="t('profile.switchProfile')">
-            <ProfileUnlock v-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
+            <ProfileUnlock v-if="gateMember" :key="`gate-${gateMember.id}`" :member="gateMember" :has-back="false" data-testid="personal-gate" @unlocked="openGate" />
+            <ProfileUnlock v-else-if="target" :key="target.id" :member="target" @unlocked="enter(target)" @cancel="target = null" />
             <template v-else>
                 <h2 class="subtitle">{{ t('profile.who') }}</h2>
                 <button
@@ -30,7 +31,10 @@ const isOpen = useState<boolean>('switcher-open', () => false)
 const { people: members, load } = useMembers()
 const { currentId, current, select } = useCurrentMember()
 
+const personal = usePersonalDevice()
+
 const target = ref<IMember | null>(null)
+const gateMember = computed(() => (personal.isPersonal.value && !personal.isReleased.value ? current.value : null))
 
 watch(isOpen, async isNowOpen => {
     if (isNowOpen && current.value?.role === 'relative') {
@@ -40,8 +44,18 @@ watch(isOpen, async isNowOpen => {
 })
 
 const close = (): void => {
+    personal.gateNext.value = null
     isOpen.value = false
     target.value = null
+}
+
+const openGate = async (): Promise<void> => {
+    personal.release()
+    const next = personal.gateNext.value
+    if (next) {
+        close()
+        await navigateTo(next)
+    }
 }
 
 const enter = async (member: IMember): Promise<void> => {

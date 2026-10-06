@@ -1,0 +1,5 @@
+{
+    "label": "Personal phone",
+    "toggle": "This is my personal phone",
+    "hint": "The app opens straight on your profile, without a code. Switching profile or opening the family requires your code. Turn off to go back to the profile picker."
+}
