@@ -109,6 +109,10 @@ test.describe('shell per role', () => {
         await expect(page.getByTestId('relatives-grid')).toBeVisible()
         await expect(page.getByTestId('relatives-grid').getByText(CHILD)).toBeVisible()
         await expect(page.getByTestId('relatives-grid').getByText(RELATIVE)).toHaveCount(0)
+        for (const id of ['proposals', 'drafts', 'to-record', 'recorded', 'review', 'trash']) {
+            await expect(page.getByTestId(`home-count-${id}`)).toHaveText(/^\d+$/)
+        }
+        await expect(page.getByTestId('home-kid-all')).toBeVisible()
 
         await chooseProfile(page, CHILD)
         await page.goto('/kid')
