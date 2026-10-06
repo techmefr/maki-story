@@ -1,0 +1,9 @@
+{
+    "resultsTitle": "Send results",
+    "hintAll": "The same recording goes to every child.",
+    "openAll": "Record a message for all children",
+    "open": "Record a message for {name}",
+    "everyone": "Everyone",
+    "bubble": "Message",
+    "bubbleLabel": "{count} new messages from {name}"
+}

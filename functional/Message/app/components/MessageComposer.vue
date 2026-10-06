@@ -7,13 +7,14 @@
             <h1 class="title composer__title">{{ t('messages.compose.title') }}</h1>
         </header>
         <AppEmpty v-if="isLoaded && recipients.length === 0" kind="messages" :title="t('messages.compose.noRecipients')" :hint="t('messages.compose.noRecipientsHint')" />
-        <template v-else-if="selected">
-            <MessageRecipients v-model="selectedId" :recipients="recipients" @update:model-value="onSelect" />
+        <template v-else-if="selected || isAll">
+            <MessageRecipients v-model="selectedId" :recipients="recipients" :has-all="canAll" @update:model-value="onSelect" />
             <AppChip v-if="canWish" class="composer__wish" :selected="kind === 'BIRTHDAY'" data-testid="message-birthday" @click="toggleBirthday">
                 <AppIcon name="party" :size="18" />
                 {{ t('messages.compose.birthdayToggle') }}
             </AppChip>
-            <MessageSent v-if="phase === 'sent'" :title="t('messages.compose.sentTitle', { name: selected.member.name })" :text="sentText" @again="again" />
+            <MessageSendResults v-if="phase === 'results'" :results="results" @again="again" />
+            <MessageSent v-else-if="phase === 'sent' && selected" :title="t('messages.compose.sentTitle', { name: selected.member.name })" :text="sentText" @again="again" />
             <section v-else-if="phase === 'queued'" class="composer__queued" role="status">
                 <AppIcon name="cloud-off" :size="40" />
                 <h2 class="composer__queued-title">{{ t('messages.compose.queuedTitle') }}</h2>
@@ -21,7 +22,7 @@
                 <AppButton icon="plus" @click="again">{{ t('messages.compose.another') }}</AppButton>
             </section>
             <MessageFullAlert
-                v-else-if="selected.quota.isFull"
+                v-else-if="selected && selected.quota.isFull"
                 :name="selected.member.name"
                 :limit="selected.quota.limit"
                 :is-busy="isRetracting"
@@ -54,11 +55,13 @@ const { currentId, isChild, isParent } = useCurrentMember()
 const { load, startPolling, stopPolling } = useMessages()
 const { quotaFor, retractOldest } = useMessageQuota()
 const { sendNow, cancel } = useOutbox()
+const { sendToEach } = useGroupSend()
 const { isRecording, elapsedMs, errorMessage, start, stop } = useRecorder()
 const { play: playCue } = useSoundCues()
 const preview = useRecordingPreview()
 
-const phase = ref<'idle' | 'done' | 'sent' | 'queued'>('idle')
+const phase = ref<'idle' | 'done' | 'sent' | 'queued' | 'results'>('idle')
+const results = ref<ISendResult[]>([])
 const isLoaded = ref(false)
 const isBusy = ref(false)
 const isRetracting = ref(false)
@@ -69,15 +72,21 @@ const recording = ref<IRecording | null>(null)
 
 const people = computed(() => (isChild.value ? grownUps.value.filter(member => member.id !== currentId.value) : children.value))
 const recipients = computed<IMessageRecipient[]>(() => people.value.map(member => ({ member, quota: quotaFor(member.id) })))
+const canAll = computed(() => !isChild.value && people.value.length >= 2)
+const isAll = computed(() => canAll.value && selectedId.value === ALL_RECIPIENTS_ID)
 const selected = computed(() => recipients.value.find(item => item.member.id === selectedId.value) ?? null)
+const isValidId = (id: string | null): boolean => (canAll.value && id === ALL_RECIPIENTS_ID) || people.value.some(member => member.id === id)
+const firstId = (): string | null => people.value[0]?.id ?? null
 const backPath = computed(() => (isChild.value ? '/kid' : isParent.value ? '/home' : '/relative'))
 const shownMs = computed(() => (phase.value === 'done' ? (recording.value?.ms ?? 0) : elapsedMs.value))
 const canWish = computed(() => {
     const days = selected.value?.member.birthdayInDays ?? null
-    return !isChild.value && (kind.value === 'BIRTHDAY' || (days !== null && days <= BIRTHDAY_WISH_WINDOW_DAYS))
+    return !isChild.value && !isAll.value && (kind.value === 'BIRTHDAY' || (days !== null && days <= BIRTHDAY_WISH_WINDOW_DAYS))
 })
 const hint = computed(() =>
-    selected.value
+    isAll.value
+        ? t('homeCards.hintAll')
+        : selected.value
         ? t(isChild.value ? 'messages.compose.hintChild' : 'messages.compose.hintAdult', {
               name: selected.value.member.name,
               count: formatNumber(selected.value.quota.count),
@@ -142,7 +151,28 @@ const retract = async (): Promise<void> => {
     }
 }
 
+const sendAll = async (): Promise<void> => {
+    if (!recording.value) {
+        return
+    }
+    isBusy.value = true
+    errorMessage.value = ''
+    try {
+        results.value = await sendToEach(people.value, recording.value)
+        await load()
+        playCue(results.value.some(result => result.status !== 'sent' && result.status !== 'queued') ? 'error' : 'success')
+        preview.clear()
+        phase.value = 'results'
+    } finally {
+        isBusy.value = false
+    }
+}
+
 const send = async (): Promise<void> => {
+    if (isAll.value) {
+        await sendAll()
+        return
+    }
     const target = selected.value
     if (!recording.value || !currentId.value || !target) {
         return
@@ -183,16 +213,16 @@ const again = (): void => {
     reset()
 }
 
-watch(people, list => {
-    if (list.length > 0 && !list.some(member => member.id === selectedId.value)) {
-        selectedId.value = list[0]?.id ?? null
+watch(people, () => {
+    if (people.value.length > 0 && !isValidId(selectedId.value)) {
+        selectedId.value = firstId()
     }
 })
 
 onMounted(async () => {
     await Promise.all([ensureLoaded(), load()])
-    if (people.value.length > 0 && !people.value.some(member => member.id === selectedId.value)) {
-        selectedId.value = people.value[0]?.id ?? null
+    if (people.value.length > 0 && !isValidId(selectedId.value)) {
+        selectedId.value = firstId()
     }
     isLoaded.value = true
     startPolling()

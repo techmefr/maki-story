@@ -20,3 +20,5 @@ export const MESSAGE_MAX_DURATION_MS = 120000
 export const MESSAGE_LISTEN_WINDOW_HOURS = 24
 export const MESSAGE_MAX_ACTIVE = 5
 export const TREASURE_LIMIT = 10
+
+export const ALL_RECIPIENTS_ID = 'all'

@@ -1,0 +1,9 @@
+{
+    "resultsTitle": "Résultat de l’envoi",
+    "hintAll": "Le même enregistrement part chez chaque enfant.",
+    "openAll": "Enregistrer un message pour tous les enfants",
+    "open": "Enregistrer un message pour {name}",
+    "everyone": "Tous",
+    "bubble": "Message",
+    "bubbleLabel": "{count} nouveaux messages de {name}"
+}

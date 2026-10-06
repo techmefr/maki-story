@@ -37,3 +37,11 @@ export interface IMessageRecipient {
     member: IMember
     quota: IQuota
 }
+
+export type TSendStatus = 'sent' | 'queued' | 'quota' | 'blocked' | 'failed'
+
+export interface ISendResult {
+    id: string
+    name: string
+    status: TSendStatus
+}
