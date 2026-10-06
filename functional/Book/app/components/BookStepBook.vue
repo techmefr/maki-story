@@ -4,6 +4,10 @@
             <span class="label">{{ t('bookDraft.book.title') }}</span>
             <input v-model="title" class="input" :placeholder="t('bookDraft.book.titlePlaceholder')" />
         </label>
+        <div v-if="isSimple && !isWordless" class="card stack">
+            <span class="subtitle">{{ t('bookDraft.book.reader') }}</span>
+            <MemberPicker :model-value="readerId" @update:model-value="setReader" />
+        </div>
         <fieldset class="stack fieldset">
             <legend class="label">{{ t('bookDraft.book.type') }}</legend>
             <div class="row row--wrap">
@@ -17,38 +21,22 @@
             </div>
             <p class="muted">{{ typeHint }}</p>
         </fieldset>
-        <div class="stack" style="gap: 6px">
-            <span id="book-language-label" class="label">{{ t('bookDraft.book.language') }}</span>
-            <AppSelect v-model="language" aria-labelledby="book-language-label" :options="languageOptions" />
-        </div>
-        <div class="stack" style="gap: 6px">
-            <span class="label">{{ t('bookDraft.book.voiceLanguages') }}</span>
-            <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
-            <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
-        </div>
-        <fieldset class="stack fieldset">
-            <legend class="label">{{ t('bookDraft.book.moods') }}</legend>
-            <div class="row row--wrap">
-                <AppChip v-for="mood in BOOK_MOODS" :key="mood" @click="toggleTag(moods, mood, MAX_BOOK_MOODS)" :selected="moods.includes(mood)">
-                    {{ t(`bookDraft.book.mood.${mood}`) }}
-                </AppChip>
-            </div>
-        </fieldset>
-        <fieldset class="stack fieldset">
-            <legend class="label">{{ t('bookDraft.book.themes') }}</legend>
-            <div class="row row--wrap">
-                <AppChip v-for="theme in BOOK_THEMES" :key="theme" @click="toggleTag(themes, theme, MAX_BOOK_THEMES)" :selected="themes.includes(theme)">
-                    {{ t(`bookDraft.book.theme.${theme}`) }}
-                </AppChip>
-            </div>
-        </fieldset>
-        <div v-if="isSimple && !isWordless" class="card stack">
-            <span class="subtitle">{{ t('bookDraft.book.reader') }}</span>
-            <MemberPicker :model-value="readerId" @update:model-value="setReader" />
-        </div>
         <details class="card stack">
             <summary class="subtitle">{{ t('bookDraft.book.more') }}</summary>
             <div class="stack" style="margin-top: 12px">
+                <div class="stack" style="gap: 6px">
+                    <span id="book-language-label" class="label">{{ t('bookDraft.book.language') }}</span>
+                    <AppSelect v-model="language" aria-labelledby="book-language-label" :options="languageOptions" />
+                </div>
+                <div class="stack" style="gap: 6px">
+                    <span class="label">{{ t('bookDraft.book.voiceLanguages') }}</span>
+                    <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
+                    <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
+                </div>
+                <AppButton variant="secondary" icon="settings" data-testid="book-tags-open" @click="isTagsOpen = true">
+                    {{ t('bookCreate.tagsOpen') }}
+                    <AppBadge v-if="tagCount > 0">{{ tagCount }}</AppBadge>
+                </AppButton>
                 <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('bookDraft.book.subtitle') }}</span>
                     <input v-model="subtitle" class="input" />
@@ -74,6 +62,25 @@
                 <AppCheckbox v-model="ttsFallback">{{ t('bookDraft.book.tts') }}</AppCheckbox>
             </div>
         </details>
+        <AppBottomSheet :open="isTagsOpen" :title="t('bookCreate.tagsTitle')" @close="isTagsOpen = false">
+            <fieldset class="stack fieldset">
+                <legend class="label">{{ t('bookDraft.book.moods') }}</legend>
+                <div class="row row--wrap">
+                    <AppChip v-for="mood in BOOK_MOODS" :key="mood" :selected="moods.includes(mood)" @click="toggleTag(moods, mood, MAX_BOOK_MOODS)">
+                        {{ t(`bookDraft.book.mood.${mood}`) }}
+                    </AppChip>
+                </div>
+            </fieldset>
+            <fieldset class="stack fieldset">
+                <legend class="label">{{ t('bookDraft.book.themes') }}</legend>
+                <div class="row row--wrap">
+                    <AppChip v-for="theme in BOOK_THEMES" :key="theme" :selected="themes.includes(theme)" @click="toggleTag(themes, theme, MAX_BOOK_THEMES)">
+                        {{ t(`bookDraft.book.theme.${theme}`) }}
+                    </AppChip>
+                </div>
+            </fieldset>
+            <AppButton is-block @click="isTagsOpen = false">{{ t('bookCreate.tagsDone') }}</AppButton>
+        </AppBottomSheet>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <AppButton is-block @click="goNext">{{ t('common.next') }}</AppButton>
     </div>
@@ -94,6 +101,8 @@ const languageOptions = languageSelectOptions(LANGUAGES)
 const { title, subtitle, author, illustrator, ageMin, ageMax, language, voiceLanguages, moods, themes, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
 
 const errorMessage = ref('')
+const isTagsOpen = ref(false)
+const tagCount = computed(() => moods.value.length + themes.value.length)
 const typeHint = computed(() => {
     const option = TYPE_OPTIONS.find(item => item.id === type.value)
     return option ? t(option.hintKey) : ''
