@@ -7,8 +7,8 @@
         @pointerdown="onPointerDown"
         @pointerup="onPointerUp"
     >
-        <AppButton class="screen__back" variant="secondary" size="sm" :to="backPath" :aria-label="t(common.back)">
-            <AppIcon name="back" :size="18" class="mirror-rtl" />{{ t(common.back) }}
+        <AppButton class="screen__back" variant="secondary" size="sm" :to="backPath" :aria-label="t('common.back')">
+            <AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}
         </AppButton>
         <template v-if="message && sender">
             <div class="focal">
@@ -33,7 +33,7 @@
             <div
                 class="progress player__progress"
                 role="progressbar"
-                :aria-label="t(kid.listen.progress)"
+                :aria-label="t('kid.listen.progress')"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 :aria-valuenow="percentValue"
@@ -45,7 +45,7 @@
                     variant="secondary"
                     is-round
                     :disabled="!hasPrevious"
-                    :aria-label="t(messages.listen.previous)"
+                    :aria-label="t('messages.listen.previous')"
                     data-testid="message-previous"
                     @click="go(-1)"
                 >
@@ -54,7 +54,7 @@
                 <AppButton
                     variant="secondary"
                     is-round
-                    :aria-label="t(messages.listen.next)"
+                    :aria-label="t('messages.listen.next')"
                     data-testid="message-next"
                     @click="go(1)"
                 >
