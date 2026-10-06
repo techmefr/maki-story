@@ -10,12 +10,16 @@ export default defineEventHandler(async (event): Promise<IDeviceEnrolment> => {
     if (!session.memberId) {
         throw createError({ statusCode: 403, statusMessage: 'Choose a profile first' })
     }
-    const body = await readBody<{ label?: unknown }>(event)
+    const body = await readBody<{ label?: unknown; isPersonal?: unknown }>(event)
     const label = (typeof body?.label === 'string' ? body.label.trim() : '').slice(0, MAX_LABEL_LENGTH) || 'Appareil'
     const db = getDb()
     const member = await loadCodeRow(db, session.familyId, session.memberId)
     if (!member) {
         throw createError({ statusCode: 403, statusMessage: 'Choose a profile first' })
+    }
+    const isPersonal = body?.isPersonal === true
+    if (isPersonal && member.role === 'child') {
+        throw createError({ statusCode: 403, statusMessage: 'A child profile cannot use personal device mode' })
     }
     const [active] = await db<{ count: number }[]>`
         select count(*)::int as count from member_devices where member_id = ${member.id} and revoked_at is null
@@ -25,8 +29,8 @@ export default defineEventHandler(async (event): Promise<IDeviceEnrolment> => {
     }
     const secret = newDeviceSecret()
     const created = one(await db<{ id: string }[]>`
-        insert into member_devices (family_id, member_id, label, secret_hash)
-        values (${session.familyId}, ${member.id}, ${label}, ${hashDeviceSecret(secret)})
+        insert into member_devices (family_id, member_id, label, secret_hash, is_personal)
+        values (${session.familyId}, ${member.id}, ${label}, ${hashDeviceSecret(secret)}, ${isPersonal})
         returning id
     `)
     return { id: created.id, secret, label }

@@ -12,6 +12,11 @@ export interface IDevice {
     memberId: string
     memberName: string
     label: string
+    isPersonal: boolean
     createdAt: string
     lastUsedAt: string | null
+}
+
+export interface IPersonalDevice extends IDeviceProof {
+    memberId: string
 }
