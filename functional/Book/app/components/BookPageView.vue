@@ -1,21 +1,21 @@
 <template>
-    <section class="pageview stack" :aria-label="t('pageView.title', { n: pageNumber })" :data-mode="mode" data-testid="page-view">
+    <section class="pageview stack" :aria-label="t('scanView.title', { n: pageNumber })" :data-mode="mode" data-testid="page-view">
         <header v-if="showNav" class="row row--wrap pageview__head">
-            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber <= 1" :aria-label="t('pageView.previous')" @click="emit('go', -1)">
+            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber <= 1" :aria-label="t('scanView.previous')" @click="emit('go', -1)">
                 <AppIcon name="back" :size="20" class="mirror-rtl" />
             </AppButton>
-            <h3 class="subtitle grow pageview__title">{{ t('pageView.title', { n: pageNumber }) }} / {{ pageCount }}</h3>
-            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber >= pageCount" :aria-label="t('pageView.next')" @click="emit('go', 1)">
+            <h3 class="subtitle grow pageview__title">{{ t('scanView.title', { n: pageNumber }) }} / {{ pageCount }}</h3>
+            <AppButton variant="secondary" size="sm" class="pageview__nav" :disabled="pageNumber >= pageCount" :aria-label="t('scanView.next')" @click="emit('go', 1)">
                 <AppIcon name="next" :size="20" class="mirror-rtl" />
             </AppButton>
         </header>
-        <PageScanViewer v-if="canSeeScan && view.fileId" :file-id="view.fileId" :panel-count="view.panelCount" :alt="t('pageView.scan.alt', { n: pageNumber })" />
-        <img v-else-if="canSeeScan && view.previewUrl" :src="view.previewUrl" :alt="t('pageView.scan.alt', { n: pageNumber })" class="pageview__preview" />
-        <p v-else-if="canSeeScan" class="muted" data-testid="no-scan">{{ t('pageView.noScan') }}</p>
+        <PageScanViewer v-if="canSeeScan && view.fileId" :file-id="view.fileId" :panel-count="view.panelCount" :alt="t('scanView.scan.alt', { n: pageNumber })" />
+        <img v-else-if="canSeeScan && view.previewUrl" :src="view.previewUrl" :alt="t('scanView.scan.alt', { n: pageNumber })" class="pageview__preview" />
+        <p v-else-if="canSeeScan" class="muted" data-testid="no-scan">{{ t('scanView.noScan') }}</p>
         <div class="stack pageview__description">
             <button type="button" class="chip pageview__toggle" :aria-expanded="isDescriptionOpen" aria-controls="pageview-description" data-testid="description-toggle" @click="isDescriptionOpen = !isDescriptionOpen">
                 <AppIcon name="chevron-down" :size="18" :class="{ 'pageview__chevron--open': isDescriptionOpen }" />
-                {{ t('pageView.description') }}
+                {{ t('scanView.description') }}
             </button>
             <div v-show="isDescriptionOpen" id="pageview-description">
                 <textarea
@@ -23,23 +23,23 @@
                     class="input"
                     rows="2"
                     :value="view.description"
-                    :aria-label="t('pageView.description')"
+                    :aria-label="t('scanView.description')"
                     @input="emit('update-description', ($event.target as HTMLTextAreaElement).value)"
                 />
-                <p v-else class="pageview__text">{{ view.description || t('pageView.noDescription') }}</p>
+                <p v-else class="pageview__text">{{ view.description || t('scanView.noDescription') }}</p>
             </div>
         </div>
         <div class="row row--wrap">
-            <span class="badge" data-testid="character-count">{{ t('pageView.characters', { count: view.characters.length }) }}</span>
+            <span class="badge" data-testid="character-count">{{ t('scanView.characters', { count: view.characters.length }) }}</span>
             <button v-if="mode === 'record'" type="button" class="chip pageview__chip" :class="{ 'chip--on': isOnlyMine }" :aria-pressed="isOnlyMine" data-testid="only-mine" @click="isOnlyMine = !isOnlyMine">
-                <AppIcon name="mic" :size="18" />{{ t('pageView.onlyMine') }}
+                <AppIcon name="mic" :size="18" />{{ t('scanView.onlyMine') }}
             </button>
             <button v-if="mode !== 'create'" type="button" class="chip pageview__chip" :class="{ 'chip--on': isLarge }" :aria-pressed="isLarge" @click="isLarge = !isLarge">
-                <AppIcon name="eye" :size="18" />{{ t('pageView.largeText') }}
+                <AppIcon name="eye" :size="18" />{{ t('scanView.largeText') }}
             </button>
             <slot name="toolbar" />
         </div>
-        <p v-if="view.characters.length === 0" class="muted">{{ t('pageView.noLines') }}</p>
+        <p v-if="view.characters.length === 0" class="muted">{{ t('scanView.noLines') }}</p>
         <article
             v-for="character in view.characters"
             :key="character.id || 'orphan'"
@@ -49,14 +49,14 @@
         >
             <div class="row row--wrap">
                 <span v-if="character.color" class="dot" :style="{ background: hexOf(character.color) }" aria-hidden="true" />
-                <span v-else class="badge pageview__narrator" data-testid="narrator-badge">{{ t('pageView.narrator') }}</span>
+                <span v-else class="badge pageview__narrator" data-testid="narrator-badge">{{ t('scanView.narrator') }}</span>
                 <strong class="pageview__name">{{ characterName(character) }}</strong>
                 <span v-if="reader(character)" class="row pageview__reader" data-testid="character-reader">
                     <AppAvatar :member="reader(character)" :size="28" />
                     <span>{{ reader(character)!.name }}</span>
                     <span class="badge">{{ languageLabel(language) }}</span>
                 </span>
-                <span v-else class="muted">{{ t('pageView.noReader') }}</span>
+                <span v-else class="muted">{{ t('scanView.noReader') }}</span>
             </div>
             <input
                 v-if="isEditable"
@@ -78,10 +78,10 @@
                 >
                     <p class="pageview__text" data-testid="page-line-text">{{ line.text }}</p>
                     <details v-if="line.originalText !== null" class="pageview__original">
-                        <summary>{{ t('pageView.original') }}</summary>
+                        <summary>{{ t('scanView.original') }}</summary>
                         <p class="pageview__text">{{ line.originalText }}</p>
                     </details>
-                    <span v-if="line.tone" class="badge pageview__tone">{{ t('pageView.tone', { tone: line.tone }) }}</span>
+                    <span v-if="line.tone" class="badge pageview__tone">{{ t('scanView.tone', { tone: line.tone }) }}</span>
                     <slot name="line-actions" :line="line" :character="character" :is-mine="isMine(line)" />
                 </li>
             </ol>
@@ -123,7 +123,7 @@ const isEditable = computed(() => props.mode === 'create')
 
 const hexOf = (color: string): string => getVoiceColor(color as VoiceColorId).hex
 const reader = (character: IPageViewCharacter): IMember | null => getById(character.readerId)
-const characterName = (character: IPageViewCharacter): string => (character.isNarrator && character.name === '' ? t('pageView.narrator') : character.name)
+const characterName = (character: IPageViewCharacter): string => (character.isNarrator && character.name === '' ? t('scanView.narrator') : character.name)
 const isMine = (line: IPageViewLine): boolean => props.mode === 'record' && props.myMemberId !== null && line.memberId === props.myMemberId
 const isDimmed = (line: IPageViewLine): boolean => props.mode === 'record' && props.myMemberId !== null && !isMine(line)
 const visibleLines = (character: IPageViewCharacter): IPageViewLine[] => {

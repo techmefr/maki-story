@@ -1,22 +1,22 @@
 <template>
-    <section class="scan" :class="{ 'scan--full': isFull }" :aria-label="t('pageView.scan.label')" data-testid="scan-viewer" @keydown="onKey">
+    <section class="scan" :class="{ 'scan--full': isFull }" :aria-label="t('scanView.scan.label')" data-testid="scan-viewer" @keydown="onKey">
         <div class="scan__bar row row--wrap">
-            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="scale <= 1" :aria-label="t('pageView.scan.zoomOut')" @click="zoomBy(1 / ZOOM_STEP)">
+            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="scale <= 1" :aria-label="t('scanView.scan.zoomOut')" @click="zoomBy(1 / ZOOM_STEP)">
                 <AppIcon name="zoom-out" :size="22" />
             </AppButton>
-            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('pageView.scan.zoomIn')" data-testid="scan-zoom-in" @click="zoomBy(ZOOM_STEP)">
+            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('scanView.scan.zoomIn')" data-testid="scan-zoom-in" @click="zoomBy(ZOOM_STEP)">
                 <AppIcon name="zoom-in" :size="22" />
             </AppButton>
-            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('pageView.scan.rotate')" data-testid="scan-rotate" @click="rotate">
+            <AppButton variant="secondary" size="sm" class="scan__btn" :aria-label="t('scanView.scan.rotate')" data-testid="scan-rotate" @click="rotate">
                 <AppIcon name="rotate" :size="22" />
             </AppButton>
-            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="isIdentity" :aria-label="t('pageView.scan.reset')" @click="reset">
+            <AppButton variant="secondary" size="sm" class="scan__btn" :disabled="isIdentity" :aria-label="t('scanView.scan.reset')" @click="reset">
                 <AppIcon name="redo" :size="22" />
             </AppButton>
             <AppButton variant="secondary" size="sm"
                 class="scan__btn"
                 :aria-pressed="isFull"
-                :aria-label="isFull ? t('pageView.scan.exitFull') : t('pageView.scan.full')"
+                :aria-label="isFull ? t('scanView.scan.exitFull') : t('scanView.scan.full')"
                 data-testid="scan-full"
                 @click="toggleFull">
                 <AppIcon :name="isFull ? 'close' : 'maximize'" :size="22" />
@@ -35,11 +35,11 @@
         >
             <div ref="stage" class="scan__stage" :class="{ 'scan__stage--animated': isSettled }" :style="stageStyle" data-testid="scan-stage">
                 <img v-if="src" :src="src" :alt="alt" class="scan__img" draggable="false" data-testid="scan-image" />
-                <p v-else-if="hasFailed" class="muted scan__state" role="status">{{ t('pageView.scan.failed') }}</p>
+                <p v-else-if="hasFailed" class="muted scan__state" role="status">{{ t('scanView.scan.failed') }}</p>
                 <p v-else class="muted scan__state" role="status">{{ t('common.loading') }}</p>
             </div>
         </div>
-        <p v-if="hasPanels" class="muted scan__hint">{{ t('pageView.scan.panelHint') }}</p>
+        <p v-if="hasPanels" class="muted scan__hint">{{ t('scanView.scan.panelHint') }}</p>
     </section>
 </template>
 

@@ -34,9 +34,9 @@
                 {{ t('review.studio.redoCount', { count: redoCount }) }}
             </button>
         </div>
-        <section v-if="currentLine" class="stack" :aria-label="t('pageView.studioSection')">
+        <section v-if="currentLine" class="stack" :aria-label="t('scanView.studioSection')">
             <AppButton variant="secondary" size="sm" :aria-expanded="isPageViewOpen" data-testid="page-view-toggle" @click="isPageViewOpen = !isPageViewOpen">
-                <AppIcon name="book" :size="18" />{{ isPageViewOpen ? t('pageView.hidePage') : t('pageView.showPage') }}
+                <AppIcon name="book" :size="18" />{{ isPageViewOpen ? t('scanView.hidePage') : t('scanView.showPage') }}
             </AppButton>
             <BookPageView
                 v-if="isPageViewOpen && pageView"
@@ -53,7 +53,7 @@
                 <template #line-actions="{ line, isMine }">
                     <div v-if="isMine" class="row row--wrap">
                         <AppButton size="sm" :disabled="isLocked || line.id === currentLineId" :data-testid="`page-record-${line.id}`" @click="currentLineId = line.id">
-                            <AppIcon name="mic" :size="18" />{{ t('pageView.recordLine') }}
+                            <AppIcon name="mic" :size="18" />{{ t('scanView.recordLine') }}
                         </AppButton>
                         <AppButton variant="secondary" size="sm" :disabled="isLocked || !lineHasVoice(line.id)" @click="listenLine(line.id)">
                             <AppIcon name="volume" :size="18" />{{ t('studio.listen') }}

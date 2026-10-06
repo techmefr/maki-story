@@ -70,12 +70,12 @@
                 {{ t(`review.filters.${item.id}`) }} ({{ countOf(item.id) }})
             </button>
         </div>
-        <div class="row row--wrap" role="group" :aria-label="t('pageView.viewMode')">
+        <div class="row row--wrap" role="group" :aria-label="t('scanView.viewMode')">
             <button type="button" class="chip review__chip" :class="{ 'chip--on': !isPageMode }" :aria-pressed="!isPageMode" @click="isPageMode = false">
-                <AppIcon name="check" :size="18" />{{ t('pageView.byLine') }}
+                <AppIcon name="check" :size="18" />{{ t('scanView.byLine') }}
             </button>
             <button type="button" class="chip review__chip" :class="{ 'chip--on': isPageMode }" :aria-pressed="isPageMode" data-testid="review-page-mode" @click="isPageMode = true">
-                <AppIcon name="book" :size="18" />{{ t('pageView.byPage') }}
+                <AppIcon name="book" :size="18" />{{ t('scanView.byPage') }}
             </button>
         </div>
         <BookPageView
