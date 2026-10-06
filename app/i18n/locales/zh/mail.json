@@ -2,6 +2,7 @@
     "notify": {
         "title": "{app}",
         "generic": "你有一条新通知。",
+        "homework_request": "{childName} is waiting for your approval to use the app.",
         "share_received": "{fromName} 给你发来了《{bookTitle}》。",
         "share_accepted": "{familyName} 接受了《{bookTitle}》。",
         "share_declined": "{familyName} 拒绝了《{bookTitle}》。",

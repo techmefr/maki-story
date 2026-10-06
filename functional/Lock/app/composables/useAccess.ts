@@ -32,10 +32,12 @@ export const useAccess = () => {
     const { currentId } = useCurrentMember()
     const status = useState<IAccessStatus>('access-status', () => ALLOWED_STATUS)
     const overrideUntil = useState<string | null>('access-override-until', () => null)
+    const homework = useState<THomeworkGate>('access-homework', () => 'none')
 
     const apply = (snapshot: IAccessSnapshot): void => {
         status.value = { isAllowed: snapshot.isAllowed, reason: snapshot.reason, resumeAt: snapshot.resumeAt }
         overrideUntil.value = snapshot.overrideUntil
+        homework.value = snapshot.homework
         if (currentId.value) {
             writeCache({ memberId: currentId.value, schedule: snapshot.schedule, overrideUntil: snapshot.overrideUntil })
         }
@@ -80,7 +82,8 @@ export const useAccess = () => {
 
     const reset = (): void => {
         status.value = ALLOWED_STATUS
+        homework.value = 'none'
     }
 
-    return { status, overrideUntil, refresh, unlockWithParent, markLocked, reset }
+    return { status, overrideUntil, homework, refresh, unlockWithParent, markLocked, reset }
 }

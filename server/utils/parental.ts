@@ -1,5 +1,6 @@
 import type { Sql } from 'postgres'
 import { evaluateAccess } from '../../shared/utils/schedule'
+import { isHomeworkFollowed } from './homework'
 
 interface IScheduleRow {
     role: MemberRole
@@ -53,6 +54,9 @@ export const saveOverride = async (db: Sql, familyId: string, childId: string, p
 export const accessForMember = async (db: Sql, familyId: string, memberId: string): Promise<IAccessStatus> => {
     if (await loadActiveOverride(db, familyId, memberId)) {
         return { isAllowed: true, reason: null, resumeAt: null }
+    }
+    if (await isHomeworkFollowed(db, familyId, memberId)) {
+        return { isAllowed: false, reason: 'homework', resumeAt: null }
     }
     const [row] = await db<IScheduleRow[]>`
         select m.role, s.is_enabled, s.weekly, s.timezone, s.is_manual_block, s.manual_until

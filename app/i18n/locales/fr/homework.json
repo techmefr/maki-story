@@ -1,0 +1,23 @@
+{
+    "follow": {
+        "title": "Suivi des devoirs de {name}",
+        "hint": "L’app reste fermée tant qu’un parent n’a pas validé les devoirs. L’accord dure jusqu’à minuit."
+    },
+    "notificationTitle": "Demande d’accès",
+    "describe": "{name} demande à utiliser l’app : les devoirs sont-ils faits ?",
+    "requests": {
+        "title": "Demandes d’accès",
+        "text": "{name} demande à utiliser l’app. Les devoirs sont-ils faits ?",
+        "approve": "Autoriser",
+        "refuse": "Refuser",
+        "failed": "La réponse n’a pas pu être enregistrée."
+    },
+    "locked": {
+        "title": "Un petit instant, {name}",
+        "refusedTitle": "Pas tout de suite, {name}",
+        "waiting": "J’ai prévenu tes parents. Reste là, on attend leur réponse.",
+        "sending": "Je préviens tes parents…",
+        "refused": "Fais d’abord tes devoirs, puis redemande.",
+        "askAgain": "Redemander"
+    }
+}

@@ -2,6 +2,7 @@
     "notify": {
         "title": "{app}",
         "generic": "Manana fampandrenesana vaovao ianao.",
+        "homework_request": "{childName} is waiting for your approval to use the app.",
         "share_received": "{fromName} dia nandefa « {bookTitle} » ho anao.",
         "share_accepted": "{familyName} dia nanaiky « {bookTitle} ».",
         "share_declined": "{familyName} dia nandà « {bookTitle} ».",

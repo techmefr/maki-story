@@ -18,3 +18,6 @@ Empty state when there is no child. The save button shows saved after success an
 - [x] Keyboard reachable with visible focus ring, native buttons for remote use.
 - [x] prefers-reduced-motion respected.
 - [x] Every string goes through i18n (9 locales).
+
+## Homework follow-up
+- A toggle per child turns homework follow-up on or off (off by default).

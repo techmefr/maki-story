@@ -30,6 +30,13 @@
                     </span>
                 </AppToggle>
 
+                <AppToggle :model-value="isHomeworkOn" :disabled="isHomeworkBusy" data-testid="homework-follow" @update:model-value="setHomework">
+                    <span class="lock__toggle-text">
+                        <span class="lock__toggle-title">{{ t('homework.follow.title', { name: current.name }) }}</span>
+                        <span class="lock__hint">{{ t('homework.follow.hint') }}</span>
+                    </span>
+                </AppToggle>
+
                 <div class="stack lock__rule" :class="{ 'lock__rule--off': !rule.isEnabled }">
                     <section class="stack lock__card" aria-labelledby="lock-days">
                         <h2 id="lock-days" class="subtitle">{{ t('lock.days') }}</h2>
@@ -110,6 +117,40 @@ const summary = computed<string>(() => {
     const list = value.days.length === DAYS.length ? t('lock.everyDay') : names.join(', ')
     return t('lock.summary', { name: child.name, days: list, from: formatMinutes(value.from), to: formatMinutes(value.to) })
 })
+
+const { loadFollow, saveFollow } = useHomeworkGate()
+const isHomeworkOn = ref(false)
+const isHomeworkBusy = ref(false)
+
+const syncHomework = async (id: string | null): Promise<void> => {
+    isHomeworkOn.value = false
+    if (!id) {
+        return
+    }
+    try {
+        isHomeworkOn.value = await loadFollow(id)
+    } catch (_error) {
+        hasFailed.value = true
+    }
+}
+
+const setHomework = async (value: boolean): Promise<void> => {
+    const id = selectedId.value
+    if (!id) {
+        return
+    }
+    isHomeworkBusy.value = true
+    try {
+        await saveFollow(id, value)
+        isHomeworkOn.value = value
+    } catch (_error) {
+        hasFailed.value = true
+    } finally {
+        isHomeworkBusy.value = false
+    }
+}
+
+watch(selectedId, syncHomework)
 
 onMounted(init)
 </script>

@@ -2,6 +2,7 @@
     "notify": {
         "title": "{app}",
         "generic": "Tu as une nouvelle notification.",
+        "homework_request": "{childName} attend ton accord pour utiliser l’app.",
         "share_received": "{fromName} t’a envoyé « {bookTitle} ».",
         "share_accepted": "{familyName} a accepté « {bookTitle} ».",
         "share_declined": "{familyName} a refusé « {bookTitle} ».",
