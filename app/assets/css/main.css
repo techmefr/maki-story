@@ -334,10 +334,15 @@ select {
     border-radius: 50%;
 }
 
-.selected,
-.chip--on {
+.selected {
     background: var(--ink);
     color: var(--bg);
+}
+
+.chip--on,
+.kid .chip--on {
+    background: var(--chip-on-bg);
+    color: var(--chip-on-ink);
 }
 
 .toggle {
@@ -1455,8 +1460,8 @@ label.row {
 }
 
 .theme-picker .chip--on {
-    background: var(--yellow);
-    color: var(--on-accent);
+    background: var(--chip-on-bg);
+    color: var(--chip-on-ink);
     box-shadow: var(--shadow);
 }
 
