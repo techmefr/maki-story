@@ -144,6 +144,15 @@ export const notifyVoiceResult = async (
     })
 }
 
+export const grantRestrictedChildren = async (db: Db, familyId: string, bookId: string): Promise<void> => {
+    await db`
+        insert into book_access (child_id, book_id)
+        select m.id, ${bookId} from members m
+        where m.family_id = ${familyId} and m.role = 'child' and m.books_restricted and m.deleted_at is null
+        on conflict do nothing
+    `
+}
+
 export const completeIfAllApproved = async (db: Db, familyId: string, book: IReviewBook, actorMemberId: string | null): Promise<boolean> => {
     const [state] = await db<{ lines: number; approved: number }[]>`
         select count(*)::int as lines,
@@ -156,6 +165,7 @@ export const completeIfAllApproved = async (db: Db, familyId: string, book: IRev
         return false
     }
     await db`update books set status = 'ready' where id = ${book.id} and family_id = ${familyId}`
+    await grantRestrictedChildren(db, familyId, book.id)
     await logActivity(db, { familyId, bookId: book.id, kind: 'validated', actorMemberId, count: state.lines })
     return true
 }
@@ -194,6 +204,9 @@ export const approveBook = async (db: Db, familyId: string, book: IReviewBook, a
             and l.id = t.line_id and l.book_id = ${book.id} and t.family_id = ${familyId}
     `
     await db`update books set status = 'ready' where id = ${book.id} and family_id = ${familyId}`
+    if (!wasReady) {
+        await grantRestrictedChildren(db, familyId, book.id)
+    }
     await db`
         update review_comments set resolved_at = now() where book_id = ${book.id} and family_id = ${familyId} and resolved_at is null
     `
