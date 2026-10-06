@@ -54,6 +54,7 @@ const pairs: [string, string, number][] = [
     ['danger', 'bg', 4.5],
     ['danger', 'paper', 4.5],
     ['grey-ui-ink', 'grey-ui', 4.5],
+    ['chip-on-ink', 'chip-on-bg', 4.5],
     ['line', 'bg', 3],
     ['line', 'paper', 3],
     ...ACCENTS.map((accent): [string, string, number] => ['on-accent', accent, 4.5]),

@@ -1,6 +1,6 @@
 # Child home (`/kid`)
 
-The relatives page: a card per person with a ring, a chest icon to the treasure box, and the multi voice library entry.
+The relatives page: a card per person with a ring. Nothing else: the library and its search live on `/kid/library`.
 
 ## 1. What the page must do
 

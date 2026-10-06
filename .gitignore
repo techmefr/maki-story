@@ -10,3 +10,4 @@ android
 .vercel
 test-results
 playwright-report
+.design-feedback/

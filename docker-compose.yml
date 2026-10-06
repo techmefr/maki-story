@@ -27,6 +27,7 @@ services:
       DATABASE_URL: postgresql://tantara@localhost:5432/tantara_dev
       MIGRATION_ADMIN_URL: postgresql://tantara@localhost:5432/postgres
       SESSION_SECRET: dev-secret
+      NUXT_PUBLIC_APP_ENV: development-local
       NUXT_IGNORE_LOCK: "1"
       AI_PROVIDER: fake
       NOTIFY_PROVIDER: fake

@@ -3,7 +3,7 @@ import { defineOSDDNuxtConfig } from 'nuxt-osdd'
 
 export default defineOSDDNuxtConfig({
     osdd: {
-        technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media'],
+        technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media', 'DevFeedback'],
         functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help'],
     },
     compatibilityDate: '2025-07-15',
@@ -31,6 +31,7 @@ export default defineOSDDNuxtConfig({
             sleepFadeMs: 8000,
             accessPollMs: 15000,
             aiCreationEnabled: process.env.NODE_ENV !== 'production',
+            appEnv: '',
         },
     },
     app: {

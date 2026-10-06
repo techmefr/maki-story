@@ -1,0 +1,30 @@
+{
+    "open": "Report an issue on this screen",
+    "title": "Screen feedback",
+    "point": "Point at an element",
+    "repoint": "Point at another element",
+    "pointing": "Click the element concerned",
+    "category": "Category",
+    "comment": "What is wrong",
+    "send": "Send",
+    "close": "Close",
+    "delete": "Delete",
+    "error": "Could not send",
+    "list": "Remarks ({count})",
+    "categories": {
+        "color": "Color",
+        "spacing": "Spacing",
+        "typography": "Typography",
+        "alignment": "Alignment",
+        "text": "Text",
+        "icon": "Icon",
+        "behavior": "Behavior",
+        "responsive": "Responsive",
+        "other": "Other"
+    },
+    "status": {
+        "todo": "To do",
+        "doing": "In progress",
+        "done": "Done"
+    }
+}

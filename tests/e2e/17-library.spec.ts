@@ -223,3 +223,48 @@ test.describe('library', () => {
         await expect(sheet.getByRole('link', { name: 'Écouter' })).toBeVisible()
     })
 })
+
+test.describe('restricted child and newly validated book', () => {
+    test('a newly validated book is visible to a restricted child', async ({ playwright, baseURL }) => {
+        const account = uniqueAccount('restricted')
+        const parent = await playwright.request.newContext({ baseURL })
+        await asProfile(parent, account, 'Parent')
+        const created = await parent.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: PROFILE_PIN } } })
+        expect(created.ok(), await created.text()).toBeTruthy()
+        const childId = ((await created.json()) as IIdName).id
+        const restrict = await parent.put(`/api/members/${childId}/book-access`, { data: { isRestricted: true, bookIds: [] } })
+        expect(restrict.ok(), await restrict.text()).toBeTruthy()
+        const members = (await (await parent.get('/api/members')).json()) as (IIdName & { name: string })[]
+        const parentId = members.find(member => member.name === 'Parent')!.id
+        const book = await createBook(parent, 'Le livre neuf', {}, [{ memberId: parentId, recorded: true }])
+        await setStatus(parent, book.id, 'ready')
+        const child = await playwright.request.newContext({ baseURL })
+        await asProfile(child, account, 'Lova')
+        const { rows } = await listBooks(child)
+        expect(rows.map(row => row.title)).toEqual(['Le livre neuf'])
+        const access = (await (await parent.get(`/api/members/${childId}/book-access`)).json()) as { isRestricted: boolean; bookIds: string[] }
+        expect(access.isRestricted).toBe(true)
+        expect(access.bookIds).toContain(book.id)
+        await parent.dispose()
+        await child.dispose()
+    })
+
+    test('a ready book without recording stays hidden from a restricted child', async ({ playwright, baseURL }) => {
+        const account = uniqueAccount('restricted-silent')
+        const parent = await playwright.request.newContext({ baseURL })
+        await asProfile(parent, account, 'Parent')
+        const created = await parent.post('/api/members', { data: { name: 'Lova', role: 'child', color: 'sky', code: { kind: 'pin', value: PROFILE_PIN } } })
+        const childId = ((await created.json()) as IIdName).id
+        await parent.put(`/api/members/${childId}/book-access`, { data: { isRestricted: true, bookIds: [] } })
+        const members = (await (await parent.get('/api/members')).json()) as (IIdName & { name: string })[]
+        const parentId = members.find(member => member.name === 'Parent')!.id
+        const book = await createBook(parent, 'Le livre sans voix', {}, [{ memberId: parentId, recorded: false }])
+        await setStatus(parent, book.id, 'ready')
+        const child = await playwright.request.newContext({ baseURL })
+        await asProfile(child, account, 'Lova')
+        const { rows } = await listBooks(child)
+        expect(rows).toEqual([])
+        await parent.dispose()
+        await child.dispose()
+    })
+})

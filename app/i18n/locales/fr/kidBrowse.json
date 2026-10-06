@@ -1,0 +1,15 @@
+{
+    "browse": {
+        "label": "Façon de choisir",
+        "all": "Toutes",
+        "voice": "Par voix",
+        "mood": "Par ambiance",
+        "theme": "Par thème"
+    },
+    "reader": {
+        "label": "Qui lit ?",
+        "any": "Tout le monde"
+    },
+    "noVoice": "Sans voix",
+    "other": "Autres"
+}

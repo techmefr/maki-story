@@ -195,12 +195,12 @@ test.describe('book editor', () => {
     test('a pasted text is split into lines and the language can be Malagasy', async ({ page }, info) => {
         await openEditor(page, `Malagasy ${info.project.name}`)
         await allowSpokenLanguages(page.request, ['fr', 'mg'])
+        await page.getByText('Plus de détails (facultatif)').click()
         await page.getByLabel('Langue du livre', { exact: true }).click()
         const languages = await page.getByRole('option').allTextContents()
         expect(languages).toHaveLength(9)
         expect(languages.join(' ')).toContain('🇲🇬 Malagasy')
         await page.getByRole('option', { name: /Malagasy/ }).click()
-        await page.getByText('Plus de détails (facultatif)').click()
         await page.getByLabel('Sous-titre').fill('Tantara kely')
         await page.getByLabel('Auteur', { exact: true }).fill('Rakoto')
         await page.getByLabel('Dessinateur', { exact: true }).fill('Soa')

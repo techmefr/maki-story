@@ -1,0 +1,27 @@
+{
+    "label": "Envoyer un message vocal",
+    "all": "Tous les enfants",
+    "everyone": "Tous",
+    "quota": "{count}/{max} messages",
+    "record": "Enregistrer un message pour {name}",
+    "stopSend": "Arrêter et envoyer à {name}",
+    "sending": "Envoi en cours",
+    "result": {
+        "sent": "Envoyé à {name}",
+        "queued": "En attente de connexion pour {name}",
+        "quota": "Limite atteinte pour {name}",
+        "blocked": "Envoi bloqué pour {name}",
+        "failed": "Échec de l’envoi à {name}"
+    },
+    "cards": {
+        "proposalsWaiting": "Propositions en attente",
+        "started": "Livres commencés",
+        "toRecord": "À enregistrer",
+        "recorded": "Enregistrés",
+        "toReview": "À relire",
+        "trash": "Corbeille",
+        "proposedByMe": "Livres proposés par moi",
+        "requested": "Demandés à moi",
+        "toFix": "À corriger"
+    }
+}

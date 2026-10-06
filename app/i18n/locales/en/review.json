@@ -29,6 +29,7 @@
     },
     "bookStatus": {
         "draft": "Draft",
+        "proposed": "Proposal",
         "to_record": "To record",
         "in_review": "In review",
         "ready": "Ready"
