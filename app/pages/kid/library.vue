@@ -5,23 +5,23 @@
         <h1 class="title">{{ t('kid.library.title') }}</h1>
         <BookSearchEntry />
         <BookFilters :initial="initialQuery" @change="reload" />
-        <div class="stack" role="group" :aria-label="t(kidBrowse.reader.label)">
-            <h2 class="label">{{ t(kidBrowse.reader.label) }}</h2>
+        <div class="stack" role="group" :aria-label="t('kidBrowse.reader.label')">
+            <h2 class="label">{{ t('kidBrowse.reader.label') }}</h2>
             <div class="row row--wrap">
-                <AppChip data-testid="reader-any" :selected="readerId === " @click="readerId = ">{{ t(kidBrowse.reader.any) }}</AppChip>
+                <AppChip data-testid="reader-any" :selected="readerId === ''" @click="readerId = ''">{{ t('kidBrowse.reader.any') }}</AppChip>
                 <AppChip v-for="reader in readers" :key="reader.id" :data-testid="`reader-${reader.id}`" :selected="readerId === reader.id" @click="toggleReader(reader.id)">
                     {{ reader.name }}
                 </AppChip>
             </div>
         </div>
-        <div class="browse" role="radiogroup" :aria-label="t(kidBrowse.browse.label)">
+        <div class="browse" role="radiogroup" :aria-label="t('kidBrowse.browse.label')">
             <button
                 v-for="item in BROWSE_MODES"
                 :key="item"
                 type="button"
                 role="radio"
                 class="browse__option"
-                :class="{ browse__option--on: mode === item }"
+                :class="{ 'browse__option--on': mode === item }"
                 :aria-checked="mode === item"
                 :data-testid="`browse-${item}`"
                 @click="mode = item"
@@ -30,7 +30,7 @@
             </button>
         </div>
         <section v-for="section in sections" :key="section.id" class="stack">
-            <h2 v-if="mode !== all" class="subtitle">{{ section.title }}</h2>
+            <h2 v-if="mode !== 'all'" class="subtitle">{{ section.title }}</h2>
         <div class="grid grid--books">
             <div v-for="book in section.books" :key="book.id" class="stack" style="gap: 8px" :data-offline-card="book.title">
                 <NuxtLink
@@ -70,7 +70,7 @@
 definePageMeta({ layout: 'kid' })
 
 const { t } = useI18n()
-const BROWSE_MODES = [all, voice, mood, theme] as const
+const BROWSE_MODES = ['all', 'voice', 'mood', 'theme'] as const
 type TBrowseMode = (typeof BROWSE_MODES)[number]
 
 interface IBrowseSection {
@@ -91,8 +91,8 @@ const newVoicesOf = (bookId: string): IMember[] => {
     const entry = newVoices.value.find(item => item.bookId === bookId)
     return (entry?.memberIds ?? []).map(id => getById(id)).filter((member): member is IMember => member !== null)
 }
-const mode = ref<TBrowseMode>(all)
-const readerId = ref()
+const mode = ref<TBrowseMode>('all')
+const readerId = ref('')
 
 const readers = computed(() => {
     const ids = new Set(books.value.flatMap(book => book.readerIds))
@@ -100,31 +100,31 @@ const readers = computed(() => {
 })
 
 const toggleReader = (id: string): void => {
-    readerId.value = readerId.value === id ?  : id
+    readerId.value = readerId.value === id ? '' : id
 }
 
 const visibleBooks = computed(() => (readerId.value ? books.value.filter(book => book.readerIds.includes(readerId.value)) : books.value))
 
 const sections = computed<IBrowseSection[]>(() => {
-    if (mode.value === all) {
-        return [{ id: all, title: , books: visibleBooks.value }]
+    if (mode.value === 'all') {
+        return [{ id: 'all', title: '', books: visibleBooks.value }]
     }
     const keysOf = (book: IBookSummary): string[] => {
-        if (mode.value === voice) {
+        if (mode.value === 'voice') {
             return book.readerIds
         }
-        return mode.value === mood ? book.moods : book.themes
+        return mode.value === 'mood' ? book.moods : book.themes
     }
     const titleOf = (key: string): string => {
-        if (mode.value === voice) {
+        if (mode.value === 'voice') {
             return getById(key)?.name ?? key
         }
-        return t(`library.filters.${mode.value === mood ? moods : themes}.${key}`)
+        return t(`library.filters.${mode.value === 'mood' ? 'moods' : 'themes'}.${key}`)
     }
     const keys = [...new Set(visibleBooks.value.flatMap(keysOf))]
     const grouped = keys.map(key => ({ id: key, title: titleOf(key), books: visibleBooks.value.filter(book => keysOf(book).includes(key)) }))
     const orphans = visibleBooks.value.filter(book => keysOf(book).length === 0)
-    return orphans.length > 0 ? [...grouped, { id: , title: t(kidBrowse.other), books: orphans }] : grouped
+    return orphans.length > 0 ? [...grouped, { id: 'other', title: t('kidBrowse.other'), books: orphans }] : grouped
 })
 const sheetBook = ref<IBookSummary | null>(null)
 
