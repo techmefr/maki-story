@@ -1,6 +1,6 @@
 # Message player (`/message/listen/[id]`)
 
-Stories-like playback of voice messages: immediate play, free replay until expiry, previous and next, swipe, blob around the avatar.
+Stories-like playback of voice messages: one focal point (sender avatar, name and one large play button), progress bar attached to the player, waveform only while playing, small secondary previous and next controls shown only with several messages, a back control at the top start, a small treasure heart near the avatar, a replay button at the end, swipe as a bonus.
 
 ## 1. What the page must do
 
