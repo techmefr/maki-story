@@ -730,6 +730,7 @@ textarea.input {
     max-width: 560px;
     min-width: 0;
     display: flex;
+    overflow: hidden;
 }
 
 .tabbar__item {
@@ -739,6 +740,7 @@ textarea.input {
     min-height: 56px;
     text-align: center;
     overflow-wrap: anywhere;
+    hyphens: auto;
     font: 700 min(0.8125rem, 4.2vw)/1.1 var(--font-title);
     color: var(--ink);
     text-decoration: none;

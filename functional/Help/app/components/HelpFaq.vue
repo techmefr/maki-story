@@ -1,9 +1,7 @@
 <template>
     <div class="stack help">
-        <div class="row">
-            <BackLink :to="backPath" />
-            <h1 class="title grow">{{ t('help.title') }}</h1>
-        </div>
+        <BackLink :to="backPath" />
+        <h1 class="title">{{ t('help.title') }}</h1>
         <ul class="help__list">
             <li v-for="(item, index) in ITEMS" :key="item" class="help__item">
                 <button

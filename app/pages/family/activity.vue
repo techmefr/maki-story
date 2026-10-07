@@ -1,9 +1,7 @@
 <template>
     <div class="stack narrow">
-        <div class="row">
-            <BackLink to="/family" />
-            <h1 class="title grow">{{ t('recovery.activity.title') }}</h1>
-        </div>
+        <BackLink to="/family" />
+        <h1 class="title">{{ t('recovery.activity.title') }}</h1>
         <p class="activity__hint">{{ t('recovery.activity.intro', { months: JOURNAL_RETENTION_MONTHS }) }}</p>
         <div class="row row--wrap" role="group" :aria-label="t('recovery.activity.person')">
             <AppChip :selected="personId === ''" data-testid="activity-all" @click="choose('')">{{ t('recovery.activity.everyone') }}</AppChip>

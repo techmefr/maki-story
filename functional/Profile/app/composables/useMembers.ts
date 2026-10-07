@@ -21,7 +21,7 @@ export const useMembers = () => {
     }
 
     const getById = (id: string | null): IMember | null => {
-        return members.value.find(member => member.id === id) ?? null
+        return (members.value ?? []).find(member => member.id === id) ?? null
     }
 
     const add = async (input: IMemberInput): Promise<IMember> => {

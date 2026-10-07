@@ -41,7 +41,7 @@ const props = withDefaults(
         as?: 'button' | 'a' | 'label' | 'summary'
         type?: 'button' | 'submit'
     }>(),
-    { variant: 'primary', as: 'button', size: 'md', tone: 'sky', iconSize: 22, type: 'button' },
+    { variant: 'primary', as: 'button', size: 'md', tone: undefined, iconSize: 22, type: 'button' },
 )
 
 const emit = defineEmits<{ click: [event: MouseEvent] }>()
@@ -53,7 +53,7 @@ const showReason = computed(() => props.disabled && Boolean(props.disabledReason
 const classes = computed(() => [
     `btn--${props.variant}`,
     {
-        [`btn--tone-${props.tone}`]: props.variant === 'secondary',
+        [`btn--tone-${props.tone}`]: props.variant === 'secondary' && props.tone !== undefined,
         'btn--small': props.size === 'sm',
         'btn--block': props.isBlock,
         'btn--round': props.isRound,

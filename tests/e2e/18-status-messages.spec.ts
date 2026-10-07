@@ -200,6 +200,7 @@ test.describe('voice message rules v3', () => {
         await page.goto('/kid')
         const mamieFace = page.locator('.face', { hasText: 'Mamie' })
         await mamieFace.locator('.face__link').click()
+        await page.getByRole('link', { name: 'Écouter son message' }).click()
         await expect(page.getByTestId('message-player')).toBeVisible()
         await expect(page).toHaveURL(/\/kid\/[^/]+$/, { timeout: 15000 })
         await page.goto('/kid')

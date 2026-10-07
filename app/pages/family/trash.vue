@@ -1,9 +1,7 @@
 <template>
     <div class="stack narrow">
-        <div class="row">
-            <BackLink to="/family" />
-            <h1 class="title grow">{{ t('recovery.trash.title') }}</h1>
-        </div>
+        <BackLink to="/family" />
+        <h1 class="title">{{ t('recovery.trash.title') }}</h1>
         <p class="trash__hint">{{ t('recovery.trash.intro', { days: RESTORE_WINDOW_DAYS }) }}</p>
         <div v-if="types.length > 1" class="row row--wrap" role="group" :aria-label="t('recovery.trash.filter')">
             <AppChip :selected="filter === ''" @click="filter = ''">{{ t('recovery.trash.all') }}</AppChip>

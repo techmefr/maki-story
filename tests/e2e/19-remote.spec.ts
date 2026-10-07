@@ -88,7 +88,7 @@ test.describe('remote and keyboard navigation', () => {
         await chooseProfile(page, 'Lova')
         await page.goto('/kid/library')
         await expect(page).toHaveURL(/\/kid\/library$/)
-        await page.getByRole('button', { name: 'Fiche de Second conte' }).click()
+        await page.getByTestId('filters-open').click()
         await expect(page.getByRole('dialog')).toBeVisible()
         await page.keyboard.press('Escape')
         await expect(page.getByRole('dialog')).toHaveCount(0)
