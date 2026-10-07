@@ -1454,7 +1454,8 @@ label.row {
     color: var(--on-accent);
 }
 
-:root[data-theme='dark'] .btn--tertiary {
+:root[data-theme='dark'] .btn--tertiary,
+:root[data-theme='dark'] .btn--secondary:not([class*='btn--tone-']) {
     color: var(--ink);
 }
 
