@@ -12,6 +12,15 @@ export default defineEventHandler(async (event): Promise<ISubmitResult> => {
     await assertBookReadable(actor, bookId)
     const submitted = await getDb().begin(async tx => {
         const book = await findReviewBook(tx, bookId, actor.familyId)
+        const [gaps] = await tx<{ missing: number }[]>`
+            select count(*)::int as missing from lines l
+            where l.book_id = ${bookId} and l.family_id = ${actor.familyId} and not exists (
+                select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status in ('draft', 'submitted', 'approved')
+            )
+        `
+        if (gaps && gaps.missing > 0) {
+            throw createError({ statusCode: 409, statusMessage: 'Some lines have no take yet' })
+        }
         const rows = await tx`
             update recordings r set status = 'submitted'
             from lines l
