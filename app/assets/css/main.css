@@ -591,6 +591,7 @@ textarea.input {
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     background: var(--paper);
+    color: var(--ink);
     padding: 8px 14px;
     min-height: var(--tap);
     font: 700 0.875rem/1.1 var(--font-title);
