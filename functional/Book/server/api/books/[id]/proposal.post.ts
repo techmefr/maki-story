@@ -1,7 +1,8 @@
 import { getDb } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { notify } from '~~/server/utils/notifications'
-import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
+import { approveBook, findReviewBook } from '~~/server/utils/review'
+import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { badRequest, notFound, requireParam } from '~~/server/utils/validate'
 
 const DECISIONS: ProposalDecision[] = ['approve', 'decline']
@@ -22,7 +23,19 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
         return notFound('Proposal not found')
     }
     if (body.decision === 'approve') {
-        await db`update books set status = 'to_record' where id = ${id} and family_id = ${familyId}`
+        await db.begin(async tx => {
+            await tx`update books set status = 'to_record' where id = ${id} and family_id = ${familyId}`
+            const [state] = await tx<{ lines: number; missing: number }[]>`
+                select count(*)::int as lines,
+                    count(*) filter (where not exists (
+                        select 1 from recordings r where r.line_id = l.id and r.status in ('draft', 'submitted', 'approved')
+                    ))::int as missing
+                from lines l where l.book_id = ${id} and l.family_id = ${familyId}
+            `
+            if (state && state.lines > 0 && state.missing === 0) {
+                await approveBook(tx, familyId, await findReviewBook(tx, id, familyId), requireActorMember(actor))
+            }
+        })
     } else {
         await db`update books set deleted_at = now() where id = ${id} and family_id = ${familyId}`
     }
