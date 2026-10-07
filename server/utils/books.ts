@@ -21,6 +21,7 @@ const SUMMARY_SELECT = `
     coalesce((select array_agg(distinct l.member_id) from lines l where l.book_id = b.id and l.member_id is not null), '{}') as member_ids,
     coalesce((select array_agg(distinct r.member_id) from lines l join recordings r on r.line_id = l.id and r.status <> 'stale' where l.book_id = b.id), '{}') as reader_ids,
     (select p.file_id from book_pages p where p.book_id = b.id and p.kind = 'cover' and p.file_id is not null order by p.position limit 1) as cover_file_id,
+    b.cover_url,
     exists (select 1 ${BLOCKED_FROM}) as is_voice_blocked,
     (select count(distinct bl.id)::int ${BLOCKED_FROM}) as blocked_line_count
 `
