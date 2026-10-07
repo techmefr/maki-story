@@ -62,7 +62,8 @@
             "other": "Enviar {count} gravações para revisão"
         },
         "nothingToSend": "Nenhuma gravação para enviar",
-        "sendError": "As gravações não puderam ser enviadas. Tenta de novo."
+        "sendError": "As gravações não puderam ser enviadas. Tenta de novo.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

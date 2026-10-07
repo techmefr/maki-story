@@ -24,7 +24,9 @@
         />
         <ProposalRow v-if="isParent && proposals.length > 0" :books="proposals" @open="sheetBook = $event" @changed="reload(activeQuery)" />
         <AiDraftRow v-if="isAiCreationEnabled && isParent && drafts.length > 0" :books="drafts" @changed="reload(activeQuery)" />
-        <BookRow v-for="row in rows" :key="row.title" :title="row.title" :books="row.books" :has-download="row.hasDownload" @open="sheetBook = $event" />
+        <div v-if="shown.length > 0" class="grid grid--books">
+            <BookCard v-for="book in shown" :key="book.id" :book="book" show-status has-sheet @open="sheetBook = $event" />
+        </div>
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
         <ShareDialog v-if="shareTarget" :book="shareTarget" @close="shareTarget = null" />
     </div>
@@ -62,23 +64,7 @@ const hasFilter = computed(() => Object.values(activeQuery.value).some(value => 
 const drafts = computed(() => books.value.filter(book => book.status === 'draft' && book.aiGenerated))
 const proposals = computed(() => books.value.filter(book => book.status === 'proposed'))
 const listed = computed(() => books.value.filter(book => !(book.status === 'draft' && book.aiGenerated) && book.status !== 'proposed'))
-const rows = computed(() =>
-    [
-        { title: t('library.rows.myProposals'), books: isParent.value ? [] : proposals.value, hasDownload: false },
-        { title: t('home.rows.review'), books: listed.value.filter(book => book.submittedCount > 0), hasDownload: false },
-        {
-            title: t('home.rows.recording'),
-            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount > 0),
-            hasDownload: false,
-        },
-        {
-            title: t('home.rows.toRecord'),
-            books: listed.value.filter(book => book.status !== 'ready' && book.recordedCount === 0),
-            hasDownload: false,
-        },
-        { title: t('home.rows.all'), books: listed.value, hasDownload: true },
-    ].filter(row => row.books.length > 0),
-)
+const shown = computed(() => (isParent.value ? listed.value : [...proposals.value, ...listed.value]))
 
 const reload = async (query: IBookQuery): Promise<void> => {
     activeQuery.value = query

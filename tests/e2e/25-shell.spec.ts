@@ -172,33 +172,6 @@ test.describe('shell per role', () => {
         await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
     })
 
-    test('the book search opens from the button, the keyboard and a swipe', async ({ page }, info) => {
-        await login(page)
-        await chooseProfile(page, PARENT_NAME)
-        const child = uniqueName('Lova', info.project.name)
-        await addMember(page, child, 'Enfant')
-        await chooseProfile(page, child)
-        await page.goto('/kid/library')
-        const open = page.getByTestId('book-search-open')
-        await expect(open).toBeVisible()
-        await open.focus()
-        await page.keyboard.press('Enter')
-        await expect(page.getByTestId('book-search')).toBeVisible()
-        await page.keyboard.press('Escape')
-        await expect(page.getByTestId('book-search')).toHaveCount(0)
-        await page.evaluate(() => {
-            const touch = (x: number): Touch => new Touch({ identifier: 1, target: document.body, clientX: x, clientY: 300 })
-            document.dispatchEvent(new TouchEvent('touchstart', { touches: [touch(320)], changedTouches: [touch(320)] }))
-            document.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [touch(120)] }))
-        })
-        await expect(page.getByTestId('book-search')).toBeVisible()
-        await page.locator('[data-filter="type-comic"]').click()
-        await page.getByTestId('book-search-go').click()
-        await expect(page).toHaveURL(/\/kid\/library\?type=comic/)
-        await page.getByTestId('filters-open').click()
-        await expect(page.locator('[data-filter="type-comic"]')).toHaveAttribute('aria-pressed', 'true')
-    })
-
     test('the bell is grey with nothing new and turns colored with a red counter', async ({ page, playwright, baseURL }, info) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)

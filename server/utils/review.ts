@@ -95,9 +95,17 @@ export interface ISubmission {
 }
 
 export const recordSubmission = async (db: Db, input: ISubmission): Promise<void> => {
-    await db`
-        update books set status = 'in_review' where id = ${input.book.id} and family_id = ${input.familyId} and status in ('draft', 'to_record')
+    const [gaps] = await db<{ missing: number }[]>`
+        select count(*)::int as missing from lines l
+        where l.book_id = ${input.book.id} and l.family_id = ${input.familyId} and btrim(l.text) <> '' and not exists (
+            select 1 from recordings r where r.line_id = l.id and r.language = ${input.book.language} and r.status in ('draft', 'submitted', 'approved')
+        )
     `
+    if (!gaps || gaps.missing === 0) {
+        await db`
+            update books set status = 'in_review' where id = ${input.book.id} and family_id = ${input.familyId} and status in ('draft', 'to_record')
+        `
+    }
     await logActivity(db, {
         familyId: input.familyId,
         bookId: input.book.id,
@@ -155,8 +163,8 @@ export const grantRestrictedChildren = async (db: Db, familyId: string, bookId: 
 
 export const completeIfAllApproved = async (db: Db, familyId: string, book: IReviewBook, actorMemberId: string | null): Promise<boolean> => {
     const [state] = await db<{ lines: number; approved: number }[]>`
-        select count(*)::int as lines,
-            count(*) filter (where exists (
+        select count(*) filter (where btrim(l.text) <> '')::int as lines,
+            count(*) filter (where btrim(l.text) <> '' and exists (
                 select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status = 'approved'
             ))::int as approved
         from lines l where l.book_id = ${book.id} and l.family_id = ${familyId}

@@ -62,7 +62,8 @@
             "other": "Invia {count} registrazioni in revisione"
         },
         "nothingToSend": "Nessuna registrazione da inviare",
-        "sendError": "Le registrazioni non sono state inviate. Riprova."
+        "sendError": "Le registrazioni non sono state inviate. Riprova.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

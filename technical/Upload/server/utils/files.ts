@@ -28,7 +28,7 @@ export const assertFileReadable = async (actor: IActor, fileId: string): Promise
             )
             or exists (
                 select 1 from book_pages p join books b on b.id = p.book_id
-                where not $4::boolean and p.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
+                where (not $4::boolean or p.kind = 'cover') and p.file_id = $1 and b.family_id = $2 and b.deleted_at is null and ${scope}
             )`,
         [fileId, actor.familyId, memberId, isChild, ...bookScopeParams(actor)],
     )

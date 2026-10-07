@@ -62,7 +62,8 @@
             "other": "Alefaso ho an’ny famerenana ny rakitra {count}"
         },
         "nothingToSend": "Tsy misy rakitra halefa",
-        "sendError": "Tsy tafalefa ny rakitra. Andramo indray."
+        "sendError": "Tsy tafalefa ny rakitra. Andramo indray.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

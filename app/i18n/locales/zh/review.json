@@ -61,7 +61,8 @@
             "other": "发送 {count} 条录音供审阅"
         },
         "nothingToSend": "没有可发送的录音",
-        "sendError": "录音发送失败，请重试。"
+        "sendError": "录音发送失败，请重试。",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

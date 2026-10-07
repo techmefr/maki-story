@@ -591,6 +591,7 @@ textarea.input {
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     background: var(--paper);
+    color: var(--ink);
     padding: 8px 14px;
     min-height: var(--tap);
     font: 700 0.875rem/1.1 var(--font-title);
@@ -701,11 +702,13 @@ textarea.input {
 .tabbar__inner {
     width: 100%;
     max-width: 560px;
+    min-width: 0;
     display: flex;
 }
 
 .tabbar__item {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     padding: 12px 4px;
     min-height: 56px;
     text-align: center;

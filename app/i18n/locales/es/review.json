@@ -62,7 +62,8 @@
             "other": "Enviar {count} tomas a revisión"
         },
         "nothingToSend": "Ninguna toma que enviar",
-        "sendError": "No se pudieron enviar las tomas. Inténtalo de nuevo."
+        "sendError": "No se pudieron enviar las tomas. Inténtalo de nuevo.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

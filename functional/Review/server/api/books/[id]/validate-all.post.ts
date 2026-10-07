@@ -16,8 +16,8 @@ export default defineEventHandler(async (event): Promise<IBook> => {
     await getDb().begin(async tx => {
         const book = await findReviewBook(tx, bookId, actor.familyId)
         const [state] = await tx<{ lines: number; missing: number; blocked: number }[]>`
-            select count(*)::int as lines,
-                count(*) filter (where not exists (
+            select count(*) filter (where btrim(l.text) <> '')::int as lines,
+                count(*) filter (where btrim(l.text) <> '' and not exists (
                     select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status in ('draft', 'submitted', 'approved')
                 ))::int as missing,
                 count(*) filter (where exists (
