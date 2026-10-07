@@ -24,7 +24,6 @@
         </ul>
         <AppButton is-block icon="send" to="/sharing">{{ t('notifications.sharing') }}</AppButton>
         <HomeworkRequests v-if="current?.role === 'parent'" />
-        <NotificationPreferences />
     </div>
 </template>
 
