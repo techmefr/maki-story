@@ -14,7 +14,7 @@ export default defineEventHandler(async (event): Promise<ISubmitResult> => {
         const book = await findReviewBook(tx, bookId, actor.familyId)
         const [gaps] = await tx<{ missing: number }[]>`
             select count(*)::int as missing from lines l
-            where l.book_id = ${bookId} and l.family_id = ${actor.familyId} and not exists (
+            where l.book_id = ${bookId} and l.family_id = ${actor.familyId} and btrim(l.text) <> '' and not exists (
                 select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status in ('draft', 'submitted', 'approved')
             )
         `

@@ -155,8 +155,8 @@ export const grantRestrictedChildren = async (db: Db, familyId: string, bookId: 
 
 export const completeIfAllApproved = async (db: Db, familyId: string, book: IReviewBook, actorMemberId: string | null): Promise<boolean> => {
     const [state] = await db<{ lines: number; approved: number }[]>`
-        select count(*)::int as lines,
-            count(*) filter (where exists (
+        select count(*) filter (where btrim(l.text) <> '')::int as lines,
+            count(*) filter (where btrim(l.text) <> '' and exists (
                 select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status = 'approved'
             ))::int as approved
         from lines l where l.book_id = ${book.id} and l.family_id = ${familyId}
