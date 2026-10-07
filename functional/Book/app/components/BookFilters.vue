@@ -10,14 +10,23 @@
                 <AppBadge v-if="activeCount > 0">{{ activeCount }}</AppBadge>
             </AppButton>
         </div>
-        <div class="row row--wrap" role="group" :aria-label="t('books.filters.age')">
+        <div v-if="!kid" class="row row--wrap" role="group" :aria-label="t('books.filters.age')">
             <AppChip v-for="tag in AGE_TAGS" :key="tag.id" :selected="age === tag.id" @click="toggleAge(tag.id)">
                 {{ t(AGE_TAG_KEYS[tag.id] ?? 'books.filters.age') }}
             </AppChip>
         </div>
         <AppBottomSheet :open="isOpen" :title="t('library.filters.title')" @close="isOpen = false">
+            <slot />
+            <div v-if="kid" class="stack filters__group" role="group" :aria-label="t('books.filters.age')">
+                <span class="label filters__label"><AppIcon name="rocket" :size="22" />{{ t('books.filters.age') }}</span>
+                <div class="row row--wrap">
+                    <AppChip v-for="tag in AGE_TAGS" :key="tag.id" :selected="age === tag.id" @click="toggleAge(tag.id)">
+                        {{ t(AGE_TAG_KEYS[tag.id] ?? 'books.filters.age') }}
+                    </AppChip>
+                </div>
+            </div>
             <AppSelect v-model="language" :aria-label="t('books.filters.language')" :options="languageOptions" />
-            <div v-if="tags.length > 0" class="stack filters__group" role="group" :aria-label="t('library.filters.tag')">
+            <div v-if="!kid && tags.length > 0" class="stack filters__group" role="group" :aria-label="t('library.filters.tag')">
                 <span class="label">{{ t('library.filters.tag') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="item in tags" :key="item.slug" :selected="tag === item.slug" :data-filter="`tag-${item.slug}`" @click="tag = tag === item.slug ? '' : item.slug">
@@ -25,7 +34,7 @@
                     </AppChip>
                 </div>
             </div>
-            <div class="stack filters__group" role="group" :aria-label="t('library.filters.status')">
+            <div v-if="!kid" class="stack filters__group" role="group" :aria-label="t('library.filters.status')">
                 <span class="label">{{ t('library.filters.status') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="item in STATUSES" :key="item" :selected="status === item" :data-filter="`status-${item}`" @click="status = status === item ? '' : item">
@@ -33,7 +42,7 @@
                     </AppChip>
                 </div>
             </div>
-            <div class="stack filters__group" role="group" :aria-label="t('library.filters.type')">
+            <div v-if="!kid" class="stack filters__group" role="group" :aria-label="t('library.filters.type')">
                 <span class="label">{{ t('library.filters.type') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="item in BOOK_TYPES" :key="item" :selected="type === item" :data-filter="`type-${item}`" @click="type = type === item ? '' : item">
@@ -42,7 +51,7 @@
                 </div>
             </div>
             <div class="stack filters__group" role="group" :aria-label="t('library.filters.mood')">
-                <span class="label">{{ t('library.filters.mood') }}</span>
+                <span class="label filters__label"><AppIcon name="smile" :size="22" />{{ t('library.filters.mood') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="item in BOOK_MOODS" :key="item" :selected="mood === item" :data-filter="`mood-${item}`" @click="mood = mood === item ? '' : item">
                         {{ t(`library.filters.moods.${item}`) }}
@@ -50,7 +59,7 @@
                 </div>
             </div>
             <div class="stack filters__group" role="group" :aria-label="t('library.filters.theme')">
-                <span class="label">{{ t('library.filters.theme') }}</span>
+                <span class="label filters__label"><AppIcon name="star" :size="22" />{{ t('library.filters.theme') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="item in BOOK_THEMES" :key="item" :selected="theme === item" :data-filter="`theme-${item}`" @click="theme = theme === item ? '' : item">
                         {{ t(`library.filters.themes.${item}`) }}
@@ -82,7 +91,7 @@ const { tags, ensureLoaded: loadTags } = useTags()
 const { labelOf } = useTagLabel()
 const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('books.filters.allLanguages')))
 
-const { initial = {} } = defineProps<{ initial?: Partial<IBookQuery> }>()
+const { initial = {}, kid = false } = defineProps<{ initial?: Partial<IBookQuery>; kid?: boolean }>()
 const emit = defineEmits<{ change: [query: IBookQuery] }>()
 
 const text = ref('')
@@ -153,6 +162,12 @@ onBeforeUnmount(() => {
 }
 
 .filters__group {
+    gap: 8px;
+}
+
+.filters__label {
+    display: inline-flex;
+    align-items: center;
     gap: 8px;
 }
 </style>

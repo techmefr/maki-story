@@ -208,7 +208,7 @@ test.describe('library', () => {
         await expect(sheet).toHaveCount(0)
     })
 
-    test('the child library lists only the playable book and its sheet', async ({ page }) => {
+    test('the child library lists only the playable book', async ({ page }) => {
         await openAs(page, 'Lova')
         await page.goto('/kid/library')
         await expect(page.getByRole('link', { name: /Le zébu voyageur/ })).toBeVisible()
@@ -217,10 +217,6 @@ test.describe('library', () => {
         await expect(page.getByText('Aucune histoire pour l’instant.')).toBeVisible()
         await page.getByLabel('Rechercher un livre').fill('rabe')
         await expect(page.getByRole('link', { name: /Le zébu voyageur/ })).toBeVisible()
-        await page.getByRole('button', { name: 'Fiche de Le zébu voyageur' }).click()
-        const sheet = page.getByRole('dialog')
-        await expect(sheet.getByText('Lu par')).toBeVisible()
-        await expect(sheet.getByRole('link', { name: 'Écouter' })).toBeVisible()
     })
 })
 

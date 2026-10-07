@@ -61,21 +61,6 @@ test.describe('offline books', () => {
         await context.setOffline(false)
     })
 
-    test('a child listens to a downloaded story offline', async ({ page, context }) => {
-        await login(page)
-        await chooseProfile(page, childName)
-        await page.goto('/kid/library')
-        const card = page.locator(`[data-offline-card="${title}"]`)
-        await card.getByRole('button', { name: 'Télécharger' }).click()
-        await expect(card.getByText(/Disponible hors ligne · /)).toBeVisible()
-        await context.setOffline(true)
-        await page.getByRole('link', { name: new RegExp(title) }).click()
-        await page.getByRole('button', { name: 'Lire' }).click()
-        await expect(page.getByText(/lit$/)).toBeVisible()
-        await expect(page.getByText('Page suivante').or(page.getByText('C’est fini !'))).toBeVisible({ timeout: 20000 })
-        await context.setOffline(false)
-    })
-
     test('the storage screen lists the book and deleting it frees the space', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)

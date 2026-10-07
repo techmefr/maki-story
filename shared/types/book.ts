@@ -30,6 +30,7 @@ export interface IBookSummary {
     recordedCount: number
     memberIds: string[]
     readerIds: string[]
+    coverFileId: string | null
     submittedCount: number
     isVoiceBlocked: boolean
     blockedLineCount: number

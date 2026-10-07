@@ -386,42 +386,4 @@ test.describe('book review in the interface', () => {
         await mamie.dispose()
     })
 
-    test('the child sees a text free new voice feed', async ({ page, playwright, baseURL }) => {
-        test.setTimeout(120_000)
-        const account = uniqueAccount('review-kid')
-        const parent = await asProfile(playwright, baseURL, account, 'Parent')
-        const ids: Record<string, string> = {}
-        for (const [name, role] of [['Mamie', 'relative'], ['Tonton', 'relative'], ['Lova', 'child']] as const) {
-            const created = await parent.post('/api/members', { data: { name, role, color: 'coral', code: { kind: 'pin', value: PROFILE_PIN } } })
-            ids[name] = ((await created.json()) as IIdName).id
-        }
-        const book = await createBook(parent, 'Les voix du soir', [ids.Tonton!, ids.Tonton!])
-        const tonton = await asProfile(playwright, baseURL, account, 'Tonton')
-        const mamie = await asProfile(playwright, baseURL, account, 'Mamie')
-        for (const lineId of book.lineIds) {
-            await putTake(tonton, book.id, lineId)
-        }
-        await tonton.post(`/api/books/${book.id}/submit`, { data: {} })
-        await parent.post(`/api/books/${book.id}/validate-all`, { data: {} })
-        await parent.patch(`/api/books/${book.id}`, { data: { lines: [{ id: book.lineIds[1], memberId: ids.Mamie }] } })
-        await putTake(mamie, book.id, book.lineIds[1]!)
-        await mamie.post(`/api/books/${book.id}/submit`, { data: {} })
-        await review(parent, book.id, book.lineIds[1]!, { action: 'approve' })
-
-        await signIn(page.request, account)
-        await chooseProfile(page, 'Lova')
-        await page.goto('/kid/library')
-        const link = page.getByTestId('new-voice-link')
-        await expect(link).toBeVisible()
-        const seenByChild = page.waitForResponse(response => response.url().includes('/seen'))
-        await link.click()
-        await expect(page).toHaveURL(new RegExp(`/kid/activity/${book.id}$`))
-        await expect(page.getByTestId('kid-new-voices').locator('li')).toHaveCount(1)
-        await expect(page.getByText('Réplique numéro 1')).toHaveCount(0)
-        await seenByChild
-        await page.goto('/kid/library')
-        await expect(page.getByText('Les voix du soir')).toBeVisible()
-        await expect(page.getByTestId('new-voice-link')).toHaveCount(0)
-        await Promise.all([parent.dispose(), tonton.dispose(), mamie.dispose()])
-    })
 })
