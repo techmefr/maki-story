@@ -1,5 +1,5 @@
 <template>
-    <div class="stack center narrow" style="margin-top: 12vh">
+    <div class="stack center narrow" style="margin-top: 6vh">
         <AppLogo :size="96" class="anim-float" />
         <template v-if="failure === ''">
             <h1 class="subtitle" role="status">{{ t('auth.magic.title') }}</h1>

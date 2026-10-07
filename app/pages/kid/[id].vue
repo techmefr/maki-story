@@ -1,6 +1,6 @@
 <template>
     <div v-if="member" class="stack center narrow">
-        <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
+        <AppButton variant="secondary" is-round to="/kid" class="back-link" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <AppAvatar :member="member" :size="150" />
         <h1 class="title">{{ member.name }}</h1>
         <AppButton variant="secondary" tone="mint" is-block v-if="incoming" :to="`/message/listen/${incoming.id}`" class="anim-pulse" style="min-height: 72px; font-size: 1.375rem">

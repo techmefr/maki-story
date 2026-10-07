@@ -81,8 +81,8 @@ const openProfile = (): void => {
     height: var(--tap);
     border: 2.5px solid var(--ink);
     border-radius: 50%;
-    background: var(--blue);
-    color: var(--on-accent);
+    background: var(--paper);
+    color: var(--ink);
     box-shadow: var(--shadow);
     cursor: pointer;
     transition: transform 0.12s;

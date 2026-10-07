@@ -1,7 +1,7 @@
 <template>
     <div class="stack">
         <StatusStrip />
-        <AppButton variant="secondary" is-round to="/kid" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
+        <AppButton variant="secondary" is-round to="/kid" class="back-link" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <h1 class="title">{{ t('kid.library.title') }}</h1>
         <BookFilters :key="route.fullPath" kid :initial="initialQuery" @change="reload">
             <div v-if="readers.length > 0" class="stack library__group" role="group" :aria-label="t('kidBrowse.reader.label')">

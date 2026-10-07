@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.cancel') }}</NuxtLink>
+        <BackLink to="/library">{{ t('common.cancel') }}</BackLink>
         <div class="row" style="justify-content: space-between">
             <h1 class="title">{{ stepTitle }}</h1>
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
@@ -13,6 +13,7 @@
                 {{ t('bookDraft.wizard.severalVoices') }}
             </AppChip>
         </div>
+        <AppButton v-if="step === 'book' && isParent && isOnline" variant="secondary" is-block icon="search" to="/books/isbn" data-testid="add-by-isbn">{{ t('addBook.open') }}</AppButton>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
         <div v-if="isResumable" class="card stack" role="group" :aria-label="t('bookDraft.resume.title')">
@@ -41,6 +42,7 @@ const STEP_TITLE_KEYS: Record<DraftStep, string> = {
 const { t } = useI18n()
 const { step, steps, isSimple, isWordless, isAiPrefilled, title, pages, lines, characters, setMode, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
 const { current, isParent } = useCurrentMember()
+const isOnline = useState<boolean>('is-online', () => true)
 
 const stepCount = computed(() => steps.value.length)
 const stepNumber = computed(() => Math.max(1, steps.value.indexOf(step.value) + 1))

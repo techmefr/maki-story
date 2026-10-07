@@ -212,6 +212,8 @@ test.describe('shell per role', () => {
         const card = page.locator('.face__link', { hasText: RELATIVE })
         await expect(card).toHaveAttribute('data-ring', 'unheard')
         await card.click()
+        await expect(page).toHaveURL(/\/kid\/[0-9a-f-]+$/)
+        await page.getByRole('link', { name: 'Écouter son message' }).click()
         await expect(page).toHaveURL(/\/message\/listen\//)
     })
 })

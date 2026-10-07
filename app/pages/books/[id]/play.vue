@@ -1,6 +1,6 @@
 <template>
     <div v-if="book" class="stack narrow">
-        <NuxtLink to="/library" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/library" />
         <h1 class="title">{{ book.title }}</h1>
         <OfflineToggle :book-id="book.id" />
         <div class="segs" role="group" :aria-label="t('play.lines')">

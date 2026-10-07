@@ -1,9 +1,7 @@
 <template>
     <div class="stack access">
-        <div class="row">
-            <BackLink to="/family" />
-            <h1 class="title grow">{{ t('bookAccess.title') }}</h1>
-        </div>
+        <BackLink to="/family" />
+        <h1 class="title">{{ t('bookAccess.title') }}</h1>
         <AppEmpty v-if="children.length === 0" :title="t('lock.noChildTitle')" :hint="t('lock.noChildHint')" />
         <template v-else>
             <div class="row row--wrap" role="tablist" :aria-label="t('lock.children')">
@@ -26,11 +24,13 @@
                     </span>
                 </AppToggle>
                 <AppEmpty v-if="readyBooks.length === 0" :title="t('bookAccess.emptyTitle')" :hint="t('bookAccess.emptyHint')" />
-                <ul class="access__list" :class="{ 'access__list--off': !current.isRestricted }">
+                <p v-if="!current.isRestricted && readyBooks.length > 0" class="access__summary" data-testid="access-summary">
+                    {{ t('bookAccess.visibleCount', { count: readyBooks.length, name: childName }) }}
+                </p>
+                <ul v-if="current.isRestricted" class="access__list">
                     <li v-for="book in readyBooks" :key="book.id">
                         <AppCheckbox
-                            :model-value="!current.isRestricted || current.bookIds.includes(book.id)"
-                            :disabled="!current.isRestricted"
+                            :model-value="current.bookIds.includes(book.id)"
                             :data-testid="`access-book-${book.id}`"
                             @update:model-value="toggleBook(book.id)"
                         >
@@ -47,6 +47,8 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { children, readyBooks, selectedId, current, hasFailed, init, select, toggleAll, toggleBook } = useBookAccess()
+
+const childName = computed<string>(() => children.value.find(child => child.id === selectedId.value)?.name ?? '')
 
 onMounted(init)
 </script>
@@ -75,7 +77,13 @@ onMounted(init)
     list-style: none;
 }
 
-.access__list--off {
-    opacity: 0.55;
+.access__summary {
+    margin: 0;
+    padding: 14px 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    font: 700 1rem/1.3 var(--font-title);
 }
 </style>

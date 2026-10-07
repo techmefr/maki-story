@@ -229,7 +229,12 @@ select {
 }
 
 .btn--secondary {
-    background: var(--tone, var(--blue));
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.btn--secondary[class*='btn--tone-'] {
+    background: var(--tone);
     color: var(--on-accent);
 }
 

@@ -4,17 +4,18 @@
         <h1 v-if="hasTitle" class="title">{{ t('home.title') }}</h1>
         <GrimaceNudge />
         <BirthDateNudge />
-        <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row" style="background: #FFC933; color: inherit">
+        <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row">
             <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">{{ t('home.listen') }}</span>
         </NuxtLink>
-        <AppButton is-block v-if="isOnline" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
-        <AppButton is-block v-else disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
-        <AppButton variant="secondary" is-block v-if="isOnline && isParent" icon="search" to="/books/isbn" data-testid="add-by-isbn">{{ t('addBook.open') }}</AppButton>
-        <AppButton variant="secondary" is-block v-if="isAiCreationEnabled && isOnline && isParent" to="/books/ai" data-testid="ai-create">
-            <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
-        </AppButton>
+        <div class="library__actions">
+            <AppButton v-if="isOnline" class="library__action" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
+            <AppButton v-else class="library__action" disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
+            <AppButton variant="secondary" v-if="isAiCreationEnabled && isOnline && isParent" class="library__action" to="/books/ai" data-testid="ai-create">
+                <AppIcon name="sparkles" :size="22" motion="float" />{{ t('home.createAi') }}
+            </AppButton>
+        </div>
         <BookFilters :initial="initialQuery" @change="reload" />
         <AppEmpty
             kind="library"
@@ -79,3 +80,15 @@ onMounted(async () => {
     isLoaded.value = true
 })
 </script>
+
+<style scoped>
+.library__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.library__action {
+    flex: 1 1 200px;
+}
+</style>

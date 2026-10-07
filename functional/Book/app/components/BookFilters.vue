@@ -10,14 +10,9 @@
                 <AppBadge v-if="activeCount > 0">{{ activeCount }}</AppBadge>
             </AppButton>
         </div>
-        <div v-if="!kid" class="row row--wrap" role="group" :aria-label="t('books.filters.age')">
-            <AppChip v-for="tag in AGE_TAGS" :key="tag.id" :selected="age === tag.id" @click="toggleAge(tag.id)">
-                <span aria-hidden="true">{{ AGE_EMOJIS[tag.id] }}</span> {{ t(AGE_TAG_KEYS[tag.id] ?? 'books.filters.age') }}
-            </AppChip>
-        </div>
         <AppBottomSheet :open="isOpen" :title="t('library.filters.title')" @close="isOpen = false">
             <slot />
-            <div v-if="kid" class="stack filters__group" role="group" :aria-label="t('books.filters.age')">
+            <div class="stack filters__group" role="group" :aria-label="t('books.filters.age')">
                 <span class="label filters__label"><AppIcon name="rocket" :size="22" />{{ t('books.filters.age') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="tag in AGE_TAGS" :key="tag.id" :selected="age === tag.id" @click="toggleAge(tag.id)">

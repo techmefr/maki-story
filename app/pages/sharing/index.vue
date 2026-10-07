@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="muted">{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/family" />
         <h1 class="title">{{ t('sharing.title') }}</h1>
 
         <section v-if="isParent" class="card stack" aria-labelledby="invite-title">

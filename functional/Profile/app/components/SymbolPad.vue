@@ -105,7 +105,7 @@ defineExpose({ clear })
 
 .symbols__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(84px, 104px));
+    grid-template-columns: repeat(3, minmax(64px, min(104px, 14vh)));
     gap: 14px;
 }
 

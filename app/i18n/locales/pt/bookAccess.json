@@ -6,5 +6,6 @@
     "emptyTitle": "Nenhum livro validado",
     "emptyHint": "Os livros validados aparecem aqui.",
     "menu": "Livros das crianças",
-    "menuHint": "Que livros cada criança pode ler"
+    "menuHint": "Que livros cada criança pode ler",
+    "visibleCount": "{count} livros visíveis para {name}"
 }

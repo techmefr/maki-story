@@ -4,7 +4,7 @@
         <AppEmpty kind="library" :title="t('review.parentOnly')" :hint="t('review.parentOnlyHint')" />
     </div>
     <div class="stack narrow" v-else-if="book">
-        <NuxtLink to="/library" class="muted">{{ t('review.back') }}</NuxtLink>
+        <BackLink to="/library">{{ t('review.back') }}</BackLink>
         <h1 class="title">{{ t('review.title', { title: book.title }) }}</h1>
         <div class="row row--wrap">
             <span class="badge" data-testid="book-status">{{ t(`review.bookStatus.${book.status}`) }}</span>
