@@ -22,5 +22,6 @@
     "done": "تم",
     "optional": "اختياري",
     "unknownError": "حدث خطأ، حاول مرة أخرى.",
-    "progress": "Step {current} of {total}"
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }

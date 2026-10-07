@@ -25,23 +25,25 @@
             <img v-if="coverUrl" :src="coverUrl" alt="" class="addbook__cover" />
             <AppInput v-model="title" maxlength="120" :placeholder="t('addBook.bookTitle')" :aria-label="t('addBook.bookTitle')" data-testid="isbn-title" />
             <AppInput v-model="author" maxlength="120" :placeholder="t('addBook.author')" :aria-label="t('addBook.author')" />
-            <div v-if="subjects.length > 0" class="stack">
-                <span class="label">{{ t('addBook.subjects') }}</span>
-                <div class="row row--wrap"><AppBadge v-for="subject in subjects" :key="subject">{{ subject }}</AppBadge></div>
-            </div>
-            <div class="stack">
-                <div class="row">
-                    <span class="label grow">{{ t('addBook.tags') }}</span>
-                    <span class="addbook__hint">{{ t('addBook.suggested', { count: autoTags.length }) }}</span>
+            <AppMoreOptions test-id="isbn-more-toggle">
+                <div v-if="subjects.length > 0" class="stack">
+                    <span class="label">{{ t('addBook.subjects') }}</span>
+                    <div class="row row--wrap"><AppBadge v-for="subject in subjects" :key="subject">{{ subject }}</AppBadge></div>
                 </div>
-                <div class="row row--wrap">
-                    <AppChip v-for="tag in tags" :key="tag.slug" :selected="selectedTags.includes(tag.slug)" :data-testid="`isbn-tag-${tag.slug}`" @click="toggleTag(tag.slug)">
-                        {{ labelOf(tag, locale) }}
-                        <AppBadge v-if="autoTags.includes(tag.slug)">{{ t('addBook.auto') }}</AppBadge>
-                    </AppChip>
-                    <AppButton variant="tertiary" size="sm" icon="plus" to="/tags">{{ t('addBook.newTag') }}</AppButton>
+                <div class="stack">
+                    <div class="row">
+                        <span class="label grow">{{ t('addBook.tags') }}</span>
+                        <span class="addbook__hint">{{ t('addBook.suggested', { count: autoTags.length }) }}</span>
+                    </div>
+                    <div class="row row--wrap">
+                        <AppChip v-for="tag in tags" :key="tag.slug" :selected="selectedTags.includes(tag.slug)" :data-testid="`isbn-tag-${tag.slug}`" @click="toggleTag(tag.slug)">
+                            {{ labelOf(tag, locale) }}
+                            <AppBadge v-if="autoTags.includes(tag.slug)">{{ t('addBook.auto') }}</AppBadge>
+                        </AppChip>
+                        <AppButton variant="tertiary" size="sm" icon="plus" to="/tags">{{ t('addBook.newTag') }}</AppButton>
+                    </div>
                 </div>
-            </div>
+            </AppMoreOptions>
             <p v-if="hasFailed" class="error" role="alert">{{ t('addBook.failed') }}</p>
             <div class="row">
                 <AppButton variant="secondary" class="grow" @click="phase = 'search'">{{ t('common.cancel') }}</AppButton>

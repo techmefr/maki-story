@@ -22,5 +22,6 @@
     "done": "Fertig",
     "optional": "optional",
     "unknownError": "Etwas ist schiefgelaufen, bitte versuche es erneut.",
-    "progress": "Step {current} of {total}"
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }

@@ -22,5 +22,6 @@
     "done": "Vita",
     "optional": "tsy voatery",
     "unknownError": "Nisy hadisoana, andramo indray azafady.",
-    "progress": "Step {current} of {total}"
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }

@@ -19,24 +19,6 @@
                 />
             </div>
         </section>
-        <section class="stack" aria-labelledby="tag-icons">
-            <h3 id="tag-icons" class="editor__heading">{{ t('tags.editor.icon') }}</h3>
-            <div class="editor__icons">
-                <button
-                    v-for="item in TAG_ICON_IDS"
-                    :key="item"
-                    type="button"
-                    class="editor__icon"
-                    :class="{ 'editor__icon--on': item === icon }"
-                    :style="item === icon ? { background: hex } : undefined"
-                    :aria-pressed="item === icon ? 'true' : 'false'"
-                    :aria-label="t(`tags.icons.${item}`)"
-                    @click="icon = item"
-                >
-                    <TagIcon :icon="item" :size="28" />
-                </button>
-            </div>
-        </section>
         <section class="stack" aria-labelledby="tag-colors">
             <h3 id="tag-colors" class="editor__heading">{{ t('tags.editor.color') }}</h3>
             <div class="row row--wrap">
@@ -53,6 +35,26 @@
                 />
             </div>
         </section>
+        <AppMoreOptions>
+            <section class="stack" aria-labelledby="tag-icons">
+                <h3 id="tag-icons" class="editor__heading">{{ t('tags.editor.icon') }}</h3>
+                <div class="editor__icons">
+                    <button
+                        v-for="item in TAG_ICON_IDS"
+                        :key="item"
+                        type="button"
+                        class="editor__icon"
+                        :class="{ 'editor__icon--on': item === icon }"
+                        :style="item === icon ? { background: hex } : undefined"
+                        :aria-pressed="item === icon ? 'true' : 'false'"
+                        :aria-label="t(`tags.icons.${item}`)"
+                        @click="icon = item"
+                    >
+                        <TagIcon :icon="item" :size="28" />
+                    </button>
+                </div>
+            </section>
+        </AppMoreOptions>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
         <div v-if="isConfirmingDelete" class="editor__confirm stack" role="alertdialog" :aria-label="t('tags.editor.confirmTitle')">
             <p class="editor__confirm-text">{{ t('tags.editor.confirmText', { count: tag?.bookCount ?? 0 }) }}</p>

@@ -96,6 +96,7 @@ test.describe('profile menu', () => {
         expect((await otherDevice.get('/api/members')).ok()).toBeTruthy()
         const newPassword = `${E2E_PASSWORD}-new`
         await page.goto('/profile/edit')
+        await page.getByTestId('edit-more-toggle').click()
         await page.getByLabel('Mot de passe actuel').fill('wrong-password-1')
         await page.getByLabel('Nouveau mot de passe', { exact: true }).fill(newPassword)
         await page.getByLabel('Confirmer le nouveau mot de passe').fill(newPassword)

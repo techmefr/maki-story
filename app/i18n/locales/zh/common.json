@@ -22,5 +22,6 @@
     "done": "完成",
     "optional": "可选",
     "unknownError": "出错了，请重试。",
-    "progress": "Step {current} of {total}"
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }

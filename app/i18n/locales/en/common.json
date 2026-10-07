@@ -22,5 +22,6 @@
     "done": "Done",
     "optional": "optional",
     "unknownError": "Something went wrong, please try again.",
-    "progress": "Step {current} of {total}"
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }
