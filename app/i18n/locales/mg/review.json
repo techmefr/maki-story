@@ -114,7 +114,18 @@
         "changes": "{count} hahitsy",
         "waiting": "{count} miandry"
     },
-    "pageLabel": "Pejy {page}",
-    "pageLabelTitle": "Pejy {page} · {title}",
-    "pageToFix": "Hahitsy"
+    "more": "More options",
+    "askRedo": "Ask to redo",
+    "redoLine": "Line to redo",
+    "toListen": {
+        "one": "{count} voice to listen to",
+        "other": "{count} voices to listen to"
+    },
+    "flow": {
+        "label": "Book steps",
+        "create": "Create",
+        "record": "Record",
+        "send": "Send",
+        "validate": "Validate"
+    }
 }

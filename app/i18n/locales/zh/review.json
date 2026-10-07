@@ -109,7 +109,18 @@
         "changes": "{count} 条待修改",
         "waiting": "{count} 条待处理"
     },
-    "pageLabel": "第 {page} 页",
-    "pageLabelTitle": "第 {page} 页 · {title}",
-    "pageToFix": "待修改"
+    "more": "More options",
+    "askRedo": "Ask to redo",
+    "redoLine": "Line to redo",
+    "toListen": {
+        "one": "{count} voice to listen to",
+        "other": "{count} voices to listen to"
+    },
+    "flow": {
+        "label": "Book steps",
+        "create": "Create",
+        "record": "Record",
+        "send": "Send",
+        "validate": "Validate"
+    }
 }

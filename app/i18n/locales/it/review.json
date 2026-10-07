@@ -114,7 +114,18 @@
         "changes": "{count} da correggere",
         "waiting": "{count} in attesa"
     },
-    "pageLabel": "Pagina {page}",
-    "pageLabelTitle": "Pagina {page} · {title}",
-    "pageToFix": "Da correggere"
+    "more": "More options",
+    "askRedo": "Ask to redo",
+    "redoLine": "Line to redo",
+    "toListen": {
+        "one": "{count} voice to listen to",
+        "other": "{count} voices to listen to"
+    },
+    "flow": {
+        "label": "Book steps",
+        "create": "Create",
+        "record": "Record",
+        "send": "Send",
+        "validate": "Validate"
+    }
 }

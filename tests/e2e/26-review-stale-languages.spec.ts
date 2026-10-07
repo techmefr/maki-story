@@ -139,6 +139,7 @@ test.describe('review screen', () => {
         await signIn(page.request, family.account)
         await chooseProfile(page, 'Parent')
         await page.goto(`/books/${bookId}/review`)
+        await page.getByTestId('review-more-toggle').click()
         await expect(page.getByTestId('review-languages')).toBeVisible()
         await expect(page.getByTestId('review-line-text').first()).toHaveText('Il était une fois.')
         await expect(page.getByTestId('review-original-toggle')).toHaveCount(0)

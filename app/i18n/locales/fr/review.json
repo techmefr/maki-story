@@ -114,7 +114,18 @@
         "changes": "{count} à corriger",
         "waiting": "{count} en attente"
     },
-    "pageLabel": "Page {page}",
-    "pageLabelTitle": "Page {page} · {title}",
-    "pageToFix": "À corriger"
+    "more": "Plus d’options",
+    "askRedo": "Demander de refaire",
+    "redoLine": "Réplique concernée",
+    "toListen": {
+        "one": "{count} voix à écouter",
+        "other": "{count} voix à écouter"
+    },
+    "flow": {
+        "label": "Étapes du livre",
+        "create": "Créer",
+        "record": "Enregistrer",
+        "send": "Envoyer",
+        "validate": "Valider"
+    }
 }
