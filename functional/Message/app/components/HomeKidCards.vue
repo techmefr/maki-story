@@ -146,7 +146,7 @@ const cards = computed(() =>
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     box-shadow: var(--shadow);
-    color: var(--ink);
+    color: var(--on-accent);
     font: 700 0.9375rem/1 var(--font-title);
     text-decoration: none;
 }
@@ -170,6 +170,7 @@ const cards = computed(() =>
     border: 2.5px solid var(--ink);
     border-radius: 999px;
     background: var(--paper);
+    color: var(--ink);
     font-size: 0.875rem;
 }
 </style>

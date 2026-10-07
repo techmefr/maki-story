@@ -256,7 +256,7 @@ onBeforeUnmount(stopPointing)
     border: var(--outline) solid var(--ink);
     border-radius: 12px;
     background: var(--sky);
-    color: var(--ink);
+    color: var(--on-accent);
     text-align: center;
 }
 
