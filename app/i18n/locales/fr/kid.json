@@ -68,5 +68,6 @@
         "removeBody": "Il sera supprimé pour toujours.",
         "removeConfirm": "Retirer"
     },
-    "quota": "{count}/{max} messages"
+    "quota": "{count}/{max} messages",
+    "sendHer": "Lui envoyer un message"
 }

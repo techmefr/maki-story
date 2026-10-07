@@ -68,5 +68,6 @@
         "removeBody": "Sie wird für immer gelöscht.",
         "removeConfirm": "Entfernen"
     },
-    "quota": "{count}/{max} Nachrichten"
+    "quota": "{count}/{max} Nachrichten",
+    "sendHer": "Nachricht senden"
 }

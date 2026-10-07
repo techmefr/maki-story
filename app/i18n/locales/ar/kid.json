@@ -72,5 +72,6 @@
         "removeBody": "ستُحذف للأبد.",
         "removeConfirm": "إزالة"
     },
-    "quota": "{count}/{max} رسائل"
+    "quota": "{count}/{max} رسائل",
+    "sendHer": "أرسل رسالة"
 }

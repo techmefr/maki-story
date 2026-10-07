@@ -34,6 +34,7 @@ test.describe('kid space', () => {
         await expect(page.getByText('Histoires à plusieurs voix')).toHaveCount(0)
         await expect(page.getByTestId('book-search-open')).toHaveCount(0)
         await page.locator('.face__link', { hasText: uniqueName('Mamie', project) }).click()
+        await expect(page.getByTestId('kid-send-message')).toBeVisible()
         await expect(page.getByRole('link', { name: `Histoire solo ${project}` })).toBeVisible()
         await expect(page.getByRole('link', { name: `Histoire multi ${project}` })).toHaveCount(0)
     })

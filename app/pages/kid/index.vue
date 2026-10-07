@@ -48,7 +48,7 @@ const faces = computed(() =>
         message,
         count,
         ring: message ? (count > 0 ? 'unheard' : 'heard') : 'none',
-        target: message ? `/message/listen/${message.id}` : `/kid/${member.id}`,
+        target: `/kid/${member.id}`,
         label: message ? t('kid.bubbleLabel', { name: member.name, count }) : member.name,
         bubbleLabel: t('kid.bubbleLabel', { name: member.name, count }),
         }

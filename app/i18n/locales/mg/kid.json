@@ -68,5 +68,6 @@
         "removeBody": "Ho voafafa mandrakizay izy.",
         "removeConfirm": "Esory"
     },
-    "quota": "{count}/{max} hafatra"
+    "quota": "{count}/{max} hafatra",
+    "sendHer": "Alefaso hafatra"
 }
