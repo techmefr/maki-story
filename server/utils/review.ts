@@ -161,6 +161,9 @@ export const completeIfAllApproved = async (db: Db, familyId: string, book: IRev
             ))::int as approved
         from lines l where l.book_id = ${book.id} and l.family_id = ${familyId}
     `
+    if (state && state.approved > 0 && book.status === 'to_record') {
+        await db`update books set status = 'in_review' where id = ${book.id} and family_id = ${familyId} and status = 'to_record'`
+    }
     if (!state || state.lines === 0 || state.approved < state.lines || book.status === 'ready') {
         return false
     }
