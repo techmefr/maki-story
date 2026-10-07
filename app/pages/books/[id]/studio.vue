@@ -190,6 +190,7 @@
             :get-member-name="memberName"
             @select="jumpTo"
         />
+        <p v-if="isRestricted && missingOwnCount > 0" class="muted" data-testid="send-missing">{{ t('review.studio.sendMissing', { count: missingOwnCount }) }}</p>
         <AppButton variant="secondary" tone="mint" is-block v-if="isRestricted" :disabled="draftCount === 0 || isLocked" @click="sendForReview">
             <AppIcon name="send" :size="22" />
             {{ draftCount > 0 ? t('review.studio.send', { count: draftCount }) : t('review.studio.nothingToSend') }}
@@ -293,6 +294,10 @@ const openCommentsOf = (line: ILine): IReviewComment[] => comments.value.filter(
 
 const draftCount = computed(
     () => (book.value?.recordings ?? []).filter(item => item.memberId === currentId.value && item.status === 'draft').length,
+)
+
+const missingOwnCount = computed(
+    () => (book.value?.lines ?? []).filter(line => line.memberId === currentId.value && line.text.trim() !== '' && !isDone(line)).length,
 )
 
 const setRedoOnly = (value: boolean): void => {

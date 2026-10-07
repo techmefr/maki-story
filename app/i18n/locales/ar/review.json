@@ -62,7 +62,8 @@
             "other": "إرسال {count} تسجيلات للمراجعة"
         },
         "nothingToSend": "لا يوجد تسجيل للإرسال",
-        "sendError": "تعذّر إرسال التسجيلات. حاول مرة أخرى."
+        "sendError": "تعذّر إرسال التسجيلات. حاول مرة أخرى.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

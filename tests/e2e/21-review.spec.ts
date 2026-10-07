@@ -114,6 +114,7 @@ test.describe('book review through the API', () => {
         await putTake(mamie, bookId, lineIds[0]!)
         expect(statusOf(await getBook(parent, bookId), lineIds[0]!)).toBe('draft')
         expect(((await (await mamie.post(`/api/books/${bookId}/submit`, { data: {} })).json()) as { submitted: number }).submitted).toBe(1)
+        expect((await getBook(parent, bookId)).status).toBe('to_record')
         await putTake(mamie, bookId, lineIds[1]!)
         expect(((await (await mamie.post(`/api/books/${bookId}/submit`, { data: {} })).json()) as { submitted: number }).submitted).toBe(1)
         expect(((await (await mamie.post(`/api/books/${bookId}/submit`, { data: {} })).json()) as { submitted: number }).submitted).toBe(0)

@@ -62,7 +62,8 @@
             "other": "{count} Aufnahmen zur Prüfung senden"
         },
         "nothingToSend": "Keine Aufnahme zu senden",
-        "sendError": "Die Aufnahmen konnten nicht gesendet werden. Versuche es erneut."
+        "sendError": "Die Aufnahmen konnten nicht gesendet werden. Versuche es erneut.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

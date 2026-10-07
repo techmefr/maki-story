@@ -62,7 +62,8 @@
             "other": "Send {count} takes for review"
         },
         "nothingToSend": "No take to send",
-        "sendError": "The takes could not be sent. Try again."
+        "sendError": "The takes could not be sent. Try again.",
+        "sendMissing": "{count} voice(s) still missing: the book stays in to record until they are done."
     },
     "notice": {
         "approved": {

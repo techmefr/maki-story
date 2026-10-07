@@ -62,7 +62,8 @@
             "other": "Envoyer {count} prises pour relecture"
         },
         "nothingToSend": "Aucune prise à envoyer",
-        "sendError": "Les prises n’ont pas pu être envoyées. Réessaie."
+        "sendError": "Les prises n’ont pas pu être envoyées. Réessaie.",
+        "sendMissing": "Il manque {count} voix : le livre reste à enregistrer tant qu’elles ne sont pas faites."
     },
     "notice": {
         "approved": {
