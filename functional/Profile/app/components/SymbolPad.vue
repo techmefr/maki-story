@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="row symbols__actions">
-            <AppButton variant="secondary" size="sm" icon="back" :disabled="isDisabled || chosen === ''" @click="clear">
+            <AppButton variant="secondary" icon="back" :disabled="isDisabled || chosen === ''" @click="clear">
                 {{ t('profile.symbols.clear') }}
             </AppButton>
             <AppButton icon="check" :disabled="isDisabled || !isComplete" @click="confirm">{{ t('profile.symbols.ok') }}</AppButton>

@@ -116,5 +116,7 @@
     },
     "pageLabel": "Page {page}",
     "pageLabelTitle": "Page {page} · {title}",
-    "pageToFix": "À corriger"
+    "pageToFix": "À corriger",
+    "parentOnly": "Seul un parent peut valider",
+    "parentOnlyHint": "Demande à un parent de relire ce livre."
 }

@@ -116,5 +116,7 @@
     },
     "pageLabel": "الصفحة {page}",
     "pageLabelTitle": "الصفحة {page} · {title}",
-    "pageToFix": "للتصحيح"
+    "pageToFix": "للتصحيح",
+    "parentOnly": "يمكن للوالد فقط المراجعة",
+    "parentOnlyHint": "اطلب من أحد الوالدين مراجعة هذا الكتاب."
 }

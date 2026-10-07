@@ -9,7 +9,7 @@
         <AppEmpty v-if="items.length === 0" kind="notifications" :title="t('notifications.allRead')" :hint="t('notifications.empty')" />
         <ul class="list">
             <li v-for="item in items" :key="item.id">
-                <button type="button" class="note" :class="{ 'note--unread': !item.isRead }" :data-testid="`notification-${item.id}`" @click="markRead([item.id])">
+                <button type="button" class="note" :class="{ 'note--unread': !item.isRead }" :data-testid="`notification-${item.id}`" @click="open(item)">
                     <span class="note__initial" :style="{ background: pickVoiceByText(item.id).hex }" aria-hidden="true">{{ initialOf(item) }}</span>
                     <span class="note__body">
                         <span class="note__title">{{ t(item.kind === 'homework_request' ? 'homework.notificationTitle' : `notifications.titles.${item.kind}`) }}</span>
@@ -36,6 +36,14 @@ const { items, unreadCount, load, markRead } = useNotifications()
 const MINUTE_MS = 60000
 const HOUR_MS = 3600000
 const DAY_MS = 86400000
+
+const open = async (item: INotification): Promise<void> => {
+    await markRead([item.id])
+    const target = notificationTarget(item, current.value?.role)
+    if (target) {
+        await navigateTo(target)
+    }
+}
 
 const backPath = computed<string>(() => (isRelativeAccount.value ? '/relative' : '/home'))
 

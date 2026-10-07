@@ -1,5 +1,9 @@
 <template>
-    <div class="stack narrow" v-if="book">
+    <div v-if="isForbidden" class="stack narrow">
+        <BackLink to="/library" />
+        <AppEmpty kind="library" :title="t('review.parentOnly')" :hint="t('review.parentOnlyHint')" />
+    </div>
+    <div class="stack narrow" v-else-if="book">
         <NuxtLink to="/library" class="muted">{{ t('review.back') }}</NuxtLink>
         <h1 class="title">{{ t('review.title', { title: book.title }) }}</h1>
         <div class="row row--wrap">
@@ -382,13 +386,15 @@ const requestChanges = (line: ILine): Promise<void> =>
 
 const validateAll = (): Promise<void> => run(async () => void (await validateBook(bookId)))
 
+const isForbidden = ref(false)
+
 onBeforeUnmount(() => player.stop())
 
 onMounted(async () => {
     try {
         await ensureLoaded()
         if (current.value?.role !== 'parent') {
-            await navigateTo('/library')
+            isForbidden.value = true
             return
         }
         await refresh()

@@ -148,7 +148,7 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     const panels = await db<IPanel[]>`
         select id, page_id, position, description from panels where book_id = ${id} and family_id = ${familyId} order by position
     `
-    const pages: IBookPage[] = pageRows.map(page => ({ ...page, fileId: hideScans ? null : page.fileId, panels: panels.filter(panel => panel.pageId === page.id) }))
+    const pages: IBookPage[] = pageRows.map(page => ({ ...page, fileId: hideScans && page.kind !== 'cover' ? null : page.fileId, panels: panels.filter(panel => panel.pageId === page.id) }))
     const characters = await db<ICharacter[]>`
         select id, name, color, description, is_narrator, position from characters
         where book_id = ${id} and family_id = ${familyId} order by position, created_at

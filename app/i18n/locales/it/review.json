@@ -116,5 +116,7 @@
     },
     "pageLabel": "Pagina {page}",
     "pageLabelTitle": "Pagina {page} · {title}",
-    "pageToFix": "Da correggere"
+    "pageToFix": "Da correggere",
+    "parentOnly": "Solo un genitore può rivedere",
+    "parentOnlyHint": "Chiedi a un genitore di rivedere questo libro."
 }

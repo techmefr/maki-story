@@ -116,5 +116,7 @@
     },
     "pageLabel": "Page {page}",
     "pageLabelTitle": "Page {page} · {title}",
-    "pageToFix": "To fix"
+    "pageToFix": "To fix",
+    "parentOnly": "Only a parent can review",
+    "parentOnlyHint": "Ask a parent to review this book."
 }

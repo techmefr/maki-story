@@ -33,3 +33,24 @@ export const lookupIsbn = async (isbn: string): Promise<IIsbnBook | null> => {
         coverUrl: record.cover?.medium ?? record.cover?.large ?? null,
     }
 }
+
+const COVER_HOST = 'covers.openlibrary.org'
+const MAX_COVER_BYTES = 4 * 1024 * 1024
+
+export const fetchCoverImage = async (url: string): Promise<{ mime: string; data: Buffer } | null> => {
+    try {
+        const parsed = new URL(url)
+        if (parsed.protocol !== 'https:' || parsed.hostname !== COVER_HOST) {
+            return null
+        }
+        const response = await fetch(parsed, { signal: AbortSignal.timeout(LOOKUP_TIMEOUT_MS) })
+        const mime = (response.headers.get('content-type') ?? '').split(';')[0]?.trim() ?? ''
+        if (!response.ok || !mime.startsWith('image/')) {
+            return null
+        }
+        const data = Buffer.from(await response.arrayBuffer())
+        return data.length > 0 && data.length <= MAX_COVER_BYTES ? { mime, data } : null
+    } catch {
+        return null
+    }
+}

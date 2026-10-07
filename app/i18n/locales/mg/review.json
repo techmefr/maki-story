@@ -116,5 +116,7 @@
     },
     "pageLabel": "Pejy {page}",
     "pageLabelTitle": "Pejy {page} · {title}",
-    "pageToFix": "Hahitsy"
+    "pageToFix": "Hahitsy",
+    "parentOnly": "Ny ray aman-dreny ihany no afaka manamarina",
+    "parentOnlyHint": "Angataho ny ray aman-dreny hijery ity boky ity."
 }

@@ -111,5 +111,7 @@
     },
     "pageLabel": "第 {page} 页",
     "pageLabelTitle": "第 {page} 页 · {title}",
-    "pageToFix": "待修改"
+    "pageToFix": "待修改",
+    "parentOnly": "只有家长可以审核",
+    "parentOnlyHint": "请让家长审核这本书。"
 }
