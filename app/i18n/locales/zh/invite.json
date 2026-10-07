@@ -57,5 +57,15 @@
     "emailHint": "对方会收到一个链接，用来创建资料并加入家庭。",
     "sendEmail": "发送邀请",
     "sentTitle": "邀请已发送",
-    "codeLabel": "邀请码"
+    "codeLabel": "邀请码",
+    "codeChannelLabel": "Which channel?",
+    "steps": {
+        "label": "Invitation steps",
+        "tab": "Mode",
+        "channel": "Channel",
+        "role": "Role",
+        "name": "Name",
+        "contact": "Contact",
+        "children": "Children"
+    }
 }

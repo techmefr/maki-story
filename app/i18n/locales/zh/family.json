@@ -73,7 +73,6 @@
         "create": "创建家庭"
     },
     "create": {
-        "progress": "第 {current} 步，共 {total} 步",
         "name": {
             "title": "创建你的家庭",
             "hint": "一个大家都认得的名字。",
@@ -97,21 +96,24 @@
             "hint": "{name} 已有资料。现在邀请愿意出声的亲友吧。"
         },
         "action": {
-            "name": "继续",
-            "child": "继续",
-            "childCode": "继续",
             "parentCode": "创建我的家庭",
             "done": "邀请亲友",
-            "you": "继续"
+            "next": "Continue"
         },
         "failed": "家庭创建失败，请重试。",
         "you": {
-            "title": "那你呢？",
             "hint": "孩子和亲友怎么认识你。",
             "firstName": "名",
             "lastName": "姓",
             "displayName": "显示名称",
             "displayHint": "显示名称是其他人看到的名字。不选择时就是你的名。"
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import type { IBook } from '../../shared/types/book'
-import { apiJson, chooseProfile, login, nextStep, PARENT_NAME, recordAndSend, recordOnce, useProfile, pickOption, allowSpokenLanguages } from './helpers'
+import { apiJson, chooseProfile, login, toPages, PARENT_NAME, recordAndSend, recordOnce, useProfile, pickOption, allowSpokenLanguages } from './helpers'
 
 interface IFixture {
     bookId: string
@@ -271,7 +271,7 @@ test.describe('recording studio', () => {
         await page.goto('/library')
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await page.getByLabel('Titre du livre').fill('Scan lourd')
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         const uploaded = page.waitForResponse(response => new URL(response.url()).pathname === '/api/files' && response.request().method() === 'POST')
         await page.getByTestId('add-photo-input').setInputFiles({ name: 'scan.jpg', mimeType: 'image/jpeg', buffer: jpeg })

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, login, nextStep, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, login, nextStep, toPages, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -15,7 +15,7 @@ test.describe('single voice book', () => {
         await expect(page.getByText('1/3')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Une seule voix' })).toHaveAttribute('aria-pressed', 'true')
         await page.getByLabel('Titre du livre').fill(`Le caméléon ${project}`)
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await expect(page.getByText('Qui parle ?')).toHaveCount(0)
         await addLine(page, 1, null, 'Il était une fois un caméléon timide.')
@@ -41,10 +41,11 @@ test.describe('single voice book', () => {
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await page.getByRole('button', { name: 'Une seule voix' }).click()
-        await page.getByRole('button', { name: mamie }).click()
         await page.getByLabel('Titre du livre').fill(`Une voix ${info.project.name}`)
         await expect(page.getByText('1/3')).toBeVisible()
         await nextStep(page)
+        await page.getByRole('button', { name: mamie }).click()
+        await toPages(page)
         await addLine(page, 1, null, 'Une seule voix.')
         await finishPages(page)
         await expect(page.getByText(`${mamie} lit tout le livre`)).toBeVisible()

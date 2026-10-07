@@ -81,6 +81,16 @@
         "skipped": {
             "one": "No se pudo crear {count} imagen: las páginas afectadas están vacías. Puedes completarlas más tarde.",
             "other": "No se pudieron crear {count} imágenes: las páginas afectadas están vacías. Puedes completarlas más tarde."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

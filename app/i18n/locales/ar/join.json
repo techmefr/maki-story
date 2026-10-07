@@ -17,15 +17,21 @@
     "failed": "لا يمكن الانضمام الآن.",
     "invalidCredentials": "تحقق من بريدك أو كلمة المرور أو الدعوة.",
     "tooMany": "محاولات كثيرة، حاول لاحقاً.",
-    "progress": "الخطوة {current} من {total}",
     "codePlaceholder": "ABC123",
     "banner": {
         "relative": "أنت تنضم إلى {family} بصفة قريب.",
         "parent": "أنت تنضم إلى {family} بصفة والد."
     },
-    "profileTitle": "أنشئ ملفك الشخصي",
     "namePlaceholder": "اسمك الأول",
     "next": "متابعة",
     "secretTitle": "رمزك السري",
-    "secretHint": "من 4 إلى 8 أرقام."
+    "secretHint": "من 4 إلى 8 أرقام.",
+    "steps": {
+        "label": "Steps to join",
+        "code": "Code",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "secret": "Secret code"
+    }
 }

@@ -74,7 +74,6 @@
         "create": "Familie erstellen"
     },
     "create": {
-        "progress": "Schritt {current} von {total}",
         "name": {
             "title": "Erstelle deine Familie",
             "hint": "Ein Name, den alle wiedererkennen.",
@@ -98,21 +97,24 @@
             "hint": "{name} hat ein Profil. Lade jetzt die Verwandten ein, die ihre Stimme leihen."
         },
         "action": {
-            "name": "Weiter",
-            "child": "Weiter",
-            "childCode": "Weiter",
             "parentCode": "Meine Familie erstellen",
             "done": "Verwandte einladen",
-            "you": "Weiter"
+            "next": "Continue"
         },
         "failed": "Die Familie konnte nicht erstellt werden. Versuche es noch einmal.",
         "you": {
-            "title": "Und du?",
             "hint": "So kennen dich die Kinder und Verwandten.",
             "firstName": "Vorname",
             "lastName": "Nachname",
             "displayName": "Anzeigename",
             "displayHint": "Der Anzeigename ist der, den andere sehen. Ohne Angabe ist es dein Vorname."
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

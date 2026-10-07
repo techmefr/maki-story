@@ -17,15 +17,21 @@
     "failed": "Could not join right now.",
     "invalidCredentials": "Check your e-mail, password or invitation.",
     "tooMany": "Too many attempts, try again later.",
-    "progress": "Step {current} of {total}",
     "codePlaceholder": "ABC123",
     "banner": {
         "relative": "You are joining {family} as a relative.",
         "parent": "You are joining {family} as a parent."
     },
-    "profileTitle": "Create your profile",
     "namePlaceholder": "Your first name",
     "next": "Continue",
     "secretTitle": "Your secret code",
-    "secretHint": "4 to 8 digits."
+    "secretHint": "4 to 8 digits.",
+    "steps": {
+        "label": "Steps to join",
+        "code": "Code",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "secret": "Secret code"
+    }
 }

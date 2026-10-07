@@ -81,6 +81,16 @@
         "skipped": {
             "one": "Non è stato possibile creare {count} immagine: le pagine interessate sono vuote. Puoi completarle più tardi.",
             "other": "Non è stato possibile creare {count} immagini: le pagine interessate sono vuote. Puoi completarle più tardi."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

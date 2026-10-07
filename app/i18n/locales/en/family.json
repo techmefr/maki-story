@@ -74,7 +74,6 @@
         "create": "Create a family"
     },
     "create": {
-        "progress": "Step {current} of {total}",
         "name": {
             "title": "Create your family",
             "hint": "A name everyone will recognise.",
@@ -98,21 +97,24 @@
             "hint": "{name} has a profile. Now invite the relatives who will lend their voice."
         },
         "action": {
-            "name": "Continue",
-            "child": "Continue",
-            "childCode": "Continue",
             "parentCode": "Create my family",
             "done": "Invite relatives",
-            "you": "Continue"
+            "next": "Continue"
         },
         "failed": "The family could not be created. Try again.",
         "you": {
-            "title": "And you?",
             "hint": "How the children and relatives know you.",
             "firstName": "First name",
             "lastName": "Last name",
             "displayName": "Display name",
             "displayHint": "The display name is what others see. Left empty, it is your first name."
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

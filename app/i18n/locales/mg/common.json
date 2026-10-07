@@ -21,5 +21,6 @@
     "continue": "Tohizo",
     "done": "Vita",
     "optional": "tsy voatery",
-    "unknownError": "Nisy hadisoana, andramo indray azafady."
+    "unknownError": "Nisy hadisoana, andramo indray azafady.",
+    "progress": "Step {current} of {total}"
 }

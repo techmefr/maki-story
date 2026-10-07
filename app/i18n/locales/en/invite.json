@@ -57,5 +57,15 @@
     "emailHint": "They receive a link to create their profile and join the family.",
     "sendEmail": "Send the invitation",
     "sentTitle": "Invitation sent",
-    "codeLabel": "Invitation code"
+    "codeLabel": "Invitation code",
+    "codeChannelLabel": "Which channel?",
+    "steps": {
+        "label": "Invitation steps",
+        "tab": "Mode",
+        "channel": "Channel",
+        "role": "Role",
+        "name": "Name",
+        "contact": "Contact",
+        "children": "Children"
+    }
 }

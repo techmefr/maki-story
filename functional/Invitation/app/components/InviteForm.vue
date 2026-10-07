@@ -1,68 +1,81 @@
 <template>
     <div class="stack invite" data-testid="invite-form">
-        <form v-if="!created" class="stack" @submit.prevent="submit">
-            <div class="row invite__tabs" role="tablist" :aria-label="t('invite.channelLabel')">
-                <AppChip
-                    v-for="item in TABS"
-                    :key="item.id"
-                    role="tab"
-                    :selected="tab === item.id"
-                    :aria-selected="tab === item.id ? 'true' : 'false'"
-                    :data-testid="`invite-tab-${item.id}`"
-                    @click="selectTab(item.id)"
-                >
-                    <AppIcon :name="item.icon" :size="18" />{{ t(`invite.tabs.${item.id}`) }}
-                </AppChip>
-            </div>
-            <div class="stack invite__group" role="group" :aria-label="t('invite.roleLabel')">
-                <span class="label">{{ t('invite.roleLabel') }}</span>
+        <form v-if="!created" class="stack" @submit.prevent="onNext">
+            <AppStepper :steps="stepperSteps" :current="stepIndex" :label="t('invite.steps.label')" />
+
+            <section v-if="step === 'tab'" class="stack invite__group" role="group" aria-labelledby="invite-step-title">
+                <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.channelLabel') }}</h2>
+                <div class="row invite__tabs">
+                    <AppChip v-for="item in TABS" :key="item.id" :selected="tab === item.id" :data-testid="`invite-tab-${item.id}`" @click="selectTab(item.id)">
+                        <AppIcon :name="item.icon" :size="18" />{{ t(`invite.tabs.${item.id}`) }}
+                    </AppChip>
+                </div>
+            </section>
+
+            <section v-else-if="step === 'channel'" class="stack invite__group" role="group" aria-labelledby="invite-step-title">
+                <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.codeChannelLabel') }}</h2>
+                <div class="row row--wrap">
+                    <AppChip v-for="option in CODE_CHANNELS" :key="option" :selected="channel === option" :data-testid="`invite-channel-${option}`" @click="channel = option">
+                        <AppIcon :name="channelIcon(option)" :size="18" />{{ t(`invite.channels.${option}`) }}
+                    </AppChip>
+                </div>
+            </section>
+
+            <section v-else-if="step === 'role'" class="stack invite__group" role="group" aria-labelledby="invite-step-title">
+                <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.roleLabel') }}</h2>
                 <div class="row">
                     <AppChip v-for="option in ROLES" :key="option" :selected="role === option" :data-testid="`invite-role-${option}`" @click="role = option">
                         {{ t(`invite.roles.${option}`) }}
                     </AppChip>
                 </div>
                 <span class="invite__hint">{{ t(`invite.roleHint.${role}`) }}</span>
-            </div>
-            <div v-if="tab === 'code'" class="stack invite__group" role="group" :aria-label="t('invite.channelLabel')">
-                <span class="label">{{ t('invite.channelLabel') }}</span>
-                <div class="row row--wrap">
-                    <AppChip
-                        v-for="option in CODE_CHANNELS"
-                        :key="option"
-                        :selected="channel === option"
-                        :data-testid="`invite-channel-${option}`"
-                        @click="channel = option"
-                    >
-                        <AppIcon :name="channelIcon(option)" :size="18" />{{ t(`invite.channels.${option}`) }}
-                    </AppChip>
-                </div>
-            </div>
-            <label class="stack invite__group">
-                <span class="label">{{ t('invite.nameLabel') }}</span>
-                <AppInput v-model="name" type="text" maxlength="60" :placeholder="t('invite.namePlaceholder')" data-testid="invite-name" />
-            </label>
-            <label v-if="tab === 'email'" class="stack invite__group">
-                <span class="label">{{ t('invite.emailLabel') }}</span>
-                <AppInput v-model="contact" type="email" inputmode="email" required autocomplete="off" :placeholder="t('invite.emailPlaceholder')" data-testid="invite-contact" />
-                <span class="invite__hint">{{ t('invite.emailHint') }}</span>
-            </label>
-            <label v-else-if="channel === 'SMS' || channel === 'WHATSAPP'" class="stack invite__group">
-                <span class="label">{{ t('invite.phoneLabel') }}</span>
-                <AppInput v-model="contact" type="tel" autocomplete="off" data-testid="invite-contact" />
-            </label>
-            <div v-if="children.length > 0" class="stack invite__group" role="group" :aria-label="t('invite.childrenLabel')">
-                <span class="label">{{ t('invite.childrenLabel') }}</span>
+            </section>
+
+            <section v-else-if="step === 'name'" class="stack invite__group">
+                <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.nameLabel') }}</h2>
+                <AppInput v-model="name" type="text" maxlength="60" aria-labelledby="invite-step-title" :placeholder="t('invite.namePlaceholder')" data-testid="invite-name" />
+            </section>
+
+            <section v-else-if="step === 'contact'" class="stack invite__group">
+                <template v-if="tab === 'email'">
+                    <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.emailLabel') }}</h2>
+                    <AppInput
+                        v-model="contact"
+                        type="email"
+                        inputmode="email"
+                        required
+                        autocomplete="off"
+                        aria-labelledby="invite-step-title"
+                        :placeholder="t('invite.emailPlaceholder')"
+                        data-testid="invite-contact"
+                    />
+                    <span class="invite__hint">{{ t('invite.emailHint') }}</span>
+                </template>
+                <template v-else>
+                    <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.phoneLabel') }}</h2>
+                    <AppInput v-model="contact" type="tel" autocomplete="off" aria-labelledby="invite-step-title" data-testid="invite-contact" />
+                </template>
+            </section>
+
+            <section v-else class="stack invite__group" role="group" aria-labelledby="invite-step-title">
+                <h2 id="invite-step-title" ref="headingRef" class="subtitle" tabindex="-1">{{ t('invite.childrenLabel') }}</h2>
                 <span class="invite__hint">{{ t('invite.childrenHint') }}</span>
                 <div class="row row--wrap">
                     <AppChip v-for="child in children" :key="child.id" :selected="childIds.includes(child.id)" @click="toggleChild(child.id)">
                         {{ child.name }}
                     </AppChip>
                 </div>
-            </div>
+            </section>
+
             <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-            <AppButton is-block class="invite__action" type="submit" icon="send" :disabled="isBusy" data-testid="invite-create">
-                {{ tab === 'email' ? t('invite.sendEmail') : t('invite.create') }}
-            </AppButton>
+            <AppStepNav
+                :next-label="nextLabel"
+                :can-back="stepIndex > 0"
+                :is-disabled="!canContinue"
+                :is-busy="isBusy"
+                :next-test-id="isLast ? 'invite-create' : 'invite-next'"
+                @back="goBack"
+            />
         </form>
         <div v-else class="stack" data-testid="invite-result">
             <h2 class="subtitle">{{ created.channel === 'EMAIL' ? t('invite.sentTitle') : t('invite.ready') }}</h2>
@@ -103,6 +116,7 @@
 const emit = defineEmits<{ created: [invitation: IInvitationCreated] }>()
 
 type TInviteTab = 'email' | 'code'
+type TInviteStep = 'tab' | 'channel' | 'role' | 'name' | 'contact' | 'children'
 
 const TABS: { id: TInviteTab; icon: IconName }[] = [
     { id: 'email', icon: 'send' },
@@ -126,6 +140,35 @@ const created = ref<IInvitationCreated | null>(null)
 const isBusy = ref(false)
 const isCopied = ref(false)
 const errorMessage = ref('')
+const step = ref<TInviteStep>('tab')
+
+const headingRef = useStepFocus(() => step.value)
+
+const needsContact = computed<boolean>(() => tab.value === 'email' || channel.value === 'SMS' || channel.value === 'WHATSAPP')
+const steps = computed<TInviteStep[]>(() => {
+    const list: TInviteStep[] = ['tab']
+    if (tab.value === 'code') {
+        list.push('channel')
+    }
+    list.push('role', 'name')
+    if (needsContact.value) {
+        list.push('contact')
+    }
+    if (children.value.length > 0) {
+        list.push('children')
+    }
+    return list
+})
+const stepIndex = computed<number>(() => Math.max(0, steps.value.indexOf(step.value)))
+const isLast = computed<boolean>(() => stepIndex.value === steps.value.length - 1)
+const stepperSteps = computed(() => steps.value.map(id => ({ id, label: t(`invite.steps.${id}`) })))
+const canContinue = computed<boolean>(() => step.value !== 'contact' || tab.value !== 'email' || contact.value.trim() !== '')
+const nextLabel = computed<string>(() => {
+    if (!isLast.value) {
+        return t('common.next')
+    }
+    return tab.value === 'email' ? t('invite.sendEmail') : t('invite.create')
+})
 
 const canShare = computed(() => import.meta.client && typeof navigator.share === 'function')
 const hoursLeft = computed(() => (created.value ? Math.max(1, Math.round((new Date(created.value.expiresAt).getTime() - Date.now()) / 3_600_000)) : EXPIRY_HOURS))
@@ -168,6 +211,22 @@ const submit = async (): Promise<void> => {
     }
 }
 
+const onNext = async (): Promise<void> => {
+    if (!canContinue.value) {
+        return
+    }
+    if (isLast.value) {
+        await submit()
+        return
+    }
+    step.value = steps.value[stepIndex.value + 1] ?? step.value
+}
+
+const goBack = (): void => {
+    errorMessage.value = ''
+    step.value = steps.value[Math.max(0, stepIndex.value - 1)] ?? 'tab'
+}
+
 const share = async (): Promise<void> => {
     if (!created.value) {
         return
@@ -194,6 +253,7 @@ const reset = (): void => {
     name.value = ''
     contact.value = ''
     childIds.value = []
+    step.value = 'tab'
 }
 
 onMounted(ensureLoaded)

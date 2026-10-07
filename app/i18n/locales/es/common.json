@@ -21,5 +21,6 @@
     "continue": "Continuar",
     "done": "Hecho",
     "optional": "opcional",
-    "unknownError": "Ha ocurrido un error, inténtalo de nuevo."
+    "unknownError": "Ha ocurrido un error, inténtalo de nuevo.",
+    "progress": "Step {current} of {total}"
 }

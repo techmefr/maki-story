@@ -1,40 +1,50 @@
 <template>
-    <div class="stack create">
-        <div class="row create__head">
-            <AppIconButton v-if="step !== 'done'" icon="back" :label="t('common.back')" @click="goBack" />
-            <ol class="create__segments" :aria-label="t('family.create.progress', { current: stepIndex + 1, total: FAMILY_CREATE_STEPS.length })">
-                <li v-for="item in FAMILY_CREATE_STEPS" :key="item" class="create__segment" :class="{ 'create__segment--on': FAMILY_CREATE_STEPS.indexOf(item) <= stepIndex }" />
-            </ol>
-        </div>
+    <form class="stack create" @submit.prevent="onNext">
+        <AppStepper v-if="step !== 'done'" :steps="stepperSteps" :current="groupIndex" :label="t('family.create.groups.label')" />
 
         <section v-if="step === 'name'" class="stack">
-            <h1 class="title" tabindex="-1">{{ t('family.create.name.title') }}</h1>
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.name.title') }}</h1>
             <p class="create__hint">{{ t('family.create.name.hint') }}</p>
-            <AppInput v-model="familyName" maxlength="60" :placeholder="t('family.create.name.placeholder')" :aria-label="t('family.create.name.title')" data-testid="family-create-name" />
+            <AppInput v-model="familyName" maxlength="60" :placeholder="t('family.create.name.placeholder')" aria-labelledby="family-create-title" data-testid="family-create-name" />
         </section>
 
-        <section v-else-if="step === 'you'" class="stack">
-            <h1 class="title" tabindex="-1">{{ t('family.create.you.title') }}</h1>
+        <section v-else-if="step === 'firstName'" class="stack">
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.you.firstName') }}</h1>
             <p class="create__hint">{{ t('family.create.you.hint') }}</p>
-            <AppInput v-model="firstName" maxlength="60" autocomplete="given-name" :placeholder="t('family.create.you.firstName')" :aria-label="t('family.create.you.firstName')" data-testid="family-create-first-name" />
-            <AppInput v-model="lastName" maxlength="60" autocomplete="family-name" :placeholder="t('family.create.you.lastName')" :aria-label="t('family.create.you.lastName')" />
-            <AppInput v-model="displayName" maxlength="60" :placeholder="firstName || t('family.create.you.displayName')" :aria-label="t('family.create.you.displayName')" />
-            <p class="create__hint">{{ t('family.create.you.displayHint') }}</p>
+            <AppInput v-model="firstName" maxlength="60" autocomplete="given-name" aria-labelledby="family-create-title" data-testid="family-create-first-name" />
         </section>
 
-        <section v-else-if="step === 'child'" class="stack">
-            <h1 class="title" tabindex="-1">{{ t('family.create.child.title') }}</h1>
+        <section v-else-if="step === 'lastName'" class="stack">
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.you.lastName') }}</h1>
+            <p class="create__hint">{{ t('common.optional') }}</p>
+            <AppInput v-model="lastName" maxlength="60" autocomplete="family-name" aria-labelledby="family-create-title" data-testid="family-create-last-name" />
+        </section>
+
+        <section v-else-if="step === 'displayName'" class="stack">
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.you.displayName') }}</h1>
+            <p class="create__hint">{{ t('family.create.you.displayHint') }}</p>
+            <AppInput v-model="displayName" maxlength="60" :placeholder="firstName" aria-labelledby="family-create-title" data-testid="family-create-display-name" />
+        </section>
+
+        <section v-else-if="step === 'childName'" class="stack">
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.child.title') }}</h1>
+            <AppInput v-model="childName" maxlength="60" :placeholder="t('family.create.child.namePlaceholder')" aria-labelledby="family-create-title" data-testid="family-create-child" />
+        </section>
+
+        <section v-else-if="step === 'childAge'" class="stack" role="group" aria-labelledby="family-create-title">
+            <h1 id="family-create-title" ref="headingRef" class="title" tabindex="-1">{{ t('family.create.child.age') }}</h1>
+            <div class="row row--wrap">
+                <AppChip v-for="age in AGES" :key="age" :selected="childAge === age" :data-testid="`family-create-age-${age}`" @click="childAge = age">{{ age }}</AppChip>
+            </div>
+        </section>
+
+        <section v-else-if="step === 'childPhoto'" class="stack">
+            <h1 ref="headingRef" class="title" tabindex="-1">{{ t('family.create.child.photo') }}</h1>
+            <p class="create__hint">{{ t('common.optional') }}</p>
             <button type="button" class="create__photo" :aria-label="t('family.create.child.photo')" @click="isCapturing = true">
                 <img v-if="photoUrl" :src="photoUrl" alt="" class="create__photo-img" />
                 <span v-else class="create__photo-empty"><AppIcon name="camera" :size="40" />{{ t('family.create.child.photo') }}</span>
             </button>
-            <AppInput v-model="childName" maxlength="60" :placeholder="t('family.create.child.namePlaceholder')" :aria-label="t('family.create.child.namePlaceholder')" data-testid="family-create-child" />
-            <div class="stack create__ages" role="group" :aria-label="t('family.create.child.age')">
-                <span class="label">{{ t('family.create.child.age') }}</span>
-                <div class="row row--wrap">
-                    <AppChip v-for="age in AGES" :key="age" :selected="childAge === age" :data-testid="`family-create-age-${age}`" @click="childAge = age">{{ age }}</AppChip>
-                </div>
-            </div>
             <AppBottomSheet :open="isCapturing" :title="t('member.form.captureTitle')" @close="isCapturing = false">
                 <p class="create__hint">{{ t('member.form.captureHint') }}</p>
                 <PhotoCapture @captured="onCaptured" />
@@ -42,43 +52,45 @@
         </section>
 
         <section v-else-if="step === 'childCode'" class="stack">
-            <h1 class="title" tabindex="-1">{{ t('family.create.childCode.title', { name: childName.trim() }) }}</h1>
+            <h1 ref="headingRef" class="title" tabindex="-1">{{ t('family.create.childCode.title', { name: childName.trim() }) }}</h1>
             <CodeField v-model="childCode" role="child" />
         </section>
 
         <section v-else-if="step === 'parentCode'" class="stack">
-            <h1 class="title" tabindex="-1">{{ t('family.create.parentCode.title') }}</h1>
+            <h1 ref="headingRef" class="title" tabindex="-1">{{ t('family.create.parentCode.title') }}</h1>
             <CodeField v-model="parentCode" role="parent" :label="t('family.create.parentCode.hint')" />
         </section>
 
         <section v-else class="stack create__done">
             <span class="create__check"><AppIcon name="check" :size="58" /></span>
-            <h1 class="title" tabindex="-1">{{ t('family.create.done.title', { name: familyName.trim() }) }}</h1>
+            <h1 ref="headingRef" class="title" tabindex="-1">{{ t('family.create.done.title', { name: familyName.trim() }) }}</h1>
             <p class="create__hint">{{ t('family.create.done.hint', { name: childName.trim() }) }}</p>
         </section>
 
         <p v-if="hasFailed" class="error" role="alert">{{ t('family.create.failed') }}</p>
-        <AppButton is-block class="create__action" :icon="actionIcon" :disabled="isBusy || !canContinue" data-testid="family-create-next" @click="onNext">
-            {{ actionLabel }}
-        </AppButton>
-    </div>
+        <div class="create__action">
+            <AppStepNav :next-label="actionLabel" :can-back="step !== 'done'" :is-disabled="!canContinue" :is-busy="isBusy" next-test-id="family-create-next" @back="goBack" />
+        </div>
+    </form>
 </template>
 
 <script setup lang="ts">
 const AGES = Array.from({ length: 13 }, (_, index) => index)
 
 const { t } = useI18n()
-const { step, stepIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next } = useFamilyCreate()
+const { step, stepIndex, groupIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next } = useFamilyCreate()
 
 const isCapturing = ref(false)
 const photoUrl = ref<string | null>(null)
 
-const actionLabel = computed<string>(() => t(`family.create.action.${step.value}`))
-const actionIcon = computed<'next' | 'check' | 'send'>(() => {
+const headingRef = useStepFocus(() => step.value)
+
+const stepperSteps = computed(() => FAMILY_CREATE_GROUPS.map(id => ({ id, label: t(`family.create.groups.${id}`) })))
+const actionLabel = computed<string>(() => {
     if (step.value === 'parentCode') {
-        return 'check'
+        return t('family.create.action.parentCode')
     }
-    return step.value === 'done' ? 'send' : 'next'
+    return step.value === 'done' ? t('family.create.action.done') : t('family.create.action.next')
 })
 
 const goBack = async (): Promise<void> => {
@@ -113,31 +125,6 @@ onBeforeUnmount(() => {
 <style scoped>
 .create {
     min-height: calc(100dvh - 40px);
-}
-
-.create__head {
-    gap: 12px;
-}
-
-.create__segments {
-    display: flex;
-    flex: 1;
-    gap: 6px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.create__segment {
-    flex: 1;
-    height: 14px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 7px;
-    background: var(--paper);
-}
-
-.create__segment--on {
-    background: var(--yellow);
 }
 
 .create__hint {

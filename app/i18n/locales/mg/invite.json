@@ -57,5 +57,15 @@
     "emailHint": "Mahazo rohy hamoronana ny mombamomba azy sy hiditra amin’ny fianakaviana izy.",
     "sendEmail": "Alefaso ny fanasana",
     "sentTitle": "Voalefa ny fanasana",
-    "codeLabel": "Kaody fanasana"
+    "codeLabel": "Kaody fanasana",
+    "codeChannelLabel": "Which channel?",
+    "steps": {
+        "label": "Invitation steps",
+        "tab": "Mode",
+        "channel": "Channel",
+        "role": "Role",
+        "name": "Name",
+        "contact": "Contact",
+        "children": "Children"
+    }
 }

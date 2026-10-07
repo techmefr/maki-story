@@ -21,5 +21,6 @@
     "continue": "Fortfahren",
     "done": "Fertig",
     "optional": "optional",
-    "unknownError": "Etwas ist schiefgelaufen, bitte versuche es erneut."
+    "unknownError": "Etwas ist schiefgelaufen, bitte versuche es erneut.",
+    "progress": "Step {current} of {total}"
 }

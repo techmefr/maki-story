@@ -81,6 +81,16 @@
         "skipped": {
             "one": "{count} Bild konnte nicht erstellt werden: Die betroffenen Seiten sind leer. Du kannst sie später ergänzen.",
             "other": "{count} Bilder konnten nicht erstellt werden: Die betroffenen Seiten sind leer. Du kannst sie später ergänzen."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

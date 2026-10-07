@@ -21,5 +21,6 @@
     "continue": "Continue",
     "done": "Done",
     "optional": "optional",
-    "unknownError": "Something went wrong, please try again."
+    "unknownError": "Something went wrong, please try again.",
+    "progress": "Step {current} of {total}"
 }

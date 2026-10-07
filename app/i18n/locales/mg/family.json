@@ -74,7 +74,6 @@
         "create": "Mamorona fianakaviana"
     },
     "create": {
-        "progress": "Dingana {current} amin’ny {total}",
         "name": {
             "title": "Foronina ny fianakavianao",
             "hint": "Anarana fantatry ny rehetra.",
@@ -98,21 +97,24 @@
             "hint": "Manana mombamomba i {name}. Asao izao ny havana hamoaka ny feony."
         },
         "action": {
-            "name": "Tohizo",
-            "child": "Tohizo",
-            "childCode": "Tohizo",
             "parentCode": "Foronina ny fianakavianako",
             "done": "Asao ny havana",
-            "you": "Tohizo"
+            "next": "Continue"
         },
         "failed": "Tsy afaka naforona ny fianakaviana. Andramo indray.",
         "you": {
-            "title": "Ary ianao?",
             "hint": "Ny fomba ahafantaran’ny ankizy sy ny havana anao.",
             "firstName": "Anarana",
             "lastName": "Fanampin’anarana",
             "displayName": "Anarana aseho",
             "displayHint": "Ny anarana aseho no hitan’ny hafa. Raha tsy misy fisafidianana, ny anaranao no ampiasaina."
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

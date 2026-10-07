@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
 import type { IMember } from '../../shared/types/member'
-import { enterPin, PARENT_NAME, PROFILE_PIN, uniqueAccount } from './helpers'
+import { enterPin, inviteByLink, PARENT_NAME, PROFILE_PIN, uniqueAccount } from './helpers'
 import type { IE2eAccount } from './helpers'
 
 const registerThroughForm = async (page: Page, account: IE2eAccount): Promise<void> => {
@@ -64,9 +64,7 @@ test.describe('guided first launch', () => {
         await setParentCode(page)
         await page.getByTestId('welcome-children-skip').click()
         await expect(page.getByRole('heading', { name: 'Invite un premier proche' })).toBeVisible()
-        await page.getByTestId('invite-tab-code').click()
-        await page.getByTestId('invite-channel-LINK').click()
-        await page.getByTestId('invite-create').click()
+        await inviteByLink(page)
         await expect(page.getByTestId('invite-link')).toHaveValue(/\/join\/[a-z0-9]{6}$/)
         await expect(page.getByTestId('welcome-invite-next')).toContainText('Continuer')
         await page.getByTestId('welcome-invite-next').click()

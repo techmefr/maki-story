@@ -21,5 +21,6 @@
     "continue": "متابعة",
     "done": "تم",
     "optional": "اختياري",
-    "unknownError": "حدث خطأ، حاول مرة أخرى."
+    "unknownError": "حدث خطأ، حاول مرة أخرى.",
+    "progress": "Step {current} of {total}"
 }

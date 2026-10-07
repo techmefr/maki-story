@@ -187,6 +187,9 @@ test.describe('profile menu', () => {
         const parent = await memberNamed(page.request, PARENT_NAME)
         expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
         await page.goto('/books/new')
+        await page.getByLabel('Titre du livre').fill('Langue par défaut')
+        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
         await expect(page.getByLabel('Langue du livre')).toContainText('Malagasy')
     })
 

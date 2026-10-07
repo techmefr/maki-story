@@ -80,6 +80,16 @@
         "promptKeepSame": "每一页都要保持一致的角色：",
         "skipped": {
             "other": "有 {count} 张图片没能生成：相关页面是空白的。你可以稍后再补上。"
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

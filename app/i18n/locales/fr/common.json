@@ -21,5 +21,6 @@
     "continue": "Continuer",
     "done": "Terminé",
     "optional": "facultatif",
-    "unknownError": "Une erreur est survenue, réessaie."
+    "unknownError": "Une erreur est survenue, réessaie.",
+    "progress": "Étape {current} sur {total}"
 }

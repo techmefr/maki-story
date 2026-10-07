@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, linesCard, login, nextStep, openCast, pngFile, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, linesCard, login, toPages, openCast, pngFile, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 test.describe.configure({ mode: 'serial' })
@@ -32,7 +32,7 @@ test.describe('multi voice book', () => {
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
         await expect(page.getByText('1/3')).toBeVisible()
         await page.getByLabel('Titre du livre').fill(`Le petit zébu ${project}`)
-        await nextStep(page)
+        await toPages(page)
 
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await page.getByTestId('add-photo-input').setInputFiles([pngFile('p1.png'), pngFile('p2.png')])

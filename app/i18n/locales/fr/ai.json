@@ -81,6 +81,16 @@
         "skipped": {
             "one": "{count} image n’a pas pu être créée : les pages concernées sont vides. Tu peux les compléter plus tard.",
             "other": "{count} images n’ont pas pu être créées : les pages concernées sont vides. Tu peux les compléter plus tard."
+        },
+        "agesTitle": "Pour quels âges ?",
+        "steps": {
+            "label": "Étapes de la création",
+            "idea": "Idée",
+            "language": "Langue",
+            "ages": "Âges",
+            "pages": "Pages",
+            "hero": "Héros",
+            "sheet": "Personnages"
         }
     }
 }

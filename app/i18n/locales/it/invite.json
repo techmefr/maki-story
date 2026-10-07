@@ -57,5 +57,15 @@
     "emailHint": "Riceve un link per creare il suo profilo e unirsi alla famiglia.",
     "sendEmail": "Invia l’invito",
     "sentTitle": "Invito inviato",
-    "codeLabel": "Codice d’invito"
+    "codeLabel": "Codice d’invito",
+    "codeChannelLabel": "Which channel?",
+    "steps": {
+        "label": "Invitation steps",
+        "tab": "Mode",
+        "channel": "Channel",
+        "role": "Role",
+        "name": "Name",
+        "contact": "Contact",
+        "children": "Children"
+    }
 }
