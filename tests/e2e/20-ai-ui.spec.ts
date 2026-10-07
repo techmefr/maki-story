@@ -91,7 +91,7 @@ test.describe('ai interface', () => {
 
         await row.getByRole('button', { name: 'Valider Le petit zébu' }).click()
         await expect(page.getByRole('region', { name: /À valider/ })).toHaveCount(0)
-        await expect(page.getByRole('region', { name: /À enregistrer/ }).getByText('Le petit zébu')).toBeVisible()
+        await expect(page.locator('.book', { hasText: 'Le petit zébu' }).first()).toContainText('À enregistrer')
         expect(await (await child.get('/api/books')).json()).toEqual([])
 
         const [summary] = (await (await page.request.get('/api/books')).json()) as IBookSummary[]

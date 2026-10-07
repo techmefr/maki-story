@@ -51,7 +51,7 @@
                 />
             </div>
         </div>
-        <AppMoreOptions v-if="canSetChildOptions || canSetLanguages">
+        <AppMoreOptions v-if="canSetChildOptions || canSetLanguages" test-id="member-more-toggle">
             <div v-if="canSetChildOptions" class="stack" style="gap: 6px">
                 <label class="stack" style="gap: 6px">
                     <span class="label">{{ t('member.form.birthDate') }}</span>

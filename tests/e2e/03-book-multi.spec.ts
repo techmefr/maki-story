@@ -88,7 +88,7 @@ test.describe('multi voice book', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/library')
-        await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('À enregistrer')
+        await expect(page.locator('.book', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('À enregistrer')
     })
 
     test('records every line in the studio and publishes', async ({ page }) => {
@@ -132,7 +132,7 @@ test.describe('multi voice book', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/library')
-        await expect(page.locator('a.card', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('Prêt')
+        await expect(page.locator('.book', { hasText: `Le petit zébu ${info.project.name}` }).first()).toContainText('Prêt')
         const response = await page.request.post('/api/books', {
             data: { title: 'A supprimer', kind: 'multi', soloMemberId: null, imageDesc: '', pageFileIds: [], lines: [{ pageIndex: 0, character: '', text: 'x' }] },
         })

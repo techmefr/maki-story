@@ -200,6 +200,7 @@ test.describe('profile menu', () => {
         await addMember(page, child, 'Enfant')
         const created = await memberNamed(page.request, child)
         await page.goto(`/family/${created.id}`)
+        await page.getByTestId('member-more-toggle').click()
         await page.getByRole('group', { name: 'Langues parlées' }).getByRole('button', { name: /Malagasy/ }).click()
         await page.getByRole('button', { name: 'Enregistrer' }).click()
         await expect.poll(async () => (await memberNamed(page.request, child)).spokenLanguages).toEqual(['mg'])

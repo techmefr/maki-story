@@ -277,7 +277,7 @@ test.describe('book review through the API', () => {
 
 const openReview = async (page: Page, title: string): Promise<void> => {
     await page.goto('/library')
-    await page.locator('a.book', { hasText: title }).first().click()
+    await page.locator('.book', { hasText: title }).first().click()
     await expect(page).toHaveURL(/\/review$/)
 }
 
@@ -301,7 +301,7 @@ test.describe('book review in the interface', () => {
         await signIn(page.request, account)
         await chooseProfile(page, 'Parent')
         await page.goto('/library')
-        const card = page.locator('a.book', { hasText: 'Histoire du matin' }).first()
+        const card = page.locator('.book', { hasText: 'Histoire du matin' }).first()
         await expect(card.getByTestId('review-dot')).toBeVisible()
         await page.goto('/notifications')
         await expect(page.getByText('Mamie a fini d’enregistrer 2 répliques de « Histoire du matin »')).toBeVisible()
@@ -344,11 +344,11 @@ test.describe('book review in the interface', () => {
         await page.goto('/library')
         await switchProfile(page, 'Parent')
         await openReview(page, 'Histoire du matin')
+        await page.getByTestId('review-more-toggle').click()
         await expect(page.getByRole('button', { name: 'À relire (1)' })).toBeVisible()
         await page.getByRole('button', { name: 'Valider tout le livre' }).click()
         await expect(page.getByTestId('book-status')).toHaveText('Prêt')
         const seenAfterVisit = page.waitForResponse(response => response.url().includes('/seen'))
-        await page.getByTestId('review-more-toggle').click()
         await page.getByRole('link', { name: 'Activité' }).click()
         await expect(page.getByTestId('activity-summary')).toContainText('nouveauté')
         await expect(page.getByText('a validé le livre')).toBeVisible()
