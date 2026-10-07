@@ -625,6 +625,7 @@ textarea.input {
     padding: 3px 10px;
     font: 700 0.75rem/1.3 var(--font-title);
     background: var(--bg);
+    color: var(--ink);
 }
 
 .error {
@@ -1166,7 +1167,7 @@ select:focus-visible,
     background: var(--yellow);
     box-shadow: var(--shadow);
     font: 700 1rem/1 var(--font-title);
-    color: var(--ink);
+    color: var(--on-accent);
     text-decoration: none;
 }
 
