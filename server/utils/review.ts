@@ -154,17 +154,20 @@ export const grantRestrictedChildren = async (db: Db, familyId: string, bookId: 
 }
 
 export const completeIfAllApproved = async (db: Db, familyId: string, book: IReviewBook, actorMemberId: string | null): Promise<boolean> => {
-    const [state] = await db<{ lines: number; approved: number }[]>`
+    const [state] = await db<{ lines: number; approved: number; pending: number }[]>`
         select count(*)::int as lines,
             count(*) filter (where exists (
                 select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status = 'approved'
-            ))::int as approved
+            ))::int as approved,
+            count(*) filter (where exists (
+                select 1 from recordings r where r.line_id = l.id and r.language = ${book.language} and r.status = submitted
+            ))::int as pending
         from lines l where l.book_id = ${book.id} and l.family_id = ${familyId}
     `
     if (state && state.approved > 0 && book.status === 'to_record') {
         await db`update books set status = 'in_review' where id = ${book.id} and family_id = ${familyId} and status = 'to_record'`
     }
-    if (!state || state.lines === 0 || state.approved < state.lines || book.status === 'ready') {
+    if (!state || state.lines === 0 || state.approved === 0 || state.pending > 0 || book.status === 'ready') {
         return false
     }
     await db`update books set status = 'ready' where id = ${book.id} and family_id = ${familyId}`
