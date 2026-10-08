@@ -126,10 +126,8 @@
             </div>
         </section>
         <form v-if="isRedoOpen" class="stack card" @submit.prevent="sendRedo">
-            <label class="label" for="redo-line">{{ t('review.redoLine') }}</label>
-            <select id="redo-line" v-model="redoLineId" class="input">
-                <option v-for="line in redoLines" :key="line.id" :value="line.id">{{ redoOptionLabel(line) }}</option>
-            </select>
+            <span class="label">{{ t('review.redoLine') }}</span>
+            <AppSelect v-model="redoLineId" :aria-label="t('review.redoLine')" :options="redoLineOptions" />
             <label class="label" for="redo-comment">{{ t('review.commentLabel') }}</label>
             <textarea id="redo-comment" v-model="draft" class="input" rows="3" maxlength="500" required />
             <div class="row row--wrap">
@@ -299,6 +297,7 @@ const approve = (line: ILine): Promise<void> => run(async () => void (await revi
 
 const isRedoOpen = ref(false)
 const redoLineId = ref('')
+const redoLineOptions = computed(() => redoLines.value.map(line => ({ value: line.id, label: redoOptionLabel(line) })))
 const redoLines = computed(() => (book.value?.lines ?? []).filter(line => canReview(line)))
 const redoOptionLabel = (line: ILine): string => `${t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') })} - ${textOf(line)}`
 

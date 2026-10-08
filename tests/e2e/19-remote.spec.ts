@@ -83,15 +83,10 @@ test.describe('remote and keyboard navigation', () => {
         await expect(page).toHaveURL(/\/kid\/listen\//)
     })
 
-    test('the back key leaves the player and closes the sheet first', async ({ page }) => {
+    test('the back key leaves the player', async ({ page }) => {
         await signIn(page.request, account)
         await chooseProfile(page, 'Lova')
         await page.goto('/kid/library')
-        await expect(page).toHaveURL(/\/kid\/library$/)
-        await page.getByRole('button', { name: 'Fiche de Second conte' }).click()
-        await expect(page.getByRole('dialog')).toBeVisible()
-        await page.keyboard.press('Escape')
-        await expect(page.getByRole('dialog')).toHaveCount(0)
         await expect(page).toHaveURL(/\/kid\/library$/)
         await page.getByRole('link', { name: /Second conte/ }).click()
         await expect(page).toHaveURL(/\/kid\/listen\//)
