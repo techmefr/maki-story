@@ -100,6 +100,7 @@
                 <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
                 <div v-if="currentPanelNumber" class="badge" data-testid="current-panel">{{ t('studio.panelLine', { n: currentPanelNumber }) }}</div>
                 <p class="stage__text" data-testid="teleprompter-text">{{ lineText(currentLine) }}</p>
+                <LineReadAloud v-if="isLanguageChosen" :line-id="currentLine.id" :text="lineText(currentLine)" :language="language" />
                 <div v-if="book.imageDesc" class="hint">{{ t('studio.image', { text: book.imageDesc }) }}</div>
                 <div v-if="activeTone" class="hint">{{ t('studio.voiceTone', { text: activeTone }) }}</div>
                 <div v-if="currentLine.note" class="hint">{{ t('studio.note', { text: currentLine.note }) }}</div>
@@ -236,6 +237,7 @@ const recorder = useRecorder(recording => takeRecording(recording, true))
 const { isRecording, elapsedMs, remainingMs, errorMessage, start, stop } = recorder
 const player = useAudioPlayer()
 const speech = useSpeechAssist()
+const lineVoice = useLineVoice()
 const wakeLock = useWakeLock()
 const { unlock, panelCue, isCueFlashing } = useDing()
 
@@ -489,6 +491,7 @@ const toggleRecord = async (): Promise<void> => {
     unlock()
     if (!isRecording.value) {
         speech.cancel()
+        lineVoice.stop()
         limitNotice.value = ''
         if (await start()) {
             void wakeLock.request()

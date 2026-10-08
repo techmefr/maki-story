@@ -1,0 +1,5 @@
+{
+    "play": "Lire le texte à voix haute",
+    "stop": "Couper la lecture",
+    "missing": "Aucune voix n’est installée sur cet appareil pour cette langue. Lis le texte toi-même ou installe une voix dans les réglages de l’appareil."
+}

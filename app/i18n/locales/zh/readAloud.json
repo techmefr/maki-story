@@ -1,0 +1,5 @@
+{
+    "play": "Read the text aloud",
+    "stop": "Cut the reading",
+    "missing": "This device has no voice for this language. Read the text yourself or install a voice in the device settings."
+}

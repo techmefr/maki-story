@@ -24,6 +24,7 @@
                     <ins class="review__new">{{ line.text }}</ins>
                 </p>
                 <p v-else class="review__text" data-testid="review-line-text">{{ textOf(line) }}</p>
+                <LineReadAloud :line-id="line.id" :text="textOf(line)" :language="language" />
                 <p v-if="isOriginalShown && language !== book.language" class="review__original muted" data-testid="review-original-text">{{ t('reviewLanguage.original') }} {{ line.text }}</p>
                 <ul v-if="commentsOf(line).length > 0" class="review__thread" :aria-label="t('review.comments')">
                     <li v-for="comment in commentsOf(line)" :key="comment.id" :class="{ 'review__comment--done': comment.resolvedAt !== null }">
