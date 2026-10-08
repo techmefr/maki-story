@@ -41,7 +41,8 @@
                 type="button"
                 class="card card--tap"
                 :style="{
-                    background: index === currentIndex ? hexOfLine(line) : '#fff',
+                    background: index === currentIndex ? hexOfLine(line) : 'var(--paper)',
+                    color: index === currentIndex ? 'var(--on-accent)' : 'var(--ink)',
                     fontStyle: line.character === 'Narrateur' ? 'italic' : 'normal',
                 }"
                 @click="jumpTo(index)"

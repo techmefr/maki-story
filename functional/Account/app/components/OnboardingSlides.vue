@@ -163,7 +163,7 @@ const next = (): void => {
     height: 200px;
     border: 5px solid var(--ink);
     border-radius: 50%;
-    background: #fff;
+    background: var(--paper);
     box-shadow: 8px 10px 0 var(--line);
     color: var(--pink);
 }
@@ -200,7 +200,7 @@ const next = (): void => {
     height: 16px;
     border: 3px solid var(--ink);
     border-radius: 8px;
-    background: #fff;
+    background: var(--paper);
     transition: width 0.3s;
 }
 

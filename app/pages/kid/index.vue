@@ -104,7 +104,7 @@ onBeforeUnmount(stopPolling)
 }
 
 .face__ring--heard {
-    border-color: #b8b5c4;
+    border-color: var(--grey-line);
 }
 
 @keyframes ring-glow {

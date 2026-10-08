@@ -7,7 +7,7 @@
             class="picker"
             :class="{ 'picker--on': member.id === modelValue }"
             :aria-pressed="member.id === modelValue"
-            :style="{ background: member.id === modelValue ? hexOf(member) : '#fff' }"
+            :style="member.id === modelValue ? { background: hexOf(member), color: 'var(--on-accent)' } : { background: 'var(--paper)', color: 'var(--ink)' }"
             @click="emit('update:modelValue', member.id)"
         >
             <AppAvatar :member="member" :size="32" />

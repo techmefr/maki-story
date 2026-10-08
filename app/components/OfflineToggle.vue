@@ -7,7 +7,7 @@
             <span class="muted">{{ t('shell.offline.downloading', { done: current.done, total: current.total }) }}</span>
         </div>
         <div v-else-if="isDownloaded(bookId)" class="row row--wrap">
-            <span class="badge" style="background: #4AD3A5">{{ t('shell.offline.available', { size: sizeLabel }) }}</span>
+            <span class="badge" style="background: var(--mint); color: var(--on-accent)">{{ t('shell.offline.available', { size: sizeLabel }) }}</span>
             <AppButton variant="secondary" size="sm" @click="remove(bookId)">
                 <AppIcon name="trash" :size="16" />{{ t('shell.offline.remove') }}
             </AppButton>

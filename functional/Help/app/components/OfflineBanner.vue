@@ -29,7 +29,8 @@ const retry = async () => {
     justify-content: center;
     gap: 8px;
     padding: 10px 16px calc(env(safe-area-inset-bottom) + 10px);
-    background: #FFC933;
+    background: var(--yellow);
+    color: var(--on-accent);
     border-top: 2.5px solid var(--ink);
     font: 700 0.875rem/1.3 var(--font-title);
 }
@@ -38,7 +39,8 @@ const retry = async () => {
     padding: 4px 12px;
     border: 2px solid var(--ink);
     border-radius: 999px;
-    background: #fff;
+    background: var(--paper);
+    color: var(--ink);
     font: inherit;
 }
 </style>

@@ -239,19 +239,19 @@ select {
 }
 
 .btn--tone-sky {
-    --tone: #cfe6ff;
+    --tone: var(--sky);
 }
 
 .btn--tone-mint {
-    --tone: #c4f1e1;
+    --tone: var(--mint-pale);
 }
 
 .btn--tone-grape {
-    --tone: #e3d6ff;
+    --tone: var(--lilac);
 }
 
 .btn--tone-pink {
-    --tone: #ffd9ec;
+    --tone: var(--pink-pale);
 }
 
 .btn--tertiary {
@@ -275,9 +275,9 @@ select {
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-    background: #e4e2ea;
-    color: #5f5b78;
-    border-color: #8f8ba6;
+    background: var(--grey-ui);
+    color: var(--grey-ui-ink);
+    border-color: var(--grey-line);
     box-shadow: none;
     cursor: not-allowed;
 }
@@ -392,7 +392,7 @@ select {
     height: 34px;
     border: 3px solid var(--ink);
     border-radius: 999px;
-    background: #e4e2ea;
+    background: var(--grey-ui);
     box-shadow: var(--shadow);
     transition: background 0.15s;
 }
@@ -536,8 +536,8 @@ select {
 }
 
 .select__button:disabled {
-    background: #e4e2ea;
-    color: #5f5b78;
+    background: var(--grey-ui);
+    color: var(--grey-ui-ink);
     box-shadow: none;
     cursor: not-allowed;
 }
@@ -571,7 +571,8 @@ select {
 }
 
 .select__option--active {
-    background: #cfe6ff;
+    background: var(--sky);
+    color: var(--on-accent);
 }
 
 .select__option[aria-selected="true"] {
@@ -600,7 +601,7 @@ select {
 }
 
 .input::placeholder {
-    color: #6b6788;
+    color: var(--ink-soft);
     opacity: 1;
 }
 
@@ -1382,7 +1383,8 @@ label.row {
     height: 52px;
     border: 3px solid var(--ink);
     border-radius: 50%;
-    background: #cfe6ff;
+    background: var(--sky);
+    color: var(--on-accent);
     box-shadow: var(--shadow);
 }
 
@@ -1412,7 +1414,7 @@ label.row {
 .empty--notifications .empty__prop,
 .empty--locked .empty__prop,
 .empty--offline .empty__prop {
-    background: #e4e2ea;
+    background: var(--grey-ui);
 }
 
 .empty--paused .empty__maki,

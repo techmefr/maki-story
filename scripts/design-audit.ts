@@ -45,7 +45,7 @@ const contrast = (first: string, second: string): number => {
     return (high + 0.05) / (low + 0.05)
 }
 
-const ACCENTS = ['yellow', 'sky', 'mint', 'mint-soft', 'coral', 'pink', 'violet', 'blue', 'danger-soft']
+const ACCENTS = ['yellow', 'sky', 'mint', 'mint-soft', 'mint-pale', 'lilac', 'pink-pale', 'coral', 'pink', 'violet', 'blue', 'danger-soft']
 const pairs: [string, string, number][] = [
     ['ink', 'bg', 4.5],
     ['ink', 'paper', 4.5],
@@ -55,8 +55,17 @@ const pairs: [string, string, number][] = [
     ['danger', 'paper', 4.5],
     ['grey-ui-ink', 'grey-ui', 4.5],
     ['chip-on-ink', 'chip-on-bg', 4.5],
+    ['ink-soft', 'grey', 4.5],
+    ['ink', 'grey', 4.5],
+    ['bg', 'ink', 4.5],
+    ['cream', 'night', 4.5],
+    ['on-accent', 'cream', 4.5],
     ['line', 'bg', 3],
     ['line', 'paper', 3],
+    ['line', 'grey-ui', 3],
+    ['grey-line', 'bg', 3],
+    ['grey-line', 'paper', 3],
+    ['grey-line', 'grey-ui', 3],
     ...ACCENTS.map((accent): [string, string, number] => ['on-accent', accent, 4.5]),
 ]
 for (const [name, theme] of [['light', light], ['dark', dark]] as const) {

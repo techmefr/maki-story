@@ -19,7 +19,7 @@
             <article v-for="line in book.lines" :key="line.id" class="card stack" :aria-label="t('sharing.detail.lineAria', { name: line.character || t('sharing.detail.narratorLower') })">
                 <div class="row">
                     <span class="badge">{{ line.character || t('sharing.detail.narrator') }}</span>
-                    <span v-if="line.hasRecording" class="badge" style="background: #4AD3A5">{{ t('sharing.detail.sent') }}</span>
+                    <span v-if="line.hasRecording" class="badge" style="background: var(--mint); color: var(--on-accent)">{{ t('sharing.detail.sent') }}</span>
                 </div>
                 <p>{{ line.text }}</p>
                 <p v-if="line.tone || line.note || line.sceneDescription" class="muted">{{ hint(line) }}</p>

@@ -173,10 +173,10 @@
                 type="button"
                 class="card card--tap row"
                 :disabled="isLocked"
-                :style="{ background: line.id === currentLineId ? '#FFF3DC' : '#fff' }"
+                :style="{ background: line.id === currentLineId ? 'var(--bg)' : 'var(--paper)', color: 'var(--ink)' }"
                 @click="currentLineId = line.id"
             >
-                <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : '#fff' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
+                <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : 'var(--paper)', color: hasVoice(line, language) ? 'var(--on-accent)' : 'var(--ink)' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
                 <span class="grow">{{ lineText(line) }}</span>
                 <span v-if="needsRedo(line)" class="badge studio__redo">{{ t('review.filters.redo') }}</span>
             </button>

@@ -109,10 +109,11 @@ onMounted(load)
     border: var(--outline) solid var(--ink);
     border-radius: 50%;
     background: var(--grey);
-    color: var(--on-accent);
+    color: var(--ink);
 }
 
 .trash__icon--soon {
     background: var(--danger-soft);
+    color: var(--on-accent);
 }
 </style>

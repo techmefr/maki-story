@@ -8,6 +8,8 @@
     --chip-on-bg: #1E1A3F;
     --chip-on-ink: #FFFFFF;
     --yellow: #FFC933;
+    --cream: #FFF3DC;
+    --night: #3B3470;
     --sky: #CFE5FF;
     --mint: #4AD3A5;
     --mint-soft: #ADE6C4;
@@ -16,9 +18,12 @@
     --violet: #B28DFF;
     --blue: #6DB5FF;
     --danger-soft: #FFD9D3;
+    --mint-pale: #C4F1E1;
+    --lilac: #E3D6FF;
+    --pink-pale: #FFD9EC;
     --danger: #B3261E;
     --grey: #E5E3F0;
-    --grey-line: #9A9390;
+    --grey-line: #77728F;
     --grey-ui: #E5E3F0;
     --grey-ui-ink: #3B3466;
     --outline: 3px;
@@ -45,7 +50,7 @@
     --chip-on-ink: #17142B;
     --danger: #FF9A90;
     --grey: #3A3560;
-    --grey-line: #7C77A0;
+    --grey-line: #9C97C0;
     --grey-ui: #3A3560;
     --grey-ui-ink: #CFC8F0;
 }

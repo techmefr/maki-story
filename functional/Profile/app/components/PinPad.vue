@@ -217,10 +217,12 @@ defineExpose({ clear })
 
 .pad--compact .pad__key--cancel {
     background: var(--sky);
+    color: var(--on-accent);
 }
 
 .pad--compact .pad__key--soft {
     background: var(--danger-soft);
+    color: var(--on-accent);
 }
 
 .pad--compact .pad__key:disabled {

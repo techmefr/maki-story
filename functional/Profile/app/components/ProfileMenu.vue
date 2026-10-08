@@ -421,6 +421,7 @@ const onCaptured = async (blob: Blob): Promise<void> => {
 
 .pmenu__quit {
     background: var(--danger-soft);
+    color: var(--on-accent);
 }
 
 .pmenu__feedback {

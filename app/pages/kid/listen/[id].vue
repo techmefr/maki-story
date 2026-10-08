@@ -184,9 +184,9 @@ const reader = computed(() => getById(currentLine.value?.memberId ?? null))
 const readerAccent = computed(() => memberHex(reader.value))
 const readerHex = computed(() => {
     if (phase.value === 'sleep') {
-        return '#3B3470'
+        return 'var(--night)'
     }
-    return phase.value === 'playing' ? memberHexLight(reader.value) : '#FFF3DC'
+    return phase.value === 'playing' ? memberHexLight(reader.value) : 'var(--cream)'
 })
 const canSleep = computed(() => ['ready', 'playing', 'page'].includes(phase.value))
 const isPlaying = computed(() => player.isPlaying.value)
@@ -502,11 +502,12 @@ onBeforeUnmount(() => {
     z-index: 40;
     padding: calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 16px);
     overflow-y: auto;
+    color: var(--on-accent);
     transition: background 0.3s;
 }
 
 .reader--night {
-    color: var(--bg);
+    color: var(--cream);
 }
 
 .reader__cover {
@@ -596,8 +597,9 @@ onBeforeUnmount(() => {
 .choice {
     display: inline-flex;
     padding: 10px;
-    background: #fff;
-    border: 3px solid #1E1A3F;
+    background: var(--paper);
+    color: var(--ink);
+    border: 3px solid var(--ink);
     border-radius: 24px;
     box-shadow: 3px 3px 0 #1E1A3F;
     cursor: pointer;

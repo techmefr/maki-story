@@ -9,7 +9,7 @@
                         :key="option.value"
                         class="grow"
                         :aria-pressed="mood === option.value"
-                        :style="{ background: mood === option.value ? option.color : '#fff' }"
+                        :style="mood === option.value ? { background: option.color, color: 'var(--on-accent)' } : { background: 'var(--paper)', color: 'var(--ink)' }"
                         @click="mood = option.value">
                         {{ t(option.labelKey) }}
                     </AppButton>
@@ -24,9 +24,9 @@
 
 <script setup lang="ts">
 const moods: { value: FeedbackMood; labelKey: string; color: string }[] = [
-    { value: 'love', labelKey: 'feedback.moods.love', color: '#4AD3A5' },
-    { value: 'ok', labelKey: 'feedback.moods.ok', color: '#FFC933' },
-    { value: 'bad', labelKey: 'feedback.moods.bad', color: '#FF7766' },
+    { value: 'love', labelKey: 'feedback.moods.love', color: 'var(--mint)' },
+    { value: 'ok', labelKey: 'feedback.moods.ok', color: 'var(--yellow)' },
+    { value: 'bad', labelKey: 'feedback.moods.bad', color: 'var(--coral)' },
 ]
 const CLOSE_DELAY_MS = 1200
 
