@@ -1,6 +1,6 @@
 # Abonnement : limites de l'offre gratuite
 
-Statut : spécification validée par Gaëtan (2026-10-09). Rien n'est codé.
+Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est codé.
 
 ## Offre gratuite
 
@@ -21,13 +21,24 @@ Statut : spécification validée par Gaëtan (2026-10-09). Rien n'est codé.
 - Aucune limite par semaine : le plafond total suffit.
 - Le serveur fait autorité : création de livre, invitation et création de profil refusent au-delà de la limite (code 402 avec le motif).
 
-## Offre abonnée (à confirmer)
+## Offre abonnée (validée)
 
-- Livres illimités, plus de profils d'adultes, plusieurs familles.
-- Traductions et voix en plusieurs langues.
-- Sauvegarde et export.
+| Formule | Prix |
+|---|---|
+| Mensuel | 4,99 € |
+| Annuel | 39 € (soit 3,25 € par mois) |
+| Essai gratuit | 14 jours |
 
-Les valeurs exactes et le prix restent à fixer. Le paiement (Stripe) n'est pas spécifié.
+- Un seul abonnement, pas de pack de livres à l'unité pour l'instant (à ajouter si les familles le demandent).
+- Prix de lancement possible pour les premières familles, à décider.
+- Contenu : livres illimités, 20 profils d'adultes, 3 familles, traductions et voix en plusieurs langues, sauvegarde et export.
+- Les valeurs exactes de profils et de familles restent à confirmer.
+
+## Paiement
+
+- Site `maki-story.com` avec Stripe. Rien n'est codé.
+- Dans les applis mobiles (iOS, Android), la vente passe par la facturation des magasins (commission de 15 à 30 %). À trancher avant de publier sur les stores.
+- Frais Stripe : environ 1,5 % + 0,25 € par paiement.
 
 ## Domaines
 
