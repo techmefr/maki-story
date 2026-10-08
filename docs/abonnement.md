@@ -58,11 +58,11 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 - À décider : un avantage pour le filleul (par exemple le premier mois offert).
 - Les familles en gratuité à vie n'ont rien à gagner mais peuvent parrainer.
 
-## Proches (reporté, si la demande existe)
+## Proches (reporté, lancé seulement si des proches le demandent)
 
 - Un proche n'est jamais facturé pour enregistrer sa voix dans la famille.
 - Ses propres livres solo : 10 gratuits, en plus des 12 de la famille.
-- Abonnement « proche » à part : non lancé. Si des proches le demandent, prix à fixer (hypothèse de départ : 4 € par mois, 29 € par an, à comparer au prix famille de 4,99 € et 39 €).
+- Abonnement « proche » à part : non lancé. Si des proches le demandent, prix validé : 2,99 € par mois ou 20 € par an (famille : 4,99 € et 39 €).
 
 ## Domaines
 
