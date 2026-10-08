@@ -176,6 +176,9 @@ importers:
       '@capacitor/core':
         specifier: ^8.5.2
         version: 8.5.2
+      driver.js:
+        specifier: ^1.9.0
+        version: 1.9.0
       lucide-vue-next:
         specifier: ^1.0.0
         version: 1.0.0(vue@3.5.43(typescript@5.9.3))
@@ -1702,6 +1705,9 @@ packages:
   dotenv@17.4.2:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
+
+  driver.js@1.9.0:
+    resolution: {integrity: sha512-+YWVdNVUrY1/2spszQshohWYY4soIjNBnMFS6lfmousT8igos2lmswhlqyuuNMhr+qbV0EjJ+L6i2FECPr6Ygg==}
 
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
@@ -5263,6 +5269,8 @@ snapshots:
       type-fest: 5.10.0
 
   dotenv@17.4.2: {}
+
+  driver.js@1.9.0: {}
 
   duplexer@0.1.2: {}
 

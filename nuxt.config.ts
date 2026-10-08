@@ -4,7 +4,7 @@ import { defineOSDDNuxtConfig } from 'nuxt-osdd'
 export default defineOSDDNuxtConfig({
     osdd: {
         technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media', 'DevFeedback'],
-        functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help'],
+        functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help', 'Tour'],
     },
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },

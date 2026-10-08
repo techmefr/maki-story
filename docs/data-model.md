@@ -11,6 +11,7 @@ Naming: the spec says Profile, the database says `members`. `members.role` is th
 | `birth_date date` | Child only, parent-written, private to the family. Never copied to a guest voice, a share payload, a log or the journal. Age is always computed (`shared/utils/age.ts`), never stored. |
 | `code_enabled boolean` | Child code is optional per child. `false` lets the child in without a pad. |
 | `birthday_celebrated_year int` | Last year the party animation was shown, so it plays once per birthday across devices. |
+| `tour_status text` | Guided tour state of an adult: `null` (never armed), `pending` (starts on the next home load), `done` (finished or skipped). Never set for a child: the tour routes answer 403. Migration 0063. |
 
 Legacy `shapes` codes (3 shapes among 4) cannot be converted to the new 4 tokens among 6 format: they are reset (`pin_hash` and `code_kind` null) and the child gets `code_enabled = false` until a parent sets a new code. Documented, not reversible by `down` (only a hash is lost).
 

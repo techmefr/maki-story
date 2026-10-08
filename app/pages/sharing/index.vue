@@ -1,7 +1,7 @@
 <template>
     <div class="stack narrow">
         <BackLink to="/family" />
-        <h1 class="title">{{ t('sharing.title') }}</h1>
+        <h1 class="title" data-testid="sharing-title">{{ t('sharing.title') }}</h1>
 
         <section v-if="isParent" class="card stack" aria-labelledby="invite-title">
             <h2 id="invite-title" class="subtitle">{{ t('sharing.invite.title') }}</h2>

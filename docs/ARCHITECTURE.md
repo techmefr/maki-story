@@ -24,7 +24,7 @@ import { defineOSDDNuxtConfig } from 'nuxt-osdd'
 export default defineOSDDNuxtConfig({
   osdd: {
     technical: ['Atom', 'Molecule', 'Audio', 'Sound', 'Storage', 'Native', 'Motion', 'Locale', 'Theme', 'Auth', 'Mail', 'Upload', 'Media'],
-    functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help']
+    functional: ['Account', 'Family', 'Profile', 'Invitation', 'Book', 'Recording', 'Review', 'Message', 'Vault', 'Tag', 'Lock', 'Reading', 'Notification', 'Help', 'Tour']
   }
 })
 ```
@@ -36,7 +36,7 @@ La clé `osdd` pilote `extends` et `typescript.tsConfig`. Sans auto-import, les 
 ```
 functional/
   Account/ Family/ Profile/ Invitation/ Book/ Recording/ Review/
-  Message/ Vault/ Tag/ Lock/ Reading/ Notification/ Help/
+  Message/ Vault/ Tag/ Lock/ Reading/ Notification/ Help/ Tour/
     nuxt.config.ts
     README.md        spécification du domaine
     app/             components, composables, pages, types
@@ -73,6 +73,7 @@ Les écrans cités sont les fichiers de `docs/maquettes/` (`<Écran>.dc.html`).
 | Reading | Lecture | Progression, lecture multivoix |
 | Notification | Notifications, e-mails | Notifications, e-mail quotidien |
 | Help | Aide, Etat Erreur | Aide, erreurs, hors ligne |
+| Tour | Visite guidée (superposition) | Visite des adultes, état par membre côté serveur, jamais pour un enfant |
 
 ## Où vit chaque règle
 

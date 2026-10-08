@@ -6,6 +6,7 @@
                 :key="tab.path"
                 :to="tab.path"
                 class="tabbar__item"
+                :data-testid="`nav-tab-${tab.path.slice(1)}`"
                 :class="{ 'tabbar__item--on': tab.isOn }"
             >
                 <AppIcon :name="tab.icon" :size="26" motion="bounce" :is-active="tab.isOn" />

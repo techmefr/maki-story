@@ -20,4 +20,5 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { isChild } = useCurrentMember()
+useTourRunner()
 </script>

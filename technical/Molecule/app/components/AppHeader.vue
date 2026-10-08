@@ -5,7 +5,7 @@
             <span class="header__name">{{ APP_NAME }}</span>
         </NuxtLink>
         <nav v-if="tabs.length > 1" class="nav" :aria-label="t('shell.mainNav')">
-            <NuxtLink v-for="tab in tabs" :key="tab.path" :to="tab.path" class="nav__item" :class="{ 'nav__item--on': tab.isOn }">
+            <NuxtLink v-for="tab in tabs" :key="tab.path" :to="tab.path" class="nav__item" :class="{ 'nav__item--on': tab.isOn }" :data-testid="`nav-tab-${tab.path.slice(1)}`">
                 <AppIcon :name="tab.icon" :size="18" motion="bounce" :is-active="tab.isOn" />
                 {{ tab.label }}
                 <span v-if="tab.hasBadge" class="pop" role="img" :aria-label="t('shell.newBadge')" />

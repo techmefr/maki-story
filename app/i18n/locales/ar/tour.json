@@ -1,0 +1,85 @@
+{
+    "replay": "Replay the guided tour",
+    "next": "Next",
+    "previous": "Back",
+    "done": "Finish",
+    "skip": "Skip the tour",
+    "close": "Close the tour",
+    "progress": "Step {current} of {total}",
+    "parent": {
+        "profile": {
+            "title": "Your profile",
+            "body": "Tap your avatar to open your card. In the settings, “Switch profile” moves between profiles; each one has its own code."
+        },
+        "library": {
+            "title": "The library",
+            "body": "Every book of the family, with filters by status, language and tag."
+        },
+        "newBook": {
+            "title": "Create a book",
+            "body": "Add a book page by page or with its ISBN. You can save it at any time and finish it later."
+        },
+        "studio": {
+            "title": "The recording studio",
+            "body": "Books waiting for a voice are here. Each character has its own voice: yours, a relative’s or a child’s. Listen again and retry as often as you like."
+        },
+        "review": {
+            "title": "Review",
+            "body": "Recordings that were sent wait for your opinion: approve them or ask for a new take with a comment."
+        },
+        "trash": {
+            "title": "The trash",
+            "body": "A deleted book stays here for 30 days. You can restore it before it disappears for good."
+        },
+        "family": {
+            "title": "My family",
+            "body": "This tab opens the family area: members, invitation codes and schedule."
+        },
+        "members": {
+            "title": "Members and invitations",
+            "body": "Add a relative or a parent with an invitation code or a link valid for 48 hours."
+        },
+        "schedule": {
+            "title": "Schedule",
+            "body": "Choose the hours when each child can use the app. Outside those hours the screen stays locked."
+        },
+        "sharing": {
+            "title": "Sharing",
+            "body": "Offer a book to another family, or approve the sharing requests waiting for you here."
+        },
+        "treasure": {
+            "title": "The treasure box",
+            "body": "Messages you want to keep forever. The box holds 10 at most."
+        },
+        "activity": {
+            "title": "Activity",
+            "body": "See who did what: books created, recordings, messages. Filter by person."
+        },
+        "replay": {
+            "title": "Replay the tour",
+            "body": "You can restart this tour at any time from the settings."
+        }
+    },
+    "relative": {
+        "children": {
+            "title": "Home with the children",
+            "body": "Each child of the family appears here with their photo and the number of messages you left them."
+        },
+        "message": {
+            "title": "Send a message",
+            "body": "Tap a child, record your voice and send. You can leave up to 5 messages per child."
+        },
+        "record": {
+            "title": "Record a book",
+            "body": "Books the family asks you to read aloud appear here. Tap one to record your voice."
+        },
+        "notifications": {
+            "title": "Notifications",
+            "body": "The bell lets you know when a child listened to your message or a new request arrives."
+        },
+        "replay": {
+            "title": "Replay the tour",
+            "body": "You can restart this tour at any time from the settings."
+        }
+    }
+}

@@ -1,0 +1,111 @@
+.driver-popover.tour-popover {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: min(calc(100vw - 24px), 24rem);
+    min-width: 0;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    padding: 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 22px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+    font-family: var(--font-body);
+    overflow-wrap: anywhere;
+}
+
+.tour-popover .driver-popover-arrow {
+    display: none;
+}
+
+.tour-popover .driver-popover-title {
+    margin: 0;
+    padding-inline-end: 52px;
+    color: var(--ink);
+    font: 700 1.25rem/1.2 var(--font-title);
+}
+
+.tour-popover .driver-popover-description {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 500 1rem/1.4 var(--font-body);
+}
+
+.tour-popover .driver-popover-progress-text {
+    color: var(--ink-soft);
+    font: 700 0.875rem/1.3 var(--font-body);
+}
+
+.tour-popover .driver-popover-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0;
+}
+
+.tour-popover .driver-popover-navigation-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tour-popover .driver-popover-footer button,
+.tour-popover .driver-popover-close-btn,
+.tour-popover .tour-skip {
+    box-sizing: border-box;
+    min-width: var(--tap);
+    min-height: var(--tap);
+    padding: 0 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 999px;
+    background: var(--grey-ui);
+    color: var(--grey-ui-ink);
+    font: 700 1rem/1.2 var(--font-title);
+    text-shadow: none;
+    cursor: pointer;
+}
+
+.tour-popover .driver-popover-next-btn {
+    background: var(--yellow);
+    color: var(--on-accent);
+    box-shadow: var(--shadow);
+}
+
+.tour-popover .driver-popover-btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tour-popover .driver-popover-close-btn {
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline-end: 8px;
+    padding: 0;
+    font-size: 1.25rem;
+}
+
+.tour-popover .tour-skip {
+    align-self: flex-start;
+    border-color: transparent;
+    background: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.tour-popover button:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .driver-popover.tour-popover {
+        animation: none;
+    }
+}

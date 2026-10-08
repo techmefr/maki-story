@@ -56,6 +56,7 @@ const STEPS: Step[] = ['code', 'children', 'invite', 'done']
 
 const { t } = useI18n()
 const { people, load } = useMembers()
+const tour = useTour()
 
 const step = ref<Step>('code')
 const addedChildren = ref<IMember[]>([])
@@ -65,6 +66,7 @@ const stepNumber = computed(() => STEPS.indexOf(step.value) + 1)
 const parent = computed(() => people.value.find(member => member.role === 'parent') ?? null)
 
 const finish = async (): Promise<void> => {
+    await tour.arm().catch(() => undefined)
     await navigateTo('/home')
 }
 

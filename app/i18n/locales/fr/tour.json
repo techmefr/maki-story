@@ -1,0 +1,85 @@
+{
+    "replay": "Revoir la visite guidée",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "done": "Terminer",
+    "skip": "Passer la visite",
+    "close": "Fermer la visite",
+    "progress": "Étape {current} sur {total}",
+    "parent": {
+        "profile": {
+            "title": "Ton profil",
+            "body": "Touche ton avatar pour ouvrir ta carte. Dans les réglages, « Changer de profil » te fait passer d’un profil à l’autre ; chacun a son code."
+        },
+        "library": {
+            "title": "La bibliothèque",
+            "body": "Tous les livres de la famille, avec des filtres par statut, par langue et par étiquette."
+        },
+        "newBook": {
+            "title": "Créer un livre",
+            "body": "Ajoute un livre page par page ou grâce à son ISBN. Tu peux l’enregistrer à tout moment et le terminer plus tard."
+        },
+        "studio": {
+            "title": "Le studio d’enregistrement",
+            "body": "Ici, les livres à enregistrer. Chaque personnage a sa voix : la tienne, celle d’un proche ou d’un enfant. Réécoute et recommence autant que tu veux."
+        },
+        "review": {
+            "title": "La relecture",
+            "body": "Les enregistrements envoyés attendent ton avis : approuve-les ou demande une nouvelle prise avec un commentaire."
+        },
+        "trash": {
+            "title": "La corbeille",
+            "body": "Un livre supprimé reste 30 jours ici. Tu peux le restaurer avant qu’il disparaisse pour de bon."
+        },
+        "family": {
+            "title": "Ma famille",
+            "body": "Cet onglet ouvre l’espace famille : membres, codes d’invitation et horaires."
+        },
+        "members": {
+            "title": "Membres et invitations",
+            "body": "Ajoute un proche ou un parent avec un code ou un lien d’invitation valable 48 heures."
+        },
+        "schedule": {
+            "title": "Les horaires",
+            "body": "Choisis les heures où chaque enfant peut utiliser l’appli. En dehors, l’écran reste verrouillé."
+        },
+        "sharing": {
+            "title": "Le partage",
+            "body": "Propose un livre à une autre famille ou valide ici les demandes de partage qui t’attendent."
+        },
+        "treasure": {
+            "title": "Le coffre à trésors",
+            "body": "Les messages que tu veux garder pour toujours. Le coffre en contient 10 au maximum."
+        },
+        "activity": {
+            "title": "L’activité",
+            "body": "Retrouve qui a fait quoi : livres créés, enregistrements, messages. Filtre par personne."
+        },
+        "replay": {
+            "title": "Revoir la visite",
+            "body": "Tu peux relancer cette visite à tout moment depuis les réglages."
+        }
+    },
+    "relative": {
+        "children": {
+            "title": "L’accueil avec les enfants",
+            "body": "Chaque enfant de la famille apparaît ici avec sa photo et le nombre de messages que tu lui as laissés."
+        },
+        "message": {
+            "title": "Envoyer un message",
+            "body": "Touche un enfant, enregistre ta voix et envoie. Tu peux laisser jusqu’à 5 messages par enfant."
+        },
+        "record": {
+            "title": "Enregistrer un livre",
+            "body": "Les livres que la famille te demande de lire à voix haute apparaissent ici. Touche-en un pour enregistrer ta voix."
+        },
+        "notifications": {
+            "title": "Les notifications",
+            "body": "La cloche t’avertit quand un enfant a écouté ton message ou quand une nouvelle demande arrive."
+        },
+        "replay": {
+            "title": "Revoir la visite",
+            "body": "Tu peux relancer cette visite à tout moment depuis les réglages."
+        }
+    }
+}

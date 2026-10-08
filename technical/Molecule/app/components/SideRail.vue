@@ -5,6 +5,7 @@
             :key="tab.path"
             :to="tab.path"
             class="rail__item"
+            :data-testid="`nav-tab-${tab.path.slice(1)}`"
             :class="{ 'rail__item--on': tab.isOn }"
             :aria-current="tab.isOn ? 'page' : undefined"
         >

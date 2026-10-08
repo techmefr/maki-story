@@ -161,6 +161,7 @@
                     {{ t('profile.menu.schedule') }}
                 </AppButton>
                 <AppButton variant="secondary" icon="users" is-block data-testid="profile-switch" @click="openSwitcher">{{ t('profile.switchProfile') }}</AppButton>
+                <AppButton v-if="!isChild" variant="secondary" icon="rocket" is-block data-testid="tour-replay" @click="replayTour">{{ t('tour.replay') }}</AppButton>
                 <AppButton v-if="!isChild" variant="secondary" icon="logout" is-block class="pmenu__quit" data-testid="profile-quit" @click="quit">
                     {{ t('profile.menu.quit') }}
                 </AppButton>
@@ -198,6 +199,7 @@ const { choice: themeChoice, choose: chooseTheme } = useTheme()
 const { optionsFor } = useFamilyLanguages()
 
 const personal = usePersonalDevice()
+const tour = useTour()
 
 const themeOptions = THEME_OPTIONS
 const view = ref<'menu' | 'photo'>('menu')
@@ -243,6 +245,11 @@ const close = (): void => {
 const openSwitcher = (): void => {
     close()
     isSwitcherOpen.value = true
+}
+
+const replayTour = (): void => {
+    close()
+    tour.replay()
 }
 
 const openFeedback = (): void => {
