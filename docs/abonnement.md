@@ -62,7 +62,7 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 
 - Un proche n'est jamais facturé pour enregistrer sa voix dans la famille.
 - Ses propres livres solo : 10 gratuits, en plus des 12 de la famille.
-- Abonnement « proche » à part : non lancé. Si des proches le demandent, prix validé : 2,99 € par mois ou 20 € par an (famille : 4,99 € et 39 €).
+- Abonnement « proche » à part : non lancé. Si des proches le demandent, prix validé : 2,99 € par mois ou 24 € par an (famille : 4,99 € et 39 €).
 
 ## Domaines
 
