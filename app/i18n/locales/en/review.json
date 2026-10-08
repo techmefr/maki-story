@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Only a parent can review",
+    "parentOnlyHint": "Ask a parent to review this book."
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/family" />
         <h1 class="title">{{ t('feedback.title') }}</h1>
         <AppEmpty v-if="entries.length === 0" :title="t('feedback.empty')" :hint="t('feedback.emptyHint')" />
         <div v-for="entry in entries" :key="entry.id" class="card stack" style="gap: 6px">

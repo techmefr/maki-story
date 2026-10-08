@@ -65,6 +65,27 @@ html {
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    scrollbar-width: thin;
+    scrollbar-color: var(--grey-line) transparent;
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid var(--bg);
+    border-radius: 999px;
+    background: var(--grey-line);
 }
 
 html,
@@ -208,7 +229,12 @@ select {
 }
 
 .btn--secondary {
-    background: var(--tone, var(--blue));
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.btn--secondary[class*='btn--tone-'] {
+    background: var(--tone);
     color: var(--on-accent);
 }
 
@@ -704,6 +730,7 @@ textarea.input {
     max-width: 560px;
     min-width: 0;
     display: flex;
+    overflow: hidden;
 }
 
 .tabbar__item {
@@ -713,6 +740,7 @@ textarea.input {
     min-height: 56px;
     text-align: center;
     overflow-wrap: anywhere;
+    hyphens: auto;
     font: 700 min(0.8125rem, 4.2vw)/1.1 var(--font-title);
     color: var(--ink);
     text-decoration: none;
@@ -792,6 +820,11 @@ a {
     grid-template-columns: minmax(0, 1fr);
 }
 
+.grid--books {
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
+}
+
 .nav {
     display: none;
 }
@@ -811,9 +844,6 @@ a {
         font-size: 2.125rem;
     }
 
-    .grid--books {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
 
     .grid--people {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -854,9 +884,6 @@ a {
         max-width: 1120px;
     }
 
-    .grid--books {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
 
     .grid--people {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1125,9 +1152,6 @@ select:focus-visible,
         max-width: 1120px;
     }
 
-    .app--full .grid--books {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
 }
 
 @media (min-width: 1500px) and (orientation: landscape) {
@@ -1135,9 +1159,6 @@ select:focus-visible,
         max-width: 1400px;
     }
 
-    .app--full .grid--books {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
 }
 
 .btn,
@@ -1433,7 +1454,8 @@ label.row {
     color: var(--on-accent);
 }
 
-:root[data-theme='dark'] .btn--tertiary {
+:root[data-theme='dark'] .btn--tertiary,
+:root[data-theme='dark'] .btn--secondary:not([class*='btn--tone-']) {
     color: var(--ink);
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="stack vault">
+        <BackLink :to="backPath" />
         <div class="row">
-            <BackLink :to="backPath" />
             <h1 class="title grow">{{ t('vault.title') }}</h1>
             <AppBadge data-testid="vault-counter">{{ t('vault.count', { count: items.length, limit }) }}</AppBadge>
         </div>

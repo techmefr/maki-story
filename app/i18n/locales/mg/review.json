@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Ny ray aman-dreny ihany no afaka manamarina",
+    "parentOnlyHint": "Angataho ny ray aman-dreny hijery ity boky ity."
 }

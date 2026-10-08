@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { chooseProfile, createReadyBook, login, uniqueName, PARENT_NAME } from './helpers'
+import { chooseProfile, createReadyBook, ensureParentProfile, login, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -11,8 +11,16 @@ test.describe('kid space', () => {
         const page = await browser.newPage({ baseURL: info.project.use.baseURL })
         const project = info.project.name
         await login(page)
+        await ensureParentProfile(page.request)
         const mamie = uniqueName('Mamie', project)
         const lova = uniqueName('Lova', project)
+        const known = (await (await page.request.get('/api/members')).json()) as { name: string }[]
+        for (const [name, role] of [[mamie, 'relative'], [lova, 'child']] as const) {
+            if (!known.some(member => member.name === name)) {
+                const created = await page.request.post('/api/members', { data: { name, role, color: role === 'child' ? 'sky' : 'pink', code: role === 'child' ? { kind: 'symbols', value: '0000' } : { kind: 'pin', value: '123456' } } })
+                expect(created.ok(), await created.text()).toBeTruthy()
+            }
+        }
         multiId = await createReadyBook(page, `Histoire multi ${project}`, 'multi', [
             { pageIndex: 0, character: 'Narrateur', text: 'Un', memberName: PARENT_NAME },
             { pageIndex: 0, character: 'Petit', text: 'Deux', memberName: lova },
@@ -34,8 +42,9 @@ test.describe('kid space', () => {
         await expect(page.getByText('Histoires à plusieurs voix')).toHaveCount(0)
         await expect(page.getByTestId('book-search-open')).toHaveCount(0)
         await page.locator('.face__link', { hasText: uniqueName('Mamie', project) }).click()
+        await expect(page.getByTestId('kid-send-message')).toBeVisible()
         await expect(page.getByRole('link', { name: `Histoire solo ${project}` })).toBeVisible()
-        await expect(page.getByRole('link', { name: `Histoire multi ${project}` })).toHaveCount(0)
+        await expect(page.getByRole('link', { name: `Histoire multi ${project}` })).toBeVisible()
     })
 
     test('plays a single voice story to the end', async ({ page }, info) => {

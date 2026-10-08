@@ -1,15 +1,16 @@
 <template>
     <div class="cover" :style="{ background: fallback }">
-        <img v-if="url" :src="url" alt="" class="cover__image" />
+        <img v-if="imageSrc" :src="imageSrc" alt="" class="cover__image" />
         <AppIcon v-else name="book" :size="48" />
     </div>
 </template>
 
 <script setup lang="ts">
-const { fileId = null, fallback = 'var(--sky)' } = defineProps<{ fileId?: string | null; fallback?: string }>()
+const { fileId = null, src = null, fallback = 'var(--sky)' } = defineProps<{ fileId?: string | null; src?: string | null; fallback?: string }>()
 
 const { fetchUrl } = useFiles()
 const url = ref('')
+const imageSrc = computed<string>(() => url.value || src || '')
 
 const load = async (): Promise<void> => {
     url.value = ''

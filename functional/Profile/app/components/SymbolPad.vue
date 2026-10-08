@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="row symbols__actions">
-            <AppButton variant="secondary" size="sm" icon="back" :disabled="isDisabled || chosen === ''" @click="clear">
+            <AppButton variant="secondary" icon="back" :disabled="isDisabled || chosen === ''" @click="clear">
                 {{ t('profile.symbols.clear') }}
             </AppButton>
             <AppButton icon="check" :disabled="isDisabled || !isComplete" @click="confirm">{{ t('profile.symbols.ok') }}</AppButton>
@@ -105,7 +105,7 @@ defineExpose({ clear })
 
 .symbols__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(84px, 104px));
+    grid-template-columns: repeat(3, minmax(64px, min(104px, 14vh)));
     gap: 14px;
 }
 

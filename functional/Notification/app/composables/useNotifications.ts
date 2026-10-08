@@ -40,6 +40,16 @@ export const describeNotification = (notification: INotification, t: (key: strin
     }
 }
 
+const REVIEW_KINDS = ['recording_batch', 'book_proposed', 'voice_batch']
+
+export const notificationTarget = (notification: INotification, role: string | undefined): string | null => {
+    const bookId = text(notification.payload.bookId)
+    if (bookId === '') {
+        return null
+    }
+    return role === 'parent' && REVIEW_KINDS.includes(notification.kind) ? `/books/${bookId}/review` : `/books/${bookId}`
+}
+
 export const notificationActor = (notification: INotification): string => {
     const { payload } = notification
     return text(payload.fromName) || text(payload.memberName) || text(payload.childName) || text(payload.familyName) || text(payload.bookTitle)

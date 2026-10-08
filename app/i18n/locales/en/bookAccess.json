@@ -6,5 +6,6 @@
     "emptyTitle": "No approved book",
     "emptyHint": "Approved books show up here.",
     "menu": "Children’s books",
-    "menuHint": "Which books each child can read"
+    "menuHint": "Which books each child can read",
+    "visibleCount": "{count} books visible to {name}"
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="stack">
-        <AppButton variant="secondary" is-round to="/kid/library" :aria-label="t('review.back')"><AppIcon name="back" :size="26" /></AppButton>
+        <AppButton variant="secondary" is-round to="/kid/library" class="back-link" :aria-label="t('review.back')"><AppIcon name="back" :size="26" /></AppButton>
         <h1 class="title">{{ t('review.kid.title') }}</h1>
         <p v-if="isLoaded && voices.length === 0" class="muted center">{{ t('review.kid.none') }}</p>
         <ul class="voices" data-testid="kid-new-voices">

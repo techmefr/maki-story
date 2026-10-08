@@ -1,9 +1,7 @@
 <template>
     <div class="stack lock">
-        <div class="row">
-            <BackLink to="/family" />
-            <h1 class="title grow">{{ t('lock.title') }}</h1>
-        </div>
+        <BackLink to="/family" />
+        <h1 class="title">{{ t('lock.title') }}</h1>
 
         <AppEmpty v-if="children.length === 0" :title="t('lock.noChildTitle')" :hint="t('lock.noChildHint')" />
 

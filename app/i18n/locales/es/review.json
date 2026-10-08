@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Solo un padre puede revisar",
+    "parentOnlyHint": "Pide a un padre que revise este libro."
 }

@@ -6,5 +6,6 @@
     "emptyTitle": "没有已审核的图书",
     "emptyHint": "已审核的图书会显示在这里。",
     "menu": "孩子的图书",
-    "menuHint": "每个孩子可以读哪些书"
+    "menuHint": "每个孩子可以读哪些书",
+    "visibleCount": "{name} 可见 {count} 本书"
 }

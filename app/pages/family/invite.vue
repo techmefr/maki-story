@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/family" />
         <h1 class="title">{{ t('invite.title') }}</h1>
         <p class="muted">{{ t('invite.hint') }}</p>
         <InviteForm @created="reload" />

@@ -1,9 +1,7 @@
 <template>
     <div class="stack overview">
-        <div class="row">
-            <BackLink :to="homePath" />
-            <h1 class="title grow">{{ t('family.index.title') }}</h1>
-        </div>
+        <BackLink :to="homePath" />
+        <h1 class="title">{{ t('family.index.title') }}</h1>
         <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
         <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
 
@@ -39,6 +37,7 @@
                         :data-testid="`family-remove-${member.id}`"
                         @click="pending = member"
                     />
+                    <span v-else class="overview__spacer" aria-hidden="true" />
                 </li>
             </ul>
         </section>
@@ -126,6 +125,11 @@ onMounted(init)
 
 .overview__item {
     align-items: center;
+}
+
+.overview__spacer {
+    flex: none;
+    width: 48px;
 }
 
 .overview__hint {

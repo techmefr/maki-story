@@ -6,5 +6,6 @@
     "emptyTitle": "Nessun libro approvato",
     "emptyHint": "I libri approvati compaiono qui.",
     "menu": "Libri dei bambini",
-    "menuHint": "Quali libri può leggere ogni bambino"
+    "menuHint": "Quali libri può leggere ogni bambino",
+    "visibleCount": "{count} libri visibili per {name}"
 }

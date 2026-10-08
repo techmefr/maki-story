@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Só um pai pode rever",
+    "parentOnlyHint": "Peça a um pai para rever este livro."
 }

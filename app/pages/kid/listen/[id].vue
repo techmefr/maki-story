@@ -1,8 +1,9 @@
 <template>
     <div class="reader" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
         <div v-if="phase === 'page'" class="reader__center stack center">
-            <AppMaki :size="160" class="anim-bounce" />
-            <h1 class="title">{{ t('kid.listen.nextPage') }}</h1>
+            <img v-if="pageImage" :src="pageImage" alt="" class="reader__cover" data-testid="page-cover" />
+            <AppMaki v-else :size="160" class="anim-bounce" />
+            <h1 v-if="!pageImage" class="title">{{ t('kid.listen.nextPage') }}</h1>
             <div class="row">
                 <AppButton variant="secondary" class="btn--big" :disabled="pageIndex === 0" :aria-label="t('kid.listen.previousPage')" data-testid="previous-page" v-sound="'page-turn'" @click="previousPage"><AppIcon name="skip-back" :size="44" class="mirror-rtl" /></AppButton>
                 <AppButton class="btn--big" wiggle :aria-label="t('kid.listen.turnPage')" data-testid="turn-page" v-sound="'page-turn'" @click="turnPage"><AppIcon name="next" :size="48" motion="nudge" class="mirror-rtl" /></AppButton>
@@ -133,6 +134,7 @@ definePageMeta({ layout: 'blank' })
 const { t, formatNumber } = useI18n()
 const route = useRoute()
 const { get } = useBooks()
+const { fetchUrl } = useFiles()
 const { members, getById, ensureLoaded } = useMembers()
 const { currentId, current } = useCurrentMember()
 const { ding, unlock, panelCue, isCueFlashing } = useDing()
@@ -160,6 +162,9 @@ const lineIndex = ref(0)
 const resumeProgress = ref<IPlaybackProgress | null>(null)
 const isSleepOpen = ref(false)
 
+const bookPages = ref<IBookPage[]>([])
+const pageImage = ref('')
+
 const steps = computed(() => plan.value?.steps ?? [])
 const languages = computed(() => plan.value?.languages ?? null)
 const available = computed(() => (plan.value?.available ?? []).map(item => item.code))
@@ -170,7 +175,9 @@ const choices = computed(() => {
     const pairs = available.value.flatMap((first, index) => available.value.slice(index + 1).map(second => [first, second]))
     return [...singles, ...pairs]
 })
-const pageNumbers = computed(() => [...new Set(steps.value.map(step => step.pageIndex))].sort((a, b) => a - b))
+const pageNumbers = computed(() =>
+    bookPages.value.length > 0 ? bookPages.value.map(page => page.position).sort((a, b) => a - b) : [...new Set(steps.value.map(step => step.pageIndex))].sort((a, b) => a - b),
+)
 const pageLines = computed(() => steps.value.filter(step => step.pageIndex === pageNumbers.value[pageIndex.value]))
 const currentLine = computed(() => pageLines.value[lineIndex.value] ?? null)
 const reader = computed(() => getById(currentLine.value?.memberId ?? null))
@@ -218,6 +225,39 @@ const playLine = async (startMs = 0): Promise<void> => {
     lastPosition = startMs
     await player.play(line.fileId, startMs)
     await saveProgress()
+}
+
+const loadPages = async (): Promise<void> => {
+    try {
+        bookPages.value = (await get(bookId)).pages
+    } catch {
+        bookPages.value = []
+    }
+}
+
+const loadPageImage = async (): Promise<void> => {
+    pageImage.value = ''
+    const page = bookPages.value.find(item => item.position === pageNumbers.value[pageIndex.value])
+    if (!page || page.kind !== 'cover' || !page.fileId) {
+        return
+    }
+    try {
+        pageImage.value = await fetchUrl(page.fileId)
+    } catch {
+        pageImage.value = ''
+    }
+}
+
+const showPage = async (index: number, startLine = 0, startMs = 0): Promise<void> => {
+    pageIndex.value = index
+    lineIndex.value = startLine
+    await loadPageImage()
+    if (pageLines.value.length > 0) {
+        await playLine(startMs)
+        return
+    }
+    player.stop()
+    phase.value = 'page'
 }
 
 const sleepNow = async (): Promise<void> => {
@@ -320,18 +360,14 @@ const resume = async (): Promise<void> => {
     }
     unlock()
     player.unlock()
-    pageIndex.value = progress.pageIndex
-    lineIndex.value = progress.lineIndex
-    await playLine(progress.positionMs)
+    await showPage(progress.pageIndex, progress.lineIndex, progress.positionMs)
 }
 
 const start = async (): Promise<void> => {
     unlock()
     player.unlock()
-    pageIndex.value = 0
-    lineIndex.value = 0
     resumeProgress.value = null
-    await playLine()
+    await showPage(0)
 }
 
 const isTurning = ref(false)
@@ -350,9 +386,14 @@ const goToPage = async (index: number): Promise<void> => {
     unlock()
     player.unlock()
     await runTurn()
-    pageIndex.value = index
-    lineIndex.value = 0
-    await playLine()
+    if (index >= pageTotal.value) {
+        player.stop()
+        phase.value = 'end'
+        sleepTimer.cancel()
+        await progressStore.clear()
+        return
+    }
+    await showPage(index)
 }
 
 const turnPage = (): Promise<void> => goToPage(pageIndex.value + 1)
@@ -427,6 +468,7 @@ onMounted(async () => {
     document.addEventListener('visibilitychange', onVisibility)
     try {
         await ensureLoaded()
+        await loadPages()
         try {
             await reloadPlan(null)
         } catch (error) {
@@ -465,6 +507,15 @@ onBeforeUnmount(() => {
 
 .reader--night {
     color: var(--bg);
+}
+
+.reader__cover {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    object-fit: contain;
+    border: var(--outline) solid var(--ink);
+    border-radius: 18px;
 }
 
 .reader__center {

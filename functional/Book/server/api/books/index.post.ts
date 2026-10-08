@@ -1,7 +1,7 @@
 import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, checkMoods, checkName, checkPageKind, checkText, checkThemes, checkVoiceLanguages } from '~~/server/utils/bookModel'
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
-import { normalizeIsbn } from '~~/server/utils/isbn'
+import { fetchCoverImage, normalizeIsbn } from '~~/server/utils/isbn'
 import { assertFamilyLanguages } from '~~/server/utils/familyLanguages'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
@@ -43,11 +43,13 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const lines = body.lines ?? []
     const kind: BookKind = body.kind === 'solo' ? 'solo' : 'multi'
     const type = body.type === undefined ? 'standard' : checkBookType(body.type)
+    const isbn = normalizeIsbn(body.isbn)
+    const coverUrl = typeof body.coverUrl === 'string' && body.coverUrl.startsWith('https://') ? body.coverUrl.slice(0, 500) : null
     const pages: INewPage[] = body.pages ?? (body.pageFileIds ?? []).map(fileId => ({ fileId, kind: 'content' }))
     if (!isNonEmptyString(body.title)) {
         return badRequest('A title is required')
     }
-    if ((lines.length === 0 && pages.length === 0) || lines.length > MAX_LINES || pages.length > MAX_PAGES) {
+    if ((lines.length === 0 && pages.length === 0 && isbn === null) || lines.length > MAX_LINES || pages.length > MAX_PAGES) {
         return badRequest('Invalid lines or pages')
     }
     if (lines.some(line => !isNonEmptyString(line.text))) {
@@ -59,8 +61,6 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const ageMin = checkAge(body.ageMin)
     const ageMax = checkAge(body.ageMax)
     checkAgeRange(ageMin, ageMax)
-    const isbn = normalizeIsbn(body.isbn)
-    const coverUrl = typeof body.coverUrl === 'string' && body.coverUrl.startsWith('https://') ? body.coverUrl.slice(0, 500) : null
     const language = checkLanguage(body.writtenLanguage ?? body.language ?? 'fr')
     const voiceLanguages = body.voiceLanguages === undefined ? [language] : checkVoiceLanguages(body.voiceLanguages)
     if (body.voiceLanguages !== undefined) {
@@ -114,6 +114,15 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     }
     const soloMemberId = kind === 'solo' ? (body.soloMemberId ?? null) : null
     const db = getDb()
+    if (plannedPages.length === 0 && coverUrl !== null) {
+        const cover = await fetchCoverImage(coverUrl)
+        if (cover) {
+            const file = one(await db<{ id: string }[]>`
+                insert into files (family_id, mime, data, created_by_member_id) values (${familyId}, ${cover.mime}, ${cover.data}, ${actor.memberId}) returning id
+            `)
+            plannedPages.push({ fileId: file.id, kind: 'cover', ttsFallback: false, title: '', description: '', panels: [] })
+        }
+    }
     await assertFilesInFamily(db, familyId, plannedPages.flatMap(page => (page.fileId ? [page.fileId] : [])))
     await assertMembersInFamily(db, familyId, soloMemberId ? [soloMemberId] : [])
     const created = await db.begin(async tx => {

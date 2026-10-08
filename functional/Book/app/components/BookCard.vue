@@ -2,7 +2,7 @@
     <div class="book">
         <NuxtLink :to="target" class="book__link stack" :data-offline-card="book.title">
             <span v-if="hasDot" class="book__dot" data-testid="review-dot" role="img" :aria-label="dotLabel" />
-            <BookCover :file-id="book.coverFileId" :fallback="hex" />
+            <BookCover :file-id="book.coverFileId" :src="book.coverUrl" :fallback="hex" />
             <span class="subtitle book__title">{{ book.title }}</span>
             <span v-if="showStatus" class="badge book__status">{{ statusLabel }}</span>
         </NuxtLink>

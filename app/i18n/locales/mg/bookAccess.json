@@ -6,5 +6,6 @@
     "emptyTitle": "Tsy misy boky voamarina",
     "emptyHint": "Eto no hiseho ny boky voamarina.",
     "menu": "Boky an’ny ankizy",
-    "menuHint": "Boky inona no azon’ny ankizy tsirairay vakiana"
+    "menuHint": "Boky inona no azon’ny ankizy tsirairay vakiana",
+    "visibleCount": "Boky {count} hita ho an’i {name}"
 }

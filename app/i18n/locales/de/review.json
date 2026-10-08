@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Nur ein Elternteil kann prüfen",
+    "parentOnlyHint": "Bitte ein Elternteil, dieses Buch zu prüfen."
 }

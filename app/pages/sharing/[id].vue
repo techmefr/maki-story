@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/sharing" class="muted">{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/sharing" />
         <template v-if="book">
             <h1 class="title">{{ book.title }}</h1>
             <p class="muted">{{ t('sharing.detail.help') }}</p>

@@ -127,5 +127,7 @@
         "record": "Record",
         "send": "Send",
         "validate": "Validate"
-    }
+    },
+    "parentOnly": "Solo un genitore può rivedere",
+    "parentOnlyHint": "Chiedi a un genitore di rivedere questo libro."
 }

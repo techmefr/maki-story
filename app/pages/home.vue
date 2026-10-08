@@ -92,10 +92,15 @@ onBeforeUnmount(stopPolling)
 .home__cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
     gap: 14px;
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+.home__cards > li {
+    display: flex;
 }
 
 @media (min-width: 720px) {
@@ -106,8 +111,10 @@ onBeforeUnmount(stopPolling)
 
 .home__card {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     min-height: 44px;
     text-align: center;

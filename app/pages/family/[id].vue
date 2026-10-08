@@ -1,6 +1,6 @@
 <template>
     <div class="stack narrow">
-        <NuxtLink to="/family" class="link-back"><AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}</NuxtLink>
+        <BackLink to="/family" />
         <h1 class="title">{{ t('family.edit.title') }}</h1>
         <RelativeProfile v-if="member && isRelativeAccountMember && isParentViewing && member.id !== current?.id" :member="member" />
         <MemberForm v-if="member && !member.isGuest" :member="member" @saved="done" />

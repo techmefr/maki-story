@@ -67,5 +67,6 @@
         "removeBody": "它将被永久删除。",
         "removeConfirm": "移除"
     },
-    "quota": "{count}/{max} 条消息"
+    "quota": "{count}/{max} 条消息",
+    "sendHer": "发送消息"
 }

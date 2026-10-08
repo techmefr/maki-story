@@ -6,5 +6,6 @@
     "emptyTitle": "Kein freigegebenes Buch",
     "emptyHint": "Freigegebene Bücher erscheinen hier.",
     "menu": "Bücher der Kinder",
-    "menuHint": "Welche Bücher jedes Kind lesen darf"
+    "menuHint": "Welche Bücher jedes Kind lesen darf",
+    "visibleCount": "{count} Bücher für {name} sichtbar"
 }
