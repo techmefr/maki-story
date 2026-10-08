@@ -1,6 +1,7 @@
 <template>
     <div class="stack">
         <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
+        <p v-if="faces.length > 0" class="muted kid__hint">{{ t('kid.pickHint') }}</p>
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">

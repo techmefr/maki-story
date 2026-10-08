@@ -1,9 +1,7 @@
 <template>
     <div class="stack legal" data-testid="legal">
-        <header class="row legal__head">
-            <AppIconButton icon="back" :label="t('common.back')" size="lg" @click="emit('back')" />
-            <h1 class="legal__title">{{ t('legal.title') }}</h1>
-        </header>
+        <BackLink @click="emit('back')" />
+        <h1 class="legal__title">{{ t('legal.title') }}</h1>
         <p class="legal__draft" role="note">{{ t('legal.draft') }}</p>
         <AppTabs v-model="tab" :items="tabs" :label="t('legal.tabsLabel')" class="legal__tabs" />
         <article v-for="id in sectionIds" :key="`${tab}-${id}`" class="legal__section">

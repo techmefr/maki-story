@@ -1,9 +1,7 @@
 <template>
     <form v-if="current" class="edit stack" data-testid="profile-edit" @submit.prevent="save">
-        <div class="row edit__head">
-            <AppButton variant="secondary" is-round icon="back" :to="homePath" :aria-label="t('common.back')" />
-            <h1 class="edit__title">{{ t('profile.edit.title') }}</h1>
-        </div>
+        <BackLink :to="homePath" />
+        <h1 class="edit__title">{{ t('profile.edit.title') }}</h1>
         <button type="button" class="edit__photo" :aria-label="t('profile.menu.changePhoto')" data-testid="edit-photo" @click="isCapturing = true">
             <span class="edit__frame" :style="{ background: memberHex(current) }">
                 <img v-if="pendingUrl" :src="pendingUrl" alt="" class="edit__image" />

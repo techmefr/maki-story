@@ -69,5 +69,6 @@
         "removeConfirm": "Entfernen"
     },
     "quota": "{count}/{max} Nachrichten",
-    "sendHer": "Nachricht senden"
+    "sendHer": "Nachricht senden",
+    "pickHint": "Tippe auf eine Person, um zuzuhören oder zu sprechen."
 }

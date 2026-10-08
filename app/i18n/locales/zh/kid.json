@@ -68,5 +68,6 @@
         "removeConfirm": "移除"
     },
     "quota": "{count}/{max} 条消息",
-    "sendHer": "发送消息"
+    "sendHer": "发送消息",
+    "pickHint": "点一个人，听听他们或对他们说话。"
 }
