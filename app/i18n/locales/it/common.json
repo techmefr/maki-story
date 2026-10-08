@@ -21,5 +21,7 @@
     "continue": "Continua",
     "done": "Fatto",
     "optional": "facoltativo",
-    "unknownError": "Si è verificato un errore, riprova."
+    "unknownError": "Si è verificato un errore, riprova.",
+    "progress": "Step {current} of {total}",
+    "moreOptions": "More options"
 }

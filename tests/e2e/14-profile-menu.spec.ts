@@ -96,6 +96,7 @@ test.describe('profile menu', () => {
         expect((await otherDevice.get('/api/members')).ok()).toBeTruthy()
         const newPassword = `${E2E_PASSWORD}-new`
         await page.goto('/profile/edit')
+        await page.getByTestId('edit-more-toggle').click()
         await page.getByLabel('Mot de passe actuel').fill('wrong-password-1')
         await page.getByLabel('Nouveau mot de passe', { exact: true }).fill(newPassword)
         await page.getByLabel('Confirmer le nouveau mot de passe').fill(newPassword)
@@ -187,6 +188,9 @@ test.describe('profile menu', () => {
         const parent = await memberNamed(page.request, PARENT_NAME)
         expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
         await page.goto('/books/new')
+        await page.getByLabel('Titre du livre').fill('Langue par défaut')
+        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
         await expect(page.getByLabel('Langue du livre')).toContainText('Malagasy')
     })
 
@@ -196,6 +200,7 @@ test.describe('profile menu', () => {
         await addMember(page, child, 'Enfant')
         const created = await memberNamed(page.request, child)
         await page.goto(`/family/${created.id}`)
+        await page.getByTestId('member-more-toggle').click()
         await page.getByRole('group', { name: 'Langues parlées' }).getByRole('button', { name: /Malagasy/ }).click()
         await page.getByRole('button', { name: 'Enregistrer' }).click()
         await expect.poll(async () => (await memberNamed(page.request, child)).spokenLanguages).toEqual(['mg'])

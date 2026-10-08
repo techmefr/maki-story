@@ -77,7 +77,6 @@
         "create": "إنشاء عائلة"
     },
     "create": {
-        "progress": "الخطوة {current} من {total}",
         "name": {
             "title": "أنشئ عائلتك",
             "hint": "اسم يعرفه الجميع.",
@@ -101,21 +100,24 @@
             "hint": "أصبح لـ {name} ملف شخصي. ادعُ الآن الأقارب الذين سيعيرون أصواتهم."
         },
         "action": {
-            "name": "متابعة",
-            "child": "متابعة",
-            "childCode": "متابعة",
             "parentCode": "إنشاء عائلتي",
             "done": "دعوة الأقارب",
-            "you": "متابعة"
+            "next": "Continue"
         },
         "failed": "تعذّر إنشاء العائلة. حاول مرة أخرى.",
         "you": {
-            "title": "وماذا عنك؟",
             "hint": "كيف يعرفك الأطفال والأقارب.",
             "firstName": "الاسم الأول",
             "lastName": "اسم العائلة",
             "displayName": "الاسم المعروض",
             "displayHint": "الاسم المعروض هو ما يراه الآخرون. إن لم تختر، يكون اسمك الأول."
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

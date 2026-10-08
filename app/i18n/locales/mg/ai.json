@@ -81,6 +81,16 @@
         "skipped": {
             "one": "Sary {count} no tsy voaforona: foana ny pejy voakasik’izany. Azonao fenoina any aoriana izany.",
             "other": "Sary {count} no tsy voaforona: foana ny pejy voakasik’izany. Azonao fenoina any aoriana izany."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

@@ -74,7 +74,6 @@
         "create": "Créer une famille"
     },
     "create": {
-        "progress": "Étape {current} sur {total}",
         "name": {
             "title": "Crée ta famille",
             "hint": "Un nom que tout le monde reconnaîtra.",
@@ -98,21 +97,24 @@
             "hint": "{name} a son profil. Invite maintenant les proches qui vont prêter leur voix."
         },
         "action": {
-            "name": "Continuer",
-            "child": "Continuer",
-            "childCode": "Continuer",
             "parentCode": "Créer ma famille",
             "done": "Inviter des proches",
-            "you": "Continuer"
+            "next": "Continuer"
         },
         "failed": "La famille n’a pas pu être créée. Réessaie.",
         "you": {
-            "title": "Et toi ?",
             "hint": "Comment les enfants et les proches te connaissent.",
             "firstName": "Prénom",
             "lastName": "Nom",
             "displayName": "Nom affiché",
             "displayHint": "Le nom affiché est celui que les autres voient. Sans choix, c’est ton prénom."
+        },
+        "groups": {
+            "label": "Étapes de la création",
+            "family": "Famille",
+            "you": "Toi",
+            "child": "Enfant",
+            "parent": "Code"
         }
     }
 }

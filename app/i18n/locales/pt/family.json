@@ -74,7 +74,6 @@
         "create": "Criar uma família"
     },
     "create": {
-        "progress": "Passo {current} de {total}",
         "name": {
             "title": "Cria a tua família",
             "hint": "Um nome que todos reconheçam.",
@@ -98,21 +97,24 @@
             "hint": "{name} já tem o seu perfil. Convida agora os familiares que vão emprestar a voz."
         },
         "action": {
-            "name": "Continuar",
-            "child": "Continuar",
-            "childCode": "Continuar",
             "parentCode": "Criar a minha família",
             "done": "Convidar familiares",
-            "you": "Continuar"
+            "next": "Continue"
         },
         "failed": "Não foi possível criar a família. Tenta de novo.",
         "you": {
-            "title": "E tu?",
             "hint": "Como as crianças e os familiares te conhecem.",
             "firstName": "Nome próprio",
             "lastName": "Apelido",
             "displayName": "Nome apresentado",
             "displayHint": "O nome apresentado é o que os outros veem. Sem escolha, é o teu nome próprio."
+        },
+        "groups": {
+            "label": "Creation steps",
+            "family": "Family",
+            "you": "You",
+            "child": "Child",
+            "parent": "Code"
         }
     }
 }

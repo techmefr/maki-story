@@ -3,7 +3,7 @@ import type { APIRequestContext, Playwright } from '@playwright/test'
 import postgres from 'postgres'
 import type { IAccountOverview, IInvitation, IInvitationPreview, IMembership } from '../../shared/types/family'
 import { addMemberApi, openFamily } from './family-helpers'
-import { E2E_PASSWORD, PROFILE_PIN, RUN_ID, chooseProfile, signIn, useProfile } from './helpers'
+import { E2E_PASSWORD, PROFILE_PIN, RUN_ID, chooseProfile, inviteByLink, signIn, useProfile } from './helpers'
 import type { IFamilyApi } from './family-helpers'
 
 interface IFlow {
@@ -226,10 +226,7 @@ test.describe('invitation screens', () => {
         await page.context().addCookies(cookies.cookies)
         await chooseProfile(page, 'Parent')
         await page.goto('/family/invite')
-        await page.getByTestId('invite-tab-code').click()
-        await page.getByTestId('invite-channel-LINK').click()
-        await page.getByTestId('invite-name').fill('Tonton Zo')
-        await page.getByTestId('invite-create').click()
+        await inviteByLink(page, 'Tonton Zo')
         const link = await page.getByTestId('invite-link').inputValue()
         expect(link).toMatch(/\/join\/[a-z0-9]{6}$/)
         await expect(page.getByTestId('invite-copy')).toBeVisible()
@@ -239,7 +236,9 @@ test.describe('invitation screens', () => {
         await guest.goto(new URL(link).pathname)
         await expect(guest.getByTestId('join-family')).toContainText(family.account.familyName)
         await guest.getByTestId('join-name').fill('Tonton Zo')
+        await guest.getByTestId('join-next').click()
         await guest.getByTestId('join-email').fill(relativeEmail('ui'))
+        await guest.getByTestId('join-next').click()
         await guest.getByTestId('join-password').fill(E2E_PASSWORD)
         await guest.getByTestId('join-next').click()
         await guest.locator('input[type=password]').fill('4321')

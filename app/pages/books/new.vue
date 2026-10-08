@@ -2,9 +2,10 @@
     <div class="stack narrow">
         <BackLink to="/library">{{ t('common.cancel') }}</BackLink>
         <div class="row" style="justify-content: space-between">
-            <h1 class="title">{{ stepTitle }}</h1>
+            <h1 ref="headingRef" class="title" tabindex="-1">{{ stepTitle }}</h1>
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
         </div>
+        <AppStepper :steps="flowSteps" :current="0" :label="t('review.flow.label')" />
         <div v-if="!isWordless" class="row" role="group" :aria-label="t('bookDraft.wizard.voiceCount')">
             <AppChip @click="setMode('simple')" :selected="isSimple">
                 {{ t('bookDraft.wizard.oneVoice') }}
@@ -43,6 +44,9 @@ const { t } = useI18n()
 const { step, steps, isSimple, isWordless, isAiPrefilled, title, pages, lines, characters, setMode, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
 const { current, isParent } = useCurrentMember()
 const isOnline = useState<boolean>('is-online', () => true)
+
+const headingRef = useStepFocus(() => step.value)
+const flowSteps = computed(() => ['create', 'record', 'send', 'validate'].map(id => ({ id, label: t(`review.flow.${id}`) })))
 
 const stepCount = computed(() => steps.value.length)
 const stepNumber = computed(() => Math.max(1, steps.value.indexOf(step.value) + 1))

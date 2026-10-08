@@ -81,6 +81,16 @@
         "skipped": {
             "one": "{count} image could not be created: the affected pages are blank. You can fill them in later.",
             "other": "{count} images could not be created: the affected pages are blank. You can fill them in later."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

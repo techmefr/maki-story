@@ -85,6 +85,16 @@
             "few": "تعذّر إنشاء {count} صور: الصفحات المعنية فارغة. يمكنك إكمالها لاحقاً.",
             "many": "تعذّر إنشاء {count} صورة: الصفحات المعنية فارغة. يمكنك إكمالها لاحقاً.",
             "other": "تعذّر إنشاء {count} صورة: الصفحات المعنية فارغة. يمكنك إكمالها لاحقاً."
+        },
+        "agesTitle": "For which ages?",
+        "steps": {
+            "label": "Creation steps",
+            "idea": "Idea",
+            "language": "Language",
+            "ages": "Ages",
+            "pages": "Pages",
+            "hero": "Hero",
+            "sheet": "Characters"
         }
     }
 }

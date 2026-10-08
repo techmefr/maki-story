@@ -114,9 +114,20 @@
         "changes": "{count} للتصحيح",
         "waiting": "{count} قيد الانتظار"
     },
-    "pageLabel": "الصفحة {page}",
-    "pageLabelTitle": "الصفحة {page} · {title}",
-    "pageToFix": "للتصحيح",
+    "more": "More options",
+    "askRedo": "Ask to redo",
+    "redoLine": "Line to redo",
+    "toListen": {
+        "one": "{count} voice to listen to",
+        "other": "{count} voices to listen to"
+    },
+    "flow": {
+        "label": "Book steps",
+        "create": "Create",
+        "record": "Record",
+        "send": "Send",
+        "validate": "Validate"
+    },
     "parentOnly": "يمكن للوالد فقط المراجعة",
     "parentOnlyHint": "اطلب من أحد الوالدين مراجعة هذا الكتاب."
 }

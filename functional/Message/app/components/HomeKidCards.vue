@@ -80,10 +80,12 @@ const cards = computed(() =>
 .kids__item {
     position: relative;
     display: flex;
+    min-width: 0;
 }
 
 .kid {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,6 +130,10 @@ const cards = computed(() =>
 
 .kid__quota {
     display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     align-items: center;
     gap: 4px;
     color: var(--ink-soft);

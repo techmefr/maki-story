@@ -4,7 +4,7 @@
             <span v-if="hasDot" class="book__dot" data-testid="review-dot" role="img" :aria-label="dotLabel" />
             <BookCover :file-id="book.coverFileId" :src="book.coverUrl" :fallback="hex" />
             <span class="subtitle book__title">{{ book.title }}</span>
-            <span v-if="showStatus && !isReady" class="badge book__status">{{ statusLabel }}</span>
+            <span v-if="showStatus" class="badge book__status">{{ statusLabel }}</span>
         </NuxtLink>
         <AppButton
             v-if="hasSheet"

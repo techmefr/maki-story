@@ -57,5 +57,15 @@
     "emailHint": "يتلقى رابطًا لإنشاء ملفه الشخصي والانضمام إلى العائلة.",
     "sendEmail": "إرسال الدعوة",
     "sentTitle": "تم إرسال الدعوة",
-    "codeLabel": "رمز الدعوة"
+    "codeLabel": "رمز الدعوة",
+    "codeChannelLabel": "Which channel?",
+    "steps": {
+        "label": "Invitation steps",
+        "tab": "Mode",
+        "channel": "Channel",
+        "role": "Role",
+        "name": "Name",
+        "contact": "Contact",
+        "children": "Children"
+    }
 }

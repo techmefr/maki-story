@@ -1,6 +1,21 @@
-export type TFamilyCreateStep = 'name' | 'you' | 'child' | 'childCode' | 'parentCode' | 'done'
+export type TFamilyCreateStep = 'name' | 'firstName' | 'lastName' | 'displayName' | 'childName' | 'childAge' | 'childPhoto' | 'childCode' | 'parentCode' | 'done'
+export type TFamilyCreateGroup = 'family' | 'you' | 'child' | 'parent'
 
-export const FAMILY_CREATE_STEPS: TFamilyCreateStep[] = ['name', 'you', 'child', 'childCode', 'parentCode', 'done']
+export const FAMILY_CREATE_STEPS: TFamilyCreateStep[] = ['name', 'firstName', 'lastName', 'displayName', 'childName', 'childAge', 'childPhoto', 'childCode', 'parentCode', 'done']
+export const FAMILY_CREATE_GROUPS: TFamilyCreateGroup[] = ['family', 'you', 'child', 'parent']
+
+const STEP_GROUPS: Record<TFamilyCreateStep, TFamilyCreateGroup | null> = {
+    name: 'family',
+    firstName: 'you',
+    lastName: 'you',
+    displayName: 'you',
+    childName: 'child',
+    childAge: 'child',
+    childPhoto: 'child',
+    childCode: 'child',
+    parentCode: 'parent',
+    done: null,
+}
 export const MAX_CHILD_AGE = 17
 
 export const useFamilyCreate = () => {
@@ -24,15 +39,23 @@ export const useFamilyCreate = () => {
 
     const stepIndex = computed<number>(() => FAMILY_CREATE_STEPS.indexOf(step.value))
 
+    const groupIndex = computed<number>(() => {
+        const group = STEP_GROUPS[step.value]
+        return group === null ? FAMILY_CREATE_GROUPS.length : FAMILY_CREATE_GROUPS.indexOf(group)
+    })
+
     const canContinue = computed<boolean>(() => {
         if (step.value === 'name') {
             return familyName.value.trim() !== ''
         }
-        if (step.value === 'you') {
+        if (step.value === 'firstName') {
             return firstName.value.trim() !== ''
         }
-        if (step.value === 'child') {
-            return childName.value.trim() !== '' && childAge.value !== null
+        if (step.value === 'childName') {
+            return childName.value.trim() !== ''
+        }
+        if (step.value === 'childAge') {
+            return childAge.value !== null
         }
         if (step.value === 'childCode') {
             return childCode.value !== null
@@ -110,5 +133,5 @@ export const useFamilyCreate = () => {
         step.value = FAMILY_CREATE_STEPS[stepIndex.value + 1] as TFamilyCreateStep
     }
 
-    return { step, stepIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next }
+    return { step, stepIndex, groupIndex, familyName, firstName, lastName, displayName, childName, childAge, childPhoto, childCode, parentCode, isBusy, hasFailed, canContinue, back, next }
 }

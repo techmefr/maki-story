@@ -3,129 +3,17 @@
         <BackLink to="/library" />
         <AppEmpty kind="library" :title="t('review.parentOnly')" :hint="t('review.parentOnlyHint')" />
     </div>
-    <div class="stack narrow" v-else-if="book">
+    <div class="stack narrow review" v-else-if="book">
         <BackLink to="/library">{{ t('review.back') }}</BackLink>
         <h1 class="title">{{ t('review.title', { title: book.title }) }}</h1>
         <div class="row row--wrap">
             <span class="badge" data-testid="book-status">{{ t(`review.bookStatus.${book.status}`) }}</span>
-            <AppButton variant="secondary" size="sm" :to="`/books/${bookId}/activity`">
-                <AppIcon name="sparkles" :size="16" />{{ t('review.activity') }}
-            </AppButton>
         </div>
-        <section class="stack review__summary" aria-labelledby="review-summary" data-testid="review-summary">
-            <h2 id="review-summary" class="sr-only">{{ t('review.summary.title') }}</h2>
-            <div class="row row--wrap">
-                <AppBadge tone="success">{{ t('review.summary.approved', { count: countOf('approved') }) }}</AppBadge>
-                <AppBadge tone="danger">{{ t('review.summary.changes', { count: countOf('changes') }) }}</AppBadge>
-                <AppBadge tone="warning">{{ t('review.summary.waiting', { count: waitingCount }) }}</AppBadge>
-            </div>
-            <AppProgress :value="approvedPercent" :label="t('review.summary.title')" />
-        </section>
-        <section class="stack" aria-labelledby="review-voices">
-            <h2 id="review-voices" class="subtitle">{{ t('review.voicesTitle') }}</h2>
-            <ul class="review__voices">
-                <li v-for="voice in voices" :key="voice.member.id" class="row" data-testid="voice-progress">
-                    <AppAvatar :member="voice.member" :size="32" />
-                    <strong>{{ voice.member.name }}</strong>
-                    <span class="badge">{{ t('review.voiceProgress', { done: voice.approved, total: voice.total }) }}</span>
-                </li>
-            </ul>
-        </section>
-        <div v-if="languages.length > 1" class="row row--wrap" role="group" :aria-label="t('reviewLanguage.label')" data-testid="review-languages">
-            <button
-                v-for="code in languages"
-                :key="code"
-                type="button"
-                class="chip review__chip"
-                :class="{ 'chip--on': language === code }"
-                :aria-pressed="language === code"
-                :data-testid="`review-language-${code}`"
-                @click="language = code"
-            >
-                {{ languageLabel(code) }}
-            </button>
-        </div>
-        <AppButton
-            variant="secondary"
-            size="sm"
-            class="review__action"
-            v-if="language !== book.language"
-            :aria-pressed="isOriginalShown"
-            data-testid="review-original-toggle"
-            @click="isOriginalShown = !isOriginalShown"
-        >
-            <AppIcon name="book" :size="18" />{{ isOriginalShown ? t('reviewLanguage.hide') : t('reviewLanguage.show') }}
-        </AppButton>
+        <AppStepper :steps="flowSteps" :current="flowSteps.length - 1" :label="t('review.flow.label')" />
+        <p class="review__counter" data-testid="review-counter">{{ t('review.toListen', { count: toListenCount }) }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-        <AppButton variant="secondary" tone="mint" is-block class="review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
-            <AppIcon name="rocket" :size="22" />{{ t('review.validateAll') }}
-        </AppButton>
-        <p v-if="!canValidate && book.status !== 'ready'" class="muted">{{ validateHint }}</p>
-        <div class="row row--wrap" role="group" :aria-label="t('review.filtersLabel')">
-            <button
-                v-for="item in FILTERS"
-                :key="item.id"
-                type="button"
-                class="chip review__chip"
-                :class="{ 'chip--on': filter === item.id }"
-                :aria-pressed="filter === item.id"
-                @click="filter = item.id"
-            >
-                {{ t(`review.filters.${item.id}`) }} ({{ countOf(item.id) }})
-            </button>
-        </div>
-        <div class="row row--wrap" role="group" :aria-label="t('scanView.viewMode')">
-            <button type="button" class="chip review__chip" :class="{ 'chip--on': !isPageMode }" :aria-pressed="!isPageMode" @click="isPageMode = false">
-                <AppIcon name="check" :size="18" />{{ t('scanView.byLine') }}
-            </button>
-            <button type="button" class="chip review__chip" :class="{ 'chip--on': isPageMode }" :aria-pressed="isPageMode" data-testid="review-page-mode" @click="isPageMode = true">
-                <AppIcon name="book" :size="18" />{{ t('scanView.byPage') }}
-            </button>
-        </div>
-        <BookPageView
-            v-if="isPageMode && pageView"
-            :view="pageView"
-            mode="review"
-            :page-number="pageIndex + 1"
-            :page-count="Math.max(1, book.pages.length)"
-            :language="language"
-            @go="goPage"
-        >
-            <template #line-actions="{ line }">
-                <div class="row row--wrap">
-                    <span class="badge review__state" :class="`review__state--${stateOfId(line.id)}`">{{ t(`review.state.${stateOfId(line.id)}`) }}</span>
-                    <AppButton variant="secondary" size="sm" class="review__action" :disabled="!hasTakeId(line.id)" @click="playId(line.id)">
-                        <AppIcon name="play" :size="18" />{{ t('review.play') }}
-                    </AppButton>
-                    <AppButton variant="secondary" tone="mint" size="sm"
-                        v-if="canReviewId(line.id) && stateOfId(line.id) !== 'approved'"
-                        class="review__action"
-                        :disabled="isBusy"
-                        :data-testid="`page-approve-${line.id}`"
-                        @click="approveId(line.id)">
-                        <AppIcon name="check" :size="18" />{{ t('review.approve') }}
-                    </AppButton>
-                    <AppButton variant="destructive" size="sm" v-if="canReviewId(line.id)" class="review__action" :disabled="isBusy" :aria-expanded="openCommentId === line.id" @click="toggleCommentId(line.id)">
-                        <AppIcon name="redo" :size="18" />{{ t('review.filters.redo') }}
-                    </AppButton>
-                </div>
-                <form v-if="openCommentId === line.id" class="stack" @submit.prevent="requestChangesId(line.id)">
-                    <label class="label" :for="`page-comment-${line.id}`">{{ t('review.commentLabel') }}</label>
-                    <textarea :id="`page-comment-${line.id}`" v-model="draft" class="input" rows="3" maxlength="500" required />
-                    <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === ''">
-                        <AppIcon name="send" :size="18" />{{ t('review.sendRequest') }}
-                    </AppButton>
-                </form>
-            </template>
-        </BookPageView>
-        <section v-else v-for="group in pageGroups" :key="group.index" class="stack review__page" :aria-labelledby="`review-page-${group.index}`">
-            <button type="button" class="review__page-head" :aria-expanded="isPageOpen(group.index) ? 'true' : 'false'" :data-testid="`review-page-${group.index}`" @click="togglePage(group.index)">
-                <span :id="`review-page-${group.index}`" class="subtitle grow">{{ pageLabel(group.index) }}</span>
-                <AppBadge :tone="group.badge.tone">{{ group.badge.label }}</AppBadge>
-                <AppIcon name="chevron-down" :size="20" class="review__chevron" :class="{ 'review__chevron--open': isPageOpen(group.index) }" />
-            </button>
-        <ol v-show="isPageOpen(group.index)" class="review__lines">
-            <li v-for="line in group.lines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
+        <ol class="review__lines">
+            <li v-for="line in shownLines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
                 <div class="row row--wrap">
                     <AppAvatar :member="memberOf(line)" :size="36" />
                     <span class="label">{{ t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') }) }}</span>
@@ -152,38 +40,116 @@
                         @click="play(line)">
                         <AppIcon :name="playingLineId === line.id && player.isPlaying.value ? 'stop' : 'play'" :size="20" />{{ t('review.play') }}
                     </AppButton>
-                    <AppButton variant="secondary" tone="mint"
-                        v-if="canReview(line) && stateOf(line) !== 'approved'"
-                        class="review__action"
-                        :disabled="isBusy"
-                        :aria-label="t('review.approveAria', { page: line.pageIndex + 1 })"
-                        @click="approve(line)">
-                        <AppIcon name="check" :size="20" />{{ t('review.approve') }}
-                    </AppButton>
-                    <AppButton variant="destructive"
-                        v-if="canReview(line)"
-                        class="review__action"
-                        :disabled="isBusy"
-                        :aria-expanded="openCommentId === line.id"
-                        :aria-label="t('review.redoAria', { page: line.pageIndex + 1 })"
-                        @click="toggleComment(line)">
-                        <AppIcon name="redo" :size="20" />{{ t('review.filters.redo') }}
-                    </AppButton>
-                </div>
-                <form v-if="openCommentId === line.id" class="stack" @submit.prevent="requestChanges(line)">
-                    <label class="label" :for="`comment-${line.id}`">{{ t('review.commentLabel') }}</label>
-                    <textarea :id="`comment-${line.id}`" v-model="draft" class="input" rows="3" maxlength="500" required />
-                    <div class="row row--wrap">
-                        <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === ''">
-                            <AppIcon name="send" :size="20" />{{ t('review.sendRequest') }}
+                    <template v-if="isMoreOpen">
+                        <AppButton variant="secondary" tone="mint"
+                            v-if="canReview(line) && stateOf(line) !== 'approved'"
+                            class="review__action"
+                            :disabled="isBusy"
+                            :aria-label="t('review.approveAria', { page: line.pageIndex + 1 })"
+                            @click="approve(line)">
+                            <AppIcon name="check" :size="20" />{{ t('review.approve') }}
                         </AppButton>
-                        <AppButton variant="secondary" class="review__action" @click="openCommentId = null">{{ t('review.cancel') }}</AppButton>
-                    </div>
-                </form>
+                        <AppButton variant="destructive"
+                            v-if="canReview(line)"
+                            class="review__action"
+                            :disabled="isBusy"
+                            :aria-label="t('review.redoAria', { page: line.pageIndex + 1 })"
+                            @click="openRedo(line.id)">
+                            <AppIcon name="redo" :size="20" />{{ t('review.filters.redo') }}
+                        </AppButton>
+                    </template>
+                </div>
             </li>
         </ol>
-        </section>
         <p v-if="shownLines.length === 0" class="muted">{{ t('review.emptyFilter') }}</p>
+        <section class="stack">
+            <AppButton variant="secondary" size="sm" class="review__action" :aria-expanded="isMoreOpen" aria-controls="review-more" data-testid="review-more-toggle" @click="isMoreOpen = !isMoreOpen">
+                <AppIcon name="chevron-down" :size="18" class="review__chevron" :class="{ 'review__chevron--open': isMoreOpen }" />{{ t('review.more') }}
+            </AppButton>
+            <div v-show="isMoreOpen" id="review-more" class="stack">
+                <AppButton variant="secondary" size="sm" :to="`/books/${bookId}/activity`">
+                    <AppIcon name="sparkles" :size="16" />{{ t('review.activity') }}
+                </AppButton>
+                <div v-if="languages.length > 1" class="row row--wrap" role="group" :aria-label="t('reviewLanguage.label')" data-testid="review-languages">
+                    <button
+                        v-for="code in languages"
+                        :key="code"
+                        type="button"
+                        class="chip review__chip"
+                        :class="{ 'chip--on': language === code }"
+                        :aria-pressed="language === code"
+                        :data-testid="`review-language-${code}`"
+                        @click="language = code"
+                    >
+                        {{ languageLabel(code) }}
+                    </button>
+                </div>
+                <AppButton
+                    variant="secondary"
+                    size="sm"
+                    class="review__action"
+                    v-if="language !== book.language"
+                    :aria-pressed="isOriginalShown"
+                    data-testid="review-original-toggle"
+                    @click="isOriginalShown = !isOriginalShown"
+                >
+                    <AppIcon name="book" :size="18" />{{ isOriginalShown ? t('reviewLanguage.hide') : t('reviewLanguage.show') }}
+                </AppButton>
+                <div class="row row--wrap" role="group" :aria-label="t('review.filtersLabel')">
+                    <button
+                        v-for="item in FILTERS"
+                        :key="item.id"
+                        type="button"
+                        class="chip review__chip"
+                        :class="{ 'chip--on': filter === item.id }"
+                        :aria-pressed="filter === item.id"
+                        @click="filter = item.id"
+                    >
+                        {{ t(`review.filters.${item.id}`) }} ({{ countOf(item.id) }})
+                    </button>
+                </div>
+                <section class="stack review__summary" aria-labelledby="review-summary" data-testid="review-summary">
+                    <h2 id="review-summary" class="sr-only">{{ t('review.summary.title') }}</h2>
+                    <div class="row row--wrap">
+                        <AppBadge tone="success">{{ t('review.summary.approved', { count: countOf('approved') }) }}</AppBadge>
+                        <AppBadge tone="danger">{{ t('review.summary.changes', { count: countOf('changes') }) }}</AppBadge>
+                        <AppBadge tone="warning">{{ t('review.summary.waiting', { count: waitingCount }) }}</AppBadge>
+                    </div>
+                    <AppProgress :value="approvedPercent" :label="t('review.summary.title')" />
+                </section>
+                <section class="stack" aria-labelledby="review-voices">
+                    <h2 id="review-voices" class="subtitle">{{ t('review.voicesTitle') }}</h2>
+                    <ul class="review__voices">
+                        <li v-for="voice in voices" :key="voice.member.id" class="row" data-testid="voice-progress">
+                            <AppAvatar :member="voice.member" :size="32" />
+                            <strong>{{ voice.member.name }}</strong>
+                            <span class="badge">{{ t('review.voiceProgress', { done: voice.approved, total: voice.total }) }}</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+        <form v-if="isRedoOpen" class="stack card" @submit.prevent="sendRedo">
+            <span class="label">{{ t('review.redoLine') }}</span>
+            <AppSelect v-model="redoLineId" :aria-label="t('review.redoLine')" :options="redoLineOptions" />
+            <label class="label" for="redo-comment">{{ t('review.commentLabel') }}</label>
+            <textarea id="redo-comment" v-model="draft" class="input" rows="3" maxlength="500" required />
+            <div class="row row--wrap">
+                <AppButton type="submit" class="review__action" :disabled="isBusy || draft.trim() === '' || redoLineId === ''">
+                    <AppIcon name="send" :size="20" />{{ t('review.sendRequest') }}
+                </AppButton>
+                <AppButton variant="secondary" class="review__action" @click="closeRedo">{{ t('review.cancel') }}</AppButton>
+            </div>
+        </form>
+        <div class="review__bar">
+            <p v-if="!canValidate && book.status !== 'ready'" class="muted review__hint">{{ validateHint }}</p>
+            <AppButton variant="secondary" tone="mint" is-block class="review__validate" :disabled="!canValidate || isBusy" @click="validateAll">
+                <AppIcon name="rocket" :size="22" />{{ t('review.validateAll') }}
+            </AppButton>
+            <AppButton variant="destructive" is-block class="review__validate" :disabled="redoLines.length === 0 || isBusy" :aria-expanded="isRedoOpen" @click="toggleRedo">
+                <AppIcon name="redo" :size="22" />{{ t('review.askRedo') }}
+            </AppButton>
+        </div>
     </div>
     <p v-else class="muted">{{ t('common.loading') }}</p>
 </template>
@@ -205,13 +171,11 @@ const bookId = String(route.params.id)
 const book = ref<IBook | null>(null)
 const comments = ref<IReviewComment[]>([])
 const filter = ref<FilterId>('all')
-const openCommentId = ref<string | null>(null)
 const draft = ref('')
 const isBusy = ref(false)
+const isMoreOpen = ref(false)
 const errorMessage = ref('')
 const playingLineId = ref<string | null>(null)
-const isPageMode = ref(false)
-const pageIndex = ref(0)
 
 const language = ref('')
 const isOriginalShown = ref(false)
@@ -245,27 +209,7 @@ const memberOf = (line: ILine): IMember | null => getById(line.memberId)
 const commentsOf = (line: ILine): IReviewComment[] => comments.value.filter(item => item.lineId === line.id)
 const authorName = (comment: IReviewComment): string => getById(comment.authorMemberId)?.name ?? t('review.parent')
 
-const lineOf = (id: string): ILine => book.value!.lines.find(line => line.id === id)!
 const hasDiff = (line: ILine): boolean => line.previousText !== null && line.previousText !== line.text && stateOf(line) !== 'approved' && language.value === book.value?.language
-const stateOfId = (id: string): ReviewLineState => stateOf(lineOf(id))
-const hasTakeId = (id: string): boolean => hasTake(lineOf(id))
-const canReviewId = (id: string): boolean => canReview(lineOf(id))
-const pageView = computed(() => (book.value ? buildBookPageView(book.value, pageIndex.value, language.value) : null))
-
-const closedPages = ref<number[]>([])
-const isPageOpen = (index: number): boolean => !closedPages.value.includes(index)
-const togglePage = (index: number): void => {
-    closedPages.value = isPageOpen(index) ? [...closedPages.value, index] : closedPages.value.filter(item => item !== index)
-}
-const pageLabel = (index: number): string => {
-    const title = book.value?.pages[index]?.title ?? ''
-    return title === '' ? t('review.pageLabel', { page: index + 1 }) : t('review.pageLabelTitle', { page: index + 1, title })
-}
-
-const goPage = (step: number): void => {
-    const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
-    pageIndex.value = Math.min(last, Math.max(0, pageIndex.value + step))
-}
 
 const matches = (line: ILine, id: FilterId): boolean => {
     const state = stateOf(line)
@@ -275,26 +219,13 @@ const matches = (line: ILine, id: FilterId): boolean => {
     return id === 'changes' ? state === 'changes' || state === 'stale' : state === id
 }
 
-const pageGroups = computed(() => {
-    const byPage = new Map<number, ILine[]>()
-    for (const line of shownLines.value) {
-        byPage.set(line.pageIndex, [...(byPage.get(line.pageIndex) ?? []), line])
-    }
-    return [...byPage.entries()].map(([index, lines]) => {
-        const approved = lines.filter(line => stateOf(line) === 'approved').length
-        const hasChanges = lines.some(line => stateOf(line) === 'changes' || stateOf(line) === 'stale')
-        const badge: { label: string; tone: 'success' | 'warning' | 'danger' | undefined } = hasChanges
-            ? { label: t('review.pageToFix'), tone: 'danger' }
-            : { label: `${approved}/${lines.length}`, tone: approved === lines.length ? 'success' : undefined }
-        return { index, lines, badge }
-    })
-})
-
 const waitingCount = computed<number>(() => Math.max(0, (book.value?.lines.length ?? 0) - countOf('approved') - countOf('changes')))
 const approvedPercent = computed<number>(() => {
     const total = book.value?.lines.length ?? 0
     return total === 0 ? 0 : Math.round((countOf('approved') / total) * 100)
 })
+const toListenCount = computed<number>(() => (book.value?.lines ?? []).filter(line => stateOf(line) === 'to_review').length)
+const flowSteps = computed(() => ['create', 'record', 'send', 'validate'].map(id => ({ id, label: t(`review.flow.${id}`) })))
 const countOf = (id: FilterId): number => (book.value?.lines ?? []).filter(line => matches(line, id)).length
 const shownLines = computed(() => (book.value?.lines ?? []).filter(line => matches(line, filter.value)))
 
@@ -367,21 +298,36 @@ const play = async (line: ILine): Promise<void> => {
 
 const approve = (line: ILine): Promise<void> => run(async () => void (await reviewLine(bookId, line.id, { action: 'approve', language: language.value })))
 
-const playId = (id: string): Promise<void> => play(lineOf(id))
-const approveId = (id: string): Promise<void> => approve(lineOf(id))
-const toggleCommentId = (id: string): void => toggleComment(lineOf(id))
-const requestChangesId = (id: string): Promise<void> => requestChanges(lineOf(id))
 
-const toggleComment = (line: ILine): void => {
+const isRedoOpen = ref(false)
+const redoLineId = ref('')
+const redoLineOptions = computed(() => redoLines.value.map(line => ({ value: line.id, label: redoOptionLabel(line) })))
+const redoLines = computed(() => (book.value?.lines ?? []).filter(line => canReview(line)))
+const redoOptionLabel = (line: ILine): string => `${t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') })} - ${textOf(line)}`
+
+const openRedo = (lineId: string): void => {
     draft.value = ''
-    openCommentId.value = openCommentId.value === line.id ? null : line.id
+    redoLineId.value = lineId
+    isRedoOpen.value = true
 }
 
-const requestChanges = (line: ILine): Promise<void> =>
+const closeRedo = (): void => {
+    isRedoOpen.value = false
+    draft.value = ''
+}
+
+const toggleRedo = (): void => {
+    if (isRedoOpen.value) {
+        closeRedo()
+        return
+    }
+    openRedo(redoLines.value[0]?.id ?? '')
+}
+
+const sendRedo = (): Promise<void> =>
     run(async () => {
-        await reviewLine(bookId, line.id, { action: 'request_changes', comment: draft.value, language: language.value })
-        openCommentId.value = null
-        draft.value = ''
+        await reviewLine(bookId, redoLineId.value, { action: 'request_changes', comment: draft.value, language: language.value })
+        closeRedo()
     })
 
 const validateAll = (): Promise<void> => run(async () => void (await validateBook(bookId)))
@@ -406,22 +352,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.review__page-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    min-height: var(--tap);
-    padding: 12px 14px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 22px;
-    background: var(--paper);
-    box-shadow: var(--shadow);
-    color: var(--ink);
-    text-align: start;
-    cursor: pointer;
-}
-
 .review__chevron {
     flex: none;
     transition: rotate 0.2s;
@@ -487,6 +417,24 @@ onMounted(async () => {
 
 .review__validate {
     min-height: 60px;
+}
+
+.review__counter {
+    margin: 0;
+    font: 700 1.25rem/1.3 var(--font-title);
+}
+
+.review__bar {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    gap: 10px;
+    padding: 12px 0;
+    background: var(--bg);
+}
+
+.review__hint {
+    margin: 0;
 }
 
 .review__chip {

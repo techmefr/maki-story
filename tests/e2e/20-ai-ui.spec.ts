@@ -1,6 +1,6 @@
 import { expect, request, test } from '@playwright/test'
 import type { APIRequestContext, Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, linesCard, makeWav, nextStep, PARENT_NAME, pngFile, signIn, startBook, uniqueAccount, useProfile } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, linesCard, makeWav, toPages, PARENT_NAME, pngFile, signIn, startBook, uniqueAccount, useProfile } from './helpers'
 
 test.skip(Boolean(process.env.E2E_BASE_URL), 'AI tests need the fake provider of the local server')
 
@@ -33,7 +33,11 @@ const generateFromIdea = async (page: Page, idea: string): Promise<void> => {
     await page.getByTestId('ai-create').click()
     await expect(page.getByRole('heading', { name: 'Créer une histoire avec l’IA' })).toBeVisible()
     await page.getByLabel('Ton idée d’histoire').fill(idea)
+    await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+    await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+    await page.getByRole('button', { name: 'Suivant', exact: true }).click()
     await page.getByLabel('Nombre de pages').fill('2')
+    await page.getByRole('button', { name: 'Suivant', exact: true }).click()
     await page.getByLabel('Décris le héros (facultatif)').fill('Un zébu brun avec une écharpe rouge')
     await page.getByRole('button', { name: 'Suivant', exact: true }).click()
     await expect(page.getByRole('heading', { name: 'Les personnages' })).toBeVisible()
@@ -52,7 +56,7 @@ test.describe('ai interface', () => {
         await page.getByTestId('ai-prefill-input').setInputFiles([pngFile('a.png')])
         await expect(page.getByText('Proposé par l’IA.')).toBeVisible()
         await expect(page.getByLabel('Titre du livre')).toHaveValue('Le petit zébu')
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await expect(page.getByText('Réplique 1', { exact: true })).toBeVisible()
         await expect(page.getByText('Réplique 4', { exact: true })).toBeVisible()
@@ -87,7 +91,7 @@ test.describe('ai interface', () => {
 
         await row.getByRole('button', { name: 'Valider Le petit zébu' }).click()
         await expect(page.getByRole('region', { name: /À valider/ })).toHaveCount(0)
-        await expect(page.getByRole('region', { name: /À enregistrer/ }).getByText('Le petit zébu')).toBeVisible()
+        await expect(page.locator('.book', { hasText: 'Le petit zébu' }).first()).toContainText('À enregistrer')
         expect(await (await child.get('/api/books')).json()).toEqual([])
 
         const [summary] = (await (await page.request.get('/api/books')).json()) as IBookSummary[]
@@ -151,7 +155,7 @@ test.describe('ai interface', () => {
     test('a suggested translation is edited then accepted, or rejected, and saved only when accepted', async ({ page }) => {
         await openAsParent(page)
         await startBook(page, 'Livre traduit')
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
         await addLine(page, 1, null, 'Bonjour petit zébu')
         await addLine(page, 1, null, 'Au revoir petit zébu')

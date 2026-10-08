@@ -165,10 +165,35 @@ export const startBook = async (page: Page, title: string): Promise<void> => {
     await page.goto('/books/new')
     await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
     await page.getByLabel('Titre du livre').fill(title)
+    await nextStep(page)
+    await expect(page.getByRole('heading', { name: 'Type de livre' })).toBeVisible()
 }
 
 export const nextStep = async (page: Page): Promise<void> => {
     await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+}
+
+export const toPages = async (page: Page): Promise<void> => {
+    const heading = page.getByRole('heading', { name: 'Les pages' })
+    for (let attempt = 0; attempt < 6 && !(await heading.isVisible()); attempt++) {
+        await nextStep(page)
+    }
+    await expect(heading).toBeVisible()
+}
+
+export const inviteByLink = async (page: Page, name?: string): Promise<void> => {
+    await page.getByTestId('invite-tab-code').click()
+    await page.getByTestId('invite-next').click()
+    await page.getByTestId('invite-channel-LINK').click()
+    await page.getByTestId('invite-next').click()
+    await page.getByTestId('invite-next').click()
+    if (name !== undefined) {
+        await page.getByTestId('invite-name').fill(name)
+    }
+    while ((await page.getByTestId('invite-next').count()) > 0) {
+        await page.getByTestId('invite-next').click()
+    }
+    await page.getByTestId('invite-create').click()
 }
 
 export const finishPages = async (page: Page): Promise<void> => {

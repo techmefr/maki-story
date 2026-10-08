@@ -165,7 +165,7 @@ test.describe('page view, scan viewer and recording constraints', () => {
         expect(transform).not.toBe('matrix(1, 0, 0, 1, 0, 0)')
     })
 
-    test('the review page can be read page by page', async ({ page }) => {
+    test('the review page lets the parent approve a take from the details', async ({ page }) => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         const memberId = (await (await page.request.get('/api/auth/me')).json()).memberId as string
@@ -175,9 +175,8 @@ test.describe('page view, scan viewer and recording constraints', () => {
         expect(put.ok()).toBeTruthy()
         await page.request.post(`/api/books/${bookId}/submit`)
         await page.goto(`/books/${bookId}/review`)
-        await page.getByTestId('review-page-mode').click()
-        await expect(page.getByTestId('page-view')).toBeVisible()
-        await page.getByTestId(`page-approve-${book.lines[0]!.id}`).click()
-        await expect(page.locator(`[data-line-id="${book.lines[0]!.id}"]`).getByText('Validée')).toBeVisible()
+        await page.getByTestId('review-more-toggle').click()
+        await page.getByRole('button', { name: 'Approuver la réplique page 1' }).click()
+        await expect(page.locator('[data-line-state="approved"]')).toHaveCount(1)
     })
 })

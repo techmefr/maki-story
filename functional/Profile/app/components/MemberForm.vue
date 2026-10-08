@@ -23,17 +23,6 @@
             </div>
             <span class="muted">{{ roleHint }}</span>
         </div>
-        <div v-if="canSetChildOptions" class="stack" style="gap: 6px">
-            <label class="stack" style="gap: 6px">
-                <span class="label">{{ t('member.form.birthDate') }}</span>
-                <input v-model="birthDate" class="input" type="date" :max="today" />
-            </label>
-            <span class="muted">{{ t('member.form.birthDateHint') }}</span>
-            <AppChip @click="isCodeEnabled = !isCodeEnabled" :selected="isCodeEnabled">
-                {{ t('member.form.childCodeAsk') }}
-            </AppChip>
-            <span v-if="!isCodeEnabled" class="muted">{{ t('member.form.childCodeOff') }}</span>
-        </div>
         <CodeField v-if="!member && needsCode" v-model="code" :role="role" :label="t('member.form.codeLabel')" />
         <div v-else-if="member && canChangeCode && needsCode" class="stack" style="gap: 6px">
             <AppButton variant="secondary" size="sm" :aria-expanded="isChangingCode" @click="toggleCodeChange">
@@ -62,10 +51,23 @@
                 />
             </div>
         </div>
-        <div v-if="canSetLanguages" class="stack" style="gap: 6px">
-            <span class="label">{{ t('member.form.spokenLanguages') }}</span>
-            <LanguagePicker v-model="spokenLanguages" :label="t('member.form.spokenLanguages')" :is-disabled="isBusy" />
-        </div>
+        <AppMoreOptions v-if="canSetChildOptions || canSetLanguages" test-id="member-more-toggle">
+            <div v-if="canSetChildOptions" class="stack" style="gap: 6px">
+                <label class="stack" style="gap: 6px">
+                    <span class="label">{{ t('member.form.birthDate') }}</span>
+                    <input v-model="birthDate" class="input" type="date" :max="today" />
+                </label>
+                <span class="muted">{{ t('member.form.birthDateHint') }}</span>
+                <AppChip :selected="isCodeEnabled" @click="isCodeEnabled = !isCodeEnabled">
+                    {{ t('member.form.childCodeAsk') }}
+                </AppChip>
+                <span v-if="!isCodeEnabled" class="muted">{{ t('member.form.childCodeOff') }}</span>
+            </div>
+            <div v-if="canSetLanguages" class="stack" style="gap: 6px">
+                <span class="label">{{ t('member.form.spokenLanguages') }}</span>
+                <LanguagePicker v-model="spokenLanguages" :label="t('member.form.spokenLanguages')" :is-disabled="isBusy" />
+            </div>
+        </AppMoreOptions>
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
         <AppButton is-block type="submit" :disabled="!canSave || isBusy">{{ t('common.save') }}</AppButton>
         <AppButton variant="secondary" is-block v-if="member" :disabled="isBusy" @click="askRemove">

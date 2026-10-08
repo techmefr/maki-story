@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { apiJson, chooseProfile, finishPages, login, nextStep, pngFile, startBook, PARENT_NAME } from './helpers'
+import { apiJson, chooseProfile, finishPages, login, toPages, pngFile, startBook, PARENT_NAME } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 const openEditor = async (page: Page, title: string): Promise<void> => {
@@ -12,7 +12,7 @@ const openEditor = async (page: Page, title: string): Promise<void> => {
 test.describe('book creation by pages', () => {
     test('a book made of pages only is saved with a line of reference to record', async ({ page }, info) => {
         await openEditor(page, `Pages seules ${info.project.name}`)
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-photo-input').setInputFiles(pngFile('only.png'))
         await expect(page.locator('.thumb')).toHaveCount(1)
         await page.getByTestId('add-silent-page').click()
@@ -29,7 +29,7 @@ test.describe('book creation by pages', () => {
     test('a comic panel flagged without words gets no line to record', async ({ page }, info) => {
         await openEditor(page, `Case muette ${info.project.name}`)
         await page.getByRole('button', { name: 'Bande dessinée', exact: true }).click()
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-photo-input').setInputFiles(pngFile('bd.png'))
         const pageCard = page.getByRole('group', { name: 'Page 1', exact: true })
         await pageCard.getByRole('button', { name: 'Ajouter une case' }).click()
@@ -47,7 +47,7 @@ test.describe('book creation by pages', () => {
     test('an unfinished book is kept as a draft and can be resumed', async ({ page }, info) => {
         const title = `Brouillon ${info.project.name}`
         await openEditor(page, title)
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-silent-page').click()
         await page.getByTestId('save-draft').click()
         await expect(page.getByText('Brouillon enregistré sur cet appareil.')).toBeVisible()
@@ -62,7 +62,7 @@ test.describe('book creation by pages', () => {
 
     test('discarding the draft starts from an empty book', async ({ page }, info) => {
         await openEditor(page, `Jeté ${info.project.name}`)
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-silent-page').click()
         await page.getByTestId('save-draft').click()
         await page.goto('/books/new')

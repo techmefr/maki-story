@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, linesCard, login, nextStep, openCast, pngFile, startBook, uploadWav, PARENT_NAME, pickOption, allowSpokenLanguages } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, linesCard, login, nextStep, toPages, openCast, pngFile, startBook, uploadWav, PARENT_NAME, pickOption, allowSpokenLanguages } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 const openEditor = async (page: Page, title: string): Promise<void> => {
@@ -33,14 +33,14 @@ const addCharacterOnLines = async (page: Page, name: string): Promise<void> => {
 }
 
 const reachLinesWithoutPhoto = async (page: Page): Promise<void> => {
-    await nextStep(page)
+    await toPages(page)
     await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
 }
 
 test.describe('book editor', () => {
     test('a character is defined once and reused on several pages with a narrator', async ({ page }, info) => {
         await openEditor(page, `Personnages ${info.project.name}`)
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-photo-input').setInputFiles([pngFile('a.png'), pngFile('b.png')])
         await expect(page.locator('.thumb')).toHaveCount(2)
         await openCast(page)
@@ -111,7 +111,7 @@ test.describe('book editor', () => {
     test('a comic book keeps its panels in order with their lines', async ({ page }, info) => {
         await openEditor(page, `BD ${info.project.name}`)
         await page.getByRole('button', { name: 'Bande dessinée', exact: true }).click()
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByRole('button', { name: 'Terminer', exact: true })).toBeDisabled()
         await page.getByTestId('add-photo-input').setInputFiles(pngFile('bd.png'))
         await expect(page.locator('.thumb')).toHaveCount(1)
@@ -140,7 +140,7 @@ test.describe('book editor', () => {
         await openEditor(page, `Sans texte ${info.project.name}`)
         await page.getByRole('button', { name: 'Sans texte', exact: true }).click()
         await expect(page.getByRole('button', { name: 'Une seule voix' })).toHaveCount(0)
-        await nextStep(page)
+        await toPages(page)
         await expect(page.getByText('2/3')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Terminer', exact: true })).toBeDisabled()
         await page.getByTestId('add-photo-input').setInputFiles([pngFile('w1.png'), pngFile('w2.png')])
@@ -154,7 +154,7 @@ test.describe('book editor', () => {
 
     test('an empty page is skippable and flagged for the synthetic voice', async ({ page }, info) => {
         await openEditor(page, `Page vide ${info.project.name}`)
-        await nextStep(page)
+        await toPages(page)
         await page.getByTestId('add-photo-input').setInputFiles(pngFile('c.png'))
         await expect(page.locator('.thumb')).toHaveCount(1)
         await page.getByRole('button', { name: 'Ajouter une page sans voix' }).click()
@@ -195,18 +195,20 @@ test.describe('book editor', () => {
     test('a pasted text is split into lines and the language can be Malagasy', async ({ page }, info) => {
         await openEditor(page, `Malagasy ${info.project.name}`)
         await allowSpokenLanguages(page.request, ['fr', 'mg'])
-        await page.getByText('Plus de détails (facultatif)').click()
+        await nextStep(page)
         await page.getByLabel('Langue du livre', { exact: true }).click()
         const languages = await page.getByRole('option').allTextContents()
         expect(languages).toHaveLength(9)
         expect(languages.join(' ')).toContain('🇲🇬 Malagasy')
         await page.getByRole('option', { name: /Malagasy/ }).click()
+        await nextStep(page)
+        await nextStep(page)
         await page.getByLabel('Sous-titre').fill('Tantara kely')
         await page.getByLabel('Auteur', { exact: true }).fill('Rakoto')
         await page.getByLabel('Dessinateur', { exact: true }).fill('Soa')
         await page.getByLabel('Âge minimum').fill('3')
         await page.getByLabel('Âge maximum').fill('6')
-        await nextStep(page)
+        await toPages(page)
         await addCharacterOnLines(page, 'Rabe')
         const card = linesCard(page, 1)
         await card.getByRole('button', { name: 'Narrateur', exact: true }).click()

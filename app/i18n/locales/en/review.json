@@ -114,9 +114,20 @@
         "changes": "{count} to fix",
         "waiting": "{count} waiting"
     },
-    "pageLabel": "Page {page}",
-    "pageLabelTitle": "Page {page} · {title}",
-    "pageToFix": "To fix",
+    "more": "More options",
+    "askRedo": "Ask to redo",
+    "redoLine": "Line to redo",
+    "toListen": {
+        "one": "{count} voice to listen to",
+        "other": "{count} voices to listen to"
+    },
+    "flow": {
+        "label": "Book steps",
+        "create": "Create",
+        "record": "Record",
+        "send": "Send",
+        "validate": "Validate"
+    },
     "parentOnly": "Only a parent can review",
     "parentOnlyHint": "Ask a parent to review this book."
 }
