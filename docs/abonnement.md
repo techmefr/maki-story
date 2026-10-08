@@ -64,6 +64,11 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 - Ses propres livres solo : 10 gratuits, en plus des 12 de la famille.
 - Abonnement « proche » à part : non lancé. Si des proches le demandent, prix validé : 2,99 € par mois ou 24 € par an (famille : 4,99 € et 39 €).
 
+## Principes
+
+- Pas de publicité, ni dans l'offre gratuite ni dans l'offre abonnée (enfants, confiance des familles, règles européennes et des magasins).
+- Lancement par le web (appli installable) et Stripe ; magasins plus tard si les revenus le justifient.
+
 ## Domaines
 
 - `maki-story.com` : site public, présentation, tarifs, abonnement, lien vers l'open source.
