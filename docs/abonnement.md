@@ -48,6 +48,16 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 - **Prix de lancement:** par exemple 2,99 € par mois pour les 100 premières familles, via un code.
 - **Limites de l'offre gratuite:** la famille `lifetime` n'est pas limitée (livres, profils, familles de l'offre abonnée).
 
+## Parrainage
+
+- Chaque famille abonnée a un code de parrainage personnel (lien et code court).
+- Quand un ami s'abonne à l'offre **annuelle** avec ce code, le parrain gagne **1 mois offert**, ajouté à son abonnement.
+- Le crédit n'est accordé qu'une fois le premier paiement de l'annuel encaissé et le délai de rétractation de 14 jours passé.
+- Plafond : 12 mois offerts par parrain et par an.
+- Le filleul ne peut pas utiliser son propre code, ni un code d'une famille qui partage son compte, son e-mail ou son moyen de paiement.
+- À décider : un avantage pour le filleul (par exemple le premier mois offert).
+- Les familles en gratuité à vie n'ont rien à gagner mais peuvent parrainer.
+
 ## Domaines
 
 - `maki-story.com` : site public, présentation, tarifs, abonnement, lien vers l'open source.
