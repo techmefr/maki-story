@@ -40,6 +40,14 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 - Dans les applis mobiles (iOS, Android), la vente passe par la facturation des magasins (commission de 15 à 30 %). À trancher avant de publier sur les stores.
 - Frais Stripe : environ 1,5 % + 0,25 € par paiement.
 
+## Gratuité à vie et codes promo
+
+- **Gratuité à vie (ta famille, trois bêta-testeurs):** un statut posé directement sur la famille côté serveur (`plan` = `lifetime`), indépendant de Stripe. Il donne l'offre abonnée sans paiement, sans date de fin, et ne dépend d'aucun abonnement qui pourrait expirer.
+- **Qui l'attribue:** seul un administrateur d'instance (variable `INSTANCE_ADMIN_EMAILS`), depuis un écran ou une commande réservée. Chaque attribution est journalisée.
+- **Codes promo (marketing, lancement):** codes à usage limité (nombre d'utilisations, date de fin, remise en pourcentage ou durée offerte), saisis à l'abonnement. Ils s'appuient sur les codes promotionnels de Stripe. Les codes ne servent pas à la gratuité à vie.
+- **Prix de lancement:** par exemple 2,99 € par mois pour les 100 premières familles, via un code.
+- **Limites de l'offre gratuite:** la famille `lifetime` n'est pas limitée (livres, profils, familles de l'offre abonnée).
+
 ## Domaines
 
 - `maki-story.com` : site public, présentation, tarifs, abonnement, lien vers l'open source.
