@@ -3,6 +3,6 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ to: string }>()
+defineProps<{ to?: string }>()
 const { t } = useI18n()
 </script>

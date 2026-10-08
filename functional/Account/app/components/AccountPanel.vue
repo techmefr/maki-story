@@ -1,9 +1,7 @@
 <template>
     <div class="stack account" data-testid="account">
-        <header class="row account__head">
-            <AppIconButton icon="back" :label="t('common.back')" size="lg" @click="emit('back')" />
-            <h1 class="account__title">{{ t('account.title') }}</h1>
-        </header>
+        <BackLink @click="emit('back')" />
+        <h1 class="account__title">{{ t('account.title') }}</h1>
         <p v-if="loadFailed" class="error" role="alert">{{ t('account.loadFailed') }}</p>
         <div v-else-if="member" class="account__identity" data-testid="account-identity">
             <AppAvatar :member="member" :size="56" />

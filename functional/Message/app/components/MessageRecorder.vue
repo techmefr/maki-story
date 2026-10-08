@@ -1,7 +1,7 @@
 <template>
     <section class="rec" data-testid="message-recorder">
         <p class="rec__hint">{{ hint }}</p>
-        <div class="rec__stage" aria-hidden="true">
+        <div class="rec__stage" aria-hidden="true" @click="emit('toggle')">
             <span v-if="isRecording" class="rec__halo" />
             <span class="rec__mic" :class="{ 'rec__mic--on': isRecording }"><AppIcon name="mic" :size="52" /></span>
         </div>
@@ -19,10 +19,10 @@
             {{ isRecording ? t('messages.compose.stop') : isDone ? t('messages.compose.again') : t('messages.compose.record') }}
         </AppButton>
         <div v-if="isDone && !isRecording" class="rec__done">
-            <AppButton variant="secondary" :tone="isPreviewing ? 'mint' : 'sky'" icon="play" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
+            <AppButton variant="secondary" icon="play" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
                 {{ t('messages.compose.listenBack') }}
             </AppButton>
-            <AppButton variant="secondary" tone="mint" icon="send" :loading="isBusy" data-testid="message-send" @click="emit('send')">
+            <AppButton icon="send" :loading="isBusy" data-testid="message-send" @click="emit('send')">
                 {{ t('common.send') }}
             </AppButton>
         </div>
@@ -47,6 +47,10 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 </script>
 
 <style scoped>
+.rec__stage {
+    cursor: pointer;
+}
+
 .rec {
     display: flex;
     flex-direction: column;

@@ -69,5 +69,6 @@
         "removeConfirm": "Remover"
     },
     "quota": "{count}/{max} mensagens",
-    "sendHer": "Enviar uma mensagem"
+    "sendHer": "Enviar uma mensagem",
+    "pickHint": "Toca numa pessoa para ouvir ou falar com ela."
 }

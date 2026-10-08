@@ -73,5 +73,6 @@
         "removeConfirm": "إزالة"
     },
     "quota": "{count}/{max} رسائل",
-    "sendHer": "أرسل رسالة"
+    "sendHer": "أرسل رسالة",
+    "pickHint": "المس شخصًا لتستمع إليه أو تتحدث معه."
 }

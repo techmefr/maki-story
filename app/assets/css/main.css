@@ -69,8 +69,10 @@ html {
     scrollbar-color: var(--grey-line) transparent;
 }
 
-html {
-    scrollbar-gutter: stable;
+@media (min-width: 1024px) {
+    html {
+        scrollbar-gutter: stable;
+    }
 }
 
 ::-webkit-scrollbar {

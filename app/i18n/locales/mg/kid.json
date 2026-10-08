@@ -69,5 +69,6 @@
         "removeConfirm": "Esory"
     },
     "quota": "{count}/{max} hafatra",
-    "sendHer": "Alefaso hafatra"
+    "sendHer": "Alefaso hafatra",
+    "pickHint": "Tsindrio ny olona iray raha hihaino na hiresaka aminy."
 }
