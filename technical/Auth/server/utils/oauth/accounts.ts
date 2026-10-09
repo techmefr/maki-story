@@ -1,3 +1,4 @@
+import { defaultFamilyPlan } from '~~/server/utils/plan'
 import { randomBytes } from 'node:crypto'
 import { getDb, one } from '~~/server/utils/db'
 import { hashPassword } from '~~/technical/Auth/server/utils/password'
@@ -60,8 +61,8 @@ export const resolveSocialAccount = async (identity: ISocialIdentity): Promise<I
             insert into accounts (email, password_hash) values (${identity.email}, ${unusablePassword}) returning id
         `)
         const family = one(await tx<{ id: string }[]>`
-            insert into families (name, invite_code)
-            values (${familyName}, substr(md5(random()::text || clock_timestamp()::text), 1, 10))
+            insert into families (name, invite_code, plan)
+            values (${familyName}, substr(md5(random()::text || clock_timestamp()::text), 1, 10), ${defaultFamilyPlan()})
             returning id
         `)
         await tx`insert into members (family_id, name, role, color) values (${family.id}, ${parentName}, 'parent', ${DEFAULT_PARENT_COLOR})`

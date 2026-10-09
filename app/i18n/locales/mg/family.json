@@ -116,5 +116,6 @@
             "child": "Child",
             "parent": "Code"
         }
-    }
+    },
+    "planUsage": "Olon-dehibe {used}/{limit} amin’ny tolotra maimaim-poana (tsy voafetra ny ankizy)"
 }

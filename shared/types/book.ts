@@ -280,3 +280,10 @@ export interface IHomeCounts {
     proposalsWaiting: number
     toFix: number
 }
+
+export interface IPlanUsage {
+    plan: 'free' | 'premium' | 'lifetime'
+    limits: { books: number | null; adults: number | null }
+    books: number
+    adults: number
+}

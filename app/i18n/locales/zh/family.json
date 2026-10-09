@@ -115,5 +115,6 @@
             "child": "Child",
             "parent": "Code"
         }
-    }
+    },
+    "planUsage": "免费版 {used}/{limit} 位成人（儿童不限）"
 }

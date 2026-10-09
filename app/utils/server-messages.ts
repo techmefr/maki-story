@@ -1,5 +1,7 @@
 export const SERVER_MESSAGE_KEYS: Record<string, string> = {
     'Not signed in': 'errors.server.notSignedIn',
+    plan_book_limit: 'errors.server.planBookLimit',
+    plan_adult_limit: 'errors.server.planAdultLimit',
     'Choose a profile first': 'errors.server.chooseProfile',
     'Not allowed to edit this profile': 'errors.server.forbidden',
     'Not allowed to change this code': 'errors.server.forbidden',

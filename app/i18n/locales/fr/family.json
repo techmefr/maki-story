@@ -116,5 +116,6 @@
             "child": "Enfant",
             "parent": "Code"
         }
-    }
+    },
+    "planUsage": "{used}/{limit} adultes de l’offre gratuite (enfants illimités)"
 }

@@ -116,5 +116,6 @@
             "child": "Child",
             "parent": "Code"
         }
-    }
+    },
+    "planUsage": "{used}/{limit} adults on the free plan (children unlimited)"
 }

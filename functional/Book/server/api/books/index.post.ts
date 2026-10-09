@@ -2,6 +2,7 @@ import { checkAge, checkAgeRange, checkBookType, checkColor, checkLanguage, chec
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
 import { fetchCoverImage, normalizeIsbn } from '~~/server/utils/isbn'
+import { assertCanCreateBooks } from '~~/server/utils/plan'
 import { assertFamilyLanguages } from '~~/server/utils/familyLanguages'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
@@ -114,6 +115,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     }
     const soloMemberId = kind === 'solo' ? (body.soloMemberId ?? null) : null
     const db = getDb()
+    await assertCanCreateBooks(db, familyId)
     if (plannedPages.length === 0 && coverUrl !== null) {
         const cover = await fetchCoverImage(coverUrl)
         if (cover) {

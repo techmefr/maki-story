@@ -35,6 +35,8 @@
         "recordingTooLong": "Esta gravação é demasiado longa (máximo de 10 minutos).",
         "recordingType": "Este formato de áudio não é aceite.",
         "spokenLanguage": "Este idioma não é um dos que falas.",
-        "treasureFull": "Tira um coração antes de adicionar um novo."
+        "treasureFull": "Tira um coração antes de adicionar um novo.",
+        "planBookLimit": "Atingiste os 12 livros do plano gratuito. A subscrição para adicionar mais chega em breve.",
+        "planAdultLimit": "Atingiste os 8 adultos do plano gratuito (pais e familiares). As crianças são ilimitadas."
     }
 }

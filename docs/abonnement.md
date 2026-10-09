@@ -1,6 +1,6 @@
 # Abonnement : limites de l'offre gratuite
 
-Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est codé.
+Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Les limites de l'offre gratuite sont codées (serveur, interface, tests) ; Stripe, codes promo et parrainage ne le sont pas.
 
 ## Offre gratuite
 
@@ -11,6 +11,13 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Rien n'est
 | Profils d'enfants | illimité |
 | Familles par compte | 1 |
 | Écoute et relecture | illimitées |
+
+## Réalisation
+
+- `server/utils/plan.ts` : plafonds par offre (`free`, `premium`, `lifetime` dans `families.plan`), `assertCanCreateBooks` et `assertCanAddAdult` (refus 402 `plan_book_limit` ou `plan_adult_limit`).
+- Contrôles : création de livre (y compris ISBN, copie reçue d'une autre famille, brouillon IA), création de profil d'adulte, invitation d'un adulte (une invitation en attente réserve une place).
+- `GET /api/plan` : usage de la famille ; affiché dans la bibliothèque (parents) et la page famille.
+- `PUT /api/admin/families/:id/plan` et `GET /api/admin/families` : réservés aux administrateurs d'instance (`INSTANCE_ADMIN_EMAILS`) pour attribuer `lifetime` à ta famille et aux bêta-testeurs.
 
 ## Précisions
 

@@ -2,6 +2,7 @@
     <div class="stack overview">
         <BackLink :to="homePath" />
         <h1 class="title">{{ t('family.index.title') }}</h1>
+        <p v-if="usage && usage.limits.adults !== null" class="overview__hint" data-testid="plan-adults-usage">{{ t('family.planUsage', { used: usage.adults, limit: usage.limits.adults }) }}</p>
         <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
         <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
 
@@ -103,6 +104,7 @@ const MORE_LINKS: { to: string; label: string; icon: IconName }[] = [
 const { t } = useI18n()
 const { homePath } = useCurrentMember()
 const { guests } = useMembers()
+const { usage, load: loadPlan } = usePlan()
 const { groups, providers, pending, hasFailed, isBusy, isRemovable, toggleProvider, confirmRemoval, init } = useFamilyOverview()
 
 const isProvidersOpen = ref(false)
@@ -116,7 +118,9 @@ const subtitleOf = (member: IMember): string => {
     return roleLabel(member.role)
 }
 
-onMounted(init)
+onMounted(async () => {
+    await Promise.all([init(), loadPlan()])
+})
 </script>
 
 <style scoped>

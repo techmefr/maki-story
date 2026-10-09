@@ -2,6 +2,7 @@ import { getDb, one } from '~~/server/utils/db'
 import { assertMembersInFamily } from '~~/server/utils/family'
 import { CHANNELS, DEFAULT_INVITATION_HOURS, EMAIL_PATTERN, MAX_INVITATIONS_PER_HOUR, MAX_INVITATION_HOURS, invitationLink, invitationShareText, newInvitationCode } from '~~/server/utils/invitations'
 import { logEvent } from '~~/server/utils/log'
+import { assertCanAddAdult } from '~~/server/utils/plan'
 import { mailDeliveryReady, renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
 import { mailText } from '~~/technical/Mail/server/utils/mailTexts'
 import { requireActorMember, requirePermission } from '~~/technical/Auth/server/utils/permissions'
@@ -27,6 +28,10 @@ export default defineEventHandler(async (event): Promise<IInvitationCreated> => 
     const hours = Math.min(MAX_INVITATION_HOURS, Math.max(1, Math.round(Number(body.expiresInHours) || DEFAULT_INVITATION_HOURS)))
     const childIds = Array.isArray(body.childIds) ? [...new Set(body.childIds.filter(id => typeof id === 'string'))] : []
     const db = getDb()
+    const isLinkingExisting = typeof body.memberId === 'string' && body.memberId !== ''
+    if (!isLinkingExisting) {
+        await assertCanAddAdult(db, familyId)
+    }
     if (childIds.length > 0) {
         await assertMembersInFamily(db, familyId, childIds)
         const children = await db`select id from members where family_id = ${familyId} and role = 'child' and id in ${db(childIds)}`

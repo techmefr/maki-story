@@ -205,7 +205,8 @@ const submit = async (): Promise<void> => {
         emit('created', created.value)
     } catch (error) {
         console.error('L invitation n a pas pu être créée', error)
-        errorMessage.value = (error as { statusCode?: number }).statusCode === 429 ? t('invite.tooMany') : t('invite.createFailed')
+        const status = (error as { statusCode?: number }).statusCode
+        errorMessage.value = status === 429 ? t('invite.tooMany') : status === 402 ? errorText(error, 'invite.createFailed') : t('invite.createFailed')
     } finally {
         isBusy.value = false
     }

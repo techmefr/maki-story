@@ -2,6 +2,7 @@ import type { Sql, TransactionSql } from 'postgres'
 import { ACTIVE_SHARE_STATUSES, MAX_FAMILIES_PER_BOOK } from '../../shared/utils/sharing'
 import { one } from './db'
 import { notify } from './notifications'
+import { assertCanCreateBooks } from './plan'
 import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 import { notFound } from './validate'
 
@@ -70,6 +71,7 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
     if (!source) {
         return notFound('Book not found')
     }
+    await assertCanCreateBooks(tx, targetFamilyId)
     const created = one(await tx<{ id: string }[]>`
         insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
         select ${targetFamilyId}, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, 'multi', 'to_record',
