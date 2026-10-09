@@ -165,7 +165,6 @@ export const startBook = async (page: Page, title: string): Promise<void> => {
     await page.goto('/books/new')
     await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
     await page.getByLabel('Titre du livre').fill(title)
-    await nextStep(page)
     await expect(page.getByRole('heading', { name: 'Type de livre' })).toBeVisible()
 }
 

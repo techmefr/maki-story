@@ -58,8 +58,11 @@
                         </div>
                         <AppButton variant="secondary" size="sm" @click="addPanel(index)">{{ t('bookDraft.pages.addPanel') }}</AppButton>
                     </div>
-                    <AppCheckbox v-if="!isWordless && page.panels.length === 0" :model-value="page.isSilent === true" @update:model-value="updatePage(index, { isSilent: Boolean($event) })">{{ t('bookDraft.pages.silentPage') }}</AppCheckbox>
-                    <template v-if="!isWordless">
+                    <div v-if="!isWordless && page.panels.length === 0" class="row row--wrap" role="group" :aria-label="t('bookDraft.pages.voiceChoice')">
+                        <AppChip :selected="page.isSilent === true" :data-testid="`page-silent-${index + 1}`" @click="updatePage(index, { isSilent: true })">{{ t('bookDraft.pages.choiceSilent') }}</AppChip>
+                        <AppChip :selected="page.isSilent !== true" :data-testid="`page-voice-${index + 1}`" @click="updatePage(index, { isSilent: false })">{{ t('bookDraft.pages.choiceVoice') }}</AppChip>
+                    </div>
+                    <template v-if="!isWordless && (page.isSilent !== true || page.panels.length > 0)">
                         <BookLineRow v-for="line in linesOfPanel(index, null)" :key="line.key" :line="line" />
                         <BookLineComposer :page-index="index" :panels="page.panels" />
                     </template>

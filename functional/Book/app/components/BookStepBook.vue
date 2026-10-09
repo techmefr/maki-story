@@ -1,19 +1,16 @@
 <template>
-    <form class="stack" data-testid="book-substep" :data-substep="subStep" @submit.prevent="goNext">
-        <p class="muted" data-testid="book-substep-progress">{{ t('common.progress', { current: subIndex + 1, total: subSteps.length }) }}</p>
+    <form class="stack" data-testid="book-substep" @submit.prevent="goNext">
+        <BookIsbnLookup @found="applyFound" />
 
-        <section v-if="subStep === 'title'" class="stack">
-            <h2 id="book-title-label" ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.title') }}</h2>
-            <input v-model="title" class="input" aria-labelledby="book-title-label" :placeholder="t('bookDraft.book.titlePlaceholder')" />
+        <section class="stack">
+            <label class="stack book-field">
+                <span id="book-title-label" class="label">{{ t('bookDraft.book.title') }}</span>
+                <input v-model="title" class="input" aria-labelledby="book-title-label" :placeholder="t('bookDraft.book.titlePlaceholder')" />
+            </label>
         </section>
 
-        <section v-else-if="subStep === 'reader'" class="stack">
-            <h2 ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.reader') }}</h2>
-            <MemberPicker :model-value="readerId" @update:model-value="setReader" />
-        </section>
-
-        <section v-else-if="subStep === 'type'" class="stack" role="group" aria-labelledby="book-type-label">
-            <h2 id="book-type-label" ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.type') }}</h2>
+        <section class="stack" role="group" aria-labelledby="book-type-label">
+            <h2 id="book-type-label" class="subtitle">{{ t('bookDraft.book.type') }}</h2>
             <div class="row row--wrap">
                 <AppChip v-for="option in TYPE_OPTIONS" :key="option.id" :selected="type === option.id" @click="type = option.id">
                     {{ t(option.labelKey) }}
@@ -22,19 +19,30 @@
             <p class="muted">{{ typeHint }}</p>
         </section>
 
-        <section v-else-if="subStep === 'language'" class="stack">
-            <h2 id="book-language-label" ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.language') }}</h2>
+        <section class="stack">
+            <h2 id="book-language-label" class="subtitle">{{ t('bookDraft.book.language') }}</h2>
             <AppSelect v-model="language" aria-labelledby="book-language-label" :options="languageOptions" />
         </section>
 
-        <section v-else-if="subStep === 'voices'" class="stack">
-            <h2 ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.voiceLanguages') }}</h2>
-            <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
-            <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
-        </section>
+        <AppButton variant="secondary" is-block :aria-expanded="isDetailsOpen" data-testid="book-details-toggle" @click="isDetailsOpen = !isDetailsOpen">
+            {{ isDetailsOpen ? t('bookDraft.book.detailsHide') : t('bookDraft.book.detailsShow') }}
+        </AppButton>
 
-        <section v-else class="stack">
-            <h2 ref="headingRef" class="subtitle" tabindex="-1">{{ t('bookDraft.book.more') }}</h2>
+        <section v-if="isDetailsOpen" class="stack">
+            <template v-if="current?.role !== 'relative'">
+                <AppToggle :model-value="isSimple" data-testid="single-voice" @update:model-value="setMode($event ? 'simple' : 'casting')">
+                    {{ t('bookDraft.book.singleVoice') }}
+                </AppToggle>
+                <div v-if="isSimple" class="stack">
+                    <h2 class="subtitle">{{ t('bookDraft.book.reader') }}</h2>
+                    <MemberPicker :model-value="readerId" @update:model-value="setReader" />
+                </div>
+            </template>
+            <div class="stack">
+                <h2 class="subtitle">{{ t('bookDraft.book.voiceLanguages') }}</h2>
+                <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
+                <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
+            </div>
             <AppButton variant="secondary" icon="settings" data-testid="book-tags-open" @click="isTagsOpen = true">
                 {{ t('bookCreate.tagsOpen') }}
                 <AppBadge v-if="tagCount > 0">{{ tagCount }}</AppBadge>
@@ -85,13 +93,11 @@
         </AppBottomSheet>
 
         <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
-        <AppStepNav :next-label="t('common.next')" :can-back="subIndex > 0" next-test-id="book-next" @back="goBack" />
+        <AppStepNav :next-label="t('common.next')" :can-back="false" next-test-id="book-next" />
     </form>
 </template>
 
 <script setup lang="ts">
-type TBookSubStep = 'title' | 'reader' | 'type' | 'language' | 'voices' | 'more'
-
 const emit = defineEmits<{ next: [] }>()
 
 const TYPE_OPTIONS: { id: BookType; labelKey: string; hintKey: string }[] = [
@@ -103,57 +109,44 @@ const TYPE_OPTIONS: { id: BookType; labelKey: string; hintKey: string }[] = [
 
 const { t } = useI18n()
 const languageOptions = languageSelectOptions(LANGUAGES)
-const { title, subtitle, author, illustrator, ageMin, ageMax, language, voiceLanguages, moods, themes, type, ttsFallback, readerId, isSimple, isWordless, setReader } = useBookDraft()
+const { title, subtitle, author, illustrator, ageMin, ageMax, language, voiceLanguages, moods, themes, type, ttsFallback, isbn, coverUrl, isSimple, readerId, setMode, setReader } = useBookDraft()
+const { current } = useCurrentMember()
 
-const subStep = ref<TBookSubStep>('title')
 const errorMessage = ref('')
 const isTagsOpen = ref(false)
+const isDetailsOpen = ref(false)
 
-const headingRef = useStepFocus(() => subStep.value)
-
-const subSteps = computed<TBookSubStep[]>(() => (isSimple.value && !isWordless.value ? ['title', 'reader', 'type', 'language', 'voices', 'more'] : ['title', 'type', 'language', 'voices', 'more']))
-const subIndex = computed<number>(() => Math.max(0, subSteps.value.indexOf(subStep.value)))
 const tagCount = computed(() => moods.value.length + themes.value.length)
 const typeHint = computed(() => {
     const option = TYPE_OPTIONS.find(item => item.id === type.value)
     return option ? t(option.hintKey) : ''
 })
 
-watch(subSteps, list => {
-    if (!list.includes(subStep.value)) {
-        subStep.value = 'type'
-    }
-})
+const applyFound = (book: IIsbnBook): void => {
+    title.value = book.title
+    author.value = book.author
+    isbn.value = book.isbn
+    coverUrl.value = book.coverUrl ?? ''
+}
 
-const problemOf = (current: TBookSubStep): string => {
-    if (current === 'title' && title.value.trim() === '') {
+const problem = (): string => {
+    if (title.value.trim() === '') {
         return t('bookDraft.book.errTitle')
     }
-    if (current === 'reader' && readerId.value === null) {
+    if (isSimple.value && readerId.value === null) {
         return t('bookDraft.book.errReader')
     }
-    if (current === 'more' && ageMin.value !== null && ageMax.value !== null && ageMin.value > ageMax.value) {
+    if (ageMin.value !== null && ageMax.value !== null && ageMin.value > ageMax.value) {
         return t('bookDraft.book.errAge')
     }
     return ''
 }
 
 const goNext = (): void => {
-    errorMessage.value = problemOf(subStep.value)
-    if (errorMessage.value !== '') {
-        return
-    }
-    const following = subSteps.value[subIndex.value + 1]
-    if (following === undefined) {
+    errorMessage.value = problem()
+    if (errorMessage.value === '') {
         emit('next')
-        return
     }
-    subStep.value = following
-}
-
-const goBack = (): void => {
-    errorMessage.value = ''
-    subStep.value = subSteps.value[Math.max(0, subIndex.value - 1)] ?? 'title'
 }
 
 const toggleTag = (list: string[], tag: string, max: number): void => {

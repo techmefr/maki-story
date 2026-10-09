@@ -5,16 +5,6 @@
         <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
         <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
 
-        <AppListRow to="/family/parental" :title="t('lock.menu')" :subtitle="t('lock.menuHint')" data-testid="family-parental">
-            <template #lead><AppIcon name="timer-off" :size="28" /></template>
-            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
-        </AppListRow>
-
-        <AppListRow to="/family/books" :title="t('bookAccess.menu')" :subtitle="t('bookAccess.menuHint')" data-testid="family-books">
-            <template #lead><AppIcon name="book" :size="28" /></template>
-            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
-        </AppListRow>
-
         <section v-for="group in groups" :key="group.role" class="stack overview__group" :aria-labelledby="`group-${group.role}`">
             <div class="row">
                 <h2 :id="`group-${group.role}`" class="subtitle grow">{{ t(`family.index.groups.${group.role}`) }}</h2>
@@ -32,7 +22,7 @@
                     <AppIconButton
                         v-if="isRemovable(member)"
                         icon="trash"
-                        tone="coral"
+                        tone="paper"
                         :label="t('family.index.remove', { name: member.name })"
                         :data-testid="`family-remove-${member.id}`"
                         @click="pending = member"
@@ -41,6 +31,16 @@
                 </li>
             </ul>
         </section>
+
+        <AppListRow to="/family/parental" :title="t('lock.menu')" :subtitle="t('lock.menuHint')" data-testid="family-parental">
+            <template #lead><AppIcon name="timer-off" :size="28" /></template>
+            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
+        </AppListRow>
+
+        <AppListRow to="/family/books" :title="t('bookAccess.menu')" :subtitle="t('bookAccess.menuHint')" data-testid="family-books">
+            <template #lead><AppIcon name="book" :size="28" /></template>
+            <template #action><AppIcon name="chevron-right" :size="22" class="mirror-rtl" /></template>
+        </AppListRow>
 
         <section v-if="guests.length > 0" class="stack overview__group">
             <h2 class="subtitle">{{ t('family.index.guestVoices') }}</h2>
@@ -56,11 +56,15 @@
         </section>
 
         <section v-if="providers" class="stack overview__group" aria-labelledby="providers-title">
-            <h2 id="providers-title" class="subtitle">{{ t('family.index.providers.title') }}</h2>
-            <p class="overview__hint">{{ t('family.index.providers.hint') }}</p>
-            <AppToggle v-for="id in PROVIDER_IDS" :key="id" :model-value="providers[id]" :data-testid="`family-provider-${id}`" @update:model-value="toggleProvider(id, $event)">
-                {{ PROVIDER_LABELS[id] }}
-            </AppToggle>
+            <AppButton id="providers-title" variant="secondary" is-block icon="lock" :aria-expanded="isProvidersOpen" data-testid="family-providers-toggle" @click="isProvidersOpen = !isProvidersOpen">
+                {{ t('family.index.providers.title') }}
+            </AppButton>
+            <template v-if="isProvidersOpen">
+                <p class="overview__hint">{{ t('family.index.providers.hint') }}</p>
+                <AppToggle v-for="id in PROVIDER_IDS" :key="id" :model-value="providers[id]" :data-testid="`family-provider-${id}`" @update:model-value="toggleProvider(id, $event)">
+                    {{ PROVIDER_LABELS[id] }}
+                </AppToggle>
+            </template>
         </section>
 
         <p v-if="hasFailed" class="error" role="alert">{{ t('family.index.failed') }}</p>
@@ -100,6 +104,8 @@ const { t } = useI18n()
 const { homePath } = useCurrentMember()
 const { guests } = useMembers()
 const { groups, providers, pending, hasFailed, isBusy, isRemovable, toggleProvider, confirmRemoval, init } = useFamilyOverview()
+
+const isProvidersOpen = ref(false)
 
 const hasLegacyCode = (member: IMember): boolean => member.role === 'child' && member.codeKind === 'pin'
 

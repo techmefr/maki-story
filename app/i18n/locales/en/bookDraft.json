@@ -68,7 +68,12 @@
             "legends": "Legends",
             "numbers-letters": "Numbers and letters",
             "daily-life": "Daily life"
-        }
+        },
+        "isbnOpen": "Scan or type a barcode (ISBN)",
+        "isbnFilled": "Book found: title and cover are filled in.",
+        "detailsShow": "More details",
+        "detailsHide": "Fewer details",
+        "singleVoice": "One person reads the whole book"
     },
     "pages": {
         "intro": "Take a photo of each page of the book. These photos stay private to the family and are never shown to the child.",
@@ -96,7 +101,10 @@
         "draftSaved": "Draft saved on this device.",
         "finish": "Finish",
         "silentPage": "Page without words (image only)",
-        "silentPanel": "Panel without words (image only)"
+        "silentPanel": "Panel without words (image only)",
+        "choiceSilent": "Page without a voice",
+        "choiceVoice": "Add a voice",
+        "voiceChoice": "This page"
     },
     "characters": {
         "intro": "Define each character only once: you will then find it in one tap for each line. Choose who reads its voice.",

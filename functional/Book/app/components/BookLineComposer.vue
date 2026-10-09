@@ -21,19 +21,34 @@
           {{ t("studio.composer.newCharacter") }}
         </AppChip>
       </div>
-      <div v-if="isCreating" class="row">
-        <input
-          v-model="newName"
-          class="input grow"
-          :aria-label="t('studio.composer.newName')"
-          :placeholder="t('studio.composer.newPlaceholder')"
-          @keydown.enter.prevent="createCharacter"
-        />
-        <AppButton size="sm"
-          :disabled="newName.trim() === ''"
-          @click="createCharacter">
-          {{ t("common.create") }}
-        </AppButton>
+      <div v-if="isCreating" class="stack" style="gap: 8px">
+        <div class="row">
+          <input
+            v-model="newName"
+            class="input grow"
+            :aria-label="t('studio.composer.newName')"
+            :placeholder="t('studio.composer.newPlaceholder')"
+            @keydown.enter.prevent="createCharacter"
+          />
+          <AppButton
+            :disabled="newName.trim() === ''"
+            @click="createCharacter">
+            {{ t("common.create") }}
+          </AppButton>
+        </div>
+        <div class="row row--wrap" role="group" :aria-label="t('bookDraft.characters.colors')">
+          <button
+            v-for="color in VOICE_COLORS"
+            :key="color.id"
+            type="button"
+            class="swatch"
+            :class="{ 'swatch--on': newColor === color.id }"
+            :style="{ background: color.hex }"
+            :aria-pressed="newColor === color.id"
+            :aria-label="t('bookDraft.characters.colorLabel', { color: t(COLOR_KEYS[color.id]) })"
+            @click="newColor = color.id"
+          />
+        </div>
       </div>
       <div
         v-if="selected && selected.memberId === null"
@@ -102,6 +117,15 @@
 <script setup lang="ts">
 const props = defineProps<{ pageIndex: number; panels: IDraftPanel[] }>();
 
+const COLOR_KEYS: Record<VoiceColorId, string> = {
+  coral: "bookDraft.characters.coral",
+  sun: "bookDraft.characters.sun",
+  mint: "bookDraft.characters.mint",
+  sky: "bookDraft.characters.sky",
+  grape: "bookDraft.characters.grape",
+  pink: "bookDraft.characters.pink",
+};
+
 const { t } = useI18n();
 
 const {
@@ -120,6 +144,7 @@ const tone = ref("");
 const sceneDescription = ref("");
 const isCreating = ref(false);
 const newName = ref("");
+const newColor = ref<VoiceColorId | null>(null);
 
 const selected = computed(
   () =>
@@ -167,8 +192,9 @@ const createCharacter = (): void => {
   if (newName.value.trim() === "") {
     return;
   }
-  selectedKey.value = addCharacter(newName.value).key;
+  selectedKey.value = addCharacter(newName.value, null, newColor.value).key;
   newName.value = "";
+  newColor.value = null;
   isCreating.value = false;
 };
 

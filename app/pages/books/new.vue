@@ -6,15 +6,6 @@
             <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
         </div>
         <AppStepper :steps="flowSteps" :current="0" :label="t('review.flow.label')" />
-        <div v-if="!isWordless" class="row" role="group" :aria-label="t('bookDraft.wizard.voiceCount')">
-            <AppChip @click="setMode('simple')" :selected="isSimple">
-                {{ t('bookDraft.wizard.oneVoice') }}
-            </AppChip>
-            <AppChip @click="setMode('casting')" :selected="!isSimple">
-                {{ t('bookDraft.wizard.severalVoices') }}
-            </AppChip>
-        </div>
-        <AppButton v-if="step === 'book' && isParent && isOnline" variant="secondary" is-block icon="search" to="/books/isbn" data-testid="add-by-isbn">{{ t('addBook.open') }}</AppButton>
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
         <div v-if="isResumable" class="card stack" role="group" :aria-label="t('bookDraft.resume.title')">
@@ -41,9 +32,8 @@ const STEP_TITLE_KEYS: Record<DraftStep, string> = {
 }
 
 const { t } = useI18n()
-const { step, steps, isSimple, isWordless, isAiPrefilled, title, pages, lines, characters, setMode, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
+const { step, steps, isAiPrefilled, title, pages, lines, characters, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
 const { current, isParent } = useCurrentMember()
-const isOnline = useState<boolean>('is-online', () => true)
 
 const headingRef = useStepFocus(() => step.value)
 const flowSteps = computed(() => ['create', 'record', 'send', 'validate'].map(id => ({ id, label: t(`review.flow.${id}`) })))

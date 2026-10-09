@@ -68,7 +68,12 @@
             "legends": "Leyendas",
             "numbers-letters": "Números y letras",
             "daily-life": "Día a día"
-        }
+        },
+        "isbnOpen": "Escanear o escribir el código de barras (ISBN)",
+        "isbnFilled": "Libro encontrado: título y portada rellenados.",
+        "detailsShow": "Más detalles",
+        "detailsHide": "Menos detalles",
+        "singleVoice": "Una sola persona lee todo el libro"
     },
     "pages": {
         "intro": "Fotografía cada página del libro. Estas fotos son privadas de la familia y nunca se muestran al niño.",
@@ -96,7 +101,10 @@
         "draftSaved": "Draft saved on this device.",
         "finish": "Finish",
         "silentPage": "Page without words (image only)",
-        "silentPanel": "Panel without words (image only)"
+        "silentPanel": "Panel without words (image only)",
+        "choiceSilent": "Página sin voz",
+        "choiceVoice": "Añadir una voz",
+        "voiceChoice": "Esta página"
     },
     "characters": {
         "intro": "Define cada personaje una sola vez: luego lo encontrarás con un toque para cada frase. Elige quién lee su voz.",

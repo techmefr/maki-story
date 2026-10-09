@@ -68,7 +68,12 @@
             "legends": "Légendes",
             "numbers-letters": "Chiffres et lettres",
             "daily-life": "Quotidien"
-        }
+        },
+        "isbnOpen": "Scanner ou saisir un code-barres (ISBN)",
+        "isbnFilled": "Livre trouvé : le titre et la couverture sont remplis.",
+        "detailsShow": "Plus de détails",
+        "detailsHide": "Moins de détails",
+        "singleVoice": "Une seule personne lit tout le livre"
     },
     "pages": {
         "intro": "Photographie chaque page du livre. Ces photos restent privées à la famille et ne sont jamais montrées à l’enfant.",
@@ -96,7 +101,10 @@
         "draftSaved": "Brouillon enregistré sur cet appareil.",
         "finish": "Terminer",
         "silentPage": "Page sans paroles (image seule)",
-        "silentPanel": "Case sans paroles (image seule)"
+        "silentPanel": "Case sans paroles (image seule)",
+        "choiceSilent": "Page sans voix",
+        "choiceVoice": "Ajouter une voix",
+        "voiceChoice": "Cette page"
     },
     "characters": {
         "intro": "Définis chaque personnage une seule fois : tu le retrouveras ensuite en un clic pour chaque réplique. Choisis qui lit sa voix.",

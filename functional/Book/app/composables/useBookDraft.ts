@@ -65,6 +65,8 @@ interface IStoredDraft {
     ageMax: number | null
     language: string
     voiceLanguages: string[]
+    isbn: string
+    coverUrl: string
     moods: string[]
     themes: string[]
     type: BookType
@@ -95,6 +97,8 @@ export const useBookDraft = () => {
     const ageMax = useState<number | null>('draft-age-max', () => null)
     const language = useState<string>('draft-language', () => DEFAULT_LANGUAGE)
     const voiceLanguages = useState<string[]>('draft-voice-languages', () => [])
+    const isbn = useState<string>('draft-isbn', () => '')
+    const coverUrl = useState<string>('draft-cover-url', () => '')
     const moods = useState<string[]>('draft-moods', () => [])
     const themes = useState<string[]>('draft-themes', () => [])
     const type = useState<BookType>('draft-type', () => 'standard')
@@ -136,7 +140,7 @@ export const useBookDraft = () => {
         return (VOICE_COLORS.find(color => !used.includes(color.id)) ?? VOICE_COLORS[characters.value.length % VOICE_COLORS.length]!).id
     }
 
-    const addCharacter = (name: string, memberId: string | null = null): IDraftCharacter => {
+    const addCharacter = (name: string, memberId: string | null = null, color: VoiceColorId | null = null): IDraftCharacter => {
         const trimmed = name.trim()
         const existing = characters.value.find(character => character.name.toLowerCase() === trimmed.toLowerCase())
         if (existing) {
@@ -145,7 +149,7 @@ export const useBookDraft = () => {
         const created: IDraftCharacter = {
             key: nextKey++,
             name: trimmed,
-            color: nextColor(),
+            color: color ?? nextColor(),
             description: '',
             isNarrator: false,
             memberId,
@@ -217,6 +221,8 @@ export const useBookDraft = () => {
         ageMax.value = null
         language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
         voiceLanguages.value = []
+        isbn.value = ''
+        coverUrl.value = ''
         moods.value = []
         themes.value = []
         type.value = 'standard'
@@ -243,6 +249,8 @@ export const useBookDraft = () => {
             ageMax: ageMax.value,
             language: language.value,
             voiceLanguages: voiceLanguages.value,
+            isbn: isbn.value,
+            coverUrl: coverUrl.value,
             moods: moods.value,
             themes: themes.value,
             type: type.value,
@@ -295,6 +303,8 @@ export const useBookDraft = () => {
         ageMax.value = saved.ageMax ?? null
         language.value = saved.language ?? DEFAULT_LANGUAGE
         voiceLanguages.value = saved.voiceLanguages ?? []
+        isbn.value = saved.isbn ?? ''
+        coverUrl.value = saved.coverUrl ?? ''
         moods.value = saved.moods ?? []
         themes.value = saved.themes ?? []
         type.value = saved.type ?? 'standard'
@@ -532,6 +542,8 @@ export const useBookDraft = () => {
             themes: themes.value,
             type: type.value,
             ttsFallback: ttsFallback.value,
+            isbn: isbn.value === '' ? undefined : isbn.value,
+            coverUrl: coverUrl.value === '' ? undefined : coverUrl.value,
             kind: isSimple.value ? 'solo' : 'multi',
             soloMemberId: isSimple.value ? readerId.value : null,
             isProposal: isProposal.value ? true : undefined,
@@ -581,6 +593,8 @@ export const useBookDraft = () => {
         ageMax,
         language,
         voiceLanguages,
+        isbn,
+        coverUrl,
         moods,
         themes,
         type,

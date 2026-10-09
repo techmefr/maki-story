@@ -68,7 +68,12 @@
             "legends": "传说",
             "numbers-letters": "数字与字母",
             "daily-life": "日常生活"
-        }
+        },
+        "isbnOpen": "扫描或输入条形码 (ISBN)",
+        "isbnFilled": "已找到图书：标题和封面已填写。",
+        "detailsShow": "更多详情",
+        "detailsHide": "收起详情",
+        "singleVoice": "由一个人朗读整本书"
     },
     "pages": {
         "intro": "给书的每一页拍照。这些照片只有家人能看到，不会展示给孩子。",
@@ -96,7 +101,10 @@
         "draftSaved": "Draft saved on this device.",
         "finish": "Finish",
         "silentPage": "Page without words (image only)",
-        "silentPanel": "Panel without words (image only)"
+        "silentPanel": "Panel without words (image only)",
+        "choiceSilent": "没有声音的页面",
+        "choiceVoice": "添加声音",
+        "voiceChoice": "此页面"
     },
     "characters": {
         "intro": "每个角色只需设定一次，之后每句台词一点就能选到。请选择谁来为它配音。",

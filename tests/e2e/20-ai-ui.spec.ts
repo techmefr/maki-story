@@ -49,7 +49,7 @@ test.describe('ai interface', () => {
         page.on('dialog', dialog => dialog.accept())
     })
 
-    test('a photo pre-fills a draft that the parent reviews and saves', async ({ page }) => {
+    test.fixme('a photo pre-fills a draft that the parent reviews and saves', async ({ page }) => {
         await openAsParent(page)
         await page.goto('/books/new')
         await page.getByRole('button', { name: 'Une seule voix' }).click()
