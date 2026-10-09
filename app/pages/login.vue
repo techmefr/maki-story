@@ -1,7 +1,7 @@
 <template>
     <div class="stack center narrow login">
         <AppLogo :size="104" class="anim-float" />
-        <h1 class="title">Tantara</h1>
+        <h1 class="title">Maki Story</h1>
         <p class="muted">{{ t('auth.login.tagline') }}</p>
         <section v-if="isSent" class="stack center" role="status">
             <h2 class="subtitle">{{ t('auth.login.sentTitle') }}</h2>

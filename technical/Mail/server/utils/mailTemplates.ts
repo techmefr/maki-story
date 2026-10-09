@@ -113,7 +113,7 @@ const NOTE_STYLE = `${TEXT_STYLE}font-size:15px;line-height:22px;padding-bottom:
 const linkTo = (site: IMailSite, path: string): string => `${site.baseUrl.replace(/\/$/, '')}${path}`
 
 const logoRow = (): string =>
-    `<tr><td align="center" style="padding:0 0 20px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="56" height="56" align="center" valign="middle" bgcolor="${YELLOW}" style="width:56px;height:56px;background-color:${YELLOW};border:3px solid ${INK};border-radius:16px;font-family:${FONT};font-size:30px;font-weight:bold;color:${INK}">T</td><td style="padding-left:12px;font-family:${FONT};font-size:30px;font-weight:bold;color:${INK}">Tantara</td></tr></table></td></tr>`
+    `<tr><td align="center" style="padding:0 0 20px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="56" height="56" align="center" valign="middle" bgcolor="${YELLOW}" style="width:56px;height:56px;background-color:${YELLOW};border:3px solid ${INK};border-radius:16px;font-family:${FONT};font-size:30px;font-weight:bold;color:${INK}">T</td><td style="padding-left:12px;font-family:${FONT};font-size:30px;font-weight:bold;color:${INK}">Maki Story</td></tr></table></td></tr>`
 
 const bannerRow = (color: string, glyph: string): string =>
     `<tr><td bgcolor="${color}" align="center" style="background-color:${color};border-radius:26px 26px 0 0;border-bottom:3px solid ${INK};padding:30px 20px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="84" height="84" align="center" valign="middle" bgcolor="${CARD}" style="width:84px;height:84px;background-color:${CARD};border:3px solid ${INK};border-radius:42px;font-family:${FONT};font-size:42px;font-weight:bold;color:${INK}">${glyph}</td></tr></table></td></tr>`
@@ -134,7 +134,7 @@ const footerRow = (reason: string, links: { help: string; legal: string; manage:
     if (links.manage) {
         anchors.push(`<a href="${links.manage}" style="color:${INK};font-weight:bold">${labels.manage}</a>`)
     }
-    const identity = address === '' ? 'Tantara' : `Tantara · ${address}`
+    const identity = address === '' ? 'Maki Story' : `Maki Story · ${address}`
     return `<tr><td align="center" style="padding:22px 20px 0;font-family:${FONT};font-size:13px;line-height:20px;color:${SOFT_INK}">${reason}<br>${identity}<br>${anchors.join(' · ')}</td></tr>`
 }
 
@@ -217,7 +217,7 @@ ${footer}
     if (hasNote) {
         plainParts.push('', text('note'))
     }
-    plainParts.push('', plain(translate(reasonKey, raw)), site.address === '' ? 'Tantara' : `Tantara · ${site.address}`)
+    plainParts.push('', plain(translate(reasonKey, raw)), site.address === '' ? 'Maki Story' : `Maki Story · ${site.address}`)
     plainParts.push(textLink(labels.help, linkTo(site, '/help')), textLink(labels.legal, linkTo(site, '/legal')))
     if (manageUrl) {
         plainParts.push(textLink(labels.manage, manageUrl))

@@ -41,7 +41,7 @@ export const sendMail = async (mail: IMail): Promise<boolean> => {
             method: 'POST',
             headers: { 'api-key': apiKey, 'content-type': 'application/json', accept: 'application/json' },
             body: JSON.stringify({
-                sender: { email: sender, name: process.env.MAIL_FROM_NAME ?? 'Tantara' },
+                sender: { email: sender, name: process.env.MAIL_FROM_NAME ?? 'Maki Story' },
                 to: [{ email: mail.to }],
                 subject: mail.subject,
                 textContent: mail.text,

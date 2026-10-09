@@ -1,4 +1,4 @@
-# PRD — Tantara
+# PRD — Maki Story
 
 ## Objectif
 

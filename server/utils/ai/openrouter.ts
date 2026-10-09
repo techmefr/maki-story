@@ -31,7 +31,7 @@ export const createOpenRouterProvider = (apiKey: string): IAiProvider => {
     const post = async (body: object, timeoutMs: number): Promise<IOpenRouterResponse> => {
         const response = await fetch(ENDPOINT, {
             method: 'POST',
-            headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json', 'x-title': 'Tantara' },
+            headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json', 'x-title': 'Maki Story' },
             body: JSON.stringify({ ...body, usage: { include: true } }),
             signal: AbortSignal.timeout(timeoutMs),
         })

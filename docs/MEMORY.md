@@ -1,4 +1,4 @@
-# Mémoire du projet — Tantara
+# Mémoire du projet — Maki Story
 
 Décisions prises et pièges connus. À relire avant une tâche, à compléter en fin de tâche (date, décision, raison).
 

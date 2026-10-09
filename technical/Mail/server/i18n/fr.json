@@ -1,7 +1,7 @@
 {
     "tpl": {
         "common": {
-            "reason": "Tu reçois ce message car tu as un compte Tantara.",
+            "reason": "Tu reçois ce message car tu as un compte Maki Story.",
             "help": "Aide",
             "legal": "Confidentialité",
             "manage": "Gérer mes e-mails"
@@ -11,25 +11,25 @@
             "parent": "parent"
         },
         "magic_link": {
-            "subject": "Ton lien de connexion Tantara",
+            "subject": "Ton lien de connexion Maki Story",
             "preheader": "Touche le bouton pour te connecter. Il est valable {minutes} minutes.",
             "title": "Ton lien magique",
             "p1": "Bonjour,",
-            "p2": "Touche le bouton pour te connecter à Tantara. Pas besoin de mot de passe.",
+            "p2": "Touche le bouton pour te connecter à Maki Story. Pas besoin de mot de passe.",
             "button": "Me connecter",
             "note": "Ce lien est valable {minutes} minutes et ne fonctionne qu’une seule fois. Si tu n’as rien demandé, ignore ce message."
         },
         "invitation": {
-            "subject": "{name} t’invite à rejoindre {family} sur Tantara",
+            "subject": "{name} t’invite à rejoindre {family} sur Maki Story",
             "preheader": "Prête ta voix aux histoires de la famille. Rejoins-la en un geste.",
             "title": "{name} t’invite à rejoindre {family}",
             "p1": "{name} te propose de rejoindre la famille en tant que [[{role}]].",
-            "p2": "Sur Tantara, chacun prête sa voix aux histoires du soir des enfants de la famille, même de loin.",
+            "p2": "Sur Maki Story, chacun prête sa voix aux histoires du soir des enfants de la famille, même de loin.",
             "button": "Rejoindre la famille",
             "note": "Tu peux aussi saisir le code **{code}** à la création de ton profil. Il est valable {hours} h."
         },
         "code_reset": {
-            "subject": "Choisis un nouveau code Tantara",
+            "subject": "Choisis un nouveau code Maki Story",
             "preheader": "Ce lien est valable {minutes} minutes.",
             "title": "Un nouveau code ?",
             "p1": "Tu as demandé à réinitialiser ton code secret.",
@@ -38,7 +38,7 @@
             "note": "Si tu n’es pas à l’origine de cette demande, ignore ce message : ton code actuel reste valable."
         },
         "welcome": {
-            "subject": "Bienvenue sur Tantara !",
+            "subject": "Bienvenue sur Maki Story !",
             "preheader": "Ta famille est prête. Voici comment démarrer.",
             "title": "Bienvenue, {name} !",
             "p1": "La famille **{family}** est prête.",
@@ -52,7 +52,7 @@
             "p1": "**{name}** a terminé l’enregistrement de « {book} ».",
             "p2": "Lignes à relire : {count}. Tu peux approuver chaque ligne ou demander un changement.",
             "button": "Relire l’histoire",
-            "reason": "Tu reçois cet e-mail car tu es parent d’une famille sur Tantara."
+            "reason": "Tu reçois cet e-mail car tu es parent d’une famille sur Maki Story."
         },
         "corrections": {
             "subject": "Des prises à refaire sur « {book} »",
@@ -74,7 +74,7 @@
             "reason": "Tu reçois cet e-mail car tu as activé les notifications de voix ajoutées."
         },
         "export_ready": {
-            "subject": "Ton export de données Tantara est prêt",
+            "subject": "Ton export de données Maki Story est prêt",
             "preheader": "Le lien de téléchargement est valable {days} jours.",
             "title": "Ton export est prêt",
             "p1": "Tu as demandé une copie de tes données : enregistrements, profils et progression de lecture.",
@@ -82,7 +82,7 @@
             "note": "Le lien est valable {days} jours. Ne le partage pas : il donne accès à tes données."
         },
         "account_deleted": {
-            "subject": "Ton compte Tantara a été supprimé",
+            "subject": "Ton compte Maki Story a été supprimé",
             "preheader": "Confirmation de suppression de ton compte et de tes données.",
             "title": "Ton compte a été supprimé",
             "p1": "Comme demandé, ton compte et toutes les données de la famille **{family}** ont été supprimés.",
@@ -91,11 +91,11 @@
             "noteNoContact": "Si tu n’es pas à l’origine de cette suppression, réponds à ce message sans attendre."
         },
         "digest": {
-            "subject": "Ton récapitulatif Tantara du jour",
+            "subject": "Ton récapitulatif Maki Story du jour",
             "preheader": "Nouveautés du jour : {count}.",
             "title": "Ton récapitulatif du jour",
-            "p1": "Voici ce qui s’est passé sur Tantara depuis hier.",
-            "button": "Ouvrir Tantara",
+            "p1": "Voici ce qui s’est passé sur Maki Story depuis hier.",
+            "button": "Ouvrir Maki Story",
             "more": "Et {count} autres nouveautés dans l’application.",
             "reason": "Tu reçois un seul e-mail récapitulatif par jour, car tu as activé les notifications par e-mail."
         },

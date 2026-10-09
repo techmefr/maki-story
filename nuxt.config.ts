@@ -37,14 +37,14 @@ export default defineOSDDNuxtConfig({
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
         head: {
-            title: 'Tantara',
+            title: 'Maki Story',
             htmlAttrs: { lang: 'fr' },
             meta: [
                 { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
                 { name: 'theme-color', content: '#FFF3DC' },
                 { name: 'apple-mobile-web-app-capable', content: 'yes' },
                 { name: 'mobile-web-app-capable', content: 'yes' },
-                { name: 'apple-mobile-web-app-title', content: 'Tantara' },
+                { name: 'apple-mobile-web-app-title', content: 'Maki Story' },
             ],
             script: [
                 {

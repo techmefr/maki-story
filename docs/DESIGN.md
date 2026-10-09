@@ -1,4 +1,4 @@
-# Design system — Tantara
+# Design system — Maki Story
 
 Référence visuelle : `docs/maquettes/Design System.dc.html`. Les maquettes de `docs/maquettes/` font foi (une par écran, voir `docs/maquettes/README.md` pour les parcours et `docs/maquettes/PROMPT - Appliquer le design Tantara.md` pour la spécification page par page). Les anciennes maquettes de `design/` (Kalli) sont obsolètes. Les composants sont atomiques : un composant = un fichier = une section du design system. Atomes et molécules vivent dans `technical/` ; les organismes (écrans) assemblent ces briques dans les domaines `functional/`.
 

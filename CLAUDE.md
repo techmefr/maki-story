@@ -1,4 +1,4 @@
-# Tantara
+# Maki Story
 
 Appli de livres lus à voix haute par la famille (Nuxt 4 en SPA, Capacitor 8, PostgreSQL, Vercel). Les maquettes Claude Design font foi pour l'interface.
 
