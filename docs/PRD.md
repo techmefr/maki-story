@@ -35,9 +35,16 @@ Un enfant a un ou plusieurs parents. Une personne peut être parent d'une famill
 
 Il n'y a pas de messages libres entre adultes (un enfant peut en envoyer à un adulte, et inversement). Seules circulent les demandes liées au livre (demande d'enregistrement, proposition de livre) et à la revue (corrections, commentaires).
 
-## Studio
+## Création d'un livre
 
-Création page par page. Optionnels : photo de page, titre et description de page, description de personnage, auteur, couverture, ISBN. Obligatoires : titre du livre, au moins une langue, et pour chaque personnage nom, couleur et texte dans la langue déclarée.
+Parcours guidé (maquettes `Creation Livre *.dc.html` du 2026-10-13, issues #169 et #180) : une étape de couverture, puis une étape par page jusqu'à « Livre fini », puis une vérification et l'envoi. Un brouillon est enregistré à chaque « Page suivante ». Détail des écrans, états et règles dans `docs/pages/books-new.md`.
+
+- **Couverture** : titre obligatoire ; description facultative (consignes de jeu ou contexte) ; type de livre en pastilles (livre par défaut, bande dessinée, sans texte, écrit par l'enfant) ; image de couverture vierge ou avec photo ; « Plus de détails » (langue du texte, langues des voix, ambiances, thèmes, étiquettes, sous-titre, auteur, dessinateur, âges, voix de synthèse, scan ISBN) : tout y est facultatif et ne bloque jamais la création.
+- **Page** : image vierge ou photo ; voix « Avec voix » ou « Sans voix ». Une page sans voix est muette : aucune demande n'est envoyée. Un livre sans aucune voix est un livre muet, valide.
+- **Voix et personnages** sont créés ensemble. Un personnage n'existe pas sans sa voix et n'a qu'un lecteur. Un adulte peut lire plusieurs voix. Un personnage « adulte et enfant » se modélise par deux personnages. Le narrateur est une voix comme les autres (rôle propre), créée par défaut et supprimable.
+- **Qui la lit ?** Un proche qui parle la langue du livre ; une traduction par l'IA suivie d'une attribution (seulement quand l'IA est activée) ; une proposition ouverte à tous les adultes de la famille qui parlent la langue ; ou « plus tard ».
+- **Envoi** : liste des personnages avec leur lecteur et nombre de voix « à attribuer » ; les demandes d'enregistrement aux proches partent à l'envoi.
+- **Limites de l'offre gratuite** : un brouillon ne compte pas dans les 12 livres ; le livre compte à l'envoi.
 
 ## Plateformes
 

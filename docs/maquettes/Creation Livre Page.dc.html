@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Page 1 avec voix</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+input,textarea,button{font-family:Fredoka,sans-serif}
+input::placeholder,textarea::placeholder{color:#8A85B5}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+</helmet>
+<div style="width: 390px; height: 1640px; box-sizing: border-box; background: #FFF3DC; padding: 28px 20px 40px; display: flex; flex-direction: column; gap: 22px; font-family: Fredoka, sans-serif; color: #221B4A">
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Creation Livre Couverture.dc.html" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; padding: 0 18px; display: flex; align-items: center; gap: 8px; text-decoration: none; box-sizing: border-box">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#221B4A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+Couverture</a>
+<span style="border: 2px solid #221B4A; border-radius: 999px; padding: 4px 14px; font: 700 15px Fredoka, sans-serif">Étape 2</span>
+</div>
+
+<h1 style="margin: 0; font: 700 36px Fredoka, sans-serif">Page 1</h1>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Image</span>
+<div style="display: flex; gap: 10px">
+<button style="flex: 1; border: 3px solid #221B4A; background: #fff; border-radius: 999px; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; cursor: pointer">Page vierge</button>
+<button style="flex: 1; border: 3px solid #221B4A; background: #221B4A; border-radius: 999px; font: 700 17px Fredoka, sans-serif; color: #fff; min-height: 48px; cursor: pointer">Avec photo</button>
+</div>
+<a href="Creation Livre Image.dc.html" style="width: 150px; aspect-ratio: 3 / 4; border: 3px dashed #221B4A; border-radius: 16px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; text-decoration: none; color: #221B4A; font: 700 14px Fredoka, sans-serif">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#221B4A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+Image</a>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Voix</span>
+<div style="display: flex; gap: 10px">
+<button style="flex: 1; border: 3px solid #221B4A; background: #221B4A; border-radius: 999px; font: 700 17px Fredoka, sans-serif; color: #fff; min-height: 48px; cursor: pointer">Avec voix</button>
+<a href="Creation Livre Page Muette.dc.html" style="flex: 1; border: 3px solid #221B4A; background: #fff; border-radius: 999px; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-sizing: border-box">Sans voix</a>
+</div>
+</div>
+
+<div style="border: 3px solid #221B4A; border-radius: 20px; background: #fff; box-shadow: 3px 5px 0 #221B4A; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="perso1" style="font: 600 15px Fredoka, sans-serif">Voix</label>
+<input id="perso1" type="text" value="Narrateur" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; min-height: 50px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="texte1" style="font: 600 15px Fredoka, sans-serif">Texte</label>
+<textarea id="texte1" rows="3" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; resize: none">Il pleut sur le lac. Le zébu regarde les nuages passer.</textarea>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="note1" style="font: 600 15px Fredoka, sans-serif">Description <span style="font-weight: 400; color: #6B66A0">(facultatif)</span></label>
+<input id="note1" type="text" placeholder="Ton, consigne de jeu…" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; min-height: 50px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Qui la lit ?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button style="border: 3px solid #221B4A; background: #221B4A; color: #fff; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Un proche</button>
+<button style="border: 3px solid #221B4A; background: #fff; color: #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Traduire par l'IA</button>
+<button style="border: 3px solid #221B4A; background: #fff; color: #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Ouvert à tous</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button style="border: 3px solid #221B4A; background: #FFC72C; color: #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Maman</button>
+<button style="border: 3px solid #221B4A; background: #fff; color: #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Mamie</button>
+<button style="border: 3px solid #221B4A; background: #fff; color: #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer">Tonton</button>
+</div>
+<span style="font: 400 13px Fredoka, sans-serif; color: #6B66A0">Proches qui parlent français. Un même proche peut lire plusieurs voix.</span>
+</div>
+</div>
+
+<div style="border: 3px solid #221B4A; border-radius: 20px; background: #fff; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font: 700 17px Fredoka, sans-serif">Le Zébu</span><span style="font: 400 14px Fredoka, sans-serif; color: #6B66A0">Maman · 1 ligne</span></span>
+<button aria-label="Modifier la voix Le Zébu" style="width: 44px; height: 44px; border: 3px solid #221B4A; background: #fff; border-radius: 14px; box-shadow: 2px 3px 0 #221B4A; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#221B4A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+</button>
+</div>
+
+<button style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#221B4A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+Voix</button>
+
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto">
+<button style="border: 3px solid #221B4A; background: #FFC72C; border-radius: 999px; box-shadow: 4px 6px 0 #221B4A; font: 700 20px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Page suivante</button>
+<button style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">Livre fini</button>
+<button style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">Enregistrer le brouillon</button>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1640}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
