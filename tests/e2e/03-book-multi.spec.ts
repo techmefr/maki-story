@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, linesCard, login, toPages, openCast, pngFile, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
+import { addVoice, apiJson, chooseProfile, fillVoice, finishPages, login, newVoice, nextPage, sendBook, toPages, voiceCard, pngFile, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 import type { IBook } from '../../shared/types/book'
 
 test.describe.configure({ mode: 'serial' })
@@ -30,57 +30,46 @@ test.describe('multi voice book', () => {
         await page.goto('/library')
         await page.getByRole('link', { name: 'Nouveau livre' }).click()
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
-        await expect(page.getByText('1/3')).toBeVisible()
+        const discard = page.getByTestId('discard-draft')
+        if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
+            await discard.click()
+        }
         await page.getByLabel('Titre du livre').fill(`Le petit zébu ${project}`)
         await toPages(page)
 
-        await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
-        await page.getByTestId('add-photo-input').setInputFiles([pngFile('p1.png'), pngFile('p2.png')])
-        await expect(page.locator('.thumb')).toHaveCount(2)
-        await page.getByRole('button', { name: 'Retirer la page 2' }).click()
-        await expect(page.locator('.thumb')).toHaveCount(1)
-        await page.getByTestId('add-photo-input').setInputFiles(pngFile('p2.png'))
-        await expect(page.locator('.thumb')).toHaveCount(2)
-        await page.getByRole('group', { name: 'Page 1' }).getByLabel('Décris l’image de la page (facultatif)').fill('Un zébu près du lac Itasy')
-        await openCast(page)
-        await expect(page.getByRole('group', { name: 'Personnage Narrateur' })).toBeVisible()
-        for (const name of ['Petit Zébu', 'Maman Zébu']) {
-            await page.getByLabel('Nouveau personnage').fill(name)
-            await page.getByRole('button', { name: 'Ajouter un personnage' }).click()
-        }
-        await expect(page.getByText('1/3 personnages ont une voix.')).toBeVisible()
-        await page.getByRole('group', { name: 'Personnage Petit Zébu' }).locator('.picker', { hasText: lova }).click()
-        const maman = page.getByRole('group', { name: 'Personnage Maman Zébu' })
-        await maman.locator('.picker', { hasText: mamie }).click()
-        await maman.getByLabel('Description (facultatif)').fill('Une maman zébu très douce')
-        await expect(page.getByText('3/3 personnages ont une voix.')).toBeVisible()
+        await page.getByTestId('page-photo').click()
+        await page.getByTestId('page-add-image').click()
+        await page.getByTestId('image-input-gallery').setInputFiles(pngFile('p1.png'))
+        await expect(page.getByText('Photo ajoutée')).toBeVisible()
+        await fillVoice(page, 1, 'Au bord du lac, le zébu regardait les oiseaux.')
+        await addVoice(page)
+        await newVoice(page, 2, 'Petit Zébu', lova)
+        await fillVoice(page, 2, 'Pourquoi je n’ai pas d’ailes ?')
+        await voiceCard(page, 2).getByLabel('Description', { exact: false }).fill('Chuchoté')
 
-        await expect(page.getByPlaceholder(/Qui parle/)).toHaveCount(0)
-        await addLine(page, 1, 'Narrateur', 'Au bord du lac, le zébu regardait les oiseaux.')
-        await addLine(page, 1, 'Petit Zébu', 'Pourquoi je n’ai pas d’ailes ?')
-        await addLine(page, 2, 'Maman Zébu', 'Parce que tu as quatre pattes solides.')
-        await addLine(page, 2, 'Narrateur', 'Et le lémurien bondit de branche en branche.')
-        await linesCard(page, 1).getByRole('button', { name: 'Retirer la réplique' }).last().click()
-        await linesCard(page, 1).getByRole('button', { name: 'Chuchoté', exact: true }).click()
-        await linesCard(page, 1).getByLabel('Décris la scène (facultatif)').fill('le lac est calme')
-        await addLine(page, 1, 'Petit Zébu', 'Pourquoi je n’ai pas d’ailes ?')
+        await nextPage(page)
+        await page.getByTestId('page-photo').click()
+        await page.getByTestId('page-add-image').click()
+        await page.getByTestId('image-input-gallery').setInputFiles(pngFile('p2.png'))
+        await expect(page.getByText('Photo ajoutée')).toBeVisible()
+        await newVoice(page, 1, 'Maman Zébu', mamie)
+        await fillVoice(page, 1, 'Parce que tu as quatre pattes solides.')
+        await addVoice(page)
+        await voiceCard(page, 2).getByRole('button', { name: 'Narrateur', exact: true }).click()
+        await fillVoice(page, 2, 'Et le lémurien bondit de branche en branche.')
         await finishPages(page)
 
-        await expect(page.getByRole('heading', { name: 'Vérifier' })).toBeVisible()
-        await page.getByRole('button', { name: 'Passer au studio' }).click()
-        await expect(page).toHaveURL(/\/books\/.+\/studio/)
-        bookId = page.url().split('/')[4] ?? ''
+        await expect(page.getByTestId('send-step')).toBeVisible()
+        await expect(page.getByTestId('send-character-Petit Zébu')).toContainText(lova)
+        bookId = await sendBook(page)
 
         const book = await apiJson<IBook>(page, `/books/${bookId}`)
         expect(book.lines).toHaveLength(4)
         expect(book.lines.every(line => line.memberId !== null)).toBeTruthy()
         expect(book.pages).toHaveLength(2)
-        expect(book.pages[0]!.description).toBe('Un zébu près du lac Itasy')
         expect(book.characters.map(character => character.name)).toEqual(['Narrateur', 'Petit Zébu', 'Maman Zébu'])
         expect(book.characters[0]!.isNarrator).toBe(true)
-        expect(book.characters[2]!.description).toBe('Une maman zébu très douce')
         expect(book.lines.map(line => line.tone)).toContain('Chuchoté')
-        expect(book.lines.map(line => line.sceneDescription)).toContain('le lac est calme')
         expect(book.status).toBe('to_record')
     })
 

@@ -1,6 +1,6 @@
 <template>
     <div class="homework-mascot" data-testid="homework-mascot">
-        <AppMaki :size="size" />
+        <MakiScene pose="studious" :size="size" />
     </div>
 </template>
 

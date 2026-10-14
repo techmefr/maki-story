@@ -1393,9 +1393,10 @@ label.row {
 .empty__scene {
     position: relative;
     display: inline-flex;
+    max-width: 100%;
 }
 
-.empty__maki {
+.empty__scene {
     animation: empty-float 3s ease-in-out infinite;
 }
 
@@ -1419,8 +1420,7 @@ label.row {
     background: var(--grey-ui);
 }
 
-.empty--paused .empty__maki,
-.empty--paused .empty__prop {
+.empty--paused .empty__scene {
     animation-play-state: paused;
 }
 
@@ -1445,8 +1445,7 @@ label.row {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .empty__maki,
-    .empty__prop {
+    .empty__scene {
         animation: none;
     }
 }

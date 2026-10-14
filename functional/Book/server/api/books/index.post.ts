@@ -15,11 +15,14 @@ const MAX_LINES = 400
 const MAX_CHARACTERS = 40
 const MAX_PANELS = 12
 
+const ASSIGNMENTS: CharacterAssignment[] = ['relative', 'ai', 'open', 'later']
+
 interface IPlannedCharacter {
     name: string
     color: string | null
     description: string
     isNarrator: boolean
+    assignment: CharacterAssignment
 }
 
 const memberNameOf = async (memberId: string | null): Promise<string> => {
@@ -70,12 +73,13 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
     const moods = body.moods === undefined ? [] : checkMoods(body.moods)
     const themes = body.themes === undefined ? [] : checkThemes(body.themes)
     const subtitle = checkText(body.subtitle, 'subtitle')
+    const description = checkText(body.description ?? '', 'description')
     const author = checkText(body.author, 'author')
     const illustrator = checkText(body.illustrator, 'illustrator')
     const plannedPages = pages.map(page => {
         const pageKind = page.kind === undefined ? 'content' : checkPageKind(page.kind)
-        if (page.fileId === null && pageKind !== 'empty') {
-            return badRequest('Only an empty page can have no image')
+        if (page.fileId === null && pageKind === 'cover') {
+            return badRequest('A cover needs an image')
         }
         if ((page.panels ?? []).length > MAX_PANELS) {
             return badRequest('Too many panels')
@@ -83,6 +87,7 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         return {
             fileId: page.fileId,
             kind: pageKind,
+            isSilent: page.isSilent === true || pageKind === 'empty',
             ttsFallback: page.ttsFallback === true,
             title: checkText(page.title ?? '', 'page title'),
             description: checkText(page.description, 'page description'),
@@ -101,12 +106,16 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
             color: isNarrator ? null : checkColor(character.color),
             description: checkText(character.description, 'description'),
             isNarrator,
+            assignment: character.assignment === undefined ? 'later' : ASSIGNMENTS.includes(character.assignment) ? character.assignment : (badRequest('Invalid assignment') as never),
         })
     }
     for (const line of lines) {
         const name = (line.character ?? '').trim()
         if (name !== '' && !planned.has(name.toLowerCase())) {
-            planned.set(name.toLowerCase(), { name, color: null, description: '', isNarrator: false })
+            planned.set(name.toLowerCase(), { name, color: null, description: '', isNarrator: false, assignment: 'later' })
+        }
+        if (plannedPages[line.pageIndex]?.isSilent === true) {
+            return badRequest('A silent page cannot have a voice')
         }
     }
     const characters = [...planned.values()]
@@ -122,23 +131,23 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
             const file = one(await db<{ id: string }[]>`
                 insert into files (family_id, mime, data, created_by_member_id) values (${familyId}, ${cover.mime}, ${cover.data}, ${actor.memberId}) returning id
             `)
-            plannedPages.push({ fileId: file.id, kind: 'cover', ttsFallback: false, title: '', description: '', panels: [] })
+            plannedPages.push({ fileId: file.id, kind: 'cover', isSilent: true, ttsFallback: false, title: '', description: '', panels: [] })
         }
     }
     await assertFilesInFamily(db, familyId, plannedPages.flatMap(page => (page.fileId ? [page.fileId] : [])))
     await assertMembersInFamily(db, familyId, soloMemberId ? [soloMemberId] : [])
     const created = await db.begin(async tx => {
         const book = one(await tx<{ id: string }[]>`
-            insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc, isbn, cover_url)
-            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${language}, ${voiceLanguages}, ${moods}, ${themes}, ${type},
+            insert into books (family_id, title, subtitle, description, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, kind, solo_member_id, status, image_desc, isbn, cover_url)
+            values (${familyId}, ${body.title!.trim()}, ${subtitle}, ${description}, ${author}, ${illustrator || null}, ${ageMin}, ${ageMax}, ${language}, ${language}, ${voiceLanguages}, ${moods}, ${themes}, ${type},
                 ${body.ttsFallback === true}, ${kind}, ${soloMemberId}, ${isProposal ? 'proposed' : 'to_record'}, ${body.imageDesc ?? ''}, ${isbn}, ${coverUrl})
             returning id
         `)
         const panelIds = new Map<string, string>()
         for (const [position, page] of plannedPages.entries()) {
             const row = one(await tx<{ id: string }[]>`
-                insert into book_pages (book_id, family_id, position, file_id, kind, tts_fallback, title, description)
-                values (${book.id}, ${familyId}, ${position}, ${page.fileId}, ${page.kind}, ${page.ttsFallback}, ${page.title}, ${page.description})
+                insert into book_pages (book_id, family_id, position, file_id, kind, is_silent, tts_fallback, title, description)
+                values (${book.id}, ${familyId}, ${position}, ${page.fileId}, ${page.kind}, ${page.isSilent}, ${page.ttsFallback}, ${page.title}, ${page.description})
                 returning id
             `)
             for (const [panelPosition, description] of page.panels.entries()) {
@@ -153,8 +162,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         const characterIds = new Map<string, string>()
         for (const [position, character] of characters.entries()) {
             const row = one(await tx<{ id: string }[]>`
-                insert into characters (book_id, family_id, name, color, description, is_narrator, position)
-                values (${book.id}, ${familyId}, ${character.name}, ${character.color}, ${character.description}, ${character.isNarrator}, ${position})
+                insert into characters (book_id, family_id, name, color, description, is_narrator, assignment, position)
+                values (${book.id}, ${familyId}, ${character.name}, ${character.color}, ${character.description}, ${character.isNarrator}, ${character.assignment}, ${position})
                 returning id
             `)
             characterIds.set(character.name.toLowerCase(), row.id)
@@ -174,6 +183,16 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
         }
         return book
     })
+    if (!isProposal && characters.some(character => character.assignment === 'open')) {
+        const askable = await db<{ id: string }[]>`
+            select id from members
+            where family_id = ${familyId} and role = 'relative' and status = 'active' and deleted_at is null and source_member_id is null
+                and id is distinct from ${actor.memberId} and ${language} = any(spoken_languages)
+        `
+        for (const target of askable) {
+            await notify(db, { familyId, recipientMemberId: target.id, kind: 'recording_request', payload: { bookId: created.id, bookTitle: body.title!.trim() }, groupKey: `request:${created.id}:${target.id}` })
+        }
+    }
     if (isProposal) {
         await notify(db, { familyId, recipientMemberId: null, kind: 'book_proposed', payload: { bookId: created.id, bookTitle: body.title!.trim(), memberName: await memberNameOf(actor.memberId) }, groupKey: `proposal:${created.id}` })
     }

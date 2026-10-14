@@ -1,1 +1,1 @@
-export const APP_NAME = 'Tantara'
+export const APP_NAME = 'Maki Story'

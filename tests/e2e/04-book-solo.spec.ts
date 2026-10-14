@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addLine, apiJson, chooseProfile, finishPages, login, nextStep, toPages, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
+import { addLine, apiJson, chooseProfile, finishPages, login, sendBook, toPages, recordAndSend, uniqueName, PARENT_NAME } from './helpers'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -12,7 +12,6 @@ test.describe('single voice book', () => {
         await expect(page).toHaveURL(/\/home/)
         await page.getByRole('link', { name: 'Proposer un livre' }).click()
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
-        await expect(page.getByText('1/3')).toBeVisible()
         await page.getByLabel('Titre du livre').fill(`Le caméléon ${project}`)
         await toPages(page)
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
@@ -21,8 +20,7 @@ test.describe('single voice book', () => {
         await addLine(page, 1, null, 'Il changeait de couleur quand on le regardait.')
         await finishPages(page)
         await expect(page.getByRole('heading', { name: 'Vérifier' })).toBeVisible()
-        await page.getByRole('button', { name: 'Passer au studio' }).click()
-        await expect(page).toHaveURL(/\/studio/)
+        await sendBook(page)
         await recordAndSend(page)
         await expect(page.getByText('1/2').first()).toBeVisible()
         await recordAndSend(page)
@@ -40,7 +38,6 @@ test.describe('single voice book', () => {
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await page.getByLabel('Titre du livre').fill(`Une voix ${info.project.name}`)
-        await expect(page.getByText('1/3')).toBeVisible()
         await page.getByTestId('book-details-toggle').click()
         await page.getByTestId('single-voice').click()
         await page.getByRole('button', { name: mamie }).click()
@@ -48,7 +45,7 @@ test.describe('single voice book', () => {
         await addLine(page, 1, null, 'Une seule voix.')
         await finishPages(page)
         await expect(page.getByText(`${mamie} lit tout le livre`)).toBeVisible()
-        await page.getByRole('button', { name: 'Retour' }).click()
+        await page.getByTestId('send-back').click()
         await expect(page.getByRole('heading', { name: 'Les pages' })).toBeVisible()
     })
 })

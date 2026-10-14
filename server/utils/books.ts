@@ -10,7 +10,7 @@ const BLOCKED_FROM = `from lines bl
     where bl.book_id = b.id and ${BLOCKED_VOICE}`
 
 const SUMMARY_SELECT = `
-    b.id, b.title, b.subtitle, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.child_visible, b.translated_languages, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
+    b.id, b.title, b.subtitle, b.description, b.author, coalesce(b.illustrator, '') as illustrator, b.age_min, b.age_max, b.child_visible, b.translated_languages, b.language, b.written_language, b.voice_languages, b.moods, b.themes, b.type, b.tts_fallback,
     b.kind, b.solo_member_id, b.status, b.ai_generated, b.created_at,
     (select count(*)::int from book_pages p where p.book_id = b.id) as page_count,
     (select count(*)::int from lines l where l.book_id = b.id) as line_count,
@@ -143,14 +143,14 @@ export const loadBook = async (id: string, familyId: string, approvedOnly = fals
     }
     const { imageDesc } = one(await db<{ imageDesc: string }[]>`select image_desc from books where id = ${id} and family_id = ${familyId}`)
     const pageRows = await db<Omit<IBookPage, 'panels'>[]>`
-        select id, position, file_id, kind, tts_fallback, title, description from book_pages where book_id = ${id} and family_id = ${familyId} order by position
+        select id, position, file_id, kind, is_silent, tts_fallback, title, description from book_pages where book_id = ${id} and family_id = ${familyId} order by position
     `
     const panels = await db<IPanel[]>`
         select id, page_id, position, description from panels where book_id = ${id} and family_id = ${familyId} order by position
     `
     const pages: IBookPage[] = pageRows.map(page => ({ ...page, fileId: hideScans && page.kind !== 'cover' ? null : page.fileId, panels: panels.filter(panel => panel.pageId === page.id) }))
     const characters = await db<ICharacter[]>`
-        select id, name, color, description, is_narrator, position from characters
+        select id, name, color, description, is_narrator, assignment, position from characters
         where book_id = ${id} and family_id = ${familyId} order by position, created_at
     `
     const lines = await db<ILine[]>`
