@@ -82,7 +82,7 @@ test.describe('design system', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/storage')
-        const maki = page.locator('.empty__maki').first()
+        const maki = page.locator('.empty__scene').first()
         await expect(maki).toBeVisible()
         await expect(maki).toHaveCSS('animation-name', 'none')
     })

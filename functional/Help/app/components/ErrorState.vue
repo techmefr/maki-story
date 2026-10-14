@@ -1,7 +1,7 @@
 <template>
     <main class="errstate" role="alert" :data-testid="`error-state-${type}`">
         <div class="errstate__card stack">
-            <span class="errstate__icon" :style="{ background: tone }"><AppIcon :name="config.icon" :size="52" /></span>
+            <MakiScene :pose="config.pose" :size="200" />
             <p v-if="config.code" class="errstate__code">{{ config.code }}</p>
             <h1 class="errstate__title">{{ t(`errorState.${type}.title`) }}</h1>
             <p class="errstate__text">{{ t(`errorState.${type}.text`) }}</p>
@@ -14,6 +14,7 @@
 export type TErrorStateType = 'offline' | 'update' | 'error' | 'notFound' | 'forbidden' | 'server'
 
 interface IErrorConfig {
+    pose: MakiPose
     icon: IconName
     actionIcon: IconName
     tone: string
@@ -22,12 +23,12 @@ interface IErrorConfig {
 }
 
 const CONFIGS: Record<TErrorStateType, IErrorConfig> = {
-    offline: { icon: 'cloud-off', actionIcon: 'redo', tone: 'var(--sky)', code: '', retry: true },
-    update: { icon: 'download', actionIcon: 'download', tone: 'var(--yellow)', code: '', retry: true },
-    error: { icon: 'close', actionIcon: 'redo', tone: 'var(--danger-soft)', code: '', retry: true },
-    notFound: { icon: 'search', actionIcon: 'home', tone: 'var(--mint-soft)', code: '404', retry: false },
-    forbidden: { icon: 'lock', actionIcon: 'home', tone: 'var(--danger-soft)', code: '403', retry: false },
-    server: { icon: 'settings', actionIcon: 'redo', tone: 'var(--yellow)', code: '500', retry: true },
+    offline: { pose: 'unplugged', icon: 'cloud-off', actionIcon: 'redo', tone: 'var(--sky)', code: '', retry: true },
+    update: { pose: 'builder', icon: 'download', actionIcon: 'download', tone: 'var(--yellow)', code: '', retry: true },
+    error: { pose: 'confused', icon: 'close', actionIcon: 'redo', tone: 'var(--danger-soft)', code: '', retry: true },
+    notFound: { pose: 'detective', icon: 'search', actionIcon: 'home', tone: 'var(--mint-soft)', code: '404', retry: false },
+    forbidden: { pose: 'padlock', icon: 'lock', actionIcon: 'home', tone: 'var(--danger-soft)', code: '403', retry: false },
+    server: { pose: 'builder', icon: 'settings', actionIcon: 'redo', tone: 'var(--yellow)', code: '500', retry: true },
 }
 
 const { type } = defineProps<{ type: TErrorStateType }>()

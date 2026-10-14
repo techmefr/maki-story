@@ -17,10 +17,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ modelValue: string | null }>()
+const { adultsOnly = false, language = '' } = defineProps<{ modelValue: string | null; adultsOnly?: boolean; language?: string }>()
 const emit = defineEmits<{ 'update:modelValue': [id: string] }>()
 
-const { people: members } = useMembers()
+const { people, grownUps } = useMembers()
+
+const members = computed(() => {
+    const base = adultsOnly ? grownUps.value : people.value
+    return language === '' ? base : base.filter(member => member.spokenLanguages.length === 0 || member.spokenLanguages.includes(language))
+})
 
 const hexOf = (member: IMember): string => memberHexLight(member)
 </script>

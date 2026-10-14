@@ -2,7 +2,7 @@
     <div class="reader" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
         <div v-if="phase === 'page'" class="reader__center stack center">
             <img v-if="pageImage" :src="pageImage" alt="" class="reader__cover" data-testid="page-cover" />
-            <AppMaki v-else :size="160" class="anim-bounce" />
+            <MakiScene v-else pose="star" :size="200" />
             <h1 v-if="!pageImage" class="title">{{ t('kid.listen.nextPage') }}</h1>
             <div class="row">
                 <AppButton variant="secondary" class="btn--big" :disabled="pageIndex === 0" :aria-label="t('kid.listen.previousPage')" data-testid="previous-page" v-sound="'page-turn'" @click="previousPage"><AppIcon name="skip-back" :size="44" class="mirror-rtl" /></AppButton>
@@ -10,7 +10,7 @@
             </div>
         </div>
         <div v-else-if="phase === 'end'" class="reader__center stack center">
-            <AppMaki :size="160" />
+            <MakiScene pose="champion" :size="220" />
             <h1 class="title">{{ t('kid.listen.finished') }}</h1>
             <AppButton variant="secondary" class="btn--big" @click="replay"><AppIcon name="redo" :size="40" motion="spin" />{{ t('kid.listen.restart') }}</AppButton>
             <AppButton to="/kid" class="btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</AppButton>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div v-else-if="phase === 'ready'" class="reader__center stack center">
-            <AppMaki :size="160" />
+            <MakiScene pose="reading" :size="220" />
             <div v-if="hasChoice" class="row">
                 <button
                     v-if="!isLocked"

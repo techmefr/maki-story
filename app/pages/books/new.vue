@@ -3,12 +3,18 @@
         <BackLink to="/library">{{ t('common.cancel') }}</BackLink>
         <div class="row" style="justify-content: space-between">
             <h1 ref="headingRef" class="title" tabindex="-1">{{ stepTitle }}</h1>
-            <span class="badge">{{ stepNumber }}/{{ stepCount }}</span>
+            <span v-if="step === 'book'" class="badge">{{ t('bookCreate.flow.stepLabel', { n: 1 }) }}</span>
         </div>
         <AppStepper :steps="flowSteps" :current="0" :label="t('review.flow.label')" />
         <AiNotice v-if="isAiPrefilled" :text="t('bookDraft.wizard.aiNotice')" />
         <AiPrefillCard v-if="isAiCreationEnabled && step === 'book' && isParent && !isAiPrefilled" />
-        <div v-if="isResumable" class="card stack" role="group" :aria-label="t('bookDraft.resume.title')">
+        <section v-if="sent" class="stack" data-testid="send-done">
+            <MakiScene :pose="sent.isSilent ? 'mute' : 'winged'" :size="220" />
+            <p class="card subtitle" role="status">{{ sent.isSilent ? t('bookCreate.flow.silentBookReady') : t('bookCreate.flow.requestsSent') }}</p>
+            <AppButton is-block data-testid="send-studio" :to="`/books/${sent.id}/studio`">{{ t('bookCreate.flow.goStudio') }}</AppButton>
+            <AppButton variant="secondary" is-block to="/library">{{ t('bookCreate.flow.goLibrary') }}</AppButton>
+        </section>
+        <div v-else-if="isResumable" class="card stack" role="group" :aria-label="t('bookDraft.resume.title')">
             <span class="subtitle">{{ t('bookDraft.resume.title') }}</span>
             <p class="muted">{{ t('bookDraft.resume.hint') }}</p>
             <div class="row">
@@ -16,10 +22,9 @@
                 <AppButton variant="secondary" class="grow" data-testid="discard-draft" @click="discardDraft">{{ t('bookDraft.resume.discard') }}</AppButton>
             </div>
         </div>
-        <BookStepBook v-else-if="step === 'book'" @next="goNext" />
-        <BookStepPages v-else-if="step === 'pages'" @next="goNext" />
-        <BookStepReview v-else />
-        <AppButton variant="secondary" size="sm" v-if="step !== 'book'" @click="back">{{ t('common.back') }}</AppButton>
+        <BookCoverStep v-else-if="step === 'book'" @next="startPages" @save="saveNow" />
+        <BookPageStep v-else-if="step === 'pages'" @back="backFromPage" @finish="step = 'review'" />
+        <BookSendStep v-else @back="step = 'pages'" @sent="sent = $event" />
     </div>
 </template>
 
@@ -32,30 +37,33 @@ const STEP_TITLE_KEYS: Record<DraftStep, string> = {
 }
 
 const { t } = useI18n()
-const { step, steps, isAiPrefilled, title, pages, lines, characters, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft } = useBookDraft()
+const { step, cursor, isAiPrefilled, title, pages, lines, characters, reset, saveDraft, restoreDraft, hasSavedDraft, clearDraft, clearServerDraft, loadServerDraft, syncDraft } = useBookDraft()
 const { current, isParent } = useCurrentMember()
 
 const headingRef = useStepFocus(() => step.value)
 const flowSteps = computed(() => ['create', 'record', 'send', 'validate'].map(id => ({ id, label: t(`review.flow.${id}`) })))
 
-const stepCount = computed(() => steps.value.length)
-const stepNumber = computed(() => Math.max(1, steps.value.indexOf(step.value) + 1))
 const stepTitle = computed(() => t(STEP_TITLE_KEYS[step.value]))
 
-const move = (offset: number): void => {
-    const index = steps.value.indexOf(step.value)
-    step.value = steps.value[Math.min(steps.value.length - 1, Math.max(0, index + offset))] ?? 'book'
+const startPages = async (): Promise<void> => {
+    cursor.value = 0
+    step.value = 'pages'
+    await syncDraft()
 }
 
-const goNext = (): void => move(1)
-const back = (): void => move(-1)
-
-watch(steps, list => {
-    if (!list.includes(step.value)) {
-        step.value = 'pages'
+const backFromPage = (): void => {
+    if (cursor.value === 0) {
+        step.value = 'book'
+        return
     }
-})
+    cursor.value -= 1
+}
 
+const saveNow = async (): Promise<void> => {
+    await syncDraft()
+}
+
+const sent = ref<{ id: string; isSilent: boolean } | null>(null)
 const isResumable = ref(false)
 const isAutosaving = ref(false)
 
@@ -65,14 +73,17 @@ const startFresh = (): void => {
     reset(isRelative ? 'simple' : 'casting', member?.id ?? null)
 }
 
+let serverDraft: Record<string, unknown> | null = null
+
 const resumeDraft = (): void => {
-    restoreDraft()
+    restoreDraft(serverDraft)
     isResumable.value = false
     isAutosaving.value = true
 }
 
-const discardDraft = (): void => {
+const discardDraft = async (): Promise<void> => {
     clearDraft()
+    await clearServerDraft()
     startFresh()
     isResumable.value = false
     isAutosaving.value = true
@@ -94,9 +105,10 @@ watch(
 
 onBeforeUnmount(() => clearTimeout(saveTimer))
 
-onMounted(() => {
+onMounted(async () => {
     startFresh()
-    if (hasSavedDraft()) {
+    serverDraft = await loadServerDraft()
+    if (serverDraft !== null || hasSavedDraft()) {
         isResumable.value = true
         return
     }

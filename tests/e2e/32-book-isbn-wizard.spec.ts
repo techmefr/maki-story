@@ -16,6 +16,10 @@ test.describe('book creation with a barcode', () => {
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
+        const discard = page.getByTestId('discard-draft')
+        if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
+            await discard.click()
+        }
         await page.getByTestId('isbn-lookup-open').click()
         await page.getByTestId('isbn-input').fill(ISBN)
         await page.getByTestId('isbn-search').click()
@@ -25,7 +29,7 @@ test.describe('book creation with a barcode', () => {
         await addLine(page, 1, null, 'On ne voit bien qu’avec le cœur.')
         await finishPages(page)
         const created = page.waitForRequest(request => request.url().endsWith('/api/books') && request.method() === 'POST')
-        await page.getByRole('button', { name: 'Passer au studio' }).click()
+        await page.getByTestId('book-save').click()
         const body = (await created).postDataJSON() as { isbn?: string; coverUrl?: string; title: string }
         expect(body.title).toBe('Le Petit Prince')
         expect(body.isbn).toBe(ISBN)
@@ -36,9 +40,13 @@ test.describe('book creation with a barcode', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
+        const discard = page.getByTestId('discard-draft')
+        if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
+            await discard.click()
+        }
         await page.getByLabel('Titre du livre').fill('Livre avec page muette')
         await toPages(page)
-        await page.getByTestId('add-silent-page').click()
-        await expect(page.getByText('Page vide').first()).toBeVisible()
+        await page.getByTestId('page-silent-1').click()
+        await expect(page.getByText('Page muette', { exact: false })).toBeVisible()
     })
 })
