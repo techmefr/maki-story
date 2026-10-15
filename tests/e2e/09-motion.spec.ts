@@ -19,7 +19,7 @@ test.describe('motion', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         const icons = page.viewportSize()!.width >= 1024 ? page.locator('.rail svg.icon') : page.locator('.tabbar svg.icon')
-        await expect(icons).toHaveCount(3)
+        await expect(icons).toHaveCount(4)
     })
 
     test('list cards animate in without hiding content', async ({ page }) => {

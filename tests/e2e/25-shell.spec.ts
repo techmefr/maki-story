@@ -105,7 +105,7 @@ test.describe('shell per role', () => {
         await chooseProfile(page, PARENT_NAME)
         const { childId } = await seedFamily(page)
         await page.goto('/home')
-        await expectTabs(page, ['Accueil', 'Bibliothèque', 'Famille'])
+        await expectTabs(page, ['Accueil', 'Bibliothèque', 'Famille', 'Coffre'])
         await expect(page.getByTestId('home-kid-cards')).toBeVisible()
         await expect(page.getByTestId('home-kid-cards').getByText(CHILD)).toBeVisible()
         await expect(page.getByTestId('home-kid-cards').getByText(RELATIVE)).toHaveCount(0)
@@ -122,7 +122,7 @@ test.describe('shell per role', () => {
 
         await chooseProfile(page, RELATIVE)
         await page.goto('/home')
-        await expectTabs(page, [])
+        await expectTabs(page, ['Accueil', 'Coffre'])
         await expect(page.getByTestId('home-kid-cards')).toBeVisible()
         await page.goto('/family')
         await expect(page).toHaveURL(/\/home/)
