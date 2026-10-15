@@ -1,9 +1,5 @@
 {
     "title": "我的宝箱",
-    "count": "{count}/{limit}",
-    "emptyTitle": "你的宝箱是空的",
-    "emptyHint": "在这里保存孩子们的消息，最多 10 个珍藏。",
-    "remove": "从宝箱移除",
     "seconds": "{count} 秒",
     "open": "我的宝箱"
 }

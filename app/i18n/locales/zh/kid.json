@@ -3,8 +3,6 @@
     "listenHer": "听TA的消息",
     "sendMessage": "发送消息",
     "noSoloStory": "这个声音还没有故事。",
-    "bubbleLabel": "{name}：{count} 条待收听",
-    "bubble": "消息",
     "library": {
         "title": "故事",
         "sheet": "详情",
@@ -50,7 +48,6 @@
         "bubble": "生日留言"
     },
     "treasure": {
-        "title": "我的宝藏",
         "titleOf": "{name}的宝藏",
         "count": "{count}/{limit} 个回忆",
         "open": "打开宝藏",

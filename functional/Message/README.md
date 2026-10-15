@@ -20,6 +20,8 @@ Message Enfant, Accueil Enfant, Accueil Proche, Categorie (fichiers `docs/maquet
 - Lecture façon stories : balayage entre messages, réécoute libre.
 - Durée maximale d'un message selon `MESSAGE_MAX_DURATION_MS`.
 
+- Une seule bulle de message, `MessageBubbleLink`, pour l’accueil enfant et les cartes enfant de l’accueil adulte (variante `kid` ou `adult`) ; le lecteur et le compositeur sont communs aux deux rôles.
+
 ## États
 
 - Non écouté, écouté (minuteur 24 h), mis au coffre, expiré.

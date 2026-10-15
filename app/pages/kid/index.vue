@@ -11,18 +11,15 @@
                     <span class="subtitle">{{ face.member.name }}</span>
                     <span class="face__quota">{{ t('kid.quota', { count: formatNumber(face.count), max: formatNumber(MESSAGE_MAX_ACTIVE) }) }}</span>
                 </NuxtLink>
-                <NuxtLink
+                <MessageBubbleLink
                     v-if="face.message && face.count > 0"
-                    :to="`/message/listen/${face.message.id}`"
-                    class="face__bubble anim-bounce"
-                    :class="{ 'face__bubble--birthday': face.message.kind === 'BIRTHDAY' }"
-                    :style="{ background: face.hex }"
-                    :aria-label="face.bubbleLabel"
-                >
-                    <AppIcon :name="face.message.kind === 'BIRTHDAY' ? 'party' : 'message-heart'" :size="22" motion="wiggle" />
-                    {{ face.message.kind === 'BIRTHDAY' ? t('kid.birthday.bubble') : t('kid.bubble') }}
-                    <span class="face__count" data-bubble-count>{{ formatNumber(face.count) }}</span>
-                </NuxtLink>
+                    variant="kid"
+                    :message-id="face.message.id"
+                    :kind="face.message.kind"
+                    :count="face.count"
+                    :name="face.member.name"
+                    :color="face.hex"
+                />
             </div>
         </div>
         <LazyBirthdayParty v-if="isPartyOpen && current" :name="current.name" :age="partyAge" @close="closeParty" />
@@ -50,8 +47,7 @@ const faces = computed(() =>
         count,
         ring: message ? (count > 0 ? 'unheard' : 'heard') : 'none',
         target: `/kid/${member.id}`,
-        label: message ? t('kid.bubbleLabel', { name: member.name, count }) : member.name,
-        bubbleLabel: t('kid.bubbleLabel', { name: member.name, count }),
+        label: message ? t('homeCards.bubbleLabel', { name: member.name, count }) : member.name,
         }
     }),
 )
@@ -87,11 +83,6 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
-.face__bubble--birthday {
-    outline: 3px dashed var(--ink);
-    outline-offset: 2px;
-}
-
 .face__ring {
     display: inline-flex;
     padding: 6px;
@@ -129,18 +120,6 @@ onBeforeUnmount(stopPolling)
     font: 600 0.9375rem/1.2 var(--font-body);
 }
 
-.face__count {
-    min-width: 26px;
-    height: 26px;
-    border-radius: 999px;
-    border: 2.5px solid var(--ink);
-    background: var(--paper);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-}
-
 .faces {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -169,21 +148,5 @@ onBeforeUnmount(stopPolling)
     max-width: 100%;
     text-align: center;
     overflow-wrap: anywhere;
-}
-
-.face__bubble {
-    position: absolute;
-    top: -6px;
-    inset-inline-end: 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border: 2.5px solid var(--ink);
-    border-radius: 999px;
-    padding: 8px 14px;
-    font: 700 0.9375rem/1 var(--font-title);
-    color: var(--ink);
-    text-decoration: none;
-    box-shadow: var(--shadow);
 }
 </style>
