@@ -169,7 +169,7 @@ export const newVoice = async (page: Page, number: number, name: string, reader:
 }
 
 export const addVoice = async (page: Page): Promise<number> => {
-    const before = await page.locator('[data-testid^="voice-"]:not([data-testid="voice-add"]):not([data-testid="voice-new"]):not([data-testid="voice-new-name"]):not([data-testid="voice-create"])').count()
+    const before = await page.locator('[data-testid="page-step"] textarea').count()
     await page.getByTestId('voice-add').click()
     return before + 1
 }
@@ -193,13 +193,19 @@ export const addLine = async (page: Page, pageNumber: number, character: string 
     await fillVoice(page, number, text)
 }
 
+export const discardDraftIfAny = async (page: Page): Promise<void> => {
+    const discard = page.getByTestId('discard-draft')
+    const appeared = await discard.waitFor({ state: 'visible', timeout: 2500 }).then(() => true, () => false)
+    if (appeared) {
+        await discard.click()
+        await expect(discard).toHaveCount(0)
+    }
+}
+
 export const startBook = async (page: Page, title: string): Promise<void> => {
     await page.goto('/books/new')
     await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
-    const discard = page.getByTestId('discard-draft')
-    if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
-        await discard.click()
-    }
+    await discardDraftIfAny(page)
     await page.getByLabel('Titre du livre').fill(title)
     await expect(page.getByRole('heading', { name: 'Type de livre' })).toBeVisible()
 }
