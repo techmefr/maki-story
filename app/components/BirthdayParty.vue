@@ -11,7 +11,7 @@
             </svg>
         </div>
         <div ref="card" class="party__card stack center">
-            <AppMaki :size="110" class="anim-bounce" />
+            <MakiScene pose="champion" :size="110" class="anim-bounce" />
             <h1 class="title">{{ t('kid.birthday.title', { name }) }}</h1>
             <p class="party__age" aria-live="polite">{{ t('kid.birthday.age', { age: shownAge }) }}</p>
             <AppButton is-block data-focus-default @click="emit('close')">

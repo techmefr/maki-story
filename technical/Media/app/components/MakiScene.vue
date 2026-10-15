@@ -1,9 +1,9 @@
 <template>
-    <img :src="src" alt="" aria-hidden="true" class="scene" :style="{ '--scene-max': `${size}px` }" loading="lazy" decoding="async" data-testid="maki-scene" />
+    <img :src="src" :alt="label ?? ''" :aria-hidden="label ? undefined : 'true'" class="scene" :style="{ '--scene-max': `${size}px` }" loading="lazy" decoding="async" data-testid="maki-scene" />
 </template>
 
 <script setup lang="ts">
-const { pose, size = 200 } = defineProps<{ pose: MakiPose; size?: number }>()
+const { pose, size = 200, label } = defineProps<{ pose: MakiPose; size?: number; label?: string }>()
 
 const src = computed(() => makiSrc(pose))
 </script>
