@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
-import { chooseProfile, login, PARENT_NAME, pngFile } from './helpers'
+import { allowSpokenLanguages, apiJson, chooseProfile, login, PARENT_NAME, pngFile, sendBook } from './helpers'
+import type { IBook } from '../../shared/types/book'
 
 const openCover = async (page: import('@playwright/test').Page, title: string): Promise<void> => {
     await page.goto('/books/new')
@@ -80,5 +81,25 @@ test.describe('book creation by steps', () => {
         await page.getByTestId('pages-finish').click()
         await page.getByTestId('book-save').click()
         await expect(page.getByTestId('send-done')).toBeVisible()
+    })
+
+    test('a voice in another language becomes the translation of the previous voice', async ({ page }, info) => {
+        await login(page)
+        await chooseProfile(page, PARENT_NAME)
+        await allowSpokenLanguages(page.request, ['fr', 'mg'])
+        await openCover(page, `Traduction ${info.project.name}`)
+        await page.getByTestId('book-next').click()
+        await page.getByTestId('voice-1').getByLabel('Texte', { exact: true }).fill('Bonjour tout le monde.')
+        await page.getByTestId('voice-add').click()
+        await page.getByTestId('voice-2').getByTestId('voice-language-mg').click()
+        await expect(page.getByTestId('voice-2').getByTestId('voice-translation-note')).toBeVisible()
+        await expect(page.getByTestId('voice-2').getByTestId('reader-relative')).toHaveCount(0)
+        await page.getByTestId('voice-2').getByLabel('Texte', { exact: true }).fill('Salama daholo.')
+        await page.getByTestId('pages-finish').click()
+        const id = await sendBook(page)
+        const book = await apiJson<IBook>(page, `/books/${id}`)
+        expect(book.lines).toHaveLength(1)
+        expect(book.voiceLanguages).toEqual(expect.arrayContaining(['fr', 'mg']))
+        expect(book.translations.map(item => `${item.language}:${item.text}`)).toContain('mg:Salama daholo.')
     })
 })

@@ -60,6 +60,9 @@
         "whoReads": "من يقرؤه؟",
         "withPhoto": "بصورة",
         "withVoice": "بصوت",
-        "wordlessNote": "كتاب بلا نص: لا صوت للتسجيل."
+        "wordlessNote": "كتاب بلا نص: لا صوت للتسجيل.",
+        "voiceLanguage": "لغة الصوت",
+        "translationNote": "ترجمة الصوت السابق: يمكن لكل قريب يتحدث {language} تسجيلها.",
+        "errTranslationBase": "اكتب الصوت أولًا بلغة الكتاب لإضافة ترجمته."
     }
 }

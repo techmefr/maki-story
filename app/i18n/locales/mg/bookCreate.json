@@ -60,6 +60,9 @@
         "whoReads": "Iza no mamaky azy?",
         "withPhoto": "Misy sary",
         "withVoice": "Misy feo",
-        "wordlessNote": "Boky tsy misy lahatsoratra: tsy misy feo horaketina."
+        "wordlessNote": "Boky tsy misy lahatsoratra: tsy misy feo horaketina.",
+        "voiceLanguage": "Fiteny ny feo",
+        "translationNote": "Fandikana ny feo teo aloha: ny havana rehetra miteny {language} dia afaka mandrakitra azy.",
+        "errTranslationBase": "Soraty aloha ny feo amin’ny fiteny ny boky vao manampy ny fandikana azy."
     }
 }
