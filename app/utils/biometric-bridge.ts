@@ -15,7 +15,7 @@ const createNativeBridge = async (): Promise<IBiometricBridge> => {
         isAvailable: async () => (await NativeBiometric.isAvailable()).isAvailable,
         verify: async reason => {
             try {
-                await NativeBiometric.verifyIdentity({ reason, title: 'Tantara', useFallback: false })
+                await NativeBiometric.verifyIdentity({ reason, title: 'Maki Story', useFallback: false })
                 return true
             } catch (_error) {
                 return false

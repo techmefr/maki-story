@@ -1,4 +1,4 @@
-# Tâches — Tantara
+# Tâches — Maki Story
 
 Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la première non bloquée.
 

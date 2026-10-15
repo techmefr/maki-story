@@ -23,7 +23,7 @@ DATABASE_URL=postgresql://tantara@localhost:5544/tantara_local SESSION_SECRET=lo
 
 Les migrations s'appliquent au démarrage. Aucun e-mail réel ne part en local.
 
-Données de démo (compte local) : créer par l'API `POST /api/auth/register`, puis `POST /api/family` (assistant), puis `POST /api/auth/profile` avec le code parent. Compte utilisé : `demo@tantara.local` / `Tantara-demo-1`, parent code `1234`, enfant Lova en formes `0123`.
+Données de démo (compte local) : créer par l'API `POST /api/auth/register`, puis `POST /api/family` (assistant), puis `POST /api/auth/profile` avec le code parent. Compte utilisé : `demo@tantara.local` / `Maki Story-demo-1`, parent code `1234`, enfant Lova en formes `0123`.
 
 ## Où en est le travail
 

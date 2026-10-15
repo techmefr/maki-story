@@ -20,7 +20,7 @@
         "shareText": "{inviter} ti invita a unirti alla famiglia {family} su {app}: {link}"
     },
     "magic": {
-        "subject": "Il tuo link di accesso a Tantara",
+        "subject": "Il tuo link di accesso a Maki Story",
         "body": "Apri questo link per accedere: {link}\nÈ valido per {minutes} minuti e funziona una sola volta."
     }
 }

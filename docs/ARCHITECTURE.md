@@ -1,4 +1,4 @@
-# Architecture — Tantara
+# Architecture — Maki Story
 
 ## Stack gardée
 
@@ -108,7 +108,7 @@ Points clés :
 - `Book.status` : brouillon, en enregistrement, en relecture, validé.
 - `LockRule` : un par profil, `unlockedUntil` pour le déverrouillage de 30 minutes.
 
-Le détail des champs et contraintes est dans le document « Tantara — architecture cible et modèle de données ».
+Le détail des champs et contraintes est dans le document « Maki Story — architecture cible et modèle de données ».
 
 ## Migrations
 

@@ -4,6 +4,7 @@
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
+        <SplashScreen />
         <PageCurtain />
         <OfflineBanner />
         <DevFeedbackWidget v-if="isDevFeedback" />

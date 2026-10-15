@@ -1,14 +1,14 @@
 <p align="center">
-    <img src="public/icon-512.png" alt="Tantara mascot: a ring-tailed lemur wearing headphones" width="120">
+    <img src="public/icon-512.png" alt="Maki Story mascot: a ring-tailed lemur wearing headphones" width="120">
 </p>
 
-<h1 align="center">Tantara</h1>
+<h1 align="center">Maki Story</h1>
 
 <p align="center">
     <strong>Paper books, read aloud by the people you love. Each voice has its own color.</strong>
 </p>
 
-Tantara turns the paper books already on your shelf into multi-voice audio stories. A parent photographs the pages and splits the lines, every relative gets a color and records their own lines from their phone, and the child listens book in hand. The screen never shows the text or the pictures of the book, only who is reading, in their color.
+Maki Story turns the paper books already on your shelf into multi-voice audio stories. A parent photographs the pages and splits the lines, every relative gets a color and records their own lines from their phone, and the child listens book in hand. The screen never shows the text or the pictures of the book, only who is reading, in their color.
 
 > Status: private family beta. It is meant to grow into a SaaS (real authentication, several families, invitations, subscription, OCR, native apps).
 
@@ -52,7 +52,7 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 
 ## Status and roadmap
 
-Tantara is a prototype. The current priority is a solid, working and simple foundation: every feature works, is covered by tests and respects the rules (family isolation, server-side permissions, i18n, accessibility, child safety).
+Maki Story is a prototype. The current priority is a solid, working and simple foundation: every feature works, is covered by tests and respects the rules (family isolation, server-side permissions, i18n, accessibility, child safety).
 
 Planned for later, with no date:
 
@@ -60,7 +60,6 @@ Planned for later, with no date:
 - Architecture: migration to the OSDD layers (`technical/` and `functional/`), tracked in issue #116.
 - SaaS: plans, billing and onboarding for many families.
 - A real native app on the stores.
-- A final product name. "Tantara" is a working name, centralized in a single config constant.
 
 ## Features
 

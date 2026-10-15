@@ -1,4 +1,4 @@
-# Tantara
+# Maki Story
 
 Appli de livres lus à voix haute par la famille (Nuxt 4 en SPA, Capacitor 8, PostgreSQL, Vercel). Les maquettes Claude Design font foi pour l'interface.
 
@@ -13,7 +13,7 @@ Dans cet ordre, et seulement ce qui concerne la tâche :
 5. `docs/TASKS.md` : tâches à faire, en cours, faites. Prendre la première tâche non bloquée.
 6. `docs/MEMORY.md` : décisions déjà prises et pièges connus. À mettre à jour en fin de tâche.
 
-Maquettes : `docs/maquettes/` (un fichier `*.dc.html` par écran, `Design System.dc.html`, 9 e-mails `mail-*.html`, `README.md` avec les parcours, `PROMPT - Appliquer le design Tantara.md` avec la spécification page par page). Ouvrir la maquette de l'écran avant de le coder. Elles priment sur `DESIGN.md` en cas d'écart ; signaler l'écart, ne pas le trancher seul.
+Maquettes : `docs/maquettes/` (un fichier `*.dc.html` par écran, `Design System.dc.html`, 9 e-mails `mail-*.html`, `README.md` avec les parcours, `PROMPT - Appliquer le design Maki Story.md` avec la spécification page par page). Ouvrir la maquette de l'écran avant de le coder. Elles priment sur `DESIGN.md` en cas d'écart ; signaler l'écart, ne pas le trancher seul.
 
 ## Méthode
 

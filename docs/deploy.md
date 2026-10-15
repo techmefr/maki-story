@@ -24,7 +24,7 @@ Points d'attention :
 3. Variables d'environnement Vercel à vérifier ou à ajouter :
    - déjà nécessaires : `DATABASE_URL`, `SESSION_SECRET`, `APP_BASE_URL`, `BREVO_API_KEY`, `MAIL_FROM`.
    - nouvelles ou à confirmer : `SUPPORT_EMAIL` (contact des e-mails), `NUXT_PUBLIC_SUPPORT_EMAIL` (page Aide), `MAIL_POSTAL_ADDRESS` (adresse du pied des e-mails), `MAIL_SUPPORT`.
-   - facultatives : `NUXT_PUBLIC_GOATCOUNTER_SITE` (code du site GoatCounter, `techmefr` par défaut en production ; les pages de Tantara y sont préfixées par `/tantara`), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `APPLE_*`, `VAPID_*`, `FCM_*`, `INSTANCE_ADMIN_EMAILS`.
+   - facultatives : `NUXT_PUBLIC_GOATCOUNTER_SITE` (code du site GoatCounter, `techmefr` par défaut en production ; les pages de Maki Story y sont préfixées par `/tantara`), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `APPLE_*`, `VAPID_*`, `FCM_*`, `INSTANCE_ADMIN_EMAILS`.
    - ne pas activer : `AI_PROVIDER` et les clés d'IA (le domaine IA est reporté).
 4. Vérifier que les tâches planifiées existent côté Vercel : `messages:purge` et `trash:purge` (03:00), `birthdays:remind` (07:00).
 

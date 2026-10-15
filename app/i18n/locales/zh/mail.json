@@ -20,7 +20,7 @@
         "shareText": "{inviter} 邀请你在 {app} 上加入 {family} 家：{link}"
     },
     "magic": {
-        "subject": "你的 Tantara 登录链接",
+        "subject": "你的 Maki Story 登录链接",
         "body": "打开此链接登录：{link}\n有效期 {minutes} 分钟，仅可使用一次。"
     }
 }

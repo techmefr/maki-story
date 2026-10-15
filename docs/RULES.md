@@ -1,4 +1,4 @@
-# Règles — Tantara
+# Règles — Maki Story
 
 ## Code
 

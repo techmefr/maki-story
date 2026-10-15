@@ -20,14 +20,14 @@ self.addEventListener('activate', event => {
 })
 
 const showLatestNotification = async () => {
-    let content = { title: 'Tantara', body: '' }
+    let content = { title: 'Maki Story', body: '' }
     try {
         const response = await fetch('/api/notifications/latest', { credentials: 'same-origin' })
         if (response.ok) {
             content = await response.json()
         }
     } catch (_error) {
-        content = { title: 'Tantara', body: '' }
+        content = { title: 'Maki Story', body: '' }
     }
     await self.registration.showNotification(content.title, { body: content.body, icon: '/icon-192.png', badge: '/favicon-32.png', tag: 'tantara' })
 }
