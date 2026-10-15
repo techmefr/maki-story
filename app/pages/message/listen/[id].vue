@@ -63,7 +63,7 @@
             </div>
         </template>
         <template v-else-if="isMissing">
-            <AppMaki :size="100" />
+            <MakiScene pose="listening" :size="140" />
             <div class="subtitle">{{ t('messages.listen.alreadyHeard') }}</div>
         </template>
     </div>

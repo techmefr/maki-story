@@ -1,3 +1,3 @@
 <template>
-    <AdultVault />
+    <VaultScreen />
 </template>

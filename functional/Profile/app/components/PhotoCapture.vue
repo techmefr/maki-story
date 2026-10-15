@@ -4,7 +4,7 @@
             <video v-show="phase === 'live'" ref="video" class="capture__video" autoplay playsinline muted />
             <img v-if="phase === 'preview' && previewUrl" :src="previewUrl" :alt="t('studio.photo.alt')" class="capture__image" />
             <div v-if="phase === 'idle'" class="capture__placeholder">
-                <AppMaki :size="90" />
+                <MakiScene pose="photographer" :size="90" />
             </div>
             <div v-if="countdown > 0" class="capture__count" role="status" aria-live="assertive">{{ countdown }}</div>
         </div>

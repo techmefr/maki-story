@@ -3,8 +3,6 @@
     "listenHer": "استمع إلى رسالته",
     "sendMessage": "أرسل رسالة",
     "noSoloStory": "لا توجد قصة بهذا الصوت بعد.",
-    "bubbleLabel": "{name}: {count} للاستماع",
-    "bubble": "رسالة",
     "library": {
         "title": "القصص",
         "sheet": "التفاصيل",
@@ -55,7 +53,6 @@
         "bubble": "رسالة عيد ميلاد"
     },
     "treasure": {
-        "title": "كنزي",
         "titleOf": "كنز {name}",
         "count": "{count}/{limit} ذكريات",
         "open": "افتح الكنز",

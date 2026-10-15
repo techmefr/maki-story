@@ -3,8 +3,6 @@
     "listenHer": "Henoy ny hafatrany",
     "sendMessage": "Alefaso hafatra",
     "noSoloStory": "Mbola tsy misy tantara amin’ity feo ity.",
-    "bubbleLabel": "{name}: {count} henoina",
-    "bubble": "Hafatra",
     "library": {
         "title": "Ny tantara",
         "sheet": "Fanazavana",
@@ -51,7 +49,6 @@
         "bubble": "Hafatra fetin’ny andro nahaterahana"
     },
     "treasure": {
-        "title": "Ny rakitro",
         "titleOf": "Ny rakitr’i {name}",
         "count": "{count}/{limit} fahatsiarovana",
         "open": "Sokafy ny rakitra",

@@ -25,19 +25,15 @@
                     <span class="kid__name">{{ card.member.name }}</span>
                     <span class="kid__quota"><AppIcon name="mic" :size="16" />{{ t('homeBar.quota', { count: card.count, max: MESSAGE_MAX_ACTIVE }) }}</span>
                 </NuxtLink>
-                <NuxtLink
+                <MessageBubbleLink
                     v-if="card.message && card.unheard > 0"
-                    :to="`/message/listen/${card.message.id}`"
-                    class="kid__bubble"
-                    :class="{ 'kid__bubble--birthday': card.message.kind === 'BIRTHDAY' }"
-                    :style="{ background: card.ring }"
-                    :aria-label="t('homeCards.bubbleLabel', { name: card.member.name, count: card.unheard })"
+                    :message-id="card.message.id"
+                    :kind="card.message.kind"
+                    :count="card.unheard"
+                    :name="card.member.name"
+                    :color="card.ring"
                     :data-testid="`home-bubble-${card.member.id}`"
-                >
-                    <AppIcon :name="card.message.kind === 'BIRTHDAY' ? 'party' : 'message-heart'" :size="22" motion="wiggle" />
-                    {{ t('homeCards.bubble') }}
-                    <span class="kid__count" data-bubble-count>{{ card.unheard }}</span>
-                </NuxtLink>
+                />
             </li>
         </ul>
     </section>
@@ -138,45 +134,5 @@ const cards = computed(() =>
     gap: 4px;
     color: var(--ink-soft);
     font: 600 0.9375rem/1.2 var(--font-body);
-}
-
-.kid__bubble {
-    position: absolute;
-    top: -8px;
-    inset-inline-end: 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 48px;
-    padding: 8px 14px;
-    border: 2.5px solid var(--ink);
-    border-radius: 999px;
-    box-shadow: var(--shadow);
-    color: var(--on-accent);
-    font: 700 0.9375rem/1 var(--font-title);
-    text-decoration: none;
-}
-
-.kid__bubble:focus-visible {
-    outline: 4px solid var(--ink);
-    outline-offset: 3px;
-}
-
-.kid__bubble--birthday {
-    outline: 3px dashed var(--ink);
-    outline-offset: 2px;
-}
-
-.kid__count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 26px;
-    height: 26px;
-    border: 2.5px solid var(--ink);
-    border-radius: 999px;
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 0.875rem;
 }
 </style>

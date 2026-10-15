@@ -17,7 +17,7 @@
             <AppButton to="/kid" class="btn--big"><AppIcon name="home" :size="40" />{{ t('common.back') }}</AppButton>
         </div>
         <div v-else-if="phase === 'loading'" class="reader__center stack center">
-            <AppMaki :size="120" class="anim-pulse" />
+            <MakiScene pose="melomane" :size="140" class="anim-pulse" />
         </div>
         <div v-else-if="phase === 'languages'" class="reader__center stack center">
             <AppIcon name="languages" :size="64" motion="float" />
