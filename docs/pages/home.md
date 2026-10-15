@@ -19,7 +19,7 @@
 
 ## Adult home (`/home`)
 - First row: one large card per child (photo, name, message quota, voice color ring), plus an All children card when there are two or more children. A card opens `/message/<childId>` (or `/message/all`), where the recording controls live. On the all screen the same recording is sent to every active child, with a result per child (sent, queued, limit reached, blocked, failed).
-- When a child has sent an unheard message to the current adult, a message bubble with the count appears on that child card and opens `/message/listen/<messageId>`.
+- When a child has sent an unheard message to the current adult, a message bubble with the count appears on that child card and opens `/message/listen/<messageId>`, using the same `MessageBubbleLink` component as the child home.
 - Below: cards with icon, number and label from `GET /api/home/counts`. Parent: proposals, started, to record, recorded, to review, trash, each opening `/library?status=...` or the trash. Relative: proposed by me, requested from me, proposals waiting, to fix.
 - The nudges and the book search entry are not shown on this page.
 

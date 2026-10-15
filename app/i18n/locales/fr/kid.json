@@ -3,8 +3,6 @@
     "listenHer": "Écouter son message",
     "sendMessage": "Envoyer un message",
     "noSoloStory": "Pas encore d’histoire avec cette voix.",
-    "bubbleLabel": "{name} : {count} à écouter",
-    "bubble": "Message",
     "library": {
         "title": "Les histoires",
         "sheet": "Fiche",
@@ -51,7 +49,6 @@
         "bubble": "Message d’anniversaire"
     },
     "treasure": {
-        "title": "Mon trésor",
         "titleOf": "Trésor de {name}",
         "count": "{count}/{limit} souvenirs",
         "open": "Ouvrir le trésor",

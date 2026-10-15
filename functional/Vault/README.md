@@ -15,6 +15,8 @@ Coffre Adulte, coffre de Accueil Enfant (fichiers `docs/maquettes/<Écran>.dc.ht
 - Cœur désactivé (gris) quand le coffre est plein, avec le message « Retire un cœur avant d'en ajouter un nouveau ».
 - Coffre adulte : 10 souvenirs au maximum. Il garde les messages reçus d'un enfant.
 
+- Un seul écran, `VaultScreen`, pour les deux rôles (`/vault` et `/kid/treasure`) : mêmes lignes, compteur, état vide et confirmation avant retrait ; seule la variante `kid` ou `adult` change le layout et la taille de l’avatar. Chaque personne a son coffre privé ; seul un adulte retire un souvenir.
+
 ## États
 
 - Vide, rempli, plein.

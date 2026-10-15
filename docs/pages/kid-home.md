@@ -12,6 +12,7 @@ The relatives page: a card per person with a ring. Nothing else: the library and
 ### Birthday
 - On the child birthday (device timezone) a light CSS/SVG party opens once per year; closing it records the year server side; reduced motion shows a static version.
 - A birthday message has a dashed outline on its bubble.
+- The bubble is the shared `MessageBubbleLink` (same component as the adult home child cards, `kid` variant).
 
 ### Enforced server side
 - `messages.list` returns only messages to or from the profile; expired messages are purged before listing; the schedule lock sends the child to the lock screen.

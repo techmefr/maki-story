@@ -3,8 +3,6 @@
     "listenHer": "Nachricht anhören",
     "sendMessage": "Nachricht senden",
     "noSoloStory": "Noch keine Geschichte mit dieser Stimme.",
-    "bubbleLabel": "{name}: {count} zum Anhören",
-    "bubble": "Nachricht",
     "library": {
         "title": "Die Geschichten",
         "sheet": "Info",
@@ -51,7 +49,6 @@
         "bubble": "Geburtstagsnachricht"
     },
     "treasure": {
-        "title": "Mein Schatz",
         "titleOf": "Schatz von {name}",
         "count": "{count}/{limit} Erinnerungen",
         "open": "Schatz öffnen",
