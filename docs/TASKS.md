@@ -58,3 +58,6 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [ ] Builds Capacitor : iOS, Android, PWA, Android TV (état et marche à suivre dans `docs/capacitor.md` ; aucun build natif possible dans l'environnement actuel)
 - [ ] Poids pour Madagascar (Opus 24 kbit/s, WebP 1200 px et reprise d'envoi déjà en place ; mesures à faire, voir `docs/capacitor.md`)
 - [ ] Vérification finale écran par écran
+- [x] Création de livre par étapes : couverture, pages avec ou sans voix, voix et personnages créés ensemble, brouillon serveur, vérification et envoi (#169, #180) ; reste : langue par voix, traduction IA à la création
+- [x] Mascotte : poses intégrées aux états vides, erreurs, lecteur enfant et envoi
+- [x] Limites de l'offre gratuite (12 livres, 8 adultes) ; reste : Stripe, codes promo, parrainage

@@ -68,7 +68,12 @@
             "legends": "Angano",
             "numbers-letters": "Isa sy litera",
             "daily-life": "Fiainana andavanandro"
-        }
+        },
+        "isbnOpen": "Skano na soraty ny kaody (ISBN)",
+        "isbnFilled": "Hita ny boky: feno ny lohateny sy ny fonony.",
+        "detailsShow": "Antsipirihany hafa",
+        "detailsHide": "Antsipirihany tsy dia maro",
+        "singleVoice": "Olona iray ihany no mamaky ny boky manontolo"
     },
     "pages": {
         "intro": "Alao sary ny pejy rehetra amin’ny boky. Mijanona ho an’ny fianakaviana ireo sary ireo ary tsy aseho ny ankizy mihitsy.",
@@ -96,7 +101,10 @@
         "draftSaved": "Draft saved on this device.",
         "finish": "Finish",
         "silentPage": "Page without words (image only)",
-        "silentPanel": "Panel without words (image only)"
+        "silentPanel": "Panel without words (image only)",
+        "choiceSilent": "Pejy tsy misy feo",
+        "choiceVoice": "Manampy feo",
+        "voiceChoice": "Ity pejy ity"
     },
     "characters": {
         "intro": "Faritano indray mandeha ihany ny tarehintsary tsirairay: hitanao amin’ny tsindry iray isaky ny andian-teny avy eo. Fidio izay hamaky ny feony.",

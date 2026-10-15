@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Prototype création de livre</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+input,textarea,button{font-family:Fredoka,sans-serif}
+input::placeholder,textarea::placeholder{color:#8A85B5}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FFF3DC; position: relative; overflow: hidden; font-family: Fredoka, sans-serif; color: #221B4A">
+<div style="height: 844px; overflow-y: auto; box-sizing: border-box">
+
+<sc-if value="{{isCover}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 20px; padding: 24px 20px 48px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button onClick="{{noop}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; padding: 0 18px; cursor: pointer">Annuler</button>
+<span style="border: 2px solid #221B4A; border-radius: 999px; padding: 4px 14px; font: 700 15px Fredoka, sans-serif">Étape 1</span>
+</div>
+<h1 style="margin: 0; font: 700 34px Fredoka, sans-serif">Couverture</h1>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="titre" style="font: 600 15px Fredoka, sans-serif">Titre</label>
+<input id="titre" type="text" value="{{title}}" onInput="{{onTitle}}" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 18px; background: #fff; font: 500 18px Fredoka, sans-serif; color: #2E2766; padding: 12px 16px; min-height: 56px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="desc" style="font: 600 15px Fredoka, sans-serif">Description <span style="font-weight: 400; color: #6B66A0">(facultatif)</span></label>
+<textarea id="desc" rows="2" placeholder="Consignes de jeu ou contexte" value="{{desc}}" onInput="{{onDesc}}" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 18px; background: #fff; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 12px 16px; resize: none"></textarea>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Type de livre</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{typeChips}}" as="t" hint-placeholder-count="4">
+<button onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+<span style="font: 400 14px Fredoka, sans-serif; color: #6B66A0">{{typeHelp}}</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Image de couverture</span>
+<div style="display: flex; gap: 10px">
+<button onClick="{{coverBlank}}" style="{{coverBlankStyle}}">Vierge</button>
+<button onClick="{{coverPhoto}}" style="{{coverPhotoStyle}}">Avec photo</button>
+</div>
+<sc-if value="{{coverIsPhoto}}" hint-placeholder-val="{{ false }}">
+<button onClick="{{openSheet}}" style="{{coverTileStyle}}">{{coverTileLabel}}</button>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<button onClick="{{toggleDetails}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 52px; cursor: pointer">{{detailsLabel}}</button>
+<sc-if value="{{detailsOpen}}" hint-placeholder-val="{{ false }}">
+<div style="border: 3px solid #221B4A; border-radius: 20px; background: #fff; padding: 16px; display: flex; flex-direction: column; gap: 16px">
+<span style="font: 400 14px Fredoka, sans-serif; color: #6B66A0">Tout est facultatif. Rien ici ne bloque la création.</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Langue du livre</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{langChips}}" as="l" hint-placeholder-count="3">
+<button onClick="{{l.pick}}" style="{{l.style}}">{{l.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Ambiances</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{moodChips}}" as="m" hint-placeholder-count="4">
+<button onClick="{{m.pick}}" style="{{m.style}}">{{m.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="auteur" style="font: 600 15px Fredoka, sans-serif">Auteur</label>
+<input id="auteur" type="text" value="{{author}}" onInput="{{onAuthor}}" placeholder="Nom de l'auteur" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; min-height: 50px">
+</div>
+<button onClick="{{noop}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; font: 700 16px Fredoka, sans-serif; color: #221B4A; min-height: 48px; cursor: pointer">Scanner un code-barres (ISBN)</button>
+</div>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px">
+<button onClick="{{startPages}}" style="border: 3px solid #221B4A; background: #FFC72C; border-radius: 999px; box-shadow: 4px 6px 0 #221B4A; font: 700 20px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Suivant : page 1</button>
+<button onClick="{{saveDraft}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">Enregistrer le brouillon</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPage}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px; padding: 24px 20px 48px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button onClick="{{goBack}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; padding: 0 18px; cursor: pointer">{{backLabel}}</button>
+<span style="border: 2px solid #221B4A; border-radius: 999px; padding: 4px 14px; font: 700 15px Fredoka, sans-serif">Étape {{stepNo}}</span>
+</div>
+<h1 style="margin: 0; font: 700 34px Fredoka, sans-serif">Page {{pageNo}}</h1>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Image</span>
+<div style="display: flex; gap: 10px">
+<button onClick="{{pageBlank}}" style="{{pageBlankStyle}}">Page vierge</button>
+<button onClick="{{pagePhoto}}" style="{{pagePhotoStyle}}">Avec photo</button>
+</div>
+<sc-if value="{{pageIsPhoto}}" hint-placeholder-val="{{ false }}">
+<button onClick="{{openSheet}}" style="{{pageTileStyle}}">{{pageTileLabel}}</button>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 600 15px Fredoka, sans-serif">Voix</span>
+<div style="display: flex; gap: 10px">
+<button onClick="{{setVoiced}}" style="{{voicedStyle}}">Avec voix</button>
+<button onClick="{{setSilent}}" style="{{silentStyle}}">Sans voix</button>
+</div>
+</div>
+
+<sc-if value="{{silent}}" hint-placeholder-val="{{ false }}">
+<div style="border: 3px dashed #221B4A; border-radius: 18px; padding: 14px 16px; font: 500 15px Fredoka, sans-serif; color: #2E2766">Page muette : aucune voix ne sera demandée aux proches. Pratique pour une page de crédits.</div>
+</sc-if>
+
+<sc-if value="{{voiced}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<sc-for list="{{voices}}" as="v" hint-placeholder-count="1">
+<div style="border: 3px solid #221B4A; border-radius: 20px; background: #fff; box-shadow: 3px 5px 0 #221B4A; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<span style="font: 700 16px Fredoka, sans-serif; color: #6B66A0">Voix {{v.no}}</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Personnage</span>
+<sc-if value="{{v.hasChars}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{v.charChips}}" as="c" hint-placeholder-count="2">
+<button onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+<input type="text" value="{{v.char}}" onInput="{{v.onChar}}" placeholder="Nom du personnage (ex. Le Zébu)" aria-label="Nom du personnage" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; min-height: 50px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label style="font: 600 15px Fredoka, sans-serif">Texte</label>
+<textarea rows="3" value="{{v.text}}" onInput="{{v.onText}}" placeholder="Ce que lit la voix" aria-label="Texte de la voix" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; resize: none"></textarea>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Description <span style="font-weight: 400; color: #6B66A0">(facultatif)</span></span>
+<input type="text" value="{{v.note}}" onInput="{{v.onNote}}" placeholder="Ton, consigne de jeu…" aria-label="Description de la voix" style="width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; background: #FFF9EC; font: 500 17px Fredoka, sans-serif; color: #2E2766; padding: 10px 14px; min-height: 50px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Qui la lit ?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{v.whoChips}}" as="w" hint-placeholder-count="4">
+<button onClick="{{w.pick}}" style="{{w.style}}">{{w.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{v.isRelative}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{v.relChips}}" as="r" hint-placeholder-count="3">
+<button onClick="{{r.pick}}" style="{{r.style}}">{{r.label}}</button>
+</sc-for>
+</div>
+<span style="font: 400 13px Fredoka, sans-serif; color: #6B66A0">Proches qui parlent français. Un même proche peut lire plusieurs voix.</span>
+</sc-if>
+<sc-if value="{{v.isAi}}" hint-placeholder-val="{{ false }}">
+<span style="font: 400 13px Fredoka, sans-serif; color: #6B66A0">L'IA traduit le texte, puis tu l'attribues à un proche qui parle la langue.</span>
+</sc-if>
+<sc-if value="{{v.isOpen}}" hint-placeholder-val="{{ false }}">
+<span style="font: 400 13px Fredoka, sans-serif; color: #6B66A0">Proposé à tous les proches de la famille qui parlent la langue.</span>
+</sc-if>
+<sc-if value="{{v.isLater}}" hint-placeholder-val="{{ false }}">
+<span style="font: 400 13px Fredoka, sans-serif; color: #6B66A0">Tu choisiras plus tard. Les demandes partent à l'envoi du livre.</span>
+</sc-if>
+</div>
+</div>
+</sc-for>
+<button onClick="{{addVoice}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">+ Voix</button>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Pages</span>
+<sc-for list="{{pageRows}}" as="p" hint-placeholder-count="2">
+<button onClick="{{p.go}}" style="{{p.style}}"><span style="font: 700 17px Fredoka, sans-serif">{{p.label}}</span><span style="font: 500 14px Fredoka, sans-serif; color: #6B66A0">{{p.meta}}</span></button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px">
+<button onClick="{{nextPage}}" style="border: 3px solid #221B4A; background: #FFC72C; border-radius: 999px; box-shadow: 4px 6px 0 #221B4A; font: 700 20px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Page suivante</button>
+<button onClick="{{finish}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">Livre fini</button>
+<button onClick="{{saveDraft}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; cursor: pointer">Enregistrer le brouillon</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px; padding: 24px 20px 48px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button onClick="{{backToPages}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; padding: 0 18px; cursor: pointer">Retour</button>
+<span style="border: 2px solid #221B4A; border-radius: 999px; padding: 4px 14px; font: 700 15px Fredoka, sans-serif">Dernière étape</span>
+</div>
+<h1 style="margin: 0; font: 700 34px Fredoka, sans-serif">Vérifier et envoyer</h1>
+<div style="border: 3px solid #221B4A; border-radius: 20px; background: #fff; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font: 700 20px Fredoka, sans-serif">{{title}}</span>
+<span style="font: 500 15px Fredoka, sans-serif; color: #6B66A0">{{typeLabel}} · {{pageCount}} pages · {{voiceCount}} voix</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font: 600 15px Fredoka, sans-serif">Personnages et voix</span>
+<sc-for list="{{charRows}}" as="c" hint-placeholder-count="2">
+<div style="border: 3px solid #221B4A; border-radius: 16px; background: #fff; padding: 12px 16px; display: flex; justify-content: space-between; gap: 12px; align-items: center">
+<span style="font: 700 17px Fredoka, sans-serif">{{c.name}}</span>
+<span style="{{c.style}}">{{c.who}}</span>
+</div>
+</sc-for>
+<sc-if value="{{noChars}}" hint-placeholder-val="{{ false }}">
+<div style="border: 3px dashed #221B4A; border-radius: 16px; padding: 12px 16px; font: 500 15px Fredoka, sans-serif">Livre muet : aucune voix à demander.</div>
+</sc-if>
+</div>
+<sc-if value="{{hasLater}}" hint-placeholder-val="{{ false }}">
+<div style="border: 3px solid #221B4A; border-radius: 16px; background: #FFE8A8; padding: 12px 16px; font: 600 15px Fredoka, sans-serif">{{laterCount}} voix à attribuer. Les demandes partent à l'envoi.</div>
+</sc-if>
+<button onClick="{{send}}" style="border: 3px solid #221B4A; background: #FFC72C; border-radius: 999px; box-shadow: 4px 6px 0 #221B4A; font: 700 20px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Envoyer aux proches</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px; padding: 120px 20px 48px; align-items: center; text-align: center">
+<div style="width: 96px; height: 96px; border-radius: 999px; border: 3px solid #221B4A; background: #FFC72C; display: flex; align-items: center; justify-content: center">
+<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#221B4A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+</div>
+<h1 style="margin: 0; font: 700 32px Fredoka, sans-serif">Livre envoyé</h1>
+<span style="font: 500 17px Fredoka, sans-serif; color: #6B66A0">{{sentText}}</span>
+<button onClick="{{restart}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 54px; padding: 0 28px; cursor: pointer">Créer un autre livre</button>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{sheetOpen}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(34, 27, 74, 0.55)">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; background: #FFF3DC; border-top: 3px solid #221B4A; border-radius: 28px 28px 0 0; padding: 14px 20px 32px; display: flex; flex-direction: column; gap: 14px">
+<div style="align-self: center; width: 48px; height: 6px; border-radius: 3px; background: #221B4A"></div>
+<h2 style="margin: 0; font: 700 26px Fredoka, sans-serif">Ajouter une image</h2>
+<button onClick="{{pickPhoto}}" style="border: 3px solid #221B4A; background: #FFC72C; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Prendre une photo</button>
+<button onClick="{{pickPhoto}}" style="border: 3px solid #221B4A; background: #fff; border-radius: 999px; box-shadow: 3px 4px 0 #221B4A; font: 700 18px Fredoka, sans-serif; color: #221B4A; min-height: 60px; cursor: pointer">Choisir dans la galerie</button>
+<button onClick="{{closeSheet}}" style="border: none; background: transparent; font: 700 17px Fredoka, sans-serif; color: #221B4A; min-height: 48px; cursor: pointer">Annuler</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); border: 3px solid #221B4A; background: #221B4A; color: #fff; border-radius: 999px; padding: 10px 20px; font: 700 16px Fredoka, sans-serif; white-space: nowrap">{{toast}}</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+state = {
+step: 'cover', title: 'Le Zébu qui voulait voler', desc: '', type: 'book',
+coverMode: 'blank', coverHas: false, detailsOpen: false, lang: 'fr', moods: {}, author: '',
+sheet: false, cur: 0, toast: '',
+pages: [{ mode: 'blank', hasPhoto: false, voiced: true, voices: [{ char: 'Narrateur', text: '', note: '', who: 'relative', relative: 'Maman' }] }]
+};
+
+chip(on) {
+const base = 'border: 3px solid #221B4A; border-radius: 999px; font: 700 15px Fredoka, sans-serif; min-height: 44px; padding: 0 14px; cursor: pointer; ';
+return base + (on ? 'background: #221B4A; color: #fff' : 'background: #fff; color: #221B4A');
+}
+big(on) {
+const base = 'flex: 1; border: 3px solid #221B4A; border-radius: 999px; font: 700 17px Fredoka, sans-serif; min-height: 48px; cursor: pointer; ';
+return base + (on ? 'background: #221B4A; color: #fff' : 'background: #fff; color: #221B4A');
+}
+tile(has) {
+return 'width: 150px; aspect-ratio: 3 / 4; border: 3px ' + (has ? 'solid' : 'dashed') + ' #221B4A; border-radius: 16px; box-sizing: border-box; cursor: pointer; font: 700 14px Fredoka, sans-serif; color: #221B4A; ' + (has ? 'background: repeating-linear-gradient(135deg, #F6D9A0 0 10px, #F9E4BC 10px 20px)' : 'background: #fff');
+}
+toast(msg) {
+this.setState({ toast: msg });
+setTimeout(() => this.setState({ toast: '' }), 1600);
+}
+setPage(patch) {
+this.setState((s) => ({ pages: s.pages.map((p, i) => (i === s.cur ? { ...p, ...patch } : p)) }));
+}
+setVoice(vi, patch) {
+this.setState((s) => ({ pages: s.pages.map((p, i) => (i === s.cur ? { ...p, voices: p.voices.map((v, j) => (j === vi ? { ...v, ...patch } : v)) } : p)) }));
+}
+characters() {
+const seen = {};
+const out = [];
+this.state.pages.forEach((p) => {
+if (!p.voiced) return;
+p.voices.forEach((v) => {
+const n = (v.char || '').trim();
+if (!n) return;
+if (!seen[n]) { seen[n] = { name: n, who: v.who, relative: v.relative }; out.push(seen[n]); }
+else { seen[n].who = v.who; seen[n].relative = v.relative; }
+});
+});
+return out;
+}
+whoLabel(c) {
+if (c.who === 'relative') return c.relative;
+if (c.who === 'ai') return 'Traduction IA';
+if (c.who === 'open') return 'Ouvert à tous';
+return 'À attribuer';
+}
+renderVals() {
+const s = this.state;
+const page = s.pages[s.cur];
+const types = [['book', 'Livre', 'Un livre illustré classique, lu page par page.'], ['comic', 'Bande dessinée', 'Une bande dessinée, lue case par case.'], ['wordless', 'Sans texte', 'Un livre d\'images, sans texte à lire.'], ['child', 'Écrit par l\'enfant', 'Un livre écrit par l\'enfant lui-même.']];
+const typeObj = types.find((t) => t[0] === s.type);
+const langs = [['fr', 'Français'], ['mg', 'Malagasy'], ['en', 'English']];
+const moods = [['soft', 'Douce'], ['fun', 'Drôle'], ['adv', 'Aventure'], ['calm', 'Dodo']];
+const chars = this.characters();
+const rel = ['Maman', 'Mamie', 'Tonton'];
+const whoList = [['relative', 'Un proche'], ['ai', 'Traduire par l\'IA'], ['open', 'Ouvert à tous'], ['later', 'Plus tard']];
+
+const voices = page.voices.map((v, vi) => ({
+no: vi + 1,
+char: v.char, text: v.text, note: v.note,
+onChar: (e) => this.setVoice(vi, { char: e.target.value }),
+onText: (e) => this.setVoice(vi, { text: e.target.value }),
+onNote: (e) => this.setVoice(vi, { note: e.target.value }),
+hasChars: chars.length > 0,
+charChips: chars.map((c) => ({ label: c.name, style: this.chip(v.char === c.name), pick: () => this.setVoice(vi, { char: c.name, who: c.who, relative: c.relative }) })),
+whoChips: whoList.map((w) => ({ label: w[1], style: this.chip(v.who === w[0]), pick: () => this.setVoice(vi, { who: w[0] }) })),
+relChips: rel.map((r) => ({ label: r, style: this.chip(v.relative === r), pick: () => this.setVoice(vi, { relative: r }) })),
+isRelative: v.who === 'relative', isAi: v.who === 'ai', isOpen: v.who === 'open', isLater: v.who === 'later'
+}));
+
+const pageRows = s.pages.map((p, i) => ({
+label: 'Page ' + (i + 1),
+meta: p.voiced ? (p.voices.length + (p.voices.length > 1 ? ' voix' : ' voix')) : 'Muette',
+style: 'display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; box-sizing: border-box; border: 3px solid #221B4A; border-radius: 16px; padding: 12px 16px; min-height: 52px; cursor: pointer; color: #221B4A; ' + (i === s.cur ? 'background: #FFE8A8' : 'background: #fff'),
+go: () => this.setState({ cur: i })
+}));
+
+const totalVoices = s.pages.reduce((n, p) => n + (p.voiced ? p.voices.length : 0), 0);
+const laterCount = chars.filter((c) => c.who === 'later').length;
+const charRows = chars.map((c) => ({
+name: c.name, who: this.whoLabel(c),
+style: 'font: 700 14px Fredoka, sans-serif; border: 2px solid #221B4A; border-radius: 999px; padding: 4px 12px; ' + (c.who === 'later' ? 'background: #FFE8A8' : 'background: #FFF3DC')
+}));
+
+return {
+isCover: s.step === 'cover', isPage: s.step === 'page', isReview: s.step === 'review', isDone: s.step === 'done',
+title: s.title, desc: s.desc, author: s.author,
+onTitle: (e) => this.setState({ title: e.target.value }),
+onDesc: (e) => this.setState({ desc: e.target.value }),
+onAuthor: (e) => this.setState({ author: e.target.value }),
+noop: () => {},
+typeChips: types.map((t) => ({ label: t[1], style: this.chip(s.type === t[0]), pick: () => this.setState({ type: t[0] }) })),
+typeHelp: typeObj[2], typeLabel: typeObj[1],
+coverBlank: () => this.setState({ coverMode: 'blank' }), coverPhoto: () => this.setState({ coverMode: 'photo' }),
+coverBlankStyle: this.big(s.coverMode === 'blank'), coverPhotoStyle: this.big(s.coverMode === 'photo'),
+coverIsPhoto: s.coverMode === 'photo', coverTileStyle: this.tile(s.coverHas), coverTileLabel: s.coverHas ? 'Photo ajoutée' : '+ Image',
+openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }),
+sheetOpen: s.sheet,
+pickPhoto: () => {
+if (s.step === 'cover') this.setState({ sheet: false, coverHas: true });
+else { this.setPage({ hasPhoto: true }); this.setState({ sheet: false }); }
+},
+detailsOpen: s.detailsOpen, detailsLabel: s.detailsOpen ? 'Masquer les détails' : 'Plus de détails',
+toggleDetails: () => this.setState({ detailsOpen: !s.detailsOpen }),
+langChips: langs.map((l) => ({ label: l[1], style: this.chip(s.lang === l[0]), pick: () => this.setState({ lang: l[0] }) })),
+moodChips: moods.map((m) => ({ label: m[1], style: this.chip(!!s.moods[m[0]]), pick: () => this.setState({ moods: { ...s.moods, [m[0]]: !s.moods[m[0]] } }) })),
+saveDraft: () => this.toast('Brouillon enregistré'),
+startPages: () => this.setState({ step: 'page', cur: 0 }),
+backLabel: s.cur === 0 ? 'Couverture' : 'Page ' + s.cur,
+goBack: () => (s.cur === 0 ? this.setState({ step: 'cover' }) : this.setState({ cur: s.cur - 1 })),
+stepNo: s.cur + 2, pageNo: s.cur + 1,
+pageIsPhoto: page.mode === 'photo', pageBlankStyle: this.big(page.mode === 'blank'), pagePhotoStyle: this.big(page.mode === 'photo'),
+pageBlank: () => this.setPage({ mode: 'blank' }), pagePhoto: () => this.setPage({ mode: 'photo' }),
+pageTileStyle: this.tile(page.hasPhoto), pageTileLabel: page.hasPhoto ? 'Photo ajoutée' : '+ Image',
+voiced: page.voiced, silent: !page.voiced,
+voicedStyle: this.big(page.voiced), silentStyle: this.big(!page.voiced),
+setVoiced: () => this.setPage({ voiced: true }), setSilent: () => this.setPage({ voiced: false }),
+voices,
+addVoice: () => {
+const last = page.voices[page.voices.length - 1];
+const other = chars.find((c) => c.name !== (last && last.char));
+this.setPage({ voices: [...page.voices, { char: other ? other.name : '', text: '', note: '', who: other ? other.who : 'relative', relative: other ? other.relative : 'Maman' }] });
+},
+pageRows,
+nextPage: () => {
+if (s.cur < s.pages.length - 1) { this.setState({ cur: s.cur + 1 }); return; }
+const lastP = s.pages[s.cur];
+const lv = lastP.voices[lastP.voices.length - 1] || { char: 'Narrateur', who: 'relative', relative: 'Maman' };
+const np = { mode: 'blank', hasPhoto: false, voiced: true, voices: [{ char: lv.char, text: '', note: '', who: lv.who, relative: lv.relative }] };
+this.setState({ pages: [...s.pages, np], cur: s.cur + 1 });
+this.toast('Brouillon enregistré');
+},
+finish: () => this.setState({ step: 'review' }),
+backToPages: () => this.setState({ step: 'page' }),
+pageCount: s.pages.length, voiceCount: totalVoices,
+charRows, noChars: chars.length === 0, hasLater: laterCount > 0, laterCount,
+send: () => this.setState({ step: 'done' }),
+sentText: chars.length === 0 ? 'Ce livre muet est prêt.' : 'Les demandes de voix sont parties chez les proches.',
+restart: () => this.setState({ step: 'cover', cur: 0, coverHas: false, pages: [{ mode: 'blank', hasPhoto: false, voiced: true, voices: [{ char: 'Narrateur', text: '', note: '', who: 'relative', relative: 'Maman' }] }] }),
+toast: s.toast
+};
+}
+}
+</script>
+</body>
+</html>

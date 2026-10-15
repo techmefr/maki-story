@@ -2,6 +2,7 @@ import { getDb, one } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { logEvent } from '~~/server/utils/log'
 import { memberExtras, readBirthDate } from '~~/server/utils/members'
+import { assertCanAddAdult } from '~~/server/utils/plan'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
 import { hashCode, readCodeInput } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest, isMemberRole, isNonEmptyString, isVoiceColor } from '~~/server/utils/validate'
@@ -21,6 +22,9 @@ export default defineEventHandler(async (event): Promise<IMember> => {
         hash = await hashCode(code)
     }
     const db = getDb()
+    if (body.role !== 'child') {
+        await assertCanAddAdult(db, familyId)
+    }
     const member = one(await db<IMember[]>`
         insert into members (family_id, name, role, color, pin_hash, code_kind, birth_date, code_enabled)
         values (${familyId}, ${body.name.trim()}, ${body.role}, ${body.color}, ${hash}, ${code?.kind ?? null}, ${birthDate}, ${body.codeEnabled !== false || body.role !== 'child'})

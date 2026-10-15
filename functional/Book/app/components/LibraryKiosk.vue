@@ -9,6 +9,7 @@
             <span class="subtitle grow">{{ unreadLabel }}</span>
             <span class="badge">{{ t('home.listen') }}</span>
         </NuxtLink>
+        <p v-if="isParent && usage && usage.limits.books !== null" class="library__usage" data-testid="plan-books-usage">{{ t('library.planUsage', { used: usage.books, limit: usage.limits.books }) }}</p>
         <div class="library__actions">
             <AppButton v-if="isOnline" class="library__action" to="/books/new"><AppIcon name="book-plus" :size="22" motion="float" />{{ t('home.newBook') }}</AppButton>
             <AppButton v-else class="library__action" disabled><AppIcon name="cloud-off" :size="22" />{{ t('home.newBookOffline') }}</AppButton>
@@ -41,6 +42,7 @@ const isOnline = useState<boolean>('is-online', () => true)
 const { books, load } = useBooks()
 const { currentId, isParent } = useCurrentMember()
 const { ensureLoaded } = useMembers()
+const { usage, load: loadPlan } = usePlan()
 const { unreadCountFor, load: loadMessages } = useMessages()
 
 const isLoaded = ref(false)
@@ -76,12 +78,18 @@ const unreadCount = computed(() => (currentId.value ? unreadCountFor(currentId.v
 const unreadLabel = computed(() => t('home.messagesWaiting', { count: unreadCount.value }))
 
 onMounted(async () => {
-    await Promise.all([load(initialQuery), loadMessages(), ensureLoaded()])
+    await Promise.all([load(initialQuery), loadMessages(), ensureLoaded(), loadPlan()])
     isLoaded.value = true
 })
 </script>
 
 <style scoped>
+.library__usage {
+    margin: 0;
+    color: var(--ink-soft);
+    font: 600 0.9375rem/1.3 var(--font-body);
+}
+
 .library__actions {
     display: flex;
     flex-wrap: wrap;

@@ -85,5 +85,6 @@
         "bookProposed": "{name} يقترح الكتاب «{title}»",
         "proposalApproved": "تم قبول اقتراحك «{title}»",
         "proposalDeclined": "تم رفض اقتراحك «{title}»"
-    }
+    },
+    "planUsage": "{used}/{limit} كتبًا في الباقة المجانية"
 }

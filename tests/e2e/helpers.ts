@@ -149,23 +149,58 @@ export const apiJson = async <T>(page: Page, path: string): Promise<T> => {
     return (await response.json()) as T
 }
 
-export const linesCard = (page: Page, pageNumber: number): Locator => page.getByRole('group', { name: `Page ${pageNumber}`, exact: true })
+export const linesCard = (page: Page, pageNumber: number): Locator => page.locator(`[data-testid="page-step"][data-page="${pageNumber}"]`)
+
+export const voiceCard = (page: Page, number: number): Locator => page.getByTestId(`voice-${number}`)
+
+export const fillVoice = async (page: Page, number: number, text: string): Promise<void> => {
+    await voiceCard(page, number).getByLabel('Texte', { exact: true }).fill(text)
+}
+
+export const newVoice = async (page: Page, number: number, name: string, reader: string | null = null): Promise<void> => {
+    const card = voiceCard(page, number)
+    await card.getByTestId('voice-new').click()
+    await card.getByTestId('voice-new-name').fill(name)
+    await card.getByTestId('voice-create').click()
+    await expect(card.getByRole('button', { name, exact: true })).toHaveAttribute('aria-pressed', 'true')
+    if (reader !== null) {
+        await card.locator('.picker', { hasText: reader }).click()
+    }
+}
+
+export const addVoice = async (page: Page): Promise<number> => {
+    const before = await page.locator('[data-testid^="voice-"]:not([data-testid="voice-add"]):not([data-testid="voice-new"]):not([data-testid="voice-new-name"]):not([data-testid="voice-create"])').count()
+    await page.getByTestId('voice-add').click()
+    return before + 1
+}
+
+export const nextPage = async (page: Page): Promise<void> => {
+    await page.getByTestId('page-next').click()
+}
 
 export const addLine = async (page: Page, pageNumber: number, character: string | null, text: string): Promise<void> => {
-    const card = linesCard(page, pageNumber)
-    if (character !== null) {
-        await card.getByRole('button', { name: character, exact: true }).click()
+    const step = linesCard(page, pageNumber)
+    await expect(step).toBeVisible()
+    const filled = await step.locator('textarea').evaluateAll(nodes => nodes.filter(node => (node as HTMLTextAreaElement).value !== '').length)
+    const total = await step.locator('textarea').count()
+    let number = total
+    if (filled === total) {
+        number = await addVoice(page)
     }
-    await card.getByLabel('Texte', { exact: true }).fill(text)
-    await card.getByRole('button', { name: 'Ajouter', exact: true }).click()
-    await expect(card.getByText(text, { exact: true })).toBeVisible()
+    if (character !== null) {
+        await voiceCard(page, number).getByRole('button', { name: character, exact: true }).click()
+    }
+    await fillVoice(page, number, text)
 }
 
 export const startBook = async (page: Page, title: string): Promise<void> => {
     await page.goto('/books/new')
     await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
+    const discard = page.getByTestId('discard-draft')
+    if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
+        await discard.click()
+    }
     await page.getByLabel('Titre du livre').fill(title)
-    await nextStep(page)
     await expect(page.getByRole('heading', { name: 'Type de livre' })).toBeVisible()
 }
 
@@ -175,10 +210,11 @@ export const nextStep = async (page: Page): Promise<void> => {
 
 export const toPages = async (page: Page): Promise<void> => {
     const heading = page.getByRole('heading', { name: 'Les pages' })
-    for (let attempt = 0; attempt < 6 && !(await heading.isVisible()); attempt++) {
-        await nextStep(page)
+    if (!(await heading.isVisible())) {
+        await page.getByTestId('book-next').click()
     }
     await expect(heading).toBeVisible()
+    await expect(page.getByTestId('page-step')).toBeVisible()
 }
 
 export const inviteByLink = async (page: Page, name?: string): Promise<void> => {
@@ -197,12 +233,17 @@ export const inviteByLink = async (page: Page, name?: string): Promise<void> => 
 }
 
 export const finishPages = async (page: Page): Promise<void> => {
-    await page.getByRole('button', { name: 'Terminer', exact: true }).click()
+    await page.getByTestId('pages-finish').click()
 }
 
-export const openCast = async (page: Page): Promise<void> => {
-    await page.getByTestId('accordion-cast').click()
+export const sendBook = async (page: Page): Promise<string> => {
+    await page.getByTestId('book-save').click()
+    await expect(page.getByTestId('send-done')).toBeVisible()
+    await page.getByTestId('send-studio').click()
+    await expect(page).toHaveURL(/\/books\/.+\/studio/)
+    return page.url().split('/')[4] ?? ''
 }
+
 
 export const uniqueName = (base: string, projectName: string): string => `${base}-${projectName}`
 

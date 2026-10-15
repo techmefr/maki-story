@@ -154,6 +154,17 @@ export default defineEventHandler(async (event): Promise<IBook> => {
                 await tx`update lines set panel_id = ${patch.panelId} where id = ${patch.id} and book_id = ${id} and family_id = ${familyId}`
             }
         }
+        if ((body.lines ?? []).some(patch => patch.memberId !== undefined)) {
+            const conflicts = await tx<{ characterId: string }[]>`
+                select character_id from lines
+                where book_id = ${id} and family_id = ${familyId} and character_id is not null and member_id is not null
+                group by character_id having count(distinct member_id) > 1
+                limit 1
+            `
+            if (conflicts.length > 0) {
+                return badRequest('A character has only one reader')
+            }
+        }
     })
     const book = await loadBook(id, familyId)
     for (const memberId of requestedMemberIds) {

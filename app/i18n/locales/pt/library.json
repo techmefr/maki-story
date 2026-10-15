@@ -85,5 +85,6 @@
         "bookProposed": "{name} propõe o livro «{title}»",
         "proposalApproved": "A sua proposta «{title}» foi aceita",
         "proposalDeclined": "A sua proposta «{title}» foi recusada"
-    }
+    },
+    "planUsage": "{used}/{limit} livros do plano gratuito"
 }

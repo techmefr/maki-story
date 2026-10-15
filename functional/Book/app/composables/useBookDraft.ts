@@ -8,6 +8,7 @@ export interface IDraftCharacter {
     description: string
     isNarrator: boolean
     memberId: string | null
+    assignment: CharacterAssignment
 }
 
 export interface IDraftTranslation {
@@ -43,6 +44,7 @@ export interface IDraftLine {
     tone: string
     sceneDescription: string
     translations: IDraftTranslation[]
+    language: string
 }
 
 export interface IDraftLineInput {
@@ -58,6 +60,10 @@ interface IStoredDraft {
     mode: DraftMode
     readerId: string | null
     title: string
+    description: string
+    coverMode: 'blank' | 'photo'
+    coverFileId: string | null
+    cursor: number
     subtitle: string
     author: string
     illustrator: string
@@ -65,6 +71,8 @@ interface IStoredDraft {
     ageMax: number | null
     language: string
     voiceLanguages: string[]
+    isbn: string
+    coverUrl: string
     moods: string[]
     themes: string[]
     type: BookType
@@ -83,11 +91,17 @@ let nextKey = 1
 export const useBookDraft = () => {
     const { current } = useCurrentMember()
     const { fetchUrl } = useFiles()
+    const { request } = useApi()
     const { t } = useI18n()
     const step = useState<DraftStep>('draft-step', () => 'book')
     const mode = useState<DraftMode>('draft-mode', () => 'casting')
     const readerId = useState<string | null>('draft-reader', () => null)
     const title = useState<string>('draft-title', () => '')
+    const description = useState<string>('draft-description', () => '')
+    const coverMode = useState<'blank' | 'photo'>('draft-cover-mode', () => 'blank')
+    const coverFileId = useState<string | null>('draft-cover-file', () => null)
+    const coverPreview = useState<string>('draft-cover-preview', () => '')
+    const cursor = useState<number>('draft-cursor', () => 0)
     const subtitle = useState<string>('draft-subtitle', () => '')
     const author = useState<string>('draft-author', () => '')
     const illustrator = useState<string>('draft-illustrator', () => '')
@@ -95,6 +109,8 @@ export const useBookDraft = () => {
     const ageMax = useState<number | null>('draft-age-max', () => null)
     const language = useState<string>('draft-language', () => DEFAULT_LANGUAGE)
     const voiceLanguages = useState<string[]>('draft-voice-languages', () => [])
+    const isbn = useState<string>('draft-isbn', () => '')
+    const coverUrl = useState<string>('draft-cover-url', () => '')
     const moods = useState<string[]>('draft-moods', () => [])
     const themes = useState<string[]>('draft-themes', () => [])
     const type = useState<BookType>('draft-type', () => 'standard')
@@ -136,7 +152,7 @@ export const useBookDraft = () => {
         return (VOICE_COLORS.find(color => !used.includes(color.id)) ?? VOICE_COLORS[characters.value.length % VOICE_COLORS.length]!).id
     }
 
-    const addCharacter = (name: string, memberId: string | null = null): IDraftCharacter => {
+    const addCharacter = (name: string, memberId: string | null = null, color: VoiceColorId | null = null): IDraftCharacter => {
         const trimmed = name.trim()
         const existing = characters.value.find(character => character.name.toLowerCase() === trimmed.toLowerCase())
         if (existing) {
@@ -145,10 +161,11 @@ export const useBookDraft = () => {
         const created: IDraftCharacter = {
             key: nextKey++,
             name: trimmed,
-            color: nextColor(),
+            color: color ?? nextColor(),
             description: '',
             isNarrator: false,
             memberId,
+            assignment: memberId === null ? 'later' : 'relative',
         }
         characters.value = [...characters.value, created]
         return created
@@ -186,6 +203,7 @@ export const useBookDraft = () => {
             description: '',
             isNarrator: true,
             memberId,
+            assignment: memberId === null ? 'later' : 'relative',
         }
         characters.value = [created, ...characters.value]
     }
@@ -210,6 +228,11 @@ export const useBookDraft = () => {
         mode.value = nextMode
         readerId.value = reader
         title.value = ''
+        description.value = ''
+        coverMode.value = 'blank'
+        coverFileId.value = null
+        coverPreview.value = ''
+        cursor.value = 0
         subtitle.value = ''
         author.value = ''
         illustrator.value = ''
@@ -217,6 +240,8 @@ export const useBookDraft = () => {
         ageMax.value = null
         language.value = current.value?.spokenLanguages[0] ?? DEFAULT_LANGUAGE
         voiceLanguages.value = []
+        isbn.value = ''
+        coverUrl.value = ''
         moods.value = []
         themes.value = []
         type.value = 'standard'
@@ -231,31 +256,67 @@ export const useBookDraft = () => {
 
     const storageKey = (): string => `${DRAFT_STORAGE_KEY}:${current.value?.id ?? 'anonymous'}`
 
+    const buildSnapshot = (): IStoredDraft => ({
+        mode: mode.value,
+        readerId: readerId.value,
+        title: title.value,
+        description: description.value,
+        coverMode: coverMode.value,
+        coverFileId: coverFileId.value,
+        cursor: cursor.value,
+        subtitle: subtitle.value,
+        author: author.value,
+        illustrator: illustrator.value,
+        ageMin: ageMin.value,
+        ageMax: ageMax.value,
+        language: language.value,
+        voiceLanguages: voiceLanguages.value,
+        isbn: isbn.value,
+        coverUrl: coverUrl.value,
+        moods: moods.value,
+        themes: themes.value,
+        type: type.value,
+        ttsFallback: ttsFallback.value,
+        isAiPrefilled: isAiPrefilled.value,
+        pages: pages.value.map(page => ({ ...page, previewUrl: '' })),
+        characters: characters.value,
+        lines: lines.value,
+    })
+
     const saveDraft = (): void => {
-        const snapshot = {
-            mode: mode.value,
-            readerId: readerId.value,
-            title: title.value,
-            subtitle: subtitle.value,
-            author: author.value,
-            illustrator: illustrator.value,
-            ageMin: ageMin.value,
-            ageMax: ageMax.value,
-            language: language.value,
-            voiceLanguages: voiceLanguages.value,
-            moods: moods.value,
-            themes: themes.value,
-            type: type.value,
-            ttsFallback: ttsFallback.value,
-            isAiPrefilled: isAiPrefilled.value,
-            pages: pages.value.map(page => ({ ...page, previewUrl: '' })),
-            characters: characters.value,
-            lines: lines.value,
-        }
+        const snapshot = buildSnapshot()
         try {
             localStorage.setItem(storageKey(), JSON.stringify(snapshot))
         } catch (error) {
             console.error('Le brouillon n a pas pu être sauvegardé', error)
+        }
+    }
+
+    const syncDraft = async (): Promise<boolean> => {
+        saveDraft()
+        try {
+            await request('/book-draft', { method: 'PUT', body: { payload: buildSnapshot() } })
+            return true
+        } catch (error) {
+            console.error('Le brouillon n a pas pu être envoyé au serveur', error)
+            return false
+        }
+    }
+
+    const loadServerDraft = async (): Promise<Partial<IStoredDraft> | null> => {
+        try {
+            const row = await request<{ payload: Partial<IStoredDraft> } | null>('/book-draft')
+            return row?.payload ?? null
+        } catch {
+            return null
+        }
+    }
+
+    const clearServerDraft = async (): Promise<void> => {
+        try {
+            await request('/book-draft', { method: 'DELETE' })
+        } catch {
+            return
         }
     }
 
@@ -275,12 +336,14 @@ export const useBookDraft = () => {
         }
     }
 
-    const restoreDraft = (): boolean => {
-        let saved: Partial<IStoredDraft> | null = null
-        try {
-            saved = JSON.parse(localStorage.getItem(storageKey()) ?? 'null')
-        } catch {
-            saved = null
+    const restoreDraft = (payload: Partial<IStoredDraft> | null = null): boolean => {
+        let saved: Partial<IStoredDraft> | null = payload
+        if (saved === null) {
+            try {
+                saved = JSON.parse(localStorage.getItem(storageKey()) ?? 'null')
+            } catch {
+                saved = null
+            }
         }
         if (saved === null) {
             return false
@@ -288,6 +351,10 @@ export const useBookDraft = () => {
         mode.value = saved.mode ?? 'casting'
         readerId.value = saved.readerId ?? null
         title.value = saved.title ?? ''
+        description.value = saved.description ?? ''
+        coverMode.value = saved.coverMode === 'photo' ? 'photo' : 'blank'
+        coverFileId.value = saved.coverFileId ?? null
+        cursor.value = saved.cursor ?? 0
         subtitle.value = saved.subtitle ?? ''
         author.value = saved.author ?? ''
         illustrator.value = saved.illustrator ?? ''
@@ -295,6 +362,8 @@ export const useBookDraft = () => {
         ageMax.value = saved.ageMax ?? null
         language.value = saved.language ?? DEFAULT_LANGUAGE
         voiceLanguages.value = saved.voiceLanguages ?? []
+        isbn.value = saved.isbn ?? ''
+        coverUrl.value = saved.coverUrl ?? ''
         moods.value = saved.moods ?? []
         themes.value = saved.themes ?? []
         type.value = saved.type ?? 'standard'
@@ -303,10 +372,18 @@ export const useBookDraft = () => {
         isProposal.value = false
         pages.value = saved.pages ?? []
         characters.value = saved.characters ?? []
-        lines.value = saved.lines ?? []
+        lines.value = (saved.lines ?? []).map(line => ({ ...line, language: line.language ?? '' }))
         const keys = [...pages.value, ...characters.value, ...lines.value].map(item => item.key)
         nextKey = Math.max(nextKey, ...keys, 0) + 1
         step.value = pages.value.length > 0 ? 'pages' : 'book'
+        if (coverFileId.value !== null) {
+            const coverId = coverFileId.value
+            fetchUrl(coverId)
+                .then(url => {
+                    coverPreview.value = url
+                })
+                .catch(() => undefined)
+        }
         pages.value.forEach(page => {
             if (page.fileId !== null) {
                 fetchUrl(page.fileId)
@@ -332,6 +409,7 @@ export const useBookDraft = () => {
             description: character.description,
             isNarrator: character.isNarrator,
             memberId: character.isNarrator && !isSimple.value ? reader : null,
+            assignment: character.isNarrator && !isSimple.value && reader !== null ? 'relative' : 'later',
         }))
         const used = new Set<string>()
         characters.value = loaded.map(character => {
@@ -373,6 +451,7 @@ export const useBookDraft = () => {
             tone: line.tone,
             sceneDescription: line.sceneDescription,
             translations: [],
+            language: '',
         }))
         isAiPrefilled.value = true
     }
@@ -456,11 +535,12 @@ export const useBookDraft = () => {
                 tone: input.tone.trim(),
                 sceneDescription: input.sceneDescription.trim(),
                 translations: [],
+            language: '',
             }))
         lines.value = [...lines.value, ...added]
     }
 
-    const updateLine = (key: number, patch: Partial<Pick<IDraftLine, 'tone' | 'sceneDescription' | 'characterKey' | 'text' | 'pageIndex' | 'panelIndex'>>): void => {
+    const updateLine = (key: number, patch: Partial<Pick<IDraftLine, 'tone' | 'sceneDescription' | 'characterKey' | 'text' | 'pageIndex' | 'panelIndex' | 'language'>>): void => {
         lines.value = lines.value.map(line => (line.key === key ? { ...line, ...patch } : line))
     }
 
@@ -484,21 +564,22 @@ export const useBookDraft = () => {
 
     const placeholderLines = (): IDraftLine[] => {
         const added: IDraftLine[] = []
+        const written = lines.value.filter(line => line.text.trim() !== '' && !isTranslationLine(line))
         const make = (pageIndex: number, panelIndex: number | null, text: string, sceneDescription: string): void => {
-            added.push({ key: -(added.length + 1), pageIndex, panelIndex, characterKey: null, text, tone: '', sceneDescription, translations: [] })
+            added.push({ key: -(added.length + 1), pageIndex, panelIndex, characterKey: null, text, tone: '', sceneDescription, translations: [], language: '' })
         }
         pages.value.forEach((page, pageIndex) => {
             if (page.kind === 'empty') {
                 return
             }
             if (page.panels.length === 0) {
-                if (page.isSilent !== true && !lines.value.some(line => line.pageIndex === pageIndex)) {
+                if (page.isSilent !== true && !written.some(line => line.pageIndex === pageIndex)) {
                     make(pageIndex, null, page.title.trim() || t('bookDraft.shared.page', { n: pageIndex + 1 }), page.description)
                 }
                 return
             }
             page.panels.forEach((panel, panelIndex) => {
-                if (panel.isSilent !== true && !lines.value.some(line => line.pageIndex === pageIndex && line.panelIndex === panelIndex)) {
+                if (panel.isSilent !== true && !written.some(line => line.pageIndex === pageIndex && line.panelIndex === panelIndex)) {
                     make(pageIndex, panelIndex, panel.description.trim() || t('bookDraft.shared.panel', { n: panelIndex + 1 }), panel.description)
                 }
             })
@@ -506,53 +587,104 @@ export const useBookDraft = () => {
         return added
     }
 
+    const coverOffset = computed(() => (coverMode.value === 'photo' && coverFileId.value !== null ? 1 : 0))
+
+    const silentPageIndexes = (): Set<number> => new Set(pages.value.flatMap((page, index) => (page.isSilent === true || page.kind === 'empty' ? [index] : [])))
+
+    const isTranslationLine = (line: IDraftLine): boolean => line.language !== '' && line.language !== language.value
+
     const orderedLines = (): IDraftLine[] => {
-        const sent = isWordless.value ? [] : [...lines.value, ...placeholderLines()]
+        const silent = silentPageIndexes()
+        const written = lines.value.filter(line => line.text.trim() !== '' && !silent.has(line.pageIndex) && !isTranslationLine(line))
+        const sent = isWordless.value ? [] : [...written, ...placeholderLines()]
         return sent
             .map((line, index) => ({ line, index }))
             .sort((a, b) => a.line.pageIndex - b.line.pageIndex || (a.line.panelIndex ?? -1) - (b.line.panelIndex ?? -1) || a.index - b.index)
             .map(item => item.line)
     }
 
+    const sentCharacters = (): IDraftCharacter[] => {
+        if (isSimple.value || isWordless.value) {
+            return []
+        }
+        const used = new Set(orderedLines().map(line => effectiveCharacterKey(line)))
+        return characters.value.filter(character => used.has(character.key))
+    }
+
+    const lastCharacterKey = computed<number | null>(() => {
+        const last = [...lines.value].reverse().find(line => line.characterKey !== null)
+        return last?.characterKey ?? narrator.value?.key ?? null
+    })
+
+    const addVoice = (pageIndex: number, characterKey: number | null = null): IDraftLine => {
+        const created: IDraftLine = {
+            key: nextKey++,
+            pageIndex,
+            panelIndex: null,
+            characterKey: isSimple.value ? null : (characterKey ?? lastCharacterKey.value),
+            text: '',
+            tone: '',
+            sceneDescription: '',
+            translations: [],
+            language: '',
+        }
+        lines.value = [...lines.value, created]
+        return created
+    }
+
+    const setCharacterReader = (key: number, assignment: CharacterAssignment, memberId: string | null): void => {
+        updateCharacter(key, { assignment, memberId: assignment === 'relative' ? memberId : null })
+    }
+
     const toNewBook = (): INewBook => {
         const ordered = orderedLines()
-        const cast = isSimple.value || isWordless.value ? [] : characters.value
+        const cast = sentCharacters()
+        const offset = coverOffset.value
         const asAge = (value: unknown): number | null => (typeof value === 'number' && Number.isInteger(value) ? value : null)
+        const coverPages: INewPage[] = offset === 1 ? [{ fileId: coverFileId.value, kind: 'cover', isSilent: true, ttsFallback: false, title: '', description: '', panels: [] }] : []
         return {
             title: title.value.trim(),
             subtitle: subtitle.value,
+            description: description.value,
             author: author.value,
             illustrator: illustrator.value,
             ageMin: asAge(ageMin.value),
             ageMax: asAge(ageMax.value),
             language: language.value,
             writtenLanguage: language.value,
-            voiceLanguages: voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value],
+            voiceLanguages: voiceLanguagesForSave(),
             moods: moods.value,
             themes: themes.value,
             type: type.value,
             ttsFallback: ttsFallback.value,
+            isbn: isbn.value === '' ? undefined : isbn.value,
+            coverUrl: coverUrl.value === '' ? undefined : coverUrl.value,
             kind: isSimple.value ? 'solo' : 'multi',
             soloMemberId: isSimple.value ? readerId.value : null,
             isProposal: isProposal.value ? true : undefined,
             imageDesc: '',
             pageFileIds: [],
-            pages: pages.value.map(page => ({
-                fileId: page.fileId,
-                kind: page.kind,
-                ttsFallback: page.kind === 'empty' ? page.ttsFallback : false,
-                title: page.title,
-                description: page.description,
-                panels: page.panels.map(panel => ({ description: panel.description })),
-            })),
+            pages: [
+                ...coverPages,
+                ...pages.value.map(page => ({
+                    fileId: page.fileId,
+                    kind: page.fileId === null && (page.isSilent === true || page.kind === 'empty') ? ('empty' as const) : ('content' as const),
+                    isSilent: page.isSilent === true || page.kind === 'empty',
+                    ttsFallback: page.kind === 'empty' ? page.ttsFallback : false,
+                    title: page.title,
+                    description: page.description,
+                    panels: page.panels.map(panel => ({ description: panel.description })),
+                })),
+            ],
             characters: cast.map(character => ({
                 name: character.name,
                 color: character.color,
                 description: character.description,
                 isNarrator: character.isNarrator,
+                assignment: character.assignment,
             })),
             lines: ordered.map(line => ({
-                pageIndex: line.pageIndex,
+                pageIndex: line.pageIndex + offset,
                 character: isSimple.value ? '' : (characterByKey(effectiveCharacterKey(line))?.name ?? ''),
                 text: line.text,
                 panelPosition: line.panelIndex ?? undefined,
@@ -563,10 +695,37 @@ export const useBookDraft = () => {
     }
 
     const memberIdsForSave = (): (string | null)[] => {
-        return orderedLines().map(line => (isSimple.value ? readerId.value : (characterByKey(effectiveCharacterKey(line))?.memberId ?? null)))
+        return orderedLines().map(line => {
+            if (isSimple.value) {
+                return readerId.value
+            }
+            const character = characterByKey(effectiveCharacterKey(line))
+            return character?.assignment === 'relative' ? (character.memberId ?? null) : null
+        })
     }
 
-    const translationsForSave = (): (IDraftTranslation[])[] => orderedLines().map(line => line.translations)
+    const baseOfTranslation = (line: IDraftLine): IDraftLine | null => {
+        const bases = lines.value.filter(item => item.text.trim() !== '' && !isTranslationLine(item) && item.pageIndex === line.pageIndex)
+        const sameVoice = bases.filter(item => item.characterKey === line.characterKey)
+        const pool = sameVoice.length > 0 ? sameVoice : bases
+        const position = lines.value.indexOf(line)
+        const before = pool.filter(item => lines.value.indexOf(item) < position)
+        return before[before.length - 1] ?? pool[0] ?? null
+    }
+
+    const translationLines = (): IDraftLine[] => lines.value.filter(line => line.text.trim() !== '' && isTranslationLine(line))
+
+    const orphanTranslations = (): IDraftLine[] => translationLines().filter(line => baseOfTranslation(line) === null)
+
+    const translationsForSave = (): (IDraftTranslation[])[] =>
+        orderedLines().map(line => [
+            ...line.translations,
+            ...translationLines()
+                .filter(item => baseOfTranslation(item) === line)
+                .map(item => ({ language: item.language, text: item.text.trim(), tone: item.tone.trim() })),
+        ])
+
+    const voiceLanguagesForSave = (): string[] => [...new Set([...(voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value]), language.value, ...translationLines().map(item => item.language)])]
 
     return {
         isProposal,
@@ -574,6 +733,11 @@ export const useBookDraft = () => {
         mode,
         readerId,
         title,
+        description,
+        coverMode,
+        coverFileId,
+        coverPreview,
+        cursor,
         subtitle,
         author,
         illustrator,
@@ -581,6 +745,8 @@ export const useBookDraft = () => {
         ageMax,
         language,
         voiceLanguages,
+        isbn,
+        coverUrl,
         moods,
         themes,
         type,
@@ -619,6 +785,8 @@ export const useBookDraft = () => {
         setTranslation,
         removeTranslation,
         translationsForSave,
+        isTranslationLine,
+        orphanTranslations,
         addPhoto,
         addEmptyPage,
         updatePage,
@@ -632,5 +800,13 @@ export const useBookDraft = () => {
         removeLine,
         toNewBook,
         memberIdsForSave,
+        addVoice,
+        setCharacterReader,
+        sentCharacters,
+        lastCharacterKey,
+        buildSnapshot,
+        syncDraft,
+        loadServerDraft,
+        clearServerDraft,
     }
 }

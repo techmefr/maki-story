@@ -85,5 +85,6 @@
         "bookProposed": "{name} 提议了《{title}》",
         "proposalApproved": "你的提议《{title}》已被接受",
         "proposalDeclined": "你的提议《{title}》被拒绝了"
-    }
+    },
+    "planUsage": "免费版 {used}/{limit} 本书"
 }

@@ -35,6 +35,7 @@ const serverFor = (port: number, isAiCreationEnabled: boolean) => ({
         AI_MONTHLY_BUDGET_USD: '0.12',
         OIDC_FAKE: '1',
         REGISTER_IP_LIMIT: '1000',
+        DEFAULT_FAMILY_PLAN: 'lifetime',
         OAUTH_IP_LIMIT: '1000',
         GOOGLE_CLIENT_ID: 'fake-google-client',
         APPLE_CLIENT_ID: 'fake-apple-client',

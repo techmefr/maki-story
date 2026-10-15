@@ -2,6 +2,7 @@ import type { Sql, TransactionSql } from 'postgres'
 import { ACTIVE_SHARE_STATUSES, MAX_FAMILIES_PER_BOOK } from '../../shared/utils/sharing'
 import { one } from './db'
 import { notify } from './notifications'
+import { assertCanCreateBooks } from './plan'
 import type { IActor } from '~~/technical/Auth/server/utils/permissions'
 import { notFound } from './validate'
 
@@ -70,6 +71,7 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
     if (!source) {
         return notFound('Book not found')
     }
+    await assertCanCreateBooks(tx, targetFamilyId)
     const created = one(await tx<{ id: string }[]>`
         insert into books (family_id, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, kind, status, origin_book_id, origin_family_id)
         select ${targetFamilyId}, title, subtitle, author, illustrator, age_min, age_max, language, written_language, voice_languages, moods, themes, type, tts_fallback, image_desc, 'multi', 'to_record',
@@ -78,8 +80,8 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
         returning id
     `)
     await tx`
-        insert into book_pages (family_id, book_id, position, file_id, kind, tts_fallback, description)
-        select ${targetFamilyId}, ${created.id}, position, null, case when kind = 'cover' then 'cover' else 'empty' end, tts_fallback, description
+        insert into book_pages (family_id, book_id, position, file_id, kind, is_silent, tts_fallback, description)
+        select ${targetFamilyId}, ${created.id}, position, null, case when kind = 'cover' then 'cover' else 'empty' end, is_silent, tts_fallback, description
         from book_pages where book_id = ${bookId}
     `
     await tx`
@@ -91,8 +93,8 @@ export const copyBookToFamily = async (tx: Db, bookId: string, ownerFamilyId: st
         where p.book_id = ${bookId}
     `
     await tx`
-        insert into characters (family_id, book_id, name, color, description, is_narrator, position)
-        select ${targetFamilyId}, ${created.id}, name, color, description, is_narrator, position from characters where book_id = ${bookId}
+        insert into characters (family_id, book_id, name, color, description, is_narrator, assignment, position)
+        select ${targetFamilyId}, ${created.id}, name, color, description, is_narrator, 'later', position from characters where book_id = ${bookId}
     `
     await tx`
         insert into lines (family_id, book_id, position, page_index, character, text, note, tone, scene_description, character_id, panel_id)

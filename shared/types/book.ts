@@ -32,6 +32,7 @@ export interface IBookSummary {
     readerIds: string[]
     coverFileId: string | null
     coverUrl: string | null
+    description: string
     submittedCount: number
     isVoiceBlocked: boolean
     blockedLineCount: number
@@ -45,6 +46,7 @@ export interface ICharacter {
     color: string | null
     description: string
     isNarrator: boolean
+    assignment: CharacterAssignment
     position: number
 }
 
@@ -103,6 +105,7 @@ export interface IBookPage {
     position: number
     fileId: string | null
     kind: PageKind
+    isSilent: boolean
     ttsFallback: boolean
     title: string
     description: string
@@ -119,11 +122,14 @@ export interface IBook extends IBookSummary {
     tones: Record<string, string>
 }
 
+export type CharacterAssignment = 'relative' | 'ai' | 'open' | 'later'
+
 export interface INewCharacter {
     name: string
     color?: string | null
     description?: string
     isNarrator?: boolean
+    assignment?: CharacterAssignment
 }
 
 export interface INewPanel {
@@ -133,6 +139,7 @@ export interface INewPanel {
 export interface INewPage {
     fileId: string | null
     kind?: PageKind
+    isSilent?: boolean
     ttsFallback?: boolean
     title?: string
     description?: string
@@ -151,6 +158,7 @@ export interface INewLine {
 export interface INewBook {
     title: string
     subtitle?: string
+    description?: string
     author?: string
     illustrator?: string
     ageMin?: number | null
@@ -279,4 +287,11 @@ export interface IHomeCounts {
     requests: number
     proposalsWaiting: number
     toFix: number
+}
+
+export interface IPlanUsage {
+    plan: 'free' | 'premium' | 'lifetime'
+    limits: { books: number | null; adults: number | null }
+    books: number
+    adults: number
 }

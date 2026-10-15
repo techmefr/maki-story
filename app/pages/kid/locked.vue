@@ -11,7 +11,7 @@
             </AppButton>
         </template>
         <template v-else>
-            <MakiSleeping :size="180" class="locked__maki" />
+            <MakiScene pose="hammock" :size="220" class="locked__maki" />
             <h1 class="locked__title">{{ t('parental.locked.title', { name: current?.name ?? '' }) }}</h1>
             <p v-if="wakeTime" class="locked__text">
                 {{ t('parental.locked.wakesAt', { time: wakeTime }) }} {{ t('parental.locked.tomorrow') }}

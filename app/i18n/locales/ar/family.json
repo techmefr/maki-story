@@ -119,5 +119,6 @@
             "child": "Child",
             "parent": "Code"
         }
-    }
+    },
+    "planUsage": "{used}/{limit} بالغين في الباقة المجانية (الأطفال بلا حد)"
 }

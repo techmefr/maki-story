@@ -85,5 +85,6 @@
         "bookProposed": "{name} dia manolotra ny boky “{title}”",
         "proposalApproved": "Voaray ny soso-kevitrao “{title}”",
         "proposalDeclined": "Nolavina ny soso-kevitrao “{title}”"
-    }
+    },
+    "planUsage": "Boky {used}/{limit} amin’ny tolotra maimaim-poana"
 }

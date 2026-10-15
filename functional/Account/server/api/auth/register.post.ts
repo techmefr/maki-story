@@ -1,3 +1,4 @@
+import { defaultFamilyPlan } from '~~/server/utils/plan'
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { renderLocalizedMail, sendMail } from '~~/technical/Mail/server/utils/mail'
@@ -53,8 +54,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
         let familyId = legacy?.id
         if (!familyId) {
             familyId = one(await tx<{ id: string }[]>`
-                insert into families (name, invite_code)
-                values (${familyName}, substr(md5(random()::text || clock_timestamp()::text), 1, 10))
+                insert into families (name, invite_code, plan)
+                values (${familyName}, substr(md5(random()::text || clock_timestamp()::text), 1, 10), ${defaultFamilyPlan()})
                 returning id
             `).id
             await tx`

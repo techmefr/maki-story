@@ -189,8 +189,7 @@ test.describe('profile menu', () => {
         expect((await page.request.patch(`/api/members/${parent.id}/settings`, { data: { spokenLanguages: ['mg', 'fr'] } })).ok()).toBeTruthy()
         await page.goto('/books/new')
         await page.getByLabel('Titre du livre').fill('Langue par défaut')
-        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
-        await page.getByRole('button', { name: 'Suivant', exact: true }).click()
+        await page.getByTestId('book-details-toggle').click()
         await expect(page.getByLabel('Langue du livre')).toContainText('Malagasy')
     })
 

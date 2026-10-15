@@ -14,9 +14,7 @@
                     <span class="onboarding__voice onboarding__voice--blue">P</span>
                     <span class="onboarding__voice onboarding__voice--violet">Y</span>
                 </div>
-                <div v-else class="onboarding__heart" aria-hidden="true">
-                    <AppIcon name="heart" :size="96" :stroke-width="2" />
-                </div>
+                <MakiScene v-else pose="heartBook" :size="240" />
                 <h1 class="onboarding__title" tabindex="-1">{{ t(`onboarding.slides.${slide.id}.title`) }}</h1>
                 <p class="onboarding__text">{{ t(`onboarding.slides.${slide.id}.text`) }}</p>
             </div>

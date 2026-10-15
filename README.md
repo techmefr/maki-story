@@ -60,6 +60,7 @@ Planned for later, with no date:
 - Architecture: migration to the OSDD layers (`technical/` and `functional/`), tracked in issue #116.
 - SaaS: plans, billing and onboarding for many families.
 - A real native app on the stores.
+- Public name "Maki Story" (was "Tantara", the working name). Internal identifiers (package name, database names, cookies, storage keys, Capacitor app id) keep the historical "tantara" prefix to avoid logging users out or losing local data.
 
 ## Features
 

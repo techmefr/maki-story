@@ -1,3 +1,4 @@
+import { defaultFamilyPlan } from '~~/server/utils/plan'
 import { getDb, one } from '~~/server/utils/db'
 import { birthDateForAge } from '~~/shared/utils/age'
 import { requireSession } from '~~/server/utils/family'
@@ -36,8 +37,8 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     const displayName = (isNonEmptyString(parent.displayName) ? parent.displayName : firstName).trim().slice(0, MAX_NAME_LENGTH)
     const familyId = await db.begin(async tx => {
         const id = one(await tx<{ id: string }[]>`
-            insert into families (name, invite_code)
-            values (${body.familyName!.trim().slice(0, MAX_NAME_LENGTH)}, substr(md5(random()::text || clock_timestamp()::text), 1, 10))
+            insert into families (name, invite_code, plan)
+            values (${body.familyName!.trim().slice(0, MAX_NAME_LENGTH)}, substr(md5(random()::text || clock_timestamp()::text), 1, 10), ${defaultFamilyPlan()})
             returning id
         `).id
         await tx`

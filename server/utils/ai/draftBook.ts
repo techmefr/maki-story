@@ -1,5 +1,6 @@
 import type { Sql } from 'postgres'
 import { one } from '../db'
+import { assertCanCreateBooks } from '../plan'
 
 export const insertAiDraftBook = async (
     db: Sql,
@@ -10,6 +11,7 @@ export const insertAiDraftBook = async (
     ageMax: number | null,
 ): Promise<string> => {
     return db.begin(async tx => {
+        await assertCanCreateBooks(tx, familyId)
         const book = one(await tx<{ id: string }[]>`
             insert into books (family_id, title, subtitle, age_min, age_max, language, written_language, voice_languages, kind, status, ai_generated, image_desc)
             values (${familyId}, ${draft.title}, ${draft.subtitle}, ${ageMin}, ${ageMax}, ${draft.language}, ${draft.language}, ${[draft.language]}, 'multi', 'draft', true, '')

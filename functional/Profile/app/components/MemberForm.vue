@@ -214,7 +214,7 @@ const save = async (): Promise<void> => {
     } catch (error) {
         console.error('Le proche n a pas pu être enregistré', error)
         const status = (error as { statusCode?: number }).statusCode
-        errorMessage.value = status === 403 || status === 429 ? t('member.form.codeBlocked') : t('member.form.saveError')
+        errorMessage.value = status === 403 || status === 429 ? t('member.form.codeBlocked') : status === 402 ? errorText(error, 'member.form.saveError') : t('member.form.saveError')
     } finally {
         isBusy.value = false
     }

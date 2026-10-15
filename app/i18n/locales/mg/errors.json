@@ -35,6 +35,8 @@
         "recordingTooLong": "Lava loatra ity firaketana ity (10 minitra no faratampony).",
         "recordingType": "Tsy ekena ity endrika feo ity.",
         "spokenLanguage": "Tsy anisan’ny fiteny ampiasainao ity fiteny ity.",
-        "treasureFull": "Esory ny fo iray alohan’ny hanampy vaovao."
+        "treasureFull": "Esory ny fo iray alohan’ny hanampy vaovao.",
+        "planBookLimit": "Tonga amin’ny boky 12 ny tolotra maimaim-poana. Tsy ho ela ny fividianana ho fanampiana.",
+        "planAdultLimit": "Tonga amin’ny olon-dehibe 8 ny tolotra maimaim-poana (ray aman-dreny sy havana). Tsy voafetra ny ankizy."
     }
 }

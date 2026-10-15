@@ -68,7 +68,12 @@
             "legends": "أساطير",
             "numbers-letters": "أرقام وحروف",
             "daily-life": "الحياة اليومية"
-        }
+        },
+        "isbnOpen": "امسح الباركود أو اكتب رقم ISBN",
+        "isbnFilled": "تم العثور على الكتاب: تمت تعبئة العنوان والغلاف.",
+        "detailsShow": "مزيد من التفاصيل",
+        "detailsHide": "تفاصيل أقل",
+        "singleVoice": "شخص واحد يقرأ الكتاب كله"
     },
     "pages": {
         "intro": "صوّر كل صفحة من الكتاب. تبقى هذه الصور خاصة بالعائلة ولا تُعرض للطفل أبداً.",
@@ -96,7 +101,10 @@
         "draftSaved": "Draft saved on this device.",
         "finish": "Finish",
         "silentPage": "Page without words (image only)",
-        "silentPanel": "Panel without words (image only)"
+        "silentPanel": "Panel without words (image only)",
+        "choiceSilent": "صفحة بلا صوت",
+        "choiceVoice": "أضف صوتًا",
+        "voiceChoice": "هذه الصفحة"
     },
     "characters": {
         "intro": "عرّف كل شخصية مرة واحدة فقط: ستجدها بعد ذلك بنقرة واحدة لكل جملة. اختر من يقرأ صوتها.",
