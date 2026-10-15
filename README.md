@@ -54,13 +54,14 @@ The UI is in French for now (the audience is a French-speaking family). Code, do
 
 Maki Story is a prototype. The current priority is a solid, working and simple foundation: every feature works, is covered by tests and respects the rules (family isolation, server-side permissions, i18n, accessibility, child safety).
 
+Public name "Maki Story" (was "Tantara", the working name). Internal identifiers (package name, database names, cookies, storage keys, Capacitor app id) keep the historical "tantara" prefix to avoid logging users out or losing local data.
+
 Planned for later, with no date:
 
 - UI polish and visual identity.
 - Architecture: migration to the OSDD layers (`technical/` and `functional/`), tracked in issue #116.
 - SaaS: plans, billing and onboarding for many families.
 - A real native app on the stores.
-- Public name "Maki Story" (was "Tantara", the working name). Internal identifiers (package name, database names, cookies, storage keys, Capacitor app id) keep the historical "tantara" prefix to avoid logging users out or losing local data.
 
 ## Features
 
