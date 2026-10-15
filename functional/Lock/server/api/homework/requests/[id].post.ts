@@ -15,7 +15,7 @@ export default defineEventHandler(async (event): Promise<IHomeworkReply> => {
     }
     const decision = body.decision as THomeworkDecision
     const db = getDb()
-    const [request] = await db<{ childId: string }[]>`select child_id from homework_requests where id = ${id} and family_id = ${actor.familyId}`
+    const [request] = await db<{ childId: string; kind: TAccessRequestKind }[]>`select child_id, kind from homework_requests where id = ${id} and family_id = ${actor.familyId}`
     if (!request) {
         return notFound('Request not found')
     }
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event): Promise<IHomeworkReply> => {
         actorId: actor.memberId,
         targetId: request.childId,
         action: 'member.homework.decided',
-        details: { decision },
+        details: { decision, kind: request.kind },
     })
     return { status: decision, message: 'Answer saved' }
 })

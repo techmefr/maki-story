@@ -17,5 +17,5 @@
 - [x] `prefers-reduced-motion` respected.
 - [x] Fredoka and Nunito, hard shadow `3px 3px 0 #1F1B3A`.
 
-## Homework requests
-- A parent sees pending homework access requests above the preferences, with Allow and Refuse buttons. The first parent answer wins.
+## Access requests
+- A parent sees pending access requests above the preferences (homework done, sign-in, exception outside the allowed hours), with Allow and Refuse buttons. The first parent answer wins; a request expires after 10 minutes and is hidden once expired.

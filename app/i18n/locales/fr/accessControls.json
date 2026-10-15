@@ -1,0 +1,62 @@
+{
+    "title": "Règles horaires de {name}",
+    "night": {
+        "title": "Mode nuit",
+        "hint": "L’app se ferme en douceur la nuit. L’enfant peut demander une exception."
+    },
+    "listening": {
+        "title": "Heures d’écoute",
+        "hint": "Les histoires ne s’écoutent que dans cette plage."
+    },
+    "homework": {
+        "title": "Heures des devoirs",
+        "hint": "Le suivi des devoirs ne s’applique que dans cette plage."
+    },
+    "from": "De",
+    "to": "À",
+    "approval": {
+        "title": "Valider chaque connexion",
+        "hint": "Un parent confirme à chaque connexion de l’enfant, même quand l’app est fermée."
+    },
+    "save": "Enregistrer les règles",
+    "saved": "Enregistré",
+    "failed": "Les règles horaires n’ont pas pu être enregistrées.",
+    "loadFailed": "Les règles horaires n’ont pas pu être chargées.",
+    "sameTime": "Le début et la fin doivent être différents.",
+    "countdown": "{minutes} min avant le mode nuit",
+    "describe": {
+        "signin": "{name} se connecte : l’autoriser ?",
+        "exception": "{name} demande une exception en dehors des heures autorisées."
+    },
+    "locked": {
+        "approval": {
+            "title": "Un petit instant, {name}",
+            "refusedTitle": "Pas cette fois, {name}",
+            "refused": "Tes parents ont dit non pour le moment.",
+            "waiting": "J’ai prévenu tes parents. Reste là, on attend leur réponse.",
+            "sending": "Je préviens tes parents…",
+            "expired": "Personne n’a répondu à temps. Tu peux redemander.",
+            "askAgain": "Redemander"
+        },
+        "night": {
+            "title": "C’est la nuit, {name}",
+            "refusedTitle": "Pas ce soir, {name}",
+            "ask": "Demander une exception",
+            "refused": "Tes parents ont dit qu’il est l’heure de dormir.",
+            "waiting": "J’ai prévenu tes parents. Reste là, on attend leur réponse.",
+            "sending": "Je préviens tes parents…",
+            "expired": "Personne n’a répondu à temps. Tu peux redemander.",
+            "askAgain": "Redemander"
+        },
+        "listening": {
+            "title": "C’est fini pour aujourd’hui, {name}",
+            "refusedTitle": "Pas maintenant, {name}",
+            "ask": "Demander une exception",
+            "refused": "Tes parents ont dit pas maintenant.",
+            "waiting": "J’ai prévenu tes parents. Reste là, on attend leur réponse.",
+            "sending": "Je préviens tes parents…",
+            "expired": "Personne n’a répondu à temps. Tu peux redemander.",
+            "askAgain": "Redemander"
+        }
+    }
+}

@@ -12,7 +12,7 @@
                 <button type="button" class="note" :class="{ 'note--unread': !item.isRead }" :data-testid="`notification-${item.id}`" @click="open(item)">
                     <span class="note__initial" :style="{ background: pickVoiceByText(item.id).hex }" aria-hidden="true">{{ initialOf(item) }}</span>
                     <span class="note__body">
-                        <span class="note__title">{{ t(item.kind === 'homework_request' ? 'homework.notificationTitle' : `notifications.titles.${item.kind}`) }}</span>
+                        <span class="note__title">{{ t(ACCESS_REQUEST_KINDS.includes(item.kind) ? 'homework.notificationTitle' : `notifications.titles.${item.kind}`) }}</span>
                         <span class="note__text">{{ describeNotification(item, t) }}</span>
                     </span>
                     <span class="note__side">
@@ -32,6 +32,8 @@ const { t, formatDate } = useI18n()
 const { isRelativeAccount } = useSession()
 const { current } = useCurrentMember()
 const { items, unreadCount, load, markRead } = useNotifications()
+
+const ACCESS_REQUEST_KINDS: NotificationKind[] = ['homework_request', 'signin_request', 'exception_request']
 
 const MINUTE_MS = 60000
 const HOUR_MS = 3600000

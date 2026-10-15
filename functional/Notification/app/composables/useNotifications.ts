@@ -24,6 +24,10 @@ export const describeNotification = (notification: INotification, t: (key: strin
             return t('alerts.describe.messageReceived', { from: text(payload.fromName), child: text(payload.childName) })
         case 'homework_request':
             return t('homework.describe', { name: text(payload.childName) })
+        case 'signin_request':
+            return t('accessControls.describe.signin', { name: text(payload.childName) })
+        case 'exception_request':
+            return t('accessControls.describe.exception', { name: text(payload.childName) })
         case 'birthday_reminder':
             return t('alerts.describe.birthdayReminder', { child: text(payload.childName), days: Number(payload.days) })
         case 'stale_takes':

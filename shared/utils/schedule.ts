@@ -37,7 +37,7 @@ export const isValidWeekly = (weekly: unknown): weekly is IDayWindow[] => {
     return Array.isArray(weekly) && weekly.length === DAYS_IN_WEEK && weekly.every(isValidWindow)
 }
 
-interface ILocalParts {
+export interface ILocalParts {
     year: number
     month: number
     day: number
@@ -45,7 +45,7 @@ interface ILocalParts {
     minutes: number
 }
 
-const localParts = (instant: number, timezone: string): ILocalParts => {
+export const localParts = (instant: number, timezone: string): ILocalParts => {
     const parts = new Intl.DateTimeFormat('en-US', {
         timeZone: timezone,
         hourCycle: 'h23',
@@ -72,7 +72,7 @@ const offsetAt = (instant: number, timezone: string): number => {
     return asUtc - Math.floor(instant / 60000) * 60000
 }
 
-const zonedInstant = (year: number, month: number, day: number, minutes: number, timezone: string): number => {
+export const zonedInstant = (year: number, month: number, day: number, minutes: number, timezone: string): number => {
     const guess = Date.UTC(year, month - 1, day, 0, minutes)
     const first = guess - offsetAt(guess, timezone)
     const second = guess - offsetAt(first, timezone)

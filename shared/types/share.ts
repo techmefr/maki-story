@@ -17,6 +17,8 @@ export type NotificationKind =
     | 'birthday_reminder'
     | 'stale_takes'
     | 'homework_request'
+    | 'signin_request'
+    | 'exception_request'
 
 export interface IFamilyInvite {
     code: string

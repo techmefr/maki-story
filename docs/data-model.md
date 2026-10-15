@@ -31,7 +31,7 @@ New columns: `kind NORMAL|BIRTHDAY`, `first_listened_at`, `expires_at`, `status 
 
 ## Schedules
 
-`child_schedules` (migration 0013) is the documented mapping of `ParentalSchedule` (`weekly` jsonb of lock/unlock windows per weekday, `timezone`). `parental_overrides{child_id, kind UNLOCK|LOCK, starts_at, ends_at, created_by_member_id}` stores temporary unlocks and locks.
+`child_schedules` (migration 0013) is the documented mapping of `ParentalSchedule` (`weekly` jsonb of lock/unlock windows per weekday, `timezone`). `parental_overrides{child_id, kind UNLOCK|LOCK, starts_at, ends_at, created_by_member_id}` stores temporary unlocks and locks (column `scope`: `all`, or `homework` for the homework approval). `access_controls{member_id, night_*, listening_*, homework_range_*, approval_enabled, timezone}` (migration 0066) holds the night mode, the allowed ranges and the sign-in approval flag; `homework_requests.kind` is `homework`, `signin` or `exception` and `expires_at` ends a pending request after 10 minutes.
 
 ## Memberships, invitations, notifications
 

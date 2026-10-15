@@ -3,6 +3,8 @@
         "title": "{app}",
         "generic": "Du hast eine neue Benachrichtigung.",
         "homework_request": "{childName} is waiting for your approval to use the app.",
+        "signin_request": "{childName} wartet auf deine Bestätigung zur Anmeldung.",
+        "exception_request": "{childName} bittet um eine Ausnahme außerhalb der erlaubten Zeiten.",
         "share_received": "{fromName} hat dir „{bookTitle}“ geschickt.",
         "share_accepted": "{familyName} hat „{bookTitle}“ angenommen.",
         "share_declined": "{familyName} hat „{bookTitle}“ abgelehnt.",

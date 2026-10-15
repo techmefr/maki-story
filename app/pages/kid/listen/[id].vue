@@ -1,5 +1,6 @@
 <template>
     <div class="reader" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
+        <NightCountdown />
         <div v-if="phase === 'page'" class="reader__center stack center">
             <img v-if="pageImage" :src="pageImage" alt="" class="reader__cover" data-testid="page-cover" />
             <MakiScene v-else pose="star" :size="200" />
