@@ -23,16 +23,18 @@ export const useNavTabs = () => {
         }
         const home: INavTab = { path: '/home', icon: 'home', label: t('shell.nav.home'), isOn: route.path === '/home', hasBadge: false }
         const relative: INavTab = { path: '/relative', icon: 'heart', label: t('relative.nav'), isOn: route.path === '/relative', hasBadge: false }
+        const vault: INavTab = { path: '/vault', icon: 'chest', label: t('shell.nav.treasure'), isOn: route.path === '/vault', hasBadge: false }
         const own = isRelativeAccount.value ? [relative] : []
         if (role === 'parent') {
             return [
                 home,
                 { path: '/library', icon: 'book', label: t('shell.nav.library'), isOn: route.path === '/library' || route.path.startsWith('/books'), hasBadge: false },
                 { path: '/family', icon: 'users', label: t('shell.nav.family'), isOn: route.path.startsWith('/family') || route.path === '/feedback', hasBadge: false },
+                vault,
                 ...own,
             ]
         }
-        return [home, ...own]
+        return [home, vault, ...own]
     })
 
     return { tabs }
