@@ -118,7 +118,7 @@ test.describe('shell per role', () => {
         await page.goto('/kid')
         await expectTabs(page, ['Accueil', 'Coffre', 'Bibliothèque'])
         await expect(page.getByRole('heading', { name: /Coucou/ })).toBeVisible()
-        await expect(page.locator('.hello svg[viewBox="0 0 120 120"]')).toHaveCount(0)
+        await expect(page.locator('.hello [data-testid="maki-scene"]')).toHaveCount(0)
 
         await chooseProfile(page, RELATIVE)
         await page.goto('/home')
@@ -161,7 +161,7 @@ test.describe('shell per role', () => {
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/profiles')
         await expect(page.getByRole('heading', { name: 'Qui est-ce ?' })).toBeVisible()
-        await expect(page.locator('.picker-screen .maki, .picker-screen svg[viewBox="0 0 120 120"]')).toHaveCount(0)
+        await expect(page.locator('.picker-screen [data-testid="maki-scene"]')).toHaveCount(0)
         await expect(page.getByTestId('add-member')).toHaveCount(0)
         await page.getByTestId('logout').click()
         await expect(page.getByRole('heading', { name: 'Code d’un parent' })).toBeVisible()

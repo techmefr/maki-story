@@ -23,7 +23,7 @@
             <h2 class="unlock__title" tabindex="-1">{{ heading }}</h2>
             <p class="unlock__hint">{{ hint }}</p>
             <div v-if="padKind === 'symbols'" class="stack unlock__symbols" :class="{ 'unlock__symbols--shake': isShaking }">
-                <AppMaki :size="72" />
+                <MakiScene pose="padlockHappy" :size="72" />
                 <SymbolPad :key="padKey" :is-disabled="isBusy" @submit="onCode" />
             </div>
             <PinPad v-else :key="padKey" :is-disabled="isBusy" :min-length="PIN_MIN_LENGTH" @submit="onCode" />
