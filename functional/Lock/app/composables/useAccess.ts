@@ -6,6 +6,7 @@ export const ACCESS_FADE_MS = 1400
 interface IAccessCache {
     memberId: string
     schedule: IChildSchedule | null
+    controls: IAccessControls | null
     overrideUntil: string | null
 }
 
@@ -33,13 +34,15 @@ export const useAccess = () => {
     const status = useState<IAccessStatus>('access-status', () => ALLOWED_STATUS)
     const overrideUntil = useState<string | null>('access-override-until', () => null)
     const homework = useState<THomeworkGate>('access-homework', () => 'none')
+    const nightStartsAt = useState<string | null>('access-night-starts-at', () => null)
 
     const apply = (snapshot: IAccessSnapshot): void => {
         status.value = { isAllowed: snapshot.isAllowed, reason: snapshot.reason, resumeAt: snapshot.resumeAt }
         overrideUntil.value = snapshot.overrideUntil
         homework.value = snapshot.homework
+        nightStartsAt.value = snapshot.nightStartsAt
         if (currentId.value) {
-            writeCache({ memberId: currentId.value, schedule: snapshot.schedule, overrideUntil: snapshot.overrideUntil })
+            writeCache({ memberId: currentId.value, schedule: snapshot.schedule, controls: snapshot.controls, overrideUntil: snapshot.overrideUntil })
         }
     }
 
@@ -51,11 +54,16 @@ export const useAccess = () => {
         if (cache.overrideUntil && Date.parse(cache.overrideUntil) > Date.now()) {
             return ALLOWED_STATUS
         }
+        const deviceZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+        const zoneOf = (fallback: string): string => (isValidTimezone(deviceZone) ? deviceZone : fallback)
+        const verdict = evaluateControls(cache.controls ? { ...cache.controls, timezone: zoneOf(cache.controls.timezone) } : null, Date.now())
+        if (verdict.reason) {
+            return { isAllowed: false, reason: verdict.reason, resumeAt: verdict.resumeAt }
+        }
         if (!cache.schedule) {
             return ALLOWED_STATUS
         }
-        const deviceZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-        return evaluateAccess({ ...cache.schedule, timezone: isValidTimezone(deviceZone) ? deviceZone : cache.schedule.timezone }, Date.now())
+        return evaluateAccess({ ...cache.schedule, timezone: zoneOf(cache.schedule.timezone) }, Date.now())
     }
 
     const refresh = async (): Promise<IAccessStatus> => {
@@ -72,6 +80,10 @@ export const useAccess = () => {
         return status.value
     }
 
+    const askParents = async (): Promise<void> => {
+        await request<IHomeworkReply>('/access/request', { method: 'POST' })
+    }
+
     const unlockWithParent = async (parentId: string, code: string): Promise<void> => {
         apply(await request<IAccessSnapshot>('/access/override', { method: 'POST', body: { parentId, code } }))
     }
@@ -83,7 +95,8 @@ export const useAccess = () => {
     const reset = (): void => {
         status.value = ALLOWED_STATUS
         homework.value = 'none'
+        nightStartsAt.value = null
     }
 
-    return { status, overrideUntil, homework, refresh, unlockWithParent, markLocked, reset }
+    return { status, overrideUntil, homework, nightStartsAt, askParents, refresh, unlockWithParent, markLocked, reset }
 }

@@ -2,7 +2,7 @@ import { OVERRIDE_MINUTES } from '~~/shared/utils/schedule'
 import { writeAudit } from '~~/server/utils/audit'
 import { getDb } from '~~/server/utils/db'
 import { requireSession } from '~~/server/utils/family'
-import { loadActiveOverride, loadSchedule, saveOverride } from '~~/server/utils/parental'
+import { saveOverride, snapshotFor } from '~~/server/utils/parental'
 import { loadCodeRow, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
 import { badRequest } from '~~/server/utils/validate'
 
@@ -27,6 +27,5 @@ export default defineEventHandler(async (event): Promise<IAccessSnapshot> => {
         action: 'member.access.override',
         details: { minutes: OVERRIDE_MINUTES, until: overrideUntil },
     })
-    const schedule = await loadSchedule(db, session.familyId, child.id)
-    return { isAllowed: true, reason: null, resumeAt: null, schedule, overrideUntil: (await loadActiveOverride(db, session.familyId, child.id)) ?? overrideUntil, homework: 'none' }
+    return { ...(await snapshotFor(db, session.familyId, child.id, session.memberSince)), isAllowed: true, reason: null, resumeAt: null }
 })

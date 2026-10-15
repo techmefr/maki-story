@@ -1,6 +1,6 @@
 # Design system — Maki Story
 
-Référence visuelle : `docs/maquettes/Design System.dc.html`. Les maquettes de `docs/maquettes/` font foi (une par écran, voir `docs/maquettes/README.md` pour les parcours et `docs/maquettes/PROMPT - Appliquer le design Tantara.md` pour la spécification page par page). Les anciennes maquettes de `design/` (Kalli) sont obsolètes. Les composants sont atomiques : un composant = un fichier = une section du design system. Atomes et molécules vivent dans `technical/` ; les organismes (écrans) assemblent ces briques dans les domaines `functional/`.
+Référence visuelle : `docs/maquettes/Design System.dc.html`. Les maquettes de `docs/maquettes/` font foi (une par écran, voir `docs/maquettes/README.md` pour les parcours et `docs/maquettes/PROMPT - Appliquer le design Maki Story.md` pour la spécification page par page). Les anciennes maquettes de `design/` (Kalli) sont obsolètes. Les composants sont atomiques : un composant = un fichier = une section du design system. Atomes et molécules vivent dans `technical/` ; les organismes (écrans) assemblent ces briques dans les domaines `functional/`.
 
 ## Tokens
 
@@ -69,6 +69,10 @@ Fredoka 400, 600, 700. Titre de page 32-34, section 22-26, bouton 18-21, texte 1
 | CodePad | pavé chiffres (8 points) ou formes (4 à 6 cases, 6 touches) |
 | Header, TabBar | en-tête avec retour, cloche, réglages, avatar ; barre du bas enfant |
 | EmptyState | illustration, titre, phrase, action ; variantes erreur 403 et 500 |
+
+## Mascotte
+
+Un seul composant, `MakiScene` (`technical/Media`), props `pose` (39 poses, correspondance dans `app/utils/maki-poses.ts`), `size` et `label`. Sans `label`, l'image est décorative (`alt` vide, `aria-hidden`) ; avec `label`, elle porte son texte alternatif. Images WebP de 520 px au plus, chargement différé, bornées par `min(size, 56vw)` et `34vh`. Le mouvement vient des classes `anim-*`, coupées par « réduire les animations ». L'ancienne mascotte SVG (`AppMaki`, `MakiSleeping`) est supprimée ; le logo, la favicon, les icônes PWA et l'écran de lancement montrent déjà le nouveau dessin.
 
 ## Règles d'usage
 

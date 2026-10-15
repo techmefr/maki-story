@@ -30,3 +30,8 @@ Tab order follows the visual order, arrow keys and a TV remote D-pad move focus 
 - When the parent enabled homework follow-up for the child, the screen sends an access request, then shows a waiting message until a parent answers.
 - A refusal shows the homework message with the replaceable mascot slot (HomeworkMascot) and an ask-again button.
 - An approval opens the app until midnight.
+
+## Night mode, time ranges and sign-in approval
+- Night and listening hours show the sleeping maki with the resume time and an Ask for an exception button. After the request the screen shows the waiting, refused or expired state with a Maki pose (anxious, sad, tired) and an ask-again button.
+- A sign-in to approve shows the waiting state at once; a request waits 10 minutes, then expires. One retry per slot, after that the refused state stays.
+- An approved exception opens the app for 60 minutes; an approved sign-in lasts the session.

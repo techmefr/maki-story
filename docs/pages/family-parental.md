@@ -21,3 +21,7 @@ Empty state when there is no child. The save button shows saved after success an
 
 ## Homework follow-up
 - A toggle per child turns homework follow-up on or off (off by default).
+
+## Night mode, time ranges and sign-in approval
+- Under the homework toggle, a card per rule (all off by default): night mode, listening hours, homework hours (from and to time fields), and a toggle to approve every sign-in. One save button; an error message when the range is empty or the save fails.
+- The server rejects an equal start and end, an invalid time or timezone (400); only a parent with members.schedule.manage can read or write (403 otherwise).

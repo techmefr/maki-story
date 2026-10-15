@@ -9,6 +9,6 @@ export default defineEventHandler(async (event): Promise<IHomeworkReply> => {
     if (!session.memberId || !(await isHomeworkFollowed(db, session.familyId, session.memberId))) {
         return badRequest('Homework follow-up is not enabled for this profile')
     }
-    const status = await createHomeworkRequest(db, session.familyId, session.memberId)
+    const status = await createHomeworkRequest(db, session.familyId, session.memberId, 'homework', session.memberSince)
     return { status, message: 'Request sent to your parents' }
 })

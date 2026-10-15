@@ -1,6 +1,6 @@
 # Treasure box (`/kid/treasure`)
 
-The box of at most 10 permanent voice memories of a child.
+The box of at most 10 permanent voice memories of a child. The page renders the shared `VaultScreen` (also used by `/vault` for adults) with the `kid` variant: only the layout and avatar size differ.
 
 ## 1. What the page must do
 

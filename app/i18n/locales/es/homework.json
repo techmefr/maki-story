@@ -10,7 +10,9 @@
         "text": "{name} asks to use the app. Is the homework done?",
         "approve": "Allow",
         "refuse": "Refuse",
-        "failed": "The answer could not be saved."
+        "failed": "The answer could not be saved.",
+        "signinText": "{name} inicia sesión. ¿Permitirlo?",
+        "exceptionText": "{name} pide una excepción fuera del horario permitido. ¿Concederla?"
     },
     "locked": {
         "title": "Just a moment, {name}",
@@ -18,6 +20,7 @@
         "waiting": "Your parents have been told. Stay here while we wait for their answer.",
         "sending": "Telling your parents…",
         "refused": "Do your homework first, then ask again.",
-        "askAgain": "Ask again"
+        "askAgain": "Ask again",
+        "expired": "Nadie respondió a tiempo. Puedes volver a pedirlo."
     }
 }

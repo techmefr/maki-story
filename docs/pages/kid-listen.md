@@ -15,6 +15,9 @@ The child listens to a book with no text or scan on screen: who reads, previous,
 - The playback plan, the book payload and the files endpoint expose approved audio only.
 - Scans are never exposed to the child: the page file id is null and a scan request answers 403.
 
+### Night mode countdown
+- During the 30 minutes before night mode, a discreet status pill reads N min before night mode. The story is never cut: the lock waits for the end of the current page.
+
 ### States
 - End of book: Maki, restart and back.
 - Loading: skeleton or the shared loading text, never a blank screen.

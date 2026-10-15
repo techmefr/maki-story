@@ -3,8 +3,6 @@
     "listenHer": "Ascolta il suo messaggio",
     "sendMessage": "Invia un messaggio",
     "noSoloStory": "Ancora nessuna storia con questa voce.",
-    "bubbleLabel": "{name}: {count} da ascoltare",
-    "bubble": "Messaggio",
     "library": {
         "title": "Le storie",
         "sheet": "Scheda",
@@ -51,7 +49,6 @@
         "bubble": "Messaggio di compleanno"
     },
     "treasure": {
-        "title": "Il mio tesoro",
         "titleOf": "Tesoro di {name}",
         "count": "{count}/{limit} ricordi",
         "open": "Apri il tesoro",

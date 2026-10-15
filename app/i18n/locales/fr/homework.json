@@ -10,7 +10,9 @@
         "text": "{name} demande à utiliser l’app. Les devoirs sont-ils faits ?",
         "approve": "Autoriser",
         "refuse": "Refuser",
-        "failed": "La réponse n’a pas pu être enregistrée."
+        "failed": "La réponse n’a pas pu être enregistrée.",
+        "signinText": "{name} se connecte. L’autoriser ?",
+        "exceptionText": "{name} demande une exception en dehors des heures autorisées. L’accorder ?"
     },
     "locked": {
         "title": "Un petit instant, {name}",
@@ -18,6 +20,7 @@
         "waiting": "J’ai prévenu tes parents. Reste là, on attend leur réponse.",
         "sending": "Je préviens tes parents…",
         "refused": "Fais d’abord tes devoirs, puis redemande.",
-        "askAgain": "Redemander"
+        "askAgain": "Redemander",
+        "expired": "Personne n’a répondu à temps. Tu peux redemander."
     }
 }

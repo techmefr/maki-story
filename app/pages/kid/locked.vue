@@ -1,22 +1,24 @@
 <template>
     <main class="locked" data-testid="locked-screen">
-        <template v-if="isHomeworkLock">
-            <HomeworkMascot :size="180" class="locked__maki" />
-            <h1 class="locked__title">{{ t(homework === 'refused' ? 'homework.locked.refusedTitle' : 'homework.locked.title', { name: current?.name ?? '' }) }}</h1>
-            <p class="locked__text" role="status" data-testid="homework-state">
-                {{ t(homework === 'refused' ? 'homework.locked.refused' : homework === 'pending' ? 'homework.locked.waiting' : 'homework.locked.sending') }}
-            </p>
-            <AppButton v-if="homework === 'refused'" variant="secondary" icon="send" :disabled="isAsking" data-testid="homework-ask-again" @click="askAgain">
-                {{ t('homework.locked.askAgain') }}
+        <template v-if="isRequestScreen">
+            <HomeworkMascot v-if="reason === 'homework'" :size="180" class="locked__maki" />
+            <MakiScene v-else :pose="requestPose" :size="180" class="locked__maki" />
+            <h1 class="locked__title">{{ t(copy(homework === 'refused' ? 'refusedTitle' : 'title'), { name: current?.name ?? '' }) }}</h1>
+            <p class="locked__text" role="status" data-testid="homework-state">{{ t(copy(stateKey)) }}</p>
+            <AppButton v-if="homework === 'refused' || homework === 'expired'" variant="secondary" icon="send" :disabled="isAsking" data-testid="homework-ask-again" @click="askAgain">
+                {{ t(copy('askAgain')) }}
             </AppButton>
         </template>
         <template v-else>
-            <MakiScene pose="hammock" :size="220" class="locked__maki" />
+            <MakiScene :pose="reason === 'night' ? 'moon' : 'hammock'" :size="220" class="locked__maki" />
             <h1 class="locked__title">{{ t('parental.locked.title', { name: current?.name ?? '' }) }}</h1>
             <p v-if="wakeTime" class="locked__text">
                 {{ t('parental.locked.wakesAt', { time: wakeTime }) }} {{ t('parental.locked.tomorrow') }}
             </p>
             <PictureClock :time="resumeTime" :label="t('parental.locked.clock')" />
+            <AppButton v-if="isExceptionAllowed" variant="secondary" icon="send" :disabled="isAsking" data-testid="exception-ask" @click="askAgain">
+                {{ t(`accessControls.locked.${reason}.ask`) }}
+            </AppButton>
         </template>
         <AppButton class="locked__parent" icon="lock" data-testid="locked-parent" @click="isGateOpen = true">
             {{ t('parental.locked.toParent') }}
@@ -38,8 +40,7 @@ definePageMeta({ layout: 'blank' })
 
 const { t, formatDate } = useI18n()
 const { current } = useCurrentMember()
-const { status, homework, refresh, unlockWithParent } = useAccess()
-const { ask } = useHomeworkGate()
+const { status, homework, refresh, unlockWithParent, askParents } = useAccess()
 const { members } = useMembers()
 
 const isGateOpen = ref(false)
@@ -52,12 +53,25 @@ const resumeTime = computed(() => (status.value.resumeAt ? new Date(status.value
 
 const wakeTime = computed(() => (resumeTime.value ? formatDate(resumeTime.value, { timeStyle: 'short' }) : ''))
 
-const isHomeworkLock = computed(() => status.value.reason === 'homework')
+const reason = computed(() => status.value.reason)
+
+const isAutoAsked = computed(() => reason.value === 'homework' || reason.value === 'approval')
+
+const isExceptionAllowed = computed(() => reason.value === 'night' || reason.value === 'listening')
+
+const isRequestScreen = computed(() => isAutoAsked.value || (isExceptionAllowed.value && homework.value !== 'none'))
+
+const STATE_KEYS: Record<THomeworkGate, string> = { none: 'sending', pending: 'waiting', refused: 'refused', expired: 'expired' }
+const stateKey = computed(() => STATE_KEYS[homework.value])
+
+const requestPose = computed(() => (homework.value === 'refused' ? 'sad' : homework.value === 'expired' ? 'tired' : 'anxious'))
+
+const copy = (key: string): string => (reason.value === 'homework' ? `homework.locked.${key}` : `accessControls.locked.${reason.value}.${key}`)
 
 const askAgain = async (): Promise<void> => {
     isAsking.value = true
     try {
-        await ask()
+        await askParents()
         await refresh()
     } finally {
         isAsking.value = false
@@ -82,7 +96,7 @@ const unlock = async (parentId: string, code: string): Promise<void> => {
 
 onMounted(async () => {
     await refresh()
-    if (isHomeworkLock.value && homework.value === 'none') {
+    if (isAutoAsked.value && homework.value === 'none') {
         await askAgain()
     }
 })

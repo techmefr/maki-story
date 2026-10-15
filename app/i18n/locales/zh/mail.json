@@ -3,6 +3,8 @@
         "title": "{app}",
         "generic": "你有一条新通知。",
         "homework_request": "{childName} is waiting for your approval to use the app.",
+        "signin_request": "{childName}正在等待你批准登录。",
+        "exception_request": "{childName}申请在允许时段之外使用例外。",
         "share_received": "{fromName} 给你发来了《{bookTitle}》。",
         "share_accepted": "{familyName} 接受了《{bookTitle}》。",
         "share_declined": "{familyName} 拒绝了《{bookTitle}》。",

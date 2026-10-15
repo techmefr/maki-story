@@ -1,0 +1,62 @@
+{
+    "title": "Time rules for {name}",
+    "night": {
+        "title": "Night mode",
+        "hint": "The app closes softly at night. The child can ask for an exception."
+    },
+    "listening": {
+        "title": "Listening hours",
+        "hint": "Stories can only be listened to within this range."
+    },
+    "homework": {
+        "title": "Homework hours",
+        "hint": "Homework follow-up only applies within this range."
+    },
+    "from": "From",
+    "to": "To",
+    "approval": {
+        "title": "Approve every sign-in",
+        "hint": "A parent confirms each time the child signs in, even when the app is closed."
+    },
+    "save": "Save time rules",
+    "saved": "Saved",
+    "failed": "The time rules could not be saved.",
+    "loadFailed": "The time rules could not be loaded.",
+    "sameTime": "The start and the end must be different.",
+    "countdown": "{minutes} min before night mode",
+    "describe": {
+        "signin": "{name} is signing in: allow it?",
+        "exception": "{name} asks for an exception outside the allowed hours."
+    },
+    "locked": {
+        "approval": {
+            "title": "Just a moment, {name}",
+            "refusedTitle": "Not this time, {name}",
+            "refused": "Your parents said no for now.",
+            "waiting": "Your parents have been told. Stay here while we wait for their answer.",
+            "sending": "Telling your parents…",
+            "expired": "Nobody answered in time. You can ask again.",
+            "askAgain": "Ask again"
+        },
+        "night": {
+            "title": "It is night time, {name}",
+            "refusedTitle": "Not tonight, {name}",
+            "ask": "Ask for an exception",
+            "refused": "Your parents said it is time to sleep.",
+            "waiting": "Your parents have been told. Stay here while we wait for their answer.",
+            "sending": "Telling your parents…",
+            "expired": "Nobody answered in time. You can ask again.",
+            "askAgain": "Ask again"
+        },
+        "listening": {
+            "title": "Story time is over for today, {name}",
+            "refusedTitle": "Not now, {name}",
+            "ask": "Ask for an exception",
+            "refused": "Your parents said not now.",
+            "waiting": "Your parents have been told. Stay here while we wait for their answer.",
+            "sending": "Telling your parents…",
+            "expired": "Nobody answered in time. You can ask again.",
+            "askAgain": "Ask again"
+        }
+    }
+}

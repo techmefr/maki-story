@@ -1,9 +1,5 @@
 {
     "title": "Il mio scrigno",
-    "count": "{count}/{limit}",
-    "emptyTitle": "Il tuo scrigno è vuoto",
-    "emptyHint": "Conserva qui i messaggi dei bambini. Al massimo 10 ricordi.",
-    "remove": "Rimuovi dallo scrigno",
     "seconds": "{count} s",
     "open": "Il mio scrigno"
 }

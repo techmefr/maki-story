@@ -1,7 +1,7 @@
 <template>
     <div class="stack narrow welcome" data-testid="welcome">
         <div class="row welcome__head">
-            <AppMaki :size="56" class="anim-float" />
+            <MakiScene pose="hello" :size="56" class="anim-float" />
             <p class="muted" role="status" data-testid="welcome-progress">{{ t('welcome.progress', { current: stepNumber, total: STEPS.length }) }}</p>
         </div>
         <ol class="welcome__dots" aria-hidden="true">

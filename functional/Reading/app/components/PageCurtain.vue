@@ -5,7 +5,7 @@
             <div class="curtain__cover curtain__cover--right" />
         </template>
         <div v-for="(color, index) in colors" v-show="kind === 'bars'" :key="color.id" class="curtain__band" :style="{ background: color.hex, '--i': index }" />
-        <AppMaki class="curtain__maki" :size="96" />
+        <MakiScene class="curtain__maki" pose="hello" :size="96" />
     </div>
 </template>
 
