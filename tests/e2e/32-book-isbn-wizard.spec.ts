@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { addLine, chooseProfile, finishPages, login, PARENT_NAME, toPages } from './helpers'
+import { addLine, chooseProfile, discardDraftIfAny, finishPages, login, PARENT_NAME, toPages } from './helpers'
 
 const ISBN = '9782070612758'
 
@@ -16,10 +16,7 @@ test.describe('book creation with a barcode', () => {
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
-        const discard = page.getByTestId('discard-draft')
-        if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
-            await discard.click()
-        }
+        await discardDraftIfAny(page)
         await page.getByTestId('isbn-lookup-open').click()
         await page.getByTestId('isbn-input').fill(ISBN)
         await page.getByTestId('isbn-search').click()
@@ -40,10 +37,7 @@ test.describe('book creation with a barcode', () => {
         await login(page)
         await chooseProfile(page, PARENT_NAME)
         await page.goto('/books/new')
-        const discard = page.getByTestId('discard-draft')
-        if (await discard.isVisible({ timeout: 1000 }).catch(() => false)) {
-            await discard.click()
-        }
+        await discardDraftIfAny(page)
         await page.getByLabel('Titre du livre').fill('Livre avec page muette')
         await toPages(page)
         await page.getByTestId('page-silent-1').click()
