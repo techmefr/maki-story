@@ -1,6 +1,6 @@
 # Abonnement : limites de l'offre gratuite
 
-Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Les limites de l'offre gratuite sont codées (serveur, interface, tests) ; Stripe, codes promo et parrainage ne le sont pas.
+Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Les limites de l'offre gratuite sont codées (serveur, interface, tests) ; Stripe et parrainage ne le sont pas. Les codes promo internes le sont (voir ci-dessous).
 
 ## Offre gratuite
 
@@ -81,3 +81,10 @@ Statut : limites gratuites et prix validés par Gaëtan (2026-10-09). Les limite
 - `maki-story.com` : site public, présentation, tarifs, abonnement, lien vers l'open source.
 - `maki-story.fr` : instance de la famille.
 - Nom du produit : Maki Story (renommage du code à faire).
+
+
+## Codes promo internes (codés)
+
+- Table `promo_codes` (type `premium_days` ou `lifetime`, durée, nombre max d'usages, date de fin) et `promo_redemptions` (une famille ne l'utilise qu'une fois). `families.plan_until` : un premium expiré redevient gratuit.
+- Admin d'instance : `GET/POST /api/admin/promo-codes`, `DELETE /api/admin/promo-codes/:code`.
+- Parent : `POST /api/plan/redeem { code }`. Les remises en pourcentage restent à faire avec Stripe.

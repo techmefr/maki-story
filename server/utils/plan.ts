@@ -24,16 +24,18 @@ const readPlan = (value: string | null | undefined): FamilyPlan => (value === 'p
 export const defaultFamilyPlan = (): FamilyPlan => readPlan(process.env.DEFAULT_FAMILY_PLAN)
 
 export const loadPlanUsage = async (db: Db, familyId: string): Promise<IPlanUsage> => {
-    const [row] = await db<{ plan: string | null; books: number; adults: number; reserved: number }[]>`
+    const [row] = await db<{ plan: string | null; planUntil: Date | null; books: number; adults: number; reserved: number }[]>`
         select
             (select plan from families where id = ${familyId}) as plan,
+            (select plan_until from families where id = ${familyId}) as plan_until,
             (select count(*)::int from books where family_id = ${familyId}) as books,
             (select count(*)::int from members
                 where family_id = ${familyId} and role in ('parent', 'relative') and status in ('active', 'invited') and deleted_at is null) as adults,
             (select count(*)::int from invitations
                 where family_id = ${familyId} and used_at is null and revoked_at is null and expires_at > now() and member_id is null) as reserved
     `
-    const plan = readPlan(row?.plan)
+    const isExpired = row?.planUntil != null && row.planUntil.getTime() < Date.now()
+    const plan = isExpired ? 'free' : readPlan(row?.plan)
     return { plan, limits: LIMITS[plan], books: row?.books ?? 0, adults: (row?.adults ?? 0) + (row?.reserved ?? 0) }
 }
 
