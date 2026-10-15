@@ -1,0 +1,62 @@
+{
+    "title": "{name}的时间规则",
+    "night": {
+        "title": "夜间模式",
+        "hint": "应用会在夜间轻柔关闭。孩子可以申请例外。"
+    },
+    "listening": {
+        "title": "收听时段",
+        "hint": "只能在此时段内收听故事。"
+    },
+    "homework": {
+        "title": "作业时段",
+        "hint": "作业跟进仅在此时段内生效。"
+    },
+    "from": "从",
+    "to": "到",
+    "approval": {
+        "title": "批准每次登录",
+        "hint": "即使应用已关闭，孩子每次登录都需要家长确认。"
+    },
+    "save": "保存时间规则",
+    "saved": "已保存",
+    "failed": "无法保存时间规则。",
+    "loadFailed": "无法加载时间规则。",
+    "sameTime": "开始和结束时间必须不同。",
+    "countdown": "距夜间模式还有{minutes}分钟",
+    "describe": {
+        "signin": "{name}正在登录：是否允许？",
+        "exception": "{name}申请在允许时段之外使用例外。"
+    },
+    "locked": {
+        "approval": {
+            "title": "请稍等，{name}",
+            "refusedTitle": "这次不行，{name}",
+            "refused": "你的父母暂时说不行。",
+            "waiting": "已通知你的父母。请留在这里等他们回复。",
+            "sending": "正在通知你的父母…",
+            "expired": "没有人及时回复。你可以再问一次。",
+            "askAgain": "再问一次"
+        },
+        "night": {
+            "title": "现在是夜晚，{name}",
+            "refusedTitle": "今晚不行，{name}",
+            "ask": "申请例外",
+            "refused": "你的父母说该睡觉了。",
+            "waiting": "已通知你的父母。请留在这里等他们回复。",
+            "sending": "正在通知你的父母…",
+            "expired": "没有人及时回复。你可以再问一次。",
+            "askAgain": "再问一次"
+        },
+        "listening": {
+            "title": "今天到此为止，{name}",
+            "refusedTitle": "现在不行，{name}",
+            "ask": "申请例外",
+            "refused": "你的父母说现在不行。",
+            "waiting": "已通知你的父母。请留在这里等他们回复。",
+            "sending": "正在通知你的父母…",
+            "expired": "没有人及时回复。你可以再问一次。",
+            "askAgain": "再问一次"
+        }
+    }
+}

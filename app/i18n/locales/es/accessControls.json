@@ -1,0 +1,62 @@
+{
+    "title": "Horarios de {name}",
+    "night": {
+        "title": "Modo noche",
+        "hint": "La app se cierra suavemente por la noche. El niño puede pedir una excepción."
+    },
+    "listening": {
+        "title": "Horas de escucha",
+        "hint": "Las historias solo se escuchan dentro de este horario."
+    },
+    "homework": {
+        "title": "Horas de deberes",
+        "hint": "El seguimiento de deberes solo se aplica dentro de este horario."
+    },
+    "from": "Desde",
+    "to": "Hasta",
+    "approval": {
+        "title": "Aprobar cada inicio de sesión",
+        "hint": "Un padre confirma cada vez que el niño inicia sesión, incluso con la app cerrada."
+    },
+    "save": "Guardar horarios",
+    "saved": "Guardado",
+    "failed": "No se pudieron guardar los horarios.",
+    "loadFailed": "No se pudieron cargar los horarios.",
+    "sameTime": "El inicio y el final deben ser distintos.",
+    "countdown": "{minutes} min antes del modo noche",
+    "describe": {
+        "signin": "{name} está iniciando sesión: ¿permitirlo?",
+        "exception": "{name} pide una excepción fuera del horario permitido."
+    },
+    "locked": {
+        "approval": {
+            "title": "Un momento, {name}",
+            "refusedTitle": "Esta vez no, {name}",
+            "refused": "Tus padres han dicho que no por ahora.",
+            "waiting": "He avisado a tus padres. Espera aquí su respuesta.",
+            "sending": "Avisando a tus padres…",
+            "expired": "Nadie respondió a tiempo. Puedes volver a pedirlo.",
+            "askAgain": "Volver a pedir"
+        },
+        "night": {
+            "title": "Es de noche, {name}",
+            "refusedTitle": "Esta noche no, {name}",
+            "ask": "Pedir una excepción",
+            "refused": "Tus padres han dicho que es hora de dormir.",
+            "waiting": "He avisado a tus padres. Espera aquí su respuesta.",
+            "sending": "Avisando a tus padres…",
+            "expired": "Nadie respondió a tiempo. Puedes volver a pedirlo.",
+            "askAgain": "Volver a pedir"
+        },
+        "listening": {
+            "title": "Se acabó por hoy, {name}",
+            "refusedTitle": "Ahora no, {name}",
+            "ask": "Pedir una excepción",
+            "refused": "Tus padres han dicho que ahora no.",
+            "waiting": "He avisado a tus padres. Espera aquí su respuesta.",
+            "sending": "Avisando a tus padres…",
+            "expired": "Nadie respondió a tiempo. Puedes volver a pedirlo.",
+            "askAgain": "Volver a pedir"
+        }
+    }
+}

@@ -1,13 +1,25 @@
+import type { H3Event } from 'h3'
+import type { Sql } from 'postgres'
 import { getDb } from '~~/server/utils/db'
 import { verifyDeviceSecret } from '~~/server/utils/device'
 import { requireSession } from '~~/server/utils/family'
+import { requestSignInApproval } from '~~/server/utils/homework'
 import { isFamilyParentAccount, relativeMemberFor } from '~~/server/utils/memberships'
 import { hashCode,loadCodeRow, readCodeInput, verifyMemberCode } from '~~/technical/Auth/server/utils/profile-code'
 import { startSession } from '~~/technical/Auth/server/utils/session'
+import type { ISession } from '~~/technical/Auth/server/utils/session'
 import { notFound } from '~~/server/utils/validate'
 
 interface IProfileBody extends IProfileProof {
     memberId?: string | null
+}
+
+const openProfileSession = async (event: H3Event, db: Sql, session: ISession, row: { id: string; role: MemberRole }): Promise<void> => {
+    const memberSince = Date.now()
+    startSession(event, { ...session, memberId: row.id, memberSince })
+    if (row.role === 'child') {
+        await requestSignInApproval(db, session.familyId, row.id, memberSince)
+    }
 }
 
 export default defineEventHandler(async (event): Promise<IAuthState> => {
@@ -34,7 +46,7 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     if (body.device !== undefined) {
         await verifyDeviceSecret(event, db, session.familyId, row.id, body.device)
     } else if (row.role === 'child' && !row.codeEnabled) {
-        startSession(event, { ...session, memberId })
+        await openProfileSession(event, db, session, row)
         return { isSignedIn: true, memberId }
     } else if (row.pinHash) {
         await verifyMemberCode(db, session.familyId, row, body.code)
@@ -53,6 +65,6 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
             throw createError({ statusCode: 409, statusMessage: 'A code already exists' })
         }
     }
-    startSession(event, { ...session, memberId })
+    await openProfileSession(event, db, session, row)
     return { isSignedIn: true, memberId }
 })

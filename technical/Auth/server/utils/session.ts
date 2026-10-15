@@ -11,15 +11,17 @@ export interface ISession {
     familyId: string
     memberId: string | null
     issuedAt: number
+    memberSince: number
 }
 
-export type ISessionStart = Omit<ISession, 'issuedAt'> & { issuedAt?: number }
+export type ISessionStart = Omit<ISession, 'issuedAt' | 'memberSince'> & { issuedAt?: number; memberSince?: number }
 
 interface ISessionPayload {
     a: string
     f: string
     m: string | null
     i: number
+    s: number
     e: number
 }
 
@@ -47,6 +49,7 @@ export const createSessionToken = (session: ISessionStart): string => {
         f: session.familyId,
         m: session.memberId,
         i: session.issuedAt ?? Date.now(),
+        s: session.memberSince ?? 0,
         e: Date.now() + SESSION_MAX_AGE_MS,
     }
     const encoded = Buffer.from(JSON.stringify(payload)).toString('base64url')
@@ -71,6 +74,7 @@ export const parseSessionToken = (token: string | undefined): ISession | null =>
             familyId: payload.f,
             memberId: typeof payload.m === 'string' ? payload.m : null,
             issuedAt: typeof payload.i === 'number' ? payload.i : 0,
+            memberSince: typeof payload.s === 'number' ? payload.s : 0,
         }
     } catch (_error) {
         return null

@@ -1,0 +1,62 @@
+{
+    "title": "Zeitregeln für {name}",
+    "night": {
+        "title": "Nachtmodus",
+        "hint": "Die App schließt nachts sanft. Das Kind kann eine Ausnahme erbitten."
+    },
+    "listening": {
+        "title": "Hörzeiten",
+        "hint": "Geschichten können nur in diesem Zeitraum gehört werden."
+    },
+    "homework": {
+        "title": "Hausaufgabenzeiten",
+        "hint": "Die Hausaufgabenkontrolle gilt nur in diesem Zeitraum."
+    },
+    "from": "Von",
+    "to": "Bis",
+    "approval": {
+        "title": "Jede Anmeldung bestätigen",
+        "hint": "Ein Elternteil bestätigt jede Anmeldung des Kindes, auch bei geschlossener App."
+    },
+    "save": "Zeitregeln speichern",
+    "saved": "Gespeichert",
+    "failed": "Die Zeitregeln konnten nicht gespeichert werden.",
+    "loadFailed": "Die Zeitregeln konnten nicht geladen werden.",
+    "sameTime": "Beginn und Ende müssen verschieden sein.",
+    "countdown": "{minutes} Min. bis zum Nachtmodus",
+    "describe": {
+        "signin": "{name} meldet sich an: erlauben?",
+        "exception": "{name} bittet um eine Ausnahme außerhalb der erlaubten Zeiten."
+    },
+    "locked": {
+        "approval": {
+            "title": "Einen Moment, {name}",
+            "refusedTitle": "Diesmal nicht, {name}",
+            "refused": "Deine Eltern haben vorerst nein gesagt.",
+            "waiting": "Ich habe deine Eltern informiert. Bleib hier, wir warten auf die Antwort.",
+            "sending": "Ich informiere deine Eltern…",
+            "expired": "Niemand hat rechtzeitig geantwortet. Du kannst erneut fragen.",
+            "askAgain": "Erneut fragen"
+        },
+        "night": {
+            "title": "Es ist Nacht, {name}",
+            "refusedTitle": "Heute Abend nicht, {name}",
+            "ask": "Ausnahme erbitten",
+            "refused": "Deine Eltern sagen, es ist Zeit zu schlafen.",
+            "waiting": "Ich habe deine Eltern informiert. Bleib hier, wir warten auf die Antwort.",
+            "sending": "Ich informiere deine Eltern…",
+            "expired": "Niemand hat rechtzeitig geantwortet. Du kannst erneut fragen.",
+            "askAgain": "Erneut fragen"
+        },
+        "listening": {
+            "title": "Für heute ist Schluss, {name}",
+            "refusedTitle": "Jetzt nicht, {name}",
+            "ask": "Ausnahme erbitten",
+            "refused": "Deine Eltern haben gesagt: jetzt nicht.",
+            "waiting": "Ich habe deine Eltern informiert. Bleib hier, wir warten auf die Antwort.",
+            "sending": "Ich informiere deine Eltern…",
+            "expired": "Niemand hat rechtzeitig geantwortet. Du kannst erneut fragen.",
+            "askAgain": "Erneut fragen"
+        }
+    }
+}

@@ -12,7 +12,7 @@ export interface IChildSchedule {
     manualUntil: string | null
 }
 
-export type TAccessReason = 'manual' | 'schedule' | 'homework'
+export type TAccessReason = 'manual' | 'schedule' | 'homework' | 'night' | 'listening' | 'approval'
 
 export interface IAccessStatus {
     isAllowed: boolean
@@ -37,6 +37,8 @@ export interface IAccessSnapshot extends IAccessStatus {
     schedule: IChildSchedule | null
     overrideUntil: string | null
     homework: THomeworkGate
+    controls: IAccessControls | null
+    nightStartsAt: string | null
 }
 
 export interface IAccessOverrideInput {

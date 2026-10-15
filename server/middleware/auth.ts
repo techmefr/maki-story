@@ -40,7 +40,7 @@ export default defineEventHandler(async event => {
     if (event.method === 'GET' && ACCESS_EXEMPT_READS.includes(path)) {
         return
     }
-    const access = await accessForMember(getDb(), session.familyId, session.memberId)
+    const access = await accessForMember(getDb(), session.familyId, session.memberId, session.memberSince)
     if (!access.isAllowed) {
         throw createError({ statusCode: 403, statusMessage: 'Outside allowed hours', data: { code: 'outside-hours' } })
     }

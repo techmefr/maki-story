@@ -35,6 +35,8 @@
                     </span>
                 </AppToggle>
 
+                <AccessControls :member-id="current.id" :name="current.name" />
+
                 <div class="stack lock__rule" :class="{ 'lock__rule--off': !rule.isEnabled }">
                     <section class="stack lock__card" aria-labelledby="lock-days">
                         <h2 id="lock-days" class="subtitle">{{ t('lock.days') }}</h2>

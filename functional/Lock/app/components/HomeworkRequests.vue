@@ -3,7 +3,7 @@
         <h2 id="homework-title" class="subtitle">{{ t('homework.requests.title') }}</h2>
         <ul class="homework__list">
             <li v-for="item in items" :key="item.id" class="homework__item" :data-testid="`homework-request-${item.id}`">
-                <p class="homework__text">{{ t('homework.requests.text', { name: item.childName }) }}</p>
+                <p class="homework__text">{{ t(TEXT_KEYS[item.kind], { name: item.childName }) }}</p>
                 <div class="row row--wrap">
                     <AppButton icon="check" :disabled="isBusy" :data-testid="`homework-approve-${item.id}`" @click="answer(item.id, 'approved')">
                         {{ t('homework.requests.approve') }}
@@ -19,6 +19,12 @@
 </template>
 
 <script setup lang="ts">
+const TEXT_KEYS: Record<TAccessRequestKind, string> = {
+    homework: 'homework.requests.text',
+    signin: 'homework.requests.signinText',
+    exception: 'homework.requests.exceptionText',
+}
+
 const { t } = useI18n()
 const { loadPending, decide } = useHomeworkGate()
 
