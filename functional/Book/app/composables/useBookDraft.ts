@@ -44,6 +44,7 @@ export interface IDraftLine {
     tone: string
     sceneDescription: string
     translations: IDraftTranslation[]
+    language: string
 }
 
 export interface IDraftLineInput {
@@ -371,7 +372,7 @@ export const useBookDraft = () => {
         isProposal.value = false
         pages.value = saved.pages ?? []
         characters.value = saved.characters ?? []
-        lines.value = saved.lines ?? []
+        lines.value = (saved.lines ?? []).map(line => ({ ...line, language: line.language ?? '' }))
         const keys = [...pages.value, ...characters.value, ...lines.value].map(item => item.key)
         nextKey = Math.max(nextKey, ...keys, 0) + 1
         step.value = pages.value.length > 0 ? 'pages' : 'book'
@@ -450,6 +451,7 @@ export const useBookDraft = () => {
             tone: line.tone,
             sceneDescription: line.sceneDescription,
             translations: [],
+            language: '',
         }))
         isAiPrefilled.value = true
     }
@@ -533,11 +535,12 @@ export const useBookDraft = () => {
                 tone: input.tone.trim(),
                 sceneDescription: input.sceneDescription.trim(),
                 translations: [],
+            language: '',
             }))
         lines.value = [...lines.value, ...added]
     }
 
-    const updateLine = (key: number, patch: Partial<Pick<IDraftLine, 'tone' | 'sceneDescription' | 'characterKey' | 'text' | 'pageIndex' | 'panelIndex'>>): void => {
+    const updateLine = (key: number, patch: Partial<Pick<IDraftLine, 'tone' | 'sceneDescription' | 'characterKey' | 'text' | 'pageIndex' | 'panelIndex' | 'language'>>): void => {
         lines.value = lines.value.map(line => (line.key === key ? { ...line, ...patch } : line))
     }
 
@@ -561,9 +564,9 @@ export const useBookDraft = () => {
 
     const placeholderLines = (): IDraftLine[] => {
         const added: IDraftLine[] = []
-        const written = lines.value.filter(line => line.text.trim() !== '')
+        const written = lines.value.filter(line => line.text.trim() !== '' && !isTranslationLine(line))
         const make = (pageIndex: number, panelIndex: number | null, text: string, sceneDescription: string): void => {
-            added.push({ key: -(added.length + 1), pageIndex, panelIndex, characterKey: null, text, tone: '', sceneDescription, translations: [] })
+            added.push({ key: -(added.length + 1), pageIndex, panelIndex, characterKey: null, text, tone: '', sceneDescription, translations: [], language: '' })
         }
         pages.value.forEach((page, pageIndex) => {
             if (page.kind === 'empty') {
@@ -588,9 +591,11 @@ export const useBookDraft = () => {
 
     const silentPageIndexes = (): Set<number> => new Set(pages.value.flatMap((page, index) => (page.isSilent === true || page.kind === 'empty' ? [index] : [])))
 
+    const isTranslationLine = (line: IDraftLine): boolean => line.language !== '' && line.language !== language.value
+
     const orderedLines = (): IDraftLine[] => {
         const silent = silentPageIndexes()
-        const written = lines.value.filter(line => line.text.trim() !== '' && !silent.has(line.pageIndex))
+        const written = lines.value.filter(line => line.text.trim() !== '' && !silent.has(line.pageIndex) && !isTranslationLine(line))
         const sent = isWordless.value ? [] : [...written, ...placeholderLines()]
         return sent
             .map((line, index) => ({ line, index }))
@@ -621,6 +626,7 @@ export const useBookDraft = () => {
             tone: '',
             sceneDescription: '',
             translations: [],
+            language: '',
         }
         lines.value = [...lines.value, created]
         return created
@@ -646,7 +652,7 @@ export const useBookDraft = () => {
             ageMax: asAge(ageMax.value),
             language: language.value,
             writtenLanguage: language.value,
-            voiceLanguages: voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value],
+            voiceLanguages: voiceLanguagesForSave(),
             moods: moods.value,
             themes: themes.value,
             type: type.value,
@@ -698,7 +704,28 @@ export const useBookDraft = () => {
         })
     }
 
-    const translationsForSave = (): (IDraftTranslation[])[] => orderedLines().map(line => line.translations)
+    const baseOfTranslation = (line: IDraftLine): IDraftLine | null => {
+        const bases = lines.value.filter(item => item.text.trim() !== '' && !isTranslationLine(item) && item.pageIndex === line.pageIndex)
+        const sameVoice = bases.filter(item => item.characterKey === line.characterKey)
+        const pool = sameVoice.length > 0 ? sameVoice : bases
+        const position = lines.value.indexOf(line)
+        const before = pool.filter(item => lines.value.indexOf(item) < position)
+        return before[before.length - 1] ?? pool[0] ?? null
+    }
+
+    const translationLines = (): IDraftLine[] => lines.value.filter(line => line.text.trim() !== '' && isTranslationLine(line))
+
+    const orphanTranslations = (): IDraftLine[] => translationLines().filter(line => baseOfTranslation(line) === null)
+
+    const translationsForSave = (): (IDraftTranslation[])[] =>
+        orderedLines().map(line => [
+            ...line.translations,
+            ...translationLines()
+                .filter(item => baseOfTranslation(item) === line)
+                .map(item => ({ language: item.language, text: item.text.trim(), tone: item.tone.trim() })),
+        ])
+
+    const voiceLanguagesForSave = (): string[] => [...new Set([...(voiceLanguages.value.length > 0 ? voiceLanguages.value : [language.value]), language.value, ...translationLines().map(item => item.language)])]
 
     return {
         isProposal,
@@ -758,6 +785,8 @@ export const useBookDraft = () => {
         setTranslation,
         removeTranslation,
         translationsForSave,
+        isTranslationLine,
+        orphanTranslations,
         addPhoto,
         addEmptyPage,
         updatePage,

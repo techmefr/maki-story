@@ -53,11 +53,6 @@
                     <MemberPicker :model-value="readerId" @update:model-value="setReader" />
                 </div>
             </template>
-            <div class="stack">
-                <h2 class="subtitle">{{ t('bookDraft.book.voiceLanguages') }}</h2>
-                <LanguagePicker v-model="voiceLanguages" :label="t('bookDraft.book.voiceLanguages')" />
-                <p class="muted">{{ t('bookDraft.book.voiceLanguagesHint') }}</p>
-            </div>
             <AppButton variant="secondary" icon="settings" data-testid="book-tags-open" @click="isTagsOpen = true">
                 {{ t('bookCreate.tagsOpen') }}
                 <AppBadge v-if="tagCount > 0">{{ tagCount }}</AppBadge>
@@ -126,7 +121,7 @@ const TYPE_OPTIONS: { id: BookType; labelKey: string; hintKey: string }[] = [
 
 const { t } = useI18n()
 const languageOptions = languageSelectOptions(LANGUAGES)
-const { title, description, coverMode, coverFileId, coverPreview, subtitle, author, illustrator, ageMin, ageMax, language, voiceLanguages, moods, themes, type, ttsFallback, isbn, coverUrl, isSimple, readerId, setMode, setReader } = useBookDraft()
+const { title, description, coverMode, coverFileId, coverPreview, subtitle, author, illustrator, ageMin, ageMax, language, moods, themes, type, ttsFallback, isbn, coverUrl, isSimple, readerId, setMode, setReader } = useBookDraft()
 const { current } = useCurrentMember()
 
 const errorMessage = ref('')

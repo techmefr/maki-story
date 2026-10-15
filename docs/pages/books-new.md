@@ -34,6 +34,12 @@ For each character (the choice is stored on the character, so it applies to all 
 - **Open to everyone**: a request to every adult who speaks the language; the first to accept becomes the reader.
 - **Later**: shown as "To assign" in the review and in the notifications; nothing is sent for it until it is assigned.
 
+### Voice language
+- The language is chosen on each voice when it is declared (chips of the book language and of the languages spoken in the family). The book language is the default.
+- A voice in another language is the translation of the previous voice of the same character on the page: write the voice, then "+ Voice", choose the other language and write the translation. Every relative who speaks that language can record it; a translation voice has no "Who reads it" of its own.
+- A translation voice needs a voice in the book language on the same page first (error otherwise).
+- At send, the translations are saved on the lines and the voice languages of the book are the languages used.
+
 ### Rules
 - A character cannot exist without a voice and the reverse. A character cannot be removed while one of its lines exists.
 - The narrator is a character with its own role (`is_narrator`), created by default, removable. A character that is both adult and child is two characters.

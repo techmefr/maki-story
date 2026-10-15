@@ -36,6 +36,16 @@
                 </AppChip>
             </div>
         </div>
+        <div class="stack" role="group" :aria-label="t('bookCreate.flow.voiceLanguage')">
+            <span class="label">{{ t('bookCreate.flow.voiceLanguage') }}</span>
+            <div class="row row--wrap">
+                <AppChip v-for="code in languageCodes" :key="code" :selected="currentLanguage === code" :data-testid="`voice-language-${code}`" @click="chooseLanguage(code)">
+                    <FlagIcon :codes="[code]" :size="22" aria-hidden="true" />
+                    {{ labelOf(code) }}
+                </AppChip>
+            </div>
+            <p v-if="isTranslation" class="muted" role="note" data-testid="voice-translation-note">{{ t('bookCreate.flow.translationNote', { language: labelOf(currentLanguage) }) }}</p>
+        </div>
         <label class="stack voice__field">
             <span class="label">{{ t('studio.composer.text') }}</span>
             <textarea :value="line.text" class="input" rows="3" :aria-label="t('studio.composer.text')" @input="updateLine(line.key, { text: ($event.target as HTMLTextAreaElement).value })" />
@@ -44,7 +54,7 @@
             <span class="label">{{ t('bookCreate.flow.noteLabel') }} <span class="muted">{{ t('bookCreate.flow.optional') }}</span></span>
             <input :value="line.tone" class="input" :placeholder="t('bookCreate.flow.notePlaceholder')" @input="updateLine(line.key, { tone: ($event.target as HTMLInputElement).value })" />
         </label>
-        <div v-if="!isSimple && owner" class="stack" role="group" :aria-label="t('bookCreate.flow.whoReads')">
+        <div v-if="!isSimple && owner && !isTranslation" class="stack" role="group" :aria-label="t('bookCreate.flow.whoReads')">
             <span class="label">{{ t('bookCreate.flow.whoReads') }}</span>
             <div class="row row--wrap">
                 <AppChip v-for="option in options" :key="option.id" :selected="owner.assignment === option.id" :data-testid="`reader-${option.id}`" @click="chooseAssignment(option.id)">
@@ -74,15 +84,25 @@ const COLOR_KEYS: Record<VoiceColorId, string> = {
 
 const { t } = useI18n()
 const isAiCreationEnabled = useAiCreationEnabled()
-const { characters, isSimple, language, updateLine, removeLine, addCharacter, setCharacterReader, effectiveCharacterKey, characterByKey } = useBookDraft()
+const { characters, isSimple, language, isTranslationLine, updateLine, removeLine, addCharacter, setCharacterReader, effectiveCharacterKey, characterByKey } = useBookDraft()
 const { current } = useCurrentMember()
+const { members } = useMembers()
 
 const isCreating = ref(false)
 const newName = ref('')
 const newColor = ref<VoiceColorId | null>(null)
 
+const currentLanguage = computed(() => (line.language === '' ? language.value : line.language))
+const isTranslation = computed(() => isTranslationLine(line))
+const languageCodes = computed(() => [...new Set([language.value, ...members.value.flatMap(member => member.spokenLanguages)])])
+const labelOf = (code: string): string => LANGUAGES.find(item => item.code === code)?.label ?? code
+
+const chooseLanguage = (code: string): void => {
+    updateLine(line.key, { language: code === language.value ? '' : code })
+}
+
 const owner = computed(() => characterByKey(effectiveCharacterKey(line)))
-const languageName = computed(() => LANGUAGES.find(item => item.code === language.value)?.label ?? language.value)
+const languageName = computed(() => labelOf(language.value))
 const options = computed(() => {
     const base = [
         { id: 'relative' as const, label: 'bookCreate.flow.relative' },

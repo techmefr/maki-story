@@ -60,6 +60,9 @@
         "whoReads": "Quem a lê?",
         "withPhoto": "Com foto",
         "withVoice": "Com voz",
-        "wordlessNote": "Livro sem texto: nenhuma voz para gravar."
+        "wordlessNote": "Livro sem texto: nenhuma voz para gravar.",
+        "voiceLanguage": "Idioma da voz",
+        "translationNote": "Tradução da voz anterior: todos os familiares que falam {language} poderão gravá-la.",
+        "errTranslationBase": "Escreve primeiro a voz no idioma do livro para adicionar a tradução."
     }
 }

@@ -60,6 +60,9 @@
         "whoReads": "Who reads it?",
         "withPhoto": "With photo",
         "withVoice": "With voice",
-        "wordlessNote": "Wordless book: no voice to record."
+        "wordlessNote": "Wordless book: no voice to record.",
+        "voiceLanguage": "Voice language",
+        "translationNote": "Translation of the previous voice: every relative who speaks {language} will be able to record it.",
+        "errTranslationBase": "First write the voice in the book language to add its translation."
     }
 }

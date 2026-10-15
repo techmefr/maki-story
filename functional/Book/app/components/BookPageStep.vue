@@ -70,7 +70,7 @@
 const emit = defineEmits<{ back: []; finish: [] }>()
 
 const { t } = useI18n()
-const { pages, lines, cursor, isWordless, isComic, updatePage, addEmptyPage, addVoice, syncDraft, addPanel, updatePanel, setPanelSilent, removePanel } = useBookDraft()
+const { pages, lines, cursor, isWordless, isComic, orphanTranslations, updatePage, addEmptyPage, addVoice, syncDraft, addPanel, updatePanel, setPanelSilent, removePanel } = useBookDraft()
 
 const isSheetOpen = ref(false)
 const isPhotoMode = ref(false)
@@ -120,8 +120,10 @@ const problem = (): string => {
     if (isSilent.value || isWordless.value) {
         return ''
     }
-    const empty = pageVoices.value.some(line => line.text.trim() === '')
-    return empty ? t('bookCreate.flow.errVoiceText') : ''
+    if (pageVoices.value.some(line => line.text.trim() === '')) {
+        return t('bookCreate.flow.errVoiceText')
+    }
+    return orphanTranslations().some(line => line.pageIndex === cursor.value) ? t('bookCreate.flow.errTranslationBase') : ''
 }
 
 const onSave = async (): Promise<void> => {

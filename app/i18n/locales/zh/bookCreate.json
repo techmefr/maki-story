@@ -60,6 +60,9 @@
         "whoReads": "谁来朗读？",
         "withPhoto": "使用照片",
         "withVoice": "有声音",
-        "wordlessNote": "无文字书：没有需要录制的声音。"
+        "wordlessNote": "无文字书：没有需要录制的声音。",
+        "voiceLanguage": "声音语言",
+        "translationNote": "上一个声音的翻译：所有说{language}的亲人都可以录制。",
+        "errTranslationBase": "请先用书的语言写出声音，再添加翻译。"
     }
 }
