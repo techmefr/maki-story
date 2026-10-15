@@ -70,6 +70,10 @@ Fredoka 400, 600, 700. Titre de page 32-34, section 22-26, bouton 18-21, texte 1
 | Header, TabBar | en-tête avec retour, cloche, réglages, avatar ; barre du bas enfant |
 | EmptyState | illustration, titre, phrase, action ; variantes erreur 403 et 500 |
 
+## Mascotte
+
+Un seul composant, `MakiScene` (`technical/Media`), props `pose` (39 poses, correspondance dans `app/utils/maki-poses.ts`), `size` et `label`. Sans `label`, l'image est décorative (`alt` vide, `aria-hidden`) ; avec `label`, elle porte son texte alternatif. Images WebP de 520 px au plus, chargement différé, bornées par `min(size, 56vw)` et `34vh`. Le mouvement vient des classes `anim-*`, coupées par « réduire les animations ». L'ancienne mascotte SVG (`AppMaki`, `MakiSleeping`) est supprimée ; le logo, la favicon, les icônes PWA et l'écran de lancement montrent déjà le nouveau dessin.
+
 ## Règles d'usage
 
 1. Une action principale par écran, en couleur pleine.

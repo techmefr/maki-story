@@ -81,3 +81,4 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-15 : nom du produit « Maki Story » (constante `APP_NAME`). Les identifiants internes gardent le préfixe `tantara`.
 
 - 2026-10-15 : langue par voix. La langue se choisit à la déclaration de chaque voix ; une voix dans une autre langue devient la traduction de la voix précédente du même personnage sur la page (`line_translations`), enregistrable par tous les proches qui parlent la langue. Les langues des voix du livre sont déduites des voix utilisées (le sélecteur « langues des voix » du détail est retiré).
+- 2026-10-15 : la mascotte SVG (AppMaki, MakiSleeping) est supprimée ; MakiScene est l unique composant, prop optionnelle label pour le texte alternatif.
