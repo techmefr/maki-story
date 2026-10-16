@@ -45,3 +45,8 @@ Chaque écran est un fichier `*.dc.html` qui s'ouvre dans le navigateur. Les éc
 - Adresse postale, domaine, contact et variables `{{...}}` des e-mails.
 - Vrai logo, favicon et photos de profil.
 - Sons : à brancher via soundcn selon la liste du prompt.
+
+
+## Prototype adultes
+
+`Adultes Prototype.html` : accueil, bibliothèque, création guidée simplifiée, studio, messages et famille. Version publiée : `/maquettes/adultes.html`. Profils de démonstration parent et proche, navigation mobile et ordinateur ; audio, envois et validation simulés. Aucune donnée réelle.
