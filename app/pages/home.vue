@@ -1,7 +1,21 @@
 <template>
     <div class="stack home">
         <StatusStrip v-if="isParent" />
-        <HomeKidCards v-if="kids.length > 0" :kids="kids" :counts="liveCounts" />
+        <section class="home__welcome card" aria-labelledby="adult-home-title" data-testid="adult-home-welcome">
+            <div class="stack">
+                <h1 id="adult-home-title" class="title">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</h1>
+                <p class="home__intro">{{ t(isParent ? 'home.dash.newBookHint' : 'home.dash.proposeBookHint') }}</p>
+                <div class="row row--wrap">
+                    <AppButton to="/books/new" icon="book-plus">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
+                    <AppButton variant="secondary" to="/library" icon="book">{{ t('home.dash.library') }}</AppButton>
+                </div>
+            </div>
+            <MakiScene pose="reading" :size="176" />
+        </section>
+        <section v-if="kids.length > 0" class="stack" aria-labelledby="adult-home-children">
+            <h2 id="adult-home-children" class="subtitle">{{ t('home.dash.myChildren') }}</h2>
+            <HomeKidCards :kids="kids" :counts="liveCounts" />
+        </section>
         <AppEmpty v-else-if="isLoaded" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
             <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
         </AppEmpty>
@@ -89,11 +103,41 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
+.home {
+    gap: 28px;
+}
+
+.home__welcome {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    padding: 28px;
+    background: var(--sky);
+    color: var(--on-accent);
+}
+
+.home__intro {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+@media (max-width: 599px) {
+    .home__welcome {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px;
+    }
+
+    .home__welcome :deep(.scene) {
+        display: none;
+    }
+}
+
 .home__cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 1fr;
-    gap: 14px;
+    gap: 16px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -115,8 +159,8 @@ onBeforeUnmount(stopPolling)
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    min-height: 44px;
+    gap: 12px;
+    min-height: 148px;
     text-align: center;
     color: inherit;
     text-decoration: none;
@@ -140,6 +184,6 @@ onBeforeUnmount(stopPolling)
 }
 
 .home__label {
-    font: 700 0.9375rem/1.2 var(--font-title);
+    font: 700 1rem/1.3 var(--font-title);
 }
 </style>

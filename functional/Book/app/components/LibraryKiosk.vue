@@ -1,5 +1,5 @@
 <template>
-    <div class="stack">
+    <div class="stack library">
         <StatusStrip />
         <h1 v-if="hasTitle" class="title">{{ t('home.title') }}</h1>
         <GrimaceNudge />
@@ -84,6 +84,18 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.library {
+    gap: 24px;
+}
+
+.library__actions {
+    padding: 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--sky);
+    color: var(--on-accent);
+}
+
 .library__usage {
     margin: 0;
     color: var(--ink-soft);

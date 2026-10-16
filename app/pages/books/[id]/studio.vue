@@ -1,5 +1,5 @@
 <template>
-    <div class="stack narrow" v-if="book">
+    <div class="stack narrow studio" v-if="book">
         <div class="row">
             <BackLink :to="`/books/${book.id}`" />
             <div class="stack studio__head grow">
@@ -670,6 +670,32 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+@media (min-width: 1100px) {
+    .studio {
+        max-width: 960px;
+    }
+
+    .stage:not(.stage--prompter) {
+        grid-template-columns: minmax(0, 1fr) 280px;
+        align-items: start;
+        padding: 24px;
+        gap: 24px;
+    }
+
+    .stage:not(.stage--prompter) .stage__bar {
+        grid-column: 1 / -1;
+    }
+
+    .stage:not(.stage--prompter) .stage__controls {
+        position: sticky;
+        top: 24px;
+        padding: 20px;
+        border: var(--outline) solid var(--ink);
+        border-radius: 24px;
+        background: var(--paper);
+    }
+}
+
 .studio__chip {
     min-height: 44px;
 }
