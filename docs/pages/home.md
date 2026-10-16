@@ -26,3 +26,6 @@
 ## AI flag
 
 The create with AI button and the AI draft row are hidden when NUXT_PUBLIC_AI_CREATION_ENABLED is false.
+
+
+2026-10-16: adult welcome panel links to real creation/library routes; existing counts and message bubbles retained. Desktop adult navigation widened to show labels. Tracker #189; release #191.

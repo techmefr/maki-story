@@ -103,6 +103,16 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+@media (max-height: 600px) {
+    .locked {
+        justify-content: flex-start;
+    }
+
+    .locked__maki {
+        max-height: 120px;
+    }
+}
+
 .locked {
     min-height: 100dvh;
     display: flex;
@@ -115,7 +125,8 @@ onMounted(async () => {
     color: var(--on-accent);
     text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .locked__title {

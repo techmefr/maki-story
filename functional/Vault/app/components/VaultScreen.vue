@@ -1,5 +1,5 @@
 <template>
-    <div class="stack vault" :class="{ narrow: variant === 'kid' }">
+    <div class="stack vault" :class="{ 'vault--kid': variant === 'kid', 'vault--adult': variant === 'adult' && !isChild }">
         <BackLink :to="backPath" />
         <div class="row">
             <h1 class="title grow">{{ title }}</h1>
@@ -110,6 +110,45 @@ onBeforeUnmount(() => player.stop())
 </script>
 
 <style scoped>
+.vault--kid {
+    gap: 24px;
+}
+
+.vault--kid .vault__list {
+    gap: 20px;
+}
+
+@media (min-width: 1024px) {
+    .vault--kid .vault__list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .vault--kid .vault__list > li {
+        min-width: 0;
+    }
+}
+
+.vault--adult {
+    gap: 24px;
+}
+
+.vault--adult .vault__list {
+    gap: 20px;
+}
+
+@media (min-width: 1100px) {
+    .vault--adult .vault__list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    .vault--adult .vault__list > li {
+        min-width: 0;
+    }
+}
+
 .vault__list {
     display: flex;
     flex-direction: column;

@@ -1,12 +1,17 @@
 <template>
-    <div class="stack">
-        <h1 class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
-        <p v-if="faces.length > 0" class="muted kid__hint">{{ t('kid.pickHint') }}</p>
+    <div class="stack kid-home">
+        <section class="kid-home__welcome" aria-labelledby="kid-home-title">
+            <div class="stack">
+                <h1 id="kid-home-title" class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
+                <p v-if="faces.length > 0" class="kid-home__hint">{{ t('kid.pickHint') }}</p>
+            </div>
+            <MakiScene pose="hello" :size="144" />
+        </section>
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">
                     <span class="face__ring" :class="`face__ring--${face.ring}`" :style="{ '--ring': face.hex }">
-                        <AppAvatar :member="face.member" :size="124" />
+                        <AppAvatar :member="face.member" :size="104" />
                     </span>
                     <span class="subtitle">{{ face.member.name }}</span>
                     <span class="face__quota">{{ t('kid.quota', { count: formatNumber(face.count), max: formatNumber(MESSAGE_MAX_ACTIVE) }) }}</span>
@@ -83,6 +88,34 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
+.kid-home {
+    gap: 28px;
+}
+
+.kid-home__welcome {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 28px;
+    background: var(--sky);
+    color: var(--on-accent);
+    box-shadow: var(--shadow);
+}
+
+.kid-home__hint {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+@media (max-width: 599px) {
+    .kid-home__welcome :deep(.scene) {
+        width: 88px;
+    }
+}
+
 .face__ring {
     display: inline-flex;
     padding: 6px;
@@ -123,18 +156,36 @@ onBeforeUnmount(stopPolling)
 .faces {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 12px;
+    gap: 24px 16px;
 }
 
 @media (min-width: 720px) {
     .faces {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1300px) {
+    .faces {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 389px) {
+    .face__link {
+        padding-inline: 4px;
+    }
+
+    .face__ring :deep(.avatar) {
+        width: 88px !important;
+        height: 88px !important;
     }
 }
 
 .face {
     position: relative;
     display: flex;
+    min-width: 0;
     justify-content: center;
 }
 
@@ -142,7 +193,14 @@ onBeforeUnmount(stopPolling)
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    padding: 20px 12px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 28px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
     color: inherit;
     text-decoration: none;
     max-width: 100%;

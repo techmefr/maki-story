@@ -1,5 +1,5 @@
 <template>
-    <div class="stack">
+    <div class="stack kid-library">
         <StatusStrip />
         <AppButton variant="secondary" is-round to="/kid" class="back-link" :aria-label="t('common.back')"><AppIcon name="back" :size="26" class="mirror-rtl" /></AppButton>
         <h1 class="title">{{ t('kid.library.title') }}</h1>
@@ -63,6 +63,26 @@ onBeforeUnmount(stopPolling)
 </script>
 
 <style scoped>
+.kid-library {
+    gap: 24px;
+}
+
+.kid-library :deep(.book__title) {
+    font-size: 1.125rem;
+    line-height: 1.3;
+}
+
+.kid-library .grid--books {
+    gap: 24px 16px;
+}
+
+@media (min-width: 1024px) {
+    .kid-library .grid--books {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 28px;
+    }
+}
+
 .library__group {
     gap: 8px;
 }

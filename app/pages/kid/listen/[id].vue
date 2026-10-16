@@ -495,6 +495,37 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.reader__center > .row {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+    .reader {
+        padding: 32px max(32px, calc((100vw - 960px) / 2));
+    }
+
+    .reader__center {
+        gap: 24px;
+    }
+}
+
+@media (max-height: 540px) {
+    .reader__center {
+        flex: none;
+        min-height: min-content;
+        padding-block: 16px;
+    }
+
+    .reader__center :deep(.scene) {
+        max-height: 120px;
+    }
+
+    .reader__bottom {
+        margin-top: auto;
+    }
+}
+
 .reader {
     display: flex;
     flex-direction: column;

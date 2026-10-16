@@ -28,3 +28,6 @@ Bottom bar: Home and Treasure.
 - [x] prefers-reduced-motion respected.
 - [x] Light and dark themes both readable (contrast 4.5:1 or more).
 - [x] Every string goes through i18n (9 locales).
+
+
+2026-10-16: welcoming mascot header, paper face cards retaining message bubbles, adaptive 2/3/4-column layout and touch navigation. Child visual tracker #192; combined release #191.

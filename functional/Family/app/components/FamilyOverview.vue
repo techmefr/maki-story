@@ -124,6 +124,27 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.overview {
+    gap: 24px;
+}
+
+.overview__group {
+    padding: 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    min-width: 0;
+}
+
+@media (min-width: 1100px) {
+    .overview .overview__list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+}
+
 .overview__list {
     display: flex;
     flex-direction: column;

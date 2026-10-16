@@ -61,3 +61,10 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] Création de livre par étapes : couverture, pages avec ou sans voix, voix et personnages créés ensemble, brouillon serveur, vérification et envoi (#169, #180) ; reste : langue par voix, traduction IA à la création
 - [x] Mascotte : poses intégrées aux états vides, erreurs, lecteur enfant et envoi
 - [x] Limites de l'offre gratuite (12 livres, 8 adultes) ; reste : Stripe, codes promo, parrainage
+
+
+- [x] 2026-10-16 : maquette adulte navigable responsive, six écrans et profils parent/proche, disponible sous `/maquettes/adultes.html`.
+
+- [x] 2026-10-16 : premier lot visuel adulte intégré ; lint, typage, audits, build, 36 tests unitaires, 8 E2E ciblés et migrations de test validés. Suivi et suite : #189, `docs/ADULT-HANDOFF.md`.
+
+- [x] 2026-10-16 : finitions adultes (messages, coffre, revue) et lot enfant (maquette six vues, accueil, bibliothèque, navigation, coffre, petits écrans de lecture/verrouillage). Validation combinée : 86 scénarios E2E couverts avec reprise du studio, quatre contrôles tactiles supplémentaires et audits/build/unitaires verts. Publication unique suivie dans #191.

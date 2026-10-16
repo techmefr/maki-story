@@ -1,5 +1,5 @@
 <template>
-    <div class="composer" data-testid="message-composer">
+    <div class="composer" :class="{ 'composer--adult': !isChild }" data-testid="message-composer">
         <header class="composer__head">
             <AppButton variant="secondary" is-round :to="backPath" :aria-label="t('common.back')">
                 <AppIcon name="back" :size="26" class="mirror-rtl" />
@@ -247,6 +247,40 @@ watch(
 </script>
 
 <style scoped>
+.composer.composer--adult {
+    max-width: 800px;
+    margin-inline: auto;
+    gap: 24px;
+}
+
+.composer--adult :deep(.rec) {
+    width: 100%;
+    max-width: 640px;
+    margin-inline: auto;
+    border-radius: 24px;
+    padding: 28px 24px;
+}
+
+.composer--adult :deep(.rec .btn) {
+    border-radius: 24px;
+    min-height: 56px;
+}
+
+@media (min-width: 720px) {
+    .composer--adult :deep(.recipients) {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding: 8px 4px 16px;
+    }
+
+    .composer--adult :deep(.recipient) {
+        width: 128px;
+        padding: 16px 12px;
+        gap: 8px;
+    }
+}
+
 .composer {
     display: flex;
     flex-direction: column;
