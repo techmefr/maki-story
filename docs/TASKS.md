@@ -66,3 +66,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-16 : maquette adulte navigable responsive, six écrans et profils parent/proche, disponible sous `/maquettes/adultes.html`.
 
 - [x] 2026-10-16 : premier lot visuel adulte intégré ; lint, typage, audits, build, 36 tests unitaires, 8 E2E ciblés et migrations de test validés. Suivi et suite : #189, `docs/ADULT-HANDOFF.md`.
+
+- [x] 2026-10-16 : finitions adultes (messages, coffre, revue) et lot enfant (maquette six vues, accueil, bibliothèque, navigation, coffre, petits écrans de lecture/verrouillage). Validation combinée : 86 scénarios E2E couverts avec reprise du studio, quatre contrôles tactiles supplémentaires et audits/build/unitaires verts. Publication unique suivie dans #191.

@@ -353,6 +353,47 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.review {
+    gap: 24px;
+}
+
+.review .review__lines {
+    gap: 20px;
+}
+
+.review .review__counter {
+    padding: 16px 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 20px;
+    background: var(--sky);
+    color: var(--on-accent);
+}
+
+.review .review__bar {
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    gap: 12px;
+    padding: 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+@media (min-width: 1024px) {
+    .review {
+        max-width: 960px;
+    }
+
+    .review .review__bar {
+        bottom: 16px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .review__bar .review__hint {
+        grid-column: 1 / -1;
+    }
+}
+
 .review__chevron {
     flex: none;
     transition: rotate 0.2s;

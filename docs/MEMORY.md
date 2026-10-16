@@ -90,3 +90,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-16 : prototype adulte autonome ajouté dans `public/maquettes/adultes.html` et `docs/maquettes/Adultes Prototype.html`, avec profils parent/proche. Il sert à valider les parcours visuels ; il ne remplace pas les écrans métier ni les maquettes de référence. Aucun accès micro, envoi ou changement de données réelles.
 
 - 2026-10-16 : premier lot visuel adulte intégré aux écrans réels : accueil, navigation latérale et cartes adultes, bibliothèque, studio sur ordinateur, groupes famille. La classe `shell--adult` limite les règles du layout aux adultes ; aucune règle serveur modifiée. Reprise et vérifications : `docs/ADULT-HANDOFF.md`, issue #189.
+
+- 2026-10-16 : consigne finale utilisateur : terminer adultes puis enfants en autonomie, tout sur dev, un push final regroupé et une seule PR #191 vers main pour limiter les déploiements. Maquettes enfants et adaptations des vrais écrans ajoutées ; suivi #192. Handoff commun : docs/ADULT-HANDOFF.md.

@@ -50,3 +50,7 @@ Chaque écran est un fichier `*.dc.html` qui s'ouvre dans le navigateur. Les éc
 ## Prototype adultes
 
 `Adultes Prototype.html` : accueil, bibliothèque, création guidée simplifiée, studio, messages et famille. Version publiée : `/maquettes/adultes.html`. Profils de démonstration parent et proche, navigation mobile et ordinateur ; audio, envois et validation simulés. Aucune donnée réelle.
+
+## Prototype enfants
+
+`Enfants Prototype.html` : accueil, bibliothèque, lecture, petit mot, coffre privé et verrouillage. Version publiée : `/maquettes/enfants.html`. Navigation tactile/clavier, thèmes clair/sombre, données fictives et audio simulé.

@@ -1,9 +1,9 @@
-# Adult experience — resume
+# Adult and child interface — resume
 
 Tracking: https://github.com/techmefr/maki-story/issues/189
 
 ## User intent
-Adult mockups first, implement the reviewed visual direction in the real application, merge a verified batch so the user can test. Work autonomously. Track the work before implementation and preserve a handoff for another session. Child redesign comes after adult testing.
+Adult mockups first, implement the reviewed visual direction in the real application, merge a verified batch so the user can test. Work autonomously. Track the work before implementation and preserve a handoff for another session. Latest instruction: finish adults, then children autonomously, and publish the combined batch through the sole PR #191. Work directly on dev; dev deployments are disabled in vercel.json.
 
 ## This batch
 - Interactive six-view prototype: `public/maquettes/adultes.html` (public URL `/maquettes/adultes.html`) and `docs/maquettes/Adultes Prototype.html` (local standalone copy).
@@ -26,10 +26,22 @@ Original `.nuxt/manifest/meta` is root-owned; pnpm's automatic prepare failed wi
 Unrelated `.claude/` and `.github/workflows/migrate.yml` predated this work and must not be staged.
 
 ## Next work
-1. Check the latest issue #189 status and PR/CI/deployment links before doing anything; do not repeat completed merges.
-2. Obtain the user's adult visual/functional feedback after testing.
+1. Check the latest issues #189 and #192 status, PR #191 and CI/deployment links before doing anything; do not repeat completed merges.
+2. The user authorized adult and child completion without another review pause. Test links are `/maquettes/adultes.html`, `/maquettes/enfants.html`, plus actual `/home` and `/kid` routes after signing in.
 3. Audit remaining gaps in #159, #155, #157, #158, #148/#149, #163 and #165 against actual app and original per-screen mockups; current checkbox state is not reliable evidence of missing implementation.
 4. Fix the adult feedback on task branches from `dev`, then one verified `dev` → `main` release for the next batch.
-5. Start child mockups only after the adult test cycle.
+5. Child mockups and this visual batch are now implemented; next work is feedback and any independently identified remaining epic gaps, not redoing these screens.
 
 Read `CLAUDE.md`, `docs/PRD.md`, `docs/ARCHITECTURE.md`, `docs/RULES.md`, `docs/DESIGN.md`, `docs/TASKS.md`, `docs/MEMORY.md`. Keep prototype and production claims distinct.
+
+## Combined final batch (2026-10-16)
+- All work after #190 stays directly on dev. The only main release PR is #191. Do not create another release PR or push a feature branch; the user has a deployment quota.
+- Adult finishing pass: adult-only composer presentation, private vault grid, parent-review spacing/actions with a sticky bar above mobile navigation.
+- Child mockup: six states (home, library, story/page-turn, received message, private treasure, night/locked), light/dark, bundled mascot/fonts, explicit simulated audio/actions. Paths: `public/maquettes/enfants.html`, `docs/maquettes/Enfants Prototype.html`.
+- Actual child screens: welcome with mascot, face cards and bubbles, readable covers, responsive personal treasure, larger navigation labels, reader and locked-screen short-height fixes. No domain/server/authorization changes.
+- Final local validation: lint, Nuxt typecheck, locale/docs/design audits, production build and 36 unit tests pass. The original 47 migrations up/down/up check passed in the disposable database (no new migrations in this batch).
+- A broad final selection had 70 passing E2E and two teleprompter timing failures; 14 studio tests were skipped by its serial suite. The font was captured at 22px before style rendering but appeared correctly enlarged in the failure screenshot. The test now waits for the visible prompter and polls the computed text size; rerunning all 16 studio tests passed. Together all 86 selected scenarios passed across the final runs. Do not report the first run as wholly green.
+- Four additional existing shell tests passed at 320/390/1180/1600 px, checking every main adult/child route for overflow and 48px targets. Two additional actual child-layout runs passed at four widths and both themes. Prototype: 48 child view/viewport/theme combinations, message→treasure, page turns and restart passed; adult prototype six views at four widths passed.
+- Source screenshots of actual adult and child home and the child mockup inspected. The prototype message bubble width and dark badge contrast were corrected after visual inspection.
+- Old messages-only run lacked the profiles seeded by `05-kid.spec.ts`; rerunning with its prerequisite passed all message cases. No application workaround was added for missing test data.
+- Remote CI, PR merge and production URL status must be read from the latest #189/#192 status comments before claiming release complete.
