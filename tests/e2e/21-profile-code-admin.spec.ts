@@ -31,6 +31,42 @@ const auditActions = async (targetId: string): Promise<string[]> => {
 }
 
 test.describe('member code administration', () => {
+    test('validates every code length on the server and stores salted hashes', async ({ playwright, baseURL }) => {
+        const parent = await openSession(playwright, baseURL, uniqueAccount('code-boundaries'))
+        await useProfile(parent, PARENT_NAME)
+        const childId = await createMember(parent, 'Lova', 'child')
+        const adultId = await createMember(parent, 'Mamie', 'relative')
+        for (const value of ['1234', '12345', '123456', '1234567', '12345678']) {
+            expect((await parent.put(`/api/members/${adultId}/code`, { data: pin(value) })).ok()).toBeTruthy()
+        }
+        for (const value of ['123', '123456789', '12ab', '１２３４']) {
+            expect((await parent.put(`/api/members/${adultId}/code`, { data: pin(value) })).status()).toBe(400)
+        }
+        for (const value of ['0123', '01234', '012345']) {
+            expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value } })).ok()).toBeTruthy()
+        }
+        for (const value of ['012', '0123450', '0126']) {
+            expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value } })).status()).toBe(400)
+        }
+        expect((await parent.put(`/api/members/${adultId}/code`, { data: { kind: 'symbols', value: '0123' } })).status()).toBe(400)
+
+        const db = postgres(DATABASE_URL, { max: 1, onnotice: () => undefined })
+        try {
+            const readHash = async (): Promise<string> => {
+                const [row] = await db<{ pin_hash: string }[]>`select pin_hash from members where id = ${childId}`
+                return row!.pin_hash
+            }
+            const first = await readHash()
+            expect(first).toMatch(/^scrypt\$/)
+            expect((await parent.put(`/api/members/${childId}/code`, { data: { kind: 'symbols', value: '012345' } })).ok()).toBeTruthy()
+            expect(await readHash()).not.toBe(first)
+            expect((await parent.post('/api/auth/profile', { data: { memberId: childId, code: '012345' } })).ok()).toBeTruthy()
+        } finally {
+            await db.end()
+            await parent.dispose()
+        }
+    })
+
     test('a parent sets, changes, removes a code and clears a lockout, with an audit trail', async ({ playwright, baseURL }) => {
         const account = uniqueAccount('code-admin')
         const parent = await openSession(playwright, baseURL, account)

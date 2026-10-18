@@ -68,3 +68,11 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-16 : premier lot visuel adulte intégré ; lint, typage, audits, build, 36 tests unitaires, 8 E2E ciblés et migrations de test validés. Suivi et suite : #189, `docs/ADULT-HANDOFF.md`.
 
 - [x] 2026-10-16 : finitions adultes (messages, coffre, revue) et lot enfant (maquette six vues, accueil, bibliothèque, navigation, coffre, petits écrans de lecture/verrouillage). Validation combinée : 86 scénarios E2E couverts avec reprise du studio, quatre contrôles tactiles supplémentaires et audits/build/unitaires verts. Publication unique suivie dans #191.
+
+## Lot accès — reprise du 2026-10-18
+
+- [x] #146 : codes adultes/enfants, bornes serveur, hachage, limitations et réinitialisation parent ; tests mobile/ordinateur.
+- [ ] #145 : compte et authentification, avec Supabase (#193).
+- [ ] #147 : validation des cinq écrans de profil.
+- [ ] #148 : famille et invitations, corrections et validation des six écrans.
+- [ ] #149 : plages de verrouillage dans la journée et de nuit, validation des écrans.

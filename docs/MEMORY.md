@@ -92,3 +92,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-16 : premier lot visuel adulte intégré aux écrans réels : accueil, navigation latérale et cartes adultes, bibliothèque, studio sur ordinateur, groupes famille. La classe `shell--adult` limite les règles du layout aux adultes ; aucune règle serveur modifiée. Reprise et vérifications : `docs/ADULT-HANDOFF.md`, issue #189.
 
 - 2026-10-16 : consigne finale utilisateur : terminer adultes puis enfants en autonomie, tout sur dev, un push final regroupé et une seule PR #191 vers main pour limiter les déploiements. Maquettes enfants et adaptations des vrais écrans ajoutées ; suivi #192. Handoff commun : docs/ADULT-HANDOFF.md.
+
+- 2026-10-18 : ordre utilisateur : accès, puis adultes, puis enfants avec la nouvelle DA. Par tâche vérifiée : push sur dev puis clôture ; un seul passage sur main en fin de lot. Audit #146 : codeLength n'est pas stocké, la longueur variable est confirmée par l'utilisateur et validée serveur (4–8 chiffres / 4–6 formes). Les tests couvrent toutes les limites, le sel et le hachage ; aucune colonne supplémentaire nécessaire. Suivi : docs/ACCESS-HANDOFF.md.
