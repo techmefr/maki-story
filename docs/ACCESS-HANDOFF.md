@@ -1,7 +1,12 @@
 # Access batch — 2026-10-18
 
-## Delivery order
-Access first, adult interfaces second, child interfaces with the new art direction last. Independent work within a batch can run in parallel. Push each completed task to dev and close its issue after verification. Release to main once the access batch is complete and verified.
+## Current user instructions — 2026-10-19
+Work only on dev. Do not run E2E tests, open a PR to main, merge main or deploy. The user will group the main release later. The latest requested batch was the shared screens, now delivered; report before starting another batch.
+
+## Shared screen batch
+Account #145, Profile #147, Family/Invitation #148, Lock #149, Help #161, notifications/mails #160 and auxiliary pages #162 are closed with their verified scope recorded in each issue. The Account UI closure is separate from Supabase migration #193, which remains open. Domain/sender configuration remains in #194. Do not claim that provider activation or E2E verification has been completed.
+
+Allowed checks passed: lint, typecheck, i18n, route documentation, design audit, 65 unit tests and production build. Current progress and commits are in docs/MEMORY.md and docs/TASKS.md. Preserve unrelated .claude/ and .github/workflows/migrate.yml.
 
 ## Profile codes — #146
 Server validation lives in shared/utils/code.ts: adult PINs have 4–8 ASCII digits, child codes have 4–6 entries from the six shapes. technical/Auth/server/utils/profile-code.ts hashes kind and value with a salted scrypt hash and limits attempts. Parent reset and lockout recovery remain server-authorized.

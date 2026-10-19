@@ -117,3 +117,14 @@ Adultes : #155–159 terminées et fermées sur dev. Corrections CI #195 appliqu
 Reste du lot commun : #145 reste ouverte avec migration Auth #193 ; #147 profils à finaliser/auditer ; #160 notifications/digest à vérifier ; #162 pages auxiliaires ; puis enfants #150/#152/#153/#154, responsive #163 et audit final #165. Natif #164 et domaine/mails #194 ont leurs dépendances externes documentées. La correction visuelle des mails seule ne clôture pas #160.
 
 Préserver les éléments non suivis préexistants .claude/ et .github/workflows/migrate.yml. Ne pas annoncer tous les écrans finis à partir des seuls prototypes.
+
+
+## Reprise après le lot commun — 2026-10-19
+
+Les écrans communs sont livrés sur dev : #145 (00b2180), #147 (ac6734a), #162 (efcf24c), #160 (6c18d19), issues fermées. Les clôtures et commentaires précisent la portée : sept écrans Account avec le backend actuel ; Supabase #193 et domaine/expéditeur #194 restent séparés et ouverts. #148/#149/#161 avaient déjà été fermées.
+
+Vérification autorisée : lint, typage, i18n (2078 clés), documentation des routes, audit design, 65 tests unitaires et build réussis dans la copie isolée. Aucun E2E, aucun fournisseur réel appelé, aucune publication main. main reste 614ada34900a0aec4449db5cfb971bbc06550baa.
+
+Notifications : route déplacée vers app/pages/notifications/index.vue, réglages /notifications/settings. IN_APP est maintenant exposé et filtre la liste et le compteur ; le texte Web Push garde son canal indépendant. Le digest manquant a été implémenté avec réservation unique par compte/jour UTC avant appel réseau, préférences et appartenances relues, rétention et groupement. Cron Vercel protégé par CRON_SECRET et tâche Nitro à 07:00 UTC ; activation fournisseur et secret à configurer lors de la publication future. Une erreur fournisseur ne provoque pas de deuxième tentative le même jour ; événements en attente repris le lendemain. Cette stratégie privilégie l’absence de doublon quotidien à la livraison garantie en cas de résultat réseau ambigu.
+
+Prochaine partie fonctionnelle : enfants #150/#152/#153/#154. Restent aussi adaptation globale #163, vérification finale #165, builds/poids #164 et chantiers externes #193/#194. Les idées/épopées ouvertes ne sont pas des écrans communs inachevés. La demande courante ne demandait que de terminer les communs puis faire le point ; aucun nouveau travail enfant n’a été engagé.

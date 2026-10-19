@@ -52,9 +52,9 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 ## Phase 6 — Finitions
 
-- [ ] Notification : in-app et e-mail quotidien, 9 e-mails
-- [ ] Help : aide, états d'erreur, hors ligne
-- [ ] Pages sans maquette, dans le même style : activité, appareils, corbeille, stockage, grimace, traduction
+- [x] Notification : in-app et e-mail quotidien, 9 e-mails ; activation fournisseur/cron et domaine suivis dans #194.
+- [x] Help : aide, états d’erreur, hors ligne
+- [x] Pages sans maquette, dans le même style : activité, appareils, corbeille, stockage, grimace, traduction
 - [ ] Builds Capacitor : iOS, Android, PWA, Android TV (état et marche à suivre dans `docs/capacitor.md` ; aucun build natif possible dans l'environnement actuel)
 - [ ] Poids pour Madagascar (Opus 24 kbit/s, WebP 1200 px et reprise d'envoi déjà en place ; mesures à faire, voir `docs/capacitor.md`)
 - [ ] Vérification finale écran par écran
@@ -72,10 +72,10 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 ## Lot accès — reprise du 2026-10-18
 
 - [x] #146 : codes adultes/enfants, bornes serveur, hachage, limitations et réinitialisation parent ; tests mobile/ordinateur.
-- [ ] #145 : compte et authentification, avec Supabase (#193).
-- [ ] #147 : validation des cinq écrans de profil.
-- [ ] #148 : famille et invitations, corrections et validation des six écrans.
-- [ ] #149 : plages de verrouillage dans la journée et de nuit, validation des écrans.
+- [x] #145 : sept écrans de compte intégrés ; migration Supabase distincte encore ouverte (#193).
+- [x] #147 : cinq écrans de profil intégrés et contrôlés hors E2E.
+- [x] #148 : famille et invitations intégrées sur dev.
+- [x] #149 : verrouillage intégré, passage de minuit et fuseau corrigés.
 
 - 2026-10-19 : ordre utilisateur actuel : corrections CI, adultes, écrans communs, enfants. Aucune exécution E2E ; aucune modification, PR ou fusion vers main pendant ce lot. Travail et clôtures par tâche sur dev ; publication regroupée ultérieure. Correction CI suivie dans https://github.com/techmefr/maki-story/issues/195.
 
