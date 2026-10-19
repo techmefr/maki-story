@@ -106,3 +106,14 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - [x] 2026-10-19 : #157 studio réel : page/scans et personnages visibles par défaut, carte de prise lisible, identité de la voix, sélection/navigation par page avec verrou pendant l’enregistrement ou une prise non envoyée. Préécoute/envoi/annulation/TTS existants conservés. Lint, typage et build réussis ; aucun E2E lancé.
 
 - [x] 2026-10-19 : #158 revue parent réelle regroupée par pages, résumé/progression visibles, écoute et décisions approuver/refaire accessibles sur chaque réplique. Différences, commentaires, langues et gardes de validation conservés. Lint, typage et build réussis ; aucun E2E exécuté.
+
+
+## Reprise du 2026-10-19 — état après écrans communs
+
+Consigne utilisateur prioritaire : aucun E2E, travail uniquement sur dev. Aucune PR, fusion ou publication vers main ; une seule publication groupée sera décidée à la fin. Ne pas relancer la CI E2E historique.
+
+Adultes : #155–159 terminées et fermées sur dev. Corrections CI #195 appliquées, sans confirmation E2E. Famille #148, verrouillage #149 et aide/erreurs #161 terminés et fermés sur dev ; lint, typage et build réussis en copie isolée (/tmp/maki-current-verification-path). Horaires : 8 tests unitaires réussis, passage à minuit et fuseau conservé.
+
+Reste du lot commun : #145 reste ouverte avec migration Auth #193 ; #147 profils à finaliser/auditer ; #160 notifications/digest à vérifier ; #162 pages auxiliaires ; puis enfants #150/#152/#153/#154, responsive #163 et audit final #165. Natif #164 et domaine/mails #194 ont leurs dépendances externes documentées. La correction visuelle des mails seule ne clôture pas #160.
+
+Préserver les éléments non suivis préexistants .claude/ et .github/workflows/migrate.yml. Ne pas annoncer tous les écrans finis à partir des seuls prototypes.
