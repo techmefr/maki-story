@@ -2,7 +2,7 @@
     <div class="stack home">
         <StatusStrip v-if="isParent" />
         <header class="home__intro" data-testid="adult-home-welcome">
-            <div class="stack grow">
+            <div class="stack home__greeting">
                 <h1 class="title">{{ t('home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
                 <p class="home__subtitle">{{ t('home.adult.subtitle') }}</p>
             </div>
@@ -127,10 +127,26 @@ onBeforeUnmount(stopPolling)
 }
 
 .home__intro {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
     gap: 16px;
+}
+
+.home__greeting {
+    grid-column: 1 / -1;
+    min-width: 0;
+}
+
+.home__intro :deep(.btn) {
+    min-width: 0;
+    width: 100%;
+}
+
+@media (max-width: 599px) {
+    .home__intro {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 .home__subtitle {
