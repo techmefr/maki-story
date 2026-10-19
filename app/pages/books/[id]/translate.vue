@@ -1,7 +1,7 @@
 <template>
     <div v-if="book" class="stack narrow">
         <BackLink :to="`/books/${book.id}/studio`" />
-        <h1 class="title">{{ t('translate.title', { title: book.title }) }}</h1>
+        <AppPageIntro icon="languages" tone="yellow" :title="t('translate.title', { title: book.title })" />
         <div class="row row--wrap" role="group" :aria-label="t('translate.language')">
             <AppChip v-for="option in targets" :key="option.code" :selected="target === option.code" :lang="option.code" :data-testid="`translate-language-${option.code}`" @click="chooseLanguage(option.code)">
                 <FlagIcon :codes="[option.code]" :size="26" />{{ option.label }}

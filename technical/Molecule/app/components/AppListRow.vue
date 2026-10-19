@@ -44,6 +44,7 @@ defineProps<{ title: string; subtitle?: string; to?: string }>()
 
 .listrow__subtitle {
     color: var(--ink-soft);
-    font: 600 0.875rem/1.2 var(--font-body);
+    font: 600 0.875rem/1.4 var(--font-body);
+    overflow-wrap: anywhere;
 }
 </style>
