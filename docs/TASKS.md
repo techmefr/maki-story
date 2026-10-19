@@ -122,3 +122,6 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 
 - [x] #198 : correctif du chemin de génération du service worker Vercel ; trois tests de régression passent, build Vercel corrigé passe ; MR #199 publiée, Vercel success et HTTP public/worker vérifiés.
 - [ ] #197 : lot E2E/Driver.js séparé après publication ; 14 tests de visite mobile/desktop réussis, suite globale encore à vérifier.
+
+- [ ] #200 : corrections enfant et contrôles d’accessibilité livrables ; vérifications locales réussies, publication groupée et contrôle Vercel à confirmer.
+- [ ] #201 : audit RGAA complet, lecteur d’écran et applicabilité/alternatives audio ; ne pas annoncer de conformité globale avec les seuls tests automatiques.

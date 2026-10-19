@@ -1,5 +1,5 @@
 <template>
-    <div class="kid shell kid-world">
+    <div ref="shell" class="kid shell kid-world">
         <a class="skip-link" href="#main">{{ t('shell.skip') }}</a>
         <SideRail />
         <div class="app">
@@ -20,6 +20,21 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
+const shell = ref<HTMLElement | null>(null)
+let navigationObserver: ResizeObserver | null = null
+
+onMounted(() => {
+    const navigation = shell.value?.querySelector<HTMLElement>('.tabbar')
+    if (!navigation) {
+        return
+    }
+    navigationObserver = new ResizeObserver(() => {
+        shell.value?.style.setProperty('--child-nav-height', `${navigation.getBoundingClientRect().height}px`)
+    })
+    navigationObserver.observe(navigation)
+})
+
+onBeforeUnmount(() => navigationObserver?.disconnect())
 </script>
 
 <style scoped>

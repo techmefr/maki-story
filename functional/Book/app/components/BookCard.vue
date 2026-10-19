@@ -3,7 +3,7 @@
         <NuxtLink :to="target" class="book__link stack" :data-offline-card="book.title">
             <span v-if="hasDot" class="book__dot" data-testid="review-dot" role="img" :aria-label="dotLabel" />
             <BookCover :file-id="book.coverFileId" :src="book.coverUrl" :fallback="hex" />
-            <span class="subtitle book__title">{{ book.title }}</span>
+            <span class="subtitle book__title"><span v-if="isChild" class="book__title-text">{{ book.title }}</span><template v-else>{{ book.title }}</template></span>
             <span v-if="!isChild && book.author" class="book__author">{{ book.author }}</span>
             <span v-if="showStatus" class="badge book__status" :class="`book__status--${book.status}`">{{ statusLabel }}</span>
         </NuxtLink>
