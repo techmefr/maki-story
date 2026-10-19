@@ -81,16 +81,23 @@ defineExpose({ clear })
 <style scoped>
 .symbols {
     align-items: center;
+    width: 100%;
+    min-width: 0;
 }
 
 .symbols__slots {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(v-bind(slotCount), minmax(0, 46px));
+    width: 100%;
+    max-width: 326px;
+    justify-content: center;
+    gap: 8px;
 }
 
 .symbols__slot {
-    width: 46px;
-    height: 46px;
+    min-width: 0;
+    min-height: 44px;
+    aspect-ratio: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +112,9 @@ defineExpose({ clear })
 
 .symbols__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(64px, min(104px, 14vh)));
+    width: 100%;
+    max-width: 340px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
 }
 
@@ -142,6 +151,7 @@ defineExpose({ clear })
 
 .symbols__actions {
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 @media (prefers-reduced-motion: reduce) {

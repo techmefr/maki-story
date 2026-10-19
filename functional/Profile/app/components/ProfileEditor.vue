@@ -13,24 +13,24 @@
             <span class="edit__label">{{ t('member.form.name') }}</span>
             <AppInput v-model="name" class="edit__input" :placeholder="t('member.form.namePlaceholder')" maxlength="60" autocomplete="given-name" data-testid="edit-name" />
         </label>
+        <div class="edit__field">
+            <label class="edit__label" for="edit-email">{{ t('profile.edit.email') }}</label>
+            <div class="edit__locked">
+                <AppInput id="edit-email" :model-value="account?.email ?? ''" readonly aria-describedby="edit-email-note" />
+                <AppIcon name="lock" :size="20" class="edit__lock" />
+            </div>
+            <p id="edit-email-note" class="edit__note">{{ account?.hasGoogle ? t('profile.edit.emailGoogle') : t('profile.edit.emailAccount') }}</p>
+        </div>
         <button type="button" class="edit__row" data-testid="change-code" @click="isChangingCode = true">
             <AppIcon name="lock" :size="26" />
             <span class="edit__row-text">{{ t('profile.edit.changeCode') }}</span>
             <AppIcon name="chevron-right" :size="20" class="edit__chevron" />
         </button>
+        <AppListRow :title="t('profile.edit.account')" to="/account">
+            <template #lead><AppIcon name="download" :size="26" /></template>
+            <template #action><AppIcon name="chevron-right" :size="20" class="edit__chevron" /></template>
+        </AppListRow>
         <AppMoreOptions test-id="edit-more-toggle">
-            <div class="edit__field">
-                <label class="edit__label" for="edit-email">{{ t('profile.edit.email') }}</label>
-                <div class="edit__locked">
-                    <AppInput id="edit-email" :model-value="account?.email ?? ''" readonly aria-describedby="edit-email-note" />
-                    <AppIcon name="lock" :size="20" class="edit__lock" />
-                </div>
-                <p id="edit-email-note" class="edit__note">{{ account?.hasGoogle ? t('profile.edit.emailGoogle') : t('profile.edit.emailAccount') }}</p>
-            </div>
-            <AppListRow :title="t('profile.edit.account')" to="/family/data">
-                <template #lead><AppIcon name="download" :size="26" /></template>
-                <template #action><AppIcon name="chevron-right" :size="20" class="edit__chevron" /></template>
-            </AppListRow>
             <ProfilePasswordForm v-if="current.role === 'parent'" />
         </AppMoreOptions>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>

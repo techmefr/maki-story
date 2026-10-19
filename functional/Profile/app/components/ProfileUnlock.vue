@@ -222,7 +222,9 @@ const onCode = async (value: string): Promise<void> => {
 
 .unlock {
     width: 100%;
-    gap: 14px;
+    max-width: 440px;
+    margin-inline: auto;
+    gap: 20px;
 }
 
 .unlock__head {
