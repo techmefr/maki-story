@@ -10,7 +10,8 @@ html.child-world,
     --outline: 2px;
     --shadow: 0 4px 0 #925521, 0 10px 20px #64370e26;
     --shadow-lg: 0 6px 0 #925521, 0 16px 28px #64370e30;
-    --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #6c350e18 10px 12px), linear-gradient(100deg, #804119, #a0642c 30%, #955323 70%, #773719);
+    --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #401a0c18 10px 12px), linear-gradient(100deg, #68310f, #874b21 30%, #80431b 70%, #622a0d);
+    --child-on-wood: #fff4d6;
     --child-gold: linear-gradient(145deg, #fff1a2, #ffcf32 45%, #ef9e09);
 }
 
@@ -52,7 +53,7 @@ html.child-world,
 }
 .kid-world .kid-home__greeting { min-width: 0; flex: 1; gap: 12px; }
 .kid-world .kid-home__maki { width: clamp(88px, 18vw, 180px); flex-shrink: 0; filter: drop-shadow(0 5px 3px #64370e33); }
-.kid-world .kid-home__hint { color: #fff4d6; font-size: 1rem; line-height: 1.4; }
+.kid-world .kid-home__welcome .kid-home__hint { color: var(--child-on-wood); font-size: 1rem; line-height: 1.4; }
 .kid-world .faces { gap: 28px 16px; padding-block: 8px; }
 .kid-world .face__link { gap: 12px; padding: 12px 4px; min-width: 0; }
 .kid-world .faces .face__ring {
@@ -74,7 +75,8 @@ html.child-world,
     text-align: center;
     text-shadow: 0 2px 1px #66320c;
 }
-.kid-world .face__quota { color: var(--ink-soft); font-weight: 500; }
+.kid-world .face__name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.25; }
+.kid-world .face__quota { color: var(--ink); font-weight: 500; padding: 4px 8px; border-radius: 12px; background: #fff3d6f2; }
 .kid-world .faces .bubble-link--kid {
     top: 0;
     min-width: 48px;
@@ -86,7 +88,7 @@ html.child-world,
     box-shadow: 0 4px 0 #b67a18, inset 0 2px 2px #fff3b9;
 }
 .kid-world .tabbar,
-.kid-world .rail {
+.shell.kid-world .rail {
     border: 3px solid #935122;
     background: var(--child-wood);
     box-shadow: inset 0 3px 2px #ffe1a580, 0 5px 0 #6e3817, 0 12px 24px #64370e33;
@@ -94,11 +96,11 @@ html.child-world,
 .kid-world .tabbar { inset-inline: max(12px, env(safe-area-inset-left)); bottom: calc(env(safe-area-inset-bottom) + 10px); border-radius: 28px; padding: 6px; }
 .kid-world .tabbar__inner { gap: 6px; overflow: visible; }
 .kid-world .tabbar__item,
-.kid-world .rail__item { min-width: 0; border-radius: 20px; color: #fff4d6; text-shadow: 0 2px 1px #66320c; }
+.shell.kid-world .rail .rail__item { min-width: 0; border-radius: 20px; color: #fff4d6; text-shadow: 0 2px 1px #66320c; }
 .kid-world .tabbar__item--on,
-.kid-world .rail .rail__item--on { background: var(--child-gold); color: #4b260f; text-shadow: none; border-color: #ffe9a0; box-shadow: 0 3px 0 #a76b15; }
+.shell.kid-world .rail .rail__item--on { background: var(--child-gold); color: #4b260f; text-shadow: none; border-color: #ffe9a0; box-shadow: 0 3px 0 #a76b15; }
 .kid-world .btn,
-.kid-world .iconbtn {
+.kid-world .iconbtn.iconbtn {
     border: 2px solid #b97924;
     background: var(--child-gold);
     color: #4b260f;
@@ -113,9 +115,10 @@ html.child-world,
 .kid-world .vault .listrow { border: 2px solid #d5a465; background: linear-gradient(145deg, #fff9e9, #f8e3b8); border-radius: 24px; box-shadow: 0 4px 0 #c18b49, 0 10px 18px #64370e1a; }
 .kid-world .chip { border-color: #bd8649; color: #4b260f; background: #fff6df; box-shadow: 0 3px 0 #c18b49; }
 .kid-world .chip.chip--on { background: var(--child-gold); }
-.kid-world :focus-visible { outline: 4px solid #345b25; outline-offset: 5px; }
-.kid-world .book { border: 3px solid #b27432; border-radius: 20px; box-shadow: 0 5px 0 #75431e, 0 12px 20px #64370e30; }
-.kid-world .book__title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.kid-world :is(a, button, input, select, textarea, [tabindex]):focus-visible { outline: 3px solid #fff6df; outline-offset: 3px; box-shadow: 0 0 0 7px #4b260f; }
+.kid-world .book { background: #fff6df; overflow: hidden; border: 3px solid #b27432; border-radius: 20px; box-shadow: 0 5px 0 #75431e, 0 12px 20px #64370e30; }
+.kid-world .book__title { display: block; padding: 0 10px 10px; background: #fff6df; color: #4b260f; }
+.kid-world .book__title-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .kid-world .heart .heart__button { background: var(--child-gold); border-color: #bd8649; box-shadow: 0 3px 0 #93561a; }
 .kid-world .heart .heart__button--filled { background: #ffc4cc; }
 .kid-world .heart .heart__button:disabled:not(.heart__button--filled) { background: #ded7c9; color: #645d51; box-shadow: none; }
@@ -134,12 +137,13 @@ html.child-world,
 .reader.kid-world.reader--night { background: #202b21 !important; }
 .reader.kid-world.reader--night::before { opacity: 0.08; }
 @media (max-width: 1023px) {
-    .kid-world .app { padding-bottom: calc(env(safe-area-inset-bottom) + 148px); }
+    .shell.kid-world .app { padding-bottom: calc(env(safe-area-inset-bottom) + var(--child-nav-height, 104px) + 32px); }
+    html.child-world { scroll-padding-bottom: calc(env(safe-area-inset-bottom) + var(--child-nav-height, 104px) + 32px); }
 }
 @media (max-width: 599px) {
     .kid-world .faces .face__ring .avatar { width: clamp(80px, 25vw, 112px) !important; height: clamp(80px, 25vw, 112px) !important; font-size: 2.5rem !important; }
     .kid-world .kid-home__welcome { padding: 12px; gap: 8px; }
-    .kid-world .kid-home__hint { color: #fff4d6; font-size: 0.9375rem; }
+    .kid-world .kid-home__welcome .kid-home__hint { color: var(--child-on-wood); font-size: 0.9375rem; }
     .kid-world .faces { gap: 20px 8px; }
 }
 @media (orientation: landscape) and (max-height: 600px) {
@@ -186,4 +190,18 @@ html.child-world,
     .reader.kid-world .btn--big .icon { width: 32px; height: 32px; }
     .reader.kid-world .reader__center--ready .choice { min-width: 48px; min-height: 44px; padding: 4px; }
     .reader.kid-world .reader__center--ready .choice svg { width: 40px; height: 32px; }
+}
+
+@media (orientation: portrait) and (max-width: 1023px) {
+    .kid-world::before { background-image: url('/art/child/storybook-portrait.webp'); background-position: center top; }
+    .kid-world .header { padding: 8px; border-radius: 24px; background: var(--bg); }
+}
+
+@media (max-width: 1023px) {
+    html[data-text-size="max"] .kid-world .kid-home__welcome,
+    html[data-text-size="max"] .kid-world .kid-library__welcome { flex-wrap: wrap; }
+    html[data-text-size="max"] .kid-world .kid-home__greeting { flex-basis: 100%; }
+    html[data-text-size="max"] .kid-world .kid-home__maki { order: -1; max-height: 96px; }
+    html[data-text-size="max"] .kid-world .tabbar__inner { flex-wrap: wrap; }
+    html[data-text-size="max"] .kid-world .tabbar__item { flex-basis: 100%; flex-direction: row; min-height: 56px; }
 }

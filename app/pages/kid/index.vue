@@ -9,11 +9,11 @@
         </header>
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
-                <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">
+                <NuxtLink :to="face.target" class="face__link" :data-ring="face.ring">
                     <span class="face__ring" :class="`face__ring--${face.ring}`" :style="{ '--ring': face.hex }">
                         <AppAvatar :member="face.member" :size="128" />
                     </span>
-                    <span class="subtitle">{{ face.member.name }}</span>
+                    <span class="subtitle"><span class="face__name">{{ face.member.name }}</span></span>
                     <span class="face__quota">{{ t('kid.quota', { count: formatNumber(face.count), max: formatNumber(MESSAGE_MAX_ACTIVE) }) }}</span>
                 </NuxtLink>
                 <MessageBubbleLink
@@ -55,7 +55,6 @@ const faces = computed(() =>
         unread,
         ring: message ? (unread > 0 ? 'unheard' : 'heard') : 'none',
         target: `/kid/${member.id}`,
-        label: message ? t('homeCards.bubbleLabel', { name: member.name, count }) : member.name,
         }
     }),
 )
@@ -101,7 +100,7 @@ onBeforeUnmount(stopPolling)
 
 .kid-home__hint {
     margin: 0;
-    color: var(--ink-soft);
+    color: inherit;
     font-size: 1.125rem;
     line-height: 1.4;
 }

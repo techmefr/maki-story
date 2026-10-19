@@ -6,12 +6,11 @@
             :to="`/message/listen/${item.head.id}`"
             class="status-strip__item"
             :style="{ background: memberHex(item.member) }"
-            :aria-label="item.label"
             data-status-bubble
         >
             <AppAvatar :member="item.member" :size="48" />
             <span class="status-strip__name">{{ item.member.name }}</span>
-            <span class="status-strip__count" aria-hidden="true">{{ formatNumber(item.count) }}</span>
+            <span class="status-strip__count">{{ formatNumber(item.count) }}</span>
         </NuxtLink>
     </nav>
 </template>
@@ -29,8 +28,7 @@ const items = computed(() =>
         if (!head) {
             return []
         }
-        const label = t('messages.strip.item', { name: member.name, count: queue.length })
-        return [{ member, head, count: queue.length, label }]
+        return [{ member, head, count: queue.length }]
     }),
 )
 </script>
