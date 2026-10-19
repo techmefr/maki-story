@@ -67,7 +67,8 @@
         "remove": "أزل هذه الذكرى",
         "removeTitle": "هل تريد إزالة هذه الذكرى؟",
         "removeBody": "ستُحذف للأبد.",
-        "removeConfirm": "إزالة"
+        "removeConfirm": "إزالة",
+        "fullHint": "أزل قلبًا قبل إضافة قلب جديد."
     },
     "quota": "{count}/{max} رسائل",
     "sendHer": "أرسل رسالة",

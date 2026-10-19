@@ -13,13 +13,14 @@
             :class="{ 'rec__again': isDone && !isRecording }"
             :icon="isRecording ? 'stop' : isDone ? 'redo' : 'mic'"
             is-block
+            :disabled="isBusy"
             data-testid="message-record"
             @click="emit('toggle')"
         >
             {{ isRecording ? t('messages.compose.stop') : isDone ? t('messages.compose.again') : t('messages.compose.record') }}
         </AppButton>
         <div v-if="isDone && !isRecording" class="rec__done">
-            <AppButton variant="secondary" icon="play" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
+            <AppButton variant="secondary" icon="play" :disabled="isBusy" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
                 {{ t('messages.compose.listenBack') }}
             </AppButton>
             <AppButton icon="send" :loading="isBusy" data-testid="message-send" @click="emit('send')">

@@ -1,5 +1,5 @@
 <template>
-    <div class="composer" :class="{ 'composer--adult': !isChild }" data-testid="message-composer">
+    <div class="composer" :class="{ 'composer--adult': !isChild, 'composer--kid': isChild, 'kid-world': isChild }" data-testid="message-composer">
         <header class="composer__head">
             <AppButton variant="secondary" is-round :to="backPath" :aria-label="t('common.back')">
                 <AppIcon name="back" :size="26" class="mirror-rtl" />
@@ -8,7 +8,7 @@
         </header>
         <AppEmpty v-if="isLoaded && recipients.length === 0" kind="messages" :title="t('messages.compose.noRecipients')" :hint="t('messages.compose.noRecipientsHint')" />
         <template v-else-if="selected || isAll">
-            <MessageRecipients v-model="selectedId" :recipients="recipients" :has-all="canAll" @update:model-value="onSelect" />
+            <MessageRecipients v-model="selectedId" :recipients="recipients" :has-all="canAll" :disabled="isBusy" @update:model-value="onSelect" />
             <AppChip v-if="canWish" class="composer__wish" :selected="kind === 'BIRTHDAY'" data-testid="message-birthday" @click="toggleBirthday">
                 <AppIcon name="party" :size="18" />
                 {{ t('messages.compose.birthdayToggle') }}
@@ -119,6 +119,9 @@ const toggleBirthday = (): void => {
 }
 
 const toggle = async (): Promise<void> => {
+    if (isBusy.value) {
+        return
+    }
     if (!isRecording.value) {
         reset()
         await start()
@@ -169,6 +172,9 @@ const sendAll = async (): Promise<void> => {
 }
 
 const send = async (): Promise<void> => {
+    if (isBusy.value) {
+        return
+    }
     if (isAll.value) {
         await sendAll()
         return
@@ -199,6 +205,9 @@ const send = async (): Promise<void> => {
             return
         }
         preview.clear()
+        if (item.status === 'sent') {
+            await load()
+        }
         phase.value = item.status === 'sent' ? 'sent' : 'queued'
     } catch (error) {
         console.error('Le message n a pas pu être envoyé', error)

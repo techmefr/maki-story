@@ -1,9 +1,10 @@
 <template>
-    <div class="kid shell">
+    <div class="kid shell kid-world">
         <a class="skip-link" href="#main">{{ t('shell.skip') }}</a>
         <SideRail />
         <div class="app">
             <AppHeader />
+            <NightCountdown />
             <main id="main" tabindex="-1">
                 <slot />
             </main>

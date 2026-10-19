@@ -63,7 +63,8 @@
         "remove": "Esory ity fahatsiarovana ity",
         "removeTitle": "Esorina ve ity fahatsiarovana ity?",
         "removeBody": "Ho voafafa mandrakizay izy.",
-        "removeConfirm": "Esory"
+        "removeConfirm": "Esory",
+        "fullHint": "Esory aloha ny fo iray vao manampy vaovao."
     },
     "quota": "{count}/{max} hafatra",
     "sendHer": "Alefaso hafatra",

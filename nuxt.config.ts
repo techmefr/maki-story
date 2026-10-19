@@ -9,7 +9,7 @@ export default defineOSDDNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
     ssr: false,
-    css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css', '~/assets/css/child-world.css'],
     routeRules: {
         '/sw.js': { headers: { 'cache-control': 'no-cache' } },
     },

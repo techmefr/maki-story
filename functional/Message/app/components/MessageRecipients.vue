@@ -3,6 +3,7 @@
         <AppChip
             v-if="hasAll"
             class="recipient"
+            :disabled="disabled"
             :selected="modelValue === ALL_RECIPIENTS_ID"
             data-testid="message-recipient-all"
             @click="emit('update:modelValue', ALL_RECIPIENTS_ID)"
@@ -14,6 +15,7 @@
             v-for="item in recipients"
             :key="item.member.id"
             class="recipient"
+            :disabled="disabled"
             :selected="item.member.id === modelValue"
             :data-testid="`message-recipient-${item.member.id}`"
             @click="emit('update:modelValue', item.member.id)"
@@ -26,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ recipients: IMessageRecipient[]; modelValue: string | null; hasAll?: boolean }>()
+defineProps<{ recipients: IMessageRecipient[]; modelValue: string | null; hasAll?: boolean; disabled?: boolean }>()
 const emit = defineEmits<{ 'update:modelValue': [id: string] }>()
 
 const { t } = useI18n()

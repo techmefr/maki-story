@@ -1,7 +1,8 @@
 <template>
     <div class="stack vault" :class="{ 'vault--kid': variant === 'kid', 'vault--adult': variant === 'adult' && !isChild }">
         <BackLink :to="backPath" />
-        <div class="row">
+        <MakiScene v-if="variant === 'kid'" pose="heart" :size="112" />
+        <div class="row row--wrap">
             <h1 class="title grow">{{ title }}</h1>
             <AppBadge data-testid="vault-counter"><AppIcon name="chest" :size="18" />{{ t('kid.treasure.count', { count: formatNumber(count), limit: formatNumber(limit) }) }}</AppBadge>
         </div>
@@ -11,7 +12,10 @@
             :title="isViewingOther ? t('kid.treasure.emptyParent') : t('kid.treasure.empty')"
             :hint="isViewingOther ? t('kid.treasure.emptyParentHint') : t('kid.treasure.emptyHint')"
         />
-        <ul class="vault__list">
+        <p v-if="count >= limit" class="vault__notice" role="status">{{ t('kid.treasure.fullHint') }}</p>
+        <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+        <AppButton v-if="!isLoaded" variant="secondary" icon="redo" :disabled="isBusy" @click="refresh">{{ t('common.retry') }}</AppButton>
+        <ul class="vault__list" :aria-busy="isBusy">
             <li v-for="item in items" :key="item.id" data-testid="vault-item">
                 <AppListRow :title="t('kid.treasure.from', { name: senderOf(item)?.name ?? '' })" :subtitle="subtitleOf(item)">
                     <template #lead><AppAvatar v-if="senderOf(item)" :member="senderOf(item)!" :size="avatarSize" /></template>
@@ -22,18 +26,17 @@
                             :disabled="playingId === item.id && isPlaying"
                             @click="play(item)"
                         />
-                        <template v-if="canRemove">
-                            <AppIconButton v-if="confirmingId !== item.id" icon="trash" tone="coral" :label="t('kid.treasure.remove')" @click="confirmingId = item.id" />
-                            <div v-else class="row row--wrap" role="alertdialog" :aria-label="t('kid.treasure.removeTitle')">
-                                <span class="vault__ask">{{ t('kid.treasure.removeBody') }}</span>
-                                <AppButton variant="destructive" size="sm" icon="trash" @click="confirmRemove(item)">{{ t('kid.treasure.removeConfirm') }}</AppButton>
-                                <AppButton variant="tertiary" size="sm" icon="close" @click="confirmingId = null">{{ t('common.cancel') }}</AppButton>
-                            </div>
-                        </template>
+                        <AppIconButton v-if="canRemove" icon="trash" tone="coral" :label="t('kid.treasure.remove')" @click="confirmingId = item.id" />
                     </template>
                 </AppListRow>
             </li>
         </ul>
+        <AppBottomSheet :open="confirmingId !== null" :title="t('kid.treasure.removeTitle')" @close="closeConfirmation">
+            <p>{{ t('kid.treasure.removeBody') }}</p>
+            <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+            <AppButton variant="destructive" icon="trash" :disabled="isBusy" @click="confirmRemove">{{ t('kid.treasure.removeConfirm') }}</AppButton>
+            <AppButton variant="secondary" icon="close" :disabled="isBusy" @click="closeConfirmation">{{ t('common.cancel') }}</AppButton>
+        </AppBottomSheet>
     </div>
 </template>
 
@@ -53,6 +56,8 @@ const player = useAudioPlayer()
 const { isRelativeAccount } = useSession()
 
 const isLoaded = ref(false)
+const isBusy = ref(false)
+const errorMessage = ref('')
 const confirmingId = ref<string | null>(null)
 const playingId = ref<string | null>(null)
 
@@ -87,24 +92,52 @@ const play = async (item: ITreasure): Promise<void> => {
     await player.play(item.fileId)
 }
 
-const confirmRemove = async (item: ITreasure): Promise<void> => {
-    confirmingId.value = null
-    if (playingId.value === item.id) {
-        player.stop()
-        playingId.value = null
+const closeConfirmation = (): void => {
+    if (!isBusy.value) {
+        confirmingId.value = null
     }
-    await remove(item.id)
+}
+
+const confirmRemove = async (): Promise<void> => {
+    const id = confirmingId.value
+    if (!id || isBusy.value) {
+        return
+    }
+    isBusy.value = true
+    errorMessage.value = ''
+    try {
+        if (playingId.value === id) {
+            player.stop()
+            playingId.value = null
+        }
+        await remove(id)
+        confirmingId.value = null
+    } catch (error) {
+        errorMessage.value = errorText(error, 'common.unknownError')
+    } finally {
+        isBusy.value = false
+    }
+}
+
+const refresh = async (): Promise<void> => {
+    isBusy.value = true
+    errorMessage.value = ''
+    try {
+        await ensureLoaded()
+        isLoaded.value = await load(ownerId.value)
+        if (!isLoaded.value) {
+            errorMessage.value = t('common.unknownError')
+        }
+    } finally {
+        isBusy.value = false
+    }
 }
 
 player.onEnded(() => {
     playingId.value = null
 })
 
-onMounted(async () => {
-    await ensureLoaded()
-    await load(ownerId.value)
-    isLoaded.value = true
-})
+onMounted(refresh)
 
 onBeforeUnmount(() => player.stop())
 </script>
@@ -156,6 +189,15 @@ onBeforeUnmount(() => player.stop())
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+.vault__notice {
+    margin: 0;
+    padding: 16px;
+    border: var(--outline) dashed var(--ink);
+    border-radius: 24px;
+    background: var(--yellow);
+    color: var(--on-accent);
 }
 
 .vault__ask {
