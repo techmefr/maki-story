@@ -14,7 +14,12 @@ export const supabaseAdmin = () => {
     if (!url.startsWith('https://') || !key) {
         throw new Error('Supabase server credentials are not configured')
     }
-    return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } })
+    return createClient(url, key, {
+        auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+        global: {
+            fetch: (input, options) => fetch(input, { ...options, signal: options?.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(8000)]) : AbortSignal.timeout(8000) }),
+        },
+    })
 }
 
 export const verifySupabasePassword = async (email: string, password: string, expectedId: string | null, accountId: string): Promise<string | null> => {
@@ -44,4 +49,11 @@ export const createSupabaseIdentity = async (accountId: string, email: string, p
         throw new Error('Supabase identity could not be provisioned')
     }
     return data.user.id
+}
+
+export const deleteSupabaseIdentity = async (userId: string): Promise<void> => {
+    const { error } = await supabaseAdmin().auth.admin.deleteUser(userId)
+    if (error && error.status !== 404 && error.code !== 'user_not_found') {
+        throw new Error('The remote identity deletion will be retried')
+    }
 }

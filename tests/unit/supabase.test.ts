@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { createSupabaseIdentity, supabaseEnabled, verifySupabasePassword } from '../../technical/Auth/server/utils/supabase.ts'
+import { createSupabaseIdentity, deleteSupabaseIdentity, supabaseEnabled, verifySupabasePassword } from '../../technical/Auth/server/utils/supabase.ts'
 
 test('Supabase is opt-in, rejects unknown providers and binds verified identity to the application account', async () => {
     const original = { provider: process.env.AUTH_PROVIDER, url: process.env.SUPABASE_URL, key: process.env.SUPABASE_SERVICE_ROLE_KEY, fetch: globalThis.fetch }
@@ -16,10 +16,14 @@ test('Supabase is opt-in, rejects unknown providers and binds verified identity 
         let confirmed = true
         let createFails = false
         let passwordFails = false
+        let deletionStatus = 200
         const userId = '11111111-1111-4111-8111-111111111111'
         const user = () => ({ id: userId, aud: 'authenticated', email: 'parent@example.invalid', email_confirmed_at: confirmed ? new Date().toISOString() : undefined, app_metadata: { maki_account_id: 'account-1' }, user_metadata: {}, created_at: new Date().toISOString() })
         globalThis.fetch = async (input, options) => {
             const path = String(input)
+            if (path.includes('/admin/users/') && options?.method === 'DELETE') {
+                return Response.json(deletionStatus === 200 ? { user: user() } : { msg: 'Unavailable or absent' }, { status: deletionStatus })
+            }
             if (path.includes('/logout')) return new Response(null, { status: 204 })
             if (path.endsWith('/admin/users')) {
                 if (createFails) return Response.json({ msg: 'User already registered' }, { status: 422 })
@@ -45,6 +49,11 @@ test('Supabase is opt-in, rejects unknown providers and binds verified identity 
         passwordFails = true
         assert.equal(await verifySupabasePassword('parent@example.invalid', 'wrong-password', userId, 'account-1'), null)
         passwordFails = false
+        await deleteSupabaseIdentity(userId)
+        deletionStatus = 404
+        await deleteSupabaseIdentity(userId)
+        deletionStatus = 503
+        await assert.rejects(() => deleteSupabaseIdentity(userId))
         confirmed = false
         assert.equal(await verifySupabasePassword('parent@example.invalid', 'test-password', userId, 'account-1'), null)
     } finally {
