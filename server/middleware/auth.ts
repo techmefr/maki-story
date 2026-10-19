@@ -3,6 +3,7 @@ import { accessForMember } from '../utils/parental'
 import { isSessionCurrent, readSession } from '~~/technical/Auth/server/utils/session'
 
 const PUBLIC_API_PATHS = [
+    '/api/cron/notifications',
     '/api/auth/login',
     '/api/auth/register',
     '/api/auth/me',
@@ -15,7 +16,7 @@ const PUBLIC_API_PATHS = [
 ]
 const PUBLIC_PREFIXES = ['/api/auth/oauth/', '/api/invitations/preview/', '/api/account/export/']
 
-const SCHEMA_FREE_PATHS = ['/api/auth/me', '/api/auth/logout']
+const SCHEMA_FREE_PATHS = ['/api/cron/notifications', '/api/auth/me', '/api/auth/logout']
 const ACCESS_EXEMPT_PREFIXES = ['/api/auth/', '/api/access']
 const ACCESS_EXEMPT_READS = ['/api/members']
 

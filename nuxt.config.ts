@@ -16,7 +16,7 @@ export default defineOSDDNuxtConfig({
     nitro: {
         noExternals: true,
         experimental: { tasks: true },
-        scheduledTasks: { '0 3 * * *': ['messages:purge', 'trash:purge'], '0 7 * * *': ['birthdays:remind'] },
+        scheduledTasks: { '0 3 * * *': ['messages:purge', 'trash:purge'], '0 7 * * *': ['birthdays:remind', 'notifications:digest'] },
         inlineDynamicImports: true,
         serverAssets: [{ baseName: 'migrations', dir: fileURLToPath(new URL('./server/migrations', import.meta.url)) }],
     },

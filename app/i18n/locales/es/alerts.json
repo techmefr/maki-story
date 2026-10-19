@@ -8,7 +8,8 @@
     "unsupported": "Este dispositivo no admite notificaciones. El correo sigue disponible.",
     "channels": {
         "PUSH": "Notificación",
-        "EMAIL": "Correo"
+        "EMAIL": "Correo",
+        "IN_APP": "En la aplicación"
     },
     "kinds": {
         "message_received": "Mensaje de voz recibido",

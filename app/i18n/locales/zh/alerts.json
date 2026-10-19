@@ -8,7 +8,8 @@
     "unsupported": "此设备不支持通知，仍可使用邮件。",
     "channels": {
         "PUSH": "通知",
-        "EMAIL": "邮件"
+        "EMAIL": "邮件",
+        "IN_APP": "应用内"
     },
     "kinds": {
         "message_received": "收到语音留言",
