@@ -104,3 +104,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.
 
 - [x] 2026-10-19 : #157 studio réel : page/scans et personnages visibles par défaut, carte de prise lisible, identité de la voix, sélection/navigation par page avec verrou pendant l’enregistrement ou une prise non envoyée. Préécoute/envoi/annulation/TTS existants conservés. Lint, typage et build réussis ; aucun E2E lancé.
+
+- [x] 2026-10-19 : #158 revue parent réelle regroupée par pages, résumé/progression visibles, écoute et décisions approuver/refaire accessibles sur chaque réplique. Différences, commentaires, langues et gardes de validation conservés. Lint, typage et build réussis ; aucun E2E exécuté.
