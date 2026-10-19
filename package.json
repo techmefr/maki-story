@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && node --experimental-strip-types scripts/prepare-offline.ts",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "nuxt generate && node --experimental-strip-types scripts/prepare-offline.ts",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "cap:sync": "nuxt generate && cap sync",

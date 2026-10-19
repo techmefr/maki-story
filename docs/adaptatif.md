@@ -1,6 +1,6 @@
 # Mise en page adaptative : proposition
 
-Les maquettes n'existent qu'en une colonne de 440 px. Cette proposition définit les points de rupture et la navigation par appareil. **Rien n'est codé tant que Gaëtan n'a pas validé.**
+Les maquettes n'existent qu'en une colonne de 440 px. Cette proposition définit les points de rupture et la navigation par appareil. Les points de rupture et la direction enfant ont été validés par Gaëtan.
 
 ## Points de rupture
 
@@ -25,7 +25,7 @@ Les valeurs sont des variables CSS dans `technical/Theme` (`--bp-tablet`, `--bp-
 - **Accueil enfant** : grille de cartes rondes (2 colonnes sur téléphone, 3 sur tablette, 4 sur ordinateur, 5 sur TV).
 - **Bibliothèque** : grille de couvertures (2, 3, 4, 6 colonnes) ; filtres en feuille sur téléphone, en colonne latérale à gauche à partir de 1024 px.
 - **Studio et Revue** : à partir de 1024 px, la liste des pages à gauche et la page ouverte à droite.
-- **Lecture** : photo de la page et texte côte à côte à partir de 600 px en paysage.
+- **Lecture** : le livre est physique ; photo et nom du lecteur, sans texte ni image de page. Sur téléphone paysage court, les commandes passent à côté du portrait.
 - **Formulaires et réglages** : colonne centrée de 560 px maximum.
 
 ## Android TV et télécommande
@@ -57,3 +57,11 @@ Les valeurs sont des variables CSS dans `technical/Theme` (`--bp-tablet`, `--bp-
 3. Grilles adaptatives pour l'accueil enfant et la bibliothèque.
 4. Passage clavier et télécommande, vérifié écran par écran.
 5. Captures aux quatre largeurs dans le tableau final (maquette / app, clair / sombre).
+
+## Audit du 2026-10-19
+
+Captures des routes réelles sur serveur local et base de démonstration : 320×760, 844×390, 1180×820, 1600×900. Le premier relevé a été écarté car le marqueur de profil manquait ; le relevé retenu sélectionne réellement parent/enfant. 192 captures de routes, dont reprise de 32 captures enfant après ajout d'une voix approuvée à la fixture. 33 captures complémentaires sombre/arabe sur les pages clés ; aucune erreur JavaScript ni débordement horizontal relevé. L'alerte du coucher et le titre très long ont huit captures supplémentaires.
+
+Corrections : exclusion du focus télécommande des éléments inertes/masqués/désactivés ; focus initial pris dans la modale active ; titre de lecteur strictement sur deux lignes ; démarrage visible en paysage même avec titre et alerte ; pavé PIN d'au moins 44 px de large, sans réduction par la hauteur du téléphone. Focus visible conservé et réduction du mouvement respectée.
+
+Les captures sont des relevés statiques, pas des tests de parcours. Aucun E2E exécuté. L'usage réel d'une télécommande et les fonctions matérielles restent à contrôler sur appareils. Référence des résultats : /home/gaetan/artifacts/maki-final-audit-2026-10-19.

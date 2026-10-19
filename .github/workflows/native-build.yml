@@ -8,6 +8,14 @@ on:
       - android/**
       - ios/**
       - capacitor.config.ts
+      - app/**
+      - functional/**
+      - technical/**
+      - shared/**
+      - public/**
+      - scripts/**
+      - package.json
+      - pnpm-lock.yaml
       - .github/workflows/native-build.yml
 
 permissions:

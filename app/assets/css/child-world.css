@@ -10,7 +10,7 @@ html.child-world,
     --outline: 2px;
     --shadow: 0 4px 0 #925521, 0 10px 20px #64370e26;
     --shadow-lg: 0 6px 0 #925521, 0 16px 28px #64370e30;
-    --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #6c350e18 10px 12px), linear-gradient(100deg, #ab622b, #d39a50 30%, #b87332 70%, #965022);
+    --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #6c350e18 10px 12px), linear-gradient(100deg, #804119, #a0642c 30%, #955323 70%, #773719);
     --child-gold: linear-gradient(145deg, #fff1a2, #ffcf32 45%, #ef9e09);
 }
 
@@ -178,4 +178,12 @@ html.child-world,
     .reader.kid-world .reading-page__speaker .blob { padding: 4px; width: auto !important; height: auto !important; }
     .reader.kid-world .reading-page__maki { max-width: 96px; }
     .reader.kid-world .reader__error { grid-column: 1 / -1; }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .reader.kid-world .reader__center--ready { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .reader.kid-world .reader__center--ready > .scene { max-height: 72px; width: 96px; }
+    .reader.kid-world .btn--big .icon { width: 32px; height: 32px; }
+    .reader.kid-world .reader__center--ready .choice { min-width: 48px; min-height: 44px; padding: 4px; }
+    .reader.kid-world .reader__center--ready .choice svg { width: 40px; height: 32px; }
 }

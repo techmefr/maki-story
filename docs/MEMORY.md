@@ -140,3 +140,25 @@ Direction validée par Gaëtan : reprendre le splashscreen pour les enfants uniq
 Correctifs fonctionnels en cours #150/#152 : conversation isolée par expéditeur/destinataire, protections doubles envois, coffre privé par adulte et géré par parent pour enfant, sérialisation de première écoute et sauvegarde au coffre, expiration supprimée au coffre, suppression du favori sans réintroduire un sixième message actif. Unités 71 vertes mais concurrence SQL non exécutée : garder #150/#152 ouverts.
 
 Tout sur dev. Ne pas lancer les E2E. Aucun passage sur main, qui reste 614ada34900a0aec4449db5cfb971bbc06550baa. Préserver .claude/ et .github/workflows/migrate.yml non suivis préexistants.
+
+## Fin du lot — reprise 2026-10-19
+
+Instruction utilisateur : terminer les points restants, toujours sur dev, sans E2E et sans main. Domaine/e-mails #194 explicitement reportés. Exigence nouvelle : fonctionner avec et sans services Google. Déclarations natives micro/caméra et transport HTTP Capacitor explicitement autorisés dans la session.
+
+Livré : plateformes natives Android/iOS versionnées, workflow Native build limité à dev sans E2E. Première exécution 39255735493 réussie : Android assembleDebug et absence de dépendances runtime GMS/Firebase, iOS xcodebuild simulateur sans signature, PWA générée. Notifications premier plan indépendantes du push ; push absent/refusé ne bloque pas. Pas de garantie de notification système en arrière-plan sur appareil sans fournisseur push. Compilation ne signifie pas validation matérielle.
+
+Règles messages/coffre vérifiées par tests/integration/message-vault.test.ts sur une base jetable locale, 12 connexions : quotas 5 et 10, dans les deux rôles. Le comptage de production exclut maintenant les messages expirés avant purge. Upload : migration 0069 conserve le résultat de finalisation jusqu'à expiration de session ; retransmissions/concurrence renvoient le même fichier. Test d'intégration utilise completeUpload de production.
+
+Audit : docs/FINAL-SCREEN-AUDIT.md et docs/adaptatif.md. Captures réelles avec fixtures dans /home/gaetan/artifacts/maki-final-audit-2026-10-19 ; 192 captures + 32 enfant reprises + 33 sombre/arabe + huit alerte nuit. Premier lot erroné redirigé vers profils écarté. Titres longs et paysage avec alerte corrigés, cibles PIN >=44 px, éléments inertes/masqués/désactivés exclus du focus spatial. Source seule distinguée des captures de tous les états ; aucun parcours E2E.
+
+Poids : audio Opus 24 kbit/s, contrainte de capture 16 kHz, repli AAC/MP4 pour WebKit sans Opus ; taux effectif à vérifier sur matériel. Images 1200 px avec WebP/JPEG, repli Image.decode. Cache de démarrage versionné en post-build/generate par scripts/prepare-offline.ts ; manifeste choisi dans node_modules/.cache/nuxt/.nuxt en premier, car .nuxt racine peut être un ancien manifeste dev. Sélection de 101 assets / 544428 octets bruts dans le build contrôlé. Hors ligne télécharge toutes les voix/traductions du livre, pas les scans côté enfant.
+
+Supabase #193 : projet existant Maki Story kebfzacaiqkjxcvhhvsp, Paris, ACTIVE_HEALTHY, accès CLI confirmé sans afficher de clés. Nouveau SDK officiel @supabase/supabase-js, plus plateformes @capacitor/android et @capacitor/ios 8.5.2. AUTH_PROVIDER=legacy par défaut ; supabase ne s'active qu'avec réglage et clés privées serveur. Migration 0068 ajoute accounts.supabase_user_id unique ; première connexion valide le hash local avant création distante puis conserve accounts.id et les relations. Après rattachement, pas de repli local en cas de mauvais mot de passe distant. Métadonnée administrateur maki_account_id empêche une récupération vers un autre compte. Session SDK non persistée, aucun jeton renvoyé au client ; sessions de l'app et liens magiques/code reset restent locaux. Configuration supabase/config.toml non appliquée au distant.
+
+IMPORTANT : #193 n'est PAS terminé ni activé. Suppression distante des identités après suppression confirmée du compte : le contrôle automatique a refusé l'ajout faute d'accord explicite ; ce code n'a pas été ajouté. Question d'approbation envoyée et encore sans réponse. Ne pas contourner cette décision. Restent cycle de suppression, validation réelle du fournisseur et du cycle social avant activation. Ne pas clôturer #193 sur la base du seul test SDK simulé.
+
+Tous les contrôles autorisés sont à relire dans /tmp/maki-final-verify.log, /tmp/maki-final-integration.log et /tmp/maki-final-build.log. Le premier post-build offline a échoué car le build serveur ne crée pas index.html ; corrigé en utilisant le manifeste de production avec test de fermeture des dépendances. Nouveau build et dernier push à confirmer.
+
+Préserver .claude/ et .github/workflows/migrate.yml non suivis préexistants, ainsi que l'ancien public/art/child/forest-world.jpg non utilisé. Aucun changement sur main ni PR de publication.
+
+Vérification finale corrigée : pnpm verify réussi (lint, typage, i18n, docs, design, 76 unités, 49 migrations aller-retour), test PostgreSQL d'intégration réussi et pnpm build réussi avec worker hors ligne généré. Aucun E2E.

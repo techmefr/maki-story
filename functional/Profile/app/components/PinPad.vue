@@ -139,12 +139,13 @@ defineExpose({ clear })
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
     width: 100%;
-    max-width: min(340px, 36vh);
+    max-width: min(340px, 100%);
 }
 
 .pad__key {
     aspect-ratio: 1;
-    min-height: 56px;
+    min-height: max(56px, var(--tap));
+    min-width: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -202,7 +203,7 @@ defineExpose({ clear })
 
 .pad--compact .pad__grid {
     gap: 10px;
-    max-width: min(300px, 36vh);
+    max-width: min(300px, 100%);
 }
 
 .pad--compact .pad__key {

@@ -1,3 +1,4 @@
+import { lockActiveConversation } from '../../utils/activeConversation'
 import { MESSAGE_MAX_ACTIVE, MESSAGE_MAX_DURATION_MS } from '~~/shared/utils/voices'
 import { getDb, one } from '~~/server/utils/db'
 import { assertFilesInFamily, assertMembersInFamily } from '~~/server/utils/family'
@@ -63,13 +64,8 @@ export default defineEventHandler(async (event): Promise<IMessage> => {
     }
     await purgeExpiredMessages(db, familyId)
     const message = await db.begin(async tx => {
-        await tx`select pg_advisory_xact_lock(hashtext(${`${fromMemberId}:${recipient.id}`}))`
-        const [activeRow] = await tx<{ count: number }[]>`
-            select count(*)::int as count from messages m
-            where m.from_member_id = ${fromMemberId} and m.to_member_id = ${recipient.id} and m.status = 'ACTIVE' and m.deleted_at is null
-                and not exists (select 1 from treasures t where t.source_message_id = m.id and t.deleted_at is null)
-        `
-        if ((activeRow?.count ?? 0) >= MESSAGE_MAX_ACTIVE) {
+        const activeCount = await lockActiveConversation(tx, fromMemberId, recipient.id)
+        if (activeCount >= MESSAGE_MAX_ACTIVE) {
             throw createError({
                 statusCode: 409,
                 statusMessage: `Tu as déjà ${MESSAGE_MAX_ACTIVE} messages en attente pour ${recipient.name}. Ils disparaissent 24 h après leur première écoute.`,

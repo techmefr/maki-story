@@ -1,4 +1,5 @@
-const CACHE_NAME = 'tantara-v3'
+const CACHE_NAME = 'tantara-v4'
+const SHELL_ASSETS = []
 const SHELL_URL = '/'
 const FONT_URLS = [
     '/fonts/fredoka-500.woff2',
@@ -7,7 +8,7 @@ const FONT_URLS = [
 ]
 
 self.addEventListener('install', event => {
-    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.add(SHELL_URL).then(() => cache.addAll(FONT_URLS))).then(() => self.skipWaiting()))
+    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([SHELL_URL, ...FONT_URLS, ...SHELL_ASSETS])).then(() => self.skipWaiting()))
 })
 
 self.addEventListener('activate', event => {
@@ -52,14 +53,16 @@ self.addEventListener('fetch', event => {
     if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) {
         return
     }
-    if (url.pathname.startsWith('/_nuxt/') || url.pathname.startsWith('/fonts/')) {
+    if (url.pathname.startsWith('/_nuxt/') || url.pathname.startsWith('/fonts/') || url.pathname.startsWith('/maki/') || url.pathname.startsWith('/art/')) {
         event.respondWith(
             caches.match(request).then(
                 cached =>
                     cached ||
                     fetch(request).then(response => {
-                        const copy = response.clone()
-                        caches.open(CACHE_NAME).then(cache => cache.put(request, copy))
+                        if (response.ok) {
+                            const copy = response.clone()
+                            caches.open(CACHE_NAME).then(cache => cache.put(request, copy))
+                        }
                         return response
                     }),
             ),

@@ -3,7 +3,7 @@
         <NightCountdown />
         <header class="reader__head">
             <AppButton variant="secondary" is-round to="/kid" :aria-label="t('kid.listen.quit')"><AppIcon name="close" :size="24" /></AppButton>
-            <div class="reader__heading"><h1 class="reader__title" :title="bookTitle">{{ bookTitle }}</h1><div class="reader__segments" role="progressbar" :aria-label="t('kid.listen.progress')" :aria-valuemin="0" :aria-valuemax="pageTotal" :aria-valuenow="phase === 'end' ? pageTotal : pageIndex">
+            <div class="reader__heading"><h1 class="reader__title" :title="bookTitle"><span class="reader__title-text">{{ bookTitle }}</span></h1><div class="reader__segments" role="progressbar" :aria-label="t('kid.listen.progress')" :aria-valuemin="0" :aria-valuemax="pageTotal" :aria-valuenow="phase === 'end' ? pageTotal : pageIndex">
                 <span v-for="(_, index) in pageNumbers" :key="index" class="reader__segment" :class="{ 'reader__segment--done': index < pageIndex || phase === 'end', 'reader__segment--current': index === pageIndex }" />
             </div>
             </div>
@@ -41,7 +41,7 @@
                 </button>
             </div>
         </div>
-        <div v-else-if="phase === 'ready'" class="reader__center stack center">
+        <div v-else-if="phase === 'ready'" class="reader__center reader__center--ready stack center">
             <MakiScene pose="reading" :size="180" />
 
             <div v-if="hasChoice" class="row">
@@ -136,7 +136,8 @@ const { readerHex, phase, reader, isPlaying, pageIndex, pageTotal, isNavigating,
 
 <style scoped>
 .reader__heading { min-width: 0; flex: 1; display: grid; gap: 12px; }
-.reader__title { margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; font: 600 clamp(1.125rem, 3vw, 2rem)/1.2 var(--font-title); }
+.reader__title-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.reader__title { margin: 0; overflow: hidden; overflow-wrap: anywhere; font: 600 clamp(1.125rem, 3vw, 2rem)/1.2 var(--font-title); }
 .reader__next--ready { outline: 3px solid #ffdb69; box-shadow: 0 0 0 7px #ffd34a66, 0 0 30px #ffbf00 !important; }
 .reader__head { display: flex; gap: 16px; align-items: center; width: 100%; max-width: 1120px; margin-inline: auto; }
 .reader__segments { display: flex; flex: 1; gap: 4px; min-width: 0; }

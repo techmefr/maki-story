@@ -1,3 +1,4 @@
+import { verifyAccountPassword } from '~~/technical/Auth/server/utils/account-password'
 import { defaultFamilyPlan } from '~~/server/utils/plan'
 import { getDb, one } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
@@ -69,6 +70,9 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
         `
         return { accountId: account.id, familyId, memberId: null }
     })
+    if (!(await verifyAccountPassword(session.accountId, email, password, passwordHash))) {
+        throw createError({ statusCode: 503, statusMessage: 'Account credentials are unavailable' })
+    }
     startSession(event, session)
     const base = process.env.APP_BASE_URL ?? getRequestURL(event).origin
     const locale = typeof body.locale === 'string' ? body.locale : null

@@ -3,7 +3,7 @@ import {
     RECORDING_AUDIO_BITRATE_MODE,
     RECORDING_BITS_PER_SECOND,
     RECORDING_LIMIT_OVERRIDE_KEY,
-    RECORDING_MIMES,
+    pickRecordingMime,
     RECORDING_SAMPLE_RATE,
     resolveRecordingLimitMs,
 } from '~~/shared/utils/recording'
@@ -17,7 +17,7 @@ export interface IRecording {
 }
 
 const pickMime = (): string | null => {
-    return RECORDING_MIMES.find(mime => MediaRecorder.isTypeSupported(mime)) ?? null
+    return pickRecordingMime(mime => MediaRecorder.isTypeSupported(mime))
 }
 
 const openMicrophone = async (): Promise<MediaStream> => {

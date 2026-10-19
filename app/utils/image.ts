@@ -19,7 +19,7 @@ export const encodeCanvas = async (canvas: HTMLCanvasElement): Promise<Blob> => 
 }
 
 export const compressImage = async (file: File): Promise<Blob> => {
-    const bitmap = await createImageBitmap(file)
+    const bitmap = await decodeImage(file)
     const ratio = Math.min(1, MAX_IMAGE_SIDE_PX / Math.max(bitmap.width, bitmap.height))
     const canvas = document.createElement('canvas')
     canvas.width = Math.round(bitmap.width * ratio)
@@ -29,5 +29,23 @@ export const compressImage = async (file: File): Promise<Blob> => {
         throw new Error('Canvas unavailable')
     }
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+    if ('close' in bitmap) {
+        bitmap.close()
+    }
     return encodeCanvas(canvas)
+}
+
+const decodeImage = async (file: File): Promise<ImageBitmap | HTMLImageElement> => {
+    if (typeof createImageBitmap === 'function') {
+        return createImageBitmap(file)
+    }
+    const url = URL.createObjectURL(file)
+    try {
+        const image = new Image()
+        image.src = url
+        await image.decode()
+        return image
+    } finally {
+        URL.revokeObjectURL(url)
+    }
 }
