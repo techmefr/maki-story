@@ -84,3 +84,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-19 : #159 accueil réel adulte en sections (demandes, propositions, corrections, bibliothèque), flux multi-famille des proches et catégories ; navigation après sélection de famille. Lint, typage, i18n et build réussis ; aucun E2E lancé.
 
 - [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.
+
+- [x] 2026-10-19 : #156 audit de l’existant : TagManager/TagEditorSheet reprennent la maquette, noms par langue de famille et avertissements de traduction ; tagLabel applique langue choisie → anglais → slug, identifiants contrôlés serveur. Fonctions et tests de repli présents. Compilation/typage du lot valident ces composants ; aucun E2E ni nouveau test exécuté.
