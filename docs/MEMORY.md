@@ -162,3 +162,5 @@ Tous les contrôles autorisés sont à relire dans /tmp/maki-final-verify.log, /
 Préserver .claude/ et .github/workflows/migrate.yml non suivis préexistants, ainsi que l'ancien public/art/child/forest-world.jpg non utilisé. Aucun changement sur main ni PR de publication.
 
 Vérification finale corrigée : pnpm verify réussi (lint, typage, i18n, docs, design, 76 unités, 49 migrations aller-retour), test PostgreSQL d'intégration réussi et pnpm build réussi avec worker hors ligne généré. Aucun E2E.
+
+Livraison confirmée : code e985244 sur origin/dev. Workflow final 39260176371 intégralement réussi (Android sans GMS/Firebase, iOS simulateur, PWA). #150/#152/#163/#164/#165 clôturées avec preuves et limites consignées. #193 reste ouverte et désactivée (cycle de suppression distante en attente d'accord explicite, intégration réelle à finir). #194 reportée à la demande de Gaëtan. main confirmé inchangé à 614ada34900a0aec4449db5cfb971bbc06550baa. Ne pas ouvrir de PR de publication ni lancer d'E2E.

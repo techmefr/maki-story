@@ -17,3 +17,5 @@ Le cache du shell est versionné par build. Le manifeste sélectionne le démarr
 Uploads : chunks conservés, décalage relu après coupure, finalisation idempotente (migration 0069) : une réponse perdue ou des finalisations concurrentes renvoient le même fichier. Vérifié sur PostgreSQL indépendant du navigateur.
 
 Build vérifié : https://github.com/techmefr/maki-story/actions/runs/39255735493 (Android téléphone/tablette/TV, iOS simulateur, PWA). Les signatures App Store et l'installation sur appareils réels ne sont pas incluses dans ce résultat de compilation. L'icône native a été remplacée par Maki ; les contrôles sont rejoués sur le lot final.
+
+Lot final vérifié : https://github.com/techmefr/maki-story/actions/runs/39260176371 (e985244). Les trois jobs/paquets ciblés ont réussi ; la même compilation Android couvre la cible TV.
