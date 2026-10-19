@@ -11,32 +11,36 @@ const { isOnline, check } = useConnectivity()
 const { t } = useI18n()
 const isChecking = ref(false)
 
-const retry = async () => {
+const retry = async (): Promise<void> => {
+    if (isChecking.value) {
+        return
+    }
     isChecking.value = true
-    await check()
-    isChecking.value = false
+    try {
+        await check()
+    } finally {
+        isChecking.value = false
+    }
 }
 </script>
 
 <style scoped>
 .offline-banner {
-    position: fixed;
-    inset-inline: 0;
-    bottom: 0;
-    z-index: 60;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 16px calc(env(safe-area-inset-bottom) + 10px);
+    padding: 12px 16px;
     background: var(--yellow);
     color: var(--on-accent);
-    border-top: 2.5px solid var(--ink);
+    border-bottom: var(--outline) solid var(--ink);
     font: 700 0.875rem/1.3 var(--font-title);
 }
 
 .offline-banner__retry {
-    padding: 4px 12px;
+    min-height: var(--tap);
+    padding: 8px 16px;
     border: 2px solid var(--ink);
     border-radius: 999px;
     background: var(--paper);

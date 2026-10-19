@@ -96,3 +96,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-19 : #148 famille/invitations : choix en grille adaptative, cartes souples et actions de gestion groupées. Création, invitation, jonction et profil proche existants conservés. Gardes serveur relues : refus de suppression de son profil et maintien du dernier parent.
 
 - [x] 2026-10-19 : #149 contrôle parental : panneaux encadrés, onglets enfants espacés, horaires par pas de 30 minutes et fenêtres traversant minuit. Fuseau de règle conservé à la modification et hors ligne ; autorité serveur et déverrouillage parent de 30 minutes existants conservés. 8 tests unitaires horaires réussis, lint/typage/build réussis ; aucun E2E.
+
+- [x] 2026-10-19 : #161 aide et erreurs : FAQ existante, contact conditionnel, six états illustrés avec fond par état et badge HTTP encadré ; bandeau hors ligne dans le flux avant la page, sans recouvrir navigation/envoi, bouton relance tactile. Lint/typage/build réussis ; aucun E2E.

@@ -1,7 +1,7 @@
 <template>
     <main class="errstate" role="alert" :data-testid="`error-state-${type}`">
         <div class="errstate__card stack">
-            <MakiScene :pose="config.pose" :size="200" />
+            <div class="errstate__illustration"><MakiScene :pose="config.pose" :size="180" /></div>
             <p v-if="config.code" class="errstate__code">{{ config.code }}</p>
             <h1 class="errstate__title">{{ t(`errorState.${type}.title`) }}</h1>
             <p class="errstate__text">{{ t(`errorState.${type}.text`) }}</p>
@@ -54,7 +54,7 @@ const act = async (): Promise<void> => {
     justify-content: center;
     min-height: 100dvh;
     padding: 24px;
-    background: var(--bg);
+    background: v-bind(tone);
     color: var(--ink);
     text-align: center;
 }
@@ -62,14 +62,19 @@ const act = async (): Promise<void> => {
 .errstate__card {
     align-items: center;
     width: min(100%, 26rem);
+    gap: 24px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
-.errstate__icon {
+.errstate__illustration {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 112px;
-    height: 112px;
+    width: 200px;
+    height: 200px;
+    max-width: 100%;
+    background: var(--paper);
     border: var(--outline) solid var(--ink);
     border-radius: 50%;
     box-shadow: var(--shadow-lg);
@@ -78,7 +83,11 @@ const act = async (): Promise<void> => {
 
 .errstate__code {
     margin: 0;
-    font: 700 1rem/1 var(--font-title);
+    padding: 4px 24px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    font: 700 1.5rem/1 var(--font-title);
     letter-spacing: 0.1em;
 }
 

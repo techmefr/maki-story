@@ -1,12 +1,12 @@
 <template>
     <div>
         <NuxtRouteAnnouncer />
+        <OfflineBanner />
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
         <SplashScreen />
         <PageCurtain />
-        <OfflineBanner />
         <DevFeedbackWidget v-if="isDevFeedback" />
     </div>
 </template>
