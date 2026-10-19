@@ -84,5 +84,9 @@
         "toFix": "Da correggere",
         "toFixHint": "Registrazioni da rifare",
         "vaultHint": "Messaggi dei bambini conservati"
+    },
+    "adult": {
+        "greeting": "Ciao, {name}!",
+        "subtitle": "Storie da condividere, voci care da ritrovare."
     }
 }

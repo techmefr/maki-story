@@ -98,3 +98,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-19 : ordre utilisateur actuel : corrections CI, adultes, écrans communs, enfants. Aucune exécution E2E ; aucune modification, PR ou fusion vers main pendant ce lot. Travail et clôtures par tâche sur dev ; publication regroupée ultérieure. Correction CI suivie dans https://github.com/techmefr/maki-story/issues/195.
 
 - [x] 2026-10-19 : #195 corrections des régressions consignées par la CI (sélecteur de création, largeur du composeur et retour à la ligne des actions). Lint, typage et build réussis. Aucun E2E exécuté sur consigne utilisateur ; leur confirmation reste différée, la CI distante historique n’est pas déclarée verte.
+
+- 2026-10-19 : #159 : l’accueil réel abandonne les grandes tuiles de compteurs au profit des tâches et couvertures. Les raccourcis de statut restent compacts. RelativeHomeFeed et RelativeTaskList partagent useRelativeTasks ; useFamilyNavigation sélectionne la bonne famille avant d’ouvrir une tâche. Les cartes enfant affichent leur famille ; aucun destinataire ni quota fictif ajouté.

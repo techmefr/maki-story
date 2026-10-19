@@ -84,5 +84,9 @@
         "toFix": "Hahitsy",
         "toFixHint": "Fandraketana havaozina",
         "vaultHint": "Hafatry ny ankizy voatahiry"
+    },
+    "adult": {
+        "greeting": "Salama, {name}!",
+        "subtitle": "Tantara hifampizarana, feon’ny havana henoina."
     }
 }

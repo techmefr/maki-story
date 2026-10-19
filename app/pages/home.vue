@@ -1,36 +1,40 @@
 <template>
     <div class="stack home">
         <StatusStrip v-if="isParent" />
-        <section class="home__welcome card" aria-labelledby="adult-home-title" data-testid="adult-home-welcome">
-            <div class="stack">
-                <h1 id="adult-home-title" class="title">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</h1>
-                <p class="home__intro">{{ t(isParent ? 'home.dash.newBookHint' : 'home.dash.proposeBookHint') }}</p>
-                <div class="row row--wrap">
-                    <AppButton to="/books/new" icon="book-plus">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
-                    <AppButton variant="secondary" to="/library" icon="book">{{ t('home.dash.library') }}</AppButton>
-                </div>
+        <header class="home__intro" data-testid="adult-home-welcome">
+            <div class="stack grow">
+                <h1 class="title">{{ t('home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
+                <p class="home__subtitle">{{ t('home.adult.subtitle') }}</p>
             </div>
-            <MakiScene pose="reading" :size="176" />
-        </section>
-        <section v-if="kids.length > 0" class="stack" aria-labelledby="adult-home-children">
+            <AppButton to="/books/new" icon="book-plus" data-testid="home-card-new-book">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
+            <AppButton variant="secondary" to="/library" icon="book">{{ t('home.dash.library') }}</AppButton>
+        </header>
+        <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
+        <section v-if="kids.length > 0 && (isParent || flow.families.length === 0)" class="stack" aria-labelledby="adult-home-children">
             <h2 id="adult-home-children" class="subtitle">{{ t('home.dash.myChildren') }}</h2>
             <HomeKidCards :kids="kids" :counts="liveCounts" />
         </section>
-        <AppEmpty v-else-if="isLoaded" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
+        <AppEmpty v-else-if="isLoaded && kids.length === 0 && (isParent || flow.families.length === 0)" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
             <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
         </AppEmpty>
-        <section class="stack" aria-labelledby="home-dashboard">
-            <h2 id="home-dashboard" class="subtitle">{{ t('home.dash.actions') }}</h2>
-            <ul class="home__cards" role="list">
-                <li v-for="card in cards" :key="card.id">
-                    <NuxtLink :to="card.to" class="card card--tap home__card" :data-testid="`home-card-${card.id}`">
-                        <span class="home__icon"><AppIcon :name="card.icon" :size="24" /></span>
-                        <span v-if="card.count !== null" class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span>
-                        <span class="home__label">{{ t(card.label) }}</span>
-                    </NuxtLink>
-                </li>
-            </ul>
+        <RelativeHomeFeed v-if="!isParent && flow.families.length > 0" show-children />
+        <div v-if="isParent || flow.families.length === 0" class="home__sections">
+            <section v-for="section in bookSections" :key="section.id" class="stack">
+                <NuxtLink :to="`/library?status=${section.status}`" class="home__section-link">
+                    <h2 class="subtitle grow">{{ t(section.title) }}</h2><AppBadge>{{ section.books.length }}</AppBadge><AppIcon name="chevron-right" :size="24" class="mirror-rtl" />
+                </NuxtLink>
+                <AdultBookTaskList v-if="section.books.length > 0" :books="section.books.slice(0, 2)" :mode="section.mode" />
+                <p v-else-if="isLoaded" class="muted">{{ t('category.emptyTitle') }}</p>
+            </section>
+        </div>
+        <section class="stack">
+            <NuxtLink to="/library" class="home__section-link" data-testid="home-card-library"><h2 class="subtitle grow">{{ t('home.dash.library') }}</h2><AppBadge>{{ books.length }}</AppBadge><AppIcon name="chevron-right" :size="24" class="mirror-rtl" /></NuxtLink>
+            <div class="grid grid--books home__library"><BookCard v-for="book in books.slice(0, 4)" :key="book.id" :book="book" show-status /></div>
+            <AppEmpty v-if="isLoaded && books.length === 0" kind="library" :title="t('home.empty')" :hint="t('home.emptyHint')" />
         </section>
+        <nav class="home__shortcuts" :aria-label="t('home.dash.actions')">
+            <NuxtLink v-for="card in taskCards" :key="card.id" :to="card.to" class="home__shortcut" :data-testid="`home-card-${card.id}`"><AppIcon :name="card.icon" :size="20" /><span>{{ t(card.label) }}</span><span v-if="card.count !== null" class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span></NuxtLink>
+        </nav>
     </div>
 </template>
 
@@ -44,10 +48,20 @@ interface IHomeCard {
 }
 
 const { t } = useI18n()
-const { currentId, isParent } = useCurrentMember()
+const { currentId, current, isParent } = useCurrentMember()
 const { children, ensureLoaded } = useMembers()
 const { messages, load: loadMessages, startPolling, stopPolling } = useMessages()
 const { request } = useApi()
+const { books, load: loadBooks } = useBooks()
+const { flow, load: loadFlow } = useRelativeFlow()
+const loadError = ref('')
+const taskCards = computed(() => cards.value.filter(card => card.id !== 'new-book' && card.id !== 'library'))
+const bookSections = computed(() => [
+    { id: 'to-record', title: 'relative.requests', mode: 'record' as const, status: 'to_record', books: books.value.filter(book => book.status === 'to_record') },
+    { id: 'proposals', title: 'homeBar.cards.proposalsWaiting', mode: 'propose' as const, status: 'proposed', books: books.value.filter(book => book.status === 'proposed') },
+    { id: 'review', title: 'home.dash.toReview', mode: 'review' as const, status: 'in_review', books: books.value.filter(book => book.status === 'in_review' || book.submittedCount > 0) },
+    { id: 'fix', title: 'relative.fixes', mode: 'correct' as const, status: 'to_record', books: books.value.filter(book => book.changesRequestedCount > 0) },
+])
 
 const isLoaded = ref(false)
 const counts = ref<IHomeCounts | null>(null)
@@ -94,9 +108,14 @@ const loadCounts = async (): Promise<void> => {
 }
 
 onMounted(async () => {
-    await Promise.all([ensureLoaded(), loadMessages(), loadCounts()])
-    isLoaded.value = true
-    startPolling()
+    try {
+        await Promise.all([ensureLoaded(), loadMessages(), loadCounts(), loadBooks(), isParent.value ? Promise.resolve() : loadFlow()])
+        isLoaded.value = true
+        startPolling()
+    } catch (error) {
+        console.error('Impossible de charger l’accueil', error)
+        loadError.value = t('relative.loadFailed')
+    }
 })
 
 onBeforeUnmount(stopPolling)
@@ -104,86 +123,80 @@ onBeforeUnmount(stopPolling)
 
 <style scoped>
 .home {
-    gap: 28px;
-}
-
-.home__welcome {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 24px;
-    padding: 28px;
-    background: var(--sky);
-    color: var(--on-accent);
+    gap: 32px;
 }
 
 .home__intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.home__subtitle {
     margin: 0;
+    color: var(--ink-soft);
     font-size: 1.125rem;
 }
 
-@media (max-width: 599px) {
-    .home__welcome {
-        grid-template-columns: minmax(0, 1fr);
-        padding: 20px;
-    }
-
-    .home__welcome :deep(.scene) {
-        display: none;
-    }
-}
-
-.home__cards {
+.home__sections {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 1fr;
-    gap: 16px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    gap: 28px;
 }
 
-.home__cards > li {
+.home__section-link {
     display: flex;
-}
-
-@media (min-width: 720px) {
-    .home__cards {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-.home__card {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 12px;
-    min-height: 148px;
-    text-align: center;
+    min-height: 48px;
     color: inherit;
     text-decoration: none;
-    overflow-wrap: anywhere;
 }
 
-.home__icon {
+.home__library {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home__shortcuts {
     display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 2px solid var(--grey-line);
+}
+
+.home__shortcut {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 50%;
-    background: var(--sky);
-    color: var(--on-accent);
+    gap: 8px;
+    min-height: 48px;
+    padding: 8px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 24px;
+    color: inherit;
+    background: var(--paper);
+    text-decoration: none;
+    font-size: 0.9375rem;
 }
 
 .home__count {
-    font: 800 2rem/1 var(--font-title);
+    display: inline-grid;
+    place-items: center;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--on-accent);
+    font-weight: 700;
 }
 
-.home__label {
-    font: 700 1rem/1.3 var(--font-title);
+@media (min-width: 1100px) {
+    .home__sections {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home__library {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
 }
 </style>
