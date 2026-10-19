@@ -126,4 +126,4 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] #200 : corrections enfant publiées par MR #202 (main 0619cff8) ; Vercel success, asset portrait et styles publics vérifiés. Contrôles ciblés documentés ; audit RGAA complet #201 toujours ouvert.
 - [ ] #201 : audit RGAA complet, lecteur d’écran et applicabilité/alternatives audio ; ne pas annoncer de conformité globale avec les seuls tests automatiques.
 
-- [ ] #203 : accueil adulte, salutation pleine largeur et actions distinctes ; quatorze rendus locaux corrects, publication et contrôle distant à confirmer.
+- [x] #203 : salutation adulte pleine largeur et actions distinctes ; quatorze rendus validés, MR #204 publiée, Vercel success et stylesheet public vérifié.
