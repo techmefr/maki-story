@@ -34,7 +34,7 @@
                 {{ t('review.studio.redoCount', { count: redoCount }) }}
             </button>
         </div>
-        <section v-if="currentLine" class="stack" :aria-label="t('scanView.studioSection')">
+        <section v-if="book.pages.length > 0" class="stack studio__page" :aria-label="t('scanView.studioSection')">
             <AppButton variant="secondary" size="sm" :aria-expanded="isPageViewOpen" data-testid="page-view-toggle" @click="isPageViewOpen = !isPageViewOpen">
                 <AppIcon name="book" :size="18" />{{ isPageViewOpen ? t('scanView.hidePage') : t('scanView.showPage') }}
             </AppButton>
@@ -48,11 +48,12 @@
                 :my-member-id="activeMemberId"
                 :active-line-id="currentLineId"
                 :can-see-scan="current?.role !== 'child'"
+                :show-nav="!isLocked"
                 @go="goPage"
             >
                 <template #line-actions="{ line, isMine }">
                     <div v-if="isMine" class="row row--wrap">
-                        <AppButton size="sm" :disabled="isLocked || line.id === currentLineId" :data-testid="`page-record-${line.id}`" @click="currentLineId = line.id">
+                        <AppButton size="sm" :disabled="isLocked || line.id === currentLineId" :data-testid="`page-record-${line.id}`" @click="selectLine(line.id)">
                             <AppIcon name="mic" :size="18" />{{ t('scanView.recordLine') }}
                         </AppButton>
                         <AppButton variant="secondary" size="sm" :disabled="isLocked || !lineHasVoice(line.id)" @click="listenLine(line.id)">
@@ -66,7 +67,7 @@
             v-if="currentLine"
             class="stage"
             :class="{ 'stage--prompter': isPrompter, 'stage--cue': isCueFlashing }"
-            :style="{ background: activeHex }"
+            :style="{ '--voice-color': activeHex }"
             :aria-label="t('studio.prompter')"
         >
             <div class="stage__bar row row--wrap">
@@ -97,6 +98,11 @@
                 </AppButton>
             </div>
             <div class="stage__script stack">
+                <div class="stage__identity row row--wrap">
+                    <AppAvatar :member="activeMember" :size="44" />
+                    <strong>{{ currentLine.character || t('studio.narrator') }}</strong>
+                    <span>{{ activeMember?.name }}</span>
+                </div>
                 <div class="label">{{ t('studio.lineCounter', { character: currentLine.character || t('studio.narrator'), index: currentIndex + 1, total: memberLines.length }) }}</div>
                 <div v-if="currentPanelNumber" class="badge" data-testid="current-panel">{{ t('studio.panelLine', { n: currentPanelNumber }) }}</div>
                 <p class="stage__text" data-testid="teleprompter-text">{{ lineText(currentLine) }}</p>
@@ -169,13 +175,13 @@
         </section>
         <div v-if="memberLines.length > 0" class="stack">
             <button
-                v-for="line in memberLines"
+                v-for="line in memberLines.filter(item => item.pageIndex === viewPageIndex)"
                 :key="line.id"
                 type="button"
                 class="card card--tap row"
                 :disabled="isLocked"
                 :style="{ background: line.id === currentLineId ? 'var(--bg)' : 'var(--paper)', color: 'var(--ink)' }"
-                @click="currentLineId = line.id"
+                @click="selectLine(line.id)"
             >
                 <span class="dot dot--mark" aria-hidden="true" :style="{ background: hasVoice(line, language) ? activeHex : 'var(--paper)', color: hasVoice(line, language) ? 'var(--on-accent)' : 'var(--ink)' }">{{ hasVoice(line, language) ? '✓' : '' }}</span>
                 <span class="grow">{{ lineText(line) }}</span>
@@ -261,7 +267,7 @@ const languageOptions = computed(() => {
     return options.length > 0 ? options : LANGUAGES
 })
 
-const isPageViewOpen = ref(false)
+const isPageViewOpen = ref(true)
 const viewPageIndex = ref(0)
 
 const isRestricted = computed(() => current.value?.role === 'relative')
@@ -383,9 +389,23 @@ const pageView = computed(() => (book.value ? buildBookPageView(book.value, view
 
 const lineHasVoice = (lineId: string): boolean => recordingOf(lineId, language.value) !== null && hasVoice(book.value!.lines.find(line => line.id === lineId)!, language.value)
 
+const selectLine = (lineId: string): void => {
+    if (isLocked.value || !memberLines.value.some(line => line.id === lineId)) {
+        return
+    }
+    player.stop()
+    currentLineId.value = lineId
+}
+
 const goPage = (step: number): void => {
+    if (isLocked.value) {
+        return
+    }
+    player.stop()
     const last = Math.max(0, (book.value?.pages.length ?? 1) - 1)
     viewPageIndex.value = Math.min(last, Math.max(0, viewPageIndex.value + step))
+    const pageLines = memberLines.value.filter(line => line.pageIndex === viewPageIndex.value)
+    currentLineId.value = (pageLines.find(line => !hasVoice(line, language.value)) ?? pageLines[0])?.id ?? null
 }
 
 const listenLine = async (lineId: string): Promise<void> => {
@@ -670,6 +690,29 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.studio {
+    gap: 24px;
+}
+
+.studio__meta {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+}
+
+.stage__identity {
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--grey-line);
+}
+
+.stage__identity span {
+    color: var(--ink-soft);
+}
+
+.stage--prompter .stage__identity span {
+    color: var(--on-accent);
+}
+
 @media (min-width: 1100px) {
     .studio {
         max-width: 960px;
@@ -706,12 +749,14 @@ onMounted(async () => {
 }
 
 .stage {
-    border: 3px solid var(--ink);
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    padding: 16px;
+    border: 3px solid var(--voice-color, var(--ink));
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    padding: 20px;
     display: grid;
-    gap: 14px;
+    gap: 20px;
+    background: var(--paper);
+    color: var(--ink);
 }
 
 .stage__text {
@@ -734,9 +779,10 @@ onMounted(async () => {
 .hint {
     font-weight: 700;
     font-size: 0.875rem;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    padding: 6px 10px;
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: 16px;
+    padding: 12px 16px;
 }
 
 .stage--cue {
@@ -745,6 +791,8 @@ onMounted(async () => {
 }
 
 .stage--prompter {
+    background: var(--voice-color);
+    color: var(--on-accent);
     position: fixed;
     inset: 0;
     z-index: 100;
@@ -805,7 +853,7 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--paper);
+    color: var(--on-accent);
 }
 
 .rec:disabled {

@@ -102,3 +102,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-19 : #159 : l’accueil réel abandonne les grandes tuiles de compteurs au profit des tâches et couvertures. Les raccourcis de statut restent compacts. RelativeHomeFeed et RelativeTaskList partagent useRelativeTasks ; useFamilyNavigation sélectionne la bonne famille avant d’ouvrir une tâche. Les cartes enfant affichent leur famille ; aucun destinataire ni quota fictif ajouté.
 
 - [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.
+
+- [x] 2026-10-19 : #157 studio réel : page/scans et personnages visibles par défaut, carte de prise lisible, identité de la voix, sélection/navigation par page avec verrou pendant l’enregistrement ou une prise non envoyée. Préécoute/envoi/annulation/TTS existants conservés. Lint, typage et build réussis ; aucun E2E lancé.
