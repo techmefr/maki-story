@@ -92,3 +92,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-19 : #158 revue parent réelle regroupée par pages, résumé/progression visibles, écoute et décisions approuver/refaire accessibles sur chaque réplique. Différences, commentaires, langues et gardes de validation conservés. Lint, typage et build réussis ; aucun E2E exécuté.
 
 - [x] 2026-10-19 : Compte : connexion responsive avec identité Maki et formulaire encadré ; consentement légal sticky avec hauteur bornée. Périmètre visuel vérifié par lint/typage/build. Authentification Supabase reste ouverte dans #193 et #145 ; aucun E2E.
+
+- [x] 2026-10-19 : #148 famille/invitations : choix en grille adaptative, cartes souples et actions de gestion groupées. Création, invitation, jonction et profil proche existants conservés. Gardes serveur relues : refus de suppression de son profil et maintien du dernier parent.

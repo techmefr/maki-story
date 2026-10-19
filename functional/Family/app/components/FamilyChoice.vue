@@ -29,6 +29,18 @@ onMounted(load)
 </script>
 
 <style scoped>
+.choice {
+    gap: 24px;
+}
+
+@media (min-width: 1100px) {
+    .choice .choice__list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+}
+
 .choice__intro {
     margin: 0;
     color: var(--ink-soft);
@@ -47,7 +59,8 @@ onMounted(load)
 .choice__card {
     display: flex;
     align-items: center;
-    gap: 14px;
+    flex-wrap: wrap;
+    gap: 16px;
     width: 100%;
     min-height: var(--tap);
     padding: 14px;
