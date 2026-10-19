@@ -6,7 +6,8 @@
             <p class="login__tagline">{{ t('auth.login.tagline') }}</p>
             <MakiScene pose="heartBook" :size="200" class="login__mascot" />
         </header>
-        <section v-if="isSent" class="stack center" role="status">
+        <section v-if="isSent" class="stack center login__sent" role="status">
+            <MakiScene pose="heartBook" :size="144" />
             <h2 class="subtitle">{{ t('auth.login.sentTitle') }}</h2>
             <p class="muted">{{ t('auth.login.sentText', { email }) }}</p>
             <AppButton variant="secondary" icon="chevron-left" @click="isSent = false">{{ t('auth.login.changeEmail') }}</AppButton>
@@ -158,6 +159,7 @@ const submit = async (): Promise<void> => {
     }
 }
 
+.login__sent,
 .login__form {
     width: 100%;
     min-width: 0;
