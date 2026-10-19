@@ -90,3 +90,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-19 : #157 studio réel : page/scans et personnages visibles par défaut, carte de prise lisible, identité de la voix, sélection/navigation par page avec verrou pendant l’enregistrement ou une prise non envoyée. Préécoute/envoi/annulation/TTS existants conservés. Lint, typage et build réussis ; aucun E2E lancé.
 
 - [x] 2026-10-19 : #158 revue parent réelle regroupée par pages, résumé/progression visibles, écoute et décisions approuver/refaire accessibles sur chaque réplique. Différences, commentaires, langues et gardes de validation conservés. Lint, typage et build réussis ; aucun E2E exécuté.
+
+- [x] 2026-10-19 : Compte : connexion responsive avec identité Maki et formulaire encadré ; consentement légal sticky avec hauteur bornée. Périmètre visuel vérifié par lint/typage/build. Authentification Supabase reste ouverte dans #193 et #145 ; aucun E2E.
