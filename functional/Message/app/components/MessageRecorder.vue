@@ -52,6 +52,9 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 }
 
 .rec {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,12 +127,14 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 
 .rec__done {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     width: 100%;
 }
 
 .rec__done > * {
-    flex: 1;
+    flex: 1 1 160px;
+    min-width: 0;
 }
 
 @keyframes rec-blob {

@@ -34,6 +34,9 @@ const { t } = useI18n()
 
 <style scoped>
 .recipients {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     gap: 10px;
     overflow-x: auto;

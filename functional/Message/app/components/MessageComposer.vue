@@ -282,6 +282,9 @@ watch(
 }
 
 .composer {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -289,13 +292,16 @@ watch(
 }
 
 .composer__head {
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .composer__title {
+    min-width: 0;
     flex: 1;
+    overflow-wrap: anywhere;
     font-size: min(1.875rem, 9vw);
 }
 

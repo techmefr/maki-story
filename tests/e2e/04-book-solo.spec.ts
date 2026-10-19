@@ -10,7 +10,7 @@ test.describe('single voice book', () => {
         await login(page)
         await chooseProfile(page, mamie)
         await expect(page).toHaveURL(/\/home/)
-        await page.getByRole('link', { name: 'Proposer un livre' }).click()
+        await page.getByTestId('home-card-new-book').click()
         await expect(page.getByRole('heading', { name: 'Le livre' })).toBeVisible()
         await page.getByLabel('Titre du livre').fill(`Le caméléon ${project}`)
         await toPages(page)

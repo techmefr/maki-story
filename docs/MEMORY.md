@@ -94,3 +94,7 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-16 : consigne finale utilisateur : terminer adultes puis enfants en autonomie, tout sur dev, un push final regroupé et une seule PR #191 vers main pour limiter les déploiements. Maquettes enfants et adaptations des vrais écrans ajoutées ; suivi #192. Handoff commun : docs/ADULT-HANDOFF.md.
 
 - 2026-10-18 : ordre utilisateur : accès, puis adultes, puis enfants avec la nouvelle DA. Par tâche vérifiée : push sur dev puis clôture ; un seul passage sur main en fin de lot. Audit #146 : codeLength n'est pas stocké, la longueur variable est confirmée par l'utilisateur et validée serveur (4–8 chiffres / 4–6 formes). Les tests couvrent toutes les limites, le sel et le hachage ; aucune colonne supplémentaire nécessaire. Suivi : docs/ACCESS-HANDOFF.md.
+
+- 2026-10-19 : ordre utilisateur actuel : corrections CI, adultes, écrans communs, enfants. Aucune exécution E2E ; aucune modification, PR ou fusion vers main pendant ce lot. Travail et clôtures par tâche sur dev ; publication regroupée ultérieure. Correction CI suivie dans https://github.com/techmefr/maki-story/issues/195.
+
+- [x] 2026-10-19 : #195 corrections des régressions consignées par la CI (sélecteur de création, largeur du composeur et retour à la ligne des actions). Lint, typage et build réussis. Aucun E2E exécuté sur consigne utilisateur ; leur confirmation reste différée, la CI distante historique n’est pas déclarée verte.
