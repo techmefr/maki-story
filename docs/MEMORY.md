@@ -92,3 +92,81 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - 2026-10-16 : premier lot visuel adulte intégré aux écrans réels : accueil, navigation latérale et cartes adultes, bibliothèque, studio sur ordinateur, groupes famille. La classe `shell--adult` limite les règles du layout aux adultes ; aucune règle serveur modifiée. Reprise et vérifications : `docs/ADULT-HANDOFF.md`, issue #189.
 
 - 2026-10-16 : consigne finale utilisateur : terminer adultes puis enfants en autonomie, tout sur dev, un push final regroupé et une seule PR #191 vers main pour limiter les déploiements. Maquettes enfants et adaptations des vrais écrans ajoutées ; suivi #192. Handoff commun : docs/ADULT-HANDOFF.md.
+
+- 2026-10-18 : ordre utilisateur : accès, puis adultes, puis enfants avec la nouvelle DA. Par tâche vérifiée : push sur dev puis clôture ; un seul passage sur main en fin de lot. Audit #146 : codeLength n'est pas stocké, la longueur variable est confirmée par l'utilisateur et validée serveur (4–8 chiffres / 4–6 formes). Les tests couvrent toutes les limites, le sel et le hachage ; aucune colonne supplémentaire nécessaire. Suivi : docs/ACCESS-HANDOFF.md.
+
+- 2026-10-19 : ordre utilisateur actuel : corrections CI, adultes, écrans communs, enfants. Aucune exécution E2E ; aucune modification, PR ou fusion vers main pendant ce lot. Travail et clôtures par tâche sur dev ; publication regroupée ultérieure. Correction CI suivie dans https://github.com/techmefr/maki-story/issues/195.
+
+- [x] 2026-10-19 : #195 corrections des régressions consignées par la CI (sélecteur de création, largeur du composeur et retour à la ligne des actions). Lint, typage et build réussis. Aucun E2E exécuté sur consigne utilisateur ; leur confirmation reste différée, la CI distante historique n’est pas déclarée verte.
+
+- 2026-10-19 : #159 : l’accueil réel abandonne les grandes tuiles de compteurs au profit des tâches et couvertures. Les raccourcis de statut restent compacts. RelativeHomeFeed et RelativeTaskList partagent useRelativeTasks ; useFamilyNavigation sélectionne la bonne famille avant d’ouvrir une tâche. Les cartes enfant affichent leur famille ; aucun destinataire ni quota fictif ajouté.
+
+- [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.
+
+- [x] 2026-10-19 : #157 studio réel : page/scans et personnages visibles par défaut, carte de prise lisible, identité de la voix, sélection/navigation par page avec verrou pendant l’enregistrement ou une prise non envoyée. Préécoute/envoi/annulation/TTS existants conservés. Lint, typage et build réussis ; aucun E2E lancé.
+
+- [x] 2026-10-19 : #158 revue parent réelle regroupée par pages, résumé/progression visibles, écoute et décisions approuver/refaire accessibles sur chaque réplique. Différences, commentaires, langues et gardes de validation conservés. Lint, typage et build réussis ; aucun E2E exécuté.
+
+
+## Reprise du 2026-10-19 — état après écrans communs
+
+Consigne utilisateur prioritaire : aucun E2E, travail uniquement sur dev. Aucune PR, fusion ou publication vers main ; une seule publication groupée sera décidée à la fin. Ne pas relancer la CI E2E historique.
+
+Adultes : #155–159 terminées et fermées sur dev. Corrections CI #195 appliquées, sans confirmation E2E. Famille #148, verrouillage #149 et aide/erreurs #161 terminés et fermés sur dev ; lint, typage et build réussis en copie isolée (/tmp/maki-current-verification-path). Horaires : 8 tests unitaires réussis, passage à minuit et fuseau conservé.
+
+Reste du lot commun : #145 reste ouverte avec migration Auth #193 ; #147 profils à finaliser/auditer ; #160 notifications/digest à vérifier ; #162 pages auxiliaires ; puis enfants #150/#152/#153/#154, responsive #163 et audit final #165. Natif #164 et domaine/mails #194 ont leurs dépendances externes documentées. La correction visuelle des mails seule ne clôture pas #160.
+
+Préserver les éléments non suivis préexistants .claude/ et .github/workflows/migrate.yml. Ne pas annoncer tous les écrans finis à partir des seuls prototypes.
+
+
+## Reprise après le lot commun — 2026-10-19
+
+Les écrans communs sont livrés sur dev : #145 (00b2180), #147 (ac6734a), #162 (efcf24c), #160 (6c18d19), issues fermées. Les clôtures et commentaires précisent la portée : sept écrans Account avec le backend actuel ; Supabase #193 et domaine/expéditeur #194 restent séparés et ouverts. #148/#149/#161 avaient déjà été fermées.
+
+Vérification autorisée : lint, typage, i18n (2078 clés), documentation des routes, audit design, 65 tests unitaires et build réussis dans la copie isolée. Aucun E2E, aucun fournisseur réel appelé, aucune publication main. main reste 614ada34900a0aec4449db5cfb971bbc06550baa.
+
+Notifications : route déplacée vers app/pages/notifications/index.vue, réglages /notifications/settings. IN_APP est maintenant exposé et filtre la liste et le compteur ; le texte Web Push garde son canal indépendant. Le digest manquant a été implémenté avec réservation unique par compte/jour UTC avant appel réseau, préférences et appartenances relues, rétention et groupement. Cron Vercel protégé par CRON_SECRET et tâche Nitro à 07:00 UTC ; activation fournisseur et secret à configurer lors de la publication future. Une erreur fournisseur ne provoque pas de deuxième tentative le même jour ; événements en attente repris le lendemain. Cette stratégie privilégie l’absence de doublon quotidien à la livraison garantie en cas de résultat réseau ambigu.
+
+Prochaine partie fonctionnelle : enfants #150/#152/#153/#154. Restent aussi adaptation globale #163, vérification finale #165, builds/poids #164 et chantiers externes #193/#194. Les idées/épopées ouvertes ne sont pas des écrans communs inachevés. La demande courante ne demandait que de terminer les communs puis faire le point ; aucun nouveau travail enfant n’a été engagé.
+
+## Reprise enfant — 2026-10-19
+
+Direction validée par Gaëtan : reprendre le splashscreen pour les enfants uniquement, bois/feuillage/doré/Maki 3D. Les premières propositions forestières ne sont plus la référence. Fond final public/art/child/storybook-world.jpg ; style app/assets/css/child-world.css. Accueil, contacts, bibliothèque, coffre, écoute, messages et verrouillage partagent cette direction. Aucune dépendance ajoutée.
+
+Écoute : le vrai livre est entre les mains de l'enfant. Ne pas réintroduire photo de page, couverture ou texte de réplique. ChildReadingPage affiche AppAvatar du vrai membre et son nom seul, couleur autour du portrait. ChildReader limite le titre à deux lignes et éclaire le bouton suivant en phase page, après le ding ; halo statique compatible réduction du mouvement. NightCountdown réutilise la date serveur et les trente dernières minutes, dans le flux pour ne pas recouvrir les commandes ; pose anxious déjà disponible (Maki regarde sa montre). Minuterie personnelle conservée. En paysage court, portrait et commandes côte à côte.
+
+71 tests unitaires réussis, lint, typage, i18n 2079 clés, audit design et build réussis dans /tmp/maki-child-final-check (les fichiers .nuxt du dépôt sont non inscriptibles). Captures de démonstration dans /home/gaetan/artifacts/maki-child-2026-10-19 : téléphone, tablette, ordinateur, TV FullHD/4K, téléphone paysage. Aucun test E2E exécuté. Un aperçu isolé /tmp/maki-child-visual-preview port4017 utilise des fixtures : les portraits à initiales des captures ne sont pas des photos de production. Pas de validation matérielle TV/native ni d'intégration PostgreSQL, base localhost:5544 indisponible. #163/#164/#165 restent ouverts.
+
+Correctifs fonctionnels en cours #150/#152 : conversation isolée par expéditeur/destinataire, protections doubles envois, coffre privé par adulte et géré par parent pour enfant, sérialisation de première écoute et sauvegarde au coffre, expiration supprimée au coffre, suppression du favori sans réintroduire un sixième message actif. Unités 71 vertes mais concurrence SQL non exécutée : garder #150/#152 ouverts.
+
+Tout sur dev. Ne pas lancer les E2E. Aucun passage sur main, qui reste 614ada34900a0aec4449db5cfb971bbc06550baa. Préserver .claude/ et .github/workflows/migrate.yml non suivis préexistants.
+
+## Fin du lot — reprise 2026-10-19
+
+Instruction utilisateur : terminer les points restants, toujours sur dev, sans E2E et sans main. Domaine/e-mails #194 explicitement reportés. Exigence nouvelle : fonctionner avec et sans services Google. Déclarations natives micro/caméra et transport HTTP Capacitor explicitement autorisés dans la session.
+
+Livré : plateformes natives Android/iOS versionnées, workflow Native build limité à dev sans E2E. Première exécution 39255735493 réussie : Android assembleDebug et absence de dépendances runtime GMS/Firebase, iOS xcodebuild simulateur sans signature, PWA générée. Notifications premier plan indépendantes du push ; push absent/refusé ne bloque pas. Pas de garantie de notification système en arrière-plan sur appareil sans fournisseur push. Compilation ne signifie pas validation matérielle.
+
+Règles messages/coffre vérifiées par tests/integration/message-vault.test.ts sur une base jetable locale, 12 connexions : quotas 5 et 10, dans les deux rôles. Le comptage de production exclut maintenant les messages expirés avant purge. Upload : migration 0069 conserve le résultat de finalisation jusqu'à expiration de session ; retransmissions/concurrence renvoient le même fichier. Test d'intégration utilise completeUpload de production.
+
+Audit : docs/FINAL-SCREEN-AUDIT.md et docs/adaptatif.md. Captures réelles avec fixtures dans /home/gaetan/artifacts/maki-final-audit-2026-10-19 ; 192 captures + 32 enfant reprises + 33 sombre/arabe + huit alerte nuit. Premier lot erroné redirigé vers profils écarté. Titres longs et paysage avec alerte corrigés, cibles PIN >=44 px, éléments inertes/masqués/désactivés exclus du focus spatial. Source seule distinguée des captures de tous les états ; aucun parcours E2E.
+
+Poids : audio Opus 24 kbit/s, contrainte de capture 16 kHz, repli AAC/MP4 pour WebKit sans Opus ; taux effectif à vérifier sur matériel. Images 1200 px avec WebP/JPEG, repli Image.decode. Cache de démarrage versionné en post-build/generate par scripts/prepare-offline.ts ; manifeste choisi dans node_modules/.cache/nuxt/.nuxt en premier, car .nuxt racine peut être un ancien manifeste dev. Sélection de 101 assets / 544428 octets bruts dans le build contrôlé. Hors ligne télécharge toutes les voix/traductions du livre, pas les scans côté enfant.
+
+Supabase #193 : projet existant Maki Story kebfzacaiqkjxcvhhvsp, Paris, ACTIVE_HEALTHY, accès CLI confirmé sans afficher de clés. Nouveau SDK officiel @supabase/supabase-js, plus plateformes @capacitor/android et @capacitor/ios 8.5.2. AUTH_PROVIDER=legacy par défaut ; supabase ne s'active qu'avec réglage et clés privées serveur. Migration 0068 ajoute accounts.supabase_user_id unique ; première connexion valide le hash local avant création distante puis conserve accounts.id et les relations. Après rattachement, pas de repli local en cas de mauvais mot de passe distant. Métadonnée administrateur maki_account_id empêche une récupération vers un autre compte. Session SDK non persistée, aucun jeton renvoyé au client ; sessions de l'app et liens magiques/code reset restent locaux. Configuration supabase/config.toml non appliquée au distant.
+
+IMPORTANT : #193 n'est PAS terminé ni activé. Suppression distante des identités après suppression confirmée du compte : le contrôle automatique a refusé l'ajout faute d'accord explicite ; ce code n'a pas été ajouté. Question d'approbation envoyée et encore sans réponse. Ne pas contourner cette décision. Restent cycle de suppression, validation réelle du fournisseur et du cycle social avant activation. Ne pas clôturer #193 sur la base du seul test SDK simulé.
+
+Tous les contrôles autorisés sont à relire dans /tmp/maki-final-verify.log, /tmp/maki-final-integration.log et /tmp/maki-final-build.log. Le premier post-build offline a échoué car le build serveur ne crée pas index.html ; corrigé en utilisant le manifeste de production avec test de fermeture des dépendances. Nouveau build et dernier push à confirmer.
+
+Préserver .claude/ et .github/workflows/migrate.yml non suivis préexistants, ainsi que l'ancien public/art/child/forest-world.jpg non utilisé. Aucun changement sur main ni PR de publication.
+
+Vérification finale corrigée : pnpm verify réussi (lint, typage, i18n, docs, design, 76 unités, 49 migrations aller-retour), test PostgreSQL d'intégration réussi et pnpm build réussi avec worker hors ligne généré. Aucun E2E.
+
+Livraison confirmée : code e985244 sur origin/dev. Workflow final 39260176371 intégralement réussi (Android sans GMS/Firebase, iOS simulateur, PWA). #150/#152/#163/#164/#165 clôturées avec preuves et limites consignées. #193 reste ouverte et désactivée (cycle de suppression distante en attente d'accord explicite, intégration réelle à finir). #194 reportée à la demande de Gaëtan. main confirmé inchangé à 614ada34900a0aec4449db5cfb971bbc06550baa. Ne pas ouvrir de PR de publication ni lancer d'E2E.
+
+
+## 2026-10-19 — autorisation et fin du cycle de suppression Auth
+Gaëtan a explicitement autorisé : « oui il faut supprimer s’ils demandent de supprimer ». Cela remplace l’attente d’accord mentionnée plus haut. Migration 0070 : file transactionnelle des identités des comptes réellement supprimés, aucune suppression pendant les migrations/connexions. Tentative après suppression confirmée, reprise quotidienne protégée par CRON_SECRET ; concurrence, rollback, erreurs distantes et identités actives vérifiés sur PostgreSQL réel. Test distant dédié réussi avec une identité jetable uniquement, ensuite supprimée : création, connexion, rattachement, changement de mot de passe et suppression idempotente. Aucune clé imprimée ou enregistrée dans Git. Fournisseur legacy toujours par défaut ; configuration cloud non appliquée et activation de production restent explicites. OAuth et liens magiques restent les parcours locaux existants, pas une migration de ces parcours dans Supabase. Pas d’E2E ni de modification de main.
+
+Livraison finale confirmée : 6ee2a03 sur origin/dev ; workflow 39263493179 réussi (Android sans GMS/Firebase, iOS simulateur, PWA). #193 clôturée avec critères, preuves et limites d’activation consignés ; #166 clôturée après recoupement des 45 sous-issues #121–#165 toutes fermées. #194 reste reportée ; idées et autres suivis hors lot ouverts. main toujours 614ada34900a0aec4449db5cfb971bbc06550baa. Supabase legacy reste le défaut ; pas d’activation de production, pas de configuration distante appliquée, pas de merge/main ni d’E2E.

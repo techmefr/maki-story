@@ -1,3 +1,4 @@
+import { purgeSupabaseIdentities } from '~~/technical/Auth/server/utils/identity-deletions'
 import { deleteFamilyData } from '~~/server/utils/familyData'
 import { getDb } from '~~/server/utils/db'
 import { DELETE_WORDS } from '~~/shared/utils/legal'
@@ -37,6 +38,11 @@ export default defineEventHandler(async (event): Promise<{ ok: boolean }> => {
     }
     const [account] = await db<{ email: string }[]>`select email from accounts where id = ${actor.accountId}`
     await deleteFamilyData(db, actor.familyId)
+    try {
+        await purgeSupabaseIdentities(db)
+    } catch {
+        console.warn('La suppression distante sera reprise automatiquement')
+    }
     deleteCookie(event, SESSION_COOKIE, { path: '/' })
     if (account) {
         const locale = typeof body.locale === 'string' ? body.locale : null

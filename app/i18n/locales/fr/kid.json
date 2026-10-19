@@ -63,7 +63,8 @@
         "remove": "Retirer ce souvenir",
         "removeTitle": "Retirer ce souvenir ?",
         "removeBody": "Il sera supprimé pour toujours.",
-        "removeConfirm": "Retirer"
+        "removeConfirm": "Retirer",
+        "fullHint": "Retire un cœur avant d’en ajouter un nouveau."
     },
     "quota": "{count}/{max} messages",
     "sendHer": "Lui envoyer un message",

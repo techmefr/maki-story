@@ -6,7 +6,7 @@
         <AppEmpty v-if="children.length === 0" :title="t('lock.noChildTitle')" :hint="t('lock.noChildHint')" />
 
         <template v-else>
-            <div class="row row--wrap" role="tablist" :aria-label="t('lock.children')">
+            <div class="row row--wrap lock__children" role="tablist" :aria-label="t('lock.children')">
                 <AppChip
                     v-for="child in children"
                     :key="child.id"
@@ -156,6 +156,18 @@ onMounted(init)
 </script>
 
 <style scoped>
+.lock {
+    gap: 24px;
+}
+
+.lock__children :deep(.chip) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    min-height: 64px;
+}
+
 .lock__toggle-text {
     display: flex;
     flex-direction: column;

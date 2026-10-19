@@ -26,11 +26,11 @@
                 <div v-if="weekly[day.index]!.isOpen" class="row row--wrap">
                     <label class="stack" style="gap: 4px">
                         <span class="muted">{{ t('parental.schedule.from') }}</span>
-                        <input v-model="weekly[day.index]!.from" class="input" type="time" :data-testid="`day-from-${day.index}`" />
+                        <input v-model="weekly[day.index]!.from" class="input" type="time" step="1800" :data-testid="`day-from-${day.index}`" />
                     </label>
                     <label class="stack" style="gap: 4px">
                         <span class="muted">{{ t('parental.schedule.to') }}</span>
-                        <input v-model="weekly[day.index]!.to" class="input" type="time" :data-testid="`day-to-${day.index}`" />
+                        <input v-model="weekly[day.index]!.to" class="input" type="time" step="1800" :data-testid="`day-to-${day.index}`" />
                     </label>
                 </div>
                 <p v-else class="muted">{{ t('parental.schedule.dayOff') }}</p>
@@ -93,7 +93,7 @@ const run = async (action: () => Promise<void>): Promise<void> => {
     }
 }
 
-const save = (): Promise<void> => run(() => saveSchedule(memberId, { isEnabled: isEnabled.value, weekly: weekly.value, timezone: deviceTimezone() }))
+const save = (): Promise<void> => run(() => saveSchedule(memberId, { isEnabled: isEnabled.value, weekly: weekly.value, timezone: schedule.value?.timezone ?? deviceTimezone() }))
 
 const blockNow = (): Promise<void> => run(() => block(memberId, { mode: 'now' }))
 
@@ -114,6 +114,12 @@ onMounted(refresh)
 
 <style scoped>
 .parental {
+    padding: 24px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 28px;
+    background: var(--paper);
+    box-shadow: var(--shadow-lg);
+    gap: 20px;
     font-size: 1rem;
     overflow-wrap: anywhere;
 }

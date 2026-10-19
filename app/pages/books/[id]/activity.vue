@@ -1,7 +1,7 @@
 <template>
     <div class="stack narrow">
         <NuxtLink :to="`/books/${bookId}/review`" class="muted">{{ t('review.activityPage.back') }}</NuxtLink>
-        <h1 class="title">{{ t('review.activity') }}</h1>
+        <AppPageIntro icon="redo" tone="violet" :title="t('review.activity')" />
         <p v-if="!isLoaded" class="muted">{{ t('common.loading') }}</p>
         <template v-else>
             <p class="subtitle" data-testid="activity-summary">{{ summary }}</p>

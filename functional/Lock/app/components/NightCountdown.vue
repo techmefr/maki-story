@@ -1,8 +1,9 @@
 <template>
-    <p v-if="minutes !== null" class="night-countdown" role="status" data-testid="night-countdown">
-        <AppIcon name="moon" :size="20" aria-hidden="true" />
-        {{ t('accessControls.countdown', { minutes }) }}
-    </p>
+    <div v-if="minutes !== null" class="night-countdown" role="status" data-testid="night-countdown">
+        <MakiScene pose="anxious" :size="64" />
+        <span>
+        {{ t('accessControls.countdown', { minutes }) }}</span>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -34,8 +35,8 @@ onBeforeUnmount(() => clearInterval(timer))
 
 <style scoped>
 .night-countdown {
-    position: fixed;
-    inset-block-start: 12px;
+    position: relative;
+    flex-shrink: 0;
     inset-inline: 0;
     margin-inline: auto;
     width: fit-content;
@@ -45,7 +46,7 @@ onBeforeUnmount(() => clearInterval(timer))
     gap: 8px;
     padding: 6px 14px;
     border: var(--outline) solid var(--ink);
-    border-radius: 999px;
+    border-radius: 24px;
     background: var(--paper);
     color: var(--ink);
     box-shadow: var(--shadow);

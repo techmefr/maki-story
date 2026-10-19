@@ -11,11 +11,13 @@ export default defineEventHandler(async (event): Promise<INotificationList> => {
         select id, kind, payload, count, read_at is not null as is_read, created_at, updated_at
         from notifications
         where family_id = ${actor.familyId} and (recipient_member_id = ${actor.memberId} or (recipient_member_id is null and ${isParent}))
+        and not exists (select 1 from notification_preferences pref where pref.member_id = ${actor.memberId} and pref.kind = notifications.kind and pref.channel = 'IN_APP' and not pref.is_enabled)
         order by updated_at desc limit ${MAX_NOTIFICATIONS}
     `
     const [unread] = await db<{ count: number }[]>`
         select count(*)::int as count from notifications
         where family_id = ${actor.familyId} and read_at is null and (recipient_member_id = ${actor.memberId} or (recipient_member_id is null and ${isParent}))
+        and not exists (select 1 from notification_preferences pref where pref.member_id = ${actor.memberId} and pref.kind = notifications.kind and pref.channel = 'IN_APP' and not pref.is_enabled)
     `
     return { items, unreadCount: unread?.count ?? 0 }
 })

@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && node --experimental-strip-types scripts/prepare-offline.ts",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "nuxt generate && node --experimental-strip-types scripts/prepare-offline.ts",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "cap:sync": "nuxt generate && cap sync",
@@ -21,11 +21,15 @@
     "audit:design": "node --experimental-strip-types scripts/design-audit.ts",
     "check:migrations": "node --experimental-strip-types scripts/check-migrations.ts",
     "verify": "pnpm lint && pnpm typecheck && pnpm i18n:check && pnpm check:docs && pnpm audit:design && pnpm test:unit && pnpm check:migrations",
-    "prepare": "git config core.hooksPath .githooks || true"
+    "prepare": "git config core.hooksPath .githooks || true",
+    "test:integration": "node --experimental-strip-types --test tests/integration/*.test.ts"
   },
   "dependencies": {
     "@capacitor-community/text-to-speech": "^8.0.2",
+    "@capacitor/android": "8.5.2",
     "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "8.5.2",
+    "@supabase/supabase-js": "^2.118.0",
     "driver.js": "^1.9.0",
     "lucide-vue-next": "^1.0.0",
     "nuxt": "^4.5.2",

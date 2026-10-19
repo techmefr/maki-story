@@ -9,4 +9,4 @@ export const NOTIFICATION_KINDS: NotificationKind[] = [
     'birthday_reminder',
 ]
 
-export const PREFERENCE_CHANNELS: NotificationChannel[] = ['PUSH', 'EMAIL']
+export const PREFERENCE_CHANNELS: NotificationChannel[] = ['IN_APP', 'PUSH', 'EMAIL']

@@ -1,27 +1,27 @@
 <template>
     <div class="stack kid-home">
-        <section class="kid-home__welcome" aria-labelledby="kid-home-title">
-            <div class="stack">
-                <h1 id="kid-home-title" class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
-                <p v-if="faces.length > 0" class="kid-home__hint">{{ t('kid.pickHint') }}</p>
+        <header class="kid-home__welcome">
+            <div class="kid-home__greeting stack">
+            <h1 id="kid-home-title" class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
+            <p v-if="faces.length > 0" class="kid-home__hint">{{ t('kid.pickHint') }}</p>
             </div>
-            <MakiScene pose="hello" :size="144" />
-        </section>
+            <MakiScene pose="hello" :size="136" class="kid-home__maki" />
+        </header>
         <div class="faces">
             <div v-for="(face, index) in faces" :key="face.member.id" class="face pop-in" :style="{ '--i': index }">
                 <NuxtLink :to="face.target" class="face__link" :aria-label="face.label" :data-ring="face.ring">
                     <span class="face__ring" :class="`face__ring--${face.ring}`" :style="{ '--ring': face.hex }">
-                        <AppAvatar :member="face.member" :size="104" />
+                        <AppAvatar :member="face.member" :size="128" />
                     </span>
                     <span class="subtitle">{{ face.member.name }}</span>
                     <span class="face__quota">{{ t('kid.quota', { count: formatNumber(face.count), max: formatNumber(MESSAGE_MAX_ACTIVE) }) }}</span>
                 </NuxtLink>
                 <MessageBubbleLink
-                    v-if="face.message && face.count > 0"
+                    v-if="face.message && face.unread > 0"
                     variant="kid"
                     :message-id="face.message.id"
                     :kind="face.message.kind"
-                    :count="face.count"
+                    :count="face.unread"
                     :name="face.member.name"
                     :color="face.hex"
                 />
@@ -39,18 +39,21 @@ const { t, formatNumber } = useI18n()
 const { current, currentId } = useCurrentMember()
 const { grownUps, load: loadMembers } = useMembers()
 const { request } = useApi()
+const { quotaFrom } = useMessageQuota()
 const { load, startPolling, stopPolling, playableFrom, unreadFrom } = useMessages()
 
 const faces = computed(() =>
     grownUps.value.map(member => {
         const message = currentId.value ? playableFrom(member.id, currentId.value) : null
-        const count = currentId.value ? unreadFrom(member.id, currentId.value) : 0
+        const unread = currentId.value ? unreadFrom(member.id, currentId.value) : 0
+        const count = quotaFrom(member.id).count
         return {
         member,
         hex: memberHex(member),
         message,
         count,
-        ring: message ? (count > 0 ? 'unheard' : 'heard') : 'none',
+        unread,
+        ring: message ? (unread > 0 ? 'unheard' : 'heard') : 'none',
         target: `/kid/${member.id}`,
         label: message ? t('homeCards.bubbleLabel', { name: member.name, count }) : member.name,
         }
@@ -93,33 +96,20 @@ onBeforeUnmount(stopPolling)
 }
 
 .kid-home__welcome {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 16px;
-    padding: 20px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 28px;
-    background: var(--sky);
-    color: var(--on-accent);
-    box-shadow: var(--shadow);
+    gap: 12px;
 }
 
 .kid-home__hint {
     margin: 0;
+    color: var(--ink-soft);
     font-size: 1.125rem;
-}
-
-@media (max-width: 599px) {
-    .kid-home__welcome :deep(.scene) {
-        width: 88px;
-    }
+    line-height: 1.4;
 }
 
 .face__ring {
     display: inline-flex;
-    padding: 6px;
-    border: 5px solid transparent;
+    padding: 4px;
+    border: 4px solid transparent;
     border-radius: 50%;
 }
 
@@ -196,11 +186,8 @@ onBeforeUnmount(stopPolling)
     gap: 12px;
     width: 100%;
     min-width: 0;
-    padding: 20px 12px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 28px;
-    background: var(--paper);
-    box-shadow: var(--shadow);
+    padding: 8px 4px;
+    border-radius: 24px;
     color: inherit;
     text-decoration: none;
     max-width: 100%;

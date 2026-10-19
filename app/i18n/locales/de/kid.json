@@ -63,7 +63,8 @@
         "remove": "Diese Erinnerung entfernen",
         "removeTitle": "Diese Erinnerung entfernen?",
         "removeBody": "Sie wird für immer gelöscht.",
-        "removeConfirm": "Entfernen"
+        "removeConfirm": "Entfernen",
+        "fullHint": "Entferne ein Herz, bevor du ein neues hinzufügst."
     },
     "quota": "{count}/{max} Nachrichten",
     "sendHer": "Nachricht senden",

@@ -1,6 +1,7 @@
+import { verifyAccountPassword } from '~~/technical/Auth/server/utils/account-password'
 import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
-import { DUMMY_HASH, verifyPassword } from '~~/technical/Auth/server/utils/password'
+import { DUMMY_HASH } from '~~/technical/Auth/server/utils/password'
 import { startSession } from '~~/technical/Auth/server/utils/session'
 import { assertNotThrottled, clearFailures, recordFailure } from '~~/technical/Auth/server/utils/throttle'
 import { normalizeEmail } from '~~/server/utils/validate'
@@ -20,7 +21,7 @@ export default defineEventHandler(async (event): Promise<IAuthState> => {
     await assertNotThrottled(event, email)
     const db = getDb()
     const [account] = await db<IAccountRow[]>`select id, password_hash from accounts where lower(email) = ${email}`
-    const isValid = await verifyPassword(password, account?.passwordHash ?? DUMMY_HASH)
+    const isValid = await verifyAccountPassword(account?.id ?? null, email, password, account?.passwordHash ?? DUMMY_HASH)
     const link = account ? await resolveAccountLink(db, account.id) : null
     if (!account || !link || !isValid) {
         await recordFailure(event, email)

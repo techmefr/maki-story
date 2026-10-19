@@ -1523,3 +1523,33 @@ label.row {
     outline: 5px solid var(--ink);
     outline-offset: 5px;
 }
+
+html.tv {
+    font-size: calc(clamp(20px, 1.05vw, 40px) * var(--text-scale));
+    --tap: clamp(72px, 3vw, 120px);
+    --tap-kid: clamp(88px, 3.5vw, 144px);
+}
+
+.tv .kid.shell { padding-inline-start: clamp(128px, 8vw, 300px); }
+.tv .kid .rail { width: clamp(128px, 8vw, 300px); gap: 32px; }
+.tv .kid .rail__item { min-height: var(--tap-kid); padding: 20px 12px; }
+.tv .kid .rail__item .icon { width: 1.5rem; height: 1.5rem; }
+.tv .kid .rail__label { font-size: 0.875rem; }
+.tv .kid .app { max-width: min(88vw, 2400px); padding: 3vh 3vw 6vh; gap: 48px; }
+.tv .kid .faces { gap: 56px 40px; }
+.tv .kid .face__ring .avatar { width: clamp(160px, 8vw, 320px) !important; height: clamp(160px, 8vw, 320px) !important; font-size: clamp(64px, 4vw, 150px) !important; }
+.tv .kid .bubble-link--kid { min-width: 2rem; min-height: 2rem; inset-inline-end: calc(50% - clamp(88px, 4.5vw, 170px)); }
+.tv .kid .bubble-link--kid .bubble-link__count { font-size: 1rem; }
+.tv .kid .grid--books { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.tv .reader { padding: 4vh 5vw; }
+.tv .reader__head, .tv .reader__bottom { max-width: 2400px; }
+.tv .reader .reading-page { max-width: min(84vw, 2400px); gap: 40px; }
+.tv .reader .reading-page__line { font-size: 1.5rem; }
+.tv .reader .btn .icon { width: 1.5em; height: 1.5em; }
+.tv .reader__segment { height: 24px; }
+
+.tv .kid .app { min-height: 94dvh; }
+.tv .kid .kid-home { margin-block: auto; gap: clamp(32px, 3vh, 64px); }
+.tv .kid .header__brand .logo { width: 2.5rem !important; height: 2.5rem !important; }
+.tv .kid .header__gear .icon { width: 1.25rem; height: 1.25rem; }
+.tv .kid .header__me .avatar { width: 2.5rem !important; height: 2.5rem !important; font-size: 1.25rem !important; }

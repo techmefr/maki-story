@@ -1,3 +1,4 @@
+import { canAccessVault } from '~~/shared/utils/vaultAccess'
 import { getDb, one } from '~~/server/utils/db'
 import { actorEntry, record } from '~~/server/utils/journal'
 import { purgeExpiredMessages } from '~~/server/utils/messages'
@@ -33,6 +34,10 @@ export default defineEventHandler(async (event): Promise<ITreasure> => {
     if (!source || (actor.role !== 'parent' && source.toMemberId !== savedBy)) {
         return notFound('Message not found')
     }
+    const [owner] = await db<{ role: MemberRole }[]>`select role from members where id = ${source.toMemberId} and family_id = ${actor.familyId} and deleted_at is null`
+    if (!owner || !canAccessVault(actor.role, savedBy, owner.role, source.toMemberId)) {
+        return notFound('Message not found')
+    }
     const [existing] = await db<ITreasure[]>`
         select id, child_id, source_message_id, from_member_id, file_id, mime, duration_ms, saved_by_member_id, created_at
         from treasures where child_id = ${source.toMemberId} and source_message_id = ${source.id} and deleted_at is null
@@ -42,16 +47,25 @@ export default defineEventHandler(async (event): Promise<ITreasure> => {
     }
     try {
         const saved = await db.begin(async tx => {
+            const [active] = await tx<{ id: string }[]>`
+                select id from messages where id = ${source.id} and family_id = ${actor.familyId} and status = 'ACTIVE' and deleted_at is null
+                    and (expires_at is null or expires_at > now()) for update
+            `
+            if (!active) {
+                return notFound('Message not found')
+            }
             const copy = one(await tx<{ id: string }[]>`
                 insert into files (mime, data, family_id, created_by_member_id)
                 select mime, data, family_id, created_by_member_id from files where id = ${source.fileId} and family_id = ${actor.familyId}
                 returning id
             `)
-            return one(await tx<ITreasure[]>`
+            const memory = one(await tx<ITreasure[]>`
                 insert into treasures (family_id, child_id, source_message_id, from_member_id, file_id, mime, duration_ms, saved_by_member_id)
                 values (${actor.familyId}, ${source.toMemberId}, ${source.id}, ${source.fromMemberId}, ${copy.id}, ${source.mime}, ${source.durationMs}, ${savedBy})
                 returning id, child_id, source_message_id, from_member_id, file_id, mime, duration_ms, saved_by_member_id, created_at
             `)
+            await tx`update messages set expires_at = null where id = ${source.id} and family_id = ${actor.familyId}`
+            return memory
         })
         await record(event, { ...actorEntry(actor), action: 'treasure.saved', entityType: 'treasure', entityId: saved.id, targetMemberId: source.toMemberId })
         return saved

@@ -1,4 +1,5 @@
-import { getDb, one } from '~~/server/utils/db'
+import { completeUpload } from '~~/technical/Upload/server/utils/completeUpload'
+import { getDb } from '~~/server/utils/db'
 import { logEvent } from '~~/server/utils/log'
 import { assertUploadLive, loadUploadSession } from '~~/technical/Upload/server/utils/uploads'
 import { requirePermission } from '~~/technical/Auth/server/utils/permissions'
@@ -16,14 +17,8 @@ export default defineEventHandler(async (event): Promise<{ id: string }> => {
                 data: { offset: session.received, size: session.size },
             })
         }
-        const file = one(await tx<{ id: string }[]>`
-            insert into files (family_id, mime, data, created_by_member_id)
-            select ${familyId}, ${session.mime}, string_agg(data, ''::bytea order by chunk_offset), ${actor.memberId}
-            from upload_chunks where upload_id = ${session.id}
-            returning id
-        `)
-        await tx`delete from upload_sessions where id = ${session.id}`
+        const id = await completeUpload(tx, session.id, familyId, actor.memberId)
         logEvent(`Fichier assemblé (${session.mime}, ${Math.round(session.size / 1024)} Ko)`)
-        return file
+        return { id }
     })
 })

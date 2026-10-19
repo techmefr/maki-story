@@ -84,5 +84,9 @@
         "toFix": "À corriger",
         "toFixHint": "Les prises à refaire",
         "vaultHint": "Les messages des enfants gardés"
+    },
+    "adult": {
+        "greeting": "Bonjour, {name} !",
+        "subtitle": "Des histoires à partager, des voix à retrouver."
     }
 }

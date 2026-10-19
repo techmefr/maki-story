@@ -8,7 +8,8 @@
     "unsupported": "Tsy mahazaka fampandrenesana ity fitaovana ity. Mbola azo ampiasaina ny mailaka.",
     "channels": {
         "PUSH": "Fampandrenesana",
-        "EMAIL": "Mailaka"
+        "EMAIL": "Mailaka",
+        "IN_APP": "Ao amin’ny rindranasa"
     },
     "kinds": {
         "message_received": "Hafatra feo voaray",

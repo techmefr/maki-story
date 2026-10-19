@@ -1,9 +1,13 @@
 <template>
     <div class="stack center narrow login">
-        <AppLogo :size="104" class="anim-float" />
-        <h1 class="title">Maki Story</h1>
-        <p class="muted">{{ t('auth.login.tagline') }}</p>
-        <section v-if="isSent" class="stack center" role="status">
+        <header class="login__brand stack center">
+            <AppLogo :size="104" />
+            <h1 class="title">Maki Story</h1>
+            <p class="login__tagline">{{ t('auth.login.tagline') }}</p>
+            <MakiScene pose="heartBook" :size="200" class="login__mascot" />
+        </header>
+        <section v-if="isSent" class="stack center login__sent" role="status">
+            <MakiScene pose="heartBook" :size="144" />
             <h2 class="subtitle">{{ t('auth.login.sentTitle') }}</h2>
             <p class="muted">{{ t('auth.login.sentText', { email }) }}</p>
             <AppButton variant="secondary" icon="chevron-left" @click="isSent = false">{{ t('auth.login.changeEmail') }}</AppButton>
@@ -120,12 +124,52 @@ const submit = async (): Promise<void> => {
 
 <style scoped>
 .login {
-    margin-top: 4vh;
+    width: 100%;
+    max-width: 960px;
+    margin: 4vh auto 0;
+    gap: 28px;
 }
 
+.login__brand {
+    gap: 20px;
+}
+
+.login__tagline {
+    margin: 0;
+    max-width: 360px;
+    color: var(--ink-soft);
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+
+.login__mascot {
+    display: none;
+}
+
+@media (min-width: 900px) {
+    .login {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: 48px;
+    }
+
+    .login__mascot {
+        display: block;
+    }
+}
+
+.login__sent,
 .login__form {
     width: 100%;
+    min-width: 0;
+    padding: 24px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 32px;
+    background: var(--paper);
+    box-shadow: var(--shadow-lg);
     text-align: start;
+    gap: 20px;
 }
 
 .login__forgot {

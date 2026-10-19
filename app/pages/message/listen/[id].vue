@@ -1,8 +1,8 @@
 <template>
     <div
         class="stack center screen"
-        :class="{ kid: isChild }"
-        :style="sender ? { background: memberHexLight(sender) } : undefined"
+        :class="{ kid: isChild, 'kid-world': isChild }"
+        :style="sender ? { background: memberHex(sender) } : undefined"
         data-testid="message-player"
         @pointerdown="onPointerDown"
         @pointerup="onPointerUp"
@@ -15,9 +15,9 @@
                 <AppBlob :active="isPlaying" :color="memberHex(sender)" :size="200">
                     <AppAvatar :member="sender" :size="200" />
                 </AppBlob>
-                <TreasureHeart v-if="canKeep" :key="message.id" class="focal__heart" :message-id="message.id" :child-id="message.toMemberId" />
             </div>
             <h1 class="focal__name">{{ sender.name }}</h1>
+            <p class="player__position">{{ t('messages.listen.position', { current: formatNumber(position + 1), total: formatNumber(queue.length) }) }}</p>
             <WaveBars v-if="isPlaying" :is-active="isPlaying" color="var(--ink)" />
             <AppButton
                 class="btn--big"
@@ -40,7 +40,7 @@
             >
                 <div class="progress__fill player__fill" :style="{ width: percent }" />
             </div>
-            <div v-if="queue.length > 1" class="row controls">
+            <div class="row controls">
                 <AppButton
                     variant="secondary"
                     is-round
@@ -51,6 +51,7 @@
                 >
                     <AppIcon name="skip-back" :size="24" class="mirror-rtl" />
                 </AppButton>
+                <TreasureHeart v-if="canKeep" :key="message.id" :message-id="message.id" :child-id="message.toMemberId" />
                 <AppButton
                     variant="secondary"
                     is-round
@@ -74,7 +75,7 @@ const SWIPE_DISTANCE_PX = 60
 
 definePageMeta({ layout: 'blank' })
 
-const { t } = useI18n()
+const { t, formatNumber } = useI18n()
 const route = useRoute()
 const { getById, ensureLoaded } = useMembers()
 const { currentId, isChild } = useCurrentMember()
@@ -110,12 +111,7 @@ const mainIcon = computed<IconName>(() => {
     return isPlaying.value ? 'volume' : 'play'
 })
 
-const queue = computed(() => {
-    const target = message.value?.toMemberId
-    return messages.value
-        .filter(item => item.toMemberId === target && isLive(item))
-        .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
-})
+const queue = computed(() => message.value ? messageConversation(messages.value, message.value.fromMemberId, message.value.toMemberId, Date.now()) : [])
 const position = computed(() => queue.value.findIndex(item => item.id === messageId.value))
 const hasPrevious = computed(() => position.value > 0)
 const hasNext = computed(() => position.value >= 0 && position.value < queue.value.length - 1)
@@ -191,6 +187,9 @@ const onPointerUp = async (event: PointerEvent): Promise<void> => {
 }
 
 const onKey = async (event: KeyboardEvent): Promise<void> => {
+    if (event.defaultPrevented) {
+        return
+    }
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
         return
     }
@@ -201,10 +200,6 @@ const onKey = async (event: KeyboardEvent): Promise<void> => {
 
 player.onEnded(async () => {
     isEnded.value = true
-    if (!hasNext.value && isChild.value) {
-        await finish()
-        return
-    }
     if (hasNext.value) {
         await go(1)
     }
@@ -241,10 +236,10 @@ onBeforeUnmount(() => {
     z-index: 40;
     justify-content: safe center;
     overflow-y: auto;
-    padding: 16px;
+    padding: calc(env(safe-area-inset-top) + 88px) 20px calc(env(safe-area-inset-bottom) + 32px);
     touch-action: pan-y;
     background: var(--paper);
-    color: var(--ink);
+    color: var(--on-accent);
 }
 
 .screen__back {
@@ -278,5 +273,18 @@ onBeforeUnmount(() => {
 .controls {
     justify-content: center;
     gap: 16px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.controls > :deep(.btn) {
+    min-width: 64px;
+    min-height: 64px;
+}
+
+.player__position {
+    margin: 0;
+    font: 600 1.125rem/1.3 var(--font-title);
+    text-align: center;
 }
 </style>

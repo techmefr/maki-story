@@ -43,7 +43,11 @@ const isReady = computed(() => hasReadTerms.value && isGuardian.value)
 
 <style scoped>
 .legal {
-    padding-bottom: 220px;
+    max-width: 880px;
+    width: 100%;
+    margin-inline: auto;
+    padding-bottom: 24px;
+    gap: 24px;
 }
 
 .legal__head {
@@ -85,19 +89,22 @@ const isReady = computed(() => hasReadTerms.value && isGuardian.value)
 }
 
 .legal__bar {
-    position: fixed;
-    inset-inline: 0;
-    bottom: 0;
+    position: sticky;
+    bottom: 16px;
+    max-height: 60dvh;
+    overflow-y: auto;
     z-index: 5;
     display: flex;
     justify-content: center;
-    border-top: 3px solid var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
     background: var(--bg);
 }
 
 .legal__bar-inner {
     width: 100%;
-    max-width: 440px;
+    max-width: 100%;
     padding: 12px 20px calc(env(safe-area-inset-bottom) + 16px);
     gap: 10px;
 }

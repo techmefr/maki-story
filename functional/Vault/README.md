@@ -42,3 +42,7 @@ VaultItem (modèle complet dans `docs/ARCHITECTURE.md`).
 ## Validation
 
 - [ ] Relue par Gaëtan
+
+## Retrait d’un souvenir
+
+La confirmation « supprimé pour toujours » retire le souvenir et marque aussi son message source comme supprimé. Le retrait ne réintroduit donc jamais ce message dans la boîte active ni dans le quota de cinq. Un parent gère son propre coffre et ceux des enfants ; le coffre d’un autre adulte reste privé.

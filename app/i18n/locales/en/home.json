@@ -84,5 +84,9 @@
         "toFix": "To fix",
         "toFixHint": "Takes to redo",
         "vaultHint": "Children’s messages kept"
+    },
+    "adult": {
+        "greeting": "Hello, {name}!",
+        "subtitle": "Stories to share, familiar voices to hear."
     }
 }

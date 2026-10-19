@@ -102,3 +102,9 @@ Couleurs, contours, ombres et rayons identiques aux maquettes ; zones tactiles d
 ## À compléter
 
 Vrai logo et favicon, photos de profil, mise en page tablette, ordinateur et Android TV.
+
+## Direction enfant validée le 2026-10-19
+
+L'espace enfant reprend le splashscreen : fond crème, feuillage et bois sculpté, actions dorées, mascotte 3D. Les styles restent sous `.kid-world` et les tokens enfant ; les écrans adultes conservent leur direction. Référence : maquettes coffre, bibliothèque et écoute validées dans la session, puis ajustements pour livre papier.
+
+L'écoute accompagne un livre physique : aucune image de page ni réplique affichée. Photo réelle et nom seul de la personne qui parle, couleur de voix autour du portrait. Titre sur deux lignes au maximum puis ellipse. Au ding de fin de page, le bouton suivant garde un halo doré jusqu'à l'action, sans clignotement. L'alerte existante des trente dernières minutes montre Maki regardant sa montre. Portrait et paysage changent la disposition, les commandes passent à côté du portrait sur téléphone paysage ; pas de verrouillage d'orientation.

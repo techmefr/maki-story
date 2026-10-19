@@ -8,7 +8,8 @@
     "unsupported": "Dieses Gerät unterstützt keine Benachrichtigungen. E-Mail bleibt verfügbar.",
     "channels": {
         "PUSH": "Benachrichtigung",
-        "EMAIL": "E-Mail"
+        "EMAIL": "E-Mail",
+        "IN_APP": "In der App"
     },
     "kinds": {
         "message_received": "Sprachnachricht erhalten",

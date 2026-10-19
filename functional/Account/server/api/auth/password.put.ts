@@ -1,7 +1,9 @@
+import { verifyAccountPassword } from '~~/technical/Auth/server/utils/account-password'
+import { supabaseAdmin, supabaseEnabled } from '~~/technical/Auth/server/utils/supabase'
 import { getDb } from '~~/server/utils/db'
 import { requireSession } from '~~/server/utils/family'
 import { logEvent } from '~~/server/utils/log'
-import { hashPassword, verifyPassword } from '~~/technical/Auth/server/utils/password'
+import { hashPassword } from '~~/technical/Auth/server/utils/password'
 import { requireActor } from '~~/technical/Auth/server/utils/profile-code'
 import { startSession } from '~~/technical/Auth/server/utils/session'
 import { assertNotThrottled, clearFailures, recordFailure } from '~~/technical/Auth/server/utils/throttle'
@@ -33,12 +35,23 @@ export default defineEventHandler(async (event): Promise<{ ok: true }> => {
         throw createError({ statusCode: 401, statusMessage: 'Not signed in' })
     }
     await assertNotThrottled(event, account.email)
-    if (!(await verifyPassword(currentPassword, account.passwordHash))) {
+    if (!(await verifyAccountPassword(session.accountId, account.email, currentPassword, account.passwordHash))) {
         await recordFailure(event, account.email)
         throw createError({ statusCode: 403, statusMessage: 'Wrong current password' })
     }
     await clearFailures(account.email)
     const changedAt = new Date()
+    if (supabaseEnabled()) {
+        const [identity] = await db<{ supabaseUserId: string }[]>`select supabase_user_id from accounts where id = ${session.accountId}`
+        if (!identity?.supabaseUserId) {
+            throw createError({ statusCode: 503, statusMessage: 'Account identity is unavailable' })
+        }
+        await db`update accounts set password_changed_at = ${changedAt} where id = ${session.accountId}`
+        const { error } = await supabaseAdmin().auth.admin.updateUserById(identity.supabaseUserId, { password: newPassword })
+        if (error) {
+            throw createError({ statusCode: 503, statusMessage: 'Password could not be changed' })
+        }
+    }
     const passwordHash = await hashPassword(newPassword)
     await db`
         update accounts set password_hash = ${passwordHash}, password_changed_at = ${changedAt}

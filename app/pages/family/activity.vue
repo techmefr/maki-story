@@ -1,8 +1,7 @@
 <template>
     <div class="stack narrow">
         <BackLink to="/family" />
-        <h1 class="title">{{ t('recovery.activity.title') }}</h1>
-        <p class="activity__hint">{{ t('recovery.activity.intro', { months: JOURNAL_RETENTION_MONTHS }) }}</p>
+        <AppPageIntro icon="redo" tone="violet" :title="t('recovery.activity.title')" :hint="t('recovery.activity.intro', { months: JOURNAL_RETENTION_MONTHS })" />
         <div class="row row--wrap" role="group" :aria-label="t('recovery.activity.person')">
             <AppChip :selected="personId === ''" data-testid="activity-all" @click="choose('')">{{ t('recovery.activity.everyone') }}</AppChip>
             <AppChip v-for="person in people" :key="person.id" :selected="personId === person.id" @click="choose(person.id)">

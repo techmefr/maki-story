@@ -5,7 +5,7 @@
                 <AppIcon name="search" :size="22" class="filters__search-icon" />
                 <AppInput v-model="text" type="search" class="filters__input" :placeholder="t('books.filters.searchPlaceholder')" :aria-label="t('books.filters.searchLabel')" />
             </div>
-            <AppButton variant="secondary" icon="settings" data-testid="filters-open" @click="isOpen = true">
+            <AppButton icon="settings" data-testid="filters-open" @click="isOpen = true">
                 {{ t('library.filters.open') }}
                 <AppBadge v-if="activeCount > 0">{{ activeCount }}</AppBadge>
             </AppButton>
@@ -89,9 +89,9 @@ const languageOptions = computed(() => languageSelectOptions(LANGUAGES, t('books
 const { initial = {}, kid = false } = defineProps<{ initial?: Partial<IBookQuery>; kid?: boolean }>()
 const emit = defineEmits<{ change: [query: IBookQuery] }>()
 
-const text = ref('')
-const language = ref('')
-const age = ref('')
+const text = ref(initial.q ?? '')
+const language = ref(initial.language ?? '')
+const age = ref(initial.age ?? '')
 const type = ref(initial.type ?? '')
 const mood = ref(initial.mood ?? '')
 const theme = ref(initial.theme ?? '')
@@ -99,7 +99,7 @@ const tag = ref(initial.tag ?? '')
 const status = ref(initial.status ?? '')
 
 const isOpen = ref(false)
-const activeCount = computed<number>(() => [type.value, mood.value, theme.value, tag.value, status.value, language.value].filter(value => value !== '').length)
+const activeCount = computed<number>(() => [type.value, mood.value, theme.value, tag.value, status.value, language.value, age.value].filter(value => value !== '').length)
 
 const reset = (): void => {
     type.value = ''
@@ -108,6 +108,7 @@ const reset = (): void => {
     tag.value = ''
     status.value = ''
     language.value = ''
+    age.value = ''
 }
 
 const toggleAge = (id: string): void => {
@@ -153,7 +154,8 @@ onBeforeUnmount(() => {
 .filters__input {
     width: 100%;
     min-width: 0;
-    padding-inline-start: 44px;
+    padding-inline-start: 48px;
+    border-radius: 999px;
 }
 
 .filters__group {

@@ -1,7 +1,7 @@
 <template>
     <div class="stack narrow">
         <BackLink :to="backPath" />
-        <h1 class="title">{{ t('home.storage.title') }}</h1>
+        <AppPageIntro icon="download" tone="mint-soft" :title="t('home.storage.title')" />
         <section class="stack storage__card" aria-labelledby="storage-usage">
             <h2 id="storage-usage" class="subtitle">{{ usageLabel }}</h2>
             <AppProgress :value="usedPercent" :label="t('home.storage.title')" />

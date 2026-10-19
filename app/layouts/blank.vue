@@ -11,3 +11,10 @@
 <script setup lang="ts">
 const { t } = useI18n()
 </script>
+
+<style scoped>
+main {
+    width: 100%;
+    min-width: 0;
+}
+</style>

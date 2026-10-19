@@ -1,5 +1,5 @@
 <template>
-    <main class="locked" data-testid="locked-screen">
+    <main class="locked kid-world" data-testid="locked-screen">
         <template v-if="isRequestScreen">
             <HomeworkMascot v-if="reason === 'homework'" :size="180" class="locked__maki" />
             <MakiScene v-else :pose="requestPose" :size="180" class="locked__maki" />

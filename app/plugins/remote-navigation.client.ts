@@ -12,7 +12,7 @@ const ARROWS: Record<string, SpatialDirection> = {
 
 const isVisible = (element: HTMLElement): boolean => {
     const box = element.getBoundingClientRect()
-    return box.width > 0 && box.height > 0 && getComputedStyle(element).visibility !== 'hidden'
+    return box.width > 0 && box.height > 0 && getComputedStyle(element).visibility !== 'hidden' && !element.closest('[inert], [aria-hidden="true"]') && !element.matches(':disabled, [aria-disabled="true"]')
 }
 
 const focusables = (): HTMLElement[] => {
@@ -22,7 +22,8 @@ const focusables = (): HTMLElement[] => {
 }
 
 const focusFirst = (): void => {
-    const target = document.querySelector<HTMLElement>('[data-focus-default]') ?? focusables()[0]
+    const items = focusables()
+    const target = items.find(item => item.hasAttribute('data-focus-default')) ?? items[0]
     target?.focus()
 }
 

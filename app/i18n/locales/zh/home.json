@@ -83,5 +83,9 @@
         "toFix": "待修改",
         "toFixHint": "需要重录的片段",
         "vaultHint": "保存的孩子留言"
+    },
+    "adult": {
+        "greeting": "你好，{name}！",
+        "subtitle": "分享故事，聆听熟悉的声音。"
     }
 }

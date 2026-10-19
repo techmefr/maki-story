@@ -13,13 +13,14 @@
             :class="{ 'rec__again': isDone && !isRecording }"
             :icon="isRecording ? 'stop' : isDone ? 'redo' : 'mic'"
             is-block
+            :disabled="isBusy"
             data-testid="message-record"
             @click="emit('toggle')"
         >
             {{ isRecording ? t('messages.compose.stop') : isDone ? t('messages.compose.again') : t('messages.compose.record') }}
         </AppButton>
         <div v-if="isDone && !isRecording" class="rec__done">
-            <AppButton variant="secondary" icon="play" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
+            <AppButton variant="secondary" icon="play" :disabled="isBusy" :aria-label="t('messages.compose.listenBackLabel')" @click="emit('preview')">
                 {{ t('messages.compose.listenBack') }}
             </AppButton>
             <AppButton icon="send" :loading="isBusy" data-testid="message-send" @click="emit('send')">
@@ -52,6 +53,9 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 }
 
 .rec {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,12 +128,14 @@ const timeLabel = computed(() => formatDuration(props.elapsedMs / 1000))
 
 .rec__done {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     width: 100%;
 }
 
 .rec__done > * {
-    flex: 1;
+    flex: 1 1 160px;
+    min-width: 0;
 }
 
 @keyframes rec-blob {

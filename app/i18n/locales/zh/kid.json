@@ -62,7 +62,8 @@
         "remove": "移除这个回忆",
         "removeTitle": "要移除这个回忆吗？",
         "removeBody": "它将被永久删除。",
-        "removeConfirm": "移除"
+        "removeConfirm": "移除",
+        "fullHint": "请先移除一颗爱心，再添加新的。"
     },
     "quota": "{count}/{max} 条消息",
     "sendHer": "发送消息",

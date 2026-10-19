@@ -5,7 +5,10 @@
             <span class="grow" />
             <AppButton v-if="unreadCount > 0" variant="secondary" size="sm" icon="check" data-testid="notifications-mark-all" @click="markRead()">{{ t('notifications.markAllRead') }}</AppButton>
         </div>
-        <h1 class="title">{{ t('notifications.title') }}</h1>
+        <div class="row row--wrap">
+            <h1 class="title grow">{{ t('notifications.title') }}</h1>
+            <AppButton variant="secondary" size="sm" icon="settings" to="/notifications/settings">{{ t('profile.menu.notifications') }}</AppButton>
+        </div>
         <AppEmpty v-if="items.length === 0" kind="notifications" :title="t('notifications.allRead')" :hint="t('notifications.empty')" />
         <ul class="list">
             <li v-for="item in items" :key="item.id">
@@ -76,7 +79,8 @@ onMounted(load)
 }
 
 .note {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     gap: 12px;
     width: 100%;
@@ -129,8 +133,11 @@ onMounted(load)
     display: flex;
     flex: none;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
+    grid-column: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
 }
 
 .note__time {

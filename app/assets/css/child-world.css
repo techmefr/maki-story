@@ -1,0 +1,189 @@
+html.child-world,
+.kid-world {
+    --ink: #4b260f;
+    --ink-soft: #714b2a;
+    --on-accent: #4b260f;
+    --bg: #fff3d6;
+    --paper: #fff6df;
+    --line: #b87a36;
+    --yellow: #ffc62d;
+    --outline: 2px;
+    --shadow: 0 4px 0 #925521, 0 10px 20px #64370e26;
+    --shadow-lg: 0 6px 0 #925521, 0 16px 28px #64370e30;
+    --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #6c350e18 10px 12px), linear-gradient(100deg, #804119, #a0642c 30%, #955323 70%, #773719);
+    --child-gold: linear-gradient(145deg, #fff1a2, #ffcf32 45%, #ef9e09);
+}
+
+.kid-world { isolation: isolate; position: relative; color: var(--ink); }
+.kid-world::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: #fff3d6 url('/art/child/storybook-world.jpg') center / cover no-repeat;
+}
+.kid-world .title,
+.kid-world .subtitle,
+.kid-world .book__title {
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+.kid-world .title { font-weight: 600; letter-spacing: -0.02em; }
+.kid-world .header { padding-block: 8px; }
+.kid-world .header__brand { color: var(--ink); }
+.kid-world .header__actions { gap: 12px; }
+.kid-world .header__gear,
+.kid-world .header__me .avatar { border: 2px solid #a36327; box-shadow: 0 3px 0 #77431e; }
+.kid-world .kid-home { gap: 32px; }
+.kid-world .kid-home__welcome,
+.kid-world .kid-library__welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border: 3px solid #925020;
+    border-radius: 32px 24px 28px 20px;
+    background: var(--child-wood);
+    box-shadow: inset 0 3px 2px #ffe1a580, 0 5px 0 #6e3817, 0 12px 20px #64370e26;
+    color: #fff4d6;
+    text-shadow: 0 2px 1px #66320c;
+}
+.kid-world .kid-home__greeting { min-width: 0; flex: 1; gap: 12px; }
+.kid-world .kid-home__maki { width: clamp(88px, 18vw, 180px); flex-shrink: 0; filter: drop-shadow(0 5px 3px #64370e33); }
+.kid-world .kid-home__hint { color: #fff4d6; font-size: 1rem; line-height: 1.4; }
+.kid-world .faces { gap: 28px 16px; padding-block: 8px; }
+.kid-world .face__link { gap: 12px; padding: 12px 4px; min-width: 0; }
+.kid-world .faces .face__ring {
+    padding: 8px;
+    border: 2px solid #ffd886;
+    border-radius: 50%;
+    background: var(--child-wood);
+    box-shadow: 0 5px 0 #77401d, 0 10px 18px #64370e33, inset 0 2px 2px #ffe0a8;
+}
+.kid-world .face__ring--unheard { animation: none; outline: 3px solid #ffcb32; outline-offset: 4px; }
+.kid-world .face__link .subtitle {
+    max-width: 100%;
+    padding: 6px 16px;
+    border: 2px solid #995523;
+    border-radius: 16px;
+    background: var(--child-wood);
+    color: #fff4d6;
+    box-shadow: 0 3px 0 #77401d;
+    text-align: center;
+    text-shadow: 0 2px 1px #66320c;
+}
+.kid-world .face__quota { color: var(--ink-soft); font-weight: 500; }
+.kid-world .faces .bubble-link--kid {
+    top: 0;
+    min-width: 48px;
+    min-height: 48px;
+    border: 2px solid #ffe9a0;
+    border-radius: 50%;
+    background: var(--child-gold) !important;
+    color: #4b260f;
+    box-shadow: 0 4px 0 #b67a18, inset 0 2px 2px #fff3b9;
+}
+.kid-world .tabbar,
+.kid-world .rail {
+    border: 3px solid #935122;
+    background: var(--child-wood);
+    box-shadow: inset 0 3px 2px #ffe1a580, 0 5px 0 #6e3817, 0 12px 24px #64370e33;
+}
+.kid-world .tabbar { inset-inline: max(12px, env(safe-area-inset-left)); bottom: calc(env(safe-area-inset-bottom) + 10px); border-radius: 28px; padding: 6px; }
+.kid-world .tabbar__inner { gap: 6px; overflow: visible; }
+.kid-world .tabbar__item,
+.kid-world .rail__item { min-width: 0; border-radius: 20px; color: #fff4d6; text-shadow: 0 2px 1px #66320c; }
+.kid-world .tabbar__item--on,
+.kid-world .rail .rail__item--on { background: var(--child-gold); color: #4b260f; text-shadow: none; border-color: #ffe9a0; box-shadow: 0 3px 0 #a76b15; }
+.kid-world .btn,
+.kid-world .iconbtn {
+    border: 2px solid #b97924;
+    background: var(--child-gold);
+    color: #4b260f;
+    box-shadow: 0 4px 0 #93561a, inset 0 2px 2px #fff6cc;
+}
+.kid-world .btn--secondary { background: linear-gradient(145deg, #fff6df, #f2d9a4); }
+.kid-world .btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #93561a; }
+.kid-world .card,
+.kid-world .listrow,
+.kid-world .rec,
+.kid-world .recipient,
+.kid-world .vault .listrow { border: 2px solid #d5a465; background: linear-gradient(145deg, #fff9e9, #f8e3b8); border-radius: 24px; box-shadow: 0 4px 0 #c18b49, 0 10px 18px #64370e1a; }
+.kid-world .chip { border-color: #bd8649; color: #4b260f; background: #fff6df; box-shadow: 0 3px 0 #c18b49; }
+.kid-world .chip.chip--on { background: var(--child-gold); }
+.kid-world :focus-visible { outline: 4px solid #345b25; outline-offset: 5px; }
+.kid-world .book { border: 3px solid #b27432; border-radius: 20px; box-shadow: 0 5px 0 #75431e, 0 12px 20px #64370e30; }
+.kid-world .book__title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.kid-world .heart .heart__button { background: var(--child-gold); border-color: #bd8649; box-shadow: 0 3px 0 #93561a; }
+.kid-world .heart .heart__button--filled { background: #ffc4cc; }
+.kid-world .heart .heart__button:disabled:not(.heart__button--filled) { background: #ded7c9; color: #645d51; box-shadow: none; }
+.kid-world .rec .rec__mic { background: var(--child-gold); border: 3px solid #bb7a29; box-shadow: 0 5px 0 #93561a; }
+.kid-world .rec .rec__mic--on { background: #ffac8b; }
+.kid-world .night-countdown { background: #fff3d6; border: 2px solid #b97924; box-shadow: 0 4px 0 #93561a; color: #4b260f; }
+.reader.kid-world { overflow: hidden; gap: 12px; background: #fff3d6 !important; }
+.reader.kid-world::before { opacity: 1; }
+.reader.kid-world .reader__head,
+.reader.kid-world .reader__bottom { flex-shrink: 0; }
+.reader.kid-world .reader__center { min-height: 0; overflow-y: auto; padding-block: 12px; }
+.reader.kid-world .reader__segment { border: 1px solid #d2a45e; background: #e9c995; }
+.reader.kid-world .reader__segment--done,
+.reader.kid-world .reader__segment--current { background: var(--child-gold); }
+.reader.kid-world .reader__title { padding: 8px 16px; border-radius: 16px; background: var(--child-wood); color: #fff4d6; text-shadow: 0 2px 1px #66320c; }
+.reader.kid-world.reader--night { background: #202b21 !important; }
+.reader.kid-world.reader--night::before { opacity: 0.08; }
+@media (max-width: 1023px) {
+    .kid-world .app { padding-bottom: calc(env(safe-area-inset-bottom) + 148px); }
+}
+@media (max-width: 599px) {
+    .kid-world .faces .face__ring .avatar { width: clamp(80px, 25vw, 112px) !important; height: clamp(80px, 25vw, 112px) !important; font-size: 2.5rem !important; }
+    .kid-world .kid-home__welcome { padding: 12px; gap: 8px; }
+    .kid-world .kid-home__hint { color: #fff4d6; font-size: 0.9375rem; }
+    .kid-world .faces { gap: 20px 8px; }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+    .kid-world .kid-home__welcome { padding: 8px 16px; }
+    .kid-world .kid-home__maki { max-height: 72px; }
+    .kid-world .faces { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+    .reader.kid-world { gap: 8px; }
+    .reader.kid-world .reader__center { padding-block: 4px; }
+    .reader.kid-world .reader__head { max-width: 960px; }
+    .reader.kid-world .reader__bottom { gap: 6px; }
+    .reader.kid-world .night-countdown .scene { max-height: 36px; }
+    .reader.kid-world .btn--big { min-height: 48px; padding: 8px 16px; }
+}
+@media (min-width: 1600px) {
+    .tv .kid-world .kid-home__welcome { padding: 1rem 1.5rem; }
+    .tv .kid-world .kid-home__maki { width: min(12vw, 320px); }
+    .reader.kid-world .reader__head,
+    .reader.kid-world .reader__bottom { max-width: min(80vw, 2400px); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .kid-world *, .kid-world *::before, .kid-world *::after { scroll-behavior: auto; }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .reader.kid-world .reader__center > .row { position: sticky; bottom: 0; padding: 4px 12px; border-radius: 20px; background: #fff3d6f5; z-index: 2; }
+    .reader.kid-world .reading-page__speaker .avatar { width: 72px !important; height: 72px !important; }
+    .reader.kid-world .reading-page__name { font-size: 1.125rem; }
+    .reader.kid-world .reading-page__speaker { gap: 4px; }
+    .reader.kid-world .reading-page__speaker .bars { height: 16px; }
+    .reader.kid-world .reading-page__maki { max-height: 72px; }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .reader.kid-world .reader__center:has(.reading-page) { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+    .reader.kid-world .reader__center:has(.reading-page) > .row { position: static; flex-wrap: nowrap; background: #fff3d6e6; }
+    .reader.kid-world .reading-page__speaker .blob { padding: 4px; width: auto !important; height: auto !important; }
+    .reader.kid-world .reading-page__maki { max-width: 96px; }
+    .reader.kid-world .reader__error { grid-column: 1 / -1; }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .reader.kid-world .reader__center--ready { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .reader.kid-world .reader__center--ready > .scene { max-height: 72px; width: 96px; }
+    .reader.kid-world .btn--big .icon { width: 32px; height: 32px; }
+    .reader.kid-world .reader__center--ready .choice { min-width: 48px; min-height: 44px; padding: 4px; }
+    .reader.kid-world .reader__center--ready .choice svg { width: 40px; height: 32px; }
+}

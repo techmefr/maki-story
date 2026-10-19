@@ -4,7 +4,7 @@
             type="button"
             class="heart__button"
             :class="{ 'heart__button--filled': isSaved, 'heart__button--filling': isFilling }"
-            :disabled="isSaved || isFull"
+            :disabled="!isLoaded || isBusy || isSaved || isFull"
             :aria-pressed="isSaved"
             :aria-label="label"
             @click="save"
@@ -15,7 +15,7 @@
             </span>
         </button>
         <small class="heart__count" data-testid="treasure-count">{{ t('kid.treasure.count', { count: formatNumber(count), limit: formatNumber(limit) }) }}</small>
-        <small v-if="isFull && !isSaved" class="heart__reason" role="status">{{ t('errors.server.treasureFull') }}</small>
+        <small v-if="isFull && !isSaved" class="heart__reason" role="status">{{ t('kid.treasure.fullHint') }}</small>
         <small v-else-if="errorMessage" class="heart__reason" role="alert">{{ errorMessage }}</small>
     </div>
 </template>
@@ -32,6 +32,8 @@ const { limit, count, isFull, load, save: saveMemory, hasMessage } = useTreasure
 const { play } = useSoundCues()
 const { current } = useCurrentMember()
 
+const isLoaded = ref(false)
+const isBusy = ref(false)
 const isFilling = ref(false)
 const isBursting = ref(false)
 const errorMessage = ref('')
@@ -40,14 +42,20 @@ const isSaved = computed(() => hasMessage(props.messageId))
 const label = computed(() => (isSaved.value ? t('kid.treasure.saved') : t('kid.treasure.save')))
 
 const save = async (): Promise<void> => {
+    if (!isLoaded.value || isBusy.value || isSaved.value || isFull.value) {
+        return
+    }
+    isBusy.value = true
     errorMessage.value = ''
     try {
         await saveMemory(props.messageId)
     } catch (error) {
         console.error('Le message n a pas pu être gardé', error)
-        errorMessage.value = t('errors.server.treasureFull')
         await load(childFilter())
+        errorMessage.value = isSaved.value ? '' : errorText(error, 'common.unknownError')
         return
+    } finally {
+        isBusy.value = false
     }
     isFilling.value = true
     setTimeout(() => {
@@ -62,7 +70,12 @@ const save = async (): Promise<void> => {
 
 const childFilter = (): string | undefined => (current.value?.role === 'child' ? undefined : props.childId)
 
-onMounted(() => load(childFilter()))
+onMounted(async () => {
+    isLoaded.value = await load(childFilter())
+    if (!isLoaded.value) {
+        errorMessage.value = t('common.unknownError')
+    }
+})
 </script>
 
 <style scoped>
@@ -90,6 +103,13 @@ onMounted(() => load(childFilter()))
     cursor: default;
 }
 
+.heart__button:disabled:not(.heart__button--filled) {
+    background: var(--grey);
+    border-color: var(--grey-line);
+    color: var(--ink-soft);
+    box-shadow: none;
+}
+
 .heart__button:not(:disabled):active {
     transform: translate(3px, 3px);
     box-shadow: 0 0 0 var(--ink);
@@ -97,7 +117,7 @@ onMounted(() => load(childFilter()))
 
 .heart__button--filled,
 .heart__button--filling {
-    background: #FF8FC9;
+    background: var(--pink);
 }
 
 .heart__button--filled :deep(svg),

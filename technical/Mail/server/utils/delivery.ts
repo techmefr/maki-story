@@ -74,6 +74,7 @@ export const notificationText = (locale: string | null, input: Pick<IOutOfAppInp
 }
 
 export const deliverOutOfApp = async (db: Db, input: IOutOfAppInput): Promise<void> => {
+    const queuedAccounts = new Set<string>()
     for (const member of await loadRecipients(db, input)) {
         const wantsPush = await isEnabled(db, member.id, input.kind, 'PUSH')
         const wantsEmail = await isEnabled(db, member.id, input.kind, 'EMAIL')
@@ -115,7 +116,10 @@ export const deliverOutOfApp = async (db: Db, input: IOutOfAppInput): Promise<vo
         }
         const accounts = await accountsFor(db, input.familyId, member)
         for (const accountId of accounts) {
-            await queueForDigest(db, input, member.id, accountId)
+            if (!queuedAccounts.has(accountId)) {
+                await queueForDigest(db, input, member.id, accountId)
+                queuedAccounts.add(accountId)
+            }
         }
         if (accounts.length > 0) {
             await record(db, input.familyId, member.id, input.kind, 'EMAIL', 'QUEUED', '', 'digest')

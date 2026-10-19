@@ -63,7 +63,8 @@
         "remove": "Remove this memory",
         "removeTitle": "Remove this memory?",
         "removeBody": "It will be deleted forever.",
-        "removeConfirm": "Remove"
+        "removeConfirm": "Remove",
+        "fullHint": "Remove a heart before adding another."
     },
     "quota": "{count}/{max} messages",
     "sendHer": "Send a message",

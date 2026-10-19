@@ -12,8 +12,24 @@
         <AppStepper :steps="flowSteps" :current="flowSteps.length - 1" :label="t('review.flow.label')" />
         <p class="review__counter" data-testid="review-counter">{{ t('review.toListen', { count: toListenCount }) }}</p>
         <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
-        <ol class="review__lines">
-            <li v-for="line in shownLines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
+                <section class="stack review__summary" aria-labelledby="review-summary" data-testid="review-summary">
+                    <h2 id="review-summary" class="sr-only">{{ t('review.summary.title') }}</h2>
+                    <div class="row row--wrap">
+                        <AppBadge tone="success">{{ t('review.summary.approved', { count: countOf('approved') }) }}</AppBadge>
+                        <AppBadge tone="danger">{{ t('review.summary.changes', { count: countOf('changes') }) }}</AppBadge>
+                        <AppBadge tone="warning">{{ t('review.summary.waiting', { count: waitingCount }) }}</AppBadge>
+                    </div>
+                    <AppProgress :value="approvedPercent" :label="t('review.summary.title')" />
+                </section>
+        <div class="review__pages">
+            <details v-for="page in reviewPages" :key="page.index" class="review__page" open>
+                <summary class="review__page-head">
+                    <span class="review__page-cover"><BookCover :file-id="page.fileId" :fallback="pickVoiceByText(`${book.id}-${page.index}`).hex" /></span>
+                    <span class="grow"><span class="review__page-number">{{ t('kid.listen.page', { current: page.index + 1, total: Math.max(1, book.pages.length) }) }}</span><strong>{{ page.title }}</strong></span>
+                    <AppBadge>{{ page.lines.length }}</AppBadge><AppIcon name="chevron-down" :size="24" />
+                </summary>
+                <ol class="review__lines">
+            <li v-for="line in page.lines" :key="line.id" class="card stack review__line" :data-line-state="stateOf(line)">
                 <div class="row row--wrap">
                     <AppAvatar :member="memberOf(line)" :size="36" />
                     <span class="label">{{ t('review.lineMeta', { page: line.pageIndex + 1, character: line.character || t('review.narrator'), voice: memberOf(line)?.name ?? t('review.voice') }) }}</span>
@@ -41,7 +57,7 @@
                         @click="play(line)">
                         <AppIcon :name="playingLineId === line.id && player.isPlaying.value ? 'stop' : 'play'" :size="20" />{{ t('review.play') }}
                     </AppButton>
-                    <template v-if="isMoreOpen">
+                    <template>
                         <AppButton variant="secondary" tone="mint"
                             v-if="canReview(line) && stateOf(line) !== 'approved'"
                             class="review__action"
@@ -61,7 +77,9 @@
                     </template>
                 </div>
             </li>
-        </ol>
+                </ol>
+            </details>
+        </div>
         <p v-if="shownLines.length === 0" class="muted">{{ t('review.emptyFilter') }}</p>
         <section class="stack">
             <AppButton variant="secondary" size="sm" class="review__action" :aria-expanded="isMoreOpen" aria-controls="review-more" data-testid="review-more-toggle" @click="isMoreOpen = !isMoreOpen">
@@ -109,15 +127,6 @@
                         {{ t(`review.filters.${item.id}`) }} ({{ countOf(item.id) }})
                     </button>
                 </div>
-                <section class="stack review__summary" aria-labelledby="review-summary" data-testid="review-summary">
-                    <h2 id="review-summary" class="sr-only">{{ t('review.summary.title') }}</h2>
-                    <div class="row row--wrap">
-                        <AppBadge tone="success">{{ t('review.summary.approved', { count: countOf('approved') }) }}</AppBadge>
-                        <AppBadge tone="danger">{{ t('review.summary.changes', { count: countOf('changes') }) }}</AppBadge>
-                        <AppBadge tone="warning">{{ t('review.summary.waiting', { count: waitingCount }) }}</AppBadge>
-                    </div>
-                    <AppProgress :value="approvedPercent" :label="t('review.summary.title')" />
-                </section>
                 <section class="stack" aria-labelledby="review-voices">
                     <h2 id="review-voices" class="subtitle">{{ t('review.voicesTitle') }}</h2>
                     <ul class="review__voices">
@@ -161,6 +170,11 @@ type FilterId = 'all' | 'to_review' | 'changes' | 'approved'
 const FILTERS: { id: FilterId }[] = [{ id: 'all' }, { id: 'to_review' }, { id: 'changes' }, { id: 'approved' }]
 
 const { t, formatDateTime } = useI18n()
+const reviewPages = computed(() => [...new Set(shownLines.value.map(line => line.pageIndex))].sort((a, b) => a - b).map(index => {
+    const page = book.value?.pages.find(item => item.position === index)
+    return { index, title: page?.title ?? '', fileId: page?.fileId ?? null, lines: shownLines.value.filter(line => line.pageIndex === index) }
+}))
+
 const route = useRoute()
 const { get } = useBooks()
 const { getById, ensureLoaded } = useMembers()
@@ -353,6 +367,77 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.review__summary {
+    padding: 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.review__pages {
+    display: grid;
+    gap: 24px;
+}
+
+.review__page {
+    border: var(--outline) solid var(--ink);
+    border-radius: 28px;
+    background: var(--paper);
+    box-shadow: var(--shadow-lg);
+    overflow: clip;
+}
+
+.review__page-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg);
+    cursor: pointer;
+    min-height: 72px;
+    list-style: none;
+}
+
+.review__page-head::-webkit-details-marker {
+    display: none;
+}
+
+.review__page-head .grow {
+    display: grid;
+    gap: 8px;
+    overflow-wrap: anywhere;
+}
+
+.review__page-number {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+}
+
+.review__page-cover {
+    width: 48px;
+    flex: none;
+}
+
+.review__page[open] .review__page-head {
+    border-bottom: var(--outline) solid var(--ink);
+}
+
+.review__page .review__line {
+    border: 0;
+    border-bottom: 2px solid var(--grey-line);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.review__page .review__line:last-child {
+    border-bottom: 0;
+}
+
+.review__page .review__lines {
+    gap: 0;
+}
+
 .review {
     gap: 24px;
 }

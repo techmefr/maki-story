@@ -84,5 +84,9 @@
         "toFix": "Por corrigir",
         "toFixHint": "Takes a repetir",
         "vaultHint": "Mensagens das crianças guardadas"
+    },
+    "adult": {
+        "greeting": "Olá, {name}!",
+        "subtitle": "Histórias para partilhar e vozes queridas para ouvir."
     }
 }

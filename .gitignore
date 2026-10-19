@@ -5,8 +5,6 @@ node_modules
 .env.*
 !.env.example
 dist
-ios
-android
 .vercel
 test-results
 playwright-report

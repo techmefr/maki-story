@@ -4,16 +4,17 @@
         <AppEmpty v-if="hasFailed" :title="t('bookDetail.missing')" />
         <template v-else-if="book">
             <header class="row detail__head">
-                <div class="detail__cover" :style="{ background: palette.hex }" aria-hidden="true">
-                    <AppIcon name="book" :size="44" />
-                </div>
+                <div class="detail__cover"><BookCover :file-id="book.coverFileId" :src="book.coverUrl" :fallback="palette.hex" /></div>
                 <div class="stack detail__info">
                     <h1 class="title">{{ book.title }}</h1>
+                    <p v-if="book.author" class="detail__meta">{{ book.author }}</p>
+                    <AppBadge>{{ t(`review.bookStatus.${book.status}`) }}</AppBadge>
                     <p class="detail__meta">{{ t('bookDetail.meta', { pages: book.pages.length, characters: book.characters.length }) }}</p>
                     <FlagIcon :codes="book.voiceLanguages.length > 0 ? book.voiceLanguages : [book.writtenLanguage]" :size="26" />
                 </div>
             </header>
 
+            <p v-if="book.description" class="detail__description">{{ book.description }}</p>
             <ul v-if="tagLabels.length > 0" class="row row--wrap detail__tags" :aria-label="t('bookDetail.tags')">
                 <li v-for="label in tagLabels" :key="label"><AppBadge>{{ label }}</AppBadge></li>
             </ul>
@@ -36,9 +37,9 @@
             <AppButton is-block icon="play" :to="isChild ? `/kid/listen/${book.id}` : `/books/${book.id}/play`" :disabled="book.status !== 'ready'">
                 {{ t('bookDetail.read') }}
             </AppButton>
-            <div v-if="!isChild" class="row">
+            <div v-if="!isChild" class="detail__actions">
                 <AppButton variant="secondary" class="grow" icon="mic" :to="`/books/${book.id}/studio`">{{ t('bookDetail.record') }}</AppButton>
-                <AppButton v-if="isParent" variant="secondary" class="grow" icon="pencil" :to="`/books/${book.id}/studio`">{{ t('bookDetail.edit') }}</AppButton>
+                <AppButton v-if="isParent" variant="secondary" class="grow" icon="check" :to="`/books/${book.id}/review`">{{ t('home.dash.toReview') }}</AppButton>
             </div>
         </template>
     </div>
@@ -98,8 +99,35 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.detail__head {
+.detail {
+    max-width: 880px;
+    width: 100%;
+    margin-inline: auto;
+    gap: 24px;
+}
+
+.detail__description {
+    margin: 0;
+    padding: 20px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--paper);
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.detail__actions {
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
+}
+
+.detail__actions > * {
+    flex: 1 1 160px;
+}
+
+.detail__head {
+    gap: 20px;
     align-items: center;
 }
 
@@ -109,15 +137,17 @@ onMounted(async () => {
     align-items: center;
     justify-content: center;
     width: 112px;
-    height: 144px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    color: var(--on-accent);
+    max-width: 32%;
+    box-shadow: var(--shadow-lg);
+    border-radius: 16px;
+}
+
+.detail__cover :deep(.cover) {
+    width: 100%;
 }
 
 .detail__info {
-    gap: 6px;
+    gap: 12px;
     min-width: 0;
 }
 
@@ -136,9 +166,9 @@ onMounted(async () => {
 }
 
 .detail__card {
-    padding: 16px;
+    padding: 24px;
     border: var(--outline) solid var(--ink);
-    border-radius: 22px;
+    border-radius: 24px;
     background: var(--paper);
     box-shadow: var(--shadow);
 }
@@ -146,7 +176,7 @@ onMounted(async () => {
 .detail__voices {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 }
 
 .detail__voice {

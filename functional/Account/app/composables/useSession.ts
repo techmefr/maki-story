@@ -1,12 +1,12 @@
 export type TAuthResult =
     | { status: 'ok' }
-    | { status: 'invalid' }
+    | { status: 'invalid'; reason?: 'used' | 'expired' }
     | { status: 'throttled'; retryAfterMinutes: number }
     | { status: 'unreachable' }
     | { status: 'error' }
 
 const toAuthFailure = (error: unknown): TAuthResult => {
-    const failure = error as { statusCode?: number; status?: number; data?: { message?: string; data?: { retryAfterSeconds?: number } } }
+    const failure = error as { statusCode?: number; status?: number; data?: { message?: string; statusMessage?: string; data?: { retryAfterSeconds?: number } } }
     const code = failure.statusCode ?? failure.status
     if (code === undefined || failure.data?.message === UNREACHABLE_MESSAGE) {
         return { status: 'unreachable' }
@@ -14,6 +14,9 @@ const toAuthFailure = (error: unknown): TAuthResult => {
     if (code === 429) {
         const seconds = failure.data?.data?.retryAfterSeconds ?? 60
         return { status: 'throttled', retryAfterMinutes: Math.max(1, Math.ceil(seconds / 60)) }
+    }
+    if (code === 410) {
+        return { status: 'invalid', reason: failure.data?.statusMessage === 'This link was already used' ? 'used' : 'expired' }
     }
     if (code >= 500) {
         return { status: 'error' }

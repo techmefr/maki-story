@@ -1,8 +1,7 @@
 <template>
     <div class="stack narrow">
         <BackLink to="/family" />
-        <h1 class="title">{{ t('family.devices.title') }}</h1>
-        <p class="devices__hint">{{ t('family.devices.intro') }}</p>
+        <AppPageIntro icon="settings" tone="sky" :title="t('family.devices.title')" :hint="t('family.devices.intro')" />
         <AppEmpty v-if="isLoaded && devices.length === 0" kind="people" :title="t('family.devices.empty')" :hint="t('family.devices.emptyHint')" />
         <section v-for="group in groups" :key="group.memberId" class="stack devices__group" :aria-labelledby="`devices-${group.memberId}`">
             <h2 :id="`devices-${group.memberId}`" class="subtitle">{{ group.memberName }}</h2>

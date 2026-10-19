@@ -1,0 +1,11 @@
+project_id = "maki-story"
+
+[auth]
+enabled = true
+site_url = "https://tantara.vercel.app"
+additional_redirect_urls = ["https://tantara.vercel.app/magic"]
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+enable_confirmations = true

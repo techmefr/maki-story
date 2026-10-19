@@ -3,11 +3,11 @@
         :to="`/message/listen/${messageId}`"
         class="bubble-link"
         :class="[`bubble-link--${variant}`, { 'bubble-link--birthday': kind === 'BIRTHDAY', 'anim-bounce': variant === 'kid' }]"
-        :style="{ background: color }"
+        :style="{ background: variant === 'kid' ? 'var(--yellow)' : color }"
         :aria-label="t('homeCards.bubbleLabel', { name, count })"
     >
-        <AppIcon :name="kind === 'BIRTHDAY' ? 'party' : 'message-heart'" :size="22" motion="wiggle" />
-        {{ kind === 'BIRTHDAY' ? t('kid.birthday.bubble') : t('homeCards.bubble') }}
+        <AppIcon v-if="variant !== 'kid'" :name="kind === 'BIRTHDAY' ? 'party' : 'message-heart'" :size="22" motion="wiggle" />
+        <span v-if="variant !== 'kid'">{{ kind === 'BIRTHDAY' ? t('kid.birthday.bubble') : t('homeCards.bubble') }}</span>
         <span class="bubble-link__count" data-bubble-count>{{ formatNumber(count) }}</span>
     </NuxtLink>
 </template>
@@ -50,7 +50,22 @@ const { t, formatNumber } = useI18n()
 }
 
 .bubble-link--kid {
-    color: var(--ink);
+    top: 0;
+    inset-inline-end: max(0px, calc(50% - 76px));
+    justify-content: center;
+    min-width: 56px;
+    min-height: 52px;
+    padding: 8px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 18px 18px 18px 4px;
+    color: var(--on-accent);
+}
+
+.bubble-link--kid .bubble-link__count {
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 1.5rem;
 }
 
 .bubble-link:focus-visible {

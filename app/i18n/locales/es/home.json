@@ -84,5 +84,9 @@
         "toFix": "Por corregir",
         "toFixHint": "Tomas por repetir",
         "vaultHint": "Mensajes de los niños guardados"
+    },
+    "adult": {
+        "greeting": "¡Hola, {name}!",
+        "subtitle": "Historias para compartir y voces familiares para escuchar."
     }
 }

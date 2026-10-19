@@ -88,7 +88,16 @@ export const usePush = () => {
 
     const enable = async (): Promise<boolean> => {
         const plugin = nativePlugin()
-        return plugin ? enableNative(plugin) : enableWeb()
+        if (!plugin && (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window))) {
+            state.value = 'unsupported'
+            return false
+        }
+        try {
+            return plugin ? await enableNative(plugin) : await enableWeb()
+        } catch {
+            state.value = 'unsupported'
+            return false
+        }
     }
 
     const disable = async (): Promise<void> => {

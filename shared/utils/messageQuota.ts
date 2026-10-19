@@ -29,3 +29,7 @@ export const remainingParts = (ms: number): { hours: number; minutes: number } =
     const totalMinutes = Math.ceil(ms / MS_PER_MINUTE)
     return { hours: Math.floor(totalMinutes / MINUTES_PER_HOUR), minutes: totalMinutes % MINUTES_PER_HOUR }
 }
+
+export const messageConversation = (messages: IMessage[], senderId: string, recipientId: string, now: number): IMessage[] =>
+    messages.filter(message => message.fromMemberId === senderId && message.toMemberId === recipientId && isLiveMessage(message, now))
+        .sort((first, second) => first.createdAt.localeCompare(second.createdAt))

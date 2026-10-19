@@ -4,18 +4,27 @@ export const useTreasure = () => {
     const limit = useState<number>('treasure-limit', () => TREASURE_LIMIT)
     const loadedFor = useState<string | null>('treasure-loaded-for', () => null)
 
+    const { currentId } = useCurrentMember()
+    const { markSaved } = useMessages()
+
     const count = computed(() => items.value.length)
     const isFull = computed(() => items.value.length >= limit.value)
 
-    const load = async (childId?: string): Promise<void> => {
+    const load = async (childId?: string): Promise<boolean> => {
+        const owner = childId ?? currentId.value
+        if (loadedFor.value !== owner) {
+            items.value = []
+        }
         const query = childId ? `?childId=${encodeURIComponent(childId)}` : ''
         try {
             const box = await request<ITreasureBox>(`/treasure${query}`)
             items.value = box.items
             limit.value = box.limit
-            loadedFor.value = childId ?? null
+            loadedFor.value = owner
+            return true
         } catch (error) {
             console.error('Le trésor n a pas pu être chargé', error)
+            return false
         }
     }
 
@@ -24,6 +33,7 @@ export const useTreasure = () => {
         if (!items.value.some(item => item.id === saved.id)) {
             items.value = [saved, ...items.value]
         }
+        markSaved(messageId)
         return saved
     }
 

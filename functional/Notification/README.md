@@ -10,7 +10,7 @@ Notifications, 9 e-mails (mail-*.html) (fichiers `docs/maquettes/<Écran>.dc.htm
 
 ## Règles
 
-- Six types de notification ; préférences par type : dans l'app et par e-mail.
+- Préférences par type : dans l’app, push et e-mail ; les types supplémentaires déjà présents sont conservés.
 - Un seul e-mail récapitulatif par jour, selon les préférences.
 - Neuf e-mails transactionnels : bienvenue, lien magique, invitation, nouvelle voix, relecture, corrections, code réinitialisé, export, compte supprimé.
 - Notifications push et Web Push avec repli e-mail.
@@ -41,3 +41,7 @@ Notification, NotificationPreference (modèle complet dans `docs/ARCHITECTURE.md
 ## Validation
 
 - [ ] Relue par Gaëtan
+
+## Récapitulatif quotidien
+
+Envoi à 07:00 UTC par `notifications:digest` ou cron Vercel authentifié. Réservation unique `(account_id, digest_date)` avant l’appel fournisseur : une seule tentative par compte et journée UTC, même en cas d’exécutions simultanées ou de résultat réseau ambigu. Après un échec, les événements restent en attente pour le lendemain. Préférences e-mail et liens familiaux actifs relus à chaque traitement. Voir `docs/pages/notifications.md` pour l’activation et la rétention.

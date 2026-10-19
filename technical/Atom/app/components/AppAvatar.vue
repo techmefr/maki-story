@@ -1,6 +1,7 @@
 <template>
     <span
         class="avatar"
+        :class="{ 'avatar--photo': photo }"
         aria-hidden="true"
         :style="{
             width: `${size}px`,

@@ -9,14 +9,14 @@ export default defineOSDDNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
     ssr: false,
-    css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css', '~/assets/css/child-world.css'],
     routeRules: {
         '/sw.js': { headers: { 'cache-control': 'no-cache' } },
     },
     nitro: {
         noExternals: true,
         experimental: { tasks: true },
-        scheduledTasks: { '0 3 * * *': ['messages:purge', 'trash:purge'], '0 7 * * *': ['birthdays:remind'] },
+        scheduledTasks: { '0 3 * * *': ['messages:purge', 'trash:purge', 'auth:purge'], '0 7 * * *': ['birthdays:remind', 'notifications:digest'] },
         inlineDynamicImports: true,
         serverAssets: [{ baseName: 'migrations', dir: fileURLToPath(new URL('./server/migrations', import.meta.url)) }],
     },

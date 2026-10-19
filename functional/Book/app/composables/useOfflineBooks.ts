@@ -1,3 +1,5 @@
+import { offlineMediaIds } from '~~/shared/utils/offlineMedia'
+
 const RETRIES = 3
 
 const wait = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms))
@@ -79,8 +81,7 @@ export const useOfflineBooks = () => {
         setProgress(id, { done: 0, total: 1 })
         try {
             const book = await request<IBook>(`/books/${id}`)
-            const scanIds = current.value?.role === 'child' ? [] : book.pages.map(page => page.fileId)
-            const fileIds = [...new Set([...book.lines.map(line => line.audioFileId), ...scanIds].filter((fileId): fileId is string => fileId !== null))]
+            const fileIds = offlineMediaIds(book, current.value?.role !== 'child')
             const sizes: Record<string, number> = { ...(records.value[id]?.sizes ?? {}) }
             const record: IOfflineBook = { id, title: book.title, book, fileIds, sizes, savedAt: new Date().toISOString(), isComplete: false }
             await writeOfflineBook(record)

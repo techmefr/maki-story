@@ -3,8 +3,11 @@
         <BackLink :to="homePath" />
         <h1 class="title">{{ t('family.index.title') }}</h1>
         <p v-if="usage && usage.limits.adults !== null" class="overview__hint" data-testid="plan-adults-usage">{{ t('family.planUsage', { used: usage.adults, limit: usage.limits.adults }) }}</p>
+        <div class="overview__actions">
         <AppButton is-block icon="user-plus" to="/family/invite" data-testid="family-invite">{{ t('family.index.add') }}</AppButton>
         <AppButton is-block variant="secondary" icon="smile" to="/family/add">{{ t('family.index.addChild') }}</AppButton>
+
+        </div>
 
         <section v-for="group in groups" :key="group.role" class="stack overview__group" :aria-labelledby="`group-${group.role}`">
             <div class="row">
@@ -124,6 +127,17 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.overview__actions {
+    display: grid;
+    gap: 16px;
+}
+
+@media (min-width: 720px) {
+    .overview__actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 .overview {
     gap: 24px;
 }

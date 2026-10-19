@@ -3,5 +3,15 @@
         "deploymentEnabled": {
             "dev": false
         }
-    }
+    },
+    "crons": [
+        {
+            "path": "/api/cron/notifications",
+            "schedule": "0 7 * * *"
+        },
+        {
+            "path": "/api/cron/auth",
+            "schedule": "0 3 * * *"
+        }
+    ]
 }

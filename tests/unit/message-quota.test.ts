@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { activeSentBetween, countsTowardQuota, quotaOf, remainingMs, remainingParts } from '../../shared/utils/messageQuota.ts'
+import { activeSentBetween, countsTowardQuota, quotaOf, remainingMs, remainingParts, messageConversation } from '../../shared/utils/messageQuota.ts'
 
 const NOW = Date.parse('2026-10-05T10:00:00Z')
 const LIMIT = 5
@@ -64,4 +64,9 @@ test('the countdown is split into hours and minutes, rounded up', () => {
     assert.deepEqual(remainingParts(5400000), { hours: 1, minutes: 30 })
     assert.deepEqual(remainingParts(59000), { hours: 0, minutes: 1 })
     assert.deepEqual(remainingParts(0), { hours: 0, minutes: 0 })
+})
+
+test('a conversation stays with its sender and recipient and preserves replay order', () => {
+    const list = [message({ id: 'new' }), message({ id: 'old', createdAt: '2026-10-05T08:00:00Z', firstListenedAt: '2026-10-05T08:00:00Z' }), message({ id: 'other-sender', fromMemberId: 'grandparent' }), message({ id: 'other-child', toMemberId: 'child-two' }), message({ id: 'expired', expiresAt: '2026-10-05T09:00:00Z' })]
+    assert.deepEqual(messageConversation(list, 'a', 'b', NOW).map(item => item.id), ['old', 'new'])
 })
