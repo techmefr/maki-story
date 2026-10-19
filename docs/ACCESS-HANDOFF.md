@@ -1,10 +1,10 @@
 # Access batch — 2026-10-18
 
 ## Current user instructions — 2026-10-19
-Work only on dev. Do not run E2E tests, open a PR to main, merge main or deploy. The user will group the main release later. The latest requested batch was the shared screens, now delivered; report before starting another batch.
+Work only on dev. Do not run E2E tests, open a PR to main, merge main or deploy. The user will group the main release later. The user subsequently authorized finishing all adult and child screens and confirmed remote deletion after an account-deletion request. All implementation for this batch is now delivered.
 
 ## Shared screen batch
-Account #145, Profile #147, Family/Invitation #148, Lock #149, Help #161, notifications/mails #160 and auxiliary pages #162 are closed with their verified scope recorded in each issue. The Account UI closure is separate from Supabase migration #193, which remains open. Domain/sender configuration remains in #194. Do not claim that provider activation or E2E verification has been completed.
+Account #145, Profile #147, Family/Invitation #148, Lock #149, Help #161, notifications/mails #160 and auxiliary pages #162 are closed with their verified scope recorded in each issue. The Account UI closure is separate from Supabase migration #193, now closed for the opt-in server implementation and tested lifecycle; production activation remains explicit. Domain/sender configuration remains in #194. Do not claim that provider activation or E2E verification has been completed.
 
 Allowed checks passed: lint, typecheck, i18n, route documentation, design audit, 65 unit tests and production build. Current progress and commits are in docs/MEMORY.md and docs/TASKS.md. Preserve unrelated .claude/ and .github/workflows/migrate.yml.
 
@@ -23,3 +23,5 @@ Project auth configuration lives in supabase/config.toml. Current application UR
 Account deletion was explicitly authorized on 2026-10-19. Migration 0070 enqueues remote identities only when their local account is actually deleted. Transaction rollback preserves both; remaining family memberships retain the account. Immediate processing and the daily auth purge retry provider failures. Active bindings cancel a queued deletion; concurrent workers reserve rows. CRON_SECRET protects the HTTP cron. No migration or login deletes an identity.
 
 The dedicated live check creates only a disposable identity, exercises password verification/change and idempotent deletion, then cleans it up. Run tests/integration/supabase-live.test.ts with SUPABASE_LIVE_CHECK=1 and private server credentials; the default suite skips this external check. A real run passed on 2026-10-19. Legacy stays the default; cloud Auth configuration and production provider activation are not performed by this batch. Existing local magic-link and social OAuth flows stay in place. Interactive social-provider and physical-device acceptance are still manual release checks.
+
+Final code: 6ee2a03 on dev. Native run 39263493179 passed (Android without GMS/Firebase, iOS simulator and PWA). Issues #193 and #166 closed with evidence. #194 remains deferred. Main is unchanged at 614ada34900a0aec4449db5cfb971bbc06550baa. No release PR or merge has been made. For a later release, apply application migrations through 0070 and verify the deployment. Keep AUTH_PROVIDER=legacy unless deliberately configuring/activating Supabase with the private server variables and verified cloud Auth settings.
