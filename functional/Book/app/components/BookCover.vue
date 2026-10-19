@@ -35,7 +35,7 @@ watch(() => fileId, load, { immediate: true })
     overflow: hidden;
     border: var(--outline) solid var(--line);
     border-radius: 16px;
-    color: var(--ink);
+    color: var(--on-accent);
 }
 
 .cover__image {

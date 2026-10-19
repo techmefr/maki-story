@@ -82,3 +82,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] 2026-10-19 : #195 corrections des régressions consignées par la CI (sélecteur de création, largeur du composeur et retour à la ligne des actions). Lint, typage et build réussis. Aucun E2E exécuté sur consigne utilisateur ; leur confirmation reste différée, la CI distante historique n’est pas déclarée verte.
 
 - [x] 2026-10-19 : #159 accueil réel adulte en sections (demandes, propositions, corrections, bibliothèque), flux multi-famille des proches et catégories ; navigation après sélection de famille. Lint, typage, i18n et build réussis ; aucun E2E lancé.
+
+- [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.

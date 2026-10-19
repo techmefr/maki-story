@@ -1,9 +1,10 @@
 <template>
     <div class="stack library">
         <StatusStrip />
-        <h1 v-if="hasTitle" class="title">{{ t('home.title') }}</h1>
-        <GrimaceNudge />
-        <BirthDateNudge />
+        <header v-if="hasTitle" class="library__heading">
+            <h1 class="title grow">{{ t('home.title') }}</h1>
+            <AppBadge>{{ shown.length }}</AppBadge>
+        </header>
         <NuxtLink v-if="unreadCount > 0" to="/messages" class="card card--tap row">
             <AppIcon name="message-heart" :size="30" motion="wiggle" />
             <span class="subtitle grow">{{ unreadLabel }}</span>
@@ -31,6 +32,7 @@
         </div>
         <BookSheet v-if="sheetBook" :book="sheetBook" @close="sheetBook = null" @share="startShare" />
         <ShareDialog v-if="shareTarget" :book="shareTarget" @close="shareTarget = null" />
+        <aside class="stack library__notes"><GrimaceNudge /><BirthDateNudge /></aside>
     </div>
 </template>
 
@@ -84,16 +86,22 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.library__heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.library__notes:empty {
+    display: none;
+}
+
 .library {
     gap: 24px;
 }
 
 .library__actions {
-    padding: 20px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 24px;
-    background: var(--sky);
-    color: var(--on-accent);
+    align-items: center;
 }
 
 .library__usage {
@@ -109,6 +117,6 @@ onMounted(async () => {
 }
 
 .library__action {
-    flex: 1 1 200px;
+    flex: 0 1 auto;
 }
 </style>

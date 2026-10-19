@@ -100,3 +100,5 @@ Décisions prises et pièges connus. À relire avant une tâche, à compléter e
 - [x] 2026-10-19 : #195 corrections des régressions consignées par la CI (sélecteur de création, largeur du composeur et retour à la ligne des actions). Lint, typage et build réussis. Aucun E2E exécuté sur consigne utilisateur ; leur confirmation reste différée, la CI distante historique n’est pas déclarée verte.
 
 - 2026-10-19 : #159 : l’accueil réel abandonne les grandes tuiles de compteurs au profit des tâches et couvertures. Les raccourcis de statut restent compacts. RelativeHomeFeed et RelativeTaskList partagent useRelativeTasks ; useFamilyNavigation sélectionne la bonne famille avant d’ouvrir une tâche. Les cartes enfant affichent leur famille ; aucun destinataire ni quota fictif ajouté.
+
+- [x] 2026-10-19 : #155 bibliothèque avec cartes encadrées, couvertures réelles, auteur/statut, recherche/filtres corrigés, détail avec progression et voix, accès enfant par cartes de livres. Création guidée couverture/pages/envoi conservée selon les décisions du 2026-10-15. Lint, typage et build réussis ; aucun E2E exécuté.

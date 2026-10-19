@@ -27,10 +27,12 @@
                 <p v-if="!current.isRestricted && readyBooks.length > 0" class="access__summary" data-testid="access-summary">
                     {{ t('bookAccess.visibleCount', { count: readyBooks.length, name: childName }) }}
                 </p>
-                <ul v-if="current.isRestricted" class="access__list">
-                    <li v-for="book in readyBooks" :key="book.id">
+                <ul v-if="readyBooks.length > 0" class="access__list">
+                    <li v-for="book in readyBooks" :key="book.id" class="access__book" :class="{ 'access__book--all': !current.isRestricted }">
+                        <span class="access__cover"><BookCover :file-id="book.coverFileId" :src="book.coverUrl" :fallback="pickVoiceByText(book.id).hex" /></span>
                         <AppCheckbox
-                            :model-value="current.bookIds.includes(book.id)"
+                            :model-value="!current.isRestricted || current.bookIds.includes(book.id)"
+                            :disabled="!current.isRestricted"
                             :data-testid="`access-book-${book.id}`"
                             @update:model-value="toggleBook(book.id)"
                         >
@@ -54,6 +56,36 @@ onMounted(init)
 </script>
 
 <style scoped>
+.access {
+    gap: 24px;
+}
+
+.access__book {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: var(--outline) solid var(--ink);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.access__book--all {
+    opacity: 0.75;
+}
+
+.access__cover {
+    width: 48px;
+    flex: none;
+}
+
+.access__book :deep(.checkbox) {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .access__text {
     display: flex;
     flex-direction: column;
