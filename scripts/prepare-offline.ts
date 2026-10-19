@@ -2,7 +2,11 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { offlineManifestAssets, offlineShellAssets } from '../shared/utils/offlineShell.ts'
 
-const directory = new URL('../.output/public/', import.meta.url)
+const preset = process.env.NITRO_PRESET ?? (process.env.VERCEL === '1' ? 'vercel' : 'node-server')
+const directory = new URL(preset.startsWith('vercel') ? '../.vercel/output/static/' : '../.output/public/', import.meta.url)
+if (!existsSync(directory)) {
+    throw new Error(`Production public directory is missing for ${preset}: ${directory.pathname}`)
+}
 const candidates = ['../node_modules/.cache/nuxt/.nuxt/dist/server/client.manifest.mjs', '../.nuxt/dist/server/client.manifest.mjs']
 const manifestUrl = candidates.map(path => new URL(path, import.meta.url)).find(path => existsSync(path))
 if (!manifestUrl) {
