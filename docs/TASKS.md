@@ -119,3 +119,6 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [ ] #194 : domaine et e-mails reportés explicitement par Gaëtan ; ne pas relancer ce chantier avant sa demande.
 
 - [x] 2026-10-19 : #166 clôturée après vérification de la fermeture des 45 sous-issues #121–#165 et synchronisation des cases. #194 reste reportée ; les idées ultérieures restent ouvertes.
+
+- [ ] #198 : correctif du chemin de génération du service worker Vercel ; trois tests de régression passent, build Vercel corrigé passe ; publication et vérification distante en cours.
+- [ ] #197 : lot E2E/Driver.js séparé après publication ; 14 tests de visite mobile/desktop réussis, suite globale encore à vérifier.
