@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Maki Story</string>
+    <string name="title_activity_main">Maki Story</string>
+    <string name="package_name">app.tantara.mobile</string>
+    <string name="custom_url_scheme">app.tantara.mobile</string>
+</resources>

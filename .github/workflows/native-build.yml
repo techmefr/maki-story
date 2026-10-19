@@ -1,0 +1,77 @@
+name: Native build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths:
+      - android/**
+      - ios/**
+      - capacitor.config.ts
+      - .github/workflows/native-build.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm generate
+        env:
+          NUXT_PUBLIC_API_BASE: https://tantara.vercel.app
+      - run: pnpm exec cap sync android
+      - run: bash ./gradlew assembleDebug --no-daemon
+        working-directory: android
+      - run: bash ./gradlew :app:dependencies --configuration debugRuntimeClasspath > ../android-dependencies.txt
+        working-directory: android
+      - run: '! grep -E "com.google.android.gms:|com.google.firebase:" android-dependencies.txt'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-phone-tablet-tv-without-gms
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android-dependencies.txt
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pwa
+          path: .output/public
+          retention-days: 7
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm generate
+        env:
+          NUXT_PUBLIC_API_BASE: https://tantara.vercel.app
+      - run: pnpm exec cap sync ios
+      - run: xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath ios/build CODE_SIGNING_ALLOWED=NO build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator
+          path: ios/build/Build/Products/Debug-iphonesimulator/*.app
+          retention-days: 7
