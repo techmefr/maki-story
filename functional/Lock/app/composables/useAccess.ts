@@ -54,16 +54,14 @@ export const useAccess = () => {
         if (cache.overrideUntil && Date.parse(cache.overrideUntil) > Date.now()) {
             return ALLOWED_STATUS
         }
-        const deviceZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-        const zoneOf = (fallback: string): string => (isValidTimezone(deviceZone) ? deviceZone : fallback)
-        const verdict = evaluateControls(cache.controls ? { ...cache.controls, timezone: zoneOf(cache.controls.timezone) } : null, Date.now())
+        const verdict = evaluateControls(cache.controls, Date.now())
         if (verdict.reason) {
             return { isAllowed: false, reason: verdict.reason, resumeAt: verdict.resumeAt }
         }
         if (!cache.schedule) {
             return ALLOWED_STATUS
         }
-        return evaluateAccess({ ...cache.schedule, timezone: zoneOf(cache.schedule.timezone) }, Date.now())
+        return evaluateAccess(cache.schedule, Date.now())
     }
 
     const refresh = async (): Promise<IAccessStatus> => {

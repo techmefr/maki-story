@@ -30,7 +30,7 @@ export const isValidWindow = (window: unknown): window is IDayWindow => {
     }
     const from = toMinutes(candidate.from)
     const to = toMinutes(candidate.to)
-    return from >= 0 && to >= 0 && from < to
+    return from >= 0 && to >= 0 && from !== to && from % 30 === 0 && to % 30 === 0
 }
 
 export const isValidWeekly = (weekly: unknown): weekly is IDayWindow[] => {
@@ -113,7 +113,15 @@ export const evaluateAccess = (schedule: IChildSchedule | null, now: number): IA
     }
     const today = localParts(now, schedule.timezone)
     const window = schedule.weekly[today.weekday]
-    if (window?.isOpen && today.minutes >= toMinutes(window.from) && today.minutes < toMinutes(window.to)) {
+    if (window?.isOpen) {
+        const from = toMinutes(window.from)
+        const to = toMinutes(window.to)
+        if (from < to ? today.minutes >= from && today.minutes < to : today.minutes >= from) {
+            return ALLOWED
+        }
+    }
+    const previous = schedule.weekly[(today.weekday + DAYS_IN_WEEK - 1) % DAYS_IN_WEEK]
+    if (previous?.isOpen && toMinutes(previous.from) > toMinutes(previous.to) && today.minutes < toMinutes(previous.to)) {
         return ALLOWED
     }
     const opening = nextOpening(schedule, now)
