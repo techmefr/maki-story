@@ -1,43 +1,26 @@
 <template>
-    <div v-if="isVisible" class="splash" :class="{ 'splash--leaving': isLeaving }" aria-hidden="true">
+    <div v-if="isVisible" class="splash" :class="{ 'splash--leaving': isLeaving }" :aria-label="t('shell.update.checking')" role="status">
         <img class="splash__art" src="/splash.webp" alt="" />
         <div class="splash__track"><div class="splash__fill" /></div>
     </div>
 </template>
 
 <script setup lang="ts">
-const SEEN_KEY = 'tantara-splash-seen'
-const SHOW_MS = 1600
-const LEAVE_MS = 400
-
+import { useAppUpdate } from '~~/technical/Storage/app/composables/useAppUpdate'
+const { t } = useI18n()
+const { checkAtStartup } = useAppUpdate()
 const isVisible = ref(false)
 const isLeaving = ref(false)
+let leaveTimer: ReturnType<typeof setTimeout> | undefined
 
-const hasSeen = (): boolean => {
-    try {
-        return sessionStorage.getItem(SEEN_KEY) === '1'
-    } catch {
-        return false
-    }
-}
-
-onMounted(() => {
-    if (hasSeen()) {
-        return
-    }
-    try {
-        sessionStorage.setItem(SEEN_KEY, '1')
-    } catch {
-        return
-    }
+onMounted(async () => {
+    if (import.meta.dev && sessionStorage.getItem('tantara-splash-seen') === '1') return
     isVisible.value = true
-    setTimeout(() => {
-        isLeaving.value = true
-        setTimeout(() => {
-            isVisible.value = false
-        }, LEAVE_MS)
-    }, SHOW_MS)
+    await Promise.all([new Promise(resolve => setTimeout(resolve, 1600)), checkAtStartup()])
+    isLeaving.value = true
+    leaveTimer = setTimeout(() => { isVisible.value = false }, 400)
 })
+onBeforeUnmount(() => clearTimeout(leaveTimer))
 </script>
 
 <style scoped>
@@ -47,7 +30,7 @@ onMounted(() => {
     z-index: 1000;
     overflow: hidden;
     background: #fef1cf;
-    pointer-events: none;
+    pointer-events: auto;
     transition: opacity 0.4s ease;
 }
 

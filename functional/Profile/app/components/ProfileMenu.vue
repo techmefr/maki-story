@@ -161,6 +161,7 @@
                 <AppButton v-if="current.role === 'parent'" variant="secondary" tone="grape" icon="moon" is-block to="/family/parental" data-testid="parental-open" @click="close">
                     {{ t('profile.menu.schedule') }}
                 </AppButton>
+                <AppUpdateAction />
                 <AppButton variant="secondary" icon="users" is-block data-testid="profile-switch" @click="openSwitcher">{{ t('profile.switchProfile') }}</AppButton>
                 <AppButton v-if="!isChild" variant="secondary" icon="rocket" is-block data-testid="tour-replay" @click="replayTour">{{ t('tour.replay') }}</AppButton>
                 <AppButton v-if="!isChild" variant="secondary" icon="logout" is-block class="pmenu__quit" data-testid="profile-quit" @click="quit">
@@ -175,6 +176,7 @@
 </template>
 
 <script setup lang="ts">
+import AppUpdateAction from '~~/technical/Storage/app/components/AppUpdateAction.vue'
 import { useFoliageMotion } from '~~/technical/Motion/app/composables/useFoliageMotion'
 const { isFoliageEnabled, setFoliageEnabled } = useFoliageMotion()
 

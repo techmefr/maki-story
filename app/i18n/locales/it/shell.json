@@ -28,5 +28,15 @@
     "newBadge": "nuovo",
     "settings": {
         "open": "Impostazioni"
+    },
+    "update": {
+        "checking": "Verifica aggiornamenti…",
+        "applying": "Installazione aggiornamento…",
+        "action": "Aggiorna l’app",
+        "available": "È disponibile una nuova versione.",
+        "current": "L’app è aggiornata.",
+        "offline": "Offline: riprova con una connessione.",
+        "failed": "Aggiornamento non riuscito. Riprova.",
+        "later": "Più tardi"
     }
 }
