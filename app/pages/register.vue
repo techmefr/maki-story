@@ -1,10 +1,7 @@
 <template>
-    <div class="stack center narrow" style="margin-top: 6vh">
-        <AppLogo :size="110" class="anim-float" />
-        <h1 class="title">{{ t('auth.register.title') }}</h1>
-        <p class="muted">{{ t('auth.register.tagline') }}</p>
-        <form class="card stack" style="width: 100%; text-align: start" @submit.prevent="submit">
-            <label class="stack" style="gap: 6px">
+    <AuthShell :title="t('auth.register.title')" :tagline="t('auth.register.tagline')">
+        <form class="stack register__form" @submit.prevent="submit">
+            <label class="stack register__field">
                 <span class="label">{{ t('auth.login.email') }}</span>
                 <input
                     v-model="email"
@@ -18,7 +15,7 @@
                     required
                 />
             </label>
-            <label class="stack" style="gap: 6px">
+            <label class="stack register__field">
                 <span class="label">{{ t('auth.register.passwordLabel') }}</span>
                 <input
                     v-model="password"
@@ -32,11 +29,11 @@
                     required
                 />
             </label>
-            <label class="stack" style="gap: 6px">
+            <label class="stack register__field">
                 <span class="label">{{ t('auth.register.familyName') }}</span>
                 <input v-model="familyName" class="input" type="text" :placeholder="t('auth.register.familyPlaceholder')" required />
             </label>
-            <label class="stack" style="gap: 6px">
+            <label class="stack register__field">
                 <span class="label">{{ t('auth.register.parentName') }}</span>
                 <input v-model="parentName" class="input" type="text" :placeholder="t('auth.register.parentPlaceholder')" required />
             </label>
@@ -46,10 +43,11 @@
             </AppButton>
         </form>
         <AppButton variant="secondary" is-block to="/login">{{ t('auth.register.haveAccount') }}</AppButton>
-    </div>
+    </AuthShell>
 </template>
 
 <script setup lang="ts">
+import AuthShell from '../components/AuthShell.vue'
 definePageMeta({ layout: 'blank' })
 
 const { register } = useSession()
@@ -84,3 +82,8 @@ const submit = async (): Promise<void> => {
     await navigateTo('/welcome')
 }
 </script>
+
+<style scoped>
+.register__form { width: 100%; gap: 20px; text-align: start; margin-bottom: 24px; }
+.register__field { gap: 8px; min-width: 0; }
+</style>
