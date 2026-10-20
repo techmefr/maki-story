@@ -138,4 +138,7 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 
 - [x] #208 — 268 page/state renders and 15 accessibility checks, auth entry screens coherent, child photo forest, accessible keyboard tabs; full verify + Vercel build pass. Published once through MR #209; main 2cb8f913175b8ab8a363853bd6721bd08e7e7b84, Vercel success and public smoke checks pass.
 
-- [x] #210 — Splash startup version check, one automatic reload, update/later actions, preserve session/audio/outbox, offline startup and worker lifecycle verified. Grouped publication pending.
+- [x] #210 — Splash startup version check, one automatic reload, update/later actions, preserve session/audio/outbox, offline startup and worker lifecycle verified. Published via MR #211, main bd47b6d4221ccda4bd0c0b96d14505910c555fc4; Vercel and public worker verified.
+
+- [x] #212 — Poll updates every minute while visible/online, no overlapping checks or automatic active-work reload; timer cleanup and real worker probe pass.
+- [x] #213 — Defer AI creation in demo and production; hidden button/prefill, direct route redirect and API gate verified.
