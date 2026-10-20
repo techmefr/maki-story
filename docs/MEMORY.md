@@ -203,3 +203,6 @@ DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo SESSIO
 ```
 
 Select Mattéo then open profile in the global demo dropdown. Seeded twice without duplicates; 81 unit tests pass, lint/typecheck/i18n pass. Actual dropdown opens kid and populated library/vault; arbitrary profile gets 403. Artifacts /home/gaetan/artifacts/maki-demo-2026-10-20. No local E2E suite. No main release.
+
+
+2026-10-20 — User validated child design; increased Ravenala exposure from 28% to 52% at screen edges, broadened fade and adjusted sway to -4/+5 degrees with small translation. Six independently moving leaves verified on local demo, zero motion with system reduced-motion, no horizontal overflow. Lint/typecheck pass. Local change only; main unchanged.

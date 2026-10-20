@@ -42,7 +42,7 @@ const leaves = Array.from({ length: 6 }, (_, id) => {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    mask-image: linear-gradient(to right, #000 0, #000 3%, transparent 18%, transparent 82%, #000 97%, #000 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 3%, transparent 20%, transparent 80%, #000 97%, #000 100%);
 }
 
 .foliage__leaf {
@@ -54,15 +54,15 @@ const leaves = Array.from({ length: 6 }, (_, id) => {
     animation: foliage-sway var(--leaf-duration) ease-in-out var(--leaf-delay) infinite alternate;
 }
 
-.foliage__leaf--left { left: calc(var(--leaf-width) * -0.72); }
-.foliage__leaf--right { right: calc(var(--leaf-width) * -0.72); }
+.foliage__leaf--left { left: calc(var(--leaf-width) * -0.48); }
+.foliage__leaf--right { right: calc(var(--leaf-width) * -0.48); }
 .foliage__leaf img { display: block; width: 100%; height: auto; transform: rotate(var(--leaf-angle)); }
 .foliage__leaf--right img { transform: scaleX(-1) rotate(var(--leaf-angle)); }
 .foliage[data-moving="false"] .foliage__leaf { animation-play-state: paused; }
 
 @keyframes foliage-sway {
-    from { transform: rotate(-1.4deg); }
-    to { transform: rotate(1.8deg); }
+    from { transform: translateX(-3px) rotate(-4deg); }
+    to { transform: translateX(5px) rotate(5deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
