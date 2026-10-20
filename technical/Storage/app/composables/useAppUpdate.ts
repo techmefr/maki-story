@@ -1,4 +1,4 @@
-import { canReloadForUpdate, UPDATE_CHECK_MS, withinUpdateDeadline } from '~~/shared/utils/appUpdate'
+import { canReloadForUpdate, withinUpdateDeadline } from '~~/shared/utils/appUpdate'
 
 const RELOAD_KEY = 'tantara-update-reloaded-at'
 let registration: Promise<ServiceWorkerRegistration> | null = null
@@ -104,13 +104,17 @@ export const useAppUpdate = () => {
                 reload()
                 return
             }
-            result.waiting.postMessage({ type: 'SKIP_WAITING' })
-            setTimeout(() => {
-                if (!reloading) {
-                    isApplying.value = false
-                    status.value = 'failed'
-                }
-            }, UPDATE_CHECK_MS)
+            const waiting = result.waiting
+            let activated: (() => void) | undefined
+            try {
+                await withinUpdateDeadline(new Promise<void>(resolve => {
+                    activated = resolve
+                    navigator.serviceWorker.addEventListener('controllerchange', activated, { once: true })
+                    waiting.postMessage({ type: 'SKIP_WAITING' })
+                }))
+            } finally {
+                if (activated) navigator.serviceWorker.removeEventListener('controllerchange', activated)
+            }
         } catch {
             isApplying.value = false
             status.value = 'failed'
