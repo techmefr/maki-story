@@ -206,3 +206,11 @@ Select Mattéo then open profile in the global demo dropdown. Seeded twice witho
 
 
 2026-10-20 — User validated child design; increased Ravenala exposure from 28% to 52% at screen edges, broadened fade and adjusted sway to -4/+5 degrees with small translation. Six independently moving leaves verified on local demo, zero motion with system reduced-motion, no horizontal overflow. Lint/typecheck pass. Local change only; main unchanged.
+
+
+## 2026-10-20 — Approved visual release (#208)
+User approved child forest and independent Ravenala movement, then authorized all-page review and production publication. Login/register plus forgot/magic/join now share the illustrated responsive AuthShell; child photo prompt explicitly selects kid layout, adult photo remains adult. AppChip no longer emits aria-pressed for role=tab; AppTabs uses roving tabindex and Arrow/Home/End navigation with RTL support. Demo selector sits above the desktop rail, remains local only.
+
+Evidence: 183 public/parent/relative/child renders at 320, 1440 and 844 landscape with max text; 39 supplemental renders with valid sharing/category data and changed auth/photo pages; 42 renders at tablet 1180, 4K and mobile max text; 4 actual locked-child renders. No horizontal overflow, JavaScript exceptions or HTTP 5xx. Expected root/allowed-child redirects recorded; missing share/category probe URLs supplemented with correct valid data. 15 axe WCAG A/AA checks rerun after fixing tab ARIA: zero violations. This is not a complete RGAA certification (#201 stays open). Synthetic demo audio only. No local E2E suite; #197 remains separate.
+
+pnpm verify passes: lint, typecheck, 2087 i18n keys/9 languages, docs/design, 81 unit tests, 50 migration up/down/up. NITRO_PRESET=vercel pnpm build passes. Artifacts: /home/gaetan/artifacts/maki-release-review-2026-10-20; logs /tmp/maki-release-final-verify.log and /tmp/maki-release-final-build.log. Release will use one dev-to-main merge. Domain/mail #194 deferred by user.

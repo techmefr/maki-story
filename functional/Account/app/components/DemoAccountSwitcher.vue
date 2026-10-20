@@ -39,7 +39,7 @@ const open = async (): Promise<void> => {
 </script>
 
 <style scoped>
-.demo-switcher { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 20px; background: #fff0bd; color: #271b43; border-bottom: 2px solid #271b43; }
+.demo-switcher { position: relative; z-index: 21; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 20px; background: #fff0bd; color: #271b43; border-bottom: 2px solid #271b43; }
 .demo-switcher label { font-weight: 700; }
 .demo-switcher select { width: min(100%, 380px); flex: 1 1 200px; min-width: 0; }
 .demo-switcher p { width: 100%; }

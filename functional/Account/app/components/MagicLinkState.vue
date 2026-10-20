@@ -26,7 +26,7 @@ onMounted(verify)
 .magic {
     width: 100%;
     max-width: 440px;
-    min-height: 80dvh;
+    min-height: 360px;
     margin-inline: auto;
     justify-content: center;
     gap: 24px;

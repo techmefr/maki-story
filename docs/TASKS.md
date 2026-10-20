@@ -135,3 +135,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 Shared responsive AuthShell for login/register: cream and gold illustrated brand panel, white form panel, persistent login labels, mobile single column. Authentication behavior unchanged. Local guest preview http://localhost:4023/login and /register. Ten actual renders (320, landscape 844, desktop 1440, 4K, max text) without horizontal overflow or JavaScript errors. Lint/typecheck and 79 unit tests pass. Visual review pending; no main release. Artifacts: /home/gaetan/artifacts/maki-auth-2026-10-20.
 
 - [x] #207 — Local isolated demo seeder, five-profile dropdown, server guard and child preview validated.
+
+- [x] #208 — 268 page/state renders and 15 accessibility checks, auth entry screens coherent, child photo forest, accessible keyboard tabs; full verify + Vercel build pass. Publication authorized, grouped release pending.

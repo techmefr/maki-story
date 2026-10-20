@@ -6,7 +6,7 @@
                 <span>Maki Story</span>
             </NuxtLink>
             <div class="auth-shell__introduction">
-                <h1>{{ title }}</h1>
+                <h1 v-if="title">{{ title }}</h1>
                 <p>{{ tagline }}</p>
             </div>
             <div class="auth-shell__illustration" aria-hidden="true">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ title: string; tagline: string }>()
+defineProps<{ title?: string; tagline: string }>()
 </script>
 
 <style scoped>
