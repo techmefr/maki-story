@@ -184,3 +184,33 @@ Correctif publié : MR #199 fusionnée à 9284abb2, déploiement CZuDQ9LVcP7euri
 Publication enfant confirmée : MR #202 fusionnée, main 0619cff84179a195e31ac57472ef5b0746294df6 ; Vercel D44UpVXy6ezZXuY6sz1X6KMXaeZx success. Routes publiques 200, nouveau portrait 80 372 octets et empreinte identique au local, styles déployés avec portrait/contraste/réserve de navigation, worker tantara-c2bf9d1b1522f6f6. #200 fermée après vérification. #201 reste ouvert pour audit RGAA complet, technologies d’assistance et applicabilité/équivalents audio ; aucune conformité globale déclarée. Aucun compte ou livre de production utilisé pour la recette technique.
 
 2026-10-19 : #203, capture accueil adulte avec Bonjour/nom vertical. Retirer .grow du bloc de salutation et séparer titre/actions avec une grille pleine largeur ; boutons empilés sous600px. Quatorze rendus parent/proche de320px à4K et grands caractères : titre pleine largeur, aucun overflow/erreurJS. Preuves dans docs/FINAL-SCREEN-AUDIT.md. Publication corrective groupée après contrôles.
+
+#203 résolue : MR #204, main de380af4d750e8c959bf6447a20ebc5d99c69c9b, Vercel6w2mxBZy5kpKbyYCgpk7mZHmDK8n success. Stylesheet home.BPbXOGrU.css servi en200 avec grid-column:1/-1 et grille mobile en une colonne. Titre pleine largeur confirmé localement sur14configurations. Issue fermée après vérification distante ; notes de reprise surdev sans nouvelle publication.
+
+2026-10-20 #205 : forêt d’origine conservée selon précision utilisateur ; ajout de six feuilles Ravenala indépendantes, masque de protection du nom de l’app sans carte, animation douce uniquement enfant. Pause locale dans menu et prefers-reduced-motion vérifiés ;30capturesresponsive et vidéo locale. Deux assetsalphaWebP ~80ko au total, pas de dépendance ajoutée. Imports explicites de ChildFoliage/useFoliageMotion pour ne pas dépendre d’un registre d’auto-import de développement resté en cache. Voir docs/FINAL-SCREEN-AUDIT.md. Nouveau décor à montrer avant publication : garder surdev, pas de main pour ce lot tant que la revue n’est pas faite. Les touches adultes ont seulement été discutées, pas autorisées comme chantier à implémenter.
+
+
+## 2026-10-20 — Authentication presentation (#206)
+Shared responsive AuthShell for login/register: cream and gold illustrated brand panel, white form panel, persistent login labels, mobile single column. Authentication behavior unchanged. Local guest preview http://localhost:4023/login and /register. Ten actual renders (320, landscape 844, desktop 1440, 4K, max text) without horizontal overflow or JavaScript errors. Lint/typecheck and 79 unit tests pass. Visual review pending; no main release. Artifacts: /home/gaetan/artifacts/maki-auth-2026-10-20.
+
+
+## 2026-10-20 — Local demo (#207)
+Requires DEMO_MODE=true, Nuxt development, loopback HTTP host and local PostgreSQL database named maki_demo. Closed allowlist of five profiles and two accounts; children use the parent family account. Server verifies account/email/family/member/role before issuing a fresh HttpOnly session. Idempotent transactional seeder: two ready fr/mg books, messages, treasures, synthetic playable WAV test tones. No external services. Create empty maki_demo DB then run:
+
+```sh
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo pnpm seed:demo
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo SESSION_SECRET=local-demo-secret NOTIFY_PROVIDER=fake AUTH_PROVIDER=legacy pnpm dev --host 127.0.0.1 --port 4024
+```
+
+Select Mattéo then open profile in the global demo dropdown. Seeded twice without duplicates; 81 unit tests pass, lint/typecheck/i18n pass. Actual dropdown opens kid and populated library/vault; arbitrary profile gets 403. Artifacts /home/gaetan/artifacts/maki-demo-2026-10-20. No local E2E suite. No main release.
+
+
+2026-10-20 — User validated child design; increased Ravenala exposure from 28% to 52% at screen edges, broadened fade and adjusted sway to -4/+5 degrees with small translation. Six independently moving leaves verified on local demo, zero motion with system reduced-motion, no horizontal overflow. Lint/typecheck pass. Local change only; main unchanged.
+
+
+## 2026-10-20 — Approved visual release (#208)
+User approved child forest and independent Ravenala movement, then authorized all-page review and production publication. Login/register plus forgot/magic/join now share the illustrated responsive AuthShell; child photo prompt explicitly selects kid layout, adult photo remains adult. AppChip no longer emits aria-pressed for role=tab; AppTabs uses roving tabindex and Arrow/Home/End navigation with RTL support. Demo selector sits above the desktop rail, remains local only.
+
+Evidence: 183 public/parent/relative/child renders at 320, 1440 and 844 landscape with max text; 39 supplemental renders with valid sharing/category data and changed auth/photo pages; 42 renders at tablet 1180, 4K and mobile max text; 4 actual locked-child renders. No horizontal overflow, JavaScript exceptions or HTTP 5xx. Expected root/allowed-child redirects recorded; missing share/category probe URLs supplemented with correct valid data. 15 axe WCAG A/AA checks rerun after fixing tab ARIA: zero violations. This is not a complete RGAA certification (#201 stays open). Synthetic demo audio only. No local E2E suite; #197 remains separate.
+
+pnpm verify passes: lint, typecheck, 2087 i18n keys/9 languages, docs/design, 81 unit tests, 50 migration up/down/up. NITRO_PRESET=vercel pnpm build passes. Artifacts: /home/gaetan/artifacts/maki-release-review-2026-10-20; logs /tmp/maki-release-final-verify.log and /tmp/maki-release-final-build.log. Release will use one dev-to-main merge. Domain/mail #194 deferred by user.

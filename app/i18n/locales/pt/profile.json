@@ -54,7 +54,8 @@
             "other": "{count} escolhidas"
         },
         "quit": "Sair",
-        "edit": "Editar o meu perfil"
+        "edit": "Editar o meu perfil",
+        "foliageMotion": "Animar as folhas"
     },
     "unlock": {
         "offerTitle": "Ativar a impressão digital ou o rosto?",

@@ -1,5 +1,5 @@
 <template>
-    <button v-bind="$attrs" type="button" class="chip" :class="{ 'chip--on': selected }" :aria-pressed="selected ? 'true' : 'false'" :disabled="disabled">
+    <button v-bind="$attrs" type="button" class="chip" :class="{ 'chip--on': selected }" :aria-pressed="$attrs.role === 'tab' ? undefined : selected ? 'true' : 'false'" :disabled="disabled">
         <slot />
     </button>
 </template>

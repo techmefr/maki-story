@@ -1,5 +1,6 @@
 <template>
     <div ref="shell" class="kid shell kid-world">
+        <ChildFoliage />
         <a class="skip-link" href="#main">{{ t('shell.skip') }}</a>
         <SideRail />
         <div class="app">
@@ -19,22 +20,32 @@
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 const { t } = useI18n()
 const shell = ref<HTMLElement | null>(null)
-let navigationObserver: ResizeObserver | null = null
+let layoutObserver: ResizeObserver | null = null
 
 onMounted(() => {
+    const app = shell.value?.querySelector<HTMLElement>('.app')
+    const header = shell.value?.querySelector<HTMLElement>('.header')
     const navigation = shell.value?.querySelector<HTMLElement>('.tabbar')
-    if (!navigation) {
-        return
-    }
-    navigationObserver = new ResizeObserver(() => {
-        shell.value?.style.setProperty('--child-nav-height', `${navigation.getBoundingClientRect().height}px`)
+    layoutObserver = new ResizeObserver(() => {
+        if (navigation) {
+            shell.value?.style.setProperty('--child-nav-height', `${navigation.getBoundingClientRect().height}px`)
+        }
+        if (app && header) {
+            const clearance = Math.ceil(parseFloat(getComputedStyle(app).paddingTop) + header.getBoundingClientRect().height + 16)
+            shell.value?.style.setProperty('--child-header-clearance', `${clearance}px`)
+        }
     })
-    navigationObserver.observe(navigation)
+    for (const element of [app, header, navigation]) {
+        if (element) {
+            layoutObserver.observe(element)
+        }
+    }
 })
 
-onBeforeUnmount(() => navigationObserver?.disconnect())
+onBeforeUnmount(() => layoutObserver?.disconnect())
 </script>
 
 <style scoped>

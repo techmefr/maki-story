@@ -1,11 +1,5 @@
 <template>
-    <div class="stack center narrow login">
-        <header class="login__brand stack center">
-            <AppLogo :size="104" />
-            <h1 class="title">Maki Story</h1>
-            <p class="login__tagline">{{ t('auth.login.tagline') }}</p>
-            <MakiScene pose="heartBook" :size="200" class="login__mascot" />
-        </header>
+    <AuthShell :title="t('auth.login.submit')" :tagline="t('auth.login.tagline')">
         <section v-if="isSent" class="stack center login__sent" role="status">
             <MakiScene pose="heartBook" :size="144" />
             <h2 class="subtitle">{{ t('auth.login.sentTitle') }}</h2>
@@ -14,6 +8,8 @@
         </section>
         <form v-else class="stack login__form" @submit.prevent="submit">
             <AppTabs v-model="method" :items="methods" :label="t('auth.login.tabs')" />
+            <label class="stack login__field">
+                <span class="label">{{ t('auth.login.email') }}</span>
             <AppInput
                 v-model="email"
                 type="email"
@@ -26,7 +22,10 @@
                 :aria-label="t('auth.login.email')"
                 :placeholder="t('auth.login.emailPlaceholder')"
             />
+            </label>
             <template v-if="method === 'password'">
+                <label class="stack login__field">
+                    <span class="label">{{ t('auth.login.password') }}</span>
                 <AppInput
                     v-model="password"
                     type="password"
@@ -38,6 +37,7 @@
                     :aria-label="t('auth.login.password')"
                     :placeholder="t('auth.login.passwordPlaceholder')"
                 />
+                </label>
                 <button class="login__forgot" type="button" @click="method = 'magic'">{{ t('auth.login.forgot') }}</button>
             </template>
             <div v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</div>
@@ -48,10 +48,11 @@
             <SocialSignIn />
             <AppButton variant="secondary" is-block icon="rocket" to="/register">{{ t('auth.login.createFamily') }}</AppButton>
         </form>
-    </div>
+    </AuthShell>
 </template>
 
 <script setup lang="ts">
+import AuthShell from '../components/AuthShell.vue'
 definePageMeta({ layout: 'blank' })
 
 const { login, requestMagicLink } = useSession()
@@ -123,51 +124,13 @@ const submit = async (): Promise<void> => {
 </script>
 
 <style scoped>
-.login {
-    width: 100%;
-    max-width: 960px;
-    margin: 4vh auto 0;
-    gap: 28px;
-}
-
-.login__brand {
-    gap: 20px;
-}
-
-.login__tagline {
-    margin: 0;
-    max-width: 360px;
-    color: var(--ink-soft);
-    font-size: 1.125rem;
-    line-height: 1.5;
-}
-
-.login__mascot {
-    display: none;
-}
-
-@media (min-width: 900px) {
-    .login {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        align-items: center;
-        gap: 48px;
-    }
-
-    .login__mascot {
-        display: block;
-    }
-}
+.login__field { gap: 8px; }
 
 .login__sent,
 .login__form {
     width: 100%;
     min-width: 0;
-    padding: 24px;
-    border: var(--outline) solid var(--ink);
-    border-radius: 32px;
-    background: var(--paper);
-    box-shadow: var(--shadow-lg);
+    padding: 0;
     text-align: start;
     gap: 20px;
 }

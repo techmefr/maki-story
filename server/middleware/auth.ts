@@ -1,3 +1,4 @@
+import { assertLocalDemo } from '~~/functional/Account/server/utils/demo'
 import { ensureSchema, getDb } from '../utils/db'
 import { accessForMember } from '../utils/parental'
 import { isSessionCurrent, readSession } from '~~/technical/Auth/server/utils/session'
@@ -5,6 +6,7 @@ import { isSessionCurrent, readSession } from '~~/technical/Auth/server/utils/se
 const PUBLIC_API_PATHS = [
     '/api/cron/notifications',
     '/api/auth/login',
+    '/api/auth/demo',
     '/api/auth/register',
     '/api/auth/me',
     '/api/auth/logout',
@@ -24,6 +26,9 @@ export default defineEventHandler(async event => {
     const path = event.path.split('?')[0] ?? ''
     if (!path.startsWith('/api/')) {
         return
+    }
+    if (path === '/api/auth/demo') {
+        assertLocalDemo(event)
     }
     if (!SCHEMA_FREE_PATHS.includes(path)) {
         await ensureSchema()

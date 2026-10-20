@@ -54,7 +54,8 @@
             "other": "{count} scelte"
         },
         "quit": "Esci",
-        "edit": "Modifica il mio profilo"
+        "edit": "Modifica il mio profilo",
+        "foliageMotion": "Animare le foglie"
     },
     "unlock": {
         "offerTitle": "Attivare l’impronta o il volto?",

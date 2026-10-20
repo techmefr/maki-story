@@ -126,4 +126,14 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [x] #200 : corrections enfant publiées par MR #202 (main 0619cff8) ; Vercel success, asset portrait et styles publics vérifiés. Contrôles ciblés documentés ; audit RGAA complet #201 toujours ouvert.
 - [ ] #201 : audit RGAA complet, lecteur d’écran et applicabilité/alternatives audio ; ne pas annoncer de conformité globale avec les seuls tests automatiques.
 
-- [ ] #203 : accueil adulte, salutation pleine largeur et actions distinctes ; quatorze rendus locaux corrects, publication et contrôle distant à confirmer.
+- [x] #203 : salutation adulte pleine largeur et actions distinctes ; quatorze rendus validés, MR #204 publiée, Vercel success et stylesheet public vérifié.
+
+- [ ] #205 : forêt conservée +six nouvelles feuilles Ravenala indépendantes ; pause/persistance/réduction des mouvements et30rendus vérifiés, sauvegarde surdev et aperçu animé ; revue visuelle avant publication.
+
+
+## 2026-10-20 — Authentication presentation (#206)
+Shared responsive AuthShell for login/register: cream and gold illustrated brand panel, white form panel, persistent login labels, mobile single column. Authentication behavior unchanged. Local guest preview http://localhost:4023/login and /register. Ten actual renders (320, landscape 844, desktop 1440, 4K, max text) without horizontal overflow or JavaScript errors. Lint/typecheck and 79 unit tests pass. Visual review pending; no main release. Artifacts: /home/gaetan/artifacts/maki-auth-2026-10-20.
+
+- [x] #207 — Local isolated demo seeder, five-profile dropdown, server guard and child preview validated.
+
+- [x] #208 — 268 page/state renders and 15 accessibility checks, auth entry screens coherent, child photo forest, accessible keyboard tabs; full verify + Vercel build pass. Publication authorized, grouped release pending.

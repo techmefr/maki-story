@@ -54,7 +54,8 @@
             "other": "{count} gewählt"
         },
         "quit": "Beenden",
-        "edit": "Mein Profil bearbeiten"
+        "edit": "Mein Profil bearbeiten",
+        "foliageMotion": "Blätter animieren"
     },
     "unlock": {
         "offerTitle": "Fingerabdruck oder Gesicht aktivieren?",

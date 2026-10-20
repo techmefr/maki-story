@@ -23,6 +23,7 @@ export default defineOSDDNuxtConfig({
     runtimeConfig: {
         public: {
             apiBase: '',
+            demoMode: process.env.NODE_ENV !== 'production' && process.env.DEMO_MODE === 'true',
             supportEmail: '',
             goatcounterSite: process.env.NODE_ENV === 'production' ? 'techmefr' : '',
             appVersion: process.env.npm_package_version ?? '',

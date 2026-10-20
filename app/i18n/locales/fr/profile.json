@@ -54,7 +54,8 @@
             "other": "{count} choisies"
         },
         "quit": "Quitter",
-        "edit": "Modifier mon profil"
+        "edit": "Modifier mon profil",
+        "foliageMotion": "Animer les feuilles"
     },
     "unlock": {
         "offerTitle": "Activer l’empreinte ou le visage ?",
