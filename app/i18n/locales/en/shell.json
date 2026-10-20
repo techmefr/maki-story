@@ -28,5 +28,15 @@
     "newBadge": "new",
     "settings": {
         "open": "Settings"
+    },
+    "update": {
+        "checking": "Checking for updates…",
+        "applying": "Installing update…",
+        "action": "Update the app",
+        "available": "A new version is available.",
+        "current": "The app is up to date.",
+        "offline": "Offline: try again when connected.",
+        "failed": "Update failed. Please try again.",
+        "later": "Later"
     }
 }

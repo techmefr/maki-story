@@ -1,10 +1,14 @@
+import { useAppUpdate } from '~~/technical/Storage/app/composables/useAppUpdate'
+
 export default defineNuxtPlugin(() => {
-    if (import.meta.dev || !('serviceWorker' in navigator)) {
-        return
-    }
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(error => {
-            console.warn('L’installation hors ligne n’a pas pu démarrer', error)
-        })
+    const updates = useAppUpdate()
+    if (!updates.isSupported) return
+    void updates.initialize().catch(() => undefined)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') void updates.check()
+    })
+    window.addEventListener('online', () => void updates.check())
+    window.addEventListener('pageshow', event => {
+        if (event.persisted) void updates.check()
     })
 })

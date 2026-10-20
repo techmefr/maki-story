@@ -28,5 +28,15 @@
     "newBadge": "vaovao",
     "settings": {
         "open": "Fanovana"
+    },
+    "update": {
+        "checking": "Mitady fanavaozana…",
+        "applying": "Mametraka fanavaozana…",
+        "action": "Havaozy ny app",
+        "available": "Misy kinova vaovao.",
+        "current": "Vaovao farany ny app.",
+        "offline": "Tsy misy aterineto: andramo rehefa mifandray.",
+        "failed": "Tsy nahomby ny fanavaozana. Andramo indray.",
+        "later": "Aorian’izay"
     }
 }

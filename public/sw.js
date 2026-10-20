@@ -8,14 +8,20 @@ const FONT_URLS = [
 ]
 
 self.addEventListener('install', event => {
-    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([SHELL_URL, ...FONT_URLS, ...SHELL_ASSETS])).then(() => self.skipWaiting()))
+    event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([SHELL_URL, ...FONT_URLS, ...SHELL_ASSETS])))
+})
+
+self.addEventListener('message', event => {
+    if (event.data?.type === 'SKIP_WAITING') {
+        event.waitUntil(self.skipWaiting())
+    }
 })
 
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches
             .keys()
-            .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+            .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME && /^tantara-(?:v\d+|[a-f0-9]{16})$/.test(key)).map(key => caches.delete(key))))
             .then(() => self.clients.claim()),
     )
 })

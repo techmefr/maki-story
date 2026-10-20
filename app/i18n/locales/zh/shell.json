@@ -28,5 +28,15 @@
     "newBadge": "新",
     "settings": {
         "open": "设置"
+    },
+    "update": {
+        "checking": "正在检查更新…",
+        "applying": "正在安装更新…",
+        "action": "更新应用",
+        "available": "有新版本可用。",
+        "current": "应用已是最新版本。",
+        "offline": "离线：联网后重试。",
+        "failed": "更新失败，请重试。",
+        "later": "稍后"
     }
 }
