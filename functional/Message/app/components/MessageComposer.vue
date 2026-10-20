@@ -1,5 +1,6 @@
 <template>
     <div class="composer" :class="{ 'composer--adult': !isChild, 'composer--kid': isChild, 'kid-world': isChild }" data-testid="message-composer">
+        <ChildFoliage v-if="isChild" />
         <header class="composer__head">
             <AppButton variant="secondary" is-round :to="backPath" :aria-label="t('common.back')">
                 <AppIcon name="back" :size="26" class="mirror-rtl" />
@@ -47,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 const props = defineProps<{ initialRecipientId: string | null; initialKind: MessageKind }>()
 
 const { t, formatNumber } = useI18n()

@@ -127,3 +127,5 @@ Format : `- [ ]` à faire, `- [x]` fait. Une tâche = une branche. Prendre la pr
 - [ ] #201 : audit RGAA complet, lecteur d’écran et applicabilité/alternatives audio ; ne pas annoncer de conformité globale avec les seuls tests automatiques.
 
 - [x] #203 : salutation adulte pleine largeur et actions distinctes ; quatorze rendus validés, MR #204 publiée, Vercel success et stylesheet public vérifié.
+
+- [ ] #205 : forêt conservée +six nouvelles feuilles Ravenala indépendantes ; pause/persistance/réduction des mouvements et30rendus vérifiés, sauvegarde surdev et aperçu animé ; revue visuelle avant publication.

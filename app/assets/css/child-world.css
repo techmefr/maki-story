@@ -12,6 +12,7 @@ html.child-world,
     --shadow-lg: 0 6px 0 #925521, 0 16px 28px #64370e30;
     --child-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #401a0c18 10px 12px), linear-gradient(100deg, #68310f, #874b21 30%, #80431b 70%, #622a0d);
     --child-on-wood: #fff4d6;
+    --child-scene: url('/art/child/storybook-world.jpg');
     --child-gold: linear-gradient(145deg, #fff1a2, #ffcf32 45%, #ef9e09);
 }
 
@@ -22,7 +23,11 @@ html.child-world,
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: #fff3d6 url('/art/child/storybook-world.jpg') center / cover no-repeat;
+    background-color: #fff3d6;
+    background-image: linear-gradient(to bottom, #fff3d6 0, #fff3d6 var(--child-header-clearance, 0px), #fff3d600 calc(var(--child-header-clearance, 0px) + 100px)), var(--child-scene);
+    background-position: center, center;
+    background-size: 100% 100%, cover;
+    background-repeat: no-repeat;
 }
 .kid-world .title,
 .kid-world .subtitle,
@@ -193,8 +198,8 @@ html.child-world,
 }
 
 @media (orientation: portrait) and (max-width: 1023px) {
-    .kid-world::before { background-image: url('/art/child/storybook-portrait.webp'); background-position: center top; }
-    .kid-world .header { padding: 8px; border-radius: 24px; background: var(--bg); }
+    .kid-world { --child-scene: url('/art/child/storybook-portrait.webp'); }
+    .kid-world .header { padding: 8px; }
 }
 
 @media (max-width: 1023px) {
@@ -205,3 +210,6 @@ html.child-world,
     html[data-text-size="max"] .kid-world .tabbar__inner { flex-wrap: wrap; }
     html[data-text-size="max"] .kid-world .tabbar__item { flex-basis: 100%; flex-direction: row; min-height: 56px; }
 }
+
+.reader--night .foliage { opacity: 0.08; }
+.kid-world .vault .title { padding: 4px 8px; border-radius: 12px; background: var(--bg); }

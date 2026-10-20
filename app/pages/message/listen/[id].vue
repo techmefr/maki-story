@@ -7,6 +7,7 @@
         @pointerdown="onPointerDown"
         @pointerup="onPointerUp"
     >
+        <ChildFoliage v-if="isChild" />
         <AppButton class="screen__back" variant="secondary" size="sm" :to="backPath" :aria-label="t('common.back')">
             <AppIcon name="back" :size="18" class="mirror-rtl" />{{ t('common.back') }}
         </AppButton>
@@ -71,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 const SWIPE_DISTANCE_PX = 60
 
 definePageMeta({ layout: 'blank' })

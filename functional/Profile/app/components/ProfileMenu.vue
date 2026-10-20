@@ -127,6 +127,7 @@
                     >
                         <ProfileNotificationPrefs v-if="openedOnce.has('notifications')" />
                     </ProfileMenuSection>
+                    <AppToggle v-if="isChild" :model-value="isFoliageEnabled" data-testid="foliage-toggle" @update:model-value="setFoliageEnabled">{{ t('profile.menu.foliageMotion') }}</AppToggle>
                     <div class="pmenu__sounds">
                         <AppToggle :model-value="isCueOn" data-testid="sound-toggle" @update:model-value="setCueOn">{{ t('profile.menu.sounds') }}</AppToggle>
                         <AppSlider
@@ -174,6 +175,9 @@
 </template>
 
 <script setup lang="ts">
+import { useFoliageMotion } from '~~/technical/Motion/app/composables/useFoliageMotion'
+const { isFoliageEnabled, setFoliageEnabled } = useFoliageMotion()
+
 type TSectionId = 'spoken' | 'locale' | 'size' | 'theme' | 'notifications'
 
 const THEME_OPTIONS: { id: TThemeChoice; icon: IconName }[] = [

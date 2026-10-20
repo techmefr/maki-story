@@ -1,5 +1,6 @@
 <template>
     <div class="reader kid-world" :class="{ 'reader--night on-dark': phase === 'sleep' }" :style="{ background: readerHex }">
+        <ChildFoliage />
         <NightCountdown />
         <header class="reader__head">
             <AppButton variant="secondary" is-round to="/kid" :aria-label="t('kid.listen.quit')"><AppIcon name="close" :size="24" /></AppButton>
@@ -130,6 +131,7 @@
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 const { t, formatNumber } = useI18n()
 const { readerHex, phase, reader, isPlaying, pageIndex, pageTotal, isNavigating, previousPage, turnPage, replay, choices, choiceLabel, choose, hasChoice, isLocked, languages, onLockClick, resumeProgress, resume, start, canSleep, sleepTimer, isSleepOpen, isCueFlashing, playbackError, resumePlayback, skipPage, isTurning, progressValue, progressPercent, isSoundOn, toggleSound, pageNumber, pageNumbers, isGateOpen, members, isGateBusy, gateError, gateAttempt, unlockWithParent, chooseSleep, cancelSleep, bookTitle } = useChildReader()
 </script>

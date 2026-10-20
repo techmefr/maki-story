@@ -54,7 +54,8 @@
             "other": "{count} chosen"
         },
         "quit": "Quit",
-        "edit": "Edit my profile"
+        "edit": "Edit my profile",
+        "foliageMotion": "Animate leaves"
     },
     "unlock": {
         "offerTitle": "Turn on fingerprint or face unlock?",

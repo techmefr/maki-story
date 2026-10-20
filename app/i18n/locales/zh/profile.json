@@ -53,7 +53,8 @@
             "other": "已选 {count} 个"
         },
         "quit": "退出",
-        "edit": "编辑我的资料"
+        "edit": "编辑我的资料",
+        "foliageMotion": "树叶动画"
     },
     "unlock": {
         "offerTitle": "启用指纹或面容解锁？",

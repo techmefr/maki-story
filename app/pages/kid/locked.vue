@@ -1,5 +1,6 @@
 <template>
     <main class="locked kid-world" data-testid="locked-screen">
+        <ChildFoliage />
         <template v-if="isRequestScreen">
             <HomeworkMascot v-if="reason === 'homework'" :size="180" class="locked__maki" />
             <MakiScene v-else :pose="requestPose" :size="180" class="locked__maki" />
@@ -36,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 definePageMeta({ layout: 'blank' })
 
 const { t, formatDate } = useI18n()

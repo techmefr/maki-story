@@ -54,7 +54,8 @@
             "other": "{count} elegidas"
         },
         "quit": "Salir",
-        "edit": "Editar mi perfil"
+        "edit": "Editar mi perfil",
+        "foliageMotion": "Animar las hojas"
     },
     "unlock": {
         "offerTitle": "¿Activar la huella o la cara?",
