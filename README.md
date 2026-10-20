@@ -412,3 +412,15 @@ A static presentation page lives in `docs/` and is published with GitHub Pages (
 ## License
 
 All rights reserved. This is a private project.
+
+
+### Démonstration locale
+
+Créer une base PostgreSQL locale vide nommée `maki_demo`, puis lancer le seeder et le serveur avec la même URL :
+
+```sh
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo pnpm seed:demo
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo SESSION_SECRET=local-demo-secret NOTIFY_PROVIDER=fake AUTH_PROVIDER=legacy pnpm dev --host 127.0.0.1 --port 4024
+```
+
+Sur `http://localhost:4024/login`, le bandeau démo propose cinq profils fictifs, dont Mattéo et Lina pour le parcours enfant. Le seeder peut être relancé sans doublons. Livres français/malgache, messages et souvenirs sont fictifs ; les audios sont des sons de test. Le mode démo est refusé en production, sans activation explicite, hors hôte local ou sur une autre base.

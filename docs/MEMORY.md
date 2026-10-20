@@ -192,3 +192,14 @@ Publication enfant confirmée : MR #202 fusionnée, main 0619cff84179a195e31ac57
 
 ## 2026-10-20 — Authentication presentation (#206)
 Shared responsive AuthShell for login/register: cream and gold illustrated brand panel, white form panel, persistent login labels, mobile single column. Authentication behavior unchanged. Local guest preview http://localhost:4023/login and /register. Ten actual renders (320, landscape 844, desktop 1440, 4K, max text) without horizontal overflow or JavaScript errors. Lint/typecheck and 79 unit tests pass. Visual review pending; no main release. Artifacts: /home/gaetan/artifacts/maki-auth-2026-10-20.
+
+
+## 2026-10-20 — Local demo (#207)
+Requires DEMO_MODE=true, Nuxt development, loopback HTTP host and local PostgreSQL database named maki_demo. Closed allowlist of five profiles and two accounts; children use the parent family account. Server verifies account/email/family/member/role before issuing a fresh HttpOnly session. Idempotent transactional seeder: two ready fr/mg books, messages, treasures, synthetic playable WAV test tones. No external services. Create empty maki_demo DB then run:
+
+```sh
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo pnpm seed:demo
+DEMO_MODE=true DATABASE_URL=postgresql://tantara@127.0.0.1:5544/maki_demo SESSION_SECRET=local-demo-secret NOTIFY_PROVIDER=fake AUTH_PROVIDER=legacy pnpm dev --host 127.0.0.1 --port 4024
+```
+
+Select Mattéo then open profile in the global demo dropdown. Seeded twice without duplicates; 81 unit tests pass, lint/typecheck/i18n pass. Actual dropdown opens kid and populated library/vault; arbitrary profile gets 403. Artifacts /home/gaetan/artifacts/maki-demo-2026-10-20. No local E2E suite. No main release.
