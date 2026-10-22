@@ -86,7 +86,8 @@
         "vaultHint": "Hafatry ny ankizy voatahiry"
     },
     "adult": {
-        "greeting": "Salama, {name}!",
+        "greeting": "Manao ahoana {name}!",
+        "evening": "Manahoana amin’ny hariva {name}!",
         "subtitle": "Tantara hifampizarana, feon’ny havana henoina."
     }
 }

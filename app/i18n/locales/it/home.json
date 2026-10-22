@@ -86,7 +86,8 @@
         "vaultHint": "Messaggi dei bambini conservati"
     },
     "adult": {
-        "greeting": "Ciao, {name}!",
+        "greeting": "Buongiorno {name}!",
+        "evening": "Buonasera {name}!",
         "subtitle": "Storie da condividere, voci care da ritrovare."
     }
 }

@@ -2,7 +2,7 @@
     <div class="stack kid-home">
         <header class="kid-home__welcome">
             <div class="kid-home__greeting stack">
-            <h1 id="kid-home-title" class="title">{{ t('kid.hello', { name: current?.name ?? '' }) }}</h1>
+            <h1 id="kid-home-title" class="title">{{ t(isEvening ? 'kid.evening' : 'kid.hello', { name: current?.name ?? '' }) }}</h1>
             <p v-if="faces.length > 0" class="kid-home__hint">{{ t('kid.pickHint') }}</p>
             </div>
             <MakiScene pose="hello" :size="136" class="kid-home__maki" />
@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+const { isEvening } = useLocalGreeting()
 definePageMeta({ layout: 'kid' })
 
 const { t, formatNumber } = useI18n()

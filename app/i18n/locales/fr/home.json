@@ -86,7 +86,8 @@
         "vaultHint": "Les messages des enfants gardés"
     },
     "adult": {
-        "greeting": "Bonjour, {name} !",
+        "greeting": "Bonjour {name} !",
+        "evening": "Bonsoir {name} !",
         "subtitle": "Des histoires à partager, des voix à retrouver."
     }
 }

@@ -87,6 +87,7 @@
     },
     "adult": {
         "greeting": "Olá, {name}!",
+        "evening": "Boa noite, {name}!",
         "subtitle": "Histórias para partilhar e vozes queridas para ouvir."
     }
 }

@@ -86,7 +86,8 @@
         "vaultHint": "Mensajes de los niños guardados"
     },
     "adult": {
-        "greeting": "¡Hola, {name}!",
+        "greeting": "¡Buenos días, {name}!",
+        "evening": "¡Buenas noches, {name}!",
         "subtitle": "Historias para compartir y voces familiares para escuchar."
     }
 }

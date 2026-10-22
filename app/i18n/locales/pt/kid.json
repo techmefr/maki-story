@@ -1,5 +1,6 @@
 {
-    "hello": "Oi, {name}!",
+    "hello": "Olá, {name}!",
+    "evening": "Boa noite, {name}!",
     "listenHer": "Ouvir a mensagem",
     "sendMessage": "Enviar uma mensagem",
     "noSoloStory": "Ainda não há histórias com esta voz.",

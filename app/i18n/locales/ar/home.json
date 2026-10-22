@@ -90,7 +90,8 @@
         "vaultHint": "رسائل الأطفال المحفوظة"
     },
     "adult": {
-        "greeting": "مرحبًا، {name}!",
+        "greeting": "مرحباً {name}!",
+        "evening": "مساء الخير {name}!",
         "subtitle": "قصص نشاركها وأصوات نحب سماعها."
     }
 }

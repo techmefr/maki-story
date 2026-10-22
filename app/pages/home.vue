@@ -3,7 +3,7 @@
         <StatusStrip v-if="isParent" />
         <header class="home__intro" data-testid="adult-home-welcome">
             <div class="stack home__greeting">
-                <h1 class="title">{{ t('home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
+                <h1 class="title">{{ t(isEvening ? 'home.adult.evening' : 'home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
                 <p class="home__subtitle">{{ t('home.adult.subtitle') }}</p>
             </div>
             <AppButton to="/books/new" icon="book-plus" data-testid="home-card-new-book">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
@@ -39,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+const { isEvening } = useLocalGreeting()
 interface IHomeCard {
     id: string
     to: string
