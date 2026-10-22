@@ -143,7 +143,7 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 - [x] #212 — Poll updates every minute while visible/online, no overlapping checks or automatic active-work reload; timer cleanup and real worker probe pass.
 - [x] #213 — Defer AI creation in demo and production; hidden button/prefill, direct route redirect and API gate verified.
 
-- [ ] #215 — Faster/amplified independent foliage implemented on dev; local 4024 available, full verify passes, visual review pending. Browser automation refused under no-E2E instruction.
+- [x] #215 — Independent layered foliage, natural edges and responsive sizing implemented; user confirmed movement improved. Broader forest/theme visual review continues under #216. No local E2E executed.
 
 #215 follow-up: asymmetric stem-anchored composition implemented after user feedback; pending visual review in local demo.
 
@@ -156,3 +156,13 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 2026-10-22 — Splash foliage: reuse ChildFoliage above existing splash art with smaller responsive edge leaves, same three asymmetric motion layers and shared pause/reduced-motion preference. Loading bar remains above decoration; startup update logic/timing unchanged. Local visual review pending; main unchanged.
 
 2026-10-22 — Local greeting: adult and child homes use device-local Bonjour from 05:00 to 17:59, Bonsoir from 18:00 to 04:59. Shared composable refreshes each minute and on visibility changes, cleans up timer/listener; initial server/client default avoids timezone hydration mismatch. Nine locales updated. Three user-selected appearance themes remain to implement; current theme mockups are references, not shipped themes.
+
+## 2026-10-22 — Three profile appearances (#216)
+
+- [x] Isolated profile/device preferences with safe defaults and storage-failure tests.
+- [x] Forest, notebook and library styling shared by child/adult pages; independent luminosity and reduced-motion settings.
+- [x] Accessible preview cards and splash replay in profile Appearance; nine locales.
+- [x] Responsive uncropped splash composition and balanced adult home with real book/family content.
+- [x] Lint, typecheck, i18n, design/docs checks, 89 unit tests, 50 migration round trips and build passed.
+- [ ] Actual responsive/browser visual review; browser control failed to initialize. No E2E executed.
+- [ ] One grouped dev-to-main release after visual review; main unchanged.

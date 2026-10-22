@@ -100,7 +100,15 @@
                         </AppToggle>
                     </ProfileMenuSection>
                     <ProfileMenuSection
-                        :label="t('profile.menu.theme')"
+                        :label="t('appearance.title')"
+                        :value="t(`appearance.scenes.${appearance}`)"
+                        :is-open="openId === 'appearance'"
+                        @toggle="toggleSection('appearance')"
+                    >
+                        <AppearancePicker />
+                    </ProfileMenuSection>
+                    <ProfileMenuSection
+                        :label="t('appearance.luminosity')"
                         :value="t(`profile.menu.themes.${themeChoice}`)"
                         :is-open="openId === 'theme'"
                         data-testid="settings-theme"
@@ -176,11 +184,13 @@
 </template>
 
 <script setup lang="ts">
+import AppearancePicker from '~~/technical/Theme/app/components/AppearancePicker.vue'
 import AppUpdateAction from '~~/technical/Storage/app/components/AppUpdateAction.vue'
 import { useFoliageMotion } from '~~/technical/Motion/app/composables/useFoliageMotion'
+const { appearance } = useAppearance()
 const { isFoliageEnabled, setFoliageEnabled } = useFoliageMotion()
 
-type TSectionId = 'spoken' | 'locale' | 'size' | 'theme' | 'notifications'
+type TSectionId = 'spoken' | 'locale' | 'size' | 'theme' | 'appearance' | 'notifications'
 
 const THEME_OPTIONS: { id: TThemeChoice; icon: IconName }[] = [
     { id: 'light', icon: 'sun' },
