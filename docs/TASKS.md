@@ -165,4 +165,4 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 - [x] Responsive uncropped splash composition and balanced adult home with real book/family content.
 - [x] Lint, typecheck, i18n, design/docs checks, 89 unit tests, 50 migration round trips and build passed.
 - [ ] Actual responsive/browser visual review; browser control failed to initialize. No E2E executed.
-- [ ] One grouped dev-to-main release after visual review; main unchanged.
+- [ ] One grouped dev-to-main release authorized by the user on 2026-10-22; deployment verification in progress. Visual coverage limits remain recorded.
