@@ -252,3 +252,7 @@ AI creation feature defaults false in every environment, including local demo; e
 2026-10-22 — #215: preserve three asymmetric moving foliage layers; remove horizontal foliage fade causing beige veil, place forest pseudo-element at -2 behind foliage at -1, bound leaf width to 32vw. Validation pending: WSL execution returned WSAETIMEDOUT; source edits saved through UNC. Main unchanged.
 
 2026-10-22 — #215 resumed: WSL recovered; isolated maki_demo reseeded, detached Nuxt server restarted on 4024 (HTTP 200). Lint, typecheck and build pass for responsive sizing and removal of lateral foliage fade. Actual visual review still pending; no E2E executed, no main release.
+
+2026-10-22 — #215 forest blend: restore original forest stacking plane behind animated foliage and fit the complete decorative frame to viewport instead of cover-cropping side vegetation on tall/narrow screens. Preserve all animated leaf settings. User requested future optional weather/season/holiday scenery; deferred, no weather integration added. Local visual review pending.
+
+2026-10-22 — Splash foliage: reuse ChildFoliage above existing splash art with smaller responsive edge leaves, same three asymmetric motion layers and shared pause/reduced-motion preference. Loading bar remains above decoration; startup update logic/timing unchanged. Local visual review pending; main unchanged.

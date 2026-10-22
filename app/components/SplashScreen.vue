@@ -1,11 +1,13 @@
 <template>
     <div v-if="isVisible" class="splash" :class="{ 'splash--leaving': isLeaving }" :aria-label="t('shell.update.checking')" role="status">
         <img class="splash__art" src="/splash.webp" alt="" />
+        <ChildFoliage class="splash__foliage" />
         <div class="splash__track"><div class="splash__fill" /></div>
     </div>
 </template>
 
 <script setup lang="ts">
+import ChildFoliage from '~~/technical/Motion/app/components/ChildFoliage.vue'
 import { useAppUpdate } from '~~/technical/Storage/app/composables/useAppUpdate'
 const { t } = useI18n()
 const { checkAtStartup } = useAppUpdate()
@@ -45,7 +47,15 @@ onBeforeUnmount(() => clearTimeout(leaveTimer))
     object-position: center;
 }
 
+.splash__foliage {
+    --foliage-leaf-size: clamp(80px, max(12vw, 12vh), min(260px, 22vw, 30vh));
+    position: absolute;
+    z-index: 1;
+    mask-image: none;
+}
+
 .splash__track {
+    z-index: 2;
     position: absolute;
     inset-inline: 0;
     inset-block-end: 17%;

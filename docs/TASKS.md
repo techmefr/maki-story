@@ -150,3 +150,7 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 #215 density follow-up: 13 layered asymmetric leaves implemented after user feedback; local visual review pending.
 
 2026-10-22 — #215 responsive density: leaf scale now considers both viewport width and height, capped by width/height to preserve the clear reading area. User screenshots showed sparse foliage on tall narrow windows. Independent stem-anchored animation and reduced-motion support retained. Local review pending; main unchanged.
+
+2026-10-22 — #215 forest blend: restore original forest stacking plane behind animated foliage and fit the complete decorative frame to viewport instead of cover-cropping side vegetation on tall/narrow screens. Preserve all animated leaf settings. User requested future optional weather/season/holiday scenery; deferred, no weather integration added. Local visual review pending.
+
+2026-10-22 — Splash foliage: reuse ChildFoliage above existing splash art with smaller responsive edge leaves, same three asymmetric motion layers and shared pause/reduced-motion preference. Loading bar remains above decoration; startup update logic/timing unchanged. Local visual review pending; main unchanged.
