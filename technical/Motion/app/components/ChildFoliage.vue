@@ -21,7 +21,10 @@ const leaves = Array.from({ length: 6 }, (_, id) => {
         style: {
             '--leaf-top': `${38 + index * 25}%`,
             '--leaf-angle': `${angles[index]}deg`,
-            '--leaf-duration': `${6 + id * 0.47}s`,
+            '--leaf-duration': `${2.6 + id * 0.26}s`,
+            '--leaf-sway-start': `${-6 - index * 1.2}deg`,
+            '--leaf-sway-end': `${7 + index * 1.1}deg`,
+            '--leaf-drift': `${7 + index * 2}px`,
             '--leaf-delay': `${-id * 1.19}s`,
         },
     }
@@ -61,8 +64,8 @@ const leaves = Array.from({ length: 6 }, (_, id) => {
 .foliage[data-moving="false"] .foliage__leaf { animation-play-state: paused; }
 
 @keyframes foliage-sway {
-    from { transform: translateX(-3px) rotate(-4deg); }
-    to { transform: translateX(5px) rotate(5deg); }
+    from { transform: translateX(calc(var(--leaf-drift) * -0.7)) rotate(var(--leaf-sway-start)); }
+    to { transform: translateX(var(--leaf-drift)) rotate(var(--leaf-sway-end)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
