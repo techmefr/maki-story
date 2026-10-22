@@ -21,7 +21,7 @@ html.child-world,
     content: '';
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: -2;
     pointer-events: none;
     background-color: #fff3d6;
     background-image: linear-gradient(to bottom, #fff3d6 0, #fff3d6 var(--child-header-clearance, 0px), #fff3d600 calc(var(--child-header-clearance, 0px) + 100px)), var(--child-scene);

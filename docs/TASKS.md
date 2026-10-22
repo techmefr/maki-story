@@ -148,3 +148,5 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 #215 follow-up: asymmetric stem-anchored composition implemented after user feedback; pending visual review in local demo.
 
 #215 density follow-up: 13 layered asymmetric leaves implemented after user feedback; local visual review pending.
+
+2026-10-22 — #215 responsive density: leaf scale now considers both viewport width and height, capped by width/height to preserve the clear reading area. User screenshots showed sparse foliage on tall narrow windows. Independent stem-anchored animation and reduced-motion support retained. Local review pending; main unchanged.

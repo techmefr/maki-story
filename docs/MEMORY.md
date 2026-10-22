@@ -246,3 +246,9 @@ AI creation feature defaults false in every environment, including local demo; e
 
 
 2026-10-22 — #215 density feedback: expanded composition from 5 to 13 leaves (7 left/6 right) across 3 stacking levels with varied opacity, size, root height, angle and timing. Increased fully visible edge band from 3% to 6%; central fade limits remain 20%/80% and header mask unchanged. Stem pivots remain outside frame, no translation. Two existing WebP assets reused, no dependency or new artwork. Local visual review pending, main unchanged.
+
+2026-10-22 — #215 responsive density: leaf scale now considers both viewport width and height, capped by width/height to preserve the clear reading area. User screenshots showed sparse foliage on tall narrow windows. Independent stem-anchored animation and reduced-motion support retained. Local review pending; main unchanged.
+
+2026-10-22 — #215: preserve three asymmetric moving foliage layers; remove horizontal foliage fade causing beige veil, place forest pseudo-element at -2 behind foliage at -1, bound leaf width to 32vw. Validation pending: WSL execution returned WSAETIMEDOUT; source edits saved through UNC. Main unchanged.
+
+2026-10-22 — #215 resumed: WSL recovered; isolated maki_demo reseeded, detached Nuxt server restarted on 4024 (HTTP 200). Lint, typecheck and build pass for responsive sizing and removal of lateral foliage fade. Actual visual review still pending; no E2E executed, no main release.

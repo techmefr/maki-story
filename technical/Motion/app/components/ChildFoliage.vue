@@ -63,11 +63,10 @@ const leaves = composition.map((leaf, id) => {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    mask-image: linear-gradient(to right, #000 0, #000 6%, transparent 20%, transparent 80%, #000 94%, #000 100%);
 }
 
 .foliage__leaf {
-    --leaf-width: calc(clamp(120px, 17vw, 380px) * var(--leaf-scale));
+    --leaf-width: calc(clamp(110px, max(17vw, 17vh), min(380px, 32vw, 42vh)) * var(--leaf-scale));
     position: absolute;
     top: var(--leaf-root);
     opacity: var(--leaf-opacity);
