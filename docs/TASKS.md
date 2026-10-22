@@ -146,3 +146,5 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 - [ ] #215 — Faster/amplified independent foliage implemented on dev; local 4024 available, full verify passes, visual review pending. Browser automation refused under no-E2E instruction.
 
 #215 follow-up: asymmetric stem-anchored composition implemented after user feedback; pending visual review in local demo.
+
+#215 density follow-up: 13 layered asymmetric leaves implemented after user feedback; local visual review pending.

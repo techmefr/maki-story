@@ -12,11 +12,19 @@
 import { useFoliageMotion } from '../composables/useFoliageMotion'
 const { isFoliageEnabled } = useFoliageMotion()
 const composition = [
-    { side: 'left', shape: 'upright', root: 70, scale: 0.92, angle: 24, start: -8, end: 6, duration: 2.7, delay: -0.9 },
-    { side: 'left', shape: 'curved', root: 113, scale: 1.17, angle: 34, start: -5, end: 8, duration: 3.2, delay: -2.1 },
-    { side: 'left', shape: 'upright', root: 43, scale: 0.72, angle: 18, start: -7, end: 5, duration: 3.8, delay: -2.8 },
-    { side: 'right', shape: 'upright', root: 91, scale: 1.08, angle: 18, start: -5, end: 9, duration: 3.65, delay: -1.7 },
-    { side: 'right', shape: 'curved', root: 55, scale: 0.83, angle: 26, start: -9, end: 4, duration: 2.9, delay: -0.4 },
+    { side: 'left', shape: 'curved', root: 38, scale: 0.68, angle: 36, start: -5, end: 7, duration: 3.9, delay: -2.3, opacity: 0.76, depth: 0 },
+    { side: 'right', shape: 'upright', root: 47, scale: 0.76, angle: 21, start: -8, end: 4, duration: 3.4, delay: -0.8, opacity: 0.82, depth: 0 },
+    { side: 'left', shape: 'upright', root: 61, scale: 0.81, angle: 16, start: -6, end: 8, duration: 3.1, delay: -1.5, opacity: 0.9, depth: 1 },
+    { side: 'right', shape: 'curved', root: 65, scale: 0.92, angle: 32, start: -7, end: 5, duration: 2.85, delay: -2.6, opacity: 1, depth: 2 },
+    { side: 'left', shape: 'curved', root: 78, scale: 1.06, angle: 41, start: -8, end: 4, duration: 3.55, delay: -0.6, opacity: 0.8, depth: 0 },
+    { side: 'left', shape: 'upright', root: 73, scale: 0.96, angle: 25, start: -8, end: 6, duration: 2.7, delay: -0.9, opacity: 1, depth: 2 },
+    { side: 'right', shape: 'upright', root: 88, scale: 0.69, angle: 13, start: -4, end: 9, duration: 3.8, delay: -1.9, opacity: 0.78, depth: 0 },
+    { side: 'left', shape: 'upright', root: 96, scale: 0.73, angle: 12, start: -5, end: 8, duration: 3.7, delay: -3.1, opacity: 0.86, depth: 1 },
+    { side: 'right', shape: 'curved', root: 106, scale: 1.16, angle: 37, start: -9, end: 4, duration: 3.2, delay: -0.4, opacity: 0.84, depth: 0 },
+    { side: 'right', shape: 'upright', root: 97, scale: 1.08, angle: 19, start: -5, end: 9, duration: 3.65, delay: -1.7, opacity: 1, depth: 2 },
+    { side: 'left', shape: 'curved', root: 118, scale: 1.2, angle: 32, start: -5, end: 8, duration: 3.2, delay: -2.1, opacity: 1, depth: 2 },
+    { side: 'left', shape: 'upright', root: 132, scale: 0.94, angle: 19, start: -6, end: 5, duration: 2.95, delay: -1.1, opacity: 0.85, depth: 1 },
+    { side: 'right', shape: 'curved', root: 129, scale: 0.86, angle: 28, start: -7, end: 7, duration: 3.45, delay: -2.9, opacity: 0.9, depth: 1 },
 ]
 const leaves = composition.map((leaf, id) => {
     const stem = leaf.shape === 'upright' ? 0.43 : 0.65
@@ -27,6 +35,8 @@ const leaves = composition.map((leaf, id) => {
         style: {
             '--leaf-root': `${leaf.root}%`,
             '--leaf-scale': leaf.scale,
+            '--leaf-opacity': leaf.opacity,
+            '--leaf-depth': leaf.depth,
             '--leaf-angle': `${leaf.angle}deg`,
             '--leaf-duration': `${leaf.duration}s`,
             '--leaf-sway-start': `${leaf.start}deg`,
@@ -53,13 +63,15 @@ const leaves = composition.map((leaf, id) => {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    mask-image: linear-gradient(to right, #000 0, #000 3%, transparent 20%, transparent 80%, #000 97%, #000 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 6%, transparent 20%, transparent 80%, #000 94%, #000 100%);
 }
 
 .foliage__leaf {
     --leaf-width: calc(clamp(120px, 17vw, 380px) * var(--leaf-scale));
     position: absolute;
     top: var(--leaf-root);
+    opacity: var(--leaf-opacity);
+    z-index: var(--leaf-depth);
     width: 0;
     height: 0;
     transform-origin: 0 0;

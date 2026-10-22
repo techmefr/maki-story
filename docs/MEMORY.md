@@ -243,3 +243,6 @@ AI creation feature defaults false in every environment, including local demo; e
 
 
 2026-10-22 — #215 visual feedback: leaves looked detached and mirrored. Replaced repeated 3+3 positions with five explicit placements (3 left, 2 right), varied root heights/scales/base angles/durations. Removed lateral drift. Each wrapper is now a zero-size fixed pivot outside the viewport; its image is offset to the actual stem base (43% upright, 65% curved) and both static/image rotation and sway share that anchor. Existing header/edge masks and pause/reduced-motion rules retained. Lint/typecheck pass. Manual browser control failed to initialize twice, so no visual verification claimed and no browser automation/E2E fallback attempted. Local 4024 awaits user feedback; main unchanged.
+
+
+2026-10-22 — #215 density feedback: expanded composition from 5 to 13 leaves (7 left/6 right) across 3 stacking levels with varied opacity, size, root height, angle and timing. Increased fully visible edge band from 3% to 6%; central fade limits remain 20%/80% and header mask unchanged. Stem pivots remain outside frame, no translation. Two existing WebP assets reused, no dependency or new artwork. Local visual review pending, main unchanged.
