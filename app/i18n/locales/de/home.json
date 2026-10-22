@@ -86,7 +86,8 @@
         "vaultHint": "Aufbewahrte Nachrichten der Kinder"
     },
     "adult": {
-        "greeting": "Hallo, {name}!",
+        "greeting": "Guten Tag {name}!",
+        "evening": "Guten Abend {name}!",
         "subtitle": "Geschichten teilen und vertraute Stimmen hören."
     }
 }

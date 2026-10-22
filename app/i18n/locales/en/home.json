@@ -86,7 +86,8 @@
         "vaultHint": "Children’s messages kept"
     },
     "adult": {
-        "greeting": "Hello, {name}!",
+        "greeting": "Hello {name}!",
+        "evening": "Good evening {name}!",
         "subtitle": "Stories to share, familiar voices to hear."
     }
 }

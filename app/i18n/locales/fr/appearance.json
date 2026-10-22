@@ -1,0 +1,15 @@
+{
+    "title": "Apparence",
+    "scenes": {
+        "forest": "Forêt douce",
+        "notebook": "Carnet de famille",
+        "library": "Bibliothèque chaleureuse"
+    },
+    "hint": "Choisis ton décor. Les boutons restent à la même place.",
+    "saved": "Ce choix s’applique à ce profil sur cet appareil.",
+    "loading": "Ton univers se prépare…",
+    "featured": "À la une",
+    "openBook": "Voir le livre",
+    "preview": "Prévisualiser le démarrage",
+    "luminosity": "Affichage clair / sombre"
+}

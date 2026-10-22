@@ -108,3 +108,15 @@ Vrai logo et favicon, photos de profil, mise en page tablette, ordinateur et And
 L'espace enfant reprend le splashscreen : fond crème, feuillage et bois sculpté, actions dorées, mascotte 3D. Les styles restent sous `.kid-world` et les tokens enfant ; les écrans adultes conservent leur direction. Référence : maquettes coffre, bibliothèque et écoute validées dans la session, puis ajustements pour livre papier.
 
 L'écoute accompagne un livre physique : aucune image de page ni réplique affichée. Photo réelle et nom seul de la personne qui parle, couleur de voix autour du portrait. Titre sur deux lignes au maximum puis ellipse. Au ding de fin de page, le bouton suivant garde un halo doré jusqu'à l'action, sans clignotement. L'alerte existante des trente dernières minutes montre Maki regardant sa montre. Portrait et paysage changent la disposition, les commandes passent à côté du portrait sur téléphone paysage ; pas de verrouillage d'orientation.
+
+## Three appearance scenes — validated 2026-10-22 (#216)
+
+The user-selected comparison boards supersede previous appearance-only directions: forest (default), family notebook and warm library, shared by adults and children. They preserve the existing navigation, real family photos, voice and message interactions. Adult shells use a restrained system sans-serif body/title with Fredoka retained for the brand; child shells retain playful Fredoka. Learning-font and text-size preferences remain available.
+
+Appearance lives independently from light/dark/automatic mode. Choose it in the profile menu using three preview cards; the preference is saved per profile on this device. A new profile starts with forest. Unknown values/private-mode storage failures fail safely. The device-level last choice styles the splash before a profile is restored.
+
+Forest uses the existing illustrated edge frame plus independent Ravenala layers. Notebook uses paper ruling, binding details and cream labels; library uses a 136 KB WebP edge frame with books/lanterns and a clear center. Shared structural layouts and controls prevent navigation differences between themes. Decorative movement respects pause and prefers-reduced-motion.
+
+Splash uses the selected scene, an uncropped headphone Maki and responsive title; no screenshot/status bar is baked into the composition. A preview action in Appearance replays the visual only and does not trigger an update or reload. Startup update handling remains unchanged. Adult home promotes a real actionable book alongside the family; empty task sections and zero-count shortcuts are hidden while library/navigation remain available.
+
+Palette contrast audit includes appearance light/dark tokens. Full rendered responsive and assistive-technology review remains pending; this is not an RGAA certification. Weather, seasons and holiday scenes remain deferred.

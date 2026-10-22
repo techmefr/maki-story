@@ -1,0 +1,15 @@
+{
+    "title": "Aspetto",
+    "scenes": {
+        "forest": "Foresta serena",
+        "notebook": "Quaderno di famiglia",
+        "library": "Biblioteca accogliente"
+    },
+    "hint": "Scegli lo scenario. I pulsanti restano al loro posto.",
+    "saved": "Questa scelta si applica a questo profilo su questo dispositivo.",
+    "loading": "Prepariamo il tuo mondo…",
+    "featured": "In primo piano",
+    "openBook": "Vedi il libro",
+    "preview": "Anteprima di avvio",
+    "luminosity": "Schermo chiaro / scuro"
+}

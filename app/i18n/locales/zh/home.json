@@ -86,6 +86,7 @@
     },
     "adult": {
         "greeting": "你好，{name}！",
+        "evening": "晚上好，{name}！",
         "subtitle": "分享故事，聆听熟悉的声音。"
     }
 }

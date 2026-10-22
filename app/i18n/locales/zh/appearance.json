@@ -1,0 +1,15 @@
+{
+    "title": "外观",
+    "scenes": {
+        "forest": "静谧森林",
+        "notebook": "家庭手账",
+        "library": "温馨图书馆"
+    },
+    "hint": "选择你的场景，按钮位置保持不变。",
+    "saved": "此选择适用于此设备上的当前个人资料。",
+    "loading": "正在准备你的世界…",
+    "featured": "精选图书",
+    "openBook": "查看图书",
+    "preview": "预览启动画面",
+    "luminosity": "浅色 / 深色显示"
+}

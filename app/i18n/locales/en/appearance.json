@@ -1,0 +1,15 @@
+{
+    "title": "Appearance",
+    "scenes": {
+        "forest": "Soft forest",
+        "notebook": "Family notebook",
+        "library": "Warm library"
+    },
+    "hint": "Choose your scene. Buttons stay in the same place.",
+    "saved": "This choice applies to this profile on this device.",
+    "loading": "Getting your world ready…",
+    "featured": "In the spotlight",
+    "openBook": "View book",
+    "preview": "Preview startup",
+    "luminosity": "Light / dark display"
+}

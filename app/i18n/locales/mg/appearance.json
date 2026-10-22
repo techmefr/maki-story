@@ -1,0 +1,15 @@
+{
+    "title": "Endrika",
+    "scenes": {
+        "forest": "Ala milamina",
+        "notebook": "Kahien’ny fianakaviana",
+        "library": "Tranomboky mahafinaritra"
+    },
+    "hint": "Fidio ny haingonao. Tsy miova toerana ny bokotra.",
+    "saved": "Ho an’ity mombamomba ity amin’ity fitaovana ity io safidy io.",
+    "loading": "Eo am-panomanana ny tontolonao…",
+    "featured": "Misongadina",
+    "openBook": "Hijery ny boky",
+    "preview": "Hijery ny efijery fanombohana",
+    "luminosity": "Efijery mazava / maizina"
+}

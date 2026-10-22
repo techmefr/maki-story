@@ -9,7 +9,7 @@ export default defineOSDDNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
     ssr: false,
-    css: ['~/assets/css/main.css', '~/assets/css/child-world.css'],
+    css: ['~/assets/css/main.css', '~/assets/css/child-world.css', '~/assets/css/appearance.css'],
     routeRules: {
         '/sw.js': { headers: { 'cache-control': 'no-cache' } },
     },
@@ -50,7 +50,7 @@ export default defineOSDDNuxtConfig({
             script: [
                 {
                     innerHTML:
-                        "try{var c=localStorage.getItem('tantara-theme')||'auto';var d=c==='dark'||(c==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'}catch(e){}",
+                        "try{var c=localStorage.getItem('tantara-theme')||'auto';var d=c==='dark'||(c==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';var a=localStorage.getItem('tantara-appearance');document.documentElement.dataset.appearance=['forest','notebook','library'].includes(a)?a:'forest'}catch(e){}",
                     tagPosition: 'head',
                 },
             ],

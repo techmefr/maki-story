@@ -1,0 +1,15 @@
+{
+    "title": "Aparência",
+    "scenes": {
+        "forest": "Floresta suave",
+        "notebook": "Caderno de família",
+        "library": "Biblioteca acolhedora"
+    },
+    "hint": "Escolhe o cenário. Os botões ficam no mesmo lugar.",
+    "saved": "Esta escolha aplica-se a este perfil neste dispositivo.",
+    "loading": "A preparar o teu mundo…",
+    "featured": "Em destaque",
+    "openBook": "Ver o livro",
+    "preview": "Pré-visualizar início",
+    "luminosity": "Ecrã claro / escuro"
+}

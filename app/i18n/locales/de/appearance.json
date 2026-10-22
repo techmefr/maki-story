@@ -1,0 +1,15 @@
+{
+    "title": "Aussehen",
+    "scenes": {
+        "forest": "Sanfter Wald",
+        "notebook": "Familiennotizbuch",
+        "library": "Gemütliche Bibliothek"
+    },
+    "hint": "Wähle deine Kulisse. Die Schaltflächen bleiben an ihrem Platz.",
+    "saved": "Diese Auswahl gilt für dieses Profil auf diesem Gerät.",
+    "loading": "Deine Welt wird vorbereitet…",
+    "featured": "Im Mittelpunkt",
+    "openBook": "Buch ansehen",
+    "preview": "Startbildschirm ansehen",
+    "luminosity": "Helle / dunkle Anzeige"
+}

@@ -1,5 +1,6 @@
 {
     "hello": "مرحباً {name}!",
+    "evening": "مساء الخير {name}!",
     "listenHer": "استمع إلى رسالته",
     "sendMessage": "أرسل رسالة",
     "noSoloStory": "لا توجد قصة بهذا الصوت بعد.",

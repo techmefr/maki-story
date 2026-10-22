@@ -1,5 +1,6 @@
 {
     "hello": "你好，{name}！",
+    "evening": "晚上好，{name}！",
     "listenHer": "听TA的消息",
     "sendMessage": "发送消息",
     "noSoloStory": "这个声音还没有故事。",

@@ -33,6 +33,9 @@ const parseBlock = (source: string, selector: RegExp): Record<string, string> =>
 }
 const light = parseBlock(tokens, /:root\s*\{([^}]*)\}/)
 const dark = { ...light, ...parseBlock(tokens, /:root\[data-theme='dark'\]\s*\{([^}]*)\}/) }
+const appearance = readFileSync(join(ROOT, 'app', 'assets', 'css', 'appearance.css'), 'utf8')
+const appearanceLight = { ...light, ...parseBlock(appearance, /:root\[data-appearance\]:not\(\[data-theme='dark'\]\)\s*\{([^}]*)\}/) }
+const appearanceDark = { ...dark, ...parseBlock(appearance, /:root\[data-appearance\]\[data-theme='dark'\]\s*\{([^}]*)\}/) }
 
 const luminance = (hex: string): number => {
     const value = hex.replace('#', '')
@@ -68,7 +71,7 @@ const pairs: [string, string, number][] = [
     ['grey-line', 'grey-ui', 3],
     ...ACCENTS.map((accent): [string, string, number] => ['on-accent', accent, 4.5]),
 ]
-for (const [name, theme] of [['light', light], ['dark', dark]] as const) {
+for (const [name, theme] of [['light', light], ['dark', dark], ['appearance-light', appearanceLight], ['appearance-dark', appearanceDark]] as const) {
     for (const [foreground, background, minimum] of pairs) {
         const first = theme[foreground]
         const second = theme[background]

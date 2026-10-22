@@ -26,7 +26,7 @@ html.child-world,
     background-color: #fff3d6;
     background-image: linear-gradient(to bottom, #fff3d6 0, #fff3d6 var(--child-header-clearance, 0px), #fff3d600 calc(var(--child-header-clearance, 0px) + 100px)), var(--child-scene);
     background-position: center, center;
-    background-size: 100% 100%, cover;
+    background-size: 100% 100%, 100% 100%;
     background-repeat: no-repeat;
 }
 .kid-world .title,

@@ -3,42 +3,45 @@
         <StatusStrip v-if="isParent" />
         <header class="home__intro" data-testid="adult-home-welcome">
             <div class="stack home__greeting">
-                <h1 class="title">{{ t('home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
+                <h1 class="title">{{ t(isEvening ? 'home.adult.evening' : 'home.adult.greeting', { name: current?.name ?? '' }) }}</h1>
                 <p class="home__subtitle">{{ t('home.adult.subtitle') }}</p>
             </div>
-            <AppButton to="/books/new" icon="book-plus" data-testid="home-card-new-book">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
+            <AppButton :variant="featuredBook ? 'secondary' : 'primary'" to="/books/new" icon="book-plus" data-testid="home-card-new-book">{{ t(isParent ? 'home.dash.newBook' : 'home.dash.proposeBook') }}</AppButton>
             <AppButton variant="secondary" to="/library" icon="book">{{ t('home.dash.library') }}</AppButton>
         </header>
         <p v-if="loadError" class="error" role="alert">{{ loadError }}</p>
-        <section v-if="kids.length > 0 && (isParent || flow.families.length === 0)" class="stack" aria-labelledby="adult-home-children">
-            <h2 id="adult-home-children" class="subtitle">{{ t('home.dash.myChildren') }}</h2>
-            <HomeKidCards :kids="kids" :counts="liveCounts" />
-        </section>
-        <AppEmpty v-else-if="isLoaded && kids.length === 0 && (isParent || flow.families.length === 0)" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
-            <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
-        </AppEmpty>
+        <div class="home__overview">
+            <HomeFeaturedBook v-if="featuredBook" :book="featuredBook" />
+            <section v-if="kids.length > 0 && (isParent || flow.families.length === 0)" class="stack home__panel home__family" aria-labelledby="adult-home-children">
+                <h2 id="adult-home-children" class="subtitle">{{ t('home.dash.myChildren') }}</h2>
+                <HomeKidCards :kids="kids" :counts="liveCounts" />
+            </section>
+            <AppEmpty v-else-if="isLoaded && kids.length === 0 && (isParent || flow.families.length === 0)" kind="people" :title="t('home.dash.noChildren')" :hint="isParent ? t('home.dash.noChildrenParent') : t('home.dash.noChildrenHint')">
+                <AppButton v-if="isParent" variant="secondary" to="/family/add" icon="user-plus">{{ t('family.index.addChild') }}</AppButton>
+            </AppEmpty>
+        </div>
         <RelativeHomeFeed v-if="!isParent && flow.families.length > 0" show-children />
-        <div v-if="isParent || flow.families.length === 0" class="home__sections">
-            <section v-for="section in bookSections" :key="section.id" class="stack">
+        <div v-if="(isParent || flow.families.length === 0) && visibleBookSections.length > 0" class="home__sections">
+            <section v-for="section in visibleBookSections" :key="section.id" class="stack home__panel">
                 <NuxtLink :to="`/library?status=${section.status}`" class="home__section-link">
                     <h2 class="subtitle grow">{{ t(section.title) }}</h2><AppBadge>{{ section.books.length }}</AppBadge><AppIcon name="chevron-right" :size="24" class="mirror-rtl" />
                 </NuxtLink>
                 <AdultBookTaskList v-if="section.books.length > 0" :books="section.books.slice(0, 2)" :mode="section.mode" />
-                <p v-else-if="isLoaded" class="muted">{{ t('category.emptyTitle') }}</p>
             </section>
         </div>
-        <section class="stack">
+        <section class="stack home__panel">
             <NuxtLink to="/library" class="home__section-link" data-testid="home-card-library"><h2 class="subtitle grow">{{ t('home.dash.library') }}</h2><AppBadge>{{ books.length }}</AppBadge><AppIcon name="chevron-right" :size="24" class="mirror-rtl" /></NuxtLink>
             <div class="grid grid--books home__library"><BookCard v-for="book in books.slice(0, 4)" :key="book.id" :book="book" show-status /></div>
             <AppEmpty v-if="isLoaded && books.length === 0" kind="library" :title="t('home.empty')" :hint="t('home.emptyHint')" />
         </section>
-        <nav class="home__shortcuts" :aria-label="t('home.dash.actions')">
+        <nav v-if="taskCards.length > 0" class="home__shortcuts" :aria-label="t('home.dash.actions')">
             <NuxtLink v-for="card in taskCards" :key="card.id" :to="card.to" class="home__shortcut" :data-testid="`home-card-${card.id}`"><AppIcon :name="card.icon" :size="20" /><span>{{ t(card.label) }}</span><span v-if="card.count !== null" class="home__count" :data-testid="`home-count-${card.id}`">{{ card.count }}</span></NuxtLink>
         </nav>
     </div>
 </template>
 
 <script setup lang="ts">
+const { isEvening } = useLocalGreeting()
 interface IHomeCard {
     id: string
     to: string
@@ -55,13 +58,18 @@ const { request } = useApi()
 const { books, load: loadBooks } = useBooks()
 const { flow, load: loadFlow } = useRelativeFlow()
 const loadError = ref('')
-const taskCards = computed(() => cards.value.filter(card => card.id !== 'new-book' && card.id !== 'library'))
+const taskCards = computed(() => cards.value.filter(card => card.id !== 'new-book' && card.id !== 'library' && (card.count ?? 0) > 0))
+const featuredBook = computed(() => books.value.find(book => book.status === 'to_record' || book.status === 'in_review' || book.status === 'draft') ?? books.value[0] ?? null)
 const bookSections = computed(() => [
     { id: 'to-record', title: 'relative.requests', mode: 'record' as const, status: 'to_record', books: books.value.filter(book => book.status === 'to_record') },
     { id: 'proposals', title: 'homeBar.cards.proposalsWaiting', mode: 'propose' as const, status: 'proposed', books: books.value.filter(book => book.status === 'proposed') },
     { id: 'review', title: 'home.dash.toReview', mode: 'review' as const, status: 'in_review', books: books.value.filter(book => book.status === 'in_review' || book.submittedCount > 0) },
     { id: 'fix', title: 'relative.fixes', mode: 'correct' as const, status: 'to_record', books: books.value.filter(book => book.changesRequestedCount > 0) },
 ])
+
+const visibleBookSections = computed(() => bookSections.value
+    .map(section => ({ ...section, books: section.books.filter(book => book.id !== featuredBook.value?.id) }))
+    .filter(section => section.books.length > 0))
 
 const isLoaded = ref(false)
 const counts = ref<IHomeCounts | null>(null)
@@ -124,6 +132,23 @@ onBeforeUnmount(stopPolling)
 <style scoped>
 .home {
     gap: 32px;
+}
+
+.home__overview {
+    display: grid;
+    gap: 24px;
+    align-items: start;
+}
+
+.home__family :deep(.kids__list) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.home__family :deep(.kid) { padding: 12px 8px; border-width: 1px; box-shadow: none; background: transparent; }
+.home__family :deep(.kid__photo) { padding: 3px; border-width: 3px; }
+.home__family :deep(.kid__photo .avatar) { width: clamp(56px, 8vw, 80px) !important; height: clamp(56px, 8vw, 80px) !important; }
+.home__family :deep(.kid__photo--all) { width: 80px; height: 80px; }
+.home__family :deep(.kid__name) { font-size: 1.0625rem; }
+
+@media (min-width: 1000px) {
+    .home__overview:has(.home__family) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
 }
 
 .home__intro {

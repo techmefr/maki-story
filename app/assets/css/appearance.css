@@ -1,0 +1,124 @@
+:root[data-appearance] {
+    --appearance-scene: url('/art/child/storybook-world.jpg');
+    --appearance-panel: #fffaf0;
+    --appearance-wood: repeating-linear-gradient(3deg, #ffffff00 0 9px, #401a0c18 10px 12px), linear-gradient(100deg, #68310f, #874b21 30%, #80431b 70%, #622a0d);
+}
+
+:root[data-appearance]:not([data-theme='dark']) {
+    --bg: #fff3dc;
+    --paper: #fffaf0;
+    --ink: #482b19;
+    --ink-soft: #725037;
+    --line: #8b633e;
+    --on-accent: #482b19;
+    --chip-on-bg: #68401f;
+    --chip-on-ink: #fffaf0;
+    --shadow: 0 3px 0 #a47a4f, 0 8px 20px #50311614;
+    --shadow-lg: 0 4px 0 #94683d, 0 10px 24px #5031161a;
+}
+
+:root[data-appearance='notebook'] {
+    --appearance-scene: repeating-linear-gradient(to bottom, #fff5e4 0 31px, #d8c3a338 32px, #fff5e4 33px 64px);
+    --appearance-wood: linear-gradient(110deg, #fff9ec, #f5e4c7);
+}
+
+:root[data-appearance='library'] {
+    --appearance-scene: url('/art/child/library-world.webp');
+}
+
+:root[data-appearance][data-theme='dark'] {
+    --bg: #211d19;
+    --paper: #30281f;
+    --ink: #fff4df;
+    --ink-soft: #e0cbb2;
+    --line: #c5a27c;
+    --on-accent: #482b19;
+    --appearance-panel: #30281f;
+}
+
+html[data-appearance] .kid-world { --child-scene: var(--appearance-scene); }
+
+html[data-appearance] .shell--adult {
+    isolation: isolate;
+    position: relative;
+    font-family: var(--font-body);
+    --font-title: 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Segoe UI', system-ui, sans-serif;
+}
+
+html[data-learning-font='on'][data-appearance] .shell--adult {
+    --font-title: var(--font-learn);
+    --font-body: var(--font-learn);
+}
+
+html[data-appearance] .shell--adult::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--appearance-scene) center / 100% 100% no-repeat;
+    opacity: 0.32;
+}
+
+html[data-appearance='library'] .shell--adult::before { opacity: 0.48; }
+html[data-appearance='notebook'] .shell--adult::before { opacity: 1; background-image: url('/art/child/ravenala-leaf-curved.webp'), var(--appearance-scene); background-size: clamp(64px, 8vw, 140px) auto, 100% 100%; background-position: right top, center; }
+html[data-appearance] .shell--adult .header { padding: 12px 16px; border-radius: 22px; background: var(--paper); box-shadow: 0 6px 24px #5031160d; }
+html[data-appearance] .shell--adult .header__name { font-family: Fredoka, sans-serif; }
+html[data-appearance] .shell--adult .home__intro { padding: clamp(20px, 3vw, 32px); border: 1px solid var(--line); border-radius: 24px; background: var(--paper); box-shadow: 0 10px 32px #50311612; }
+html[data-appearance] .shell--adult .home__panel { padding: clamp(16px, 2.5vw, 24px); min-width: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); }
+html[data-appearance] .shell--adult .card { border-width: 1px; box-shadow: 0 5px 20px #50311612; }
+html[data-appearance] .shell--adult .btn { border-width: 2px; box-shadow: 0 3px 0 #9b7549; }
+html[data-appearance] .shell--adult .btn--tertiary { box-shadow: none; }
+html[data-appearance] .shell--adult .rail { background: var(--paper); border-inline-end: 1px solid var(--line); }
+html[data-appearance] .shell--adult .rail__item--on { background: var(--yellow); color: var(--on-accent); }
+html[data-appearance] .shell--adult .book { background: var(--paper); border-radius: 16px; overflow: hidden; }
+html[data-appearance] .shell--adult .tabbar { background: var(--paper); }
+
+html[data-appearance='notebook'] .kid-world::after,
+html[data-appearance='notebook'] .shell--adult::after {
+    content: '';
+    position: fixed;
+    inset-block: 12px;
+    inset-inline-start: 0;
+    width: 12px;
+    z-index: -1;
+    pointer-events: none;
+    border-inline-start: 3px solid #ac7950;
+    background: radial-gradient(ellipse at left, #8b5728 0 3px, #d9b87c 4px 6px, transparent 7px) 0 0 / 12px 64px repeat-y;
+}
+
+html[data-appearance='notebook'] .kid-world { --child-wood: var(--appearance-wood); --child-on-wood: #4b260f; }
+html[data-appearance='notebook'] .kid-world :is(.kid-home__welcome, .kid-library__welcome, .face__link .subtitle, .reader__title, .tabbar) {
+    background: var(--appearance-wood);
+    color: #4b260f;
+    text-shadow: none;
+    box-shadow: 0 4px 0 #b58a57, 0 8px 16px #64370e1a;
+}
+html[data-appearance='notebook'] .kid-world .tabbar__item { color: #4b260f; text-shadow: none; }
+html[data-appearance='notebook'] .kid-world .foliage { --foliage-leaf-size: clamp(88px, 12vmax, min(240px, 24vw, 34vh)); opacity: 0.75; }
+html[data-appearance='library'] .kid-world .foliage { --foliage-leaf-size: clamp(96px, 14vmax, min(300px, 28vw, 38vh)); }
+
+html[data-appearance][data-theme='dark'] .shell--adult::before { opacity: 0.14; }
+html[data-appearance][data-theme='dark'] .kid-world { --bg: #211d19; --paper: #30281f; --ink: #fff4df; --ink-soft: #e0cbb2; }
+html[data-appearance][data-theme='dark'] .kid-world::before { filter: brightness(0.3); }
+html[data-appearance][data-theme='dark'] .kid-world :is(.card, .listrow, .rec, .recipient, .sheet) { background: #30281f; color: #fff4df; }
+html[data-appearance][data-theme='dark'] .kid-world .foliage { opacity: 0.45; }
+html[data-appearance][data-theme='dark'] .kid-world .vault .title { background: #30281f; }
+html[data-appearance][data-theme='dark'] .kid-world .reader__center { color: #fff4df; }
+html[data-appearance][data-theme='dark'] .reader.kid-world:not(.reader--night) { background: #211d19 !important; }
+html[data-appearance] .reader.kid-world.reader--night .foliage { opacity: 0.08; }
+
+@media (orientation: portrait) and (max-width: 1023px) {
+    :root[data-appearance='forest'] { --appearance-scene: url('/art/child/storybook-portrait.webp'); }
+}
+
+@media (max-width: 599px) {
+    html[data-appearance] .shell--adult .header { padding: 8px; }
+    html[data-appearance] .shell--adult .app { gap: 20px; }
+    html[data-appearance] .shell--adult .home__intro { padding: 20px 16px; }
+}
+
+@media (min-width: 1800px) {
+    html[data-appearance] .shell--adult .app { max-width: 1600px; }
+}
