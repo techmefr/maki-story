@@ -11,21 +11,29 @@
 <script setup lang="ts">
 import { useFoliageMotion } from '../composables/useFoliageMotion'
 const { isFoliageEnabled } = useFoliageMotion()
-const angles = [6, -8, 12]
-const leaves = Array.from({ length: 6 }, (_, id) => {
-    const index = id % 3
+const composition = [
+    { side: 'left', shape: 'upright', root: 70, scale: 0.92, angle: 24, start: -8, end: 6, duration: 2.7, delay: -0.9 },
+    { side: 'left', shape: 'curved', root: 113, scale: 1.17, angle: 34, start: -5, end: 8, duration: 3.2, delay: -2.1 },
+    { side: 'left', shape: 'upright', root: 43, scale: 0.72, angle: 18, start: -7, end: 5, duration: 3.8, delay: -2.8 },
+    { side: 'right', shape: 'upright', root: 91, scale: 1.08, angle: 18, start: -5, end: 9, duration: 3.65, delay: -1.7 },
+    { side: 'right', shape: 'curved', root: 55, scale: 0.83, angle: 26, start: -9, end: 4, duration: 2.9, delay: -0.4 },
+]
+const leaves = composition.map((leaf, id) => {
+    const stem = leaf.shape === 'upright' ? 0.43 : 0.65
     return {
         id,
-        side: id < 3 ? 'left' : 'right',
-        src: `/art/child/ravenala-leaf-${index % 2 ? 'curved' : 'upright'}.webp`,
+        side: leaf.side,
+        src: `/art/child/ravenala-leaf-${leaf.shape}.webp`,
         style: {
-            '--leaf-top': `${38 + index * 25}%`,
-            '--leaf-angle': `${angles[index]}deg`,
-            '--leaf-duration': `${2.6 + id * 0.26}s`,
-            '--leaf-sway-start': `${-6 - index * 1.2}deg`,
-            '--leaf-sway-end': `${7 + index * 1.1}deg`,
-            '--leaf-drift': `${7 + index * 2}px`,
-            '--leaf-delay': `${-id * 1.19}s`,
+            '--leaf-root': `${leaf.root}%`,
+            '--leaf-scale': leaf.scale,
+            '--leaf-angle': `${leaf.angle}deg`,
+            '--leaf-duration': `${leaf.duration}s`,
+            '--leaf-sway-start': `${leaf.start}deg`,
+            '--leaf-sway-end': `${leaf.end}deg`,
+            '--leaf-delay': `${leaf.delay}s`,
+            '--leaf-stem-ratio': stem,
+            '--leaf-stem-origin': `${stem * 100}%`,
         },
     }
 })
@@ -49,23 +57,34 @@ const leaves = Array.from({ length: 6 }, (_, id) => {
 }
 
 .foliage__leaf {
-    --leaf-width: clamp(100px, 15vw, 360px);
+    --leaf-width: calc(clamp(120px, 17vw, 380px) * var(--leaf-scale));
     position: absolute;
-    top: var(--leaf-top);
-    width: var(--leaf-width);
-    transform-origin: 50% 100%;
+    top: var(--leaf-root);
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
     animation: foliage-sway var(--leaf-duration) ease-in-out var(--leaf-delay) infinite alternate;
 }
 
-.foliage__leaf--left { left: calc(var(--leaf-width) * -0.48); }
-.foliage__leaf--right { right: calc(var(--leaf-width) * -0.48); }
-.foliage__leaf img { display: block; width: 100%; height: auto; transform: rotate(var(--leaf-angle)); }
+.foliage__leaf--left { left: -16px; }
+.foliage__leaf--right { right: -20px; }
+.foliage__leaf img {
+    position: absolute;
+    bottom: 0;
+    left: calc(var(--leaf-width) * var(--leaf-stem-ratio) * -1);
+    display: block;
+    width: var(--leaf-width);
+    max-width: none;
+    height: auto;
+    transform-origin: var(--leaf-stem-origin) 100%;
+    transform: rotate(var(--leaf-angle));
+}
 .foliage__leaf--right img { transform: scaleX(-1) rotate(var(--leaf-angle)); }
 .foliage[data-moving="false"] .foliage__leaf { animation-play-state: paused; }
 
 @keyframes foliage-sway {
-    from { transform: translateX(calc(var(--leaf-drift) * -0.7)) rotate(var(--leaf-sway-start)); }
-    to { transform: translateX(var(--leaf-drift)) rotate(var(--leaf-sway-end)); }
+    from { transform: rotate(var(--leaf-sway-start)); }
+    to { transform: rotate(var(--leaf-sway-end)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

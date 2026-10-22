@@ -144,3 +144,5 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 - [x] #213 — Defer AI creation in demo and production; hidden button/prefill, direct route redirect and API gate verified.
 
 - [ ] #215 — Faster/amplified independent foliage implemented on dev; local 4024 available, full verify passes, visual review pending. Browser automation refused under no-E2E instruction.
+
+#215 follow-up: asymmetric stem-anchored composition implemented after user feedback; pending visual review in local demo.
