@@ -32,3 +32,7 @@ Maquettes : `docs/maquettes/` (un fichier `*.dc.html` par écran, `Design System
 ## Commandes
 
 Les commandes (dev, build, lint, test, migrations) sont dans `package.json` ; ne pas les redéfinir ici.
+
+## SpecKit — ambiances adaptatives
+
+Pour la reprise des thèmes et de leurs variations saisonnières, jour/nuit et événements, lire `specs/001-adaptive-appearance/README.md`, puis `spec.md` et `checklists/requirements.md`. Les planches sont indexées dans `docs/maquettes/planches/README.md`. Les compétences SpecKit officielles sont dans `.claude/skills/speckit-*`. Le pointeur local `.specify/feature.json` est ignoré par Git : le recréer avec `feature_directory` égal à `specs/001-adaptive-appearance` si nécessaire. La spécification est prête pour revue et planification ; la nouvelle fonctionnalité n’est pas implémentée.

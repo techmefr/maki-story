@@ -2,6 +2,10 @@
 
 Les histoires du soir, avec la voix de ceux qu'on aime. Ces maquettes font foi pour la refonte de l'UI. Le prompt de reprise est dans `PROMPT - Appliquer le design Tantara.md`.
 
+## Planches visuelles et nouvelle évolution
+
+[Galerie et index des 19 visuels](planches/README.md) : trois thèmes adultes/enfants, formats desktop/tablette/mobile, splashscreen, ressources et propositions saisons/jour-nuit/événements. [Dossier SpecKit de reprise](../../specs/001-adaptive-appearance/README.md).
+
 ## Ouvrir les maquettes
 
 Chaque écran est un fichier `*.dc.html` qui s'ouvre dans le navigateur. Les écrans partagent quelques données de démo enregistrées dans le navigateur (livre du studio, tags, famille, progression). Les enregistrements audio, le scan du code-barre, la recherche de livre en ligne, l'envoi de mails et les sons sont simulés.
