@@ -6,9 +6,9 @@ Ce dossier est la spécification de la prochaine évolution. Il ne signifie pas 
 
 1. Récupérer la branche `dev` du dépôt `techmefr/maki-story` et ouvrir sa racine dans Claude Code.
 2. Lire `CLAUDE.md`, `.specify/memory/constitution.md`, `specs/001-adaptive-appearance/spec.md`, sa checklist et `docs/maquettes/planches/README.md`.
-3. Relire les hypothèses de calendrier, d’horaire et d’événements avec le demandeur, puis exécuter `/speckit-clarify` si nécessaire.
-4. Après revue de la spécification, lancer `/speckit-plan`, faire relire le plan, puis `/speckit-tasks` et `/speckit-analyze`.
-5. Implémenter ensuite sur une branche de travail, puis utiliser `/speckit-converge` ; garder les tâches inachevées visibles et revenir sur `dev` avant une éventuelle unique MR vers `main`.
+3. Lire également `plan.md`, `research.md`, `data-model.md`, `contracts/appearance-ui.md`, `quickstart.md`, `tasks.md` et `analysis.md`. Les 39 tâches restent ouvertes : le dossier prépare leur implémentation.
+4. Relire les hypothèses et le plan avec le demandeur ; utiliser `/speckit-clarify`, `/speckit-plan` ou `/speckit-tasks` uniquement si une décision change, puis `/speckit-analyze` pour contrôler à nouveau.
+5. Après cette relecture, lancer `/speckit-implement` sur une branche de travail, puis `/speckit-converge` ; garder les tâches inachevées visibles et revenir sur `dev` avant une éventuelle unique MR vers `main`.
 
 `.specify/feature.json` pointe vers ce dossier dans la copie locale de préparation. Ce fichier est volontairement ignoré par SpecKit et ne voyage pas avec Git. Dans un nouveau clone, demander à Claude Code de créer ce pointeur local avant de lancer le workflow :
 
@@ -33,4 +33,4 @@ Une autre possibilité est de lancer Claude depuis un terminal où `SPECIFY_FEAT
 
 ## Prompt de reprise
 
-> Initialise si nécessaire le pointeur local `.specify/feature.json` vers `specs/001-adaptive-appearance`, puis lis la spécification active `specs/001-adaptive-appearance/spec.md`, sa checklist et toutes les planches référencées dans `docs/maquettes/planches/README.md`. Reprends les trois thèmes adultes/enfants existants pour les rendre fidèles aux maquettes, puis prépare leur composition avec saisons, jour/nuit et événements facultatifs. Commence par relire les hypothèses, puis suis SpecKit plan → tasks → analyze → implement → converge. Respecte les règles du dépôt, les vraies photos, Bonjour/Bonsoir local, les feuilles indépendantes et l’accessibilité ; ne lance pas d’E2E local et ne publie pas automatiquement sur main. Consigne précisément ce qui est réalisé, testé et encore à valider.
+> Initialise si nécessaire le pointeur local `.specify/feature.json` vers `specs/001-adaptive-appearance`, puis lis la spécification active `specs/001-adaptive-appearance/spec.md`, sa checklist et toutes les planches référencées dans `docs/maquettes/planches/README.md`. Reprends les trois thèmes adultes/enfants existants pour les rendre fidèles aux maquettes, puis prépare leur composition avec saisons, jour/nuit et événements facultatifs. Le plan, la recherche, les contrats, le modèle de données, le guide de validation, les 39 tâches et l’analyse de cohérence sont déjà rédigés. Relis ce dossier, vérifie ses hypothèses et l’analyse, puis reprends SpecKit implement → converge après la relecture ; recalcule plan/tasks/analyze seulement si une décision change. Respecte les règles du dépôt, les vraies photos, Bonjour/Bonsoir local, les feuilles indépendantes et l’accessibilité ; ne lance pas d’E2E local et ne publie pas automatiquement sur main. Consigne précisément ce qui est réalisé, testé et encore à valider.

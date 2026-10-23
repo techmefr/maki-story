@@ -167,4 +167,4 @@ Shared responsive AuthShell for login/register: cream and gold illustrated brand
 - [ ] Actual responsive/browser visual review; browser control failed to initialize. No E2E executed.
 - [ ] One grouped dev-to-main release authorized by the user on 2026-10-22; deployment verification in progress. Visual coverage limits remain recorded.
 
-- [x] 2026-10-23 — Archiver les 19 planches/ressources avec index, galerie et empreintes ; préparer la spécification SpecKit 001-adaptive-appearance et la passation Claude Code. Les nouveaux décors ne sont pas implémentés ; revue du besoin puis plan/tâches restent à faire.
+- [x] 2026-10-23 — Archiver les 19 planches/ressources avec index, galerie et empreintes ; préparer la spécification SpecKit 001-adaptive-appearance et la passation Claude Code. Plan, recherche, contrats, modèle de données, quickstart, 39 tâches et analyse ajoutés sur demande ; les nouveaux décors ne sont pas implémentés et le dossier reste à relire avant implement/converge.

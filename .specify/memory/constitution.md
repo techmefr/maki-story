@@ -23,6 +23,6 @@ Specifications describe user needs before technical plans and implementation tas
 
 ## Governance
 
-User instructions take precedence. Existing project rules govern conflicts. Further plan/tasks/implementation for the adaptive scenery feature belong to the next review with Claude Code; the current handoff changes documentation and tooling only.
+User instructions take precedence. Existing project rules govern conflicts. The adaptive scenery spec, plan and tasks are prepared for review before implementation with Claude Code; the current handoff changes documentation and tooling only.
 
 **Version**: 1.0.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-23

@@ -88,7 +88,7 @@ Le profil active ou désactive les décors d’événements proposés et peut pr
 - **FR-002**: Chaque thème DOIT garder une navigation, des commandes et des fonctions équivalentes, sur toutes les pages de son rôle, dont profils, accueil, coffre, bibliothèque, messages et lecture ; les pages d’entrée et le splash doivent rester cohérents avec le dernier univers connu.
 - **FR-003**: Les photos réelles des proches, les noms, les livres et les données métier DOIVENT être conservés ; les portraits illustrés et textes fictifs des maquettes ne constituent pas des données à intégrer.
 - **FR-004**: Apparence DOIT proposer des aperçus des thèmes, saisons, phases du jour et événements, un retour aux réglages par défaut et une indication claire des modes automatiques/manuels.
-- **FR-005**: Les préférences DOIVENT être isolées par profil sur l’appareil et restaurées à sa prochaine ouverture ; une erreur de conservation ne doit pas être annoncée comme une sauvegarde réussie.
+- **FR-005**: Les nouvelles préférences d’ambiance DOIVENT être isolées par profil sur l’appareil et restaurées à sa prochaine ouverture ; une erreur de conservation ne doit pas être annoncée comme une sauvegarde réussie.
 - **FR-006**: Les profils existants DOIVENT garder leurs préférences lors de l’arrivée de la fonctionnalité ; les nouvelles variations automatiques ne sont pas activées sans choix du profil.
 - **FR-007**: Les saisons DOIVENT proposer automatique, printemps, été, automne et hiver ; un choix manuel prime sur le calendrier.
 - **FR-008**: Le calendrier DOIT pouvoir être nord ou sud, choisi sans géolocalisation obligatoire ; en automatique il suit la date locale de l’appareil.
@@ -116,7 +116,7 @@ Le profil active ou désactive les décors d’événements proposés et peut pr
 ### Key Entities *(include if feature involves data)*
 
 - **Profil** : personne adulte ou enfant, ses réglages propres, éventuellement une date de naissance déjà connue.
-- **Préférence d’ambiance** : thème, choix de saison et de calendrier, choix jour/nuit, luminosité, événements activés et mouvement.
+- **Préférence d’ambiance** : thème, choix de saison et de calendrier, choix jour/nuit et événements activés ; les réglages existants de luminosité et de mouvement restent leurs contraintes prioritaires.
 - **Contexte local** : date, heure et fuseau de l’appareil au moment d’ouvrir ou reprendre l’app.
 - **Événement** : type, période active, activation par profil et priorité de présentation.
 - **Ambiance effective** : combinaison du thème, de la saison, de la phase du jour et d’au plus un événement, avec les réglages d’accessibilité appliqués.
