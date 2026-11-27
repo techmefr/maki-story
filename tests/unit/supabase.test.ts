@@ -21,7 +21,7 @@ test('Supabase is opt-in, rejects unknown providers and binds verified identity 
         const user = () => ({ id: userId, aud: 'authenticated', email: 'parent@example.invalid', email_confirmed_at: confirmed ? new Date().toISOString() : undefined, app_metadata: { maki_account_id: 'account-1' }, user_metadata: {}, created_at: new Date().toISOString() })
         globalThis.fetch = async (input, options) => {
             const path = String(input)
-            if (path.includes('/admin/users/') && options?.method === 'DELETE') {
+            if (path.includes('/admin/users/') && (options?.method === 'DELETE' || options?.method === 'GET')) {
                 return Response.json(deletionStatus === 200 ? { user: user() } : { msg: 'Unavailable or absent' }, { status: deletionStatus })
             }
             if (path.includes('/logout')) return new Response(null, { status: 204 })

@@ -5,4 +5,5 @@ overrides:
   caniuse-lite: "1.0.30001813"
   electron-to-chromium: "1.5.442"
   ignore: "7.0.10"
-  source-map-js: "1.2.1"
+  source-map-js: "1.2.2"
+  "minimatch@>=7.0.0 <11.0.1": "^11.0.1"

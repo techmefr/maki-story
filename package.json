@@ -28,28 +28,29 @@
   "dependencies": {
     "@capacitor-community/text-to-speech": "^8.0.2",
     "@capacitor/android": "8.5.2",
-    "@capacitor/core": "^8.5.2",
+    "@capacitor/core": "^8.6.3",
     "@capacitor/ios": "8.5.2",
-    "@supabase/supabase-js": "^2.118.0",
-    "driver.js": "^1.9.0",
+    "@supabase/supabase-js": "^2.119.2",
+    "driver.js": "^1.14.0",
     "lucide-vue-next": "^1.0.0",
-    "nuxt": "^4.5.2",
+    "nuxt": "~4.6.4",
     "nuxt-osdd": "^1.0.5",
     "postgres": "^3.4.9",
-    "vue": "^3.5.43",
-    "vue-router": "^5.3.1"
+    "vue": "^3.5.46",
+    "vue-router": "^5.5.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.5.2",
-    "@playwright/test": "^1.63.0",
+    "@capacitor/cli": "^8.6.3",
+    "@playwright/test": "^1.65.1",
+    "tiny-open": "^1.3.0",
     "typescript": "^5.9.3",
-    "vue-tsc": "^3.3.11"
+    "vue-tsc": "^3.3.14"
   },
   "packageManager": "pnpm@12.8.1",
   "engines": {
     "node": ">=22"
   },
   "optionalDependencies": {
-    "@capgo/capacitor-native-biometric": "^8.7.0"
+    "@capgo/capacitor-native-biometric": "^8.9.3"
   }
 }
